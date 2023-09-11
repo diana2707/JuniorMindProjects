@@ -9,10 +9,27 @@ namespace Json
     {
         public static bool IsJsonString(string input)
         {
-             return !string.IsNullOrEmpty(input) &&
-                HasDoubleQuotes(input) &&
-                !HasControlCharacters(input) &&
-                !HasUnrecognizedEscapedSequences(input);
+            return !string.IsNullOrEmpty(input) &&
+                HasValidCharacterPositioning(input) &&
+                HasValidCharacterSequences(input);
+        }
+
+        private static bool HasValidCharacterPositioning(string input)
+        {
+            return HasDoubleQuotes(input) &&
+                !EndsWithReversedSolidus(input);
+        }
+
+        private static bool HasValidCharacterSequences(string input)
+        {
+            return !HasControlCharacters(input) &&
+               !HasUnrecognizedEscapedSequences(input);
+        }
+
+        private static bool EndsWithReversedSolidus(string input)
+        {
+            const int PenultimateCharIndex = 2;
+            return input[^PenultimateCharIndex] == '\\';
         }
 
         private static bool HasUnrecognizedEscapedSequences(string input)
@@ -41,7 +58,7 @@ namespace Json
             return input[0] == '"' && input[^1] == '"';
         }
 
-        [GeneratedRegex("\\\\\\\"|\\\\\\\\|\\\\/|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8}")]
+        [GeneratedRegex("\\\\[\\\"\\\\/bfnrt]|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8}")]
         private static partial Regex RecognisedPattern();
 
         [GeneratedRegex("\\\\.+?")]
