@@ -6,7 +6,13 @@ namespace Json
     {
         public static bool IsJsonString(string input)
         {
-            return HasDoubleQuotes(input);
+            return !IsNull(input) &&
+                HasDoubleQuotes(input);
+        }
+
+        private static bool IsNull(string input)
+        {
+            return input == null;
         }
 
         private static bool HasDoubleQuotes(string input)
