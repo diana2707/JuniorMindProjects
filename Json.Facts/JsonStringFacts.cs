@@ -132,6 +132,24 @@ namespace Json.Facts
             Assert.False(IsJsonString(Quoted(@"a\u123")));
         }
 
+        [Fact]
+        public void CanContainNonBMPUnicodeCharacters()
+        {
+            Assert.True(IsJsonString(Quoted(@"🙉")));
+        }
+
+        [Fact]
+        public void CanContainEscapedApostrophe()
+        {
+            Assert.True(IsJsonString(Quoted(@"\'")));
+        }
+
+        [Fact]
+        public void ReturnsFalseWhenContainRecognisedAndUnrecognisedEscapedSequences()
+        {
+            Assert.False(IsJsonString(Quoted(@"\u2634 \u11")));
+        }
+
         public static string Quoted(string text)
             => $"\"{text}\"";
     }

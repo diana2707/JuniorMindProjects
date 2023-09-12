@@ -58,7 +58,7 @@ namespace Json
             return input[0] == '"' && input[^1] == '"';
         }
 
-        [GeneratedRegex("\\\\[\\\"\\\\/bfnrt]|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8}")]
+        [GeneratedRegex("\\\\[\\\'\\\"\\\\/bfnrt]|u[0-9A-Fa-f]{4}")]
         private static partial Regex RecognisedPattern();
 
         [GeneratedRegex("\\\\.+?")]
