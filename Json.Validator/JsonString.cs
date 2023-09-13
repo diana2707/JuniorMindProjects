@@ -7,7 +7,13 @@ namespace Json
         public static bool IsJsonString(string input)
         {
             return !IsNull(input) &&
+                !IsEmpty(input) &&
                 HasDoubleQuotes(input);
+        }
+
+        private static bool IsEmpty(string input)
+        {
+            return input == string.Empty;
         }
 
         private static bool IsNull(string input)
