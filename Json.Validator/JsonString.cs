@@ -8,7 +8,21 @@ namespace Json
         {
             return !IsNull(input) &&
                 !IsEmpty(input) &&
-                HasDoubleQuotes(input);
+                HasDoubleQuotes(input) &&
+                !HasControlCharacters(input);
+        }
+
+        private static bool HasControlCharacters(string input)
+        {
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (char.IsControl(input[i]))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private static bool IsEmpty(string input)
