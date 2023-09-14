@@ -16,7 +16,7 @@ namespace Json
         {
             for (int i = 0; i < input.Length - 1; i++)
             {
-                if (input[i] == '\\' && !char.IsWhiteSpace(input[i + 1]))
+                if (input[i] == '\\' && !char.IsWhiteSpace(input[i + 1]) && input[i + 1] != '\"')
                 {
                     return true;
                 }
