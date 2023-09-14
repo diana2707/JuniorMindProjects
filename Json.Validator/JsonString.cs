@@ -14,7 +14,7 @@ namespace Json
 
         private static bool ContainUnrecognizedEscapedCharacters(string input)
         {
-            char[] recognisedEscapedCharacters = { '\\', '\"' };
+            char[] recognisedEscapedCharacters = { '\\', '\"', '/' };
             for (int i = 0; i < input.Length - 1; i++)
             {
                 int counter = 0;
