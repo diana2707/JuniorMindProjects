@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics.Metrics;
 
 namespace Json
 {
@@ -10,10 +9,20 @@ namespace Json
             return !string.IsNullOrEmpty(input) &&
                 HasDoubleQuotes(input) &&
                 !HasControlCharacters(input) &&
-                !ContainUnrecognizedEscapedCharacters(input);
+                !ContainUnrecognizedEscapedSequences(input);
         }
 
-        private static bool ContainUnrecognizedEscapedCharacters(string input)
+        private static bool ContainUnrecognizedEscapedSequences(string input)
+        {
+            if (ContainsUnrecognizedEscapedCharacters(input))
+            {
+                return true;
+            }
+
+            return input.Contains(@"\u") && ContainsUnfinishedHexNumbers(input);
+        }
+
+        private static bool ContainsUnrecognizedEscapedCharacters(string input)
         {
             char[] recognisedEscapedCharacters = { '\\', '\"', '/', 'b', 'f', 'n', 'r', 't', 'u' };
             for (int i = 0; i < input.Length - 1; i++)
@@ -33,7 +42,7 @@ namespace Json
                 }
             }
 
-            return input.Contains(@"\u") && ContainsUnfinishedHexNumbers(input);
+            return false;
         }
 
         private static bool ContainsUnfinishedHexNumbers(string input)
