@@ -8,10 +8,15 @@ namespace Json
 
         public static bool IsJsonString(string input)
         {
-            return !string.IsNullOrEmpty(input) &&
-                HasDoubleQuotes(input) &&
+            return HasContent(input) &&
                 !HasControlCharacters(input) &&
                 !ContainUnrecognizedEscapedSequences(input);
+        }
+
+        private static bool HasContent(string input)
+        {
+            return !string.IsNullOrEmpty(input) &&
+                HasDoubleQuotes(input);
         }
 
         private static bool ContainUnrecognizedEscapedSequences(string input)
@@ -114,5 +119,6 @@ namespace Json
         {
             return input[0] == '"' && input[^1] == '"';
         }
+
     }
 }
