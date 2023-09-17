@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.Metrics;
 
 namespace Json
 {
@@ -27,6 +28,53 @@ namespace Json
                 }
 
                 if (counter == recognisedEscapedCharacters.Length)
+                {
+                    return true;
+                }
+            }
+
+            return input.Contains(@"\u") && ContainsUnfinishedHexNumbers(input);
+        }
+
+        private static bool ContainsUnfinishedHexNumbers(string input)
+        {
+            const int HexNumberIndex = 5;
+
+            if (input.Length <= HexNumberIndex)
+            {
+                return true;
+            }
+
+            for (int i = 0; i < input.Length - HexNumberIndex; i++)
+            {
+                if (input[i] == '\\' && input[i + 1] == 'u')
+                {
+                    int counter = 0;
+                    int j = 0;
+                    int k = i + 1;
+                    while (j < HexNumberIndex - 1)
+                    {
+                        counter = IsHexValue(input[k + 1]) ? counter + 1 : counter;
+                        j++;
+                        k++;
+                    }
+
+                    if (counter < HexNumberIndex - 1)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private static bool IsHexValue(char value)
+        {
+            char[] validHexValues = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'A', 'B', 'C', 'D', 'E', 'F' };
+            foreach (char hexValue in validHexValues)
+            {
+                if (value == hexValue)
                 {
                     return true;
                 }
