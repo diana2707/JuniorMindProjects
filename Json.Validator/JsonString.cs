@@ -26,7 +26,6 @@ namespace Json
             return input[^PenultimateCharIndex] == '\\';
         }
 
-
         private static bool ContainUnrecognizedEscapedSequences(string input)
         {
             if (ContainsUnrecognizedEscapedCharacters(input))
@@ -93,7 +92,7 @@ namespace Json
 
         private static bool CanContainHexNumber(string input)
         {
-            return input.Length > HexNumberIndex;
+            return input.Length > HexNumberIndex && input.LastIndexOf('u') <= input.Length - HexNumberIndex;
         }
 
         private static bool IsHexValue(char value)
@@ -127,6 +126,5 @@ namespace Json
         {
             return input[0] == '"' && input[^1] == '"';
         }
-
     }
 }
