@@ -10,7 +10,7 @@ namespace Json
         {
             return HasContent(input) &&
                 !HasControlCharacters(input) &&
-                !ContainUnrecognizedEscapedSequences(input) &&
+                !HasUnrecognizedEscapedSequences(input) &&
                 !EndsWithReversedSolidus(input);
         }
 
@@ -26,7 +26,7 @@ namespace Json
             return input[^PenultimateCharIndex] == '\\';
         }
 
-        private static bool ContainUnrecognizedEscapedSequences(string input)
+        private static bool HasUnrecognizedEscapedSequences(string input)
         {
             if (ContainsUnrecognizedEscapedCharacters(input))
             {
