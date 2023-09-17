@@ -39,7 +39,7 @@ namespace Json
 
         private static bool ContainsUnrecognizedEscapedCharacters(string input)
         {
-            char[] recognisedEscapedCharacters = { '\\', '\"', '/', 'b', 'f', 'n', 'r', 't', 'u' };
+            char[] recognisedEscapedCharacters = { '\\', '\"', '\'', '/', 'b', 'f', 'n', 'r', 't', 'u' };
             for (int i = 0; i < input.Length - 1; i++)
             {
                 int counter = 0;
