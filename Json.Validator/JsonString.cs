@@ -10,7 +10,8 @@ namespace Json
         {
             return HasContent(input) &&
                 !HasControlCharacters(input) &&
-                !ContainUnrecognizedEscapedSequences(input);
+                !ContainUnrecognizedEscapedSequences(input) &&
+                !EndsWithReversedSolidus(input);
         }
 
         private static bool HasContent(string input)
@@ -18,6 +19,13 @@ namespace Json
             return !string.IsNullOrEmpty(input) &&
                 HasDoubleQuotes(input);
         }
+
+        private static bool EndsWithReversedSolidus(string input)
+        {
+            const int PenultimateCharIndex = 2;
+            return input[^PenultimateCharIndex] == '\\';
+        }
+
 
         private static bool ContainUnrecognizedEscapedSequences(string input)
         {
