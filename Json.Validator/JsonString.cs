@@ -4,6 +4,8 @@ namespace Json
 {
     public static class JsonString
     {
+        const int HexNumberIndex = 5;
+
         public static bool IsJsonString(string input)
         {
             return !string.IsNullOrEmpty(input) &&
@@ -47,8 +49,6 @@ namespace Json
 
         private static bool ContainsUnfinishedHexNumbers(string input)
         {
-            const int HexNumberIndex = 5;
-
             if (input.Length <= HexNumberIndex)
             {
                 return true;
