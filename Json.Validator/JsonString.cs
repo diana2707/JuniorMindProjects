@@ -49,7 +49,7 @@ namespace Json
 
         private static bool ContainsUnfinishedHexNumbers(string input)
         {
-            if (input.Length <= HexNumberIndex)
+            if (!CanContainHexNumber(input))
             {
                 return true;
             }
@@ -76,6 +76,11 @@ namespace Json
             }
 
             return false;
+        }
+
+        private static bool CanContainHexNumber(string input)
+        {
+            return input.Length > HexNumberIndex;
         }
 
         private static bool IsHexValue(char value)
