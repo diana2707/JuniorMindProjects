@@ -38,22 +38,33 @@ namespace Json
 
         private static bool ContainsUnrecognizedEscapedCharacters(string input)
         {
-            char[] recognisedEscapedCharacters = { '\\', '\"', '\'', '/', 'b', 'f', 'n', 'r', 't', 'u' };
-            for (int i = 0; i < input.Length - 1; i++)
+            string[] recognisedEscapedCharacters = { "\\\\", "\\\"", "\\\'", "\\/", "\\b", "\\f", "\\n", "\\r", "\\t", "\\u" };
+            const string EscapedSolidus = "\\";
+
+            int indexEscapedSolidus = input.IndexOf(EscapedSolidus);
+
+            while (indexEscapedSolidus != -1)
             {
-                int counter = 0;
-                for (int j = 0; j < recognisedEscapedCharacters.Length; j++)
+                bool unrecognised = false;
+                string substring = "";
+
+                for (int i = 0; i < recognisedEscapedCharacters.Length; i++)
                 {
-                    if (input[i] == '\\' && !char.IsWhiteSpace(input[i + 1]) && input[i + 1] != recognisedEscapedCharacters[j])
+                    substring = input.Substring(indexEscapedSolidus, recognisedEscapedCharacters[i].Length);
+
+                    if (substring.Equals(recognisedEscapedCharacters[i]))
                     {
-                        counter++;
+                        unrecognised = true;
+                        break;
                     }
                 }
 
-                if (counter == recognisedEscapedCharacters.Length)
+                if (!unrecognised)
                 {
                     return true;
                 }
+
+                indexEscapedSolidus = input.IndexOf(EscapedSolidus, indexEscapedSolidus + substring.Length);
             }
 
             return false;
