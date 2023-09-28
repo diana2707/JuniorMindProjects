@@ -10,20 +10,13 @@ namespace Json
         {
             return HasContent(input) &&
                 !HasControlCharacters(input) &&
-                !HasUnrecognizedEscapedSequences(input) &&
-                !EndsWithReversedSolidus(input);
+                !HasUnrecognizedEscapedSequences(input);
         }
 
         private static bool HasContent(string input)
         {
             return !string.IsNullOrEmpty(input) &&
                 HasDoubleQuotes(input);
-        }
-
-        private static bool EndsWithReversedSolidus(string input)
-        {
-            const int PenultimateCharIndex = 2;
-            return input[^PenultimateCharIndex] == '\\';
         }
 
         private static bool HasUnrecognizedEscapedSequences(string input)
@@ -45,8 +38,13 @@ namespace Json
 
             while (indexEscapedSolidus != -1)
             {
-                bool unrecognised = false;
+                bool isRecognised = false;
                 string substring = "";
+
+                if (EscapedSolidus.Length + 1 > input.Length - 1 - indexEscapedSolidus)
+                {
+                    return true;
+                }
 
                 for (int i = 0; i < recognisedEscapedCharacters.Length; i++)
                 {
@@ -54,12 +52,12 @@ namespace Json
 
                     if (substring.Equals(recognisedEscapedCharacters[i]))
                     {
-                        unrecognised = true;
+                        isRecognised = true;
                         break;
                     }
                 }
 
-                if (!unrecognised)
+                if (!isRecognised)
                 {
                     return true;
                 }
