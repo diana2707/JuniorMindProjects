@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Linq;
 using System;
 
 namespace Json
@@ -106,16 +107,17 @@ namespace Json
 
         private static bool IsHexValue(char value)
         {
-            char[] validHexValues = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'A', 'B', 'C', 'D', 'E', 'F' };
-            foreach (char hexValue in validHexValues)
-            {
-                if (value == hexValue)
-                {
-                    return true;
-                }
-            }
+            return char.IsAsciiDigit(value) || IsHexValidLetter(value);
+        }
 
-            return false;
+        private static bool IsHexValidLetter(char value)
+        {
+            const int LowerLimitForUppercase = 64;
+            const int UpperLimitForUppercase = 71;
+            const int LowerLimitForLowercase = 96;
+            const int UpperLimitForLowercase = 103;
+
+            return value > LowerLimitForUppercase && value < UpperLimitForUppercase || value > LowerLimitForLowercase && value < UpperLimitForLowercase;
         }
 
         private static bool HasControlCharacters(string input)
