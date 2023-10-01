@@ -122,9 +122,11 @@ namespace Json
 
         private static bool HasControlCharacters(string input)
         {
-            for (int i = 0; i < input.Length; i++)
+            const int UpperLimitForControlChars = 32;
+
+            foreach (char c in input)
             {
-                if (char.IsControl(input[i]))
+                if (c >= 0 && c < UpperLimitForControlChars)
                 {
                     return true;
                 }
