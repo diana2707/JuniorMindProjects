@@ -137,7 +137,7 @@ namespace Json
 
         private static bool HasDoubleQuotes(string input)
         {
-            return input[0] == '"' && input[^1] == '"';
+            return input[0] == '"' && input[^1] == '"' && input.Length > 1;
         }
     }
 }
