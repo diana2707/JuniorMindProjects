@@ -102,7 +102,7 @@ namespace Json
 
         private static bool IsHexValidLetter(char value)
         {
-            return value > '@' && value < 'G' || value > '`' && value < 'g';
+            return value >= 'A' && value <= 'F' || value >= 'a' && value <= 'f';
         }
 
         private static bool HasControlCharacters(string input)
