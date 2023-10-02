@@ -32,14 +32,14 @@ namespace Json
 
         private static bool ContainsUnrecognizedEscapedCharacters(string input)
         {
-            string[] recognisedEscapedCharacters = { "\\\\", "\\\"", "\\\'", "\\/", "\\b", "\\f", "\\n", "\\r", "\\t", "\\u" };
+            const string recognisedEscapedCharacters = "\\\\, \\\", \\\', \\/, \\b, \\f, \\n, \\r, \\t, \\u";
             const string EscapedSolidus = "\\";
+            const int EscapedSequenceLength = 2;
 
             int indexEscapedSolidus = input.IndexOf(EscapedSolidus);
 
             while (indexEscapedSolidus != -1)
             {
-                bool isRecognised = false;
                 string substring = "";
 
                 if (EscapedSolidus.Length + 1 > input.Length - 1 - indexEscapedSolidus)
@@ -47,18 +47,9 @@ namespace Json
                     return true;
                 }
 
-                for (int i = 0; i < recognisedEscapedCharacters.Length; i++)
-                {
-                    substring = input.Substring(indexEscapedSolidus, recognisedEscapedCharacters[i].Length);
+                substring = input.Substring(indexEscapedSolidus, EscapedSequenceLength);
 
-                    if (substring.Equals(recognisedEscapedCharacters[i]))
-                    {
-                        isRecognised = true;
-                        break;
-                    }
-                }
-
-                if (!isRecognised)
+                if (!recognisedEscapedCharacters.Contains(substring))
                 {
                     return true;
                 }
