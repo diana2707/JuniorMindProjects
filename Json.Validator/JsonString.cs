@@ -1,4 +1,3 @@
-using Newtonsoft.Json.Linq;
 using System;
 
 namespace Json
@@ -103,12 +102,7 @@ namespace Json
 
         private static bool IsHexValidLetter(char value)
         {
-            const int LowerLimitForUppercase = 64;
-            const int UpperLimitForUppercase = 71;
-            const int LowerLimitForLowercase = 96;
-            const int UpperLimitForLowercase = 103;
-
-            return value > LowerLimitForUppercase && value < UpperLimitForUppercase || value > LowerLimitForLowercase && value < UpperLimitForLowercase;
+            return value > '@' && value < 'G' || value > '`' && value < 'g';
         }
 
         private static bool HasControlCharacters(string input)
