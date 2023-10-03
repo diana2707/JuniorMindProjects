@@ -31,7 +31,7 @@ namespace Json
 
         private static bool ContainsUnrecognizedEscapedCharacters(string input)
         {
-            const string recognisedEscapedCharacters = "\\\\, \\\", \\\', \\/, \\b, \\f, \\n, \\r, \\t, \\u";
+            const string recognisedEscapedCharacters = "\\\\\\\"\\\'\\/\\b\\f\\n\\r\\t\\u";
             const string EscapedSolidus = "\\";
             const int EscapedSequenceLength = 2;
 
