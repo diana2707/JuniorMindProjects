@@ -31,29 +31,24 @@ namespace Json
 
         private static bool ContainsUnrecognizedEscapedCharacters(string input)
         {
-            const string recognisedEscapedCharacters = "\\\\\\\"\\\'\\/\\b\\f\\n\\r\\t\\u";
+            const string recognisedEscapedCharacters = "\\\"\'/bfnrtu";
             const string EscapedSolidus = "\\";
-            const int EscapedSequenceLength = 2;
 
             int indexEscapedSolidus = input.IndexOf(EscapedSolidus);
 
             while (indexEscapedSolidus != -1)
             {
-                string substring = "";
-
                 if (EscapedSolidus.Length + 1 > input.Length - 1 - indexEscapedSolidus)
                 {
                     return true;
                 }
 
-                substring = input.Substring(indexEscapedSolidus, EscapedSequenceLength);
-
-                if (!recognisedEscapedCharacters.Contains(substring))
+                if (!recognisedEscapedCharacters.Contains(input[indexEscapedSolidus + 1]))
                 {
                     return true;
                 }
 
-                indexEscapedSolidus = input.IndexOf(EscapedSolidus, indexEscapedSolidus + substring.Length);
+                indexEscapedSolidus = input.IndexOf(EscapedSolidus, indexEscapedSolidus + EscapedSolidus.Length + 1);
             }
 
             return false;

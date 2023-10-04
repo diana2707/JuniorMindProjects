@@ -6,7 +6,7 @@ namespace Json
     {
         public static bool IsJsonNumber(string input)
         {
-            return int.TryParse(input, out var number) && (input.Length <= 1 || input[0] != '0');
+            return double.TryParse(input, out var number) && (input.Length <= 1 || input[0] != '0');
         }
     }
 }
