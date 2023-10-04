@@ -6,7 +6,12 @@ namespace Json
     {
         public static bool IsJsonNumber(string input)
         {
-            return double.TryParse(input, out var number) && !StartsWith0(input);
+            return double.TryParse(input, out var number) && !StartsWith0(input) && !EndsWithDot(input);
+        }
+
+        private static bool EndsWithDot(string input)
+        {
+            return input.EndsWith(".");
         }
 
         private static bool StartsWith0(string input)
