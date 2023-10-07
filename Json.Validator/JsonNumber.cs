@@ -6,7 +6,12 @@ namespace Json
     {
         public static bool IsJsonNumber(string input)
         {
-            return !HasLetters(input);
+            return HasContent(input) && !HasLetters(input);
+        }
+
+        private static bool HasContent(string input)
+        {
+            return !string.IsNullOrEmpty(input);
         }
 
         private static bool HasLetters(string input)
