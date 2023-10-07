@@ -6,17 +6,20 @@ namespace Json
     {
         public static bool IsJsonNumber(string input)
         {
-            return double.TryParse(input, out var number) && !StartsWith0(input) && !EndsWithDot(input);
+            return !HasLetters(input);
         }
 
-        private static bool EndsWithDot(string input)
+        private static bool HasLetters(string input)
         {
-            return input.EndsWith(".");
-        }
+            foreach (char c in input)
+            {
+                if (c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z')
+                {
+                    return true;
+                }
+            }
 
-        private static bool StartsWith0(string input)
-        {
-            return input.Length > 1 && input[0] == '0' && int.TryParse(input[1].ToString(), out int number);
+            return false;
         }
     }
 }
