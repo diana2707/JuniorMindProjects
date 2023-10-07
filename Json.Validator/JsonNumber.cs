@@ -6,7 +6,12 @@ namespace Json
     {
         public static bool IsJsonNumber(string input)
         {
-            return HasContent(input) && !HasLetters(input);
+            return HasContent(input) && IsInteger(input);
+        }
+
+        private static bool IsInteger(string input)
+        {
+            return !HasLetters(input);
         }
 
         private static bool HasContent(string input)
