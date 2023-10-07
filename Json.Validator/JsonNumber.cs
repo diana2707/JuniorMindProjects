@@ -11,7 +11,7 @@ namespace Json
 
         private static bool IsInteger(string input)
         {
-            return !HasLetters(input) && !IntegerPartStartsWith0(input);
+            return HasOnlyDigits(input) && !IntegerPartStartsWith0(input);
         }
 
         private static bool IntegerPartStartsWith0(string input)
@@ -19,17 +19,18 @@ namespace Json
             return input.Length > 1 && input[0] == '0' && char.IsAsciiDigit(input[1]);
         }
 
-        private static bool HasLetters(string input)
+        private static bool HasOnlyDigits(string input)
         {
+            int counter = 0;
             foreach (char c in input)
             {
-                if (c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z')
+                if (c >= '0' && c <= '9')
                 {
-                    return true;
+                    counter++;
                 }
             }
 
-            return false;
+            return counter == input.Length;
         }
 
         private static bool HasContent(string input)
