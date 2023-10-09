@@ -13,7 +13,12 @@ namespace Json
         {
             input = input.ToLower();
             string[] exponentialNumber = input.Split('e');
-            return exponentialNumber.Length == 2 && HasOnlyDigits(exponentialNumber[0]) && HasOnlyDigits(exponentialNumber[1]);
+            if (exponentialNumber.Length != 2)
+            {
+                return false;
+            }
+
+            return (HasOnlyDigits(exponentialNumber[0]) || IsFractional(exponentialNumber[0])) && HasOnlyDigits(exponentialNumber[1]);
         }
 
         private static bool IsFractional(string input)
