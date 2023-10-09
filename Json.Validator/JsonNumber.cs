@@ -6,7 +6,13 @@ namespace Json
     {
         public static bool IsJsonNumber(string input)
         {
-            return HasContent(input) && (IsInteger(input) || IsFractional(input));
+            return HasContent(input) && (IsInteger(input) || IsFractional(input) || IsExponential(input));
+        }
+
+        private static bool IsExponential(string input)
+        {
+            string[] exponentialNumber = input.Split('e');
+            return exponentialNumber.Length == 2;
         }
 
         private static bool IsFractional(string input)
