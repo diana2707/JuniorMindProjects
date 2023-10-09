@@ -11,13 +11,8 @@ namespace Json
 
         private static bool IsFractional(string input)
         {
-            string[] frctionalNumber = input.Split('.');
-            if (frctionalNumber.Length == 2 )
-            {
-                return true;
-            };
-
-            return false;
+            string[] fractionalNumber = input.Split('.');
+            return fractionalNumber.Length == 2 && !string.IsNullOrEmpty(fractionalNumber[0]) && !string.IsNullOrEmpty(fractionalNumber[1]);
         }
 
         private static bool IsInteger(string input)
