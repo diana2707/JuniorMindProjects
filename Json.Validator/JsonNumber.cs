@@ -11,20 +11,31 @@ namespace Json
 
         private static bool IsInteger(string input)
         {
-            return HasOnlyDigits(input) && !IntegerPartStartsWith0(input);
+            if (input.Length > 1)
+            {
+                string substring = input[1..];
+                return HasOnlyDigits(substring) && !IntegerPartStartsWith0(input) && CanBeNegative(input[0]);
+            }
+
+            return HasOnlyDigits(input);
+        }
+
+        private static bool CanBeNegative(char firstChar)
+        {
+            return char.IsAsciiDigit(firstChar) || firstChar == '-';
         }
 
         private static bool IntegerPartStartsWith0(string input)
         {
-            return input.Length > 1 && input[0] == '0' && char.IsAsciiDigit(input[1]);
+            return input[0] == '0' && char.IsAsciiDigit(input[1]);
         }
 
         private static bool HasOnlyDigits(string input)
         {
             int counter = 0;
-            foreach (char c in input)
+            for (int i = 0; i < input.Length; i++)
             {
-                if (c >= '0' && c <= '9')
+                if (input[i] >= '0' && input[i] <= '9')
                 {
                     counter++;
                 }
