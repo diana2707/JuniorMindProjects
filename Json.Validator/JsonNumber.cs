@@ -11,6 +11,7 @@ namespace Json
 
         private static bool IsExponential(string input)
         {
+            input = input.ToLower();
             string[] exponentialNumber = input.Split('e');
             return exponentialNumber.Length == 2;
         }
