@@ -6,7 +6,18 @@ namespace Json
     {
         public static bool IsJsonNumber(string input)
         {
-            return HasContent(input) && IsInteger(input);
+            return HasContent(input) && (IsInteger(input) || IsFractional(input));
+        }
+
+        private static bool IsFractional(string input)
+        {
+            string[] frctionalNumber = input.Split('.');
+            if (frctionalNumber.Length == 2 )
+            {
+                return true;
+            };
+
+            return false;
         }
 
         private static bool IsInteger(string input)
@@ -48,6 +59,5 @@ namespace Json
         {
             return !string.IsNullOrEmpty(input);
         }
-
     }
 }
