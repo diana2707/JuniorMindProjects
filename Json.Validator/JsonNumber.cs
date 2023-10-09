@@ -18,7 +18,14 @@ namespace Json
                 return false;
             }
 
-            return (HasOnlyDigits(exponentialNumber[0]) || IsFractional(exponentialNumber[0])) && HasOnlyDigits(exponentialNumber[1]);
+            string substring = exponentialNumber[1][1..];
+
+            if (!HasOnlyDigits(substring) || !(CanBePositive(exponentialNumber[1][0]) || CanBeNegative(exponentialNumber[1][0])))
+            {
+                return false;
+            }
+
+            return HasOnlyDigits(exponentialNumber[0]) || IsFractional(exponentialNumber[0]);
         }
 
         private static bool IsFractional(string input)
@@ -47,6 +54,11 @@ namespace Json
         private static bool CanBeNegative(char firstChar)
         {
             return char.IsAsciiDigit(firstChar) || firstChar == '-';
+        }
+
+        private static bool CanBePositive(char firstChar)
+        {
+            return char.IsAsciiDigit(firstChar) || firstChar == '+';
         }
 
         private static bool IntegerPartStartsWith0(string input)
