@@ -13,24 +13,19 @@ namespace Json
         {
             input = input.ToLower();
             string[] exponentialNumber = input.Split('e');
-            if (exponentialNumber.Length != 2 || exponentialNumber[0].Length == 0 || exponentialNumber[1].Length == 0)
-            {
-                return false;
-            }
-
-            if (!ExponentIsComplete(exponentialNumber[1]))
+            if (!HasBaseAndExponent(exponentialNumber) || !ExponentIsComplete(exponentialNumber[1]) || !(CanBePositive(exponentialNumber[1][0]) || CanBeNegative(exponentialNumber[1][0])))
             {
                 return false;
             }
 
             string substring = exponentialNumber[1][1..];
 
-            if (!(CanBePositive(exponentialNumber[1][0]) || CanBeNegative(exponentialNumber[1][0])))
-            {
-                return false;
-            }
-
             return (HasOnlyDigits(exponentialNumber[0]) || IsFractional(exponentialNumber[0])) && HasOnlyDigits(substring);
+        }
+
+        private static bool HasBaseAndExponent(string[] exponentialNumber)
+        {
+            return exponentialNumber.Length == 2 && exponentialNumber[0].Length != 0 && exponentialNumber[1].Length != 0;
         }
 
         private static bool ExponentIsComplete(string exponent)

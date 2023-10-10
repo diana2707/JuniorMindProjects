@@ -146,5 +146,11 @@ namespace Json.Facts
         {
             Assert.False(IsJsonNumber("22e3.3"));
         }
+
+        [Fact]
+        public void TheExponentStartWithSymbol()
+        {
+            Assert.False(IsJsonNumber("22e&5"));
+        }
     }
 }
