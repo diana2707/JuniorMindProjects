@@ -13,19 +13,29 @@ namespace Json
         {
             input = input.ToLower();
             string[] exponentialNumber = input.Split('e');
-            if (exponentialNumber.Length != 2)
+            if (exponentialNumber.Length != 2 || exponentialNumber[0].Length == 0 || exponentialNumber[1].Length == 0)
+            {
+                return false;
+            }
+
+            if (!ExponentIsComplete(exponentialNumber[1]))
             {
                 return false;
             }
 
             string substring = exponentialNumber[1][1..];
 
-            if (!HasOnlyDigits(substring) || !(CanBePositive(exponentialNumber[1][0]) || CanBeNegative(exponentialNumber[1][0])))
+            if (!(CanBePositive(exponentialNumber[1][0]) || CanBeNegative(exponentialNumber[1][0])))
             {
                 return false;
             }
 
-            return HasOnlyDigits(exponentialNumber[0]) || IsFractional(exponentialNumber[0]);
+            return (HasOnlyDigits(exponentialNumber[0]) || IsFractional(exponentialNumber[0])) && HasOnlyDigits(substring);
+        }
+
+        private static bool ExponentIsComplete(string exponent)
+        {
+            return !(exponent.Length == 1 && (exponent.StartsWith("-") || exponent.StartsWith("+")));
         }
 
         private static bool IsFractional(string input)
