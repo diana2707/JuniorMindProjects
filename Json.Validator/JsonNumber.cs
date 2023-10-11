@@ -16,7 +16,30 @@ namespace Json
             int exponentIndex = input.IndexOf('e');
 
             return IsInteger(Integer(input, dotIndex, exponentIndex))
-                && IsFraction(Fraction(input, dotIndex, exponentIndex));
+                && IsFraction(Fraction(input, dotIndex, exponentIndex))
+                && IsExponent(Exponent(input, exponentIndex));
+        }
+
+        private static bool IsExponent(string exponent)
+        {
+            const int ExponentIndex = 2;
+
+            if (exponent == "")
+            {
+                return true;
+            }
+
+            if (exponent.Length == 1)
+            {
+                return false;
+            }
+
+            return exponent.Length == ExponentIndex ? char.IsAsciiDigit(exponent[1]) : HasOnlyDigits(exponent[ExponentIndex..]) && (CanBePositive(exponent[1]) || CanBeNegative(exponent[1]));
+        }
+
+        private static string Exponent(string input, int exponentIndex)
+        {
+            return exponentIndex == -1 ? "" : input[exponentIndex..];
         }
 
         private static bool IsFraction(string fraction)
@@ -58,6 +81,11 @@ namespace Json
         private static bool CanBeNegative(char firstChar)
         {
             return char.IsAsciiDigit(firstChar) || firstChar == '-';
+        }
+
+        private static bool CanBePositive(char firstChar)
+        {
+            return char.IsAsciiDigit(firstChar) || firstChar == '+';
         }
 
         private static bool IntegerPartStartsWith0(string input)
