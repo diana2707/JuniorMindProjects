@@ -6,64 +6,59 @@ namespace Json
     {
         public static bool IsJsonNumber(string input)
         {
-            return HasContent(input) && (IsInteger(input) || IsFractional(input) || IsExponential(input));
-        }
+            if (!HasContent(input))
+            {
+                return false;
+            }
 
-        private static bool IsExponential(string input)
-        {
             input = input.ToLower();
-            string[] exponentialNumber = input.Split('e');
-            if (!HasBaseAndExponent(exponentialNumber) || !ExponentIsComplete(exponentialNumber[1]) || !(CanBePositive(exponentialNumber[1][0]) || CanBeNegative(exponentialNumber[1][0])))
+            int dotIndex = input.IndexOf('.');
+            int exponentIndex = input.IndexOf('e');
+
+            return IsInteger(Integer(input, dotIndex, exponentIndex))
+                && IsFraction(Fraction(input, dotIndex, exponentIndex));
+                //&& IsExponent(Exponent(exponentIndex));
+        }
+
+        private static bool IsFraction(string fraction)
+        {
+            if (fraction == "")
             {
-                return false;
+                return true;
             }
 
-            string substring = exponentialNumber[1][1..];
-
-            return (HasOnlyDigits(exponentialNumber[0]) || IsFractional(exponentialNumber[0])) && HasOnlyDigits(substring);
+            return fraction.StartsWith('.') && HasOnlyDigits(fraction[1..]);
         }
 
-        private static bool HasBaseAndExponent(string[] exponentialNumber)
+        private static string Fraction(string input, int dotIndex, int exponentIndex)
         {
-            return exponentialNumber.Length == 2 && exponentialNumber[0].Length != 0 && exponentialNumber[1].Length != 0;
-        }
-
-        private static bool ExponentIsComplete(string exponent)
-        {
-            return !(exponent.Length == 1 && (exponent.StartsWith("-") || exponent.StartsWith("+")));
-        }
-
-        private static bool IsFractional(string input)
-        {
-            string[] fractionalNumber = input.Split('.');
-
-            if (fractionalNumber.Length != 2 || fractionalNumber[0].Length == 0 || fractionalNumber[1].Length == 0)
+            if (dotIndex == -1)
             {
-                return false;
+                return string.Empty;
             }
 
-            return HasOnlyDigits(fractionalNumber[0]) && HasOnlyDigits(fractionalNumber[1]);
-        }
-
-        private static bool IsInteger(string input)
-        {
-            if (input.Length > 1)
+            if (exponentIndex == -1)
             {
-                string substring = input[1..];
-                return HasOnlyDigits(substring) && !IntegerPartStartsWith0(input) && CanBeNegative(input[0]);
+                return input[dotIndex..];
             }
 
-            return HasOnlyDigits(input);
+            return input[dotIndex..exponentIndex];
+        }
+
+        private static bool IsInteger(string integer)
+        {
+            if (integer.Length > 1)
+            {
+                string substring = integer[1..];
+                return HasOnlyDigits(substring) && !IntegerPartStartsWith0(integer) && CanBeNegative(integer[0]);
+            }
+
+            return HasOnlyDigits(integer);
         }
 
         private static bool CanBeNegative(char firstChar)
         {
             return char.IsAsciiDigit(firstChar) || firstChar == '-';
-        }
-
-        private static bool CanBePositive(char firstChar)
-        {
-            return char.IsAsciiDigit(firstChar) || firstChar == '+';
         }
 
         private static bool IntegerPartStartsWith0(string input)
@@ -82,7 +77,22 @@ namespace Json
                 }
             }
 
-            return counter == input.Length;
+            return counter == input.Length && input != "";
+        }
+
+        private static string Integer(string input, int dotIndex, int exponentIndex)
+        {
+            if (dotIndex == -1 && exponentIndex == -1)
+            {
+                return input;
+            }
+
+            if (dotIndex == -1)
+            {
+                return input[..exponentIndex];
+            }
+
+            return input[..dotIndex];
         }
 
         private static bool HasContent(string input)
