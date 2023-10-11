@@ -17,7 +17,6 @@ namespace Json
 
             return IsInteger(Integer(input, dotIndex, exponentIndex))
                 && IsFraction(Fraction(input, dotIndex, exponentIndex));
-                //&& IsExponent(Exponent(exponentIndex));
         }
 
         private static bool IsFraction(string fraction)
