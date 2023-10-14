@@ -34,7 +34,12 @@ namespace Json
                 return false;
             }
 
-            return exponent.Length == ExponentIndex ? char.IsAsciiDigit(exponent[1]) : HasOnlyDigits(exponent[ExponentIndex..]) && (CanBePositive(exponent[1]) || CanBeNegative(exponent[1]));
+            if (exponent.Length == ExponentIndex)
+            {
+                return char.IsAsciiDigit(exponent[1]);
+            }
+
+            return HasOnlyDigits(exponent[ExponentIndex..]) && (exponent[1..].StartsWith('-') || exponent[1..].StartsWith('+') || char.IsAsciiDigit(exponent[1]));
         }
 
         private static string Exponent(string input, int exponentIndex)
@@ -69,42 +74,30 @@ namespace Json
 
         private static bool IsInteger(string integer)
         {
-            if (integer.Length > 1)
+            if (integer.StartsWith("-"))
             {
-                string substring = integer[1..];
-                return HasOnlyDigits(substring) && !IntegerPartStartsWith0(integer) && CanBeNegative(integer[0]);
+                return HasOnlyDigits(integer[1..]);
             }
 
-            return HasOnlyDigits(integer);
+            return HasOnlyDigits(integer) && !IntegerPartStartsWith0(integer);
         }
 
-        private static bool CanBeNegative(char firstChar)
+        private static bool IntegerPartStartsWith0(string integer)
         {
-            return char.IsAsciiDigit(firstChar) || firstChar == '-';
-        }
-
-        private static bool CanBePositive(char firstChar)
-        {
-            return char.IsAsciiDigit(firstChar) || firstChar == '+';
-        }
-
-        private static bool IntegerPartStartsWith0(string input)
-        {
-            return input[0] == '0' && char.IsAsciiDigit(input[1]);
+            return integer.StartsWith("0") && integer.Length > 1;
         }
 
         private static bool HasOnlyDigits(string input)
         {
-            int counter = 0;
             for (int i = 0; i < input.Length; i++)
             {
-                if (input[i] >= '0' && input[i] <= '9')
+                if (!(input[i] >= '0' && input[i] <= '9'))
                 {
-                    counter++;
+                    return false;
                 }
             }
 
-            return counter == input.Length && input != "";
+            return input.Length != 0;
         }
 
         private static string Integer(string input, int dotIndex, int exponentIndex)
