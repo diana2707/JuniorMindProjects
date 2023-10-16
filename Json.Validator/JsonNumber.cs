@@ -22,24 +22,19 @@ namespace Json
 
         private static bool IsExponent(string exponent)
         {
-            const int ExponentIndex = 2;
-
             if (exponent == "")
             {
                 return true;
             }
 
-            if (exponent.Length == 1)
+            exponent = exponent[1..];
+
+            if (exponent.StartsWith("-") || exponent.StartsWith("+"))
             {
-                return false;
+                exponent = exponent[1..];
             }
 
-            if (exponent.Length == ExponentIndex)
-            {
-                return char.IsAsciiDigit(exponent[1]);
-            }
-
-            return HasOnlyDigits(exponent[ExponentIndex..]) && (exponent[1..].StartsWith('-') || exponent[1..].StartsWith('+') || char.IsAsciiDigit(exponent[1]));
+            return HasOnlyDigits(exponent);
         }
 
         private static string Exponent(string input, int exponentIndex)
@@ -76,7 +71,7 @@ namespace Json
         {
             if (integer.StartsWith("-"))
             {
-                return HasOnlyDigits(integer[1..]);
+                integer = integer[1..];
             }
 
             return HasOnlyDigits(integer) && !IntegerPartStartsWith0(integer);
@@ -91,7 +86,7 @@ namespace Json
         {
             for (int i = 0; i < input.Length; i++)
             {
-                if (!(input[i] >= '0' && input[i] <= '9'))
+                if (!char.IsAsciiDigit(input[i]))
                 {
                     return false;
                 }
