@@ -17,11 +17,11 @@ namespace TeamRanking
 
             Team[] result = { new Team("Steaua"), new Team("Rapid"), new Team("Dinamo"), new Team("Farul") };
 
-            Assert.Equivalent(championship, result);
+            Assert.Equivalent(result, championship);
         }
 
         [Fact]
-        public void SortTeams()
+        public void SortTeamsInDescendingOrder()
         {
             Team[] teams = { new Team("Barcelorna", 10), new Team("Real Madrid", 7), new Team("Manchester", 13), new Team("Liverpool", 5) };
             Ranking championship = new (teams, teams.Length);
@@ -30,7 +30,7 @@ namespace TeamRanking
 
             Team[] result = { new Team("Manchester", 13), new Team("Barcelorna", 10), new Team("Real Madrid", 7), new Team("Liverpool", 5) };
 
-            Assert.Equivalent(championship, result);
+            Assert.Equivalent(result, championship);
         }
     }
 }

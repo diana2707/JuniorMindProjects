@@ -49,5 +49,19 @@ namespace TeamRanking
             Team team2 = new ("Dinamo", 10);
             Assert.False(team1.PointsAreLess(team2));
         }
+
+        [Fact]
+        public void CompareNameOfTeamWhenTheyMatch()
+        {
+            Team team = new ("Liverpool");
+            Assert.True(team.CompareName("Liverpool"));
+        }
+
+        [Fact]
+        public void CompareNameOfTeamWhenTheyDoNotMatch()
+        {
+            Team team = new ("Manchester");
+            Assert.False(team.CompareName("Liverpool"));
+        }
     }
 }

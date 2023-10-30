@@ -27,5 +27,10 @@ namespace TeamRanking
         {
             return this.points < otherTeam.points;
         }
+
+        public bool CompareName(string teamName)
+        {
+            return this.name == teamName;
+        }
     }
 }
