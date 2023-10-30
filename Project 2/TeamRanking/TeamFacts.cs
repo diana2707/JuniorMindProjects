@@ -31,7 +31,7 @@ namespace TeamRanking
         {
             Team team1 = new ("Rapid", 10);
             Team team2 = new ("Dinamo", 12);
-            Assert.True(team1.ComparePoints(team2));
+            Assert.True(team1.PointsAreLess(team2));
         }
 
         [Fact]
@@ -39,7 +39,7 @@ namespace TeamRanking
         {
             Team team1 = new ("Rapid", 10);
             Team team2 = new ("Dinamo", 5);
-            Assert.False(team1.ComparePoints(team2));
+            Assert.False(team1.PointsAreLess(team2));
         }
 
         [Fact]
@@ -47,7 +47,7 @@ namespace TeamRanking
         {
             Team team1 = new ("Rapid", 10);
             Team team2 = new ("Dinamo", 10);
-            Assert.False(team1.ComparePoints(team2));
+            Assert.False(team1.PointsAreLess(team2));
         }
     }
 }

@@ -23,7 +23,7 @@ namespace TeamRanking
             return points += teamPoints;
         }
 
-        public bool ComparePoints(Team otherTeam)
+        public bool PointsAreLess(Team otherTeam)
         {
             return this.points < otherTeam.points;
         }
