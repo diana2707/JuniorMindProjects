@@ -9,8 +9,8 @@ namespace TeamRanking
 
         public Team(string teamName, int teamPoints = 0)
         {
-            name = teamName;
-            points = teamPoints;
+            this.name = teamName;
+            this.points = teamPoints;
         }
 
         public string GetTeamName()
@@ -21,6 +21,11 @@ namespace TeamRanking
         public int AddTeamPoints(int teamPoints)
         {
             return points += teamPoints;
+        }
+
+        public bool ComparePoints(Team otherTeam)
+        {
+            return this.points < otherTeam.points;
         }
     }
 }
