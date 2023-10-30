@@ -21,5 +21,21 @@ namespace TeamRanking
             Array.Resize(ref teams, teamsNumber);
             teams[teamsNumber - 1] = team;
         }
+
+        public void SortTeams()
+        {
+            for (int i = 0; i < teamsNumber; i++)
+            {
+                for (int j = 0; j < teamsNumber - 1; j++)
+                {
+                    if (teams[j].PointsAreLess(teams[j + 1]))
+                    {
+                        Team temp = teams[j];
+                        teams[j] = teams[j + 1];
+                        teams[j + 1] = temp;
+                    }
+                }
+            }
+        }
     }
 }
