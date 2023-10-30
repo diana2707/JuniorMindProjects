@@ -37,5 +37,19 @@ namespace TeamRanking
                 }
             }
         }
+
+        public int GetPositionOfTeam(string teamName)
+        {
+            for (int i = 0; i < teamsNumber; i++)
+            {
+                if (teams[i].CompareName(teamName))
+                {
+                    return i + 1;
+                }
+            }
+
+            return -1;
+        }
+
     }
 }
