@@ -13,20 +13,6 @@ namespace TeamRanking
         }
 
         [Fact]
-        public void GetTeamPointsMethodShouldReturn0()
-        {
-            Team team = new ("Steaua");
-            Assert.Equal(0, team.GetTeamPoints());
-        }
-
-        [Fact]
-        public void GetTeamPointsMethodShouldReturnCorrectPoints()
-        {
-            Team team = new ("Steaua", 9);
-            Assert.Equal(9, team.GetTeamPoints());
-        }
-
-        [Fact]
         public void AddPointsWhenNoPointsAreSet()
         {
             Team team = new ("Steaua");

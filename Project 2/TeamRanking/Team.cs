@@ -18,11 +18,6 @@ namespace TeamRanking
             return name;
         }
 
-        public int GetTeamPoints()
-        {
-            return points;
-        }
-
         public int AddTeamPoints(int teamPoints)
         {
             return points += teamPoints;
