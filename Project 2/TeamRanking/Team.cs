@@ -5,7 +5,7 @@ namespace TeamRanking
     class Team
     {
         readonly string name;
-        readonly int points;
+        private int points;
 
         public Team(string teamName, int teamPoints = 0)
         {
@@ -21,6 +21,11 @@ namespace TeamRanking
         public int GetTeamPoints()
         {
             return points;
+        }
+
+        public int AddTeamPoints(int teamPoints)
+        {
+            return points += teamPoints;
         }
     }
 }
