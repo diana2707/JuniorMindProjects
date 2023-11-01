@@ -52,5 +52,23 @@ namespace TeamRanking
 
             Assert.Equal(-1, championship.GetPositionOfTeam("Bayern Munchen"));
         }
+
+        [Fact]
+        public void GetTeamFromPositionWhenPositionExists()
+        {
+            Team[] teams = { new Team("Manchester", 13), new Team("Barcelona", 10), new Team("Real Madrid", 7), new Team("Liverpool", 5) };
+            Ranking championship = new (teams, teams.Length);
+
+            Assert.Equal("Real Madrid", championship.GetTeamFromPosition(3));
+        }
+
+        [Fact]
+        public void GetTeamFromPositionWhenPositionDoNotExist()
+        {
+            Team[] teams = { new Team("Manchester", 13), new Team("Barcelona", 10), new Team("Real Madrid", 7), new Team("Liverpool", 5) };
+            Ranking championship = new (teams, teams.Length);
+
+            Assert.Equal("N/A", championship.GetTeamFromPosition(6));
+        }
     }
 }

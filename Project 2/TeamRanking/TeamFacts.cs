@@ -63,5 +63,37 @@ namespace TeamRanking
             Team team = new ("Manchester");
             Assert.False(team.CompareName("Liverpool"));
         }
+
+        [Fact]
+        public void IsEqualWhenTeamsAreTheSame()
+        {
+            Team team1 = new ("Manchester", 7);
+            Team team2 = new ("Manchester", 7);
+            Assert.True(team1.IsEqual(team2));
+        }
+
+        [Fact]
+        public void IsEqualWhenTeamsNameIsNotTheSame()
+        {
+            Team team1 = new ("Manchester", 7);
+            Team team2 = new ("Real Madrid", 7);
+            Assert.False(team1.IsEqual(team2));
+        }
+
+        [Fact]
+        public void IsEqualWhenTeamsPointsIsNotTheSame()
+        {
+            Team team1 = new ("Manchester", 7);
+            Team team2 = new ("Manchester", 10);
+            Assert.False(team1.IsEqual(team2));
+        }
+
+        [Fact]
+        public void IsEqualWhenTeamsAreDifferent()
+        {
+            Team team1 = new ("Manchester", 3);
+            Team team2 = new ("Real Madrid", 11);
+            Assert.False(team1.IsEqual(team2));
+        }
     }
 }

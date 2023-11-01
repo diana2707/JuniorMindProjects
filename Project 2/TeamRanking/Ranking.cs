@@ -51,5 +51,32 @@ namespace TeamRanking
             return -1;
         }
 
+        public string GetTeamFromPosition(int position)
+        {
+            if (position > teamsNumber - 1)
+            {
+                return "N/A";
+            }
+
+            return teams[position - 1].GetTeamName();
+        }
+
+        public bool AreEqual(Ranking championship)
+        {
+            if (championship.teamsNumber != this.teamsNumber)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < teamsNumber; i++)
+            {
+                if (!this.teams[i].IsEqual(championship.teams[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

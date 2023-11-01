@@ -32,5 +32,10 @@ namespace TeamRanking
         {
             return this.name == teamName;
         }
+
+        public bool IsEqual(Team otherTeam)
+        {
+            return this.points == otherTeam.points && this.name == otherTeam.name;
+        }
     }
 }
