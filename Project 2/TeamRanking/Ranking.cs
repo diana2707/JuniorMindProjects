@@ -53,7 +53,7 @@ namespace TeamRanking
 
         public string GetTeamFromPosition(int position)
         {
-            if (position > teamsNumber - 1)
+            if (position < 1 && position > teamsNumber - 1)
             {
                 return "N/A";
             }

@@ -70,5 +70,29 @@ namespace TeamRanking
 
             Assert.Equal("N/A", championship.GetTeamFromPosition(6));
         }
+
+        [Fact]
+        public void AreEqualWhenRankingsMatch()
+        {
+            Team[] teams1 = { new Team("Barcelona", 3), new Team("Real Madrid", 10), new Team("Manchester", 9), new Team("Liverpool", 8) };
+            Ranking championship1 = new (teams1, teams1.Length);
+
+            Team[] teams2 = { new Team("Barcelona", 3), new Team("Real Madrid", 10), new Team("Manchester", 9), new Team("Liverpool", 8) };
+            Ranking championship2 = new (teams2, teams2.Length);
+
+            Assert.True(championship1.AreEqual(championship2));
+        }
+
+        [Fact]
+        public void AreEqualWhenRankingsDoNotMatch()
+        {
+            Team[] teams1 = { new Team("Barcelona", 3), new Team("Real Madrid", 10), new Team("Manchester", 9), new Team("Liverpool", 8) };
+            Ranking championship1 = new (teams1, teams1.Length);
+
+            Team[] teams2 = { new Team("Barcelona", 3), new Team("Real Madrid", 11), new Team("Manchester", 9), new Team("Liverpool", 8) };
+            Ranking championship2 = new (teams2, teams2.Length);
+
+            Assert.False(championship1.AreEqual(championship2));
+        }
     }
 }
