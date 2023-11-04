@@ -13,14 +13,9 @@ namespace TeamRanking
             this.points = teamPoints;
         }
 
-        public string GetTeamName()
+        public void AddPoints(int teamPoints)
         {
-            return name;
-        }
-
-        public int AddTeamPoints(int teamPoints)
-        {
-            return points += teamPoints;
+            points += teamPoints;
         }
 
         public bool PointsAreLess(Team otherTeam)
