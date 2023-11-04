@@ -55,23 +55,5 @@ namespace TeamRanking
 
             return teams[position - 1];
         }
-
-        public bool AreEqual(Ranking championship)
-        {
-            if (championship.teams.Length != this.teams.Length)
-            {
-                return false;
-            }
-
-            for (int i = 0; i < teams.Length; i++)
-            {
-                if (!this.teams[i].IsEqual(championship.teams[i]))
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
     }
 }
