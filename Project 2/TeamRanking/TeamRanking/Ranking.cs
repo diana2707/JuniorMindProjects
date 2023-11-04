@@ -5,28 +5,23 @@ namespace TeamRanking
     class Ranking
     {
         private Team[] teams;
-        private int teamsNumber;
 
-        public Ranking(Team[] teams, int teamsNumber)
+        public Ranking()
         {
-            this.teams = teams;
-            this.teamsNumber = teamsNumber;
-
-            _ = new Team[teamsNumber];
+            this.teams = new Team[0];
         }
 
         public void AddTeam(Team team)
         {
-            teamsNumber++;
-            Array.Resize(ref teams, teamsNumber);
-            teams[teamsNumber - 1] = team;
+            Array.Resize(ref teams, teams.Length + 1);
+            teams[^1] = team;
         }
 
         public void SortTeams()
         {
-            for (int i = 0; i < teamsNumber; i++)
+            for (int i = 0; i < teams.Length; i++)
             {
-                for (int j = 0; j < teamsNumber - 1; j++)
+                for (int j = 0; j < teams.Length - 1; j++)
                 {
                     if (teams[j].PointsAreLess(teams[j + 1]))
                     {
@@ -40,7 +35,7 @@ namespace TeamRanking
 
         public int GetPositionOfTeam(string teamName)
         {
-            for (int i = 0; i < teamsNumber; i++)
+            for (int i = 0; i < teams.Length; i++)
             {
                 if (teams[i].CompareName(teamName))
                 {
@@ -53,7 +48,7 @@ namespace TeamRanking
 
         public string GetTeamFromPosition(int position)
         {
-            if (position < 1 && position > teamsNumber - 1)
+            if (position < 1 && position > teams.Length - 1)
             {
                 return "N/A";
             }
@@ -63,12 +58,12 @@ namespace TeamRanking
 
         public bool AreEqual(Ranking championship)
         {
-            if (championship.teamsNumber != this.teamsNumber)
+            if (championship.teams.Length != this.teams.Length)
             {
                 return false;
             }
 
-            for (int i = 0; i < teamsNumber; i++)
+            for (int i = 0; i < teams.Length; i++)
             {
                 if (!this.teams[i].IsEqual(championship.teams[i]))
                 {
