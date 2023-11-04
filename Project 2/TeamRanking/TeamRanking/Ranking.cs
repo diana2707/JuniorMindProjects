@@ -33,11 +33,11 @@ namespace TeamRanking
             }
         }
 
-        public int GetPositionOfTeam(string teamName)
+        public int PositionOf(Team team)
         {
             for (int i = 0; i < teams.Length; i++)
             {
-                if (teams[i].CompareName(teamName))
+                if (teams[i] == team)
                 {
                     return i + 1;
                 }
