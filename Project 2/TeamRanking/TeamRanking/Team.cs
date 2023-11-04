@@ -4,7 +4,7 @@ namespace TeamRanking
 {
     class Team
     {
-        readonly string name;
+        private readonly string name;
         private int points;
 
         public Team(string teamName, int teamPoints = 0)
@@ -21,16 +21,6 @@ namespace TeamRanking
         public bool PointsAreLess(Team otherTeam)
         {
             return this.points < otherTeam.points;
-        }
-
-        public bool CompareName(string teamName)
-        {
-            return this.name == teamName;
-        }
-
-        public bool IsEqual(Team otherTeam)
-        {
-            return this.points == otherTeam.points && this.name == otherTeam.name;
         }
     }
 }
