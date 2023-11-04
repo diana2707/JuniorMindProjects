@@ -46,14 +46,14 @@ namespace TeamRanking
             return -1;
         }
 
-        public string GetTeamFromPosition(int position)
+        public Team? FromPosition(int position)
         {
             if (position < 1 && position > teams.Length - 1)
             {
-                return "N/A";
+                return null;
             }
 
-            return teams[position - 1].GetTeamName();
+            return teams[position - 1];
         }
 
         public bool AreEqual(Ranking championship)
