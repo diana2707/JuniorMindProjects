@@ -22,23 +22,21 @@ namespace TeamRanking
             this.result = result;
         }
 
-        public void UpdateRanking(Ranking championship)
+        public void UpdateScore(Ranking championship)
         {
             if (this.result == Result.WinTeam1)
             {
-                team1.AddTeamPoints(3);
+                team1.AddPoints(3);
             }
             else if (this.result == Result.WinTeam2)
             {
-                team2.AddTeamPoints(3);
+                team2.AddPoints(3);
             }
             else
             {
-                team1.AddTeamPoints(1);
-                team2.AddTeamPoints(1);
+                team1.AddPoints(1);
+                team2.AddPoints(1);
             }
-
-            championship.SortTeams();
         }
     }
 }

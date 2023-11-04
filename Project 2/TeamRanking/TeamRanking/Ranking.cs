@@ -17,22 +17,6 @@ namespace TeamRanking
             teams[^1] = team;
         }
 
-        public void SortTeams()
-        {
-            for (int i = 0; i < teams.Length; i++)
-            {
-                for (int j = 0; j < teams.Length - 1; j++)
-                {
-                    if (teams[j].PointsAreLess(teams[j + 1]))
-                    {
-                        Team temp = teams[j];
-                        teams[j] = teams[j + 1];
-                        teams[j + 1] = temp;
-                    }
-                }
-            }
-        }
-
         public int PositionOf(Team team)
         {
             for (int i = 0; i < teams.Length; i++)
@@ -54,6 +38,28 @@ namespace TeamRanking
             }
 
             return teams[position - 1];
+        }
+
+        public void UpdateRanking(Match match)
+        {
+            match.UpdateScore(this);
+            SortTeams();
+        }
+
+        void SortTeams()
+        {
+            for (int i = 0; i < teams.Length; i++)
+            {
+                for (int j = 0; j < teams.Length - 1; j++)
+                {
+                    if (teams[j].PointsAreLess(teams[j + 1]))
+                    {
+                        Team temp = teams[j];
+                        teams[j] = teams[j + 1];
+                        teams[j + 1] = temp;
+                    }
+                }
+            }
         }
     }
 }
