@@ -21,7 +21,7 @@ namespace TeamRanking
         {
             for (int i = 0; i < teams.Length; i++)
             {
-                if (teams[i] == team)
+                if (teams[i].Equals(team))
                 {
                     return i + 1;
                 }
@@ -32,7 +32,7 @@ namespace TeamRanking
 
         public Team? FromPosition(int position)
         {
-            if (position < 1 && position > teams.Length - 1)
+            if (position < 1 || position > teams.Length - 1)
             {
                 return null;
             }

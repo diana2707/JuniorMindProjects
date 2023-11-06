@@ -6,93 +6,114 @@ namespace TeamRanking
     public class RankingFacts
     {
         [Fact]
-        public void AddTeams()
+        public void AddNewTeam()
         {
+            Ranking championship = new ();
             Team[] teams = { new Team("Steaua"), new Team("Rapid"), new Team("Dinamo") };
-            Ranking championship = new (teams, teams.Length);
+
+            for (int i = 0; i < teams.Length; i++)
+            {
+                championship.AddTeam(teams[i]);
+            }
 
             Team teamToAdd = new ("Farul");
 
             championship.AddTeam(teamToAdd);
 
+            Ranking championshipResult = new ();
             Team[] teamsResult = { new Team("Steaua"), new Team("Rapid"), new Team("Dinamo"), new Team("Farul") };
-            Ranking championshipResult = new (teamsResult, teamsResult.Length);
 
-            Assert.Equivalent(championshipResult, championship);
+            for (int i = 0; i < teamsResult.Length; i++)
+            {
+                championshipResult.AddTeam(teamsResult[i]);
+            }
+
+            Assert.Equal(championshipResult, championship);
         }
 
         [Fact]
-        public void SortTeamsInDescendingOrder()
+        public void UpdateRankingWithNewMatch()
         {
-            Team[] teams = { new Team("Barcelorna", 10), new Team("Real Madrid", 7), new Team("Manchester", 13), new Team("Liverpool", 5) };
-            Ranking championship = new (teams, teams.Length);
+            Team team1 = new ("Barcelorna", 10);
+            Team team2 = new ("Real Madrid", 7);
 
-            championship.SortTeams();
+            Ranking championship = new ();
+            Team[] teams = { team1, team2, new Team("Manchester", 13), new Team("Liverpool", 5) };
 
-            Team[] teamsResult = { new Team("Manchester", 13), new Team("Barcelorna", 10), new Team("Real Madrid", 7), new Team("Liverpool", 5) };
-            Ranking championshipResult = new (teamsResult, teamsResult.Length);
+            for (int i = 0; i < teams.Length; i++)
+            {
+                championship.AddTeam(teams[i]);
+            }
 
-            Assert.Equivalent(championshipResult, championship);
+            Match newMatch = new (team1, team2, Result.WinTeam1);
+
+            championship.UpdateRanking(newMatch);
+
+            Team[] teamsResult = { new Team("Barcelorna", 13), new Team("Manchester", 13), new Team("Real Madrid", 7), new Team("Liverpool", 5) };
+            Ranking championshipResult = new ();
+
+            for (int i = 0; i < teamsResult.Length; i++)
+            {
+                championshipResult.AddTeam(teamsResult[i]);
+            }
+
+            Assert.Equal(championshipResult, championship);
         }
 
         [Fact]
         public void GetPositionOfTeamWhenTeamExists()
         {
             Team[] teams = { new Team("Manchester", 13), new Team("Barcelona", 10), new Team("Real Madrid", 7), new Team("Liverpool", 5) };
-            Ranking championship = new (teams, teams.Length);
+            Ranking championship = new ();
 
-            Assert.Equal(2, championship.GetPositionOfTeam("Barcelona"));
+            for (int i = 0; i < teams.Length; i++)
+            {
+                championship.AddTeam(teams[i]);
+            }
+
+            Assert.Equal(1, championship.PositionOf(new Team("Manchester", 13)));
         }
 
         [Fact]
         public void GetPositionOfTeamWhenTeamDoNotExists()
         {
             Team[] teams = { new Team("Manchester", 13), new Team("Barcelona", 10), new Team("Real Madrid", 7), new Team("Liverpool", 5) };
-            Ranking championship = new (teams, teams.Length);
+            Ranking championship = new ();
 
-            Assert.Equal(-1, championship.GetPositionOfTeam("Bayern Munchen"));
+            for (int i = 0; i < teams.Length; i++)
+            {
+                championship.AddTeam(teams[i]);
+            }
+
+            Assert.Equal(-1, championship.PositionOf(new Team("Bayern Munchen")));
         }
 
         [Fact]
         public void GetTeamFromPositionWhenPositionExists()
         {
             Team[] teams = { new Team("Manchester", 13), new Team("Barcelona", 10), new Team("Real Madrid", 7), new Team("Liverpool", 5) };
-            Ranking championship = new (teams, teams.Length);
+            Ranking championship = new ();
 
-            Assert.Equal("Real Madrid", championship.GetTeamFromPosition(3));
+            for (int i = 0; i < teams.Length; i++)
+            {
+                championship.AddTeam(teams[i]);
+            }
+
+            Assert.Equal(new Team("Real Madrid", 7), championship.FromPosition(3));
         }
 
         [Fact]
         public void GetTeamFromPositionWhenPositionDoNotExist()
         {
             Team[] teams = { new Team("Manchester", 13), new Team("Barcelona", 10), new Team("Real Madrid", 7), new Team("Liverpool", 5) };
-            Ranking championship = new (teams, teams.Length);
+            Ranking championship = new ();
 
-            Assert.Equal("N/A", championship.GetTeamFromPosition(6));
-        }
+            for (int i = 0; i < teams.Length; i++)
+            {
+                championship.AddTeam(teams[i]);
+            }
 
-        [Fact]
-        public void AreEqualWhenRankingsMatch()
-        {
-            Team[] teams1 = { new Team("Barcelona", 3), new Team("Real Madrid", 10), new Team("Manchester", 9), new Team("Liverpool", 8) };
-            Ranking championship1 = new (teams1, teams1.Length);
-
-            Team[] teams2 = { new Team("Barcelona", 3), new Team("Real Madrid", 10), new Team("Manchester", 9), new Team("Liverpool", 8) };
-            Ranking championship2 = new (teams2, teams2.Length);
-
-            Assert.True(championship1.AreEqual(championship2));
-        }
-
-        [Fact]
-        public void AreEqualWhenRankingsDoNotMatch()
-        {
-            Team[] teams1 = { new Team("Barcelona", 3), new Team("Real Madrid", 10), new Team("Manchester", 9), new Team("Liverpool", 8) };
-            Ranking championship1 = new (teams1, teams1.Length);
-
-            Team[] teams2 = { new Team("Barcelona", 3), new Team("Real Madrid", 11), new Team("Manchester", 9), new Team("Liverpool", 8) };
-            Ranking championship2 = new (teams2, teams2.Length);
-
-            Assert.False(championship1.AreEqual(championship2));
+            Assert.Null(championship.FromPosition(6));
         }
     }
 }
