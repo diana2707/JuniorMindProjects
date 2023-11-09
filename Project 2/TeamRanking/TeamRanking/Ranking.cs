@@ -32,7 +32,7 @@ namespace TeamRanking
 
         public Team? FromPosition(int position)
         {
-            if (position < 1 || position > teams.Length - 1)
+            if (position < 1 || position > teams.Length)
             {
                 return null;
             }
@@ -42,7 +42,7 @@ namespace TeamRanking
 
         public void UpdateRanking(Match match)
         {
-            match.UpdateScore(this);
+            match.UpdateScore();
             SortTeams();
         }
 

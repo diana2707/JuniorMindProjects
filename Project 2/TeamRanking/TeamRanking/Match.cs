@@ -22,7 +22,7 @@ namespace TeamRanking
             this.result = result;
         }
 
-        public void UpdateScore(Ranking championship)
+        public void UpdateScore()
         {
             if (this.result == Result.WinTeam1)
             {
