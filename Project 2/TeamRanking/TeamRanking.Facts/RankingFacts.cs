@@ -8,21 +8,21 @@ namespace TeamRanking
         [Fact]
         public void GetPositionOfTeamWhenTeamExists()
         {
-            Team team = new Team("Manchester", 13);
+            Team manchester = new Team("Manchester", 13);
             Ranking championship = new ();
 
-            championship.AddTeam(team);
+            championship.AddTeam(manchester);
 
-            Assert.Equal(1, championship.PositionOf(team));
+            Assert.Equal(1, championship.PositionOf(manchester));
         }
 
         [Fact]
         public void GetPositionOfTeamWhenTeamDoNotExists()
         {
             Ranking championship = new ();
-            Team team = new Team("Manchester", 13);
+            Team manchester = new Team("Manchester", 13);
 
-            championship.AddTeam(team);
+            championship.AddTeam(manchester);
 
             Assert.Equal(-1, championship.PositionOf(new Team("Bayern Munchen")));
         }
@@ -31,22 +31,26 @@ namespace TeamRanking
         public void GetTeamFromPositionWhenPositionExists()
         {
             Ranking championship = new ();
-            Team team = new Team("Manchester", 13);
+            Team manchester = new Team("Manchester", 13);
 
-            championship.AddTeam(team);
-            Assert.Equal(team, championship.FromPosition(1));
+            championship.AddTeam(manchester);
+            Assert.Equal(manchester, championship.FromPosition(1));
         }
 
         [Fact]
         public void GetTeamFromPositionWhenPositionDoNotExist()
         {
-            Team[] teams = { new Team("Manchester", 13), new Team("Barcelona", 10), new Team("Real Madrid", 7), new Team("Liverpool", 5) };
+            Team manchester = new Team("Manchester", 13);
+            Team barcelona = new Team("Barcelona", 10);
+            Team realMadrid = new Team("Real Madrid", 7);
+            Team liverpool = new Team("Liverpool", 5);
+
             Ranking championship = new ();
 
-            for (int i = 0; i < teams.Length; i++)
-            {
-                championship.AddTeam(teams[i]);
-            }
+            championship.AddTeam(manchester);
+            championship.AddTeam(barcelona);
+            championship.AddTeam(realMadrid);
+            championship.AddTeam(liverpool);
 
             Assert.Null(championship.FromPosition(6));
         }
@@ -54,27 +58,25 @@ namespace TeamRanking
         [Fact]
         public void UpdateRankingWithNewMatch()
         {
-            Team team1 = new ("Barcelona", 10);
-            Team team2 = new ("Real Madrid", 7);
-            Team team3 = new ("Manchester", 13);
-            Team team4 = new ("Liverpool", 5);
+            Team barcelona = new ("Barcelona", 10);
+            Team realMadrid = new ("Real Madrid", 7);
+            Team manchester = new ("Manchester", 13);
+            Team liverpool = new ("Liverpool", 5);
 
             Ranking championship = new ();
-            Team[] teams = { team1, team2, team3, team4 };
+            championship.AddTeam(barcelona);
+            championship.AddTeam(realMadrid);
+            championship.AddTeam(manchester);
+            championship.AddTeam(liverpool);
 
-            for (int i = 0; i < teams.Length; i++)
-            {
-                championship.AddTeam(teams[i]);
-            }
-
-            Match newMatch = new (team1, team2, Result.WinTeam1);
+            Match newMatch = new (barcelona, realMadrid, 1, 0);
 
             championship.UpdateRanking(newMatch);
 
-            Assert.Equal(1, championship.PositionOf(team1));
-            Assert.Equal(2, championship.PositionOf(team3));
-            Assert.Equal(3, championship.PositionOf(team2));
-            Assert.Equal(4, championship.PositionOf(team4));
+            Assert.Equal(1, championship.PositionOf(barcelona));
+            Assert.Equal(2, championship.PositionOf(manchester));
+            Assert.Equal(3, championship.PositionOf(realMadrid));
+            Assert.Equal(4, championship.PositionOf(liverpool));
         }
     }
 }
