@@ -48,15 +48,18 @@ namespace TeamRanking
 
         void SortTeams()
         {
-            for (int i = 0; i < teams.Length; i++)
+            bool unsorted = true;
+            while (unsorted)
             {
-                for (int j = 0; j < teams.Length - 1; j++)
+                unsorted = false;
+                for (int i = 0; i < teams.Length - 1; i++)
                 {
-                    if (teams[j].PointsAreLess(teams[j + 1]))
+                    if (teams[i].PointsAreLess(teams[i + 1]))
                     {
-                        Team temp = teams[j];
-                        teams[j] = teams[j + 1];
-                        teams[j + 1] = temp;
+                        Team temp = teams[i];
+                        teams[i] = teams[i + 1];
+                        teams[i + 1] = temp;
+                        unsorted = true;
                     }
                 }
             }
