@@ -4,33 +4,33 @@ namespace TeamRanking
 {
     class Match
     {
-        readonly Team team1;
-        readonly Team team2;
-        readonly int scoreTeam1;
-        readonly int scoreTeam2;
+        readonly Team homeTeam;
+        readonly Team visitingTeam;
+        readonly int scoreHomeTeam;
+        readonly int scoreVisitingTeam;
 
-        public Match(Team team1, Team team2, int scoreTeam1, int scoreTeam2)
+        public Match(Team homeTeam, Team visitingTeam, int scoreHomeTeam, int scoreVisitingTeam)
         {
-            this.team1 = team1;
-            this.team2 = team2;
-            this.scoreTeam1 = scoreTeam1;
-            this.scoreTeam2 = scoreTeam2;
+            this.homeTeam = homeTeam;
+            this.visitingTeam = visitingTeam;
+            this.scoreHomeTeam = scoreHomeTeam;
+            this.scoreVisitingTeam = scoreVisitingTeam;
         }
 
         public void UpdateScore()
         {
-            if (scoreTeam1 > scoreTeam2)
+            if (scoreHomeTeam > scoreVisitingTeam)
             {
-                team1.AddPoints(3);
+                homeTeam.AddPoints(3);
             }
-            else if (scoreTeam2 > scoreTeam1)
+            else if (scoreVisitingTeam > scoreHomeTeam)
             {
-                team2.AddPoints(3);
+               visitingTeam.AddPoints(3);
             }
             else
             {
-                team1.AddPoints(1);
-                team2.AddPoints(1);
+                homeTeam.AddPoints(1);
+                visitingTeam.AddPoints(1);
             }
         }
     }
