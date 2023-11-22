@@ -1,5 +1,4 @@
 using Xunit;
-using static Jason.Character;
 
 namespace Jason
 {
