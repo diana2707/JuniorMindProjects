@@ -2,7 +2,7 @@
 
 namespace Jason
 {
-    class Range
+    class Range : IPattern
     {
         readonly char start;
         readonly char end;
