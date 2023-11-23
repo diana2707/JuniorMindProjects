@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace Jason
+namespace Jason.JasonFacts
 {
     public class CharacterFacts
     {

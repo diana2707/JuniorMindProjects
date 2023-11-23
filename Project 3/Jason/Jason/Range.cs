@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Jason
+namespace Jason.JasonFacts
 {
     class Range : IPattern
     {
