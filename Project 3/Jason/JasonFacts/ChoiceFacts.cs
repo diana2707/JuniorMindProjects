@@ -35,5 +35,24 @@ namespace Jason.JasonFacts
             Assert.False(digit.Match("a34"));
         }
 
+        [Fact]
+        public void ShouldReturnFalseWhenStringIsNull()
+        {
+            var digit = new Choice(
+                    new Character('0'),
+                    new Range('1', '9'));
+
+            Assert.False(digit.Match(null));
+        }
+
+        [Fact]
+        public void ShouldReturnFalseWhenStringIsEmpty()
+        {
+            var digit = new Choice(
+                    new Character('0'),
+                    new Range('1', '9'));
+
+            Assert.False(digit.Match(""));
+        }
     }
 }

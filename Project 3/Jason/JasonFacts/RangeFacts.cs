@@ -21,7 +21,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void MatchShouldReturnFalseWhenStringContainsInvalidCharacters()
+        public void MatchShouldReturnFalseWhenStringStartsWithInvalidCharacters()
         {
             Range digit = new ('a', 'f');
             const string text = "1acfd";
@@ -29,7 +29,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void MatchShouldReturnTrueWhenStringContainsValidCharacters()
+        public void MatchShouldReturnTrueWhenStringStartsWithValidCharacters()
         {
             Range digit = new ('a', 'f');
             const string text = "acfdb";
