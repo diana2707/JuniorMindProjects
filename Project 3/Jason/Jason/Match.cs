@@ -2,7 +2,7 @@
 
 namespace Jason.Jason
 {
-    internal class Match
+    internal class Match : IMatch
     {
         readonly bool success;
         readonly string text;

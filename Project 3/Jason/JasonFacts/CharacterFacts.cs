@@ -1,3 +1,4 @@
+using Jason.Jason;
 using Xunit;
 
 namespace Jason.JasonFacts
@@ -9,7 +10,9 @@ namespace Jason.JasonFacts
         {
             Character pattern = new ('a');
             const string text = "abc";
-            Assert.True(pattern.Match(text));
+            Match match = new (text, true);
+
+            Assert.Equivalent(match, pattern.Match(text));
         }
 
         [Fact]
@@ -17,7 +20,9 @@ namespace Jason.JasonFacts
         {
             Character pattern = new ('a');
             const string text = "bc";
-            Assert.False(pattern.Match(text));
+            Match match = new (text, false);
+
+            Assert.Equivalent(match, pattern.Match(text));
         }
 
         [Fact]
@@ -25,7 +30,9 @@ namespace Jason.JasonFacts
         {
             Character pattern = new ('a');
             const string text = null;
-            Assert.False(pattern.Match(text));
+            Match match = new (text, false);
+
+            Assert.Equivalent(match, pattern.Match(text));
         }
 
         [Fact]
@@ -33,7 +40,9 @@ namespace Jason.JasonFacts
         {
             Character pattern = new ('a');
             const string text = "";
-            Assert.False(pattern.Match(text));
+            Match match = new (text, false);
+
+            Assert.Equivalent(match, pattern.Match(text));
         }
     }
 }

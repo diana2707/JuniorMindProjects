@@ -2,7 +2,7 @@
 
 namespace Jason.JasonFacts
 {
-    class Range : IPattern
+    class Range
     {
         readonly char start;
         readonly char end;
