@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using Jason.Jason;
+using Xunit;
 
 namespace Jason.JasonFacts
 {
@@ -9,7 +10,10 @@ namespace Jason.JasonFacts
         {
             Range digit = new ('a', 'f');
             const string? text = null;
-            Assert.False(digit.Match(text));
+
+            Match match = new (text, false);
+
+            Assert.Equivalent(match, digit.Match(text));
         }
 
         [Fact]
@@ -17,7 +21,10 @@ namespace Jason.JasonFacts
         {
             Range digit = new ('a', 'f');
             const string text = "";
-            Assert.False(digit.Match(text));
+
+            Match match = new (text, false);
+
+            Assert.Equivalent(match, digit.Match(text));
         }
 
         [Fact]
@@ -25,7 +32,9 @@ namespace Jason.JasonFacts
         {
             Range digit = new ('a', 'f');
             const string text = "1acfd";
-            Assert.False(digit.Match(text));
+            Match match = new (text, false);
+
+            Assert.Equivalent(match, digit.Match(text));
         }
 
         [Fact]
@@ -33,7 +42,9 @@ namespace Jason.JasonFacts
         {
             Range digit = new ('a', 'f');
             const string text = "acfdb";
-            Assert.True(digit.Match(text));
+            Match match = new (text, true);
+
+            Assert.Equivalent(match, digit.Match(text));
         }
     }
 }

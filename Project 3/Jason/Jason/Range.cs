@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Jason.Jason;
+using System;
 
 namespace Jason.JasonFacts
 {
-    class Range
+    class Range : IPattern
     {
         readonly char start;
         readonly char end;
@@ -13,19 +14,20 @@ namespace Jason.JasonFacts
             this.end = end;
         }
 
-        public bool Match(string text)
+        public IMatch Match(string text)
         {
+            bool success = true;
+
             if (string.IsNullOrEmpty(text))
             {
-                return false;
+                success = false;
             }
-
-            if (text[0] < start || text[0] > end)
+            else if (text[0] < start || text[0] > end)
             {
-                return false;
+                success = false;
             }
 
-            return true;
+            return new Match(text, success);
         }
     }
 }
