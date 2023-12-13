@@ -25,6 +25,5 @@ namespace Jason.JasonFacts
             Match match = new Match("abc", false);
             Assert.Equivalent("bc", match.RemainingText());
         }
-
     }
 }

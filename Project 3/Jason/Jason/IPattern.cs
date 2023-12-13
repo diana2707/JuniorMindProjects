@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Jason.Jason;
+using System;
 
 namespace Jason
 {
     internal interface IPattern
     {
-        bool Match(string text);
+        IMatch Match(string text);
     }
 }
