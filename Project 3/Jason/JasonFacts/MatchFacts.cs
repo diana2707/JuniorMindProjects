@@ -19,5 +19,12 @@ namespace Jason.JasonFacts
             Assert.False(match.Success());
         }
 
+        [Fact]
+        public void ShouldReturnRemainingText()
+        {
+            Match match = new Match("abc", false);
+            Assert.Equivalent("bc", match.RemainingText());
+        }
+
     }
 }

@@ -17,5 +17,11 @@ namespace Jason.Jason
         {
             return success;
         }
+
+        public string RemainingText()
+        {
+            return text.Substring(1);
+        }
+
     }
 }
