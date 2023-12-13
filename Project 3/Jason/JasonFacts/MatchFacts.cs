@@ -11,5 +11,13 @@ namespace Jason.JasonFacts
             Match match = new Match("abc", true);
             Assert.True(match.Success());
         }
+
+        [Fact]
+        public void ShouldReturnFalseWhenSuccessIsFalse()
+        {
+            Match match = new Match("abc", false);
+            Assert.False(match.Success());
+        }
+
     }
 }
