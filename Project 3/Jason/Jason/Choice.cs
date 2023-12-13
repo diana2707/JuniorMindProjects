@@ -15,7 +15,7 @@ namespace Jason
         {
             foreach (var pattern in patterns)
             {
-                if (pattern.Match(text))
+                if (pattern.Match(text).Success())
                 {
                     return true;
                 }
