@@ -15,17 +15,17 @@ namespace Jason.JasonFacts
 
         public bool Match(string text)
         {
-           if (string.IsNullOrEmpty(text))
+            if (string.IsNullOrEmpty(text))
             {
                 return false;
             }
 
-           if (text[0] < start || text[0] > end)
+            if (text[0] < start || text[0] > end)
             {
                 return false;
             }
 
-           return true;
+            return true;
         }
     }
 }
