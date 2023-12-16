@@ -19,7 +19,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnFalseAndRemainingTextWhenTheMatchIsInvalid()
+        public void ShouldReturnFalseAndRemainingTextWhenTheMatchIsPartiallyInvalid()
         {
             var ab = new Sequence(
                 new Character('a'),
@@ -31,5 +31,30 @@ namespace Jason.JasonFacts
             Assert.Equal("ax", ab.Match(text).RemainingText());
         }
 
+        [Fact]
+        public void ShouldReturnFalseAndRemainingTextWhentheTextIsInvalid()
+        {
+            var ab = new Sequence(
+                new Character('a'),
+                new Character('b'));
+
+            const string text = "def";
+
+            Assert.False(ab.Match(text).Success());
+            Assert.Equal("def", ab.Match(text).RemainingText());
+        }
+
+        [Fact]
+        public void ShouldReturnFalseWhenTheTextIsNull()
+        {
+            var ab = new Sequence(
+                new Character('a'),
+                new Character('b'));
+
+            const string text = null;
+
+            Assert.False(ab.Match(text).Success());
+            Assert.Equal(text, ab.Match(text).RemainingText());
+        }
     }
 }
