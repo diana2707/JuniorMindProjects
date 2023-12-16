@@ -13,21 +13,19 @@ namespace Jason.Jason
 
         public IMatch Match(string text)
         {
-            bool success = true;
-
+            IPattern pattern = patterns[0];
+            string remainingText = text;
             for (int i = 0; i < patterns.Length; i++)
             {
-                if (!patterns[i].Match(text).Success())
+                if (i == patterns.Length - 1 && patterns[i].Match(remainingText).Success())
                 {
-                    success = false;
+                    return patterns[i].Match(remainingText);
                 }
-                else if (i < patterns.Length - 1)
-                {
-                    text = patterns[i].Match(text).RemainingText();
-                }
+
+                remainingText = patterns[i].Match(remainingText).Success() ? patterns[i].Match(text).RemainingText() : text;
             }
 
-            return new Match(text, success);
+            return pattern.Match(remainingText);
         }
     }
 }
