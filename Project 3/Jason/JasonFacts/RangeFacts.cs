@@ -9,11 +9,10 @@ namespace Jason.JasonFacts
         public void MatchShouldReturnFalseWhenStringIsNull()
         {
             Range digit = new ('a', 'f');
-            const string? text = null;
+            const string? text = "";
 
-            Match match = new (text, false);
-
-            Assert.Equivalent(match, digit.Match(text));
+            Assert.False(digit.Match(text).Success());
+            Assert.Equal("", digit.Match(text).RemainingText());
         }
 
         [Fact]
@@ -24,7 +23,8 @@ namespace Jason.JasonFacts
 
             Match match = new (text, false);
 
-            Assert.Equivalent(match, digit.Match(text));
+            Assert.False(digit.Match(text).Success());
+            Assert.Equal(text, digit.Match(text).RemainingText());
         }
 
         [Fact]
@@ -34,7 +34,8 @@ namespace Jason.JasonFacts
             const string text = "1acfd";
             Match match = new (text, false);
 
-            Assert.Equivalent(match, digit.Match(text));
+            Assert.False(digit.Match(text).Success());
+            Assert.Equal(text, digit.Match(text).RemainingText());
         }
 
         [Fact]
@@ -44,7 +45,8 @@ namespace Jason.JasonFacts
             const string text = "acfdb";
             Match match = new (text, true);
 
-            Assert.Equivalent(match, digit.Match(text));
+            Assert.True(digit.Match(text).Success());
+            Assert.Equal("cfdb", digit.Match(text).RemainingText());
         }
     }
 }

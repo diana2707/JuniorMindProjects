@@ -22,8 +22,8 @@ namespace Jason.JasonFacts
         [Fact]
         public void ShouldReturnRemainingText()
         {
-            Match match = new Match("abc", false);
-            Assert.Equivalent("bc", match.RemainingText());
+            Match match = new Match("abc", true);
+            Assert.Equal("bc", match.RemainingText());
         }
     }
 }

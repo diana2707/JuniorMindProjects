@@ -12,7 +12,8 @@ namespace Jason.JasonFacts
             const string text = "abc";
             Match match = new (text, true);
 
-            Assert.Equivalent(match, pattern.Match(text));
+            Assert.True(pattern.Match(text).Success());
+            Assert.Equal("bc", pattern.Match(text).RemainingText());
         }
 
         [Fact]
@@ -22,7 +23,8 @@ namespace Jason.JasonFacts
             const string text = "bc";
             Match match = new (text, false);
 
-            Assert.Equivalent(match, pattern.Match(text));
+            Assert.False(pattern.Match(text).Success());
+            Assert.Equal("bc", pattern.Match(text).RemainingText());
         }
 
         [Fact]
@@ -32,7 +34,8 @@ namespace Jason.JasonFacts
             const string text = null;
             Match match = new (text, false);
 
-            Assert.Equivalent(match, pattern.Match(text));
+            Assert.False(pattern.Match(text).Success());
+            Assert.Equal(text, pattern.Match(text).RemainingText());
         }
 
         [Fact]
@@ -42,7 +45,8 @@ namespace Jason.JasonFacts
             const string text = "";
             Match match = new (text, false);
 
-            Assert.Equivalent(match, pattern.Match(text));
+            Assert.False(pattern.Match(text).Success());
+            Assert.Equal(text, pattern.Match(text).RemainingText());
         }
     }
 }

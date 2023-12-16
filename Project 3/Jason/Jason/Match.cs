@@ -20,8 +20,12 @@ namespace Jason.Jason
 
         public string RemainingText()
         {
+            if (!success)
+            {
+                return text;
+            }
+
             return text.Substring(1);
         }
-
     }
 }
