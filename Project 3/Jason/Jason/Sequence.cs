@@ -17,12 +17,22 @@ namespace Jason.Jason
             string remainingText = text;
             for (int i = 0; i < patterns.Length; i++)
             {
-                if (i == patterns.Length - 1 && patterns[i].Match(remainingText).Success())
+                bool success = patterns[i].Match(remainingText).Success();
+                if (i == patterns.Length - 1 && success)
                 {
                     return patterns[i].Match(remainingText);
                 }
 
-                remainingText = patterns[i].Match(remainingText).Success() ? patterns[i].Match(text).RemainingText() : text;
+                if (success)
+                {
+                    remainingText = patterns[i].Match(text).RemainingText();
+                }
+                else
+                {
+                    remainingText = text;
+                    pattern = patterns[i];
+                    break;
+                }
             }
 
             return pattern.Match(remainingText);
