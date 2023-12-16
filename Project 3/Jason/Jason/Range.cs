@@ -16,9 +16,9 @@ namespace Jason.JasonFacts
 
         public IMatch Match(string text)
         {
-            bool success = true;
+            /*bool success = true;
 
-            /*if (string.IsNullOrEmpty(text))
+            if (string.IsNullOrEmpty(text))
             {
                 success = false;
             }
@@ -27,7 +27,7 @@ namespace Jason.JasonFacts
                 success = false;
             }*/
 
-            return new Match(text, success);
+            return new Match(text, start, end);
         }
     }
 }
