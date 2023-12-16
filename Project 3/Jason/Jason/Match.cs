@@ -4,23 +4,34 @@ namespace Jason.Jason
 {
     internal class Match : IMatch
     {
-        readonly bool success;
         readonly string text;
+        readonly char start;
+        readonly char end;
 
-        public Match(string text, bool success)
+        public Match(string text, char start, char end)
         {
             this.text = text;
-            this.success = success;
+            this.start = start;
+            this.end = end;
         }
 
         public bool Success()
         {
-            return success;
+            if (string.IsNullOrEmpty(text))
+            {
+                return false;
+            }
+            else if (text[0] < start || text[0] > end)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public string RemainingText()
         {
-            if (!success)
+            if (!Success())
             {
                 return text;
             }

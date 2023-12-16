@@ -18,14 +18,14 @@ namespace Jason.JasonFacts
         {
             bool success = true;
 
-            if (string.IsNullOrEmpty(text))
+            /*if (string.IsNullOrEmpty(text))
             {
                 success = false;
             }
             else if (text[0] < start || text[0] > end)
             {
                 success = false;
-            }
+            }*/
 
             return new Match(text, success);
         }
