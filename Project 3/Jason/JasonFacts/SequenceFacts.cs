@@ -32,7 +32,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnFalseAndRemainingTextWhentheTextIsInvalid()
+        public void ShouldReturnFalseAndRemainingTextWhenTheStringIsInvalid()
         {
             var ab = new Sequence(
                 new Character('a'),
@@ -45,13 +45,26 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnFalseWhenTheTextIsNull()
+        public void ShouldReturnFalseWhenTheStringIsNull()
         {
             var ab = new Sequence(
                 new Character('a'),
                 new Character('b'));
 
             const string text = null;
+
+            Assert.False(ab.Match(text).Success());
+            Assert.Equal(text, ab.Match(text).RemainingText());
+        }
+
+        [Fact]
+        public void ShouldReturnFalseWhenTheStringIsEmpty()
+        {
+            var ab = new Sequence(
+                new Character('a'),
+                new Character('b'));
+
+            const string text = "";
 
             Assert.False(ab.Match(text).Success());
             Assert.Equal(text, ab.Match(text).RemainingText());
