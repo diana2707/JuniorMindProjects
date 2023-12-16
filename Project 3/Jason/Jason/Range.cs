@@ -16,17 +16,6 @@ namespace Jason.JasonFacts
 
         public IMatch Match(string text)
         {
-            /*bool success = true;
-
-            if (string.IsNullOrEmpty(text))
-            {
-                success = false;
-            }
-            else if (text[0] < start || text[0] > end)
-            {
-                success = false;
-            }*/
-
             return new Match(text, start, end);
         }
     }

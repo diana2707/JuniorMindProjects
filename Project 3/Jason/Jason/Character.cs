@@ -14,17 +14,7 @@ namespace Jason
 
         public IMatch Match(string text)
         {
-            bool success = true;
-            if (string.IsNullOrEmpty(text))
-            {
-                success = false;
-            }
-            else if (text[0] != pattern)
-            {
-                success = false;
-            }
-
-            return new Match(text, success);
+            return new Match(text, pattern, pattern);
         }
     }
 }

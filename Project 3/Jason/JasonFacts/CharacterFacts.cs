@@ -10,7 +10,6 @@ namespace Jason.JasonFacts
         {
             Character pattern = new ('a');
             const string text = "abc";
-            Match match = new (text, true);
 
             Assert.True(pattern.Match(text).Success());
             Assert.Equal("bc", pattern.Match(text).RemainingText());
@@ -21,7 +20,6 @@ namespace Jason.JasonFacts
         {
             Character pattern = new ('a');
             const string text = "bc";
-            Match match = new (text, false);
 
             Assert.False(pattern.Match(text).Success());
             Assert.Equal("bc", pattern.Match(text).RemainingText());
@@ -32,7 +30,6 @@ namespace Jason.JasonFacts
         {
             Character pattern = new ('a');
             const string text = null;
-            Match match = new (text, false);
 
             Assert.False(pattern.Match(text).Success());
             Assert.Equal(text, pattern.Match(text).RemainingText());
@@ -43,7 +40,6 @@ namespace Jason.JasonFacts
         {
             Character pattern = new ('a');
             const string text = "";
-            Match match = new (text, false);
 
             Assert.False(pattern.Match(text).Success());
             Assert.Equal(text, pattern.Match(text).RemainingText());
