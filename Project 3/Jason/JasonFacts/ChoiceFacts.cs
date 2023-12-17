@@ -57,14 +57,17 @@ namespace Jason.JasonFacts
             Assert.Equal(text, digit.Match(text).RemainingText());
         }
 
-        /*[Fact]
+        [Fact]
         public void ShouldReturnFalseWhenStringIsEmpty()
         {
             var digit = new Choice(
                     new Character('0'),
                     new Range('1', '9'));
 
-            Assert.False(digit.Match(""));
-        }*/
+            const string text = "";
+
+            Assert.False(digit.Match(text).Success());
+            Assert.Equal(text, digit.Match(text).RemainingText());
+        }
     }
 }
