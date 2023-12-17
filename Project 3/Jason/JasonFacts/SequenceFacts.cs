@@ -71,7 +71,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueWhenSequenceContainsSequenceAndMatchIsValid()
+        public void ShouldReturnTrueWhenSequenceContainsASequenceAndMatchIsValid()
         {
             var ab = new Sequence(
                 new Character('a'),
@@ -88,7 +88,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnFalseWhenSequenceContainsSequenceAndMatchIsInvalid()
+        public void ShouldReturnFalseWhenSequenceContainsASequenceAndMatchIsInvalid()
         {
             var ab = new Sequence(
                 new Character('a'),
@@ -105,7 +105,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnFalseWhenSequenceContainsSequenceAndMatchIsPartiallyInvalid()
+        public void ShouldReturnFalseWhenSequenceContainsASequenceAndMatchIsPartiallyInvalid()
         {
             var ab = new Sequence(
                 new Character('a'),
@@ -119,6 +119,23 @@ namespace Jason.JasonFacts
 
             Assert.False(abc.Match(text).Success());
             Assert.Equal("abf", abc.Match(text).RemainingText());
+        }
+
+        [Fact]
+        public void ShouldReturnFalseWhenSequenceContainsASequenceAndStringIsNull()
+        {
+            var ab = new Sequence(
+                new Character('a'),
+                new Character('b'));
+
+            var abc = new Sequence(
+                ab,
+                new Character('c'));
+
+            const string text = null;
+
+            Assert.False(abc.Match(text).Success());
+            Assert.Equal(text, abc.Match(text).RemainingText());
         }
     }
 }
