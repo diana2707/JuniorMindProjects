@@ -12,8 +12,10 @@ namespace Jason.JasonFacts
                     new Character('0'),
                     new Range('1', '9'));
 
-            Assert.True(digit.Match("012").Success());
-            Assert.Equal("12", digit.Match("012").RemainingText());
+            const string text = "012";
+
+            Assert.True(digit.Match(text).Success());
+            Assert.Equal("12", digit.Match(text).RemainingText());
         }
 
         [Fact]
@@ -23,8 +25,10 @@ namespace Jason.JasonFacts
                     new Character('0'),
                     new Range('1', '9'));
 
-            Assert.True(digit.Match("92").Success());
-            Assert.Equal("2", digit.Match("92").RemainingText());
+            const string text = "92";
+
+            Assert.True(digit.Match(text).Success());
+            Assert.Equal("2", digit.Match(text).RemainingText());
         }
 
         [Fact]
@@ -34,21 +38,26 @@ namespace Jason.JasonFacts
                     new Character('0'),
                     new Range('1', '9'));
 
-            Assert.False(digit.Match("a34").Success());
-            Assert.Equal("a34", digit.Match("a34").RemainingText());
+            const string text = "a34";
+
+            Assert.False(digit.Match(text).Success());
+            Assert.Equal(text, digit.Match(text).RemainingText());
         }
 
-        /*[Fact]
+        [Fact]
         public void ShouldReturnFalseWhenStringIsNull()
         {
             var digit = new Choice(
                     new Character('0'),
                     new Range('1', '9'));
 
-            Assert.False(digit.Match(null));
+            const string text = null;
+
+            Assert.False(digit.Match(null).Success());
+            Assert.Equal(text, digit.Match(text).RemainingText());
         }
 
-        [Fact]
+        /*[Fact]
         public void ShouldReturnFalseWhenStringIsEmpty()
         {
             var digit = new Choice(
