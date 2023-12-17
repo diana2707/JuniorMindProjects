@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Jason
+namespace Jason.Jason
 {
     internal class Choice
     {
@@ -11,17 +11,18 @@ namespace Jason
             this.patterns = patterns;
         }
 
-        public bool Match(string text)
+        public IMatch Match(string text)
         {
+            IPattern invalidPattern = patterns[0];
             foreach (var pattern in patterns)
             {
                 if (pattern.Match(text).Success())
                 {
-                    return true;
+                    return pattern.Match(text);
                 }
             }
 
-            return false;
+            return invalidPattern.Match(text);
         }
     }
 }
