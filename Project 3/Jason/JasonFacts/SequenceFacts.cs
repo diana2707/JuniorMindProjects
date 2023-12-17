@@ -155,7 +155,7 @@ namespace Jason.JasonFacts
             Assert.Equal(text, abc.Match(text).RemainingText());
         }
 
-        /*[Fact]
+        [Fact]
         public void ShouldReturnTrueWhenSequenceContainsAChoiceAndMatchIsValid()
         {
             var hex = new Choice(
@@ -177,6 +177,5 @@ namespace Jason.JasonFacts
             Assert.False(abc.Match(text).Success());
             Assert.Equal(text, abc.Match(text).RemainingText());
         }
-        */
     }
 }

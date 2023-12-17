@@ -2,7 +2,7 @@
 
 namespace Jason.Jason
 {
-    internal class Choice
+    internal class Choice : IPattern
     {
         readonly IPattern[] patterns;
 
