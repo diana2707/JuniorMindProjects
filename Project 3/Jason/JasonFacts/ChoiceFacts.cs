@@ -27,17 +27,18 @@ namespace Jason.JasonFacts
             Assert.Equal("2", digit.Match("92").RemainingText());
         }
 
-        /*[Fact]
+        [Fact]
         public void ShouldReturnFalseWhenStringContainsLetters()
         {
             var digit = new Choice(
                     new Character('0'),
                     new Range('1', '9'));
 
-            Assert.False(digit.Match("a34"));
+            Assert.False(digit.Match("a34").Success());
+            Assert.Equal("a34", digit.Match("a34").RemainingText());
         }
 
-        [Fact]
+        /*[Fact]
         public void ShouldReturnFalseWhenStringIsNull()
         {
             var digit = new Choice(
