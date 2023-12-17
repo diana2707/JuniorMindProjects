@@ -16,18 +16,18 @@ namespace Jason.JasonFacts
             Assert.Equal("12", digit.Match("012").RemainingText());
         }
 
-        /*[Fact]
+        [Fact]
         public void ShouldReturnTrueWhenStringRanges1To9()
         {
             var digit = new Choice(
                     new Character('0'),
                     new Range('1', '9'));
 
-            Assert.True(digit.Match("92"));
-            Assert.True(digit.Match("2378"));
+            Assert.True(digit.Match("92").Success());
+            Assert.Equal("2", digit.Match("92").RemainingText());
         }
 
-        [Fact]
+        /*[Fact]
         public void ShouldReturnFalseWhenStringContainsLetters()
         {
             var digit = new Choice(
