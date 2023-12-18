@@ -266,5 +266,27 @@ namespace Jason.JasonFacts
             Assert.False(hexSeq.Match(text).Success());
             Assert.Equal(text, hexSeq.Match(text).RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnFalseAndWholeTextWhenStringIsEmpty()
+        {
+            var hex = new Choice(
+                new Range('0', '9'),
+                new Range('a', 'f'),
+                new Range('A', 'F'));
+
+            var hexSeq = new Sequence(
+                new Character('u'),
+                new Sequence(
+                    hex,
+                    hex,
+                    hex,
+                    hex));
+
+            const string text = "";
+
+            Assert.False(hexSeq.Match(text).Success());
+            Assert.Equal(text, hexSeq.Match(text).RemainingText());
+        }
     }
 }
