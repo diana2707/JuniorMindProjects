@@ -200,5 +200,49 @@ namespace Jason.JasonFacts
             Assert.True(hexSeq.Match(text).Success());
             Assert.Equal("ef", hexSeq.Match(text).RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnTrueAndRemainingTextWhenSequenceContainsAChoiceAndStringContainsSpace()
+        {
+            var hex = new Choice(
+                new Range('0', '9'),
+                new Range('a', 'f'),
+                new Range('A', 'F'));
+
+            var hexSeq = new Sequence(
+                new Character('u'),
+                new Sequence(
+                    hex,
+                    hex,
+                    hex,
+                    hex));
+
+            const string text = "uB005 ab";
+
+            Assert.True(hexSeq.Match(text).Success());
+            Assert.Equal(" ab", hexSeq.Match(text).RemainingText());
+        }
+
+        [Fact]
+        public void ShouldReturnFalseAndWholeTextWhenMatchIsInvalid()
+        {
+            var hex = new Choice(
+                new Range('0', '9'),
+                new Range('a', 'f'),
+                new Range('A', 'F'));
+
+            var hexSeq = new Sequence(
+                new Character('u'),
+                new Sequence(
+                    hex,
+                    hex,
+                    hex,
+                    hex));
+
+            const string text = "abc";
+
+            Assert.False(hexSeq.Match(text).Success());
+            Assert.Equal(text, hexSeq.Match(text).RemainingText());
+        }
     }
 }
