@@ -25,7 +25,7 @@ namespace Jason.Jason
 
                 if (success)
                 {
-                    remainingText = patterns[i].Match(text).RemainingText();
+                    remainingText = patterns[i].Match(remainingText).RemainingText();
                 }
                 else
                 {

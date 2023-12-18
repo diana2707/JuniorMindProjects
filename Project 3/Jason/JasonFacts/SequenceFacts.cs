@@ -75,13 +75,15 @@ namespace Jason.JasonFacts
         {
             var ab = new Sequence(
                 new Character('a'),
-                new Character('b'));
+                new Character('b'),
+                new Character('c'),
+                new Character('d'));
 
             var abc = new Sequence(
                 ab,
                 new Character('c'));
 
-            const string text = "abcd";
+            const string text = "abcdcd";
 
             Assert.True(abc.Match(text).Success());
             Assert.Equal("d", abc.Match(text).RemainingText());
@@ -169,13 +171,12 @@ namespace Jason.JasonFacts
                     hex,
                     hex,
                     hex,
-                    hex
-                )
+                    hex));
 
-            const string text = "";
+            const string text = "u1234";
 
-            Assert.False(abc.Match(text).Success());
-            Assert.Equal(text, abc.Match(text).RemainingText());
+            Assert.True(hexSeq.Match(text).Success());
+            Assert.Equal("", hexSeq.Match(text).RemainingText());
         }
     }
 }
