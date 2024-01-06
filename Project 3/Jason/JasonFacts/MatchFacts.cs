@@ -12,18 +12,18 @@ namespace Jason.JasonFacts
             Assert.True(match.Success());
         }
 
-        /*[Fact]
+        [Fact]
         public void ShouldReturnFalseWhenSuccessIsFalse()
         {
-            Match match = new Match("abc", false);
+            Match match = new Match("abc", 'b', 'b');
             Assert.False(match.Success());
         }
 
         [Fact]
         public void ShouldReturnRemainingText()
         {
-            Match match = new Match("abc", true);
+            Match match = new Match("abc", 'a', 'a');
             Assert.Equal("bc", match.RemainingText());
-        }*/
+        }
     }
 }
