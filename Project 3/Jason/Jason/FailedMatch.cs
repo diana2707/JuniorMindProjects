@@ -2,41 +2,17 @@
 
 namespace Jason.Jason
 {
-    internal class Match : IMatch
+    class FailedMatch : IMatch
     {
         readonly string text;
-        readonly char start;
-        readonly char end;
 
-        public Match(string text, char start, char end)
+        public FailedMatch(string text)
         {
             this.text = text;
-            this.start = start;
-            this.end = end;
         }
 
-        public bool Success()
-        {
-            if (string.IsNullOrEmpty(text))
-            {
-                return false;
-            }
-            else if (text[0] < start || text[0] > end)
-            {
-                return false;
-            }
+        public bool Success() => false;
 
-            return true;
-        }
-
-        public string RemainingText()
-        {
-            if (!Success())
-            {
-                return text;
-            }
-
-            return text.Substring(1);
-        }
+        public string RemainingText() => text;
     }
 }
