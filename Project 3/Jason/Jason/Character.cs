@@ -19,8 +19,7 @@ namespace Jason
             {
                 success = false;
             }
-
-            if (text[0] != pattern)
+            else if (text[0] != pattern)
             {
                 success = false;
             }
@@ -72,4 +71,3 @@ namespace Jason
 
         return text.Substring(1);
     }*/
-

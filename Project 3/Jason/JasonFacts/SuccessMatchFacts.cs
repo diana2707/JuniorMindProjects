@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Jason.JasonFacts
 {
-    public class MatchFacts
+    public class SuccessMatch
     {
         [Fact]
         public void ShouldReturnTrueWhenSuccessIsTrue()
