@@ -3,27 +3,14 @@ using Xunit;
 
 namespace Jason.JasonFacts
 {
-    public class SuccessMatch
+    public class SuccessMatchFacts
     {
         [Fact]
-        public void ShouldReturnTrueWhenSuccessIsTrue()
+        public void ShouldReturnTrueAndRemainingText()
         {
-            Match match = new Match("abc", 'a', 'a');
+            SuccessMatch match = new SuccessMatch("abc");
             Assert.True(match.Success());
-        }
-
-        [Fact]
-        public void ShouldReturnFalseWhenSuccessIsFalse()
-        {
-            Match match = new Match("abc", 'b', 'b');
-            Assert.False(match.Success());
-        }
-
-        [Fact]
-        public void ShouldReturnRemainingText()
-        {
-            Match match = new Match("abc", 'a', 'a');
-            Assert.Equal("bc", match.RemainingText());
+            Assert.Equal("abc", match.RemainingText());
         }
     }
 }

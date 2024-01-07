@@ -3,27 +3,30 @@ using Xunit;
 
 namespace Jason.JasonFacts
 {
-    public class FailedMatch
+    public class FailedMatchFacts
     {
         [Fact]
-        public void ShouldReturnFalse()
+        public void ShouldReturnFalseAndRemainingText()
         {
-            FailedMatch match = new FailedMatch("ab");
-            Assert.Equal("ab", match.RemainingText());
-        }
-
-        [Fact]
-        public void ShouldReturnFalseWhenSuccessIsFalse()
-        {
-            Match match = new Match("abc", 'b', 'b');
+            FailedMatch match = new FailedMatch("abc");
             Assert.False(match.Success());
+            Assert.Equal("abc", match.RemainingText());
         }
 
         [Fact]
-        public void ShouldReturnRemainingText()
+        public void ShouldReturnFalseAndEmptyString()
         {
-            Match match = new Match("abc", 'a', 'a');
-            Assert.Equal("bc", match.RemainingText());
+            FailedMatch match = new FailedMatch("");
+            Assert.False(match.Success());
+            Assert.Equal("", match.RemainingText());
+        }
+
+        [Fact]
+        public void ShouldReturnFalseAndNull()
+        {
+            FailedMatch match = new FailedMatch(null);
+            Assert.False(match.Success());
+            Assert.Null(match.RemainingText());
         }
     }
 }
