@@ -13,14 +13,7 @@ namespace Jason
 
         public IMatch Match(string text)
         {
-            bool success = !string.IsNullOrEmpty(text) && text[0] == pattern;
-
-            if (!success)
-            {
-                return new FailedMatch(text);
-            }
-
-            return new SuccessMatch(text.Substring(1));
+            return !string.IsNullOrEmpty(text) && text[0] == pattern ? new SuccessMatch(text.Substring(1)) : new FailedMatch(text);
         }
     }
 }

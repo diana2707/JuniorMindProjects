@@ -16,13 +16,6 @@ namespace Jason
         public IMatch Match(string text)
         {
             return !string.IsNullOrEmpty(text) && (text[0] >= start && text[0] <= end) ? new SuccessMatch(text.Substring(1)) : new FailedMatch(text);
-
-          /*  if (!success)
-            {
-                return new FailedMatch(text);
-            }
-
-            return new SuccessMatch(text.Substring(1));*/
         }
     }
 }
