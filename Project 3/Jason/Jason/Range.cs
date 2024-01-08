@@ -16,7 +16,6 @@ namespace Jason
         public IMatch Match(string text)
         {
             bool success = true;
-
             if (string.IsNullOrEmpty(text))
             {
                 success = false;

@@ -13,16 +13,16 @@ namespace Jason
 
         public IMatch Match(string text)
         {
-            bool success = true;
+            bool success = !string.IsNullOrEmpty(text) && text[0] == pattern;
 
-            if (string.IsNullOrEmpty(text))
+           /* if (string.IsNullOrEmpty(text))
             {
                 success = false;
             }
             else if (text[0] != pattern)
             {
                 success = false;
-            }
+            }*/
 
             if (!success)
             {
