@@ -1,0 +1,16 @@
+﻿using Jason.Jason;
+using Xunit;
+
+namespace Jason.JasonFacts
+{
+    public class TextFacts
+    {
+        [Fact]
+        public void ShouldReturnTrueAndEmptyStringWhenTextIsTheSameAsPrefix()
+        {
+            var trueText = new Text("true");
+            Assert.True(trueText.Match("true").Success());
+            Assert.Equal("", trueText.Match("true").RemainingText());
+        }
+    }
+}
