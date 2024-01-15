@@ -13,7 +13,16 @@ namespace Jason.Jason
 
         public IMatch Match(string text)
         {
-            return new SuccessMatch(text);
+            string remainingText = text;
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (pattern.Match(remainingText).Success())
+                {
+                    remainingText = pattern.Match(remainingText).RemainingText();
+                }
+            }
+
+            return new SuccessMatch(remainingText);
         }
     }
 }
