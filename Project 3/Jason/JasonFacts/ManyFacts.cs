@@ -6,7 +6,7 @@ namespace Jason.JasonFacts
     public class ManyFacts
     {
         [Fact]
-        public void ShouldReturnTrueAndRemainingTextWhenPatternMatchesOnce()
+        public void ShouldReturnTrueAndRemainingTextWhenPatternIsCharacterAndMatchesOnce()
         {
             var a = new Many(new Character('a'));
             Assert.True(a.Match("abc").Success());
@@ -14,7 +14,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAndRemainingTextWhenPatternMatchesMultipleTimes()
+        public void ShouldReturnTrueAndRemainingTextWhenPatternIsCharacterAndMatchesMultipleTimes()
         {
             var a = new Many(new Character('a'));
             Assert.True(a.Match("aaabc").Success());
@@ -22,7 +22,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAndWholeTextWhenPatternDoNotMatch()
+        public void ShouldReturnTrueAndWholeTextWhenPatternIsCharacterAndDoesNotMatch()
         {
             var a = new Many(new Character('a'));
             Assert.True(a.Match("bc").Success());
@@ -30,7 +30,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAndEmptyStringWhenTheTextIsEmptyString()
+        public void ShouldReturnTrueAndEmptyStringWhenPatternIsCharacterTheTextIsEmptyString()
         {
             var a = new Many(new Character('a'));
             Assert.True(a.Match("").Success());
@@ -38,11 +38,19 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAndNullWhenTheTextIsNull()
+        public void ShouldReturnTrueAndNullWhenPatternIsCharacterTheTextIsNull()
         {
             var a = new Many(new Character('a'));
             Assert.True(a.Match(null).Success());
             Assert.Null(a.Match(null).RemainingText());
+        }
+
+        [Fact]
+        public void ShouldReturnTrueAndNullWhenPatternIsRangeAndMatchesMultipleTimes()
+        {
+            var digits = new Many(new Range('0', '9'));
+            Assert.True(digits.Match("12345ab123").Success());
+            Assert.Equal("ab123", digits.Match("12345ab123").RemainingText());
         }
     }
 }
