@@ -46,11 +46,19 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAndNullWhenPatternIsRangeAndMatchesMultipleTimes()
+        public void ShouldReturnTrueAndRemainingTextWhenPatternIsRangeAndMatchesMultipleTimes()
         {
             var digits = new Many(new Range('0', '9'));
             Assert.True(digits.Match("12345ab123").Success());
             Assert.Equal("ab123", digits.Match("12345ab123").RemainingText());
+        }
+
+        [Fact]
+        public void ShouldReturnTrueAndWholeTextWhenPatternIsRangeAndDoesNotMatch()
+        {
+            var digits = new Many(new Range('0', '9'));
+            Assert.True(digits.Match("ab").Success());
+            Assert.Equal("ab", digits.Match("ab").RemainingText());
         }
     }
 }
