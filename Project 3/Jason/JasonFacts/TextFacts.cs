@@ -30,7 +30,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnFalseAndEmptyStringWhenTextIsEmptyString()
+        public void ShouldReturnFalseAndEmptyStringWhenStringIsEmptyString()
         {
             var trueText = new Text("true");
             Assert.False(trueText.Match("").Success());
@@ -45,5 +45,12 @@ namespace Jason.JasonFacts
             Assert.Null(trueText.Match(null).RemainingText());
         }
 
+        [Fact]
+        public void ShouldReturnTrueAndEmptyString()
+        {
+            var falseText = new Text("false");
+            Assert.True(falseText.Match("false").Success());
+            Assert.Equal("", falseText.Match("false").RemainingText());
+        }
     }
 }
