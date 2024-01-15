@@ -4,14 +4,14 @@ namespace Jason.Jason
 {
     internal class Text : IPattern
     {
-        readonly string text;
+        readonly string prefix;
 
-        public Text(string text)
+        public Text(string prefix)
         {
-            this.text = text;
+            this.prefix = prefix;
         }
 
-        public IMatch Match(string prefix)
+        public IMatch Match(string text)
         {
             string remainingText = text;
 

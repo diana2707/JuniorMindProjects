@@ -12,5 +12,13 @@ namespace Jason.JasonFacts
             Assert.True(trueText.Match("true").Success());
             Assert.Equal("", trueText.Match("true").RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnTrueAndRemainingTextWhenPrefixIsValid()
+        {
+            var trueText = new Text("true");
+            Assert.True(trueText.Match("trueX").Success());
+            Assert.Equal("X", trueText.Match("trueX").RemainingText());
+        }
     }
 }
