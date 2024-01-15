@@ -93,6 +93,12 @@ namespace Jason.JasonFacts
             Assert.Equal("true", empty.Match("true").RemainingText());
         }
 
-
+        [Fact]
+        public void ShouldReturnFalseAndNullWhenPrefixIsEmptyStringAndTextIsNull()
+        {
+            var empty = new Text("");
+            Assert.False(empty.Match(null).Success());
+            Assert.Null(empty.Match(null).RemainingText());
+        }
     }
 }
