@@ -18,7 +18,15 @@ namespace Jason.JasonFacts
         {
             var a = new Many(new Character('a'));
             Assert.True(a.Match("aaabc").Success());
-            Assert.Equal("bc", a.Match("abc").RemainingText());
+            Assert.Equal("bc", a.Match("aaabc").RemainingText());
+        }
+
+        [Fact]
+        public void ShouldReturnTrueAndWholeTextWhenPatternDoNotMatch()
+        {
+            var a = new Many(new Character('a'));
+            Assert.True(a.Match("bc").Success());
+            Assert.Equal("bc", a.Match("bc").RemainingText());
         }
     }
 }
