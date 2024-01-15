@@ -77,5 +77,14 @@ namespace Jason.JasonFacts
             Assert.Equal("", falseText.Match("").RemainingText());
         }
 
+        [Fact]
+        public void ShouldReturnFalseAndNull()
+        {
+            var falseText = new Text("false");
+            Assert.False(falseText.Match(null).Success());
+            Assert.Null(falseText.Match(null).RemainingText());
+        }
+
+
     }
 }
