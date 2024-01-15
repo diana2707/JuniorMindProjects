@@ -28,5 +28,13 @@ namespace Jason.JasonFacts
             Assert.False(trueText.Match("false").Success());
             Assert.Equal("false", trueText.Match("false").RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnFalseAndEmptyStringWhenTextIsEmptyString()
+        {
+            var trueText = new Text("true");
+            Assert.False(trueText.Match("").Success());
+            Assert.Equal("", trueText.Match("").RemainingText());
+        }
     }
 }
