@@ -13,6 +13,11 @@ namespace Jason.Jason
 
         public IMatch Match(string text)
         {
+            if (text == null)
+            {
+                return new SuccessMatch(text);
+            }
+
             string remainingText = text;
             for (int i = 0; i < text.Length; i++)
             {

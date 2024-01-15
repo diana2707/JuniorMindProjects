@@ -30,11 +30,19 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAndEmptyStringWhenTehTextIsEmptyString()
+        public void ShouldReturnTrueAndEmptyStringWhenTheTextIsEmptyString()
         {
             var a = new Many(new Character('a'));
             Assert.True(a.Match("").Success());
             Assert.Equal("", a.Match("").RemainingText());
+        }
+
+        [Fact]
+        public void ShouldReturnTrueAndNullWhenTheTextIsNull()
+        {
+            var a = new Many(new Character('a'));
+            Assert.True(a.Match(null).Success());
+            Assert.Null(a.Match(null).RemainingText());
         }
     }
 }
