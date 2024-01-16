@@ -13,7 +13,7 @@ namespace Jason.Jason
 
         public IMatch Match(string text)
         {
-            if (text == null)
+            if (string.IsNullOrEmpty(text))
             {
                 return new FailedMatch(text);
             }
@@ -22,7 +22,16 @@ namespace Jason.Jason
 
             for (int i = 0; i < prefix.Length; i++)
             {
-                var pattern = new Character(prefix[i]);
+                if (prefix[i] == remainingText[0])
+                {
+                    remainingText = remainingText.Substring(1);
+                }
+                else
+                {
+                    return new FailedMatch(text);
+                }
+
+                /*var pattern = new Character(prefix[i]);
                 if (pattern.Match(remainingText).Success())
                 {
                     remainingText = pattern.Match(remainingText).RemainingText();
@@ -30,7 +39,7 @@ namespace Jason.Jason
                 else
                 {
                     return new FailedMatch(text);
-                }
+                }*/
             }
 
             return new SuccessMatch(remainingText);
