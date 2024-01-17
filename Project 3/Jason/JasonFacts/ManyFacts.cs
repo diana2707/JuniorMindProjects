@@ -60,5 +60,29 @@ namespace Jason.JasonFacts
             Assert.True(digits.Match("ab").Success());
             Assert.Equal("ab", digits.Match("ab").RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnTrueAndRemainingTextWhenPatternIsPresentInTheRemainingText()
+        {
+            var a = new Many(new Character('a'));
+            Assert.True(a.Match("aaababa").Success());
+            Assert.Equal("baba", a.Match("aaababa").RemainingText());
+        }
+
+        [Fact]
+        public void ShouldReturnTrueAndWholeTextWhenPatternIsPresentInTheRemainingText()
+        {
+            var a = new Many(new Character('a'));
+            Assert.True(a.Match("baba").Success());
+            Assert.Equal("baba", a.Match("baba").RemainingText());
+        }
+
+        [Fact]
+        public void ShouldReturnTrueAndEmptyTextWhenEntirePatternIsConsumed()
+        {
+            var a = new Many(new Character('a'));
+            Assert.True(a.Match("aaaaa").Success());
+            Assert.Equal("", a.Match("aaaaa").RemainingText());
+        }
     }
 }

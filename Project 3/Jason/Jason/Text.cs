@@ -30,16 +30,6 @@ namespace Jason.Jason
                 {
                     return new FailedMatch(text);
                 }
-
-                /*var pattern = new Character(prefix[i]);
-                if (pattern.Match(remainingText).Success())
-                {
-                    remainingText = pattern.Match(remainingText).RemainingText();
-                }
-                else
-                {
-                    return new FailedMatch(text);
-                }*/
             }
 
             return new SuccessMatch(remainingText);

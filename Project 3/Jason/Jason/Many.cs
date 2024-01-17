@@ -25,6 +25,10 @@ namespace Jason.Jason
                 {
                     remainingText = pattern.Match(remainingText).RemainingText();
                 }
+                else
+                {
+                    break;
+                }
             }
 
             return new SuccessMatch(remainingText);
