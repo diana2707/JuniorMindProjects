@@ -109,5 +109,12 @@ namespace Jason.JasonFacts
             Assert.Equal("", a.Match("a1a2a3").RemainingText());
         }
 
+        [Fact]
+        public void ShouldReturnTrueAndRemainingTextWhenThePatternIsASequenceAndContainsARange()
+        {
+            var a = new Many(new Sequence(new Character('a'), new Range('0', '9')));
+            Assert.True(a.Match("a1a2a3xx").Success());
+            Assert.Equal("xx", a.Match("a1a2a3xx").RemainingText());
+        }
     }
 }
