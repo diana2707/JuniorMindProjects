@@ -143,8 +143,8 @@ namespace Jason.JasonFacts
                 new Character('@'),
                 new Range('a', 'f')));
 
-            Assert.True(a.Match("#5@dz").Success());
-            Assert.Equal("z", a.Match("#5@dz").RemainingText());
+            Assert.True(a.Match("#5@d#6@fz").Success());
+            Assert.Equal("z", a.Match("#5@d#6@fz").RemainingText());
         }
 
         [Fact]
@@ -173,6 +173,20 @@ namespace Jason.JasonFacts
 
             Assert.True(a.Match(null).Success());
             Assert.Null(a.Match(null).RemainingText());
+        }
+
+        [Fact]
+        public void ShouldReturnTrueAndWholeTextWhenThePatternIsASequenceAndTheMatchIsIncomplete()
+        {
+            var a = new Many(new Sequence(
+                new Choice(
+                    new Sequence(new Character('#'), new Range('1', '5')),
+                    new Sequence(new Character('#'), new Range('6', '9'))),
+                new Character('@'),
+                new Range('a', 'f')));
+
+            Assert.True(a.Match("#5dz").Success());
+            Assert.Equal("#5dz", a.Match("#5dz").RemainingText());
         }
     }
 }
