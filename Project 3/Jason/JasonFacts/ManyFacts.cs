@@ -147,5 +147,19 @@ namespace Jason.JasonFacts
             Assert.Equal("z", a.Match("#5@dz").RemainingText());
         }
 
+        [Fact]
+        public void ShouldReturnTrueAndEmptyStringWhenThePatterIsASequenceAndTheTextIsEmptyString()
+        {
+            var a = new Many(new Sequence(
+                new Choice(
+                    new Sequence(new Character('#'), new Range('1', '5')),
+                    new Sequence(new Character('#'), new Range('6', '9'))),
+                new Character('@'),
+                new Range('a', 'f')));
+
+            Assert.True(a.Match("").Success());
+            Assert.Equal("", a.Match("").RemainingText());
+        }
+
     }
 }
