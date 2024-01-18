@@ -188,5 +188,13 @@ namespace Jason.JasonFacts
             Assert.True(a.Match("#5dz").Success());
             Assert.Equal("#5dz", a.Match("#5dz").RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnTrueAndEmptyTextWhenThePatternIsAChoice()
+        {
+            var a = new Many(new Choice(new Character('a'), new Character('b')));
+            Assert.True(a.Match("abab").Success());
+            Assert.Equal("", a.Match("abab").RemainingText());
+        }
     }
 }
