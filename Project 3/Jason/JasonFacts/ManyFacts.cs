@@ -125,5 +125,13 @@ namespace Jason.JasonFacts
             Assert.Equal("xyz", a.Match("xyz").RemainingText());
         }
 
+        [Fact]
+        public void ShouldReturnTrueAndWholeTextWhenThePatternIsASequenceAndTheMatchIsPartial()
+        {
+            var a = new Many(new Sequence(new Character('a'), new Range('0', '9')));
+            Assert.True(a.Match("axyz").Success());
+            Assert.Equal("axyz", a.Match("axyz").RemainingText());
+        }
+
     }
 }
