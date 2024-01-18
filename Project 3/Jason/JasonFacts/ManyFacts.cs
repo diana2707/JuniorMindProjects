@@ -212,5 +212,13 @@ namespace Jason.JasonFacts
             Assert.True(a.Match("a12aa4y").Success());
             Assert.Equal("y", a.Match("a12aa4y").RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnTrueAndWholeTextWhenThePatternIsAChoiceAndTheMatchIsInvalid()
+        {
+            var a = new Many(new Choice(new Character('a'), new Range('1', '5')));
+            Assert.True(a.Match("za12aa4y").Success());
+            Assert.Equal("za12aa4y", a.Match("za12aa4y").RemainingText());
+        }
     }
 }
