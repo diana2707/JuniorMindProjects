@@ -134,7 +134,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAndRemainingTextWhenThePatterIsASequenceAndContainsCharactersRangeChoice()
+        public void ShouldReturnTrueAndRemainingTextWhenThePatternIsASequenceAndContainsCharactersRangeChoice()
         {
             var a = new Many(new Sequence(
                 new Choice(
@@ -148,7 +148,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAndEmptyStringWhenThePatterIsASequenceAndTheTextIsEmptyString()
+        public void ShouldReturnTrueAndEmptyStringWhenThePatternIsASequenceAndTheTextIsEmptyString()
         {
             var a = new Many(new Sequence(
                 new Choice(
@@ -161,5 +161,18 @@ namespace Jason.JasonFacts
             Assert.Equal("", a.Match("").RemainingText());
         }
 
+        [Fact]
+        public void ShouldReturnTrueAndEmptyStringWhenThePatternIsASequenceAndTheTextIsNull()
+        {
+            var a = new Many(new Sequence(
+                new Choice(
+                    new Sequence(new Character('#'), new Range('1', '5')),
+                    new Sequence(new Character('#'), new Range('6', '9'))),
+                new Character('@'),
+                new Range('a', 'f')));
+
+            Assert.True(a.Match(null).Success());
+            Assert.Null(a.Match(null).RemainingText());
+        }
     }
 }
