@@ -22,7 +22,7 @@ namespace Jason.Jason
 
             for (int i = 0; i < prefix.Length; i++)
             {
-                if (prefix[i] == remainingText[0])
+                if (remainingText.StartsWith(prefix[i]))
                 {
                     remainingText = remainingText.Substring(1);
                 }
