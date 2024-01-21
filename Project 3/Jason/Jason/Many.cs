@@ -13,25 +13,12 @@ namespace Jason.Jason
 
         public IMatch Match(string text)
         {
-            if (text == null)
+            if (!pattern.Match(text).Success())
             {
                 return new SuccessMatch(text);
             }
 
-            string remainingText = text;
-            for (int i = 0; i < text.Length; i++)
-            {
-                if (pattern.Match(remainingText).Success())
-                {
-                    remainingText = pattern.Match(remainingText).RemainingText();
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            return new SuccessMatch(remainingText);
+            return Match(pattern.Match(text).RemainingText());
         }
     }
 }
