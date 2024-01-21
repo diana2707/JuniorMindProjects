@@ -18,21 +18,12 @@ namespace Jason.Jason
                 return new FailedMatch(text);
             }
 
-            string remainingText = text;
-
-            for (int i = 0; i < prefix.Length; i++)
+            if (text.StartsWith(prefix))
             {
-                if (remainingText.StartsWith(prefix[i]))
-                {
-                    remainingText = remainingText.Substring(1);
-                }
-                else
-                {
-                    return new FailedMatch(text);
-                }
+                return new SuccessMatch(text[prefix.Length..]);
             }
 
-            return new SuccessMatch(remainingText);
+            return new FailedMatch(text);
         }
     }
 }
