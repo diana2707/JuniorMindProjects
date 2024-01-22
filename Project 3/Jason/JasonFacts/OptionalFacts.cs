@@ -46,11 +46,19 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAndRemainigTextWhenPatternIsASignCharacter()
+        public void ShouldReturnTrueAndWholeTextWhenPatternIsASignCharacter()
         {
             var a = new Optional(new Character('-'));
             Assert.True(a.Match("123").Success());
             Assert.Equal("123", a.Match("123").RemainingText());
+        }
+
+        [Fact]
+        public void ShouldReturnTrueAndRemainigTextWhenPatternIsASignCharacter()
+        {
+            var a = new Optional(new Character('-'));
+            Assert.True(a.Match("-123").Success());
+            Assert.Equal("123", a.Match("-123").RemainingText());
         }
     }
 }
