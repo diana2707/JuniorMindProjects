@@ -60,5 +60,18 @@ namespace Jason.JasonFacts
             Assert.True(a.Match("-123").Success());
             Assert.Equal("123", a.Match("-123").RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnTrueAndRemainigTextWhenPatternIsASequence()
+        {
+            var a = new Optional(new Sequence(
+                new Character('/'),
+                new Range('1', '5'),
+                new Choice(new Character('@'), new Character('#')),
+                new Text("key")));
+
+            Assert.True(a.Match("/5@keyone").Success());
+            Assert.Equal("one", a.Match("/5@keyone").RemainingText());
+        }
     }
 }
