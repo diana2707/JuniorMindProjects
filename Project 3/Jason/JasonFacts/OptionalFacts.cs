@@ -25,8 +25,16 @@ namespace Jason.JasonFacts
         public void ShouldReturnTrueAndWholeTextWhenPatternDoNotMatch()
         {
             var a = new Optional(new Character('a'));
-            Assert.True(a.Match("aabc").Success());
-            Assert.Equal("abc", a.Match("aabc").RemainingText());
+            Assert.True(a.Match("bc").Success());
+            Assert.Equal("bc", a.Match("bc").RemainingText());
+        }
+
+        [Fact]
+        public void ShouldReturnTrueAndEmptyStringWhenReceivesEmptyString()
+        {
+            var a = new Optional(new Character('a'));
+            Assert.True(a.Match("").Success());
+            Assert.Equal("", a.Match("").RemainingText());
         }
     }
 }
