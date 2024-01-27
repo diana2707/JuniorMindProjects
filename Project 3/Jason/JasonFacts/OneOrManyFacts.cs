@@ -14,11 +14,19 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAnEmptyStringWhenPatternConsumesWholeText()
+        public void ShouldReturnTrueAndEmptyStringWhenPatternConsumesWholeText()
         {
             var a = new OneOrMany(new Range('0', '9'));
             Assert.True(a.Match("123").Success());
             Assert.Equal("", a.Match("123").RemainingText());
+        }
+
+        [Fact]
+        public void ShouldReturnTrueAndRemainingTextWhenPatternIsConsumed()
+        {
+            var a = new OneOrMany(new Range('0', '9'));
+            Assert.True(a.Match("12a").Success());
+            Assert.Equal("a", a.Match("12a").RemainingText());
         }
 
     }
