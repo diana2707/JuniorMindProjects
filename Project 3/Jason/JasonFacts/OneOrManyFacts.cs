@@ -29,5 +29,13 @@ namespace Jason.JasonFacts
             Assert.Equal("a", a.Match("12a").RemainingText());
         }
 
+        [Fact]
+        public void ShouldReturnFalseAndEmptyStringWhenTextIsEmptyString()
+        {
+            var a = new OneOrMany(new Range('0', '9'));
+            Assert.False(a.Match("").Success());
+            Assert.Equal("", a.Match("").RemainingText());
+        }
+
     }
 }
