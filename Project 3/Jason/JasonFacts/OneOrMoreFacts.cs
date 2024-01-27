@@ -3,12 +3,12 @@ using Xunit;
 
 namespace Jason.JasonFacts
 {
-    public class OneOrManyFacts
+    public class OneOrMoreFacts
     {
         [Fact]
         public void ShouldReturnFalseAndWholeTextWhenPatternDoesNotMatch()
         {
-            var a = new OneOrMany(new Range('0', '9'));
+            var a = new OneOrMore(new Range('0', '9'));
             Assert.False(a.Match("bc").Success());
             Assert.Equal("bc", a.Match("bc").RemainingText());
         }
@@ -16,7 +16,7 @@ namespace Jason.JasonFacts
         [Fact]
         public void ShouldReturnTrueAndEmptyStringWhenPatternConsumesWholeText()
         {
-            var a = new OneOrMany(new Range('0', '9'));
+            var a = new OneOrMore(new Range('0', '9'));
             Assert.True(a.Match("123").Success());
             Assert.Equal("", a.Match("123").RemainingText());
         }
@@ -24,7 +24,7 @@ namespace Jason.JasonFacts
         [Fact]
         public void ShouldReturnTrueAndRemainingTextWhenPatternIsConsumed()
         {
-            var a = new OneOrMany(new Range('0', '9'));
+            var a = new OneOrMore(new Range('0', '9'));
             Assert.True(a.Match("12a").Success());
             Assert.Equal("a", a.Match("12a").RemainingText());
         }
@@ -32,7 +32,7 @@ namespace Jason.JasonFacts
         [Fact]
         public void ShouldReturnFalseAndEmptyStringWhenTextIsEmptyString()
         {
-            var a = new OneOrMany(new Range('0', '9'));
+            var a = new OneOrMore(new Range('0', '9'));
             Assert.False(a.Match("").Success());
             Assert.Equal("", a.Match("").RemainingText());
         }
@@ -40,10 +40,9 @@ namespace Jason.JasonFacts
         [Fact]
         public void ShouldReturnFalseAndNullWhenTextIsNull()
         {
-            var a = new OneOrMany(new Range('0', '9'));
+            var a = new OneOrMore(new Range('0', '9'));
             Assert.False(a.Match(null).Success());
             Assert.Null(a.Match(null).RemainingText());
         }
-
     }
 }

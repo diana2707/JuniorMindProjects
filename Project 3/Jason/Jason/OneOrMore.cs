@@ -2,11 +2,11 @@
 
 namespace Jason.Jason
 {
-    internal class OneOrMany
+    internal class OneOrMore
     {
         readonly IPattern pattern;
 
-        public OneOrMany(IPattern pattern)
+        public OneOrMore(IPattern pattern)
         {
             this.pattern = new Sequence(pattern, new Many(pattern));
         }
