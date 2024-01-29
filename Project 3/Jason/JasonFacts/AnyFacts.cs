@@ -76,5 +76,13 @@ namespace Jason.JasonFacts
             Assert.False(sign.Match("").Success());
             Assert.Equal("", sign.Match("").RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnFalseAndNullWhenTheTextIsNull()
+        {
+            var sign = new Any("-+");
+            Assert.False(sign.Match(null).Success());
+            Assert.Null(sign.Match(null).RemainingText());
+        }
     }
 }
