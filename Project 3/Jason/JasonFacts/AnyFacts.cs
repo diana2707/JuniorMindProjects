@@ -60,5 +60,13 @@ namespace Jason.JasonFacts
             Assert.True(sign.Match("-2").Success());
             Assert.Equal("2", sign.Match("-2").RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnFalseAndWholeTextWhenPatternDoesNotMatchForSigns()
+        {
+            var sign = new Any("-+");
+            Assert.False(sign.Match("2").Success());
+            Assert.Equal("2", sign.Match("2").RemainingText());
+        }
     }
 }
