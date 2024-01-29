@@ -13,6 +13,11 @@
 		<CodeAnalysisRuleSet>juniormind.ruleset</CodeAnalysisRuleSet>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <Compile Remove="JasonFacts\ListFacts.cs" />
+	  <Compile Remove="Jason\List.cs" />
+	</ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.4">
       <PrivateAssets>all</PrivateAssets>
