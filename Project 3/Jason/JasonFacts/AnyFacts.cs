@@ -44,5 +44,13 @@ namespace Jason.JasonFacts
             Assert.False(e.Match(null).Success());
             Assert.Null(e.Match(null).RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnTrueAndRemainingTextWhenVerifySign()
+        {
+            var sign = new Any("-+");
+            Assert.True(sign.Match("+3").Success());
+            Assert.Equal("3", sign.Match("+3").RemainingText());
+        }
     }
 }
