@@ -46,11 +46,19 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAndRemainingTextWhenVerifySign()
+        public void ShouldReturnTrueAndRemainingTextWhenVerifyPositiveSign()
         {
             var sign = new Any("-+");
             Assert.True(sign.Match("+3").Success());
             Assert.Equal("3", sign.Match("+3").RemainingText());
+        }
+
+        [Fact]
+        public void ShouldReturnTrueAndRemainingTextWhenVerifyNegativeSign()
+        {
+            var sign = new Any("-+");
+            Assert.True(sign.Match("-2").Success());
+            Assert.Equal("2", sign.Match("-2").RemainingText());
         }
     }
 }
