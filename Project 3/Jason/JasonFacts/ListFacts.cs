@@ -52,5 +52,17 @@ namespace Jason.JasonFacts
             Assert.True(a.Match(null).Success());
             Assert.Null(a.Match(null).RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnTrueAndEmptyStringWhenPatternIsConsumed()
+        {
+            var digits = new OneOrMore(new Range('0', '9'));
+            var whitespace = new Many(new Any(" \r\n\t"));
+            var separator = new Sequence(whitespace, new Character(';'), whitespace);
+            var list = new List(digits, separator);
+
+            Assert.True(list.Match("1; 22  ;\n 333 \t; 22").Success());
+            Assert.Equal("", list.Match("1; 22  ;\n 333 \t; 22").RemainingText());
+        }
     }
 }

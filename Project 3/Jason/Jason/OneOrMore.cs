@@ -2,7 +2,7 @@
 
 namespace Jason.Jason
 {
-    internal class OneOrMore
+    internal class OneOrMore : IPattern
     {
         readonly IPattern pattern;
 
