@@ -8,7 +8,7 @@ namespace Jason.Jason
 
         public List(IPattern pattern, IPattern separator)
         {
-            this.pattern = new Optional(new Sequence(new Many(new Sequence(pattern, separator)), new Optional(pattern)));
+            this.pattern = new Optional(new Sequence(pattern, new Many(new Sequence(separator, pattern))));
         }
 
         public IMatch Match(string text)
