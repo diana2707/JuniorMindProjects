@@ -6,7 +6,7 @@ namespace Jason.JasonFacts
     public class NumberFacts
     {
         [Fact]
-        public void CanBe0()
+        public void ShouldReturnTrueAndEmptyStringWhenTextIs0()
         {
             var n = new Number();
             Assert.True(n.Match("0").Success());
@@ -14,11 +14,19 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void CanHaveASingleDigit()
+        public void ShouldReturnTrueAndEmptyStringWhenTextIsASingleDigit()
         {
             var n = new Number();
             Assert.True(n.Match("7").Success());
             Assert.Equal("", n.Match("7").RemainingText());
+        }
+
+        [Fact]
+        public void ShouldReturnFalseAndWholeTextWhenTextIsLetter()
+        {
+            var n = new Number();
+            Assert.False(n.Match("a").Success());
+            Assert.Equal("a", n.Match("a").RemainingText());
         }
     }
 
@@ -29,11 +37,7 @@ namespace Jason.JasonFacts
     //    Assert.False(IsJsonNumber("a"));
     //}
 
-    //[Fact]
-    //public void CanHaveASingleDigit()
-    //{
-    //    Assert.True(IsJsonNumber("7"));
-    //}
+ 
 
     //[Fact]
     //public void CanHaveMultipleDigits()
