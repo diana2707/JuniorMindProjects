@@ -28,13 +28,21 @@ namespace Jason.JasonFacts
             Assert.False(n.Match("a").Success());
             Assert.Equal("a", n.Match("a").RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnTrueAndEmptyStringWhenTextHasMultipleDigits()
+        {
+            var n = new Number();
+            Assert.True(n.Match("50").Success());
+            Assert.Equal("", n.Match("50").RemainingText());
+        }
     }
 
     
     //[Fact]
     //public void DoesNotContainLetters()
     //{
-    //    Assert.False(IsJsonNumber("a"));
+    //    Assert.False(IsJsonNumber("1s2e3d"));
     //}
 
  
