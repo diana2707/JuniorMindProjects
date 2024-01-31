@@ -13,7 +13,7 @@ namespace Jason.Jason
 
         public IMatch Match(string text)
         {
-            return new SuccessMatch(pattern.Match(text).Success() ? pattern.Match(text).RemainingText() : text);
+            return new SuccessMatch(pattern.Match(text).RemainingText());
         }
     }
 }
