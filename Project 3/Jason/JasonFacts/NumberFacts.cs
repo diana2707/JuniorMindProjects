@@ -12,14 +12,17 @@ namespace Jason.JasonFacts
             Assert.True(n.Match("0").Success());
             Assert.Equal("", n.Match("0").RemainingText());
         }
+
+        [Fact]
+        public void CanHaveASingleDigit()
+        {
+            var n = new Number();
+            Assert.True(n.Match("7").Success());
+            Assert.Equal("", n.Match("7").RemainingText());
+        }
     }
 
-    //[Fact]
-    //public void CanBeZero()
-    //{
-    //    Assert.True(IsJsonNumber("0"));
-    //}
-
+    
     //[Fact]
     //public void DoesNotContainLetters()
     //{
