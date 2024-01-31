@@ -1,5 +1,7 @@
 ﻿using Jason.Jason;
+using System.Text.RegularExpressions;
 using Xunit;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Jason.JasonFacts
 {
@@ -36,22 +38,30 @@ namespace Jason.JasonFacts
             Assert.True(n.Match("50").Success());
             Assert.Equal("", n.Match("50").RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnFalseAndNullWhenTextIsNull()
+        {
+            var n = new Number();
+            Assert.False(n.Match(null).Success());
+            Assert.Null(n.Match(null).RemainingText());
+        }
+
     }
 
-    
-    //[Fact]
-    //public void DoesNotContainLetters()
-    //{
-    //    Assert.False(IsJsonNumber("1s2e3d"));
-    //}
 
- 
+
+
+
 
     //[Fact]
-    //public void CanHaveMultipleDigits()
+    //public void ShouldReturnFalseAndWholeTextWhenTextHasMultipleDigitsAndLetters()
     //{
-    //    Assert.True(IsJsonNumber("70"));
+    //    var n = new Number();
+    //    Assert.False(n.Match("5467rd").Success());
+    //    //Assert.Equal("5467rd", n.Match("5467rd").RemainingText());
     //}
+    //verify if match method from class Number returns false and whole text when text has multiple digits and letters
 
     //[Fact]
     //public void IsNotNull()
