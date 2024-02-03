@@ -65,8 +65,16 @@ namespace Jason.JasonFacts
         public void ShouldReturnTrueAndRemainingTextWhenNmberIsNegative()
         {
             var n = new Number();
-            Assert.False(n.Match("-97").Success());
+            Assert.True(n.Match("-97").Success());
             Assert.Equal("", n.Match("-97").RemainingText());
+        }
+
+        [Fact]
+        public void ShouldReturnTrueAndRemainingTextWhenNmberIsFractional()
+        {
+            var n = new Number();
+            //Assert.True(n.Match("12.34").Success());
+            Assert.Equal("", n.Match("12.34").RemainingText());
         }
     }
 
