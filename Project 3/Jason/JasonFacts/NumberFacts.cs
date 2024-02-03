@@ -1,7 +1,5 @@
 ﻿using Jason.Jason;
-using System.Text.RegularExpressions;
 using Xunit;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Jason.JasonFacts
 {
@@ -55,9 +53,22 @@ namespace Jason.JasonFacts
             Assert.Equal("", n.Match("").RemainingText());
         }
 
+        [Fact]
+        public void ShouldReturnFalseAndWholeTextWhenNmberStartsWith0()
+        {
+            var n = new Number();
+            Assert.False(n.Match("09").Success());
+            Assert.Equal("09", n.Match("09").RemainingText());
+        }
+
+        [Fact]
+        public void ShouldReturnTrueAndRemainingTextWhenNmberIsNegative()
+        {
+            var n = new Number();
+            Assert.False(n.Match("-97").Success());
+            Assert.Equal("", n.Match("-97").RemainingText());
+        }
     }
-
-
 
 
 
@@ -71,17 +82,8 @@ namespace Jason.JasonFacts
     //}
     //verify if match method from class Number returns false and whole text when text has multiple digits and letters
 
-    //[Fact]
-    //public void IsNotNull()
-    //{
-    //    Assert.False(IsJsonNumber(null));
-    //}
+    
 
-    //[Fact]
-    //public void IsNotAnEmptyString()
-    //{
-    //    Assert.False(IsJsonNumber(string.Empty));
-    //}
 
     //[Fact]
     //public void DoesNotStartWithZero()

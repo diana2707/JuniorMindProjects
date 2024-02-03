@@ -8,7 +8,12 @@ namespace Jason.Jason
 
         public Number()
         {
-            pattern = new OneOrMore(new Range('0', '9'));
+            pattern = new Sequence(
+                    new Optional(new Character('-')),
+                    new Range('1', '9'),
+                    new Many(new Choice(
+                        new Character('0'),
+                        new Range('1', '9'))));
         }
 
         public IMatch Match(string text)
