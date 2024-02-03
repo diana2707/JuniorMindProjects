@@ -73,8 +73,16 @@ namespace Jason.JasonFacts
         public void ShouldReturnTrueAndRemainingTextWhenNmberIsFractional()
         {
             var n = new Number();
-            //Assert.True(n.Match("12.34").Success());
+            Assert.True(n.Match("12.34").Success());
             Assert.Equal("", n.Match("12.34").RemainingText());
+        }
+
+        [Fact]
+        public void ShouldReturnTrueAndRemainingTextWhenNmberIsFractionalAndHasLeadingZeroes()
+        {
+            var n = new Number();
+            Assert.True(n.Match("0.00000001").Success());
+            Assert.Equal("", n.Match("0.00000001").RemainingText());
         }
     }
 
