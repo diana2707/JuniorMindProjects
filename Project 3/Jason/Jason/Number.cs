@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace Jason.Jason
 {
@@ -20,7 +19,7 @@ namespace Jason.Jason
 
             var fractional = new Sequence(
                 new Character('.'),
-                new Many(new Range('0', '9')));
+                new OneOrMore(new Range('0', '9')));
 
             pattern = new Sequence(integer, new Optional(fractional));
         }

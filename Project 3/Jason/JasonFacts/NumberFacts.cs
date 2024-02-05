@@ -84,6 +84,22 @@ namespace Jason.JasonFacts
             Assert.True(n.Match("0.00000001").Success());
             Assert.Equal("", n.Match("0.00000001").RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnFalseAndWholeTextWhenNmberIsFractionalAndEndsWithDot()
+        {
+            var n = new Number();
+            Assert.False(n.Match("12.").Success());
+            Assert.Equal("12.", n.Match("12.").RemainingText());
+        }
+
+        [Fact]
+        public void ShouldReturnFalseAndWholeTextWhenNmberHasTwoFractionalParts()
+        {
+            var n = new Number();
+            Assert.False(n.Match("12.10.45").Success());
+            Assert.Equal("12.10.45.", n.Match("12.10.45.").RemainingText());
+        }
     }
 
 
