@@ -116,40 +116,17 @@ namespace Jason.JasonFacts
             Assert.True(n.Match("12.10.45").Success());
             Assert.Equal(".45", n.Match("12.10.45").RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnTrueAndRemainingTextWhenFractionalPartHasLetters()
+        {
+            var n = new Number();
+            Assert.True(n.Match("12.10x7").Success());
+            Assert.Equal("x7", n.Match("12.10x7").RemainingText());
+        }
     }
 
 
-
-    //[Fact]
-    //public void CanBeMinusZero()
-    //{
-    //    Assert.True(IsJsonNumber("-0"));
-    //}
-
-    //[Fact]
-    //public void CanBeFractional()
-    //{
-    //    Assert.True(IsJsonNumber("12.34"));
-    //}
-
-    //[Fact]
-    //public void TheFractionCanHaveLeadingZeros()
-    //{
-    //    Assert.True(IsJsonNumber("0.00000001"));
-    //    Assert.True(IsJsonNumber("10.00000001"));
-    //}
-
-    //[Fact]
-    //public void DoesNotEndWithADot()
-    //{
-    //    Assert.False(IsJsonNumber("12."));
-    //}
-
-    //[Fact]
-    //public void DoesNotHaveTwoFractionParts()
-    //{
-    //    Assert.False(IsJsonNumber("12.34.56"));
-    //}
 
     //[Fact]
     //public void TheDecimalPartDoesNotAllowLetters()
