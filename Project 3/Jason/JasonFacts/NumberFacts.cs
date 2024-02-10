@@ -165,18 +165,18 @@ namespace Jason.JasonFacts
             Assert.Equal("", n.Match("12.5e7").RemainingText());
         }
 
+        [Fact]
+        public void ShouldReturnTrueAndRemainingTextWhenExponentContainsletters()
+        {
+            var n = new Number();
+            Assert.True(n.Match("15e3x3").Success());
+            Assert.Equal("x3", n.Match("12.5e3x3").RemainingText());
+        }
+
 
     }
 
 
-
-   
-
-    //[Fact]
-    //public void CanHaveFractionAndExponent()
-    //{
-    //    Assert.True(IsJsonNumber("12.34E3"));
-    //}
 
     //[Fact]
     //public void TheExponentDoesNotAllowLetters()
