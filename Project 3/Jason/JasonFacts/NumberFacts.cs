@@ -157,6 +157,14 @@ namespace Jason.JasonFacts
             Assert.Equal("", n.Match("12e-7").RemainingText());
         }
 
+        [Fact]
+        public void ShouldReturnTrueAndEmptyStringWhenNumberIsFractionatAndHasExponent()
+        {
+            var n = new Number();
+            Assert.True(n.Match("12.5e7").Success());
+            Assert.Equal("", n.Match("12.5e7").RemainingText());
+        }
+
 
     }
 
