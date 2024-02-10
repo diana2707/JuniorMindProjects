@@ -23,6 +23,7 @@ namespace Jason.Jason
 
             var exponent = new Sequence(
                 new Any("eE"),
+                new Optional(new Any("+-")),
                 new OneOrMore(new Range('0', '9')));
 
             pattern = new Sequence(integer, new Optional(fractional), new Optional(exponent));
