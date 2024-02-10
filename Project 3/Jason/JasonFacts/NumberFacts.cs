@@ -181,15 +181,17 @@ namespace Jason.JasonFacts
             Assert.Equal("e25", n.Match("15e34e25").RemainingText());
         }
 
+        [Fact]
+        public void ShouldReturnTrueAndRemainingTextWhenExponentIsIncomplete()
+        {
+            var n = new Number();
+            Assert.True(n.Match("15e-").Success());
+            Assert.Equal("e-", n.Match("15e-").RemainingText());
+        }
+
     }
 
 
-
-    //[Fact]
-    //public void DoesNotHaveTwoExponents()
-    //{
-    //    Assert.False(IsJsonNumber("22e323e33"));
-    //}
 
     //[Fact]
     //public void TheExponentIsAlwaysComplete()
