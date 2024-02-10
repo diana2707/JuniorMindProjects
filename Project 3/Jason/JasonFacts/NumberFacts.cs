@@ -124,15 +124,17 @@ namespace Jason.JasonFacts
             Assert.True(n.Match("12.10x7").Success());
             Assert.Equal("x7", n.Match("12.10x7").RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnTrueAndEmptyStringWhenNumberHasExponent()
+        {
+            var n = new Number();
+            Assert.True(n.Match("12e7").Success());
+            Assert.Equal("", n.Match("12e7").RemainingText());
+        }
     }
 
 
-
-    //[Fact]
-    //public void TheDecimalPartDoesNotAllowLetters()
-    //{
-    //    Assert.False(IsJsonNumber("12.3x"));
-    //}
 
     //[Fact]
     //public void CanHaveAnExponent()

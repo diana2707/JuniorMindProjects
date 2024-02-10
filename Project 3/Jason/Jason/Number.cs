@@ -21,7 +21,11 @@ namespace Jason.Jason
                 new Character('.'),
                 new OneOrMore(new Range('0', '9')));
 
-            pattern = new Sequence(integer, new Optional(fractional));
+            var exponent = new Sequence(
+                new Any("eE"),
+                new OneOrMore(new Range('0', '9')));
+
+            pattern = new Sequence(integer, new Optional(fractional), new Optional(exponent));
         }
 
         public IMatch Match(string text)
