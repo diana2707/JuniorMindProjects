@@ -100,6 +100,14 @@ namespace Jason.JasonFacts
             Assert.True(n.Match("12.").Success());
             Assert.Equal(".", n.Match("12.").RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnTrueAndRemainingTextWhenNmberHasTwoFractionalParts()
+        {
+            var n = new Number();
+            Assert.True(n.Match("12.10.45").Success());
+            Assert.Equal(".45", n.Match("12.10.45").RemainingText());
+        }
     }
 
 
@@ -113,13 +121,7 @@ namespace Jason.JasonFacts
     //verify if match method from class Number returns false and whole text when text has multiple digits and letters
 
 
-    //[Fact]
-    //public void ShouldReturnTrueAndRemainingTextWhenNmberHasTwoFractionalParts()
-    //{
-    //    var n = new Number();
-    //    Assert.True(n.Match("12.10.45").Success());
-    //    Assert.Equal(".45", n.Match("12.10.45").RemainingText());
-    //}
+    
 
     //[Fact]
     //public void DoesNotStartWithZero()
