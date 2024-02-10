@@ -173,16 +173,17 @@ namespace Jason.JasonFacts
             Assert.Equal("x3", n.Match("12.5e3x3").RemainingText());
         }
 
+        [Fact]
+        public void ShouldReturnTrueAndRemainingTextWhenNumberHasTwoExponents()
+        {
+            var n = new Number();
+            Assert.True(n.Match("15e34e25").Success());
+            Assert.Equal("e25", n.Match("15e34e25").RemainingText());
+        }
 
     }
 
 
-
-    //[Fact]
-    //public void TheExponentDoesNotAllowLetters()
-    //{
-    //    Assert.False(IsJsonNumber("22e3x3"));
-    //}
 
     //[Fact]
     //public void DoesNotHaveTwoExponents()
