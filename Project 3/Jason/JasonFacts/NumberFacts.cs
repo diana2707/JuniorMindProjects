@@ -78,6 +78,14 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
+        public void ShouldReturnTrueAndEmptyStringWhenNmberIsNegativeZero()
+        {
+            var n = new Number();
+            Assert.True(n.Match("-0").Success());
+            Assert.Equal("", n.Match("-0").RemainingText());
+        }
+
+        [Fact]
         public void ShouldReturnTrueAndRemainingTextWhenNmberIsFractional()
         {
             var n = new Number();
@@ -111,29 +119,6 @@ namespace Jason.JasonFacts
     }
 
 
-    //[Fact]
-    //public void ShouldReturnFalseAndWholeTextWhenTextHasMultipleDigitsAndLetters()
-    //{
-    //    var n = new Number();
-    //    Assert.False(n.Match("5467rd").Success());
-    //    //Assert.Equal("5467rd", n.Match("5467rd").RemainingText());
-    //}
-    //verify if match method from class Number returns false and whole text when text has multiple digits and letters
-
-
-    
-
-    //[Fact]
-    //public void DoesNotStartWithZero()
-    //{
-    //    Assert.False(IsJsonNumber("07"));
-    //}
-
-    //[Fact]
-    //public void CanBeNegative()
-    //{
-    //    Assert.True(IsJsonNumber("-26"));
-    //}
 
     //[Fact]
     //public void CanBeMinusZero()
