@@ -132,6 +132,16 @@ namespace Jason.JasonFacts
             Assert.True(n.Match("12e7").Success());
             Assert.Equal("", n.Match("12e7").RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnTrueAndEmptyStringWhenExponentStartsWithCapitalE()
+        {
+            var n = new Number();
+            Assert.True(n.Match("12E7").Success());
+            Assert.Equal("", n.Match("12E7").RemainingText());
+        }
+
+
     }
 
 
