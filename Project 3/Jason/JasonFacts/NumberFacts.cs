@@ -189,27 +189,12 @@ namespace Jason.JasonFacts
             Assert.Equal("e-", n.Match("15e-").RemainingText());
         }
 
+        [Fact]
+        public void ShouldReturnTrueAndRemainingTextWhenExponentIsBeforeFaraction()
+        {
+            var n = new Number();
+            Assert.True(n.Match("15e3.3").Success());
+            Assert.Equal(".3", n.Match("15e3.3").RemainingText());
+        }
     }
-
-
-
-    //[Fact]
-    //public void TheExponentIsAlwaysComplete()
-    //{
-    //    Assert.False(IsJsonNumber("22e"));
-    //    Assert.False(IsJsonNumber("22e+"));
-    //    Assert.False(IsJsonNumber("23E-"));
-    //}
-
-    //[Fact]
-    //public void TheExponentIsAfterTheFraction()
-    //{
-    //    Assert.False(IsJsonNumber("22e3.3"));
-    //}
-
-    //[Fact]
-    //public void TheExponentStartWithSymbol()
-    //{
-    //    Assert.False(IsJsonNumber("22e&5"));
-    //}
 }
