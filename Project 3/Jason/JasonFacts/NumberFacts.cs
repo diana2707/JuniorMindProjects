@@ -149,22 +149,20 @@ namespace Jason.JasonFacts
             Assert.Equal("", n.Match("12e+7").RemainingText());
         }
 
+        [Fact]
+        public void ShouldReturnTrueAndEmptyStringWhenExponentIsNegative()
+        {
+            var n = new Number();
+            Assert.True(n.Match("12e-7").Success());
+            Assert.Equal("", n.Match("12e-7").RemainingText());
+        }
+
 
     }
 
 
 
-    //[Fact]
-    //public void TheExponentCanHavePositive()
-    //{
-    //    Assert.True(IsJsonNumber("12e+3"));
-    //}
-
-    //[Fact]
-    //public void TheExponentCanBeNegative()
-    //{
-    //    Assert.True(IsJsonNumber("61e-9"));
-    //}
+   
 
     //[Fact]
     //public void CanHaveFractionAndExponent()
