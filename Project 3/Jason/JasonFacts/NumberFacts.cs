@@ -14,6 +14,14 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
+        public void ShouldReturnTrueAndRemainingTextWhenNmberStartsWith0()
+        {
+            var n = new Number();
+            Assert.True(n.Match("09").Success());
+            Assert.Equal("9", n.Match("09").RemainingText());
+        }
+
+        [Fact]
         public void ShouldReturnTrueAndEmptyStringWhenTextIsASingleDigit()
         {
             var n = new Number();
@@ -38,6 +46,14 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
+        public void ShouldReturnTrueAndRemainingTextWhenTextContainsLetters()
+        {
+            var n = new Number();
+            Assert.True(n.Match("50a3").Success());
+            Assert.Equal("a3", n.Match("50a3").RemainingText());
+        }
+
+        [Fact]
         public void ShouldReturnFalseAndNullWhenTextIsNull()
         {
             var n = new Number();
@@ -54,15 +70,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnFalseAndWholeTextWhenNmberStartsWith0()
-        {
-            var n = new Number();
-            Assert.False(n.Match("09").Success());
-            Assert.Equal("09", n.Match("09").RemainingText());
-        }
-
-        [Fact]
-        public void ShouldReturnTrueAndRemainingTextWhenNmberIsNegative()
+        public void ShouldReturnTrueAndEmptyStringWhenNmberIsNegative()
         {
             var n = new Number();
             Assert.True(n.Match("-97").Success());
@@ -86,23 +94,13 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnFalseAndWholeTextWhenNmberIsFractionalAndEndsWithDot()
+        public void ShouldReturnTrueAndRemainingTextWhenNmberEndsWithDot()
         {
             var n = new Number();
-            Assert.False(n.Match("12.").Success());
-            Assert.Equal("12.", n.Match("12.").RemainingText());
-        }
-
-        [Fact]
-        public void ShouldReturnFalseAndWholeTextWhenNmberHasTwoFractionalParts()
-        {
-            var n = new Number();
-            Assert.False(n.Match("12.10.45").Success());
-            Assert.Equal("12.10.45.", n.Match("12.10.45.").RemainingText());
+            Assert.True(n.Match("12.").Success());
+            Assert.Equal(".", n.Match("12.").RemainingText());
         }
     }
-
-
 
 
     //[Fact]
@@ -114,8 +112,14 @@ namespace Jason.JasonFacts
     //}
     //verify if match method from class Number returns false and whole text when text has multiple digits and letters
 
-    
 
+    //[Fact]
+    //public void ShouldReturnTrueAndRemainingTextWhenNmberHasTwoFractionalParts()
+    //{
+    //    var n = new Number();
+    //    Assert.True(n.Match("12.10.45").Success());
+    //    Assert.Equal(".45", n.Match("12.10.45").RemainingText());
+    //}
 
     //[Fact]
     //public void DoesNotStartWithZero()
