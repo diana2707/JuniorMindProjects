@@ -25,6 +25,14 @@ namespace Jason.JasonFacts
             Assert.False(s.Match("abc\"").Success());
             Assert.Equal("abc\"", s.Match("abc\"").RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnFalseAndAndWholeTextWhenStringMissesEndingQuote()
+        {
+            var s = new Strings();
+            Assert.False(s.Match("\"abc").Success());
+            Assert.Equal("\"abc", s.Match("\"abc").RemainingText());
+        }
     }
 
 

@@ -30,12 +30,11 @@ namespace Jason.Jason
                 else
                 {
                     remainingText = text;
-                    invalidPattern = patterns[i];
                     break;
                 }
             }
 
-            return invalidPattern.Match(remainingText);
+            return new FailedMatch(remainingText);
         }
     }
 }
