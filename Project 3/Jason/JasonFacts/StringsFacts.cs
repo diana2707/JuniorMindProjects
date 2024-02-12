@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Jason.JasonFacts
 {
-    public class StringFacts
+    public class StringsFacts
     {
         public static string Quoted(string text)
         {
@@ -49,21 +49,18 @@ namespace Jason.JasonFacts
             Assert.False(s.Match("").Success());
             Assert.Equal("", s.Match("").RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnTrueAndAndEmptyStringWhenTextIsQuotedEmptyString()
+        {
+            var s = new Strings();
+            Assert.True(s.Match(Quoted("")).Success());
+            Assert.Equal("", s.Match(Quoted("")).RemainingText());
+        }
     }
 
 
-    //[Fact]
-    //public void IsNotNull()
-    //{
-    //    Assert.False(IsJsonString(null));
-    //}
-
-    //[Fact]
-    //public void IsNotAnEmptyString()
-    //{
-    //    Assert.False(IsJsonString(string.Empty));
-    //}
-
+    
     //[Fact]
     //public void IsAnEmptyDoubleQuotedString()
     //{

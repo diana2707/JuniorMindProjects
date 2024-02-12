@@ -10,7 +10,7 @@ namespace Jason.Jason
         {
             pattern = new Sequence(
                 new Character('\"'),
-                new OneOrMore(new Range('a', 'z')),
+                new Many(new Range('a', 'z')),
                 //new OneOrMore(new Range(' ', 'ÿ')),
                 new Character('\"'));
         }
