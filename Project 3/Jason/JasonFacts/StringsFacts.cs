@@ -57,15 +57,18 @@ namespace Jason.JasonFacts
             Assert.True(s.Match(Quoted("")).Success());
             Assert.Equal("", s.Match(Quoted("")).RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnFalseAndAndWholeTextWhenContainsControlCharacters()
+        {
+            var s = new Strings();
+            Assert.False(s.Match(Quoted("a\nb\rc")).Success());
+            Assert.Equal(Quoted("a\nb\rc"), s.Match(Quoted("a\nb\rc")).RemainingText());
+        }
     }
 
 
-    
-    //[Fact]
-    //public void IsAnEmptyDoubleQuotedString()
-    //{
-    //    Assert.True(IsJsonString(Quoted(string.Empty)));
-    //}
+  
 
     //[Fact]
     //public void DoesNotContainControlCharacters()

@@ -10,7 +10,10 @@ namespace Jason.Jason
         {
             pattern = new Sequence(
                 new Character('\"'),
-                new Many(new Range('a', 'z')),
+                new Many(
+                    new Choice(
+                        new Range(' ', '!'),
+                        new Range('#', 'ÿ'))),
                 //new OneOrMore(new Range(' ', 'ÿ')),
                 new Character('\"'));
         }
