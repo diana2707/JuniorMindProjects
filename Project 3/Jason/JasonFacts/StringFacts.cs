@@ -33,20 +33,16 @@ namespace Jason.JasonFacts
             Assert.False(s.Match("\"abc").Success());
             Assert.Equal("\"abc", s.Match("\"abc").RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnFalseAndAndWholeTextWhenTextIsNull()
+        {
+            var s = new Strings();
+            Assert.False(s.Match(null).Success());
+            Assert.Null(s.Match(null).RemainingText());
+        }
     }
 
-
-    //[Fact]
-    //public void AlwaysStartsWithQuotes()
-    //{
-    //    Assert.False(IsJsonString("abc\""));
-    //}
-
-    //[Fact]
-    //public void AlwaysEndsWithQuotes()
-    //{
-    //    Assert.False(IsJsonString("\"abc"));
-    //}
 
     //[Fact]
     //public void IsNotNull()
