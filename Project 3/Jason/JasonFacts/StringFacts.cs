@@ -35,11 +35,19 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnFalseAndAndWholeTextWhenTextIsNull()
+        public void ShouldReturnFalseAndAndNullWhenTextIsNull()
         {
             var s = new Strings();
             Assert.False(s.Match(null).Success());
             Assert.Null(s.Match(null).RemainingText());
+        }
+
+        [Fact]
+        public void ShouldReturnFalseAndAndEmptyStringWhenTextIsEmptyString()
+        {
+            var s = new Strings();
+            Assert.False(s.Match("").Success());
+            Assert.Equal("", s.Match("").RemainingText());
         }
     }
 
