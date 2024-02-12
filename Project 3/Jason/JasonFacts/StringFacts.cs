@@ -17,13 +17,16 @@ namespace Jason.JasonFacts
             Assert.True(s.Match(Quoted("abc")).Success());
             Assert.Equal("", s.Match(Quoted("abc")).RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnFalseAndAndWholeTextWhenStringMissesStartingQuote()
+        {
+            var s = new Strings();
+            Assert.False(s.Match("abc\"").Success());
+            Assert.Equal("abc\"", s.Match("abc\"").RemainingText());
+        }
     }
 
-    //[Fact]
-    // public void IsWrappedInDoubleQuotes()
-    //{
-    //    Assert.True(IsJsonString(Quoted("abc")));
-    //}
 
     //[Fact]
     //public void AlwaysStartsWithQuotes()
