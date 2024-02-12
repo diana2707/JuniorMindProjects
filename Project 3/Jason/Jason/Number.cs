@@ -17,7 +17,7 @@ namespace Jason.Jason
                         new Many(
                             new Range('0', '9')))));
 
-            var fractional = new Sequence(
+            var fraction = new Sequence(
                 new Character('.'),
                 new OneOrMore(new Range('0', '9')));
 
@@ -26,7 +26,7 @@ namespace Jason.Jason
                 new Optional(new Any("+-")),
                 new OneOrMore(new Range('0', '9')));
 
-            pattern = new Sequence(integer, new Optional(fractional), new Optional(exponent));
+            pattern = new Sequence(integer, new Optional(fraction), new Optional(exponent));
         }
 
         public IMatch Match(string text)
