@@ -19,7 +19,7 @@ namespace Jason.Jason
                     new Choice(
                         new Range('\x20', '\x21'),
                         new Range('\x23', '\x5B'),
-                        new Range('\x5D', '\xFFFF'),
+                        new Range('\x5D', '\uFFFF'),
                         new Sequence(
                             new Character('\\'),
                             new Any("\\\"/bfnrt")),
