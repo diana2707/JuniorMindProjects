@@ -113,6 +113,14 @@ namespace Jason.JasonFacts
             Assert.True(s.Match(Quoted(@"a \n b")).Success());
             Assert.Equal("", s.Match(Quoted(@"a \n b")).RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnTrueAndAndEmptyStringWhenContainsEscapedCarrigeReturn()
+        {
+            var s = new Strings();
+            Assert.True(s.Match(Quoted(@"a \r b")).Success());
+            Assert.Equal("", s.Match(Quoted(@"a \r b")).RemainingText());
+        }
     }
 
 
