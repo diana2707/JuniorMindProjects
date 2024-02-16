@@ -105,21 +105,17 @@ namespace Jason.JasonFacts
             Assert.True(s.Match(Quoted(@"a \b b")).Success());
             Assert.Equal("", s.Match(Quoted(@"a \b b")).RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnTrueAndAndEmptyStringWhenContainsEscapedFormfeed()
+        {
+            var s = new Strings();
+            Assert.True(s.Match(Quoted(@"a \f b")).Success());
+            Assert.Equal("", s.Match(Quoted(@"a \f b")).RemainingText());
+        }
     }
 
 
-
-    //[Fact]
-    //public void CanContainEscapedSolidus()
-    //{
-    //    Assert.True(IsJsonString(Quoted(@"a \/ b")));
-    //}
-
-    //[Fact]
-    //public void CanContainEscapedBackspace()
-    //{
-    //    Assert.True(IsJsonString(Quoted(@"a \b b")));
-    //}
 
     //[Fact]
     //public void CanContainEscapedFormFeed()
