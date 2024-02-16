@@ -145,15 +145,17 @@ namespace Jason.JasonFacts
             Assert.True(s.Match(Quoted(@"\\\u1212\n\t\r\\\b")).Success());
             Assert.Equal("", s.Match(Quoted(@"\\\u1212\n\t\r\\\b")).RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnFalseAndAndRemainingStringWhenContainsUnrecognisedEscapedCharacters()
+        {
+            var s = new Strings();
+            Assert.False(s.Match(Quoted(@"a\x")).Success());
+            Assert.Equal(Quoted(@"a\x"), s.Match(Quoted(@"a\x")).RemainingText());
+        }
     }
 
 
-
-    //[Fact]
-    //public void CanContainAnyMultipleEscapeSequences()
-    //{
-    //    Assert.True(IsJsonString(Quoted(@"\\\u1212\n\t\r\\\b")));
-    //}
 
     //[Fact]
     //public void DoesNotContainUnrecognizedEscapeCharacters()
