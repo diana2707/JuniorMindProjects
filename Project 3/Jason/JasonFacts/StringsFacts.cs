@@ -169,28 +169,16 @@ namespace Jason.JasonFacts
             Assert.False(s.Match(Quoted(@"a\u123")).Success());
             Assert.Equal(Quoted(@"a\u123"), s.Match(Quoted(@"a\u123")).RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnFalseAndWholeTextContainsFinishedAndUnfinishedHexSequences()
+        {
+            var s = new Strings();
+            Assert.False(s.Match(Quoted(@"\u2634 \u11")).Success());
+            Assert.Equal(Quoted(@"\u2634 \u11"), s.Match(Quoted(@"\u2634 \u11")).RemainingText());
+        }
     }
 
-
-
-    //[Fact]
-    //public void DoesNotEndWithAnUnfinishedHexNumber()
-    //{
-    //    Assert.False(IsJsonString(Quoted(@"a\u")));
-    //    Assert.False(IsJsonString(Quoted(@"a\u123")));
-    //}
-
-    //[Fact]
-    //public void CanContainNonBMPUnicodeCharacters()
-    //{
-    //    Assert.True(IsJsonString(Quoted(@"🙉")));
-    //}
-
-    //[Fact]
-    //public void CanContainEscapedApostrophe()
-    //{
-    //    Assert.True(IsJsonString(Quoted(@"\'")));
-    //}
 
     //[Fact]
     //public void ReturnsFalseWhenContainRecognisedAndUnrecognisedEscapedSequences()
