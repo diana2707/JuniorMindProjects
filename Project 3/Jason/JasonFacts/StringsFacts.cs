@@ -161,15 +161,17 @@ namespace Jason.JasonFacts
             Assert.False(s.Match(Quoted(@"a\")).Success());
             Assert.Equal(Quoted(@"a\"), s.Match(Quoted(@"a\")).RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnFalseAndWholeTextWhenTextEndsWithUnfinishedHexNumber()
+        {
+            var s = new Strings();
+            Assert.False(s.Match(Quoted(@"a\u123")).Success());
+            Assert.Equal(Quoted(@"a\u123"), s.Match(Quoted(@"a\u123")).RemainingText());
+        }
     }
 
 
-
-    //[Fact]
-    //public void DoesNotEndWithReverseSolidus()
-    //{
-    //    Assert.False(IsJsonString(Quoted(@"a\")));
-    //}
 
     //[Fact]
     //public void DoesNotEndWithAnUnfinishedHexNumber()
