@@ -121,15 +121,16 @@ namespace Jason.JasonFacts
             Assert.True(s.Match(Quoted(@"a \r b")).Success());
             Assert.Equal("", s.Match(Quoted(@"a \r b")).RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnTrueAndAndEmptyStringWhenContainsEscapedHorizontalTab()
+        {
+            var s = new Strings();
+            Assert.True(s.Match(Quoted(@"a \t b")).Success());
+            Assert.Equal("", s.Match(Quoted(@"a \t b")).RemainingText());
+        }
     }
 
-
-
-    //[Fact]
-    //public void CanContainEscapedCarrigeReturn()
-    //{
-    //    Assert.True(IsJsonString(Quoted(@"a \r b")));
-    //}
 
     //[Fact]
     //public void CanContainEscapedHorizontalTab()
