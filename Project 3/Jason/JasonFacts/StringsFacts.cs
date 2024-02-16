@@ -107,27 +107,15 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAndAndEmptyStringWhenContainsEscapedFormfeed()
+        public void ShouldReturnTrueAndAndEmptyStringWhenContainsEscapedLinefeed()
         {
             var s = new Strings();
-            Assert.True(s.Match(Quoted(@"a \f b")).Success());
-            Assert.Equal("", s.Match(Quoted(@"a \f b")).RemainingText());
+            Assert.True(s.Match(Quoted(@"a \n b")).Success());
+            Assert.Equal("", s.Match(Quoted(@"a \n b")).RemainingText());
         }
     }
 
 
-
-    //[Fact]
-    //public void CanContainEscapedFormFeed()
-    //{
-    //    Assert.True(IsJsonString(Quoted(@"a \f b")));
-    //}
-
-    //[Fact]
-    //public void CanContainEscapedLineFeed()
-    //{
-    //    Assert.True(IsJsonString(Quoted(@"a \n b")));
-    //}
 
     //[Fact]
     //public void CanContainEscapedCarrigeReturn()
