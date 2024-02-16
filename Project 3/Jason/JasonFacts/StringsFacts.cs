@@ -97,6 +97,14 @@ namespace Jason.JasonFacts
             Assert.True(s.Match(Quoted(@"a \/ b")).Success());
             Assert.Equal("", s.Match(Quoted(@"a \/ b")).RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnTrueAndAndEmptyStringWhenContainsEscapedBackspace()
+        {
+            var s = new Strings();
+            Assert.True(s.Match(Quoted(@"a \b b")).Success());
+            Assert.Equal("", s.Match(Quoted(@"a \b b")).RemainingText());
+        }
     }
 
 
