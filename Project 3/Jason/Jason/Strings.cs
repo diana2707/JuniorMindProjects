@@ -17,9 +17,9 @@ namespace Jason.Jason
                 new Character('\"'),
                 new Many(
                     new Choice(
-                        new Range(' ', '!'),
-                        new Range('#', '['),
-                        new Range(']', '\uFFFF'),
+                        new Range('\x20', '\x21'),
+                        new Range('\x23', '\x5B'),
+                        new Range('\x5D', '\xFFFF'),
                         new Sequence(
                             new Character('\\'),
                             new Any("\\\"/bfnrt")),
