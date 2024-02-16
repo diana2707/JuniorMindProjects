@@ -129,20 +129,25 @@ namespace Jason.JasonFacts
             Assert.True(s.Match(Quoted(@"a \t b")).Success());
             Assert.Equal("", s.Match(Quoted(@"a \t b")).RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnTrueAndAndEmptyStringWhenContainsEscapedUnicodeCharacters()
+        {
+            var s = new Strings();
+            Assert.True(s.Match(Quoted(@"a \u26Be b")).Success());
+            Assert.Equal("", s.Match(Quoted(@"a \u26Bet b")).RemainingText());
+        }
+
+        [Fact]
+        public void ShouldReturnTrueAndAndEmptyStringWhenContainsAnyMultipleEscapedSequences()
+        {
+            var s = new Strings();
+            Assert.True(s.Match(Quoted(@"\\\u1212\n\t\r\\\b")).Success());
+            Assert.Equal("", s.Match(Quoted(@"\\\u1212\n\t\r\\\b")).RemainingText());
+        }
     }
 
 
-    //[Fact]
-    //public void CanContainEscapedHorizontalTab()
-    //{
-    //    Assert.True(IsJsonString(Quoted(@"a \t b")));
-    //}
-
-    //[Fact]
-    //public void CanContainEscapedUnicodeCharacters()
-    //{
-    //    Assert.True(IsJsonString(Quoted(@"a \u26Be b")));
-    //}
 
     //[Fact]
     //public void CanContainAnyMultipleEscapeSequences()

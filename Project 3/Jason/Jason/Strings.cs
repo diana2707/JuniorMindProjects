@@ -19,7 +19,14 @@ namespace Jason.Jason
                         new Range(']', '\uFFFF'),
                         new Sequence(
                             new Character('\\'),
-                            new Any("\\\"/bfnrt")))),
+                            new Any("\\\"/bfnrt")),
+                        new Sequence(
+                            new Character('\\'),
+                            new Character('u'),
+                            new Choice(
+                                new Range('0', '9'),
+                                new Range('a', 'f'),
+                                new Range('A', 'F'))))),
                 new Character('\"'));
         }
 
