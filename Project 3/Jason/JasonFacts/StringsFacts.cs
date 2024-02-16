@@ -89,19 +89,17 @@ namespace Jason.JasonFacts
             Assert.True(s.Match(Quoted("⛅⚾")).Success());
             Assert.Equal("", s.Match(Quoted("⛅⚾")).RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnTrueAndAndEmptyStringWhenContainsEscapedSlash()
+        {
+            var s = new Strings();
+            Assert.True(s.Match(Quoted(@"a \/ b")).Success());
+            Assert.Equal("", s.Match(Quoted(@"a \/ b")).RemainingText());
+        }
     }
 
 
-
-
-
-
-
-    //[Fact]
-    //public void CanContainEscapedReverseSolidus()
-    //{
-    //    Assert.True(IsJsonString(Quoted(@"a \\ b")));
-    //}
 
     //[Fact]
     //public void CanContainEscapedSolidus()
