@@ -65,15 +65,33 @@ namespace Jason.JasonFacts
             Assert.False(s.Match(Quoted("a\nb\rc")).Success());
             Assert.Equal(Quoted("a\nb\rc"), s.Match(Quoted("a\nb\rc")).RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnTrueAndAndEmptyStringWhenContainsQuotationMarks()
+        {
+            var s = new Strings();
+            Assert.True(s.Match(Quoted(@"\""a\"" b")).Success());
+            Assert.Equal("", s.Match(Quoted(@"\""a\"" b")).RemainingText());
+        }
+
     }
 
 
-  
 
     //[Fact]
-    //public void DoesNotContainControlCharacters()
+    //public void ShouldReturnTrueAndAndEmptyStringWhenContainsLargeUnicodeCharacters()
     //{
-    //    Assert.False(IsJsonString(Quoted("a\nb\rc")));
+    //    var s = new Strings();
+    //    Assert.True(s.Match(Quoted("⛅⚾")).Success());
+    //    Assert.Equal("", s.Match(Quoted("⛅⚾")).RemainingText());
+    //}
+
+    //[Fact]
+    //public void ShouldReturnTrueAndAndEmptyStringWhenContainsLargeUnicodeCharacters()
+    //{
+    //    var s = new Strings();
+    //    Assert.True(s.Match(Quoted("⛅⚾")).Success());
+    //    Assert.Equal("", s.Match(Quoted("⛅⚾")).RemainingText());
     //}
 
     //[Fact]

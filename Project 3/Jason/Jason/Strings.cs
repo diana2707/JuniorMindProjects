@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Jason.Jason;
+using Jason;
+using System;
 
 namespace Jason.Jason
 {
@@ -13,8 +15,14 @@ namespace Jason.Jason
                 new Many(
                     new Choice(
                         new Range(' ', '!'),
-                        new Range('#', 'ÿ'))),
-                //new OneOrMore(new Range(' ', 'ÿ')),
+                        new Range('#', '['),
+                        new Range(']', '\uFFFF'),
+                        new Sequence(
+                            new Character('\\'),
+                            new Character('\"')),
+                        new Sequence(
+                            new Character('\\'),
+                            new Character('\\')))),
                 new Character('\"'));
         }
 
@@ -24,3 +32,18 @@ namespace Jason.Jason
         }
     }
 }
+
+
+//new Sequence(
+//    new Character('\\'),
+//    new Character('u'),
+//    new Choice(
+//        new Range('0', '9'),
+//        new Range('a', 'f'),
+//        new Range('A', 'F'))))),
+
+//DE CE NU FUNCTIONEAZA LA FEL CU VALORILE HEX????
+//new Choice(
+//                        new Range('\u2000', '\u2100'),
+//                        new Range('\u2300', '\u5B00'),
+//                        new Range('\u5D00', '\uFFFF'))),
