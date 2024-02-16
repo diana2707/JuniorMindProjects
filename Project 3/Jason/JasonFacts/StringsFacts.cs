@@ -67,13 +67,20 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAndAndEmptyStringWhenContainsQuotationMarks()
+        public void ShouldReturnTrueAndAndEmptyStringWhenContainsEscapedQuotationMarks()
         {
             var s = new Strings();
             Assert.True(s.Match(Quoted(@"\""a\"" b")).Success());
             Assert.Equal("", s.Match(Quoted(@"\""a\"" b")).RemainingText());
         }
 
+        [Fact]
+        public void ShouldReturnTrueAndAndEmptyStringWhenContainsEscapedBackslash()
+        {
+            var s = new Strings();
+            Assert.True(s.Match(Quoted(@"a \\ b")).Success());
+            Assert.Equal("", s.Match(Quoted(@"a \\ b")).RemainingText());
+        }
     }
 
 
@@ -86,25 +93,7 @@ namespace Jason.JasonFacts
     //    Assert.Equal("", s.Match(Quoted("⛅⚾")).RemainingText());
     //}
 
-    //[Fact]
-    //public void ShouldReturnTrueAndAndEmptyStringWhenContainsLargeUnicodeCharacters()
-    //{
-    //    var s = new Strings();
-    //    Assert.True(s.Match(Quoted("⛅⚾")).Success());
-    //    Assert.Equal("", s.Match(Quoted("⛅⚾")).RemainingText());
-    //}
-
-    //[Fact]
-    //public void CanContainLargeUnicodeCharacters()
-    //{
-    //    Assert.True(IsJsonString(Quoted("⛅⚾")));
-    //}
-
-    //[Fact]
-    //public void CanContainEscapedQuotationMark()
-    //{
-    //    Assert.True(IsJsonString(Quoted(@"\""a\"" b")));
-    //}
+   
 
     //[Fact]
     //public void CanContainEscapedReverseSolidus()
