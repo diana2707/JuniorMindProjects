@@ -178,14 +178,4 @@ namespace Jason.JasonFacts
             Assert.Equal(Quoted(@"\u2634 \u11"), s.Match(Quoted(@"\u2634 \u11")).RemainingText());
         }
     }
-
-
-    //[Fact]
-    //public void ReturnsFalseWhenContainRecognisedAndUnrecognisedEscapedSequences()
-    //{
-    //    Assert.False(IsJsonString(Quoted(@"\u2634 \u11")));
-    //}
-
-    //public static string Quoted(string text)
-    //    => $"\"{text}\"";
 }

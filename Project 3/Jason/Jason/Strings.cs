@@ -1,6 +1,4 @@
-﻿using Jason.Jason;
-using Jason;
-using System;
+﻿using System;
 
 namespace Jason.Jason
 {
@@ -10,6 +8,11 @@ namespace Jason.Jason
 
         public Strings()
         {
+            var hex = new Choice(
+                        new Range('0', '9'),
+                        new Range('a', 'f'),
+                        new Range('A', 'F'));
+
             pattern = new Sequence(
                 new Character('\"'),
                 new Many(
@@ -23,22 +26,10 @@ namespace Jason.Jason
                         new Sequence(
                             new Character('\\'),
                             new Character('u'),
-                            new Choice(
-                                new Range('0', '9'),
-                                new Range('a', 'f'),
-                                new Range('A', 'F')),
-                            new Choice(
-                                new Range('0', '9'),
-                                new Range('a', 'f'),
-                                new Range('A', 'F')),
-                            new Choice(
-                                new Range('0', '9'),
-                                new Range('a', 'f'),
-                                new Range('A', 'F')),
-                            new Choice(
-                                new Range('0', '9'),
-                                new Range('a', 'f'),
-                                new Range('A', 'F'))))),
+                            hex,
+                            hex,
+                            hex,
+                            hex))),
                 new Character('\"'));
         }
 
@@ -48,18 +39,3 @@ namespace Jason.Jason
         }
     }
 }
-
-
-//new Sequence(
-//    new Character('\\'),
-//    new Character('u'),
-//    new Choice(
-//        new Range('0', '9'),
-//        new Range('a', 'f'),
-//        new Range('A', 'F'))))),
-
-//DE CE NU FUNCTIONEAZA LA FEL CU VALORILE HEX????
-//new Choice(
-//                        new Range('\u2000', '\u2100'),
-//                        new Range('\u2300', '\u5B00'),
-//                        new Range('\u5D00', '\uFFFF'))),
