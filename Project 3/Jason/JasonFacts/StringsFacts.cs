@@ -11,7 +11,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAndAndEmptyStringWhenStringIsWrappedInDoubleQuotes()
+        public void ShouldReturnTrueAndEmptyStringWhenStringIsWrappedInDoubleQuotes()
         {
             var s = new Strings();
             Assert.True(s.Match(Quoted("abc")).Success());
@@ -19,7 +19,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnFalseAndAndWholeTextWhenStringMissesStartingQuote()
+        public void ShouldReturnFalseAndWholeTextWhenStringMissesStartingQuote()
         {
             var s = new Strings();
             Assert.False(s.Match("abc\"").Success());
@@ -27,7 +27,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnFalseAndAndWholeTextWhenStringMissesEndingQuote()
+        public void ShouldReturnFalseAndWholeTextWhenStringMissesEndingQuote()
         {
             var s = new Strings();
             Assert.False(s.Match("\"abc").Success());
@@ -35,7 +35,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnFalseAndAndNullWhenTextIsNull()
+        public void ShouldReturnFalseAndNullWhenTextIsNull()
         {
             var s = new Strings();
             Assert.False(s.Match(null).Success());
@@ -43,7 +43,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnFalseAndAndEmptyStringWhenTextIsEmptyString()
+        public void ShouldReturnFalseAndEmptyStringWhenTextIsEmptyString()
         {
             var s = new Strings();
             Assert.False(s.Match("").Success());
@@ -51,7 +51,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAndAndEmptyStringWhenTextIsQuotedEmptyString()
+        public void ShouldReturnTrueAndEmptyStringWhenTextIsQuotedEmptyString()
         {
             var s = new Strings();
             Assert.True(s.Match(Quoted("")).Success());
@@ -59,7 +59,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnFalseAndAndWholeTextWhenContainsControlCharacters()
+        public void ShouldReturnFalseAndWholeTextWhenContainsControlCharacters()
         {
             var s = new Strings();
             Assert.False(s.Match(Quoted("a\nb\rc")).Success());
@@ -67,7 +67,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAndAndEmptyStringWhenContainsEscapedQuotationMarks()
+        public void ShouldReturnTrueAndEmptyStringWhenContainsEscapedQuotationMarks()
         {
             var s = new Strings();
             Assert.True(s.Match(Quoted(@"\""a\"" b")).Success());
@@ -75,7 +75,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAndAndEmptyStringWhenContainsEscapedBackslash()
+        public void ShouldReturnTrueAndEmptyStringWhenContainsEscapedBackslash()
         {
             var s = new Strings();
             Assert.True(s.Match(Quoted(@"a \\ b")).Success());
@@ -83,7 +83,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAndAndEmptyStringWhenContainsLargeUnicodeCharacters()
+        public void ShouldReturnTrueAndEmptyStringWhenContainsLargeUnicodeCharacters()
         {
             var s = new Strings();
             Assert.True(s.Match(Quoted("⛅⚾")).Success());
@@ -91,7 +91,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAndAndEmptyStringWhenContainsEscapedSlash()
+        public void ShouldReturnTrueAndEmptyStringWhenContainsEscapedSlash()
         {
             var s = new Strings();
             Assert.True(s.Match(Quoted(@"a \/ b")).Success());
@@ -99,7 +99,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAndAndEmptyStringWhenContainsEscapedBackspace()
+        public void ShouldReturnTrueAndEmptyStringWhenContainsEscapedBackspace()
         {
             var s = new Strings();
             Assert.True(s.Match(Quoted(@"a \b b")).Success());
@@ -107,7 +107,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAndAndEmptyStringWhenContainsEscapedLinefeed()
+        public void ShouldReturnTrueAndEmptyStringWhenContainsEscapedLinefeed()
         {
             var s = new Strings();
             Assert.True(s.Match(Quoted(@"a \n b")).Success());
@@ -115,7 +115,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAndAndEmptyStringWhenContainsEscapedCarrigeReturn()
+        public void ShouldReturnTrueAndEmptyStringWhenContainsEscapedCarrigeReturn()
         {
             var s = new Strings();
             Assert.True(s.Match(Quoted(@"a \r b")).Success());
@@ -123,7 +123,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAndAndEmptyStringWhenContainsEscapedHorizontalTab()
+        public void ShouldReturnTrueAndEmptyStringWhenContainsEscapedHorizontalTab()
         {
             var s = new Strings();
             Assert.True(s.Match(Quoted(@"a \t b")).Success());
@@ -131,7 +131,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAndAndEmptyStringWhenContainsEscapedUnicodeCharacters()
+        public void ShouldReturnTrueAndEmptyStringWhenContainsEscapedUnicodeCharacters()
         {
             var s = new Strings();
             Assert.True(s.Match(Quoted(@"a \u26Be b")).Success());
@@ -139,7 +139,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAndAndEmptyStringWhenContainsAnyMultipleEscapedSequences()
+        public void ShouldReturnTrueAndEmptyStringWhenContainsAnyMultipleEscapedSequences()
         {
             var s = new Strings();
             Assert.True(s.Match(Quoted(@"\\\u1212\n\t\r\\\b")).Success());
@@ -147,21 +147,23 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnFalseAndAndRemainingStringWhenContainsUnrecognisedEscapedCharacters()
+        public void ShouldReturnFalseAndWholeTextWhenContainsUnrecognisedEscapedCharacters()
         {
             var s = new Strings();
             Assert.False(s.Match(Quoted(@"a\x")).Success());
             Assert.Equal(Quoted(@"a\x"), s.Match(Quoted(@"a\x")).RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnFalseAndWholeTextWhenTextEndsWithBackslash()
+        {
+            var s = new Strings();
+            Assert.False(s.Match(Quoted(@"a\")).Success());
+            Assert.Equal(Quoted(@"a\"), s.Match(Quoted(@"a\")).RemainingText());
+        }
     }
 
 
-
-    //[Fact]
-    //public void DoesNotContainUnrecognizedEscapeCharacters()
-    //{
-    //    Assert.False(IsJsonString(Quoted(@"a\x")));
-    //}
 
     //[Fact]
     //public void DoesNotEndWithReverseSolidus()
