@@ -19,12 +19,12 @@ namespace Jason.Jason
 
             var fraction = new Sequence(
                 new Character('.'),
-                new OneOrMore(new Range('0', '9')));
+                digits);
 
             var exponent = new Sequence(
                 new Any("eE"),
                 new Optional(new Any("+-")),
-                new OneOrMore(new Range('0', '9')));
+                digits);
 
             pattern = new Sequence(integer, new Optional(fraction), new Optional(exponent));
         }
