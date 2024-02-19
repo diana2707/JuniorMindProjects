@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Jason.Jason;
+using System;
 
 namespace Jason.Jason
 {
@@ -8,14 +9,13 @@ namespace Jason.Jason
 
         public Number()
         {
+            var digits = new OneOrMore(new Range('0', '9'));
+
             var integer = new Sequence(
                 new Optional(new Character('-')),
                 new Choice(
                     new Character('0'),
-                    new Sequence(
-                        new Range('1', '9'),
-                        new Many(
-                            new Range('0', '9')))));
+                    digits));
 
             var fraction = new Sequence(
                 new Character('.'),
