@@ -22,14 +22,14 @@ namespace Jason.Jason
                         new Range('\x5D', '\uFFFF'),
                         new Sequence(
                             new Character('\\'),
-                            new Any("\\\"/bfnrt")),
-                        new Sequence(
-                            new Character('\\'),
-                            new Character('u'),
-                            hex,
-                            hex,
-                            hex,
-                            hex))),
+                            new Choice(
+                                new Any("\\\"/bfnrt"),
+                                new Sequence(
+                                    new Character('u'),
+                                    hex,
+                                    hex,
+                                    hex,
+                                    hex))))),
                 new Character('\"'));
         }
 
