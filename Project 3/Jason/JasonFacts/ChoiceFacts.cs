@@ -69,5 +69,33 @@ namespace Jason.JasonFacts
             Assert.False(digit.Match(text).Success());
             Assert.Equal(text, digit.Match(text).RemainingText());
         }
+
+        [Fact]
+        public void ShouldAddArrayToChoice()
+        {
+            var value = new Choice(
+                new Strings(),
+                new Number(),
+                new Text("true"),
+                new Text("false"),
+                new Text("null"));
+
+            var array = new Sequence(
+                new Character('['),
+                value,
+                new Character(']'));
+
+            value.Add(array);
+
+            var result = new Choice(
+                new Strings(),
+                new Number(),
+                new Text("true"),
+                new Text("false"),
+                new Text("null"),
+                array);
+
+            Assert.Equivalent(result, value);
+        }
     }
 }
