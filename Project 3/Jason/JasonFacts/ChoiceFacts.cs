@@ -97,5 +97,38 @@ namespace Jason.JasonFacts
 
             Assert.Equivalent(result, value);
         }
+
+        [Fact]
+        public void ShouldAddObjectToChoice()
+        {
+            var ws = new Any(" \\n\\r\\t");
+            var value = new Choice(
+                new Strings(),
+                new Number(),
+                new Text("true"),
+                new Text("false"),
+                new Text("null"));
+
+            var obj = new Sequence(
+                new Character('{'),
+                ws,
+                new Strings(),
+                ws,
+                new Character(':'),
+                value,
+                new Character('}'));
+
+            value.Add(obj);
+
+            var result = new Choice(
+                new Strings(),
+                new Number(),
+                new Text("true"),
+                new Text("false"),
+                new Text("null"),
+                obj);
+
+            Assert.Equivalent(result, value);
+        }
     }
 }
