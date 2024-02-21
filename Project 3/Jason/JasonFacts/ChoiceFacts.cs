@@ -71,64 +71,18 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldAddArrayToChoice()
+        public void ShouldAddPatternToChoice()
         {
-            var value = new Choice(
-                new Strings(),
-                new Number(),
-                new Text("true"),
-                new Text("false"),
-                new Text("null"));
+            var choice = new Choice(
+                new Character('a'),
+                new Character('b'));
 
-            var array = new Sequence(
-                new Character('['),
-                value,
-                new Character(']'));
+            var pattern = new Character('c');
 
-            value.Add(array);
+            choice.Add(pattern);
 
-            var result = new Choice(
-                new Strings(),
-                new Number(),
-                new Text("true"),
-                new Text("false"),
-                new Text("null"),
-                array);
-
-            Assert.Equivalent(result, value);
-        }
-
-        [Fact]
-        public void ShouldAddObjectToChoice()
-        {
-            var ws = new Any(" \\n\\r\\t");
-            var value = new Choice(
-                new Strings(),
-                new Number(),
-                new Text("true"),
-                new Text("false"),
-                new Text("null"));
-
-            var obj = new Sequence(
-                new Character('{'),
-                ws,
-                new Strings(),
-                ws,
-                new Character(':'),
-                value,
-                new Character('}'));
-
-            value.Add(obj);
-
-            var result = new Choice(
-                new Strings(),
-                new Number(),
-                new Text("true"),
-                new Text("false"),
-                new Text("null"),
-                obj);
-
-            Assert.Equivalent(result, value);
+            Assert.True(choice.Match("c").Success());
+            Assert.Equal("", choice.Match("c").RemainingText());
         }
     }
 }

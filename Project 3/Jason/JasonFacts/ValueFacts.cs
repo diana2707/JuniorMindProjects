@@ -1,15 +1,17 @@
-﻿using Xunit;
+﻿using Jason.Jason;
+using Xunit;
 
 namespace Jason.JasonFacts
 {
     public class ValueFacts
     {
         [Fact]
-        public void ShouldReturnTrueAndRemainingText()
+        public void ShouldReturnTrueAndRemainingTextWhenValueIsString()
         {
             var value = new Value();
 
-            Assert.True(value.Match())
+            Assert.True(value.Match(" \"abc\" ").Success());
+            Assert.Equal("", value.Match(" \"abc\" ").RemainingText());
         }
     }
 }
