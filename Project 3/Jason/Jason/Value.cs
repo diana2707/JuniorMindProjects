@@ -10,14 +10,35 @@ namespace Jason.Jason
         {
             var ws = new Any(" \\n\\r\\t");
 
+            var value = new Choice(
+                new Strings(),
+                new Number(),
+                new Text("true"),
+                new Text("false"),
+                new Text("null"));
+
+            var arr = new Sequence(
+               new Character('['),
+               new Choice(
+                   ws,
+                   new Sequence(
+                       ws,
+                       value,
+                       ws),
+                   new Many(
+                       new Sequence(
+                           new Character(','),
+                           new Sequence(
+                               ws,
+                               value,
+                               ws)))),
+               new Character(']'));
+
+            value.Add(arr);
+
             pattern = new Sequence(
                 ws,
-                new Choice(
-                    new Strings(),
-                    new Number(),
-                    new Text("true"),
-                    new Text("false"),
-                    new Text("null")),
+                value,
                 ws);
         }
 
@@ -32,15 +53,7 @@ namespace Jason.Jason
 // arr,
 
 
-// var arr = new Sequence(
-//    new Character('['),
-//    new Choice(
-//        ws,
-//        new Value(),
-//        new Many(
-//            new Sequence(
-//                new Character(','),
-//                new Value()))));
+
 
 // var obj = new Sequence(
 //    new Character('{'),
