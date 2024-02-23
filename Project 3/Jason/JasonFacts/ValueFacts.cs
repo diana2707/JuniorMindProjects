@@ -49,5 +49,14 @@ namespace Jason.JasonFacts
             Assert.True(value.Match(" [ \"a\" , \"b\" , \"c\" ] ").Success());
             Assert.Equal("", value.Match(" [ \"a\" , \"b\" , \"c\" ] ").RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnTrueAndRemainingTextWhenValueIsAnArrayOfBoolean()
+        {
+            var value = new Value();
+
+            Assert.True(value.Match(" [ true ] ").Success());
+            Assert.Equal("", value.Match(" [ true ] ").RemainingText());
+        }
     }
 }
