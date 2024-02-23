@@ -58,5 +58,14 @@ namespace Jason.JasonFacts
             Assert.True(value.Match(" [ true ] ").Success());
             Assert.Equal("", value.Match(" [ true ] ").RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnTrueAndRemainingTextWhenValueIsAnArrayOfArrays()
+        {
+            var value = new Value();
+
+            Assert.True(value.Match(" [ [ 1 ] , [ 2 ] , [ 3 , 4 ] ] ").Success());
+            Assert.Equal("", value.Match(" [ [ 1 ] , [ 2 ] , [ 3 , 4 ] ] ").RemainingText());
+        }
     }
 }
