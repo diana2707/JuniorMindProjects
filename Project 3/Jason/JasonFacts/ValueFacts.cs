@@ -33,12 +33,21 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAndRemainingTextWhenValueIsAnArray()
+        public void ShouldReturnTrueAndRemainingTextWhenValueIsAnArrayOfNumbers()
         {
             var value = new Value();
 
             Assert.True(value.Match(" [ 1 , 2 , 3 ] ").Success());
             Assert.Equal("", value.Match(" [ 1 , 2 , 3 ] ").RemainingText());
+        }
+
+        [Fact]
+        public void ShouldReturnTrueAndRemainingTextWhenValueIsAnArrayOfStrings()
+        {
+            var value = new Value();
+
+            Assert.True(value.Match(" [ \"a\" , \"b\" , \"c\" ] ").Success());
+            Assert.Equal("", value.Match(" [ \"a\" , \"b\" , \"c\" ] ").RemainingText());
         }
     }
 }
