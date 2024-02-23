@@ -22,12 +22,13 @@ namespace Jason.Jason
             var arr = new Sequence(
                new Character('['),
                new Choice(
-                   ws,
-                   value,
-                   new Many(
-                       new Sequence(
-                           new Character(','),
-                           value))),
+                   new Sequence(
+                       value,
+                       new Many(
+                           new Sequence(
+                               new Character(','),
+                               value))),
+                   ws),
                new Character(']'));
 
             choice.Add(arr);

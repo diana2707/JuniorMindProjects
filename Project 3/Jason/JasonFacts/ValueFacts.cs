@@ -31,5 +31,14 @@ namespace Jason.JasonFacts
             Assert.True(value.Match(" [ ] ").Success());
             Assert.Equal("", value.Match(" [ ] ").RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnTrueAndRemainingTextWhenValueIsAnArray()
+        {
+            var value = new Value();
+
+            Assert.True(value.Match(" [ 1 , 2 , 3 ] ").Success());
+            Assert.Equal("", value.Match(" [ 1 , 2 , 3 ] ").RemainingText());
+        }
     }
 }
