@@ -8,7 +8,7 @@ namespace Jason.Jason
 
         public Value()
         {
-            var ws = new Any(" \\n\\r\\t");
+            var ws = new Many(new Any(" \n\r\t"));
 
             var choice = new Choice(
                 new Strings(),
@@ -21,13 +21,8 @@ namespace Jason.Jason
 
             var arr = new Sequence(
                new Character('['),
-               new Choice(
-                   new Sequence(
-                       value,
-                       new Many(
-                           new Sequence(
-                               new Character(','),
-                               value))),
+               new Sequence(
+                   new Optional(new List(value, new Character(','))),
                    ws),
                new Character(']'));
 
@@ -40,13 +35,8 @@ namespace Jason.Jason
 
             var obj = new Sequence(
                new Character('{'),
-               new Choice(
-                   new Sequence(
-                      keyValue,
-                      new Many(
-                          new Sequence(
-                              new Character(','),
-                              keyValue))),
+               new Sequence(
+                   new Optional(new List(keyValue, new Character(','))),
                    ws),
                new Character('}'));
 

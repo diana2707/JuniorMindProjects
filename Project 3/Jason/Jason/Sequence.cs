@@ -13,7 +13,6 @@ namespace Jason.Jason
 
         public IMatch Match(string text)
         {
-            IPattern invalidPattern = patterns[0];
             string remainingText = text;
             for (int i = 0; i < patterns.Length; i++)
             {
