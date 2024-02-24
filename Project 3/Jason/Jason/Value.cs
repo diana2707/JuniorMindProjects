@@ -26,17 +26,17 @@ namespace Jason.Jason
                    ws),
                new Character(']'));
 
-            var keyValue = new Sequence(
-                ws,
-                new Strings(),
-                ws,
-                new Character(':'),
-                value);
-
             var obj = new Sequence(
                new Character('{'),
                new Sequence(
-                   new Optional(new List(keyValue, new Character(','))),
+                   new Optional(new List(
+                       new Sequence(
+                            ws,
+                            new Strings(),
+                            ws,
+                            new Character(':'),
+                            value),
+                       new Character(','))),
                    ws),
                new Character('}'));
 
