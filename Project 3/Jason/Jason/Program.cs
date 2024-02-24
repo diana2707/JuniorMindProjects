@@ -4,7 +4,6 @@ namespace Jason.Jason
 {
     public class Program
     {
-        [STAThread]
         static void Main(string[] args)
         {
             Console.WriteLine(args.Length);
