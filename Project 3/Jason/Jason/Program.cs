@@ -6,7 +6,14 @@ namespace Jason.Jason
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(args.Length);
+            if (args.Length == 0)
+            {
+                Console.WriteLine("Provide a file path");
+            }
+
+            var jasonValue = new Value();
+            string sample = File.ReadAllText(args[0]);
+            Console.WriteLine(!string.IsNullOrEmpty(sample));
         }
     }
 }
