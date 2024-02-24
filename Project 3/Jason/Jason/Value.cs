@@ -31,7 +31,27 @@ namespace Jason.Jason
                    ws),
                new Character(']'));
 
+            var keyValue = new Sequence(
+                ws,
+                new Strings(),
+                ws,
+                new Character(':'),
+                value);
+
+            var obj = new Sequence(
+               new Character('{'),
+               new Choice(
+                   new Sequence(
+                      keyValue,
+                      new Many(
+                          new Sequence(
+                              new Character(','),
+                              keyValue))),
+                   ws),
+               new Character('}'));
+
             choice.Add(arr);
+            choice.Add(obj);
 
             pattern = value;
         }
@@ -42,29 +62,3 @@ namespace Jason.Jason
         }
     }
 }
-
-// obj,
-// arr,
-
-
-
-
-// var obj = new Sequence(
-//    new Character('{'),
-//    new Choice(
-//        ws,
-//        new Sequence(
-//           ws,
-//           new Strings(),
-//           ws,
-//           new Character(':'),
-//           new Value(),
-//           new Many(
-//               new Sequence(
-//                   new Character(','),
-//                   ws,
-//                   new Strings(),
-//                   ws,
-//                   new Character(':'),
-//                   new Value())))),
-//    new Character('}'));

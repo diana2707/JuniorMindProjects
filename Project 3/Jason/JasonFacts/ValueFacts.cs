@@ -67,5 +67,26 @@ namespace Jason.JasonFacts
             Assert.True(value.Match(" [ [ 1 ] , [ 2 ] , [ 3 , 4 ] ] ").Success());
             Assert.Equal("", value.Match(" [ [ 1 ] , [ 2 ] , [ 3 , 4 ] ] ").RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnTrueAndRemainingTextWhenValueIsEmptyObject()
+        {
+            var value = new Value();
+
+            Assert.True(value.Match(" { } ").Success());
+            Assert.Equal("", value.Match(" { } ").RemainingText());
+        }
+
+        [Fact]
+        public void ShouldReturnTrueAndRemainingTextWhenValueIsObjectWithKeyValues()
+        {
+            var value = new Value();
+
+            const string obj = " { \"Name\" : \"Ana\" , \"Age\" : 25 , \"Married\" : true , " +
+                "\"Children\" : [ \"Andreea\" , \"Ioana\" ] , \"Pets\" : { \"Cat\" : \"Kitty\" , \"Dog\" : \"Marley\" } } ";
+
+            Assert.True(value.Match(obj).Success());
+            Assert.Equal("", value.Match(obj).RemainingText());
+        }
     }
 }
