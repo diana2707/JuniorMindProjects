@@ -88,5 +88,17 @@ namespace Jason.JasonFacts
             Assert.True(value.Match(obj).Success());
             Assert.Equal("", value.Match(obj).RemainingText());
         }
+
+        [Fact]
+        public void ShouldReturnTrueAndRemainingTextWhenValueIsObjectWithKeyValues2()
+        {
+            var value = new Value();
+
+            const string obj = " { \"Name\" : \"Ana\" , \"Age\" : 25 , \"Married\" : true , " +
+                "\"Children\"  [ \"Andreea\" , \"Ioana\" ] , \"Pets\" : { \"Cat\" : \"Kitty\" , \"Dog\" : \"Marley\" } }";
+
+            Assert.False(value.Match(obj).Success());
+            Assert.Equal(obj, value.Match(obj).RemainingText());
+        }
     }
 }

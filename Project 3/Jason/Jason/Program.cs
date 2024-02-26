@@ -13,7 +13,7 @@ namespace Jason.Jason
 
             var jasonValue = new Value();
             string sample = File.ReadAllText(args[0]);
-            Console.WriteLine(jasonValue.Match(sample).RemainingText());
+            Console.WriteLine(jasonValue.Match(sample).RemainingText().Length == 0 ? "Jason is valid" : "Jason is invalid");
         }
     }
 }
