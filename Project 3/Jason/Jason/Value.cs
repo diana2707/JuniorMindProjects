@@ -10,40 +10,39 @@ namespace Jason.Jason
         {
             var ws = new Many(new Any(" \n\r\t"));
 
-            var choice = new Choice(
+            var value = new Choice(
                 new Strings(),
                 new Number(),
                 new Text("true"),
                 new Text("false"),
                 new Text("null"));
 
-            var value = new Sequence(ws, choice, ws);
+            var element = new Sequence(ws, value, ws);
+
+            var elements = new List(element, new Character(','));
+
+            var member = new Sequence(ws, new Strings(), ws, new Character(':'), element);
+
+            var members = new List(member, new Character(','));
 
             var arr = new Sequence(
                new Character('['),
                new Sequence(
-                   new Optional(new List(value, new Character(','))),
-                   ws),
+                   ws,
+                   elements),
                new Character(']'));
 
             var obj = new Sequence(
                new Character('{'),
                new Sequence(
-                   new Optional(new List(
-                       new Sequence(
-                            ws,
-                            new Strings(),
-                            ws,
-                            new Character(':'),
-                            value),
-                       new Character(','))),
-                   ws),
+                   ws,
+                   members),
                new Character('}'));
 
-            choice.Add(arr);
-            choice.Add(obj);
+            value.Add(arr);
+            value.Add(obj);
 
-            pattern = value;
+            pattern = element;
         }
 
         public IMatch Match(string text)
