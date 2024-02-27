@@ -27,16 +27,14 @@ namespace Jason.Jason
 
             var arr = new Sequence(
                new Character('['),
-               new Sequence(
-                   ws,
-                   elements),
+               ws,
+               elements,
                new Character(']'));
 
             var obj = new Sequence(
                new Character('{'),
-               new Sequence(
-                   ws,
-                   members),
+               ws,
+               members,
                new Character('}'));
 
             value.Add(arr);

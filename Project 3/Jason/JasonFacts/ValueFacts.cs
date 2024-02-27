@@ -90,7 +90,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAndRemainingTextWhenValueIsObjectWithKeyValues2()
+        public void ShouldReturnTrueAndRemainingTextWhenValueIsInvalidObject()
         {
             var value = new Value();
 
