@@ -12,8 +12,14 @@ namespace Jason.Jason
             this.text = text;
         }
 
-        public bool Success() => false;
+        public bool Success()
+        {
+            return false;
+        }
 
-        public string RemainingText() => text;
+        public string RemainingText()
+        {
+            return text;
+        }
     }
 }

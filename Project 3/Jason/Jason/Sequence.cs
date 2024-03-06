@@ -16,24 +16,24 @@ namespace Jason.Jason
             string remainingText = text;
             for (int i = 0; i < patterns.Length; i++)
             {
-                bool success = patterns[i].Match(remainingText).Success();
+                IMatch match = patterns[i].Match(remainingText);
+                bool success = match.Success();
                 if (i == patterns.Length - 1 && success)
                 {
-                    return patterns[i].Match(remainingText);
+                    return match;
                 }
 
                 if (success)
                 {
-                    remainingText = patterns[i].Match(remainingText).RemainingText();
+                    remainingText = match.RemainingText();
                 }
                 else
                 {
-                    remainingText = text;
                     break;
                 }
             }
 
-            return new FailedMatch(remainingText);
+            return new FailedMatch(text);
         }
     }
 }
