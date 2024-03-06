@@ -13,16 +13,16 @@ namespace Jason.Jason
 
         public IMatch Match(string text)
         {
-            IPattern invalidPattern = patterns[0];
             foreach (var pattern in patterns)
             {
-                if (pattern.Match(text).Success())
+                IMatch match = pattern.Match(text);
+                if (match.Success())
                 {
-                    return pattern.Match(text);
+                    return match;
                 }
             }
 
-            return invalidPattern.Match(text);
+            return new FailedMatch(text);
         }
 
         public void Add(IPattern pattern)
