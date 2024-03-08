@@ -102,7 +102,7 @@ namespace Jason.JasonFacts
         }
 
         [Fact]
-        public void ShouldReturnTrueAndRemainingTextWhenValueIsObjectWithKeyValues1()
+        public void ShouldReturnTrueAndRemainingTextWhenValueIsObjectWithKeyValuesOver690Characters()
         {
             var value = new Value();
 
