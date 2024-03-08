@@ -13,12 +13,9 @@ namespace Jason.Jason
 
         public IMatch Match(string text)
         {
-            if (!string.IsNullOrEmpty(text) && text.StartsWith(prefix))
-            {
-                return new SuccessMatch(text[prefix.Length..]);
-            }
-
-            return new FailedMatch(text);
+            return !string.IsNullOrEmpty(text) && text.StartsWith(prefix)
+                ? new SuccessMatch(text[prefix.Length..])
+                : new FailedMatch(text);
         }
     }
 }
