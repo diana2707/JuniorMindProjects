@@ -14,26 +14,20 @@ namespace Jason.Jason
         public IMatch Match(string text)
         {
             string remainingText = text;
-            for (int i = 0; i < patterns.Length; i++)
+            foreach (var pattern in patterns)
             {
-                IMatch match = patterns[i].Match(remainingText);
-                bool success = match.Success();
-                if (i == patterns.Length - 1 && success)
-                {
-                    return match;
-                }
-
-                if (success)
+                IMatch match = pattern.Match(remainingText);
+                if (match.Success())
                 {
                     remainingText = match.RemainingText();
                 }
                 else
                 {
-                    break;
+                    return new FailedMatch(text);
                 }
             }
 
-            return new FailedMatch(text);
+            return new SuccessMatch(remainingText);
         }
     }
 }
