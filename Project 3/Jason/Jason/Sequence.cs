@@ -17,17 +17,16 @@ namespace Jason.Jason
             foreach (var pattern in patterns)
             {
                 IMatch match = pattern.Match(remainingText);
-                if (match.Success())
-                {
-                    remainingText = match.RemainingText();
-                }
-                else
+                if (!match.Success())
                 {
                     return new FailedMatch(text);
                 }
+
+                remainingText = match.RemainingText();
             }
 
             return new SuccessMatch(remainingText);
+
         }
     }
 }
