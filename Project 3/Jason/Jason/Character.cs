@@ -14,7 +14,7 @@ namespace Jason
         public IMatch Match(string text)
         {
             return !string.IsNullOrEmpty(text) && text[0] == pattern
-                ? new SuccessMatch(text.Substring(1))
+                ? new SuccessMatch(text[1..])
                 : new FailedMatch(text);
         }
     }

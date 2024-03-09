@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Jason.Jason;
+using System;
 
 namespace Jason.Jason
 {
@@ -8,18 +9,19 @@ namespace Jason.Jason
 
         public Many(IPattern pattern)
         {
-
             this.pattern = pattern;
         }
 
         public IMatch Match(string text)
         {
-            if (!pattern.Match(text).Success())
+            IMatch match = pattern.Match(text);
+            if (!match.Success())
             {
                 return new SuccessMatch(text);
             }
 
-            return Match(pattern.Match(text).RemainingText());
+            string remainingText = match.RemainingText();
+            return Match(remainingText);
         }
     }
 }
