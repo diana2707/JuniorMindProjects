@@ -13,23 +13,26 @@ namespace Jason.Jason
                         new Range('a', 'f'),
                         new Range('A', 'F'));
 
-            pattern = new Sequence(
-                new Character('\"'),
-                new Many(
-                    new Choice(
-                        new Range('\x20', '\x21'),
-                        new Range('\x23', '\x5B'),
-                        new Range('\x5D', '\uFFFF'),
-                        new Sequence(
-                            new Character('\\'),
-                            new Choice(
+            var escape = new Choice(
                                 new Any("\\\"/bfnrt"),
                                 new Sequence(
                                     new Character('u'),
                                     hex,
                                     hex,
                                     hex,
-                                    hex))))),
+                                    hex));
+
+            var character = new Choice(
+                        new Range('\x20', '\x21'),
+                        new Range('\x23', '\x5B'),
+                        new Range('\x5D', '\uFFFF'),
+                        new Sequence(
+                            new Character('\\'),
+                            escape));
+
+            pattern = new Sequence(
+                new Character('\"'),
+                new Many(character),
                 new Character('\"'));
         }
 

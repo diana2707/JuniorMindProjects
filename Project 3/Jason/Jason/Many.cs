@@ -8,6 +8,7 @@ namespace Jason.Jason
 
         public Many(IPattern pattern)
         {
+
             this.pattern = pattern;
         }
 
