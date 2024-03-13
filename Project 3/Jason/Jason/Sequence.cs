@@ -26,7 +26,6 @@ namespace Jason.Jason
             }
 
             return new SuccessMatch(remainingText);
-
         }
     }
 }
