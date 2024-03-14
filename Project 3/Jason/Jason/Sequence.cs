@@ -14,9 +14,10 @@ namespace Jason.Jason
         public IMatch Match(string text)
         {
             string remainingText = text;
+            IMatch match = null;
             foreach (var pattern in patterns)
             {
-                IMatch match = pattern.Match(remainingText);
+                match = pattern.Match(remainingText);
                 if (!match.Success())
                 {
                     return new FailedMatch(text);
@@ -25,7 +26,7 @@ namespace Jason.Jason
                 remainingText = match.RemainingText();
             }
 
-            return new SuccessMatch(remainingText);
+            return match;
         }
     }
 }
