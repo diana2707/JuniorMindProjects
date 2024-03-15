@@ -13,17 +13,14 @@ namespace Jason.Jason
 
         public IMatch Match(string text)
         {
-            string remainingText = text;
-            IMatch match = null;
+            IMatch match = new SuccessMatch(text);
             foreach (var pattern in patterns)
             {
-                match = pattern.Match(remainingText);
+                match = pattern.Match(match.RemainingText());
                 if (!match.Success())
                 {
                     return new FailedMatch(text);
                 }
-
-                remainingText = match.RemainingText();
             }
 
             return match;
