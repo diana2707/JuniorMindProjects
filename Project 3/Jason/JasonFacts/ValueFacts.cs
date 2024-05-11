@@ -9,72 +9,72 @@ namespace Jason.JasonFacts
         public void ShouldReturnTrueAndRemainingTextWhenValueIsString()
         {
             var value = new Value();
-
-            Assert.True(value.Match(" \"abc\" ").Success());
-            Assert.Equal("", value.Match(" \"abc\" ").RemainingText());
+            StringView stringView = new (" \"abc\" ", 0);
+            Assert.True(value.Match(stringView).Success());
+            Assert.Equal('\0', value.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnTrueAndRemainingTextWhenValueIsNumber()
         {
             var value = new Value();
-
-            Assert.True(value.Match(" 12 ").Success());
-            Assert.Equal("", value.Match(" 12 ").RemainingText());
+            StringView stringView = new (" 12 ", 0);
+            Assert.True(value.Match(stringView).Success());
+            Assert.Equal('\0', value.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnTrueAndRemainingTextWhenValueIsEmptyArray()
         {
             var value = new Value();
-
-            Assert.True(value.Match(" [ ] ").Success());
-            Assert.Equal("", value.Match(" [ ] ").RemainingText());
+            StringView stringView = new (" [ ] ", 0);
+            Assert.True(value.Match(stringView).Success());
+            Assert.Equal('\0', value.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnTrueAndRemainingTextWhenValueIsAnArrayOfNumbers()
         {
             var value = new Value();
-
-            Assert.True(value.Match(" [ 1 , 2 , 3 ] ").Success());
-            Assert.Equal("", value.Match(" [ 1 , 2 , 3 ] ").RemainingText());
+            StringView stringView = new (" [ 1 , 2 , 3 ] ", 0);
+            Assert.True(value.Match(stringView).Success());
+            Assert.Equal('\0', value.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnTrueAndRemainingTextWhenValueIsAnArrayOfStrings()
         {
             var value = new Value();
-
-            Assert.True(value.Match(" [ \"a\" , \"b\" , \"c\" ] ").Success());
-            Assert.Equal("", value.Match(" [ \"a\" , \"b\" , \"c\" ] ").RemainingText());
+            StringView stringView = new (" [ \"a\" , \"b\" , \"c\" ] ", 0);
+            Assert.True(value.Match(stringView).Success());
+            Assert.Equal('\0', value.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnTrueAndRemainingTextWhenValueIsAnArrayOfBoolean()
         {
             var value = new Value();
-
-            Assert.True(value.Match(" [ true ] ").Success());
-            Assert.Equal("", value.Match(" [ true ] ").RemainingText());
+            StringView stringView = new (" [ true ] ", 0);
+            Assert.True(value.Match(stringView).Success());
+            Assert.Equal('\0', value.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnTrueAndRemainingTextWhenValueIsAnArrayOfArrays()
         {
             var value = new Value();
-
-            Assert.True(value.Match(" [ [ 1 ] , [ 2 ] , [ 3 , 4 ] ] ").Success());
-            Assert.Equal("", value.Match(" [ [ 1 ] , [ 2 ] , [ 3 , 4 ] ] ").RemainingText());
+            StringView stringView = new (" [ [ 1 ] , [ 2 ] , [ 3 , 4 ] ] ", 0);
+            Assert.True(value.Match(stringView).Success());
+            Assert.Equal('\0', value.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnTrueAndRemainingTextWhenValueIsEmptyObject()
         {
             var value = new Value();
-
-            Assert.True(value.Match(" { } ").Success());
-            Assert.Equal("", value.Match(" { } ").RemainingText());
+            StringView stringView = new (" { } ", 0);
+            Assert.True(value.Match(stringView).Success());
+            Assert.Equal('\0', value.Match(stringView).StringView().Peek());
         }
 
         [Fact]
@@ -85,8 +85,9 @@ namespace Jason.JasonFacts
             const string obj = " { \"Name\" : \"Ana\" , \"Age\" : 25 , \"Married\" : true , " +
                 "\"Children\" : [ \"Andreea\" , \"Ioana\" ] , \"Pets\" : { \"Cat\" : \"Kitty\" , \"Dog\" : \"Marley\" } }";
 
-            Assert.True(value.Match(obj).Success());
-            Assert.Equal("", value.Match(obj).RemainingText());
+            StringView stringView = new (obj, 0);
+            Assert.True(value.Match(stringView).Success());
+            Assert.Equal('\0', value.Match(stringView).StringView().Peek());
         }
 
         [Fact]
@@ -97,8 +98,9 @@ namespace Jason.JasonFacts
             const string obj = " { \"Name\" : \"Ana\" , \"Age\" : 25 , \"Married\" : true , " +
                 "\"Children\"  [ \"Andreea\" , \"Ioana\" ] , \"Pets\" : { \"Cat\" : \"Kitty\" , \"Dog\" : \"Marley\" } }";
 
-            Assert.False(value.Match(obj).Success());
-            Assert.Equal(obj, value.Match(obj).RemainingText());
+            StringView stringView = new (obj, 0);
+            Assert.False(value.Match(stringView).Success());
+            Assert.Equal(' ', value.Match(stringView).StringView().Peek());
         }
 
         [Fact]
@@ -112,8 +114,9 @@ namespace Jason.JasonFacts
                 "GlossDef\": {\r\n                        \"para\": \"A meta-markup language, used to create markup languages such as DocBook.\",\r\n\t\t\t\t\t\t\"" +
                 "GlossSeeAlso\": [\"GML\", \"XML\"]\r\n                    },\r\n\t\t\t\t\t\"GlossSee\": \"markup\"\r\n                }\r\n            }\r\n        }\r\n    }\r\n}";
 
-            Assert.True(value.Match(obj).Success());
-            Assert.Equal("", value.Match(obj).RemainingText());
+            StringView stringView = new (obj, 0);
+            Assert.True(value.Match(stringView).Success());
+            Assert.Equal('\0', value.Match(stringView).StringView().Peek());
         }
     }
 }

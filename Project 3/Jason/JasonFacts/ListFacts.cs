@@ -9,48 +9,54 @@ namespace Jason.JasonFacts
         public void ShouldReturnTrueAndEmptyStringWhenPatternsConsumesWholeText()
         {
             var a = new List(new Range('0', '9'), new Character(','));
-            Assert.True(a.Match("1,2,3").Success());
-            Assert.Equal("", a.Match("1,2,3").RemainingText());
+            StringView stringView = new ("1,2,3", 0);
+            Assert.True(a.Match(stringView).Success());
+            Assert.Equal('\0', a.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnTrueAndSeparatorWhenTextEndsWithSeparator()
         {
             var a = new List(new Range('0', '9'), new Character(','));
-            Assert.True(a.Match("1,2,3,").Success());
-            Assert.Equal(",", a.Match("1,2,3,").RemainingText());
+            StringView stringView = new ("1,2,3,", 0);
+            Assert.True(a.Match(stringView).Success());
+            Assert.Equal(',', a.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnTrueAndRemaininText()
         {
             var a = new List(new Range('0', '9'), new Character(','));
-            Assert.True(a.Match("1a").Success());
-            Assert.Equal("a", a.Match("1a").RemainingText());
+            StringView stringView = new ("1a", 0);
+            Assert.True(a.Match(stringView).Success());
+            Assert.Equal('a', a.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnTrueAndWholeTextWhenThePatternDoesNotMatch()
         {
             var a = new List(new Range('0', '9'), new Character(','));
-            Assert.True(a.Match("abc").Success());
-            Assert.Equal("abc", a.Match("abc").RemainingText());
+            StringView stringView = new ("abc", 0);
+            Assert.True(a.Match(stringView).Success());
+            Assert.Equal('a', a.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnTrueAndEmptyStringWhenTheTextIsEmptyString()
         {
             var a = new List(new Range('0', '9'), new Character(','));
-            Assert.True(a.Match("").Success());
-            Assert.Equal("", a.Match("").RemainingText());
+            StringView stringView = new ("", 0);
+            Assert.True(a.Match(stringView).Success());
+            Assert.Equal('\0', a.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnTrueAndNullWhenTheTextIsNull()
         {
             var a = new List(new Range('0', '9'), new Character(','));
-            Assert.True(a.Match(null).Success());
-            Assert.Null(a.Match(null).RemainingText());
+            StringView stringView = new (null, 0);
+            Assert.True(a.Match(stringView).Success());
+            Assert.Equal('\0', a.Match(stringView).StringView().Peek());
         }
 
         [Fact]
@@ -61,8 +67,10 @@ namespace Jason.JasonFacts
             var separator = new Sequence(whitespace, new Character(';'), whitespace);
             var list = new List(digits, separator);
 
-            Assert.True(list.Match("1; 22  ;\n 333 \t; 22").Success());
-            Assert.Equal("", list.Match("1; 22  ;\n 333 \t; 22").RemainingText());
+            StringView stringView = new ("1; 22  ;\n 333 \t; 22", 0);
+
+            Assert.True(list.Match(stringView).Success());
+            Assert.Equal('\0', list.Match(stringView).StringView().Peek());
         }
 
         [Fact]
@@ -73,8 +81,10 @@ namespace Jason.JasonFacts
             var separator = new Sequence(whitespace, new Character(';'), whitespace);
             var list = new List(digits, separator);
 
-            Assert.True(list.Match("1 \n;").Success());
-            Assert.Equal(" \n;", list.Match("1 \n;").RemainingText());
+            StringView stringView = new ("1 \n;", 0);
+
+            Assert.True(list.Match(stringView).Success());
+            Assert.Equal(' ', list.Match(stringView).StringView().Peek());
         }
 
         [Fact]
@@ -85,8 +95,10 @@ namespace Jason.JasonFacts
             var separator = new Sequence(whitespace, new Character(';'), whitespace);
             var list = new List(digits, separator);
 
-            Assert.True(list.Match("abc").Success());
-            Assert.Equal("abc", list.Match("abc").RemainingText());
+            StringView stringView = new ("abc", 0);
+
+            Assert.True(list.Match(stringView).Success());
+            Assert.Equal('a', list.Match(stringView).StringView().Peek());
         }
     }
 }

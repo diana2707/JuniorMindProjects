@@ -12,17 +12,15 @@ namespace Jason.Jason
             this.pattern = pattern;
         }
 
-        public IMatch Match(string text)
+        public IMatch Match(StringView stringView)
         {
-            IMatch match = pattern.Match(text);
-            text = match.RemainingText();
-
-            if (!match.Success())
+            IMatch match = pattern.Match(stringView);
+            while (match.Success())
             {
-                return new SuccessMatch(text);
+                match = pattern.Match(match.StringView());
             }
 
-            return Match(text);
+            return new SuccessMatch(match.StringView());
         }
     }
 }

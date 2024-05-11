@@ -9,40 +9,45 @@ namespace Jason.JasonFacts
         public void ShouldReturnFalseAndWholeTextWhenPatternDoesNotMatch()
         {
             var a = new OneOrMore(new Range('0', '9'));
-            Assert.False(a.Match("bc").Success());
-            Assert.Equal("bc", a.Match("bc").RemainingText());
+            StringView stringView = new ("bc", 0);
+            Assert.False(a.Match(stringView).Success());
+            Assert.Equal('b', a.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnTrueAndEmptyStringWhenPatternConsumesWholeText()
         {
             var a = new OneOrMore(new Range('0', '9'));
-            Assert.True(a.Match("123").Success());
-            Assert.Equal("", a.Match("123").RemainingText());
+            StringView stringView = new ("123", 0);
+            Assert.True(a.Match(stringView).Success());
+            Assert.Equal('\0', a.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnTrueAndRemainingTextWhenPatternIsConsumed()
         {
             var a = new OneOrMore(new Range('0', '9'));
-            Assert.True(a.Match("12a").Success());
-            Assert.Equal("a", a.Match("12a").RemainingText());
+            StringView stringView = new ("12a", 0);
+            Assert.True(a.Match(stringView).Success());
+            Assert.Equal('a', a.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnFalseAndEmptyStringWhenTextIsEmptyString()
         {
             var a = new OneOrMore(new Range('0', '9'));
-            Assert.False(a.Match("").Success());
-            Assert.Equal("", a.Match("").RemainingText());
+            StringView stringView = new ("", 0);
+            Assert.False(a.Match(stringView).Success());
+            Assert.Equal('\0', a.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnFalseAndNullWhenTextIsNull()
         {
             var a = new OneOrMore(new Range('0', '9'));
-            Assert.False(a.Match(null).Success());
-            Assert.Null(a.Match(null).RemainingText());
+            StringView stringView = new (null, 0);
+            Assert.False(a.Match(stringView).Success());
+            Assert.Equal('\0', a.Match(stringView).StringView().Peek());
         }
     }
 }

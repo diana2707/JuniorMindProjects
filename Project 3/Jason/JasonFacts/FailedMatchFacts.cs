@@ -8,25 +8,28 @@ namespace Jason.JasonFacts
         [Fact]
         public void ShouldReturnFalseAndRemainingText()
         {
-            FailedMatch match = new FailedMatch("abc");
+            StringView stringView = new StringView("abc", 0);
+            FailedMatch match = new FailedMatch(stringView);
             Assert.False(match.Success());
-            Assert.Equal("abc", match.RemainingText());
+            Assert.Equal('a', match.StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnFalseAndEmptyString()
         {
-            FailedMatch match = new FailedMatch("");
+            StringView stringView = new StringView("", 0);
+            FailedMatch match = new FailedMatch(stringView);
             Assert.False(match.Success());
-            Assert.Equal("", match.RemainingText());
+            Assert.Equal('\0', match.StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnFalseAndNull()
         {
-            FailedMatch match = new FailedMatch(null);
+            StringView stringView = new StringView(null, 0);
+            FailedMatch match = new FailedMatch(stringView);
             Assert.False(match.Success());
-            Assert.Null(match.RemainingText());
+            Assert.Equal('\0', match.StringView().Peek());
         }
     }
 }

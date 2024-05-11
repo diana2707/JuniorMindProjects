@@ -12,10 +12,10 @@ namespace Jason.JasonFacts
                     new Character('0'),
                     new Range('1', '9'));
 
-            const string text = "012";
+            StringView stringView = new ("012", 0);
 
-            Assert.True(digit.Match(text).Success());
-            Assert.Equal("12", digit.Match(text).RemainingText());
+            Assert.True(digit.Match(stringView).Success());
+            Assert.Equal('1', digit.Match(stringView).StringView().Peek());
         }
 
         [Fact]
@@ -25,10 +25,10 @@ namespace Jason.JasonFacts
                     new Character('0'),
                     new Range('1', '9'));
 
-            const string text = "92";
+            StringView stringView = new ("92", 0);
 
-            Assert.True(digit.Match(text).Success());
-            Assert.Equal("2", digit.Match(text).RemainingText());
+            Assert.True(digit.Match(stringView).Success());
+            Assert.Equal('2', digit.Match(stringView).StringView().Peek());
         }
 
         [Fact]
@@ -38,10 +38,10 @@ namespace Jason.JasonFacts
                     new Character('0'),
                     new Range('1', '9'));
 
-            const string text = "a34";
+            StringView stringView = new ("a34", 0);
 
-            Assert.False(digit.Match(text).Success());
-            Assert.Equal(text, digit.Match(text).RemainingText());
+            Assert.False(digit.Match(stringView).Success());
+            Assert.Equal('a', digit.Match(stringView).StringView().Peek());
         }
 
         [Fact]
@@ -51,10 +51,10 @@ namespace Jason.JasonFacts
                     new Character('0'),
                     new Range('1', '9'));
 
-            const string text = null;
+            StringView stringView = new (null, 0);
 
-            Assert.False(digit.Match(null).Success());
-            Assert.Equal(text, digit.Match(text).RemainingText());
+            Assert.False(digit.Match(stringView).Success());
+            Assert.Equal('\0', digit.Match(stringView).StringView().Peek());
         }
 
         [Fact]
@@ -64,10 +64,10 @@ namespace Jason.JasonFacts
                     new Character('0'),
                     new Range('1', '9'));
 
-            const string text = "";
+            StringView stringView = new ("", 0);
 
-            Assert.False(digit.Match(text).Success());
-            Assert.Equal(text, digit.Match(text).RemainingText());
+            Assert.False(digit.Match(stringView).Success());
+            Assert.Equal(0, digit.Match(stringView).StringView().Peek());
         }
 
         [Fact]
@@ -78,11 +78,12 @@ namespace Jason.JasonFacts
                 new Character('b'));
 
             var pattern = new Character('c');
-
             choice.Add(pattern);
 
-            Assert.True(choice.Match("c").Success());
-            Assert.Equal("", choice.Match("c").RemainingText());
+            StringView stringView = new ("cde", 0);
+
+            Assert.True(choice.Match(stringView).Success());
+            Assert.Equal('d', choice.Match(stringView).StringView().Peek());
         }
     }
 }

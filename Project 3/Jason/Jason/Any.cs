@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Jason.Jason
 {
@@ -11,11 +12,11 @@ namespace Jason.Jason
             this.accepted = accepted;
         }
 
-        public IMatch Match(string text)
+        public IMatch Match(StringView stringView)
         {
-            return !string.IsNullOrEmpty(text) && accepted.Contains(text[0])
-                ? new SuccessMatch(text[1..])
-                : new FailedMatch(text);
+            return !stringView.IsEmpty() && accepted.Contains(stringView.Peek())
+                ? new SuccessMatch(stringView.Advance())
+                : new FailedMatch(stringView);
         }
     }
 }

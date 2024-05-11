@@ -36,9 +36,9 @@ namespace Jason.Jason
                 new Character('\"'));
         }
 
-        public IMatch Match(string text)
+        public IMatch Match(StringView stringView)
         {
-            return pattern.Match(text);
+            return pattern.Match(stringView);
         }
     }
 }

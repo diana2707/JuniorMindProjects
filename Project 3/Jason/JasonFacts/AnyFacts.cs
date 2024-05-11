@@ -9,80 +9,90 @@ namespace Jason.JasonFacts
         public void ShouldReturnTrueAndRemainingTextWhenPatternMatches()
         {
             var e = new Any("eE");
-            Assert.True(e.Match("ea").Success());
-            Assert.Equal("a", e.Match("ea").RemainingText());
+            StringView stringView = new ("ea", 0);
+            Assert.True(e.Match(stringView).Success());
+            Assert.Equal('a', e.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnTrueAndRemainingText()
         {
             var e = new Any("eE");
-            Assert.True(e.Match("Ea").Success());
-            Assert.Equal("a", e.Match("Ea").RemainingText());
+            StringView stringView = new ("Ea", 0);
+            Assert.True(e.Match(stringView).Success());
+            Assert.Equal('a', e.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnFalseAndWholeTextWhenPatternDoesNotMatch()
         {
             var e = new Any("eE");
-            Assert.False(e.Match("a").Success());
-            Assert.Equal("a", e.Match("a").RemainingText());
+            StringView stringView = new ("a", 0);
+            Assert.False(e.Match(stringView).Success());
+            Assert.Equal('a', e.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnFalseAndEmptyStringWhenTextIsEmptyString()
         {
             var e = new Any("eE");
-            Assert.False(e.Match("").Success());
-            Assert.Equal("", e.Match("").RemainingText());
+            StringView stringView = new ("", 0);
+            Assert.False(e.Match(stringView).Success());
+            Assert.Equal('\0', e.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnFalseAndNullWhenTextIsNull()
         {
             var e = new Any("eE");
-            Assert.False(e.Match(null).Success());
-            Assert.Null(e.Match(null).RemainingText());
+            StringView stringView = new (null, 0);
+            Assert.False(e.Match(stringView).Success());
+            Assert.Equal('\0', e.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnTrueAndRemainingTextWhenVerifyPositiveSign()
         {
             var sign = new Any("-+");
-            Assert.True(sign.Match("+3").Success());
-            Assert.Equal("3", sign.Match("+3").RemainingText());
+            StringView stringView = new ("+3", 0);
+            Assert.True(sign.Match(stringView).Success());
+            Assert.Equal('3', sign.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnTrueAndRemainingTextWhenVerifyNegativeSign()
         {
             var sign = new Any("-+");
-            Assert.True(sign.Match("-2").Success());
-            Assert.Equal("2", sign.Match("-2").RemainingText());
+            StringView stringView = new ("-2", 0);
+            Assert.True(sign.Match(stringView).Success());
+            Assert.Equal('2', sign.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnFalseAndWholeTextWhenPatternDoesNotMatchForSigns()
         {
             var sign = new Any("-+");
-            Assert.False(sign.Match("2").Success());
-            Assert.Equal("2", sign.Match("2").RemainingText());
+            StringView stringView = new ("2", 0);
+            Assert.False(sign.Match(stringView).Success());
+            Assert.Equal('2', sign.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnFalseAndEmptyStringWhenTheTextIsEmptyString()
         {
             var sign = new Any("-+");
-            Assert.False(sign.Match("").Success());
-            Assert.Equal("", sign.Match("").RemainingText());
+            StringView stringView = new ("", 0);
+            Assert.False(sign.Match(stringView).Success());
+            Assert.Equal('\0', sign.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnFalseAndNullWhenTheTextIsNull()
         {
             var sign = new Any("-+");
-            Assert.False(sign.Match(null).Success());
-            Assert.Null(sign.Match(null).RemainingText());
+            StringView stringView = new (null, 0);
+            Assert.False(sign.Match(stringView).Success());
+            Assert.Equal('\0', sign.Match(stringView).StringView().Peek());
         }
     }
 }

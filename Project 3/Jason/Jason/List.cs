@@ -11,9 +11,9 @@ namespace Jason.Jason
             this.pattern = new Optional(new Sequence(pattern, new Many(new Sequence(separator, pattern))));
         }
 
-        public IMatch Match(string text)
+        public IMatch Match(StringView stringView)
         {
-            return pattern.Match(text);
+            return pattern.Match(stringView);
         }
     }
 }

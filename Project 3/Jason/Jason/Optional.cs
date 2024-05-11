@@ -11,9 +11,9 @@ namespace Jason.Jason
             this.pattern = pattern;
         }
 
-        public IMatch Match(string text)
+        public IMatch Match(StringView stringView)
         {
-            return new SuccessMatch(pattern.Match(text).RemainingText());
+            return new SuccessMatch(pattern.Match(stringView).StringView());
         }
     }
 }

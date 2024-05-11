@@ -12,10 +12,10 @@ namespace Jason.JasonFacts
                 new Character('a'),
                 new Character('b'));
 
-            const string text = "abcd";
+            StringView stringView = new ("abcd", 0);
 
-            Assert.True(ab.Match(text).Success());
-            Assert.Equal("cd", ab.Match(text).RemainingText());
+            Assert.True(ab.Match(stringView).Success());
+            Assert.Equal('c', ab.Match(stringView).StringView().Peek());
         }
 
         [Fact]
@@ -25,10 +25,10 @@ namespace Jason.JasonFacts
                 new Character('a'),
                 new Character('b'));
 
-            const string text = "ax";
+            StringView stringView = new ("ax", 0);
 
-            Assert.False(ab.Match(text).Success());
-            Assert.Equal("ax", ab.Match(text).RemainingText());
+            Assert.False(ab.Match(stringView).Success());
+            Assert.Equal('a', ab.Match(stringView).StringView().Peek());
         }
 
         [Fact]
@@ -38,10 +38,10 @@ namespace Jason.JasonFacts
                 new Character('a'),
                 new Character('b'));
 
-            const string text = "def";
+            StringView stringView = new ("def", 0);
 
-            Assert.False(ab.Match(text).Success());
-            Assert.Equal("def", ab.Match(text).RemainingText());
+            Assert.False(ab.Match(stringView).Success());
+            Assert.Equal('d', ab.Match(stringView).StringView().Peek());
         }
 
         [Fact]
@@ -51,10 +51,10 @@ namespace Jason.JasonFacts
                 new Character('a'),
                 new Character('b'));
 
-            const string text = null;
+            StringView stringView = new (null, 0);
 
-            Assert.False(ab.Match(text).Success());
-            Assert.Equal(text, ab.Match(text).RemainingText());
+            Assert.False(ab.Match(stringView).Success());
+            Assert.Equal('\0', ab.Match(stringView).StringView().Peek());
         }
 
         [Fact]
@@ -64,10 +64,10 @@ namespace Jason.JasonFacts
                 new Character('a'),
                 new Character('b'));
 
-            const string text = "";
+            StringView stringView = new ("", 0);
 
-            Assert.False(ab.Match(text).Success());
-            Assert.Equal(text, ab.Match(text).RemainingText());
+            Assert.False(ab.Match(stringView).Success());
+            Assert.Equal('\0', ab.Match(stringView).StringView().Peek());
         }
 
         [Fact]
@@ -83,10 +83,10 @@ namespace Jason.JasonFacts
                 ab,
                 new Character('c'));
 
-            const string text = "abcdcd";
+            StringView stringView = new ("abcdcd", 0);
 
-            Assert.True(abc.Match(text).Success());
-            Assert.Equal("d", abc.Match(text).RemainingText());
+            Assert.True(abc.Match(stringView).Success());
+            Assert.Equal('d', abc.Match(stringView).StringView().Peek());
         }
 
         [Fact]
@@ -100,10 +100,10 @@ namespace Jason.JasonFacts
                 ab,
                 new Character('c'));
 
-            const string text = "def";
+            StringView stringView = new ("def", 0);
 
-            Assert.False(abc.Match(text).Success());
-            Assert.Equal("def", abc.Match(text).RemainingText());
+            Assert.False(abc.Match(stringView).Success());
+            Assert.Equal('d', abc.Match(stringView).StringView().Peek());
         }
 
         [Fact]
@@ -117,10 +117,10 @@ namespace Jason.JasonFacts
                 ab,
                 new Character('c'));
 
-            const string text = "abf";
+            StringView stringView = new ("abf", 0);
 
-            Assert.False(abc.Match(text).Success());
-            Assert.Equal("abf", abc.Match(text).RemainingText());
+            Assert.False(abc.Match(stringView).Success());
+            Assert.Equal('a', abc.Match(stringView).StringView().Peek());
         }
 
         [Fact]
@@ -134,10 +134,10 @@ namespace Jason.JasonFacts
                 ab,
                 new Character('c'));
 
-            const string text = null;
+            StringView stringView = new (null, 0);
 
-            Assert.False(abc.Match(text).Success());
-            Assert.Equal(text, abc.Match(text).RemainingText());
+            Assert.False(abc.Match(stringView).Success());
+            Assert.Equal('\0', abc.Match(stringView).StringView().Peek());
         }
 
         [Fact]
@@ -151,10 +151,10 @@ namespace Jason.JasonFacts
                 ab,
                 new Character('c'));
 
-            const string text = "";
+            StringView stringView = new ("", 0);
 
-            Assert.False(abc.Match(text).Success());
-            Assert.Equal(text, abc.Match(text).RemainingText());
+            Assert.False(abc.Match(stringView).Success());
+            Assert.Equal('\0', abc.Match(stringView).StringView().Peek());
         }
 
         [Fact]
@@ -173,10 +173,10 @@ namespace Jason.JasonFacts
                     hex,
                     hex));
 
-            const string text = "u1234";
+            StringView stringView = new ("u1234", 0);
 
-            Assert.True(hexSeq.Match(text).Success());
-            Assert.Equal("", hexSeq.Match(text).RemainingText());
+            Assert.True(hexSeq.Match(stringView).Success());
+            Assert.Equal('\0', hexSeq.Match(stringView).StringView().Peek());
         }
 
         [Fact]
@@ -195,10 +195,10 @@ namespace Jason.JasonFacts
                     hex,
                     hex));
 
-            const string text = "uabcdef";
+            StringView stringView = new ("uabcdef", 0);
 
-            Assert.True(hexSeq.Match(text).Success());
-            Assert.Equal("ef", hexSeq.Match(text).RemainingText());
+            Assert.True(hexSeq.Match(stringView).Success());
+            Assert.Equal('e', hexSeq.Match(stringView).StringView().Peek());
         }
 
         [Fact]
@@ -217,10 +217,10 @@ namespace Jason.JasonFacts
                     hex,
                     hex));
 
-            const string text = "uB005 ab";
+            StringView stringView = new ("uB005 ab", 0);
 
-            Assert.True(hexSeq.Match(text).Success());
-            Assert.Equal(" ab", hexSeq.Match(text).RemainingText());
+            Assert.True(hexSeq.Match(stringView).Success());
+            Assert.Equal(' ', hexSeq.Match(stringView).StringView().Peek());
         }
 
         [Fact]
@@ -239,10 +239,10 @@ namespace Jason.JasonFacts
                     hex,
                     hex));
 
-            const string text = "abc";
+            StringView stringView = new ("abc", 0);
 
-            Assert.False(hexSeq.Match(text).Success());
-            Assert.Equal(text, hexSeq.Match(text).RemainingText());
+            Assert.False(hexSeq.Match(stringView).Success());
+            Assert.Equal('a', hexSeq.Match(stringView).StringView().Peek());
         }
 
         [Fact]
@@ -261,10 +261,10 @@ namespace Jason.JasonFacts
                     hex,
                     hex));
 
-            const string text = null;
+            StringView stringView = new (null, 0);
 
-            Assert.False(hexSeq.Match(text).Success());
-            Assert.Equal(text, hexSeq.Match(text).RemainingText());
+            Assert.False(hexSeq.Match(stringView).Success());
+            Assert.Equal('\0', hexSeq.Match(stringView).StringView().Peek());
         }
 
         [Fact]
@@ -283,10 +283,10 @@ namespace Jason.JasonFacts
                     hex,
                     hex));
 
-            const string text = "";
+            StringView stringView = new ("", 0);
 
-            Assert.False(hexSeq.Match(text).Success());
-            Assert.Equal(text, hexSeq.Match(text).RemainingText());
+            Assert.False(hexSeq.Match(stringView).Success());
+            Assert.Equal('\0', hexSeq.Match(stringView).StringView().Peek());
         }
     }
 }

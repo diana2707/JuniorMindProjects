@@ -43,9 +43,9 @@ namespace Jason.Jason
             pattern = element;
         }
 
-        public IMatch Match(string text)
+        public IMatch Match(StringView stringView)
         {
-            return pattern.Match(text);
+            return pattern.Match(stringView);
         }
     }
 }

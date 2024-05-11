@@ -9,56 +9,63 @@ namespace Jason.JasonFacts
         public void ShouldReturnTrueAndRemainingText()
         {
             var a = new Optional(new Character('a'));
-            Assert.True(a.Match("abc").Success());
-            Assert.Equal("bc", a.Match("abc").RemainingText());
+            StringView stringView = new ("abc", 0);
+            Assert.True(a.Match(stringView).Success());
+            Assert.Equal('b', a.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnTrueAndRemainingTextWhenPatternRepeats()
         {
             var a = new Optional(new Character('a'));
-            Assert.True(a.Match("aabc").Success());
-            Assert.Equal("abc", a.Match("aabc").RemainingText());
+            StringView stringView = new ("aabc", 0);
+            Assert.True(a.Match(stringView).Success());
+            Assert.Equal('a', a.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnTrueAndWholeTextWhenPatternDoNotMatch()
         {
             var a = new Optional(new Character('a'));
-            Assert.True(a.Match("bc").Success());
-            Assert.Equal("bc", a.Match("bc").RemainingText());
+            StringView stringView = new ("bc", 0);
+            Assert.True(a.Match(stringView).Success());
+            Assert.Equal('b', a.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnTrueAndEmptyStringWhenReceivesEmptyString()
         {
             var a = new Optional(new Character('a'));
-            Assert.True(a.Match("").Success());
-            Assert.Equal("", a.Match("").RemainingText());
+            StringView stringView = new ("", 0);
+            Assert.True(a.Match(stringView).Success());
+            Assert.Equal('\0', a.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnTrueAndNullgWhenReceivesNull()
         {
             var a = new Optional(new Character('a'));
-            Assert.True(a.Match(null).Success());
-            Assert.Null(a.Match(null).RemainingText());
+            StringView stringView = new (null, 0);
+            Assert.True(a.Match(stringView).Success());
+            Assert.Equal('\0', a.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnTrueAndWholeTextWhenPatternIsASignCharacter()
         {
             var a = new Optional(new Character('-'));
-            Assert.True(a.Match("123").Success());
-            Assert.Equal("123", a.Match("123").RemainingText());
+            StringView stringView = new ("123", 0);
+            Assert.True(a.Match(stringView).Success());
+            Assert.Equal('1', a.Match(stringView).StringView().Peek());
         }
 
         [Fact]
         public void ShouldReturnTrueAndRemainigTextWhenPatternIsASignCharacter()
         {
             var a = new Optional(new Character('-'));
-            Assert.True(a.Match("-123").Success());
-            Assert.Equal("123", a.Match("-123").RemainingText());
+            StringView stringView = new ("-123", 0);
+            Assert.True(a.Match(stringView).Success());
+            Assert.Equal('1', a.Match(stringView).StringView().Peek());
         }
 
         [Fact]
@@ -70,8 +77,10 @@ namespace Jason.JasonFacts
                 new Choice(new Character('@'), new Character('#')),
                 new Text("key")));
 
-            Assert.True(a.Match("/5@keyone").Success());
-            Assert.Equal("one", a.Match("/5@keyone").RemainingText());
+            StringView stringView = new ("/5@keyone", 0);
+
+            Assert.True(a.Match(stringView).Success());
+            Assert.Equal('o', a.Match(stringView).StringView().Peek());
         }
     }
 }

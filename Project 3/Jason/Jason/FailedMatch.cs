@@ -5,15 +5,15 @@ namespace Jason.Jason
 {
     class FailedMatch : IMatch
     {
-        readonly string text;
+        readonly StringView stringView;
 
-        public FailedMatch(string text)
+        public FailedMatch(StringView stringView)
         {
-            this.text = text;
+            this.stringView = stringView;
         }
 
         public bool Success() => false;
 
-        public string RemainingText() => text;
+        public StringView StringView() => stringView;
     }
 }

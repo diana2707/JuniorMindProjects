@@ -11,24 +11,24 @@ namespace Jason.Jason
             this.patterns = patterns;
         }
 
-        public IMatch Match(string text)
+        public IMatch Match(StringView stringView)
         {
             foreach (var pattern in patterns)
             {
-                IMatch match = pattern.Match(text);
+                IMatch match = pattern.Match(stringView);
                 if (match.Success())
                 {
                     return match;
                 }
             }
 
-            return new FailedMatch(text);
+            return new FailedMatch(stringView);
         }
 
         public void Add(IPattern pattern)
         {
             Array.Resize(ref patterns, patterns.Length + 1);
-            patterns[patterns.Length - 1] = pattern;
+            patterns[^1] = pattern;
         }
     }
 }

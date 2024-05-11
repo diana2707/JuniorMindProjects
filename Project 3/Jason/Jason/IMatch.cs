@@ -6,6 +6,6 @@ namespace Jason.Jason
     {
         bool Success();
 
-        string RemainingText();
+        StringView StringView();
     }
 }

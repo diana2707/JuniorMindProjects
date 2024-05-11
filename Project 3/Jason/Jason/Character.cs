@@ -1,4 +1,5 @@
 ﻿using Jason.Jason;
+using System;
 
 namespace Jason
 {
@@ -11,11 +12,11 @@ namespace Jason
             this.pattern = pattern;
         }
 
-        public IMatch Match(string text)
+        public IMatch Match(StringView stringView)
         {
-            return !string.IsNullOrEmpty(text) && text[0] == pattern
-                ? new SuccessMatch(text[1..])
-                : new FailedMatch(text);
+            return !stringView.IsEmpty() && stringView.Peek() == pattern
+                ? new SuccessMatch(stringView.Advance())
+                : new FailedMatch(stringView);
         }
     }
 }
