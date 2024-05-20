@@ -32,5 +32,12 @@ namespace Jason.Jason
         {
             return string.Compare(text, index, prefix, 0, prefix.Length) == 0;
         }
+
+        public (int row, int column) GetLocation()
+        {
+            string[] strings = text[.. (index + 1)].Split(Environment.NewLine);
+
+            return (strings.Length, strings[^1].Length + 1);
+        }
     }
 }

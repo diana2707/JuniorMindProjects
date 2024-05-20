@@ -120,5 +120,19 @@ namespace Jason.JasonFacts
             StringView stringView = new ("abc", 2);
             Assert.False(stringView.StartsWith("cd"));
         }
+
+        [Fact]
+        public void GetLocationShouldReturnRowAndColumnWhenTextHasOneLine()
+        {
+            StringView stringView = new ("abc", 2);
+            Assert.Equal((1, 4), stringView.GetLocation());
+        }
+
+        [Fact]
+        public void GetLocationShouldReturnRowAndColumnWhenTextHasMultipleLines()
+        {
+            StringView stringView = new ("abc\r\ndef\r\nghi", 11);
+            Assert.Equal((3, 3), stringView.GetLocation());
+        }
     }
 }
