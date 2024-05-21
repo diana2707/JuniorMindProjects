@@ -6,9 +6,9 @@ namespace Jason.Jason
     class SuccessMatch : IMatch
     {
         readonly StringView stringView;
-        readonly int failedIndex;
+        readonly StringView failedIndex;
 
-        public SuccessMatch(StringView stringView, int failedIndex)
+        public SuccessMatch(StringView stringView, StringView failedIndex)
         {
             this.stringView = stringView;
             this.failedIndex = failedIndex;
@@ -16,7 +16,7 @@ namespace Jason.Jason
 
         public bool Success() => true;
 
-        public int FailedIndex() => failedIndex;
+        public StringView FailedIndex() => failedIndex;
 
         public StringView StringView() => stringView;
     }

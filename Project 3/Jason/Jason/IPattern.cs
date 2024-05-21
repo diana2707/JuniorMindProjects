@@ -5,6 +5,6 @@ namespace Jason
 {
     internal interface IPattern
     {
-        IMatch Match(StringView stringView);
+        IMatch Match(StringView stringView, StringView failedIndex);
     }
 }

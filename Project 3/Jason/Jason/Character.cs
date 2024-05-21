@@ -12,11 +12,11 @@ namespace Jason
             this.pattern = pattern;
         }
 
-        public IMatch Match(StringView stringView)
+        public IMatch Match(StringView stringView, StringView failedIndex)
         {
             return !stringView.IsEmpty() && stringView.Peek() == pattern
-                ? new SuccessMatch(stringView.Advance())
-                : new FailedMatch(stringView);
+                ? new SuccessMatch(stringView.Advance(), failedIndex)
+                : new FailedMatch(stringView, string);
         }
     }
 }
