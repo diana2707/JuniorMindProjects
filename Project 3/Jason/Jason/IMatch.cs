@@ -6,6 +6,8 @@ namespace Jason.Jason
     {
         bool Success();
 
+        int FailedIndex();
+
         StringView StringView();
     }
 }

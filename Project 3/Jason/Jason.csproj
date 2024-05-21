@@ -7,12 +7,43 @@
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-	  <StartupObject>Jason.Jason.Program</StartupObject>
   </PropertyGroup>
 
 	<PropertyGroup>
 		<CodeAnalysisRuleSet>juniormind.ruleset</CodeAnalysisRuleSet>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="JasonFacts\AnyFacts.cs" />
+	  <Compile Remove="JasonFacts\CharacterFacts.cs" />
+	  <Compile Remove="JasonFacts\ChoiceFacts.cs" />
+	  <Compile Remove="JasonFacts\ListFacts.cs" />
+	  <Compile Remove="JasonFacts\ManyFacts.cs" />
+	  <Compile Remove="JasonFacts\NumberFacts.cs" />
+	  <Compile Remove="JasonFacts\OneOrMoreFacts.cs" />
+	  <Compile Remove="JasonFacts\OptionalFacts.cs" />
+	  <Compile Remove="JasonFacts\RangeFacts.cs" />
+	  <Compile Remove="JasonFacts\SequenceFacts.cs" />
+	  <Compile Remove="JasonFacts\StringsFacts.cs" />
+	  <Compile Remove="JasonFacts\SuccessMatchFacts.cs" />
+	  <Compile Remove="JasonFacts\TextFacts.cs" />
+	  <Compile Remove="JasonFacts\ValueFacts.cs" />
+	  <Compile Remove="Jason\Any.cs" />
+	  <Compile Remove="Jason\Character.cs" />
+	  <Compile Remove="Jason\Choice.cs" />
+	  <Compile Remove="Jason\List.cs" />
+	  <Compile Remove="Jason\Many.cs" />
+	  <Compile Remove="Jason\Number.cs" />
+	  <Compile Remove="Jason\OneOrMore.cs" />
+	  <Compile Remove="Jason\Optional.cs" />
+	  <Compile Remove="Jason\Program.cs" />
+	  <Compile Remove="Jason\Range.cs" />
+	  <Compile Remove="Jason\Sequence.cs" />
+	  <Compile Remove="Jason\Strings.cs" />
+	  <Compile Remove="Jason\SuccessMatch.cs" />
+	  <Compile Remove="Jason\Text.cs" />
+	  <Compile Remove="Jason\Value.cs" />
+	</ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.4">
