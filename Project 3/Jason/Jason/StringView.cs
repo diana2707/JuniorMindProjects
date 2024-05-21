@@ -39,5 +39,10 @@ namespace Jason.Jason
 
             return (strings.Length, strings[^1].Length + 1);
         }
+
+        public bool IsIndexLargerThan(StringView stringView)
+        {
+            return index > stringView.index;
+        }
     }
 }

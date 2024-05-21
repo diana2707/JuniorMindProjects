@@ -134,5 +134,21 @@ namespace Jason.JasonFacts
             StringView stringView = new ("abc\r\ndef\r\nghi", 11);
             Assert.Equal((3, 3), stringView.GetLocation());
         }
+
+        [Fact]
+        public void IsIndexLargerThanShouldReturnTrueWhenIndexIsLarger()
+        {
+            StringView stringView = new ("abcdefgh", 6);
+            StringView failedStringView = new ("abcdefgh", 4);
+            Assert.True(stringView.IsIndexLargerThan(failedStringView));
+        }
+
+        [Fact]
+        public void IsIndexLargerThanShouldReturnFalseWhenIndexIsSmaller()
+        {
+            StringView stringView = new ("abcdefgh", 6);
+            StringView failedStringView = new ("abcdefgh", 7);
+            Assert.False(stringView.IsIndexLargerThan(failedStringView));
+        }
     }
 }
