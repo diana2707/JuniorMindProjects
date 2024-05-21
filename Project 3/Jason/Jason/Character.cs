@@ -16,7 +16,7 @@ namespace Jason
         {
             return !stringView.IsEmpty() && stringView.Peek() == pattern
                 ? new SuccessMatch(stringView.Advance(), failedIndex)
-                : new FailedMatch(stringView, string);
+                : new FailedMatch(stringView, stringView.IsIndexLargerThan(failedIndex) ? stringView : failedIndex);
         }
     }
 }

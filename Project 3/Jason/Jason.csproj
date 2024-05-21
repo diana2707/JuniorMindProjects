@@ -15,7 +15,6 @@
 
 	<ItemGroup>
 	  <Compile Remove="JasonFacts\AnyFacts.cs" />
-	  <Compile Remove="JasonFacts\CharacterFacts.cs" />
 	  <Compile Remove="JasonFacts\ChoiceFacts.cs" />
 	  <Compile Remove="JasonFacts\ListFacts.cs" />
 	  <Compile Remove="JasonFacts\ManyFacts.cs" />
@@ -28,7 +27,6 @@
 	  <Compile Remove="JasonFacts\TextFacts.cs" />
 	  <Compile Remove="JasonFacts\ValueFacts.cs" />
 	  <Compile Remove="Jason\Any.cs" />
-	  <Compile Remove="Jason\Character.cs" />
 	  <Compile Remove="Jason\Choice.cs" />
 	  <Compile Remove="Jason\List.cs" />
 	  <Compile Remove="Jason\Many.cs" />
