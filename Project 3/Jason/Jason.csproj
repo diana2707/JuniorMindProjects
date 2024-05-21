@@ -25,7 +25,6 @@
 	  <Compile Remove="JasonFacts\RangeFacts.cs" />
 	  <Compile Remove="JasonFacts\SequenceFacts.cs" />
 	  <Compile Remove="JasonFacts\StringsFacts.cs" />
-	  <Compile Remove="JasonFacts\SuccessMatchFacts.cs" />
 	  <Compile Remove="JasonFacts\TextFacts.cs" />
 	  <Compile Remove="JasonFacts\ValueFacts.cs" />
 	  <Compile Remove="Jason\Any.cs" />
@@ -40,7 +39,6 @@
 	  <Compile Remove="Jason\Range.cs" />
 	  <Compile Remove="Jason\Sequence.cs" />
 	  <Compile Remove="Jason\Strings.cs" />
-	  <Compile Remove="Jason\SuccessMatch.cs" />
 	  <Compile Remove="Jason\Text.cs" />
 	  <Compile Remove="Jason\Value.cs" />
 	</ItemGroup>
