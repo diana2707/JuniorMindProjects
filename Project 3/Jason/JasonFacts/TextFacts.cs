@@ -124,5 +124,27 @@ namespace Jason.JasonFacts
             Assert.False(empty.Match(currentIndex, failedIndex).Success());
             Assert.Equal('\0', empty.Match(currentIndex, failedIndex).CurrentIndex().Peek());
         }
+
+        [Fact]
+        public void ShouldReturnFailedIndexWhenIndexIsNotLarger()
+        {
+            var trueText = new Text("true");
+            StringView currentIndex = new ("abcd", 0);
+            StringView failedIndex = new ("abcd", 0);
+
+            Assert.False(trueText.Match(currentIndex, failedIndex).Success());
+            Assert.Equal('a', trueText.Match(currentIndex, failedIndex).FailedIndex().Peek());
+        }
+
+        [Fact]
+        public void ShouldReturnFailedIndexWhenIndexIsLarger()
+        {
+            var trueText = new Text("true");
+            StringView currentIndex = new ("abcd", 0);
+            StringView failedIndex = new ("abcd", 2);
+
+            Assert.False(trueText.Match(currentIndex, failedIndex).Success());
+            Assert.Equal('c', trueText.Match(currentIndex, failedIndex).FailedIndex().Peek());
+        }
     }
 }

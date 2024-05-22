@@ -11,15 +11,15 @@ namespace Jason.Jason
             this.patterns = patterns;
         }
 
-        public IMatch Match(StringView stringView)
+        public IMatch Match(StringView currentIndex, StringView failedIndex)
         {
-            IMatch match = new SuccessMatch(stringView);
+            IMatch match = new SuccessMatch(currentIndex, failedIndex);
             foreach (var pattern in patterns)
             {
-                match = pattern.Match(match.StringView());
+                match = pattern.Match(match.CurrentIndex(), match.FailedIndex());
                 if (!match.Success())
                 {
-                    return new FailedMatch(stringView);
+                    return new FailedMatch(currentIndex, match.FailedIndex());
                 }
             }
 
