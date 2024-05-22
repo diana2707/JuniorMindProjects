@@ -11,11 +11,11 @@ namespace Jason.Jason
             this.prefix = prefix;
         }
 
-        public IMatch Match(StringView stringView)
+        public IMatch Match(StringView currentIndex, StringView failedIndex)
         {
-            return !stringView.IsEmpty() && stringView.StartsWith(prefix)
-                ? new SuccessMatch(stringView.Advance(prefix.Length))
-                : new FailedMatch(stringView);
+            return !currentIndex.IsEmpty() && currentIndex.StartsWith(prefix)
+                ? new SuccessMatch(currentIndex.Advance(prefix.Length), failedIndex)
+                : new FailedMatch(currentIndex, currentIndex.IsIndexLargerThan(failedIndex) ? currentIndex : failedIndex);
         }
     }
 }

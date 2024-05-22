@@ -22,7 +22,6 @@
 	  <Compile Remove="JasonFacts\OptionalFacts.cs" />
 	  <Compile Remove="JasonFacts\SequenceFacts.cs" />
 	  <Compile Remove="JasonFacts\StringsFacts.cs" />
-	  <Compile Remove="JasonFacts\TextFacts.cs" />
 	  <Compile Remove="JasonFacts\ValueFacts.cs" />
 	  <Compile Remove="Jason\Choice.cs" />
 	  <Compile Remove="Jason\List.cs" />
@@ -33,7 +32,6 @@
 	  <Compile Remove="Jason\Program.cs" />
 	  <Compile Remove="Jason\Sequence.cs" />
 	  <Compile Remove="Jason\Strings.cs" />
-	  <Compile Remove="Jason\Text.cs" />
 	  <Compile Remove="Jason\Value.cs" />
 	</ItemGroup>
 
