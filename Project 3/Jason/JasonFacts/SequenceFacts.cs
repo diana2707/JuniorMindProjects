@@ -177,136 +177,149 @@ namespace Jason.JasonFacts
             Assert.Equal('\0', abc.Match(currentIndex, failedIndex).FailedIndex().Peek());
         }
 
-        //[Fact]
-        //public void ShouldReturnTrueAndEmptyStringWhenSequenceContainsAChoiceAndMatchIsValid()
-        //{
-        //    var hex = new Choice(
-        //       new Range('0', '9'),
-        //       new Range('a', 'f'),
-        //       new Range('A', 'F'));
+        [Fact]
+        public void ShouldReturnTrueAndEmptyStringWhenSequenceContainsAChoiceAndMatchIsValid()
+        {
+            var hex = new Choice(
+               new Range('0', '9'),
+               new Range('a', 'f'),
+               new Range('A', 'F'));
 
-        //    var hexSeq = new Sequence(
-        //        new Character('u'),
-        //        new Sequence(
-        //            hex,
-        //            hex,
-        //            hex,
-        //            hex));
+            var hexSeq = new Sequence(
+                new Character('u'),
+                new Sequence(
+                    hex,
+                    hex,
+                    hex,
+                    hex));
 
-        //    StringView stringView = new ("u1234", 0);
+            StringView currentIndex = new ("u1234", 0);
+            StringView failedIndex = new ("u1234", 0);
 
-        //    Assert.True(hexSeq.Match(stringView).Success());
-        //    Assert.Equal('\0', hexSeq.Match(stringView).StringView().Peek());
-        //}
+            Assert.True(hexSeq.Match(currentIndex, failedIndex).Success());
+            Assert.Equal('\0', hexSeq.Match(currentIndex, failedIndex).CurrentIndex().Peek());
+            Assert.Equal('u', hexSeq.Match(currentIndex, failedIndex).FailedIndex().Peek());
+        }
 
-        //[Fact]
-        //public void ShouldReturnTrueAndRemainingTextWhenSequenceContainsAChoiceAndMatchIsValid()
-        //{
-        //    var hex = new Choice(
-        //        new Range('0', '9'),
-        //        new Range('a', 'f'),
-        //        new Range('A', 'F'));
+        [Fact]
+        public void ShouldReturnTrueAndRemainingTextWhenSequenceContainsAChoiceAndMatchIsValid()
+        {
+            var hex = new Choice(
+                new Range('0', '9'),
+                new Range('a', 'f'),
+                new Range('A', 'F'));
 
-        //    var hexSeq = new Sequence(
-        //        new Character('u'),
-        //        new Sequence(
-        //            hex,
-        //            hex,
-        //            hex,
-        //            hex));
+            var hexSeq = new Sequence(
+                new Character('u'),
+                new Sequence(
+                    hex,
+                    hex,
+                    hex,
+                    hex));
 
-        //    StringView stringView = new ("uabcdef", 0);
+            StringView currentIndex = new ("uabcdef", 0);
+            StringView failedIndex = new ("uabcdef", 0);
 
-        //    Assert.True(hexSeq.Match(stringView).Success());
-        //    Assert.Equal('e', hexSeq.Match(stringView).StringView().Peek());
-        //}
+            Assert.True(hexSeq.Match(currentIndex, failedIndex).Success());
+            Assert.Equal('e', hexSeq.Match(currentIndex, failedIndex).CurrentIndex().Peek());
+            Assert.Equal('u', hexSeq.Match(currentIndex, failedIndex).FailedIndex().Peek());
 
-        //[Fact]
-        //public void ShouldReturnTrueAndRemainingTextWhenSequenceContainsAChoiceAndStringContainsSpace()
-        //{
-        //    var hex = new Choice(
-        //        new Range('0', '9'),
-        //        new Range('a', 'f'),
-        //        new Range('A', 'F'));
+        }
 
-        //    var hexSeq = new Sequence(
-        //        new Character('u'),
-        //        new Sequence(
-        //            hex,
-        //            hex,
-        //            hex,
-        //            hex));
+        [Fact]
+        public void ShouldReturnTrueAndRemainingTextWhenSequenceContainsAChoiceAndStringContainsSpace()
+        {
+            var hex = new Choice(
+                new Range('0', '9'),
+                new Range('a', 'f'),
+                new Range('A', 'F'));
 
-        //    StringView stringView = new ("uB005 ab", 0);
+            var hexSeq = new Sequence(
+                new Character('u'),
+                new Sequence(
+                    hex,
+                    hex,
+                    hex,
+                    hex));
 
-        //    Assert.True(hexSeq.Match(stringView).Success());
-        //    Assert.Equal(' ', hexSeq.Match(stringView).StringView().Peek());
-        //}
+            StringView currentIndex = new ("uB005 ab", 0);
+            StringView failedIndex = new ("uB005 ab", 0);
 
-        //[Fact]
-        //public void ShouldReturnFalseAndWholeTextWhenMatchIsInvalid()
-        //{
-        //    var hex = new Choice(
-        //        new Range('0', '9'),
-        //        new Range('a', 'f'),
-        //        new Range('A', 'F'));
+            Assert.True(hexSeq.Match(currentIndex, failedIndex).Success());
+            Assert.Equal(' ', hexSeq.Match(currentIndex, failedIndex).CurrentIndex().Peek());
+            Assert.Equal('u', hexSeq.Match(currentIndex, failedIndex).FailedIndex().Peek());
+        }
 
-        //    var hexSeq = new Sequence(
-        //        new Character('u'),
-        //        new Sequence(
-        //            hex,
-        //            hex,
-        //            hex,
-        //            hex));
+        [Fact]
+        public void ShouldReturnFalseAndWholeTextWhenMatchIsInvalid()
+        {
+            var hex = new Choice(
+                new Range('0', '9'),
+                new Range('a', 'f'),
+                new Range('A', 'F'));
 
-        //    StringView stringView = new ("abc", 0);
+            var hexSeq = new Sequence(
+                new Character('u'),
+                new Sequence(
+                    hex,
+                    hex,
+                    hex,
+                    hex));
 
-        //    Assert.False(hexSeq.Match(stringView).Success());
-        //    Assert.Equal('a', hexSeq.Match(stringView).StringView().Peek());
-        //}
+            StringView currentIndex = new ("uzabc", 0);
+            StringView failedIndex = new ("uzabc", 0);
 
-        //[Fact]
-        //public void ShouldReturnFalseAndWholeTextWhenStringIsNull()
-        //{
-        //    var hex = new Choice(
-        //        new Range('0', '9'),
-        //        new Range('a', 'f'),
-        //        new Range('A', 'F'));
+            Assert.False(hexSeq.Match(currentIndex, failedIndex).Success());
+            Assert.Equal('u', hexSeq.Match(currentIndex, failedIndex).CurrentIndex().Peek());
+            Assert.Equal('z', hexSeq.Match(currentIndex, failedIndex).FailedIndex().Peek());
+        }
 
-        //    var hexSeq = new Sequence(
-        //        new Character('u'),
-        //        new Sequence(
-        //            hex,
-        //            hex,
-        //            hex,
-        //            hex));
+        [Fact]
+        public void ShouldReturnFalseAndWholeTextWhenStringIsNull()
+        {
+            var hex = new Choice(
+                new Range('0', '9'),
+                new Range('a', 'f'),
+                new Range('A', 'F'));
 
-        //    StringView stringView = new (null, 0);
+            var hexSeq = new Sequence(
+                new Character('u'),
+                new Sequence(
+                    hex,
+                    hex,
+                    hex,
+                    hex));
 
-        //    Assert.False(hexSeq.Match(stringView).Success());
-        //    Assert.Equal('\0', hexSeq.Match(stringView).StringView().Peek());
-        //}
+            StringView currentIndex = new (null, 0);
+            StringView failedIndex = new (null, 0);
 
-        //[Fact]
-        //public void ShouldReturnFalseAndWholeTextWhenStringIsEmpty()
-        //{
-        //    var hex = new Choice(
-        //        new Range('0', '9'),
-        //        new Range('a', 'f'),
-        //        new Range('A', 'F'));
+            Assert.False(hexSeq.Match(currentIndex, failedIndex).Success());
+            Assert.Equal('\0', hexSeq.Match(currentIndex, failedIndex).CurrentIndex().Peek());
+            Assert.Equal('\0', hexSeq.Match(currentIndex, failedIndex).FailedIndex().Peek());
+        }
 
-        //    var hexSeq = new Sequence(
-        //        new Character('u'),
-        //        new Sequence(
-        //            hex,
-        //            hex,
-        //            hex,
-        //            hex));
+        [Fact]
+        public void ShouldReturnFalseAndWholeTextWhenStringIsEmpty()
+        {
+            var hex = new Choice(
+                new Range('0', '9'),
+                new Range('a', 'f'),
+                new Range('A', 'F'));
 
-        //    StringView stringView = new ("", 0);
+            var hexSeq = new Sequence(
+                new Character('u'),
+                new Sequence(
+                    hex,
+                    hex,
+                    hex,
+                    hex));
 
-        //    Assert.False(hexSeq.Match(stringView).Success());
-        //    Assert.Equal('\0', hexSeq.Match(stringView).StringView().Peek());
-        //}
+            StringView currentIndex = new ("", 0);
+            StringView failedIndex = new ("", 0);
+
+            Assert.False(hexSeq.Match(currentIndex, failedIndex).Success());
+            Assert.Equal('\0', hexSeq.Match(currentIndex, failedIndex).CurrentIndex().Peek());
+            Assert.Equal('\0', hexSeq.Match(currentIndex, failedIndex).FailedIndex().Peek());
+        }
     }
 }
