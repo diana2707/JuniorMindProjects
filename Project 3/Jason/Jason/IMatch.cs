@@ -8,6 +8,6 @@ namespace Jason.Jason
 
         StringView FailedIndex();
 
-        StringView StringView();
+        StringView CurrentIndex();
     }
 }

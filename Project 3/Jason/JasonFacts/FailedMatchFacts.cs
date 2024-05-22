@@ -8,28 +8,31 @@ namespace Jason.JasonFacts
         [Fact]
         public void ShouldReturnFalseAndRemainingText()
         {
-            StringView stringView = new StringView("abc", 0);
-            FailedMatch match = new FailedMatch(stringView, stringView);
+            StringView currentIndex = new StringView("abc", 0);
+            StringView failedIndex = new StringView("abc", 0);
+            FailedMatch match = new FailedMatch(currentIndex, failedIndex);
             Assert.False(match.Success());
-            Assert.Equal('a', match.StringView().Peek());
+            Assert.Equal('a', match.CurrentIndex().Peek());
         }
 
         [Fact]
         public void ShouldReturnFalseAndEmptyString()
         {
-            StringView stringView = new StringView("", 0);
-            FailedMatch match = new FailedMatch(stringView, stringView);
+            StringView currentIndex = new StringView("", 0);
+            StringView failedIndex = new StringView("", 0);
+            FailedMatch match = new FailedMatch(currentIndex, failedIndex);
             Assert.False(match.Success());
-            Assert.Equal('\0', match.StringView().Peek());
+            Assert.Equal('\0', match.CurrentIndex().Peek());
         }
 
         [Fact]
         public void ShouldReturnFalseAndNull()
         {
-            StringView stringView = new StringView(null, 0);
-            FailedMatch match = new FailedMatch(stringView, stringView);
+            StringView currentIndex = new StringView(null, 0);
+            StringView failedIndex = new StringView(null, 0);
+            FailedMatch match = new FailedMatch(currentIndex, failedIndex);
             Assert.False(match.Success());
-            Assert.Equal('\0', match.StringView().Peek());
+            Assert.Equal('\0', match.CurrentIndex().Peek());
         }
     }
 }

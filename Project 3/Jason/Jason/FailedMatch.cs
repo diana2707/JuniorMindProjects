@@ -5,12 +5,12 @@ namespace Jason.Jason
 {
     class FailedMatch : IMatch
     {
-        readonly StringView stringView;
+        readonly StringView currentIndex;
         readonly StringView failedIndex;
 
-        public FailedMatch(StringView stringView, StringView failedIndex)
+        public FailedMatch(StringView currentIndex, StringView failedIndex)
         {
-            this.stringView = stringView;
+            this.currentIndex = currentIndex;
             this.failedIndex = failedIndex;
         }
 
@@ -18,6 +18,6 @@ namespace Jason.Jason
 
         public StringView FailedIndex() => failedIndex;
 
-        public StringView StringView() => stringView;
+        public StringView CurrentIndex() => currentIndex;
     }
 }

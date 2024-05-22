@@ -8,10 +8,11 @@ namespace Jason.JasonFacts
         [Fact]
         public void ShouldReturnTrueAndRemainingText()
         {
-            StringView stringView = new StringView("abc", 0);
-            SuccessMatch match = new (stringView, stringView);
+            StringView currentIndex = new StringView("abc", 0);
+            StringView failedIndex = new StringView("abc", 0);
+            SuccessMatch match = new (currentIndex, failedIndex);
             Assert.True(match.Success());
-            Assert.Equal('a', match.StringView().Peek());
+            Assert.Equal('a', match.CurrentIndex().Peek());
         }
     }
 }
