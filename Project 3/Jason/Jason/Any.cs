@@ -12,11 +12,11 @@ namespace Jason.Jason
             this.accepted = accepted;
         }
 
-        public IMatch Match(StringView stringView)
+        public IMatch Match(StringView currentIndex, StringView failedIndex)
         {
-            return !stringView.IsEmpty() && accepted.Contains(stringView.Peek())
-                ? new SuccessMatch(stringView.Advance())
-                : new FailedMatch(stringView);
+            return !currentIndex.IsEmpty() && accepted.Contains(currentIndex.Peek())
+                ? new SuccessMatch(currentIndex.Advance(), failedIndex)
+                : new FailedMatch(currentIndex, currentIndex.IsIndexLargerThan(failedIndex) ? currentIndex : failedIndex);
         }
     }
 }
