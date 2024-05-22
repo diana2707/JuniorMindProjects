@@ -11,9 +11,10 @@ namespace Jason.Jason
             this.pattern = pattern;
         }
 
-        public IMatch Match(StringView stringView)
+        public IMatch Match(StringView currentIndex, StringView failedIndex)
         {
-            return new SuccessMatch(pattern.Match(stringView).StringView());
+            IMatch match = pattern.Match(currentIndex, failedIndex);
+            return new SuccessMatch(match.CurrentIndex(), match.FailedIndex());
         }
     }
 }
