@@ -222,7 +222,7 @@ namespace Jason.JasonFacts
 
             Assert.True(hexSeq.Match(currentIndex, failedIndex).Success());
             Assert.Equal('e', hexSeq.Match(currentIndex, failedIndex).CurrentIndex().Peek());
-            Assert.Equal('u', hexSeq.Match(currentIndex, failedIndex).FailedIndex().Peek());
+            Assert.Equal('d', hexSeq.Match(currentIndex, failedIndex).FailedIndex().Peek());
         }
 
         [Fact]
@@ -246,7 +246,7 @@ namespace Jason.JasonFacts
 
             Assert.True(hexSeq.Match(currentIndex, failedIndex).Success());
             Assert.Equal(' ', hexSeq.Match(currentIndex, failedIndex).CurrentIndex().Peek());
-            Assert.Equal('u', hexSeq.Match(currentIndex, failedIndex).FailedIndex().Peek());
+            Assert.Equal('B', hexSeq.Match(currentIndex, failedIndex).FailedIndex().Peek());
         }
 
         [Fact]
