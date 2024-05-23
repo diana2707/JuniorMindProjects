@@ -35,7 +35,7 @@ namespace Jason.Jason
 
         public (int row, int column) GetLocation()
         {
-            string[] strings = text[.. (index + 1)].Split(Environment.NewLine);
+            string[] strings = text[.. index].Split(Environment.NewLine);
 
             return (strings.Length, strings[^1].Length + 1);
         }

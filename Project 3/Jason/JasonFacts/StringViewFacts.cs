@@ -125,14 +125,14 @@ namespace Jason.JasonFacts
         public void GetLocationShouldReturnRowAndColumnWhenTextHasOneLine()
         {
             StringView stringView = new ("abc", 2);
-            Assert.Equal((1, 4), stringView.GetLocation());
+            Assert.Equal((1, 3), stringView.GetLocation());
         }
 
         [Fact]
         public void GetLocationShouldReturnRowAndColumnWhenTextHasMultipleLines()
         {
             StringView stringView = new ("abc\r\ndef\r\nghi", 11);
-            Assert.Equal((3, 3), stringView.GetLocation());
+            Assert.Equal((3, 2), stringView.GetLocation());
         }
 
         [Fact]
