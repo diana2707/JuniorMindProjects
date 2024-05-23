@@ -16,12 +16,10 @@
 	<ItemGroup>
 	  <Compile Remove="JasonFacts\ListFacts.cs" />
 	  <Compile Remove="JasonFacts\NumberFacts.cs" />
-	  <Compile Remove="JasonFacts\OneOrMoreFacts.cs" />
 	  <Compile Remove="JasonFacts\StringsFacts.cs" />
 	  <Compile Remove="JasonFacts\ValueFacts.cs" />
 	  <Compile Remove="Jason\List.cs" />
 	  <Compile Remove="Jason\Number.cs" />
-	  <Compile Remove="Jason\OneOrMore.cs" />
 	  <Compile Remove="Jason\Program.cs" />
 	  <Compile Remove="Jason\Strings.cs" />
 	  <Compile Remove="Jason\Value.cs" />

@@ -17,6 +17,7 @@ namespace Jason.Jason
             foreach (var pattern in patterns)
             {
                 match = pattern.Match(match.CurrentIndex(), match.FailedIndex());
+
                 if (!match.Success())
                 {
                     return new FailedMatch(currentIndex, match.FailedIndex());

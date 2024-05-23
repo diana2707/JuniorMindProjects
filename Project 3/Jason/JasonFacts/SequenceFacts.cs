@@ -223,7 +223,6 @@ namespace Jason.JasonFacts
             Assert.True(hexSeq.Match(currentIndex, failedIndex).Success());
             Assert.Equal('e', hexSeq.Match(currentIndex, failedIndex).CurrentIndex().Peek());
             Assert.Equal('u', hexSeq.Match(currentIndex, failedIndex).FailedIndex().Peek());
-
         }
 
         [Fact]
