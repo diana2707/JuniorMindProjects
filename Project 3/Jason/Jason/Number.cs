@@ -29,9 +29,9 @@ namespace Jason.Jason
             pattern = new Sequence(integer, new Optional(fraction), new Optional(exponent));
         }
 
-        public IMatch Match(StringView stringView)
+        public IMatch Match(StringView currentIndex, StringView failedIndex)
         {
-            return pattern.Match(stringView);
+            return pattern.Match(currentIndex, failedIndex);
         }
     }
 }

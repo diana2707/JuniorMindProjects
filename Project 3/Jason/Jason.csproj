@@ -14,10 +14,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="JasonFacts\NumberFacts.cs" />
 	  <Compile Remove="JasonFacts\StringsFacts.cs" />
 	  <Compile Remove="JasonFacts\ValueFacts.cs" />
-	  <Compile Remove="Jason\Number.cs" />
 	  <Compile Remove="Jason\Program.cs" />
 	  <Compile Remove="Jason\Strings.cs" />
 	  <Compile Remove="Jason\Value.cs" />
