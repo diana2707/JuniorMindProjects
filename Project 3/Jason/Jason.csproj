@@ -14,9 +14,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="JasonFacts\ValueFacts.cs" />
 	  <Compile Remove="Jason\Program.cs" />
-	  <Compile Remove="Jason\Value.cs" />
 	</ItemGroup>
 
   <ItemGroup>
