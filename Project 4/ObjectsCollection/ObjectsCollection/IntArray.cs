@@ -16,5 +16,10 @@ namespace ObjectsCollection
             array = new int[array.Length + 1];
             array[array.Length - 1] = element;
         }
+
+        public int Count()
+        {
+            return array.Length;
+        }
     }
 }
