@@ -56,5 +56,23 @@ namespace ObjectsCollection
 
             return -1;
         }
+
+        public void Insert(int index, int element)
+        {
+            int[] newArray = new int[array.Length + 1];
+            for (int i = 0; i < index; i++)
+            {
+                newArray[i] = array[i];
+            }
+
+            newArray[index] = element;
+
+            for (int i = index + 1; i < newArray.Length; i++)
+            {
+                newArray[i] = array[i - 1];
+            }
+
+            array = newArray;
+        }
     }
 }

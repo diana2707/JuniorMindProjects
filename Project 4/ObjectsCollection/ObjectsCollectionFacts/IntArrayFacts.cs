@@ -75,5 +75,17 @@ namespace ObjectsCollection
             array.Add(5);
             Assert.Equal(-1, array.IndexOf(7));
         }
+
+        [Fact]
+        public void InsertMethodShoulShouldInsertCorrectElement()
+        {
+            IntArray array = new IntArray();
+            array.Add(3);
+            array.Add(5);
+            array.Add(6);
+            array.Insert(1, 4);
+            Assert.Equal(4, array.Element(1));
+            Assert.Equal(6, array.Element(3));
+        }
     }
 }
