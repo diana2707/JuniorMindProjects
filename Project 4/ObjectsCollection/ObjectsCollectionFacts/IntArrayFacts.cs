@@ -8,7 +8,20 @@ namespace ObjectsCollection
             IntArray array = new IntArray();
             array.Add(5);
 
-            Assert.Equal(1, array.Count());
+            Assert.Equal(5, array.Element(0));
+        }
+
+        [Fact]
+        public void AddMethodShouldAddOneElementWhenArrayHasOver4Elements()
+        {
+            IntArray array = new IntArray();
+            array.Add(1);
+            array.Add(2);
+            array.Add(3);
+            array.Add(4);
+            array.Add(5);
+
+            Assert.Equal(5, array.Element(4));
         }
 
         [Fact]

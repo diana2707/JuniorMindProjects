@@ -9,19 +9,16 @@ namespace ObjectsCollection
 
         public IntArray()
         {
-            array = new int[0];
+            array = new int[4];
         }
 
         public void Add(int element)
         {
-            int[] newArray = new int[array.Length + 1];
-            for (int i = 0; i < array.Length; i++)
-            {
-                newArray[i] = array[i];
-            }
+            int lastIndex = GetLastIndex();
 
-            newArray[^1] = element;
-            array = newArray;
+            AllocatePositions(lastIndex);
+
+            array[lastIndex + 1] = element;
         }
 
         public int Count()
@@ -108,6 +105,35 @@ namespace ObjectsCollection
             for (int i = index; i < newArray.Length; i++)
             {
                 newArray[i] = array[i + 1];
+            }
+
+            array = newArray;
+        }
+
+        private int GetLastIndex()
+        {
+            for (int i = array.Length - 1; i >= 0; i--)
+            {
+                if (array[i] != 0)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        private void AllocatePositions(int lastIndex)
+        {
+            if (lastIndex < array.Length - 1)
+            {
+                return;
+            }
+
+            int[] newArray = new int[array.Length * 2];
+            for (int i = 0; i < array.Length; i++)
+            {
+                newArray[i] = array[i];
             }
 
             array = newArray;
