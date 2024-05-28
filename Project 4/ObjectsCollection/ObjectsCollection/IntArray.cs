@@ -60,6 +60,7 @@ namespace ObjectsCollection
         public void Insert(int index, int element)
         {
             int[] newArray = new int[array.Length + 1];
+
             for (int i = 0; i < index; i++)
             {
                 newArray[i] = array[i];
@@ -93,6 +94,28 @@ namespace ObjectsCollection
             {
                 return;
             }
+
+            for (int i = 0; i < index; i++)
+            {
+                newArray[i] = array[i];
+            }
+
+            for (int i = index; i < newArray.Length; i++)
+            {
+                newArray[i] = array[i + 1];
+            }
+
+            array = newArray;
+        }
+
+        public void RemoveAt(int index)
+        {
+            if (index < 0 || index >= array.Length)
+            {
+                return;
+            }
+
+            int[] newArray = new int[array.Length - 1];
 
             for (int i = 0; i < index; i++)
             {
