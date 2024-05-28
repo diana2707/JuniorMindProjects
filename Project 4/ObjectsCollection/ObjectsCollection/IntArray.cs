@@ -38,6 +38,11 @@ namespace ObjectsCollection
 
         public void SetElement(int index, int element)
         {
+            if (index > GetLastIndex())
+            {
+                return;
+            }
+
             array[index] = element;
         }
 
