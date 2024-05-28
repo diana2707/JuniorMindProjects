@@ -37,5 +37,23 @@ namespace ObjectsCollection
             array.SetElement(0, 6);
             Assert.Equal(6, array.Element(0));
         }
+
+        [Fact]
+        public void ContainsMethodShoulReturnTrueWhenArrayContainsElement()
+        {
+            IntArray array = new IntArray();
+            array.Add(5);
+            array.Add(6);
+            Assert.True(array.Contains(6));
+        }
+
+        [Fact]
+        public void ContainsMethodShoulReturnTrueWhenArrayDoNotContainsElement()
+        {
+            IntArray array = new IntArray();
+            array.Add(5);
+            array.Add(6);
+            Assert.False(array.Contains(7));
+        }
     }
 }

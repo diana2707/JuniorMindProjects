@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System;
+using System.Reflection.Metadata.Ecma335;
 
 namespace ObjectsCollection
 {
@@ -36,6 +37,19 @@ namespace ObjectsCollection
         public void SetElement(int index, int element)
         {
             array[index] = element;
+        }
+
+        public bool Contains(int element)
+        {
+            foreach (int n in array)
+            {
+                if (element == n)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
