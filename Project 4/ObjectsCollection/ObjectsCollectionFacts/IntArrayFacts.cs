@@ -55,5 +55,25 @@ namespace ObjectsCollection
             array.Add(6);
             Assert.False(array.Contains(7));
         }
+
+        [Fact]
+        public void IndexOfMethodShoulReturnCorrectIndexOfElementWhenElementExists()
+        {
+            IntArray array = new IntArray();
+            array.Add(3);
+            array.Add(4);
+            array.Add(5);
+            Assert.Equal(1, array.IndexOf(4));
+        }
+
+        [Fact]
+        public void IndexOfMethodShoulReturnMinus1WhenElementDoNotExists()
+        {
+            IntArray array = new IntArray();
+            array.Add(3);
+            array.Add(4);
+            array.Add(5);
+            Assert.Equal(-1, array.IndexOf(7));
+        }
     }
 }
