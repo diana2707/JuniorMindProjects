@@ -41,15 +41,7 @@ namespace ObjectsCollection
 
         public bool Contains(int element)
         {
-            foreach (int n in array)
-            {
-                if (element == n)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return IndexOf(element) != -1;
         }
 
         public int IndexOf(int element)
