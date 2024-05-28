@@ -87,5 +87,16 @@ namespace ObjectsCollection
             Assert.Equal(4, array.Element(1));
             Assert.Equal(6, array.Element(3));
         }
+
+        [Fact]
+        public void CleanMethodShoulShouldSetAllElementToDefault()
+        {
+            IntArray array = new IntArray();
+            array.Add(3);
+            array.Add(4);
+            array.Clear();
+            Assert.Equal(0, array.Element(0));
+            Assert.Equal(0, array.Element(1));
+        }
     }
 }

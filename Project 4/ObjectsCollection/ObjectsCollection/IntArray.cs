@@ -74,5 +74,13 @@ namespace ObjectsCollection
 
             array = newArray;
         }
+
+        public void Clear()
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = 0;
+            }
+        }
     }
 }
