@@ -82,5 +82,29 @@ namespace ObjectsCollection
                 array[i] = 0;
             }
         }
+
+        public void Remove(int element)
+        {
+            int[] newArray = new int[array.Length - 1];
+
+            int index = IndexOf(element);
+
+            if (index == -1)
+            {
+                return;
+            }
+
+            for (int i = 0; i < index; i++)
+            {
+                newArray[i] = array[i];
+            }
+
+            for (int i = index; i < newArray.Length; i++)
+            {
+                newArray[i] = array[i + 1];
+            }
+
+            array = newArray;
+        }
     }
 }

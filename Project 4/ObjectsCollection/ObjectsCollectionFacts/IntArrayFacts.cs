@@ -30,7 +30,7 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void SetElementMethodShoulSetCorrectElement()
+        public void SetElementMethodShouldSetCorrectElement()
         {
             IntArray array = new IntArray();
             array.Add(5);
@@ -39,7 +39,7 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void ContainsMethodShoulReturnTrueWhenArrayContainsElement()
+        public void ContainsMethodShouldReturnTrueWhenArrayContainsElement()
         {
             IntArray array = new IntArray();
             array.Add(5);
@@ -48,7 +48,7 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void ContainsMethodShoulReturnTrueWhenArrayDoNotContainsElement()
+        public void ContainsMethodShouldReturnTrueWhenArrayDoNotContainsElement()
         {
             IntArray array = new IntArray();
             array.Add(5);
@@ -57,7 +57,7 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void IndexOfMethodShoulReturnCorrectIndexOfElementWhenElementExists()
+        public void IndexOfMethodShouldReturnCorrectIndexOfElementWhenElementExists()
         {
             IntArray array = new IntArray();
             array.Add(3);
@@ -67,7 +67,7 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void IndexOfMethodShoulReturnMinus1WhenElementDoNotExists()
+        public void IndexOfMethodShouldReturnMinus1WhenElementDoNotExists()
         {
             IntArray array = new IntArray();
             array.Add(3);
@@ -77,7 +77,7 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void InsertMethodShoulShouldInsertCorrectElement()
+        public void InsertMethodShouldShouldInsertCorrectElement()
         {
             IntArray array = new IntArray();
             array.Add(3);
@@ -89,7 +89,7 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void CleanMethodShoulShouldSetAllElementToDefault()
+        public void CleanMethodShouldShouldSetAllElementToDefault()
         {
             IntArray array = new IntArray();
             array.Add(3);
@@ -97,6 +97,31 @@ namespace ObjectsCollection
             array.Clear();
             Assert.Equal(0, array.Element(0));
             Assert.Equal(0, array.Element(1));
+        }
+
+        [Fact]
+        public void RemoveMethodShouldRemoveTheCorrectElement()
+        {
+            IntArray array = new IntArray();
+            array.Add(3);
+            array.Add(4);
+            array.Add(5);
+            array.Remove(4);
+            Assert.Equal(3, array.Element(0));
+            Assert.Equal(5, array.Element(1));
+        }
+
+        [Fact]
+        public void RemoveMethodShouldNotChangeOriginalArrayWhenElementDoNotExists()
+        {
+            IntArray array = new IntArray();
+            array.Add(3);
+            array.Add(4);
+            array.Add(5);
+            array.Remove(7);
+            Assert.Equal(3, array.Element(0));
+            Assert.Equal(4, array.Element(1));
+            Assert.Equal(5, array.Element(2));
         }
     }
 }
