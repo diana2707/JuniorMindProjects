@@ -46,6 +46,16 @@ namespace ObjectsCollection
         }
 
         [Fact]
+        public void ElementMethodShouldReturnMinus1WhenIndexIsLargerThanLastIndex()
+        {
+            IntArray array = new IntArray();
+            array.Add(5);
+            array.Add(6);
+
+            Assert.Equal(-1, array.Element(2));
+        }
+
+        [Fact]
         public void SetElementMethodShouldSetCorrectElement()
         {
             IntArray array = new IntArray();
@@ -98,7 +108,7 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void InsertMethoddShouldInsertCorrectElement()
+        public void InsertMethodShouldInsertCorrectElement()
         {
             IntArray array = new IntArray();
             array.Add(3);
@@ -111,15 +121,14 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void CleanMethodShouldShouldSetAllElementToDefault()
+        public void ClearMethodShouldSetAllElementToDefault()
         {
             IntArray array = new IntArray();
             array.Add(3);
             array.Add(4);
             array.Clear();
 
-            Assert.Equal(0, array.Element(0));
-            Assert.Equal(0, array.Element(1));
+            Assert.Equal(0, array.Count());
         }
 
         [Fact]

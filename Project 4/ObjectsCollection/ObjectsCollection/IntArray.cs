@@ -28,6 +28,11 @@ namespace ObjectsCollection
 
         public int Element(int index)
         {
+            if (index > GetLastIndex())
+            {
+                return -1;
+            }
+
             return array[index];
         }
 
