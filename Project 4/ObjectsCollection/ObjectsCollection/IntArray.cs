@@ -23,7 +23,7 @@ namespace ObjectsCollection
 
         public int Count()
         {
-            return array.Length;
+            return GetLastIndex() + 1;
         }
 
         public int Element(int index)
