@@ -101,24 +101,18 @@ namespace ObjectsCollection
 
         public void RemoveAt(int index)
         {
-            if (index < 0 || index >= array.Length)
+            int lastIndex = GetLastIndex();
+
+            if (index < 0 || index > lastIndex)
             {
                 return;
             }
 
-            int[] newArray = new int[array.Length - 1];
-
-            for (int i = 0; i < index; i++)
+            while (index < lastIndex)
             {
-                newArray[i] = array[i];
+                array[index] = array[index + 1];
+                index++;
             }
-
-            for (int i = index; i < newArray.Length; i++)
-            {
-                newArray[i] = array[i + 1];
-            }
-
-            array = newArray;
         }
 
         private int GetLastIndex()

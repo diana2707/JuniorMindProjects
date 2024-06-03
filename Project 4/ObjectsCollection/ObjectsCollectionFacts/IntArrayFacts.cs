@@ -185,6 +185,19 @@ namespace ObjectsCollection
         }
 
         [Fact]
+        public void RemoveAtMethodShouldRemoveCorrectlyFirstElement()
+        {
+            IntArray array = new IntArray();
+            array.Add(3);
+            array.Add(4);
+            array.Add(5);
+            array.RemoveAt(0);
+
+            Assert.Equal(4, array.Element(0));
+            Assert.Equal(5, array.Element(1));
+        }
+
+        [Fact]
         public void RemoveAtMethodShouldNotChangeArrayWhenIndexDoesNotExist()
         {
             IntArray array = new IntArray();
