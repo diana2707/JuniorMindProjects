@@ -121,6 +121,19 @@ namespace ObjectsCollection
         }
 
         [Fact]
+        public void InsertMethodShouldInsertCorrectElementOnLastPosition()
+        {
+            IntArray array = new IntArray();
+            array.Add(3);
+            array.Add(4);
+            array.Add(6);
+            array.Insert(2, 5);
+
+            Assert.Equal(5, array.Element(2));
+            Assert.Equal(6, array.Element(3));
+        }
+
+        [Fact]
         public void ClearMethodShouldSetAllElementToDefault()
         {
             IntArray array = new IntArray();

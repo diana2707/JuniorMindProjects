@@ -66,21 +66,22 @@ namespace ObjectsCollection
 
         public void Insert(int index, int element)
         {
-            int[] newArray = new int[array.Length + 1];
+            int lastIndex = GetLastIndex();
+            AllocatePositions(lastIndex);
 
-            for (int i = 0; i < index; i++)
+            if (index > lastIndex)
             {
-                newArray[i] = array[i];
+                return;
             }
 
-            newArray[index] = element;
-
-            for (int i = index + 1; i < newArray.Length; i++)
+            int tempIndex = lastIndex;
+            while (index <= tempIndex)
             {
-                newArray[i] = array[i - 1];
+                array[tempIndex + 1] = array[tempIndex];
+                tempIndex--;
             }
 
-            array = newArray;
+            array[index] = element;
         }
 
         public void Clear()
