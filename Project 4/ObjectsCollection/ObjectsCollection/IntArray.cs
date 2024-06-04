@@ -63,19 +63,19 @@ namespace ObjectsCollection
 
         public void Insert(int index, int element)
         {
-            int lastIndex = GetLastIndex();
             AllocatePositions();
+
+            int lastIndex = GetLastIndex();
 
             if (index > lastIndex)
             {
                 return;
             }
 
-            int tempIndex = lastIndex;
-            while (index <= tempIndex)
+            while (index <= lastIndex)
             {
-                array[tempIndex + 1] = array[tempIndex];
-                tempIndex--;
+                array[lastIndex + 1] = array[lastIndex];
+                lastIndex--;
             }
 
             array[index] = element;
