@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection.Metadata.Ecma335;
 
 namespace ObjectsCollection
 {
@@ -14,11 +13,9 @@ namespace ObjectsCollection
 
         public void Add(int element)
         {
-            int lastIndex = GetLastIndex();
+            AllocatePositions();
 
-            AllocatePositions(lastIndex);
-
-            array[lastIndex + 1] = element;
+            array[GetLastIndex() + 1] = element;
         }
 
         public int Count()
@@ -67,7 +64,7 @@ namespace ObjectsCollection
         public void Insert(int index, int element)
         {
             int lastIndex = GetLastIndex();
-            AllocatePositions(lastIndex);
+            AllocatePositions();
 
             if (index > lastIndex)
             {
@@ -128,9 +125,9 @@ namespace ObjectsCollection
             return -1;
         }
 
-        private void AllocatePositions(int lastIndex)
+        private void AllocatePositions()
         {
-            if (lastIndex < array.Length - 1)
+            if (GetLastIndex() < array.Length - 1)
             {
                 return;
             }
