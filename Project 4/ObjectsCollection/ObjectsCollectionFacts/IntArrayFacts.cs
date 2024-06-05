@@ -8,7 +8,7 @@ namespace ObjectsCollection
             IntArray array = new IntArray();
             array.Add(5);
 
-            Assert.Equal(5, array.Element(0));
+            Assert.Equal(5, array[0]);
         }
 
         [Fact]
@@ -21,7 +21,7 @@ namespace ObjectsCollection
             array.Add(4);
             array.Add(5);
 
-            Assert.Equal(5, array.Element(4));
+            Assert.Equal(5, array[4]);
         }
 
         [Fact]
@@ -35,34 +35,24 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void ElementMethodShouldReturnCorrectElement()
+        public void ArrayIndexerShouldReturnCorrectElement()
         {
             IntArray array = new IntArray();
             array.Add(5);
             array.Add(6);
 
-            Assert.Equal(5, array.Element(0));
-            Assert.Equal(6, array.Element(1));
+            Assert.Equal(5, array[0]);
+            Assert.Equal(6, array[1]);
         }
 
         [Fact]
-        public void ElementMethodShouldReturnMinus1WhenIndexIsLargerThanCount()
+        public void ArrayIndexerShouldSetCorrectElement()
         {
             IntArray array = new IntArray();
             array.Add(5);
-            array.Add(6);
+            array[0] = 6;
 
-            Assert.Equal(-1, array.Element(2));
-        }
-
-        [Fact]
-        public void SetElementMethodShouldSetCorrectElement()
-        {
-            IntArray array = new IntArray();
-            array.Add(5);
-            array.SetElement(0, 6);
-
-            Assert.Equal(6, array.Element(0));
+            Assert.Equal(6, array[0]);
         }
 
         [Fact]
@@ -116,8 +106,8 @@ namespace ObjectsCollection
             array.Add(6);
             array.Insert(1, 4);
 
-            Assert.Equal(4, array.Element(1));
-            Assert.Equal(6, array.Element(3));
+            Assert.Equal(4, array[1]);
+            Assert.Equal(6, array[3]);
         }
 
         [Fact]
@@ -129,8 +119,8 @@ namespace ObjectsCollection
             array.Add(6);
             array.Insert(2, 5);
 
-            Assert.Equal(5, array.Element(2));
-            Assert.Equal(6, array.Element(3));
+            Assert.Equal(5, array[2]);
+            Assert.Equal(6, array[3]);
         }
 
         [Fact]
@@ -142,8 +132,8 @@ namespace ObjectsCollection
             array.Add(6);
             array.Insert(0, 2);
 
-            Assert.Equal(2, array.Element(0));
-            Assert.Equal(3, array.Element(1));
+            Assert.Equal(2, array[0]);
+            Assert.Equal(3, array[1]);
         }
 
         [Fact]
@@ -166,8 +156,8 @@ namespace ObjectsCollection
             array.Add(5);
             array.Remove(4);
 
-            Assert.Equal(3, array.Element(0));
-            Assert.Equal(5, array.Element(1));
+            Assert.Equal(3, array[0]);
+            Assert.Equal(5, array[1]);
         }
 
         [Fact]
@@ -179,21 +169,8 @@ namespace ObjectsCollection
             array.Add(5);
             array.Remove(3);
 
-            Assert.Equal(4, array.Element(0));
-            Assert.Equal(5, array.Element(1));
-        }
-
-        [Fact]
-        public void RemoveMethodShouldRemoveTheCorrectLastElement()
-        {
-            IntArray array = new IntArray();
-            array.Add(3);
-            array.Add(4);
-            array.Add(5);
-            array.Remove(5);
-
-            Assert.Equal(4, array.Element(1));
-            Assert.Equal(-1, array.Element(2));
+            Assert.Equal(4, array[0]);
+            Assert.Equal(5, array[1]);
         }
 
         [Fact]
@@ -205,9 +182,9 @@ namespace ObjectsCollection
             array.Add(5);
             array.Remove(7);
 
-            Assert.Equal(3, array.Element(0));
-            Assert.Equal(4, array.Element(1));
-            Assert.Equal(5, array.Element(2));
+            Assert.Equal(3, array[0]);
+            Assert.Equal(4, array[1]);
+            Assert.Equal(5, array[2]);
         }
 
         [Fact]
@@ -219,8 +196,8 @@ namespace ObjectsCollection
             array.Add(5);
             array.RemoveAt(1);
 
-            Assert.Equal(3, array.Element(0));
-            Assert.Equal(5, array.Element(1));
+            Assert.Equal(3, array[0]);
+            Assert.Equal(5, array[1]);
         }
 
         [Fact]
@@ -232,8 +209,8 @@ namespace ObjectsCollection
             array.Add(5);
             array.RemoveAt(0);
 
-            Assert.Equal(4, array.Element(0));
-            Assert.Equal(5, array.Element(1));
+            Assert.Equal(4, array[0]);
+            Assert.Equal(5, array[1]);
         }
 
         [Fact]
@@ -245,9 +222,9 @@ namespace ObjectsCollection
             array.Add(5);
             array.RemoveAt(5);
 
-            Assert.Equal(3, array.Element(0));
-            Assert.Equal(4, array.Element(1));
-            Assert.Equal(5, array.Element(2));
+            Assert.Equal(3, array[0]);
+            Assert.Equal(4, array[1]);
+            Assert.Equal(5, array[2]);
         }
     }
 }

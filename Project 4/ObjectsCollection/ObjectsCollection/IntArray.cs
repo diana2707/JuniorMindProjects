@@ -14,32 +14,18 @@ namespace ObjectsCollection
 
         public int Count { get; private set; }
 
+        public int this[int index]
+        {
+            get => array[index];
+            set => array[index] = value;
+        }
+
         public void Add(int element)
         {
             AllocatePositions();
 
             array[Count] = element;
             Count++;
-        }
-
-        public int Element(int index)
-        {
-            if (index >= Count)
-            {
-                return -1;
-            }
-
-            return array[index];
-        }
-
-        public void SetElement(int index, int element)
-        {
-            if (index >= Count)
-            {
-                return;
-            }
-
-            array[index] = element;
         }
 
         public bool Contains(int element)
