@@ -13,17 +13,14 @@ namespace ObjectsCollection
             count = 0;
         }
 
+        public int Count { get; }
+
         public void Add(int element)
         {
             AllocatePositions();
 
             array[count] = element;
             count++;
-        }
-
-        public int Count()
-        {
-            return count;
         }
 
         public int Element(int index)
