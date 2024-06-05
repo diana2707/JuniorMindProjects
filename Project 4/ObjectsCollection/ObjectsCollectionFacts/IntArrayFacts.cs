@@ -31,7 +31,7 @@ namespace ObjectsCollection
             array.Add(5);
             array.Add(6);
 
-            Assert.Equal(2, array.Count());
+            Assert.Equal(2, array.Count);
         }
 
         [Fact]
@@ -154,7 +154,7 @@ namespace ObjectsCollection
             array.Add(4);
             array.Clear();
 
-            Assert.Equal(0, array.Count());
+            Assert.Equal(0, array.Count);
         }
 
         [Fact]

@@ -5,27 +5,26 @@ namespace ObjectsCollection
     internal class IntArray
     {
         private int[] array;
-        private int count;
 
         public IntArray()
         {
             array = new int[4];
-            count = 0;
+            Count = 0;
         }
 
-        public int Count { get; }
+        public int Count { get; private set; }
 
         public void Add(int element)
         {
             AllocatePositions();
 
-            array[count] = element;
-            count++;
+            array[Count] = element;
+            Count++;
         }
 
         public int Element(int index)
         {
-            if (index >= count)
+            if (index >= Count)
             {
                 return -1;
             }
@@ -35,7 +34,7 @@ namespace ObjectsCollection
 
         public void SetElement(int index, int element)
         {
-            if (index >= count)
+            if (index >= Count)
             {
                 return;
             }
@@ -50,7 +49,7 @@ namespace ObjectsCollection
 
         public int IndexOf(int element)
         {
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < Count; i++)
             {
                 if (array[i] == element)
                 {
@@ -65,12 +64,12 @@ namespace ObjectsCollection
         {
             AllocatePositions();
 
-            if (index >= count)
+            if (index >= Count)
             {
                 return;
             }
 
-            int tempCount = count;
+            int tempCount = Count;
             while (index < tempCount)
             {
                 array[tempCount] = array[tempCount - 1];
@@ -78,17 +77,17 @@ namespace ObjectsCollection
             }
 
             array[index] = element;
-            count++;
+            Count++;
         }
 
         public void Clear()
         {
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < Count; i++)
             {
                 array[i] = 0;
             }
 
-            count = 0;
+            Count = 0;
         }
 
         public void Remove(int element)
@@ -100,24 +99,24 @@ namespace ObjectsCollection
 
         public void RemoveAt(int index)
         {
-            if (index == -1 || index >= count)
+            if (index == -1 || index >= Count)
             {
                 return;
             }
 
-            while (index < count - 1)
+            while (index < Count - 1)
             {
                 array[index] = array[index + 1];
                 index++;
             }
 
-            count--;
-            array[count] = 0;
+            Count--;
+            array[Count] = 0;
         }
 
         private void AllocatePositions()
         {
-            if (count != array.Length)
+            if (Count != array.Length)
             {
                 return;
             }
