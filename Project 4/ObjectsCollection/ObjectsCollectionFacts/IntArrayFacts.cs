@@ -46,7 +46,7 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void ElementMethodShouldReturnMinus1WhenIndexIsLargerThanLastIndex()
+        public void ElementMethodShouldReturnMinus1WhenIndexIsLargerThanCount()
         {
             IntArray array = new IntArray();
             array.Add(5);
@@ -134,6 +134,19 @@ namespace ObjectsCollection
         }
 
         [Fact]
+        public void InsertMethodShouldInsertCorrectElementOnFirstPosition()
+        {
+            IntArray array = new IntArray();
+            array.Add(3);
+            array.Add(4);
+            array.Add(6);
+            array.Insert(0, 2);
+
+            Assert.Equal(2, array.Element(0));
+            Assert.Equal(3, array.Element(1));
+        }
+
+        [Fact]
         public void ClearMethodShouldSetAllElementToDefault()
         {
             IntArray array = new IntArray();
@@ -155,6 +168,32 @@ namespace ObjectsCollection
 
             Assert.Equal(3, array.Element(0));
             Assert.Equal(5, array.Element(1));
+        }
+
+        [Fact]
+        public void RemoveMethodShouldRemoveTheCorrectFirstElement()
+        {
+            IntArray array = new IntArray();
+            array.Add(3);
+            array.Add(4);
+            array.Add(5);
+            array.Remove(3);
+
+            Assert.Equal(4, array.Element(0));
+            Assert.Equal(5, array.Element(1));
+        }
+
+        [Fact]
+        public void RemoveMethodShouldRemoveTheCorrectLastElement()
+        {
+            IntArray array = new IntArray();
+            array.Add(3);
+            array.Add(4);
+            array.Add(5);
+            array.Remove(5);
+
+            Assert.Equal(4, array.Element(1));
+            Assert.Equal(-1, array.Element(2));
         }
 
         [Fact]
