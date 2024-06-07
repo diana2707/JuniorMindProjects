@@ -85,11 +85,7 @@ namespace ObjectsCollection
                 return;
             }
 
-            while (index < Count - 1)
-            {
-                array[index] = array[index + 1];
-                index++;
-            }
+            ShiftElementsLeft(index);
 
             Count--;
             array[Count] = 0;
@@ -103,6 +99,15 @@ namespace ObjectsCollection
             }
 
             Array.Resize(ref array, array.Length * 2);
+        }
+
+        private void ShiftElementsLeft(int index)
+        {
+            while (index < Count - 1)
+            {
+                array[index] = array[index + 1];
+                index++;
+            }
         }
     }
 }
