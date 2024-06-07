@@ -55,12 +55,7 @@ namespace ObjectsCollection
                 return;
             }
 
-            int tempCount = Count;
-            while (index < tempCount)
-            {
-                array[tempCount] = array[tempCount - 1];
-                tempCount--;
-            }
+            ShiftElementsRight(index);
 
             array[index] = element;
             Count++;
@@ -107,6 +102,16 @@ namespace ObjectsCollection
             {
                 array[index] = array[index + 1];
                 index++;
+            }
+        }
+
+        private void ShiftElementsRight(int index)
+        {
+            int tempCount = Count;
+            while (index < tempCount)
+            {
+                array[tempCount] = array[tempCount - 1];
+                tempCount--;
             }
         }
     }
