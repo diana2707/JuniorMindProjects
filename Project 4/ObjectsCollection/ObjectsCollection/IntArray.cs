@@ -68,11 +68,6 @@ namespace ObjectsCollection
 
         public void Clear()
         {
-            for (int i = 0; i < Count; i++)
-            {
-                array[i] = 0;
-            }
-
             Count = 0;
         }
 
