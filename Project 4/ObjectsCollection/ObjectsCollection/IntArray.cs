@@ -22,7 +22,7 @@ namespace ObjectsCollection
 
         public void Add(int element)
         {
-            AllocatePositions();
+            EnsureArrayPositions();
 
             array[Count] = element;
             Count++;
@@ -48,7 +48,7 @@ namespace ObjectsCollection
 
         public void Insert(int index, int element)
         {
-            AllocatePositions();
+            EnsureArrayPositions();
 
             if (index >= Count)
             {
@@ -100,7 +100,7 @@ namespace ObjectsCollection
             array[Count] = 0;
         }
 
-        private void AllocatePositions()
+        private void EnsureArrayPositions()
         {
             if (Count != array.Length)
             {
