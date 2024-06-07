@@ -107,13 +107,7 @@ namespace ObjectsCollection
                 return;
             }
 
-            int[] newArray = new int[array.Length * 2];
-            for (int i = 0; i < array.Length; i++)
-            {
-                newArray[i] = array[i];
-            }
-
-            array = newArray;
+            Array.Resize(ref array, array.Length * 2);
         }
     }
 }
