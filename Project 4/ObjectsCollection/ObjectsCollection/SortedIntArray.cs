@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection.Metadata.Ecma335;
 
 namespace ObjectsCollection
 {
@@ -13,6 +14,19 @@ namespace ObjectsCollection
         {
             base.Add(element);
             Sort();
+        }
+
+        public override void Insert(int index, int element)
+        {
+            bool isValidFirstElement = index == 0 && element <= array[0];
+            bool isConsecutiveElement = index != 0 && array[index - 1] <= element && array[index] >= element;
+
+            if (!isValidFirstElement && !isConsecutiveElement)
+            {
+                return;
+            }
+
+            base.Insert(index, element);
         }
 
         private void Sort()

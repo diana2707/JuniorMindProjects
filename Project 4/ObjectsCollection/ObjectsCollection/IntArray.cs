@@ -4,7 +4,7 @@ namespace ObjectsCollection
 {
     internal class IntArray
     {
-        private int[] array;
+        protected int[] array;
 
         public IntArray()
         {
@@ -46,7 +46,7 @@ namespace ObjectsCollection
             return -1;
         }
 
-        public void Insert(int index, int element)
+        public virtual void Insert(int index, int element)
         {
             EnsureArrayPositions();
 
