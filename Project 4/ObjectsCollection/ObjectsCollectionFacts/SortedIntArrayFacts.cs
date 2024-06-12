@@ -196,5 +196,20 @@ namespace ObjectsCollection
 
             Assert.Equal(0, array.Count);
         }
+
+        [Fact]
+        public void RemoveMethodShouldRemoveElement()
+        {
+            SortedIntArray array = new SortedIntArray();
+            array.Add(5);
+            array.Add(1);
+            array.Add(8);
+            array.Add(4);
+            array.Remove(4);
+
+            Assert.Equal(1, array[0]);
+            Assert.Equal(5, array[1]);
+            Assert.Equal(8, array[2]);
+        }
     }
 }
