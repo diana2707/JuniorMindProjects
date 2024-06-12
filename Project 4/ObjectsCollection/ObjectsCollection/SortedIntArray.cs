@@ -9,7 +9,13 @@ namespace ObjectsCollection
         {
         }
 
-        public void Sort()
+        public override void Add(int element)
+        {
+            base.Add(element);
+            Sort();
+        }
+
+        private void Sort()
         {
             for (int i = 0; i < Count; i++)
             {
