@@ -183,5 +183,18 @@ namespace ObjectsCollection
             Assert.Equal(2, array.IndexOf(5));
             Assert.Equal(3, array.IndexOf(8));
         }
+
+        [Fact]
+        public void ClearMethodShouldClearTheArray()
+        {
+            SortedIntArray array = new SortedIntArray();
+            array.Add(5);
+            array.Add(1);
+            array.Add(8);
+            array.Add(4);
+            array.Clear();
+
+            Assert.Equal(0, array.Count);
+        }
     }
 }
