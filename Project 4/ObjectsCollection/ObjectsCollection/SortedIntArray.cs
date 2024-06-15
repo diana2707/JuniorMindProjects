@@ -9,6 +9,20 @@ namespace ObjectsCollection
         {
         }
 
+        public override int this[int index]
+        {
+            get => array[index];
+            set
+            {
+                if (!IsSorted(index, value))
+                {
+                    return;
+                }
+
+                array[index] = value;
+            }
+        }
+
         public override void Add(int element)
         {
             base.Add(element);
@@ -32,9 +46,9 @@ namespace ObjectsCollection
                 int j = i;
                 int k = i - 1;
 
-                while (k >= 0 && this[j] < this[k])
+                while (k >= 0 && array[j] < array[k])
                 {
-                    (this[j], this[k]) = (this[k], this[j]);
+                    (array[j], array[k]) = (array[k], array[j]);
                     j--;
                     k--;
                 }
