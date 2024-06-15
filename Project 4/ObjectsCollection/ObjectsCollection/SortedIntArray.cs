@@ -17,10 +17,7 @@ namespace ObjectsCollection
 
         public override void Insert(int index, int element)
         {
-            bool isValidFirstElement = index == 0 && element <= array[0];
-            bool isConsecutiveElement = index != 0 && array[index - 1] <= element && array[index] >= element;
-
-            if (!isValidFirstElement && !isConsecutiveElement)
+            if (!IsSorted(index, element))
             {
                 return;
             }
@@ -42,6 +39,14 @@ namespace ObjectsCollection
                     k--;
                 }
             }
+        }
+
+        private bool IsSorted(int index, int element)
+        {
+            bool isValidFirstElement = index == 0 && element <= array[0];
+            bool isConsecutiveElement = index != 0 && array[index - 1] <= element && array[index] >= element;
+
+            return isValidFirstElement || isConsecutiveElement;
         }
     }
 }
