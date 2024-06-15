@@ -41,10 +41,8 @@ namespace ObjectsCollection
 
         private void Sort()
         {
-            for (int i = 0; i < Count; i++)
-            {
-                int j = i;
-                int k = i - 1;
+                int j = Count - 1;
+                int k = j - 1;
 
                 while (k >= 0 && array[j] < array[k])
                 {
@@ -52,7 +50,6 @@ namespace ObjectsCollection
                     j--;
                     k--;
                 }
-            }
         }
 
         private bool IsSorted(int index, int element)
