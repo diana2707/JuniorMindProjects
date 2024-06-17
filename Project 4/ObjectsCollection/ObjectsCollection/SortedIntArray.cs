@@ -56,7 +56,7 @@ namespace ObjectsCollection
                 {
                     high = mid - 1;
                 }
-                else if (array[mid] < element)
+                else
                 {
                     low = mid + 1;
                 }
@@ -68,6 +68,13 @@ namespace ObjectsCollection
         public override bool Contains(int element)
         {
             return IndexOf(element) != -1;
+        }
+
+        public override void Remove(int element)
+        {
+            int index = IndexOf(element);
+
+            RemoveAt(index);
         }
 
         private void Sort()
