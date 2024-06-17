@@ -56,6 +56,18 @@ namespace ObjectsCollection
         }
 
         [Fact]
+        public void ArrayIndexerShouldNotSetElementWhenIndexIsLargerThanCount()
+        {
+            IntArray array = new IntArray();
+            array.Add(5);
+            array[0] = 6;
+            array[1] = 7;
+
+            Assert.Equal(6, array[0]);
+            Assert.Equal(7, array[1]);
+        }
+
+        [Fact]
         public void ContainsMethodShouldReturnTrueWhenArrayContainsElement()
         {
             IntArray array = new IntArray();
