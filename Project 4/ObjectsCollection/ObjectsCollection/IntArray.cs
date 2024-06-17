@@ -83,7 +83,6 @@ namespace ObjectsCollection
             ShiftElementsLeft(index);
 
             Count--;
-            array[Count] = 0;
         }
 
         private void EnsureArrayPositions()
