@@ -65,6 +65,11 @@ namespace ObjectsCollection
             return -1;
         }
 
+        public override bool Contains(int element)
+        {
+            return IndexOf(element) != -1;
+        }
+
         private void Sort()
         {
                 int j = Count - 1;

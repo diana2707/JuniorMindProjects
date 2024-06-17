@@ -28,7 +28,7 @@ namespace ObjectsCollection
             Count++;
         }
 
-        public bool Contains(int element)
+        public virtual bool Contains(int element)
         {
             return IndexOf(element) != -1;
         }
@@ -66,7 +66,7 @@ namespace ObjectsCollection
             Count = 0;
         }
 
-        public void Remove(int element)
+        public virtual void Remove(int element)
         {
             int index = IndexOf(element);
 
