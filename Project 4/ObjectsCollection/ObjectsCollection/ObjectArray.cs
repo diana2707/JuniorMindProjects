@@ -28,11 +28,16 @@ namespace ObjectsCollection
             Count++;
         }
 
+        public bool Contains(object element)
+        {
+            return IndexOf(element) != -1;
+        }
+
         public int IndexOf(object element)
         {
             for (int i = 0; i < Count; i++)
             {
-                if (array[i] == element)
+                if (array[i].Equals(element))
                 {
                     return i;
                 }

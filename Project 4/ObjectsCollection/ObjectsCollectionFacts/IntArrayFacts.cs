@@ -78,7 +78,7 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void ContainsMethodShouldReturnTrueWhenArrayDoNotContainsElement()
+        public void ContainsMethodShouldReturnFalseWhenArrayDoNotContainsElement()
         {
             IntArray array = new IntArray();
             array.Add(5);
