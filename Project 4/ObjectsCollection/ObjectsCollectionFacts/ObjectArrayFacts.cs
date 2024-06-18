@@ -192,5 +192,47 @@ namespace ObjectsCollection
 
             Assert.Equal(-1, array.IndexOf(arr4));
         }
+
+        [Fact]
+        public void ContainsMethodShouldReturnTrueWhenElementExists()
+        {
+            int[] arr = { 1, 2, 3 };
+            IntArray obj = new IntArray();
+
+            ObjectArray array = new ObjectArray();
+            array.Add("a");
+            array.Add(1);
+            array.Add(2.5);
+            array.Add(arr);
+            array.Add(obj);
+
+            Assert.True(array.Contains("a"));
+            Assert.True(array.Contains(1));
+            Assert.True(array.Contains(2.5));
+            Assert.True(array.Contains(arr));
+            Assert.True(array.Contains(obj));
+        }
+
+        [Fact]
+        public void ContainsMethodShouldReturnFalseWhenElementDoNotExist()
+        {
+            int[] arr1 = { 1, 2, 3 };
+            int[] arr2 = { 4, 5, 6 };
+            IntArray obj1 = new IntArray();
+            IntArray obj2 = new IntArray();
+
+            ObjectArray array = new ObjectArray();
+            array.Add("a");
+            array.Add(1);
+            array.Add(2.5);
+            array.Add(arr1);
+            array.Add(obj1);
+
+            Assert.False(array.Contains("b"));
+            Assert.False(array.Contains(2));
+            Assert.False(array.Contains(2.4));
+            Assert.False(array.Contains(arr2));
+            Assert.False(array.Contains(obj2));
+        }
     }
 }
