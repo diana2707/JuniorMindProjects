@@ -25,7 +25,7 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void CountMethodShouldReturnCorrectNumberOfElements()
+        public void CountShouldReturnCorrectNumberOfElements()
         {
             IntArray array = new IntArray();
             array.Add(5);

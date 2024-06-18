@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Numerics;
 
 namespace ObjectsCollection
 {
     public class ObjectArrayFacts
     {
         [Fact]
-        public void AddMethodShouldAddOneElement()
+        public void IndexerShouldSetAndGetCorrectElement()
         {
             object number = 5;
 
@@ -14,6 +13,29 @@ namespace ObjectsCollection
             array[0] = number;
 
             Assert.Equal(5, array[0]);
+        }
+
+        [Fact]
+        public void AddMethodShouldAddOneElement()
+        {
+            object text = "abc";
+            ObjectArray array = new ObjectArray();
+            array.Add(text);
+
+            Assert.Equal("abc", array[0]);
+        }
+
+        [Fact]
+        public void AddMethodShouldAddOneElementWhenArrayHasOver4Elements()
+        {
+            ObjectArray array = new ObjectArray();
+            array.Add(1);
+            array.Add(2);
+            array.Add(3);
+            array.Add(4);
+            array.Add(5);
+
+            Assert.Equal(5, array[4]);
         }
     }
 }
