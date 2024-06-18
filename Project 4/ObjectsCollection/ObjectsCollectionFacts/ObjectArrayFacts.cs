@@ -27,6 +27,17 @@ namespace ObjectsCollection
         }
 
         [Fact]
+        public void IndexerShouldSetAndGetStringElementAsObject()
+        {
+            object text = "abc";
+
+            ObjectArray array = new ObjectArray();
+            array[0] = text;
+
+            Assert.Equal("abc", array[0]);
+        }
+
+        [Fact]
         public void AddMethodShouldAddOneElement()
         {
             object text = "abc";
