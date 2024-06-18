@@ -70,5 +70,15 @@ namespace ObjectsCollection
 
             Assert.Equal(5, array[4]);
         }
+
+        [Fact]
+        public void CountShouldReturnCorrectNumberOfElements()
+        {
+            ObjectArray array = new ObjectArray();
+            array.Add(5);
+            array.Add(6);
+
+            Assert.Equal(2, array.Count);
+        }
     }
 }
