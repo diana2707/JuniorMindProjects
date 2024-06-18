@@ -80,5 +80,27 @@ namespace ObjectsCollection
 
             Assert.Equal(2, array.Count);
         }
+
+        [Fact]
+        public void IndexOfMethodShouldReturnCorrectIndexOfElementWhenElementExists()
+        {
+            ObjectArray array = new ObjectArray();
+            array.Add("a");
+            array.Add("b");
+            array.Add("c");
+
+            Assert.Equal(1, array.IndexOf("b"));
+        }
+
+        [Fact]
+        public void IndexOfMethodShouldReturnMinus1WhenElementDoNotExists()
+        {
+            ObjectArray array = new ObjectArray();
+            array.Add("a");
+            array.Add("b");
+            array.Add("c");
+
+            Assert.Equal(-1, array.IndexOf("z"));
+        }
     }
 }

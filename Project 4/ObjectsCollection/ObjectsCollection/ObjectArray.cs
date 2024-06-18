@@ -28,6 +28,19 @@ namespace ObjectsCollection
             Count++;
         }
 
+        public int IndexOf(object element)
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                if (array[i] == element)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
         private void EnsureArrayPositions()
         {
             if (Count != array.Length)
