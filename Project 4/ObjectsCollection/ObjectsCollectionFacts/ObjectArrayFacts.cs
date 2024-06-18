@@ -5,7 +5,7 @@ namespace ObjectsCollection
     public class ObjectArrayFacts
     {
         [Fact]
-        public void IndexerShouldSetAndGetCorrectElement()
+        public void IndexerShouldSetAndGetIntegerElementAsObject()
         {
             object number = 5;
 
@@ -13,6 +13,17 @@ namespace ObjectsCollection
             array[0] = number;
 
             Assert.Equal(5, array[0]);
+        }
+
+        [Fact]
+        public void IndexerShouldSetAndGetFloatElementAsObject()
+        {
+            object number = 7.897;
+
+            ObjectArray array = new ObjectArray();
+            array[0] = number;
+
+            Assert.Equal(7.897, array[0]);
         }
 
         [Fact]
