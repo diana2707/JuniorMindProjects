@@ -316,5 +316,18 @@ namespace ObjectsCollection
 
             Assert.Equal(0, array.Count);
         }
+
+        [Fact]
+        public void RemoveAtMethodShouldRemoveTheCorrectElement()
+        {
+            ObjectArray array = new ObjectArray();
+            array.Add(3);
+            array.Add(7);
+            array.Add(5);
+            array.RemoveAt(1);
+
+            Assert.Equal(3, array[0]);
+            Assert.Equal(5, array[1]);
+        }
     }
 }

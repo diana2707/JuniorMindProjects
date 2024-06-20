@@ -66,6 +66,18 @@ namespace ObjectsCollection
             Count = 0;
         }
 
+        public void RemoveAt(int index)
+        {
+            if (index == -1 || index >= Count)
+            {
+                return;
+            }
+
+            ShiftElementsLeft(index);
+
+            Count--;
+        }
+
         private void EnsureArrayPositions()
         {
             if (Count != array.Length)
@@ -83,6 +95,15 @@ namespace ObjectsCollection
             {
                 array[tempCount] = array[tempCount - 1];
                 tempCount--;
+            }
+        }
+
+        private void ShiftElementsLeft(int index)
+        {
+            while (index < Count - 1)
+            {
+                array[index] = array[index + 1];
+                index++;
             }
         }
     }
