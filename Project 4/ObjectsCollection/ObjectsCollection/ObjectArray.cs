@@ -78,6 +78,13 @@ namespace ObjectsCollection
             Count--;
         }
 
+        public void Remove(object element)
+        {
+            int index = IndexOf(element);
+
+            RemoveAt(index);
+        }
+
         private void EnsureArrayPositions()
         {
             if (Count != array.Length)

@@ -277,9 +277,9 @@ namespace ObjectsCollection
         [Fact]
         public void InsertMethodShouldInsertCorrectArrayElement()
         {
-            int[] arr1 = new int[1];
-            int[] arr2 = new int[1];
-            int[] arr3 = new int[1];
+            int[] arr1 = { 1, 2, 3 };
+            int[] arr2 = { 4, 5, 6 };
+            int[] arr3 = { 7, 8, 9 };
 
             ObjectArray test = new ObjectArray();
             test.Add(arr1);
@@ -318,7 +318,7 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void RemoveAtMethodShouldRemoveTheCorrectElement()
+        public void RemoveAtMethodShouldRemoveTheCorrectIntegerElement()
         {
             ObjectArray array = new ObjectArray();
             array.Add(3);
@@ -328,6 +328,93 @@ namespace ObjectsCollection
 
             Assert.Equal(3, array[0]);
             Assert.Equal(5, array[1]);
+        }
+
+        [Fact]
+        public void RemoveAtMethodShouldRemoveTheCorrectArrayElement()
+        {
+            int[] arr1 = { 1, 2, 3 };
+            int[] arr2 = { 4, 5, 6 };
+            int[] arr3 = { 7, 8, 9 };
+
+            ObjectArray array = new ObjectArray();
+            array.Add(arr1);
+            array.Add(arr2);
+            array.Add(arr3);
+            array.RemoveAt(1);
+
+            Assert.Equal(arr1, array[0]);
+            Assert.Equal(arr3, array[1]);
+        }
+
+        [Fact]
+        public void RemoveAtMethodShouldRemoveTheCorrectStringElement()
+        {
+            ObjectArray array = new ObjectArray();
+            array.Add("a");
+            array.Add("b");
+            array.Add("c");
+            array.RemoveAt(1);
+
+            Assert.Equal("a", array[0]);
+            Assert.Equal("c", array[1]);
+        }
+
+        [Fact]
+        public void RemoveAtMethodShouldNotChangeArrayWhenIndexDoesNotExist()
+        {
+            ObjectArray array = new ObjectArray();
+            array.Add(3);
+            array.Add(4);
+            array.Add(5);
+            array.RemoveAt(5);
+
+            Assert.Equal(3, array[0]);
+            Assert.Equal(4, array[1]);
+            Assert.Equal(5, array[2]);
+        }
+
+        [Fact]
+        public void RemoveMethodShouldRemoveTheCorrectIntegerElement()
+        {
+            ObjectArray array = new ObjectArray();
+            array.Add(3);
+            array.Add(4);
+            array.Add(5);
+            array.Remove(4);
+
+            Assert.Equal(3, array[0]);
+            Assert.Equal(5, array[1]);
+        }
+
+        [Fact]
+        public void RemoveMethodShouldRemoveTheCorrectStringElement()
+        {
+            ObjectArray array = new ObjectArray();
+            array.Add("a");
+            array.Add("b");
+            array.Add("c");
+            array.Remove("a");
+
+            Assert.Equal("b", array[0]);
+            Assert.Equal("c", array[1]);
+        }
+
+        [Fact]
+        public void RemoveMethodShouldRemoveTheCorrectArrayElement()
+        {
+            int[] arr1 = { 1, 2, 3 };
+            int[] arr2 = { 4, 5, 6 };
+            int[] arr3 = { 7, 8, 9 };
+
+            ObjectArray array = new ObjectArray();
+            array.Add(arr1);
+            array.Add(arr2);
+            array.Add(arr3);
+            array.Remove(arr1);
+
+            Assert.Equal(arr2, array[0]);
+            Assert.Equal(arr3, array[1]);
         }
     }
 }
