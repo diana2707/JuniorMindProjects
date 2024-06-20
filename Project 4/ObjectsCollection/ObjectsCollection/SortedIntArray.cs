@@ -65,18 +65,6 @@ namespace ObjectsCollection
             return -1;
         }
 
-        public override bool Contains(int element)
-        {
-            return IndexOf(element) != -1;
-        }
-
-        public override void Remove(int element)
-        {
-            int index = IndexOf(element);
-
-            RemoveAt(index);
-        }
-
         private void Sort()
         {
                 int j = Count - 1;
