@@ -61,6 +61,11 @@ namespace ObjectsCollection
             Count++;
         }
 
+        public void Clear()
+        {
+            Count = 0;
+        }
+
         private void EnsureArrayPositions()
         {
             if (Count != array.Length)

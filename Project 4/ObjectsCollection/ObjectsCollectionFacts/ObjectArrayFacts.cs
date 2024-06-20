@@ -305,5 +305,16 @@ namespace ObjectsCollection
             Assert.Equal(arr3, test[1]);
             Assert.Equal(arr2, test[2]);
         }
+
+        [Fact]
+        public void ClearMethodShouldSetAllElementToDefault()
+        {
+            ObjectArray array = new ObjectArray();
+            array.Add(3);
+            array.Add(4);
+            array.Clear();
+
+            Assert.Equal(0, array.Count);
+        }
     }
 }
