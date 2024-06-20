@@ -234,5 +234,76 @@ namespace ObjectsCollection
             Assert.False(array.Contains(arr2));
             Assert.False(array.Contains(obj2));
         }
+
+        [Fact]
+        public void InsertMethodShouldInsertCorrectIntegerElement()
+        {
+            ObjectArray array = new ObjectArray();
+            array.Add(3);
+            array.Add(5);
+            array.Add(6);
+            array.Insert(1, 4);
+
+            Assert.Equal(4, array[1]);
+            Assert.Equal(6, array[3]);
+        }
+
+        [Fact]
+        public void InsertMethodShouldInsertCorrectStringElement()
+        {
+            ObjectArray array = new ObjectArray();
+            array.Add("a");
+            array.Add("b");
+            array.Add("c");
+            array.Insert(1, "?");
+
+            Assert.Equal("?", array[1]);
+            Assert.Equal("c", array[3]);
+        }
+
+        [Fact]
+        public void InsertMethodShouldInsertCorrectFloatElement()
+        {
+            ObjectArray array = new ObjectArray();
+            array.Add(3.4);
+            array.Add(2.1);
+            array.Add(7.8);
+            array.Insert(1, 4.7);
+
+            Assert.Equal(4.7, array[1]);
+            Assert.Equal(7.8, array[3]);
+        }
+
+        [Fact]
+        public void InsertMethodShouldInsertCorrectArrayElement()
+        {
+            int[] arr1 = new int[1];
+            int[] arr2 = new int[1];
+            int[] arr3 = new int[1];
+
+            ObjectArray test = new ObjectArray();
+            test.Add(arr1);
+            test.Add(arr2);
+            test.Insert(1, arr3);
+
+            Assert.Equal(arr3, test[1]);
+            Assert.Equal(arr2, test[2]);
+        }
+
+        [Fact]
+        public void InsertMethodShouldInsertCorrectObjectElement()
+        {
+            ObjectArray arr1 = new ObjectArray();
+            ObjectArray arr2 = new ObjectArray();
+            ObjectArray arr3 = new ObjectArray();
+
+            ObjectArray test = new ObjectArray();
+            test.Add(arr1);
+            test.Add(arr2);
+            test.Insert(1, arr3);
+
+            Assert.Equal(arr3, test[1]);
+            Assert.Equal(arr2, test[2]);
+        }
     }
 }

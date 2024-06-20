@@ -46,6 +46,21 @@ namespace ObjectsCollection
             return -1;
         }
 
+        public void Insert(int index, object element)
+        {
+            EnsureArrayPositions();
+
+            if (index >= Count)
+            {
+                return;
+            }
+
+            ShiftElementsRight(index);
+
+            array[index] = element;
+            Count++;
+        }
+
         private void EnsureArrayPositions()
         {
             if (Count != array.Length)
@@ -54,6 +69,16 @@ namespace ObjectsCollection
             }
 
             Array.Resize(ref array, array.Length * 2);
+        }
+
+        private void ShiftElementsRight(int index)
+        {
+            int tempCount = Count;
+            while (index < tempCount)
+            {
+                array[tempCount] = array[tempCount - 1];
+                tempCount--;
+            }
         }
     }
 }
