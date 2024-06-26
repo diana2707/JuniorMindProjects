@@ -1,8 +1,8 @@
-﻿using System;
+﻿using System.Collections;
 
 namespace ObjectsCollection
 {
-    internal class ObjectArrayEnum
+    internal class ObjectArrayEnum : IEnumerator
     {
         readonly object[] array;
         private int position = -1;
@@ -21,6 +21,11 @@ namespace ObjectsCollection
         {
             position++;
             return position < array.Length;
+        }
+
+        public void Reset()
+        {
+            position = -1;
         }
     }
 }
