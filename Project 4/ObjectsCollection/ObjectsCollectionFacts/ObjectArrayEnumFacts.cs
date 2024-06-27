@@ -11,7 +11,7 @@
              new IntArray()
             };
 
-            ObjectArrayEnum arrayEnum = new ObjectArrayEnum(array);
+            ObjectArrayEnum arrayEnum = new ObjectArrayEnum(array, array.Length);
 
             Assert.True(arrayEnum.MoveNext());
         }
@@ -25,7 +25,7 @@
              new IntArray()
             };
 
-            ObjectArrayEnum arrayEnum = new ObjectArrayEnum(array);
+            ObjectArrayEnum arrayEnum = new ObjectArrayEnum(array, array.Length);
             arrayEnum.MoveNext();
             arrayEnum.MoveNext();
 
@@ -37,7 +37,7 @@
         {
             object[] array = { 1, 2, 3 };
 
-            ObjectArrayEnum arrayEnum = new ObjectArrayEnum(array);
+            ObjectArrayEnum arrayEnum = new ObjectArrayEnum(array, array.Length);
 
             arrayEnum.MoveNext();
 
@@ -49,7 +49,7 @@
         {
             object[] array = { 1, 2 };
 
-            ObjectArrayEnum arrayEnum = new ObjectArrayEnum(array);
+            ObjectArrayEnum arrayEnum = new ObjectArrayEnum(array, array.Length);
 
             arrayEnum.MoveNext();
             arrayEnum.MoveNext();

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using System.Collections;
 
 namespace ObjectsCollection
 {
-    internal class ObjectArray
+    internal class ObjectArray : IEnumerable
     {
         private object[] array;
 
@@ -83,6 +83,11 @@ namespace ObjectsCollection
             int index = IndexOf(element);
 
             RemoveAt(index);
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            return new ObjectArrayEnum(array, Count);
         }
 
         private void EnsureArrayPositions()

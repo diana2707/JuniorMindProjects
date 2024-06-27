@@ -416,5 +416,14 @@ namespace ObjectsCollection
             Assert.Equal(arr2, array[0]);
             Assert.Equal(arr3, array[1]);
         }
+
+        [Fact]
+        public void VerifyIEnumerableInterfaceAllowsForeachUse()
+        {
+            foreach (var item in new ObjectArray { 1, 2, 3 })
+            {
+                Assert.Equal(item, item);
+            }
+        }
     }
 }
