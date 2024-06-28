@@ -4,25 +4,23 @@ namespace ObjectsCollection
 {
     internal class ObjectArrayEnum : IEnumerator
     {
-        readonly object[] array;
-        readonly int count;
+        readonly ObjectArray objectArray;
         private int position = -1;
 
-        public ObjectArrayEnum(object[] array, int count)
+        public ObjectArrayEnum(ObjectArray objectArray)
         {
-            this.array = array;
-            this.count = count;
+            this.objectArray = objectArray;
         }
 
         public object Current
         {
-            get => array[position];
+            get => objectArray[position];
         }
 
         public bool MoveNext()
         {
             position++;
-            return position < count;
+            return position < objectArray.Count;
         }
 
         public void Reset()

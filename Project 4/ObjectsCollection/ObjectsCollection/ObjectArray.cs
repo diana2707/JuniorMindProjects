@@ -87,7 +87,7 @@ namespace ObjectsCollection
 
         public IEnumerator GetEnumerator()
         {
-            return new ObjectArrayEnum(array, Count);
+            return new ObjectArrayEnum(this);
         }
 
         private void EnsureArrayPositions()

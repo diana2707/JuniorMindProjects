@@ -5,13 +5,9 @@
         [Fact]
         public void MoveNextMethodShouldReturnTrueWhenPositionIsSmallerThanArrayLength()
         {
-            object[] array =
-            {
-             new ObjectArray(),
-             new IntArray()
-            };
+            ObjectArray objectArray = new ObjectArray() { 1, 2 };
 
-            ObjectArrayEnum arrayEnum = new ObjectArrayEnum(array, array.Length);
+            ObjectArrayEnum arrayEnum = new ObjectArrayEnum(objectArray);
 
             Assert.True(arrayEnum.MoveNext());
         }
@@ -19,13 +15,9 @@
         [Fact]
         public void MoveNextMethodShouldReturnFalseWhenPositionIsEqualWithArrayLength()
         {
-            object[] array =
-            {
-             new ObjectArray(),
-             new IntArray()
-            };
+            ObjectArray objectArray = new ObjectArray() { 1, 2 };
 
-            ObjectArrayEnum arrayEnum = new ObjectArrayEnum(array, array.Length);
+            ObjectArrayEnum arrayEnum = new ObjectArrayEnum(objectArray);
             arrayEnum.MoveNext();
             arrayEnum.MoveNext();
 
@@ -35,9 +27,9 @@
         [Fact]
         public void CurrentPropertyShouldReturnCurrentPositionWhenIsSmallerThanArrayLength()
         {
-            object[] array = { 1, 2, 3 };
+            ObjectArray objectArray = new ObjectArray() { 1, 2, 3 };
 
-            ObjectArrayEnum arrayEnum = new ObjectArrayEnum(array, array.Length);
+            ObjectArrayEnum arrayEnum = new ObjectArrayEnum(objectArray);
 
             arrayEnum.MoveNext();
 
@@ -47,9 +39,9 @@
         [Fact]
         public void ResetMethodShouldReturnCurrentPositionWhenIsSmallerThanArrayLength()
         {
-            object[] array = { 1, 2 };
+            ObjectArray objectArray = new ObjectArray() { 1, 2, 3 };
 
-            ObjectArrayEnum arrayEnum = new ObjectArrayEnum(array, array.Length);
+            ObjectArrayEnum arrayEnum = new ObjectArrayEnum(objectArray);
 
             arrayEnum.MoveNext();
             arrayEnum.MoveNext();
