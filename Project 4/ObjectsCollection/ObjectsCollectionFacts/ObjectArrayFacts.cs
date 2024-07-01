@@ -422,6 +422,7 @@ namespace ObjectsCollection
         {
             foreach (var item in new ObjectArray { 1, 2, 3 })
             {
+                Assert.NotNull(item);
                 Assert.Equal(item, item);
             }
         }

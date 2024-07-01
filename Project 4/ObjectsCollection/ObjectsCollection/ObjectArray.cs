@@ -28,6 +28,21 @@ namespace ObjectsCollection
             Count++;
         }
 
+        public IEnumerator GetEnumerator()
+        {
+            int enumCount = 0;
+            foreach (object element in array)
+            {
+                enumCount++;
+                yield return element;
+
+                if (enumCount == Count)
+                {
+                    yield break;
+                }
+            }
+        }
+
         public bool Contains(object element)
         {
             return IndexOf(element) != -1;
@@ -83,11 +98,6 @@ namespace ObjectsCollection
             int index = IndexOf(element);
 
             RemoveAt(index);
-        }
-
-        public IEnumerator GetEnumerator()
-        {
-            return new ObjectArrayEnum(this);
         }
 
         private void EnsureArrayPositions()

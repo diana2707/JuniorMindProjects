@@ -13,6 +13,11 @@
 		<CodeAnalysisRuleSet>juniormind.ruleset</CodeAnalysisRuleSet>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <Compile Remove="ObjectsCollectionFacts\ObjectArrayEnumFacts.cs" />
+	  <Compile Remove="ObjectsCollection\ObjectArrayEnum.cs" />
+	</ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
