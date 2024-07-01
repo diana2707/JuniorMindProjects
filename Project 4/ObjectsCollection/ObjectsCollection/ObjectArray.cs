@@ -30,16 +30,9 @@ namespace ObjectsCollection
 
         public IEnumerator GetEnumerator()
         {
-            int enumCount = 0;
-            foreach (object element in array)
+            for (int i = 0; i < Count; i++)
             {
-                enumCount++;
-                yield return element;
-
-                if (enumCount == Count)
-                {
-                    yield break;
-                }
+                yield return array[i];
             }
         }
 
