@@ -2,14 +2,14 @@
 
 namespace ObjectsCollection
 {
-    public class ObjectArrayFacts
+    public class ListFacts
     {
         [Fact]
         public void IndexerShouldSetAndGetIntegerElementAsObject()
         {
-            object number = 5;
+            const int number = 5;
 
-            ObjectArray array = new ObjectArray();
+            List<int> array = new List<int>();
             array[0] = number;
 
             Assert.Equal(5, array[0]);
@@ -18,9 +18,9 @@ namespace ObjectsCollection
         [Fact]
         public void IndexerShouldSetAndGetFloatElementAsObject()
         {
-            object number = 7.897;
+            const double number = 7.897;
 
-            ObjectArray array = new ObjectArray();
+            List<double> array = new List<double>();
             array[0] = number;
 
             Assert.Equal(7.897, array[0]);
@@ -29,9 +29,9 @@ namespace ObjectsCollection
         [Fact]
         public void IndexerShouldSetAndGetStringElementAsObject()
         {
-            object text = "abc";
+            const string text = "abc";
 
-            ObjectArray array = new ObjectArray();
+            List<string> array = new List<string>();
             array[0] = text;
 
             Assert.Equal("abc", array[0]);
@@ -42,7 +42,7 @@ namespace ObjectsCollection
         {
             int[] integerArray = new int[1];
 
-            ObjectArray array = new ObjectArray();
+            List<int[]> array = new List<int[]>();
             array[0] = integerArray;
 
             Assert.Equal(integerArray, array[0]);
@@ -51,8 +51,8 @@ namespace ObjectsCollection
         [Fact]
         public void AddMethodShouldAddOneElement()
         {
-            object text = "abc";
-            ObjectArray array = new ObjectArray();
+            const string text = "abc";
+            List<string> array = new List<string>();
             array.Add(text);
 
             Assert.Equal("abc", array[0]);
@@ -61,7 +61,7 @@ namespace ObjectsCollection
         [Fact]
         public void AddMethodShouldAddOneElementWhenArrayHasOver4Elements()
         {
-            ObjectArray array = new ObjectArray();
+            List<int> array = new List<int>();
             array.Add(1);
             array.Add(2);
             array.Add(3);
@@ -74,7 +74,7 @@ namespace ObjectsCollection
         [Fact]
         public void CountShouldReturnCorrectNumberOfElements()
         {
-            ObjectArray array = new ObjectArray();
+            List<int> array = new List<int>();
             array.Add(5);
             array.Add(6);
 
@@ -84,7 +84,7 @@ namespace ObjectsCollection
         [Fact]
         public void IndexOfMethodShouldReturnCorrectIndexOfElementWhenStringElementExists()
         {
-            ObjectArray array = new ObjectArray();
+            List<string> array = new List<string>();
             array.Add("a");
             array.Add("b");
             array.Add("c");
@@ -95,7 +95,7 @@ namespace ObjectsCollection
         [Fact]
         public void IndexOfMethodShouldReturnCorrectIndexOfElementWhenIntegerElementExists()
         {
-            ObjectArray array = new ObjectArray();
+            List<int> array = new List<int>();
             array.Add(1);
             array.Add(2);
             array.Add(3);
@@ -104,9 +104,9 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void IndexOfMethodShouldReturnCorrectIndexOfElementWhenFloatElementExists()
+        public void IndexOfMethodShouldReturnCorrectIndexOfElementWhenDoubleElementExists()
         {
-            ObjectArray array = new ObjectArray();
+            List<double> array = new List<double>();
             array.Add(1.5);
             array.Add(2.5);
             array.Add(3.5);
@@ -121,7 +121,7 @@ namespace ObjectsCollection
             int[] arr2 = { 4, 5, 6 };
             int[] arr3 = { 7, 8, 9 };
 
-            ObjectArray array = new ObjectArray();
+            List<int[]> array = new List<int[]>();
             array.Add(arr1);
             array.Add(arr2);
             array.Add(arr3);
@@ -136,7 +136,7 @@ namespace ObjectsCollection
             IntArray arr2 = new IntArray();
             IntArray arr3 = new IntArray();
 
-            ObjectArray array = new ObjectArray();
+            List<IntArray> array = new List<IntArray>();
             array.Add(arr1);
             array.Add(arr2);
             array.Add(arr3);
@@ -147,7 +147,7 @@ namespace ObjectsCollection
         [Fact]
         public void IndexOfMethodShouldReturnMinus1WhenStringElementDoNotExists()
         {
-            ObjectArray array = new ObjectArray();
+            List<string> array = new List<string>();
             array.Add("a");
             array.Add("b");
             array.Add("c");
@@ -158,7 +158,7 @@ namespace ObjectsCollection
         [Fact]
         public void IndexOfMethodShouldReturnMinus1WhenIntegerElementDoNotExists()
         {
-            ObjectArray array = new ObjectArray();
+            List<int> array = new List<int>();
             array.Add(1);
             array.Add(2);
             array.Add(3);
@@ -167,9 +167,9 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void IndexOfMethodShouldReturnMinus1WhenFloatElementDoNotExists()
+        public void IndexOfMethodShouldReturnMinus1WhenDoubleElementDoNotExists()
         {
-            ObjectArray array = new ObjectArray();
+            List<double> array = new List<double>();
             array.Add(1.5);
             array.Add(2.5);
             array.Add(3.5);
@@ -185,7 +185,7 @@ namespace ObjectsCollection
             int[] arr3 = { 7, 8, 9 };
             int[] arr4 = { 10, 11, 12 };
 
-            ObjectArray array = new ObjectArray();
+            List<int[]> array = new List<int[]>();
             array.Add(arr1);
             array.Add(arr2);
             array.Add(arr3);
@@ -194,51 +194,9 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void ContainsMethodShouldReturnTrueWhenElementExists()
-        {
-            int[] arr = { 1, 2, 3 };
-            IntArray obj = new IntArray();
-
-            ObjectArray array = new ObjectArray();
-            array.Add("a");
-            array.Add(1);
-            array.Add(2.5);
-            array.Add(arr);
-            array.Add(obj);
-
-            Assert.True(array.Contains("a"));
-            Assert.True(array.Contains(1));
-            Assert.True(array.Contains(2.5));
-            Assert.True(array.Contains(arr));
-            Assert.True(array.Contains(obj));
-        }
-
-        [Fact]
-        public void ContainsMethodShouldReturnFalseWhenElementDoNotExist()
-        {
-            int[] arr1 = { 1, 2, 3 };
-            int[] arr2 = { 4, 5, 6 };
-            IntArray obj1 = new IntArray();
-            IntArray obj2 = new IntArray();
-
-            ObjectArray array = new ObjectArray();
-            array.Add("a");
-            array.Add(1);
-            array.Add(2.5);
-            array.Add(arr1);
-            array.Add(obj1);
-
-            Assert.False(array.Contains("b"));
-            Assert.False(array.Contains(2));
-            Assert.False(array.Contains(2.4));
-            Assert.False(array.Contains(arr2));
-            Assert.False(array.Contains(obj2));
-        }
-
-        [Fact]
         public void InsertMethodShouldInsertCorrectIntegerElement()
         {
-            ObjectArray array = new ObjectArray();
+            List<int> array = new List<int>();
             array.Add(3);
             array.Add(5);
             array.Add(6);
@@ -251,7 +209,7 @@ namespace ObjectsCollection
         [Fact]
         public void InsertMethodShouldInsertCorrectStringElement()
         {
-            ObjectArray array = new ObjectArray();
+            List<string> array = new List<string>();
             array.Add("a");
             array.Add("b");
             array.Add("c");
@@ -262,9 +220,9 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void InsertMethodShouldInsertCorrectFloatElement()
+        public void InsertMethodShouldInsertCorrectDoubleElement()
         {
-            ObjectArray array = new ObjectArray();
+            List<double> array = new List<double>();
             array.Add(3.4);
             array.Add(2.1);
             array.Add(7.8);
@@ -281,7 +239,7 @@ namespace ObjectsCollection
             int[] arr2 = { 4, 5, 6 };
             int[] arr3 = { 7, 8, 9 };
 
-            ObjectArray test = new ObjectArray();
+            List<int[]> test = new List<int[]>();
             test.Add(arr1);
             test.Add(arr2);
             test.Insert(1, arr3);
@@ -293,11 +251,11 @@ namespace ObjectsCollection
         [Fact]
         public void InsertMethodShouldInsertCorrectObjectElement()
         {
-            ObjectArray arr1 = new ObjectArray();
-            ObjectArray arr2 = new ObjectArray();
-            ObjectArray arr3 = new ObjectArray();
+            List<IntArray> arr1 = new List<IntArray>();
+            List<IntArray> arr2 = new List<IntArray>();
+            List<IntArray> arr3 = new List<IntArray>();
 
-            ObjectArray test = new ObjectArray();
+            List<List<IntArray>> test = new List<List<IntArray>>();
             test.Add(arr1);
             test.Add(arr2);
             test.Insert(1, arr3);
@@ -309,7 +267,7 @@ namespace ObjectsCollection
         [Fact]
         public void ClearMethodShouldSetAllElementToDefault()
         {
-            ObjectArray array = new ObjectArray();
+            List<int> array = new List<int>();
             array.Add(3);
             array.Add(4);
             array.Clear();
@@ -320,7 +278,7 @@ namespace ObjectsCollection
         [Fact]
         public void RemoveAtMethodShouldRemoveTheCorrectIntegerElement()
         {
-            ObjectArray array = new ObjectArray();
+            List<int> array = new List<int>();
             array.Add(3);
             array.Add(7);
             array.Add(5);
@@ -337,7 +295,7 @@ namespace ObjectsCollection
             int[] arr2 = { 4, 5, 6 };
             int[] arr3 = { 7, 8, 9 };
 
-            ObjectArray array = new ObjectArray();
+            List<int[]> array = new List<int[]>();
             array.Add(arr1);
             array.Add(arr2);
             array.Add(arr3);
@@ -350,7 +308,7 @@ namespace ObjectsCollection
         [Fact]
         public void RemoveAtMethodShouldRemoveTheCorrectStringElement()
         {
-            ObjectArray array = new ObjectArray();
+            List<string> array = new List<string>();
             array.Add("a");
             array.Add("b");
             array.Add("c");
@@ -361,9 +319,9 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void RemoveAtMethodShouldNotChangeArrayWhenIndexDoesNotExist()
+        public void RemoveAtMethodShouldNotChangeIntegerWhenIndexDoesNotExist()
         {
-            ObjectArray array = new ObjectArray();
+            List<int> array = new List<int>();
             array.Add(3);
             array.Add(4);
             array.Add(5);
@@ -377,7 +335,7 @@ namespace ObjectsCollection
         [Fact]
         public void RemoveMethodShouldRemoveTheCorrectIntegerElement()
         {
-            ObjectArray array = new ObjectArray();
+            List<int> array = new List<int>();
             array.Add(3);
             array.Add(4);
             array.Add(5);
@@ -390,7 +348,7 @@ namespace ObjectsCollection
         [Fact]
         public void RemoveMethodShouldRemoveTheCorrectStringElement()
         {
-            ObjectArray array = new ObjectArray();
+            List<string> array = new List<string>();
             array.Add("a");
             array.Add("b");
             array.Add("c");
@@ -407,7 +365,7 @@ namespace ObjectsCollection
             int[] arr2 = { 4, 5, 6 };
             int[] arr3 = { 7, 8, 9 };
 
-            ObjectArray array = new ObjectArray();
+            List<int[]> array = new List<int[]>();
             array.Add(arr1);
             array.Add(arr2);
             array.Add(arr3);
@@ -420,7 +378,7 @@ namespace ObjectsCollection
         [Fact]
         public void VerifyIEnumerableInterfaceAllowsForeachUse()
         {
-            foreach (var item in new ObjectArray { 1, 2, 3 })
+            foreach (var item in new List<int> { 1, 2, 3 })
             {
                 Assert.NotNull(item);
                 Assert.Equal(item, item);
