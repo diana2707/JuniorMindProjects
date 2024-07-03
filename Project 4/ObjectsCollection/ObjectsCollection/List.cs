@@ -4,7 +4,7 @@ namespace ObjectsCollection
 {
     internal class List<T> : IEnumerable<T>
     {
-        private T[] array;
+        protected T[] array;
 
         public List()
         {
