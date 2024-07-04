@@ -23,14 +23,21 @@ namespace ObjectsCollection
                 int j = i;
                 int k = i - 1;
 
-                int value = array[j].CompareTo(array[k]);
-                while (k >= 0 && value < 0)
+                while (k >= 0 && array[j].CompareTo(array[k]) < 0)
                 {
                     (array[j], array[k]) = (array[k], array[j]);
                     j--;
                     k--;
                 }
             }
+        }
+
+        public bool IsSorted(int index, T element)
+        {
+            bool isValidFirstElement = index == 0 && element.CompareTo(array[0]) <= 0;
+            bool isConsecutiveElement = index != 0 && array[index - 1].CompareTo(element) <= 0 && array[index].CompareTo(element) >= 0;
+
+            return isValidFirstElement || isConsecutiveElement;
         }
     }
 }

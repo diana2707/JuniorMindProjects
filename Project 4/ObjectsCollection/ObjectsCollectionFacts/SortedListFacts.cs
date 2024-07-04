@@ -47,5 +47,32 @@
             Assert.False(list[0]);
             Assert.True(list[1]);
         }
+
+        [Fact]
+        public void AddMethodShouldAddElementAndSortArray()
+        {
+            SortedList<int> list = new SortedList<int> { 1, 2, 5, 8 };
+            list.Add(3);
+
+            Assert.Equal(1, list[0]);
+            Assert.Equal(2, list[1]);
+            Assert.Equal(3, list[2]);
+            Assert.Equal(5, list[3]);
+            Assert.Equal(8, list[4]);
+        }
+
+        [Fact]
+        public void ShouldSetElementWhenIsInSortedorder()
+        {
+            SortedList<int> list = new SortedList<int> { 1, 4, 5, 8 };
+            Assert.True(list.IsSorted(1, 3));
+        }
+
+        [Fact]
+        public void ShouldNotSetElementWhenIsInSortedorder()
+        {
+            SortedList<int> list = new SortedList<int> { 1, 4, 5, 8 };
+            Assert.False(list.IsSorted(3, 3));
+        }
     }
 }

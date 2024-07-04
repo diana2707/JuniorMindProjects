@@ -14,7 +14,7 @@ namespace ObjectsCollection
 
         public int Count { get; private set; }
 
-        public T this[int index]
+        public virtual T this[int index]
         {
             get => array[index];
             set => array[index] = value;
