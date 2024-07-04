@@ -40,6 +40,32 @@ namespace ObjectsCollection
             base.Insert(index, element);
         }
 
+        public override int IndexOf(T element)
+        {
+            int low = 0;
+            int high = Count - 1;
+
+            while (low <= high)
+            {
+                int mid = low + (high - low) / 2;
+
+                if (array[mid].CompareTo(element) == 0)
+                {
+                    return mid;
+                }
+                else if (array[mid].CompareTo(element) > 0)
+                {
+                    high = mid - 1;
+                }
+                else
+                {
+                    low = mid + 1;
+                }
+            }
+
+            return -1;
+        }
+
         public void Sort()
         {
             for (int i = 1; i < Count; i++)

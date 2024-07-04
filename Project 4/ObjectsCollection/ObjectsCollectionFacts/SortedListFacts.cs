@@ -119,5 +119,22 @@
             Assert.Equal(5, list[2]);
             Assert.Equal(8, list[3]);
         }
+
+        [Fact]
+        public void IndexOfMethodShouldReturnCorrectIndex()
+        {
+            SortedList<int> list = new SortedList<int> { 1, 4, 5, 8 };
+            Assert.Equal(2, list.IndexOf(5));
+        }
+
+        [Fact]
+        public void CanBeEnumerated()
+        {
+            foreach (int element in new SortedList<int> { 1, 4, 5, 8, 9 })
+            {
+                Assert.NotNull(element);
+                Assert.Equal(element, element);
+            }
+        }
     }
 }

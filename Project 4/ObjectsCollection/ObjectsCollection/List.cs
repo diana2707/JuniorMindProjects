@@ -46,7 +46,7 @@ namespace ObjectsCollection
             return IndexOf(element) != -1;
         }
 
-        public int IndexOf(T element)
+        public virtual int IndexOf(T element)
         {
             for (int i = 0; i < Count; i++)
             {
