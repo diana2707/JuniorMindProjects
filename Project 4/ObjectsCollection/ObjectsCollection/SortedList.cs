@@ -66,7 +66,7 @@ namespace ObjectsCollection
             return -1;
         }
 
-        public void Sort()
+        private void Sort()
         {
             for (int i = 1; i < Count; i++)
             {
@@ -82,7 +82,7 @@ namespace ObjectsCollection
             }
         }
 
-        public bool IsSorted(int index, T element)
+        private bool IsSorted(int index, T element)
         {
             bool isValidFirstElement = index == 0 && element.CompareTo(array[0]) <= 0;
             bool isConsecutiveElement = index != 0 && array[index - 1].CompareTo(element) <= 0 && array[index].CompareTo(element) >= 0;

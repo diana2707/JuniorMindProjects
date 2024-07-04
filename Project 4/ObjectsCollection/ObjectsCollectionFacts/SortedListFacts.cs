@@ -62,20 +62,6 @@
         }
 
         [Fact]
-        public void ShouldSetElementWhenIsInSortedorder()
-        {
-            SortedList<int> list = new SortedList<int> { 1, 4, 5, 8 };
-            Assert.True(list.IsSorted(1, 3));
-        }
-
-        [Fact]
-        public void ShouldNotSetElementWhenIsInSortedorder()
-        {
-            SortedList<int> list = new SortedList<int> { 1, 4, 5, 8 };
-            Assert.False(list.IsSorted(3, 3));
-        }
-
-        [Fact]
         public void IndexerShouldSetElementIfIsSorted()
         {
             SortedList<int> list = new SortedList<int> { 1, 4, 5, 8 };
@@ -135,6 +121,20 @@
                 Assert.NotNull(element);
                 Assert.Equal(element, element);
             }
+        }
+
+        [Fact]
+        public void ContainMethodShouldReturnTrueWhenElementExists()
+        {
+            SortedList<int> list = new SortedList<int> { 1, 4, 5, 8 };
+            Assert.True(list.Contains(1));
+        }
+
+        [Fact]
+        public void ContainMethodShouldReturnFalseWhenElementDoesNotExist()
+        {
+            SortedList<int> list = new SortedList<int> { 1, 4, 5, 8 };
+            Assert.False(list.Contains(9));
         }
     }
 }
