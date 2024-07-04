@@ -74,5 +74,27 @@
             SortedList<int> list = new SortedList<int> { 1, 4, 5, 8 };
             Assert.False(list.IsSorted(3, 3));
         }
+
+        [Fact]
+        public void IndexerShouldSetElementIfIsSorted()
+        {
+            SortedList<int> list = new SortedList<int> { 1, 4, 5, 8 };
+            list[1] = 3;
+            Assert.Equal(1, list[0]);
+            Assert.Equal(3, list[1]);
+            Assert.Equal(5, list[2]);
+            Assert.Equal(8, list[3]);
+        }
+
+        [Fact]
+        public void IndexerShouldNotSetElementIfIsNotSorted()
+        {
+            SortedList<int> list = new SortedList<int> { 1, 4, 5, 8 };
+            list[3] = 3;
+            Assert.Equal(1, list[0]);
+            Assert.Equal(4, list[1]);
+            Assert.Equal(5, list[2]);
+            Assert.Equal(8, list[3]);
+        }
     }
 }

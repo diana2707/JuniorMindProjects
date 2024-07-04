@@ -10,6 +10,20 @@ namespace ObjectsCollection
         {
         }
 
+        public override T this[int index]
+        {
+            get => array[index];
+            set
+            {
+                if (!IsSorted(index, value))
+                {
+                    return;
+                }
+
+                array[index] = value;
+            }
+        }
+
         public override void Add(T element)
         {
             base.Add(element);
