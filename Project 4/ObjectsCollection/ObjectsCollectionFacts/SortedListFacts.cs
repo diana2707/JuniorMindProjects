@@ -144,5 +144,15 @@
             list.Clear();
             Assert.Empty(list);
         }
+
+        [Fact]
+        public void RemoveAtMethodShouldRemoveElementAtIndex()
+        {
+            SortedList<int> list = new SortedList<int> { 1, 4, 5, 8 };
+            list.RemoveAt(0);
+            Assert.Equal(4, list[0]);
+            Assert.Equal(5, list[1]);
+            Assert.Equal(8, list[2]);
+        }
     }
 }
