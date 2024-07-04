@@ -136,5 +136,13 @@
             SortedList<int> list = new SortedList<int> { 1, 4, 5, 8 };
             Assert.False(list.Contains(9));
         }
+
+        [Fact]
+        public void ClearMethodShouldClearCollection()
+        {
+            SortedList<int> list = new SortedList<int> { 1, 4, 5, 8 };
+            list.Clear();
+            Assert.Empty(list);
+        }
     }
 }
