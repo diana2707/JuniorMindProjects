@@ -30,6 +30,16 @@ namespace ObjectsCollection
             Sort();
         }
 
+        public override void Insert(int index, T element)
+        {
+            if (!IsSorted(index, element))
+            {
+                return;
+            }
+
+            base.Insert(index, element);
+        }
+
         public void Sort()
         {
             for (int i = 1; i < Count; i++)

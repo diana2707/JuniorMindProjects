@@ -59,7 +59,7 @@ namespace ObjectsCollection
             return -1;
         }
 
-        public void Insert(int index, T element)
+        public virtual void Insert(int index, T element)
         {
             EnsureArrayPositions();
 

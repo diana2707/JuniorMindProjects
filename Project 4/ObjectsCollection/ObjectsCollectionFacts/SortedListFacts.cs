@@ -96,5 +96,28 @@
             Assert.Equal(5, list[2]);
             Assert.Equal(8, list[3]);
         }
+
+        [Fact]
+        public void InsertMethodShouldInsertElementIfIsSorted()
+        {
+            SortedList<int> list = new SortedList<int> { 1, 4, 5, 8 };
+            list.Insert(1, 3);
+            Assert.Equal(1, list[0]);
+            Assert.Equal(3, list[1]);
+            Assert.Equal(4, list[2]);
+            Assert.Equal(5, list[3]);
+            Assert.Equal(8, list[4]);
+        }
+
+        [Fact]
+        public void InsertMethodShouldNotInsertElementIfIsNotSorted()
+        {
+            SortedList<int> list = new SortedList<int> { 1, 4, 5, 8 };
+            list.Insert(3, 3);
+            Assert.Equal(1, list[0]);
+            Assert.Equal(4, list[1]);
+            Assert.Equal(5, list[2]);
+            Assert.Equal(8, list[3]);
+        }
     }
 }
