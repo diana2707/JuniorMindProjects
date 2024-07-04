@@ -10,6 +10,12 @@ namespace ObjectsCollection
         {
         }
 
+        public override void Add(T element)
+        {
+            base.Add(element);
+            Sort();
+        }
+
         public void Sort()
         {
             for (int i = 1; i < Count; i++)

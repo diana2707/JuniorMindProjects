@@ -13,7 +13,6 @@
         public void SortMethodShouldReturnSortedListWhenTypeIsInt()
         {
             SortedList<int> list = new SortedList<int> { 3, 2, 1 };
-            list.Sort();
 
             Assert.Equal(1, list[0]);
             Assert.Equal(2, list[1]);
@@ -24,7 +23,6 @@
         public void SortMethodShouldReturnSortedListWhenTypeIsString()
         {
             SortedList<string> list = new SortedList<string> { "z", "p", "a" };
-            list.Sort();
 
             Assert.Equal("a", list[0]);
             Assert.Equal("p", list[1]);
@@ -35,7 +33,6 @@
         public void SortMethodShouldReturnSortedListWhenTypeIsChar()
         {
             SortedList<char> list = new SortedList<char> { 'r', 'h', 'c' };
-            list.Sort();
 
             Assert.Equal('c', list[0]);
             Assert.Equal('h', list[1]);
@@ -46,7 +43,6 @@
         public void SortMethodShouldReturnSortedListWhenTypeIsBool()
         {
             SortedList<bool> list = new SortedList<bool> { true, false };
-            list.Sort();
 
             Assert.False(list[0]);
             Assert.True(list[1]);
