@@ -154,5 +154,15 @@
             Assert.Equal(5, list[1]);
             Assert.Equal(8, list[2]);
         }
+
+        [Fact]
+        public void RemoveMethodShouldRemoveElement()
+        {
+            SortedList<int> list = new SortedList<int> { 1, 4, 5, 8 };
+            list.Remove(5);
+            Assert.Equal(1, list[0]);
+            Assert.Equal(4, list[1]);
+            Assert.Equal(8, list[2]);
+        }
     }
 }
