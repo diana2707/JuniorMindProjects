@@ -215,15 +215,15 @@
         //    Assert.Equal(6, list[2]);
         //}
 
-        //[Fact]
-        //public void SetterInvalidFirstElement()
-        //{
-        //    SortedList<int> list = new SortedList<int> { 1, 4, 6, 8 };
-        //    list[0] = 5;
-        //    Assert.Equal(1, list[0]);
-        //    Assert.Equal(4, list[1]);
-        //    Assert.Equal(6, list[2]);
-        //}
+        [Fact]
+        public void SetterInvalidFirstElement()
+        {
+            SortedList<int> list = new SortedList<int> { 1, 4, 6, 8 };
+            list[0] = 5;
+            Assert.Equal(1, list[0]);
+            Assert.Equal(4, list[1]);
+            Assert.Equal(6, list[2]);
+        }
 
         //[Fact]
         //public void SetterValidLastElement()
