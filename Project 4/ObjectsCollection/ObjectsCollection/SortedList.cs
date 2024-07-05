@@ -15,7 +15,7 @@ namespace ObjectsCollection
             get => array[index];
             set
             {
-                if (value.CompareTo(array[0]) > 0 || value.CompareTo(array[index - 1]) < 0 || value.CompareTo(array[index + 1]) > 0)
+                if (value.CompareTo(array[index + 1]) > 0 || (index != 0 && value.CompareTo(array[index - 1]) < 0) || value.CompareTo(array[index + 1]) > 0)
                 {
                     return;
                 }
