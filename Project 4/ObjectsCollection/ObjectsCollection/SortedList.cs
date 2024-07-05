@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ObjectsCollection
+﻿namespace ObjectsCollection
 {
     internal class SortedList<T> : List<T>
         where T : IComparable<T>
@@ -15,7 +13,7 @@ namespace ObjectsCollection
             get => array[index];
             set
             {
-                if ((index != 0 && value.CompareTo(array[index - 1]) < 0) || (index != Count - 1 && value.CompareTo(array[index + 1]) > 0))
+                if (IsUnsortedSetter(index, value))
                 {
                     return;
                 }
@@ -32,7 +30,8 @@ namespace ObjectsCollection
 
         public override void Insert(int index, T element)
         {
-            if ((index != 0 && element.CompareTo(array[index - 1]) < 0) || element.CompareTo(array[index]) > 0)
+            if ((index != 0 && element.CompareTo(array[index - 1]) < 0) ||
+                element.CompareTo(array[index]) > 0)
             {
                 return;
             }
@@ -82,16 +81,10 @@ namespace ObjectsCollection
             }
         }
 
-        //private bool IsUnsortedSetter(int index, T element)
-        //{
-        //    return (index > 0 && array[index - 1].CompareTo(element) > 0) ||
-        //        (index < Count - 1 && array[index + 1].CompareTo(element) < 0);
-        //}
-
-        //private bool IsUnsortedInsert(int index, T element)
-        //{
-        //    return index > 0 && array[index - 1].CompareTo(element) > 0 ||
-        //        (index < Count && array[index].CompareTo(element) < 0);
-        //}
+        private bool IsUnsortedSetter(int index, T element)
+        {
+            return (index != 0 && element.CompareTo(array[index - 1]) < 0) ||
+            (index != Count - 1 && element.CompareTo(array[index + 1]) > 0);
+        }
     }
 }
