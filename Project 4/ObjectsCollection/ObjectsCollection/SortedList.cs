@@ -32,7 +32,7 @@ namespace ObjectsCollection
 
         public override void Insert(int index, T element)
         {
-            if (element.CompareTo(array[index - 1]) < 0 || element.CompareTo(array[index]) > 0)
+            if ((index != 0 && element.CompareTo(array[index - 1]) < 0) || element.CompareTo(array[index]) > 0)
             {
                 return;
             }
