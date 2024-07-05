@@ -83,7 +83,7 @@
         private bool IsUnsortedSetter(int index, T element)
         {
             return (index != 0 && element.CompareTo(array[index - 1]) < 0) ||
-            (index != Count - 1 && element.CompareTo(array[index + 1]) > 0);
+                (index != Count - 1 && element.CompareTo(array[index + 1]) > 0);
         }
 
         private bool IsUnsortedInsert(int index, T element)
