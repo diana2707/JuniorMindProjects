@@ -15,7 +15,7 @@ namespace ObjectsCollection
             get => array[index];
             set
             {
-                if (!IsSorted(index, value))
+                if (value.CompareTo(array[index - 1]) < 0)
                 {
                     return;
                 }
@@ -30,15 +30,15 @@ namespace ObjectsCollection
             Sort();
         }
 
-        public override void Insert(int index, T element)
-        {
-            if (!IsSorted(index, element))
-            {
-                return;
-            }
+        //public override void Insert(int index, T element)
+        //{
+        //    if (IsUnsortedInsert(index, element))
+        //    {
+        //        return;
+        //    }
 
-            base.Insert(index, element);
-        }
+        //    base.Insert(index, element);
+        //}
 
         public override int IndexOf(T element)
         {
@@ -82,12 +82,16 @@ namespace ObjectsCollection
             }
         }
 
-        private bool IsSorted(int index, T element)
-        {
-            bool isValidFirstElement = index == 0 && element.CompareTo(array[0]) <= 0;
-            bool isConsecutiveElement = index != 0 && array[index - 1].CompareTo(element) <= 0 && array[index].CompareTo(element) >= 0;
+        //private bool IsUnsortedSetter(int index, T element)
+        //{
+        //    return (index > 0 && array[index - 1].CompareTo(element) > 0) ||
+        //        (index < Count - 1 && array[index + 1].CompareTo(element) < 0);
+        //}
 
-            return isValidFirstElement || isConsecutiveElement;
-        }
+        //private bool IsUnsortedInsert(int index, T element)
+        //{
+        //    return index > 0 && array[index - 1].CompareTo(element) > 0 ||
+        //        (index < Count && array[index].CompareTo(element) < 0);
+        //}
     }
 }
