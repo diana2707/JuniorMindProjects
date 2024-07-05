@@ -165,25 +165,25 @@
         //    Assert.Equal(8, list[2]);
         //}
 
-        //[Fact]
-        //public void SetterValidGreaterThanCurrent()
-        //{
-        //    SortedList<int> list = new SortedList<int> { 1, 4, 6, 8 };
-        //    list[1] = 5;
-        //    Assert.Equal(1, list[0]);
-        //    Assert.Equal(5, list[1]);
-        //    Assert.Equal(6, list[2]);
-        //}
+        [Fact]
+        public void SetterValidGreaterThanCurrent()
+        {
+            SortedList<int> list = new SortedList<int> { 1, 4, 6, 8 };
+            list[1] = 5;
+            Assert.Equal(1, list[0]);
+            Assert.Equal(5, list[1]);
+            Assert.Equal(6, list[2]);
+        }
 
-        //[Fact]
-        //public void SetterValidSmallerThanCurrent()
-        //{
-        //    SortedList<int> list = new SortedList<int> { 1, 4, 6, 8 };
-        //    list[1] = 3;
-        //    Assert.Equal(1, list[0]);
-        //    Assert.Equal(3, list[1]);
-        //    Assert.Equal(6, list[2]);
-        //}
+        [Fact]
+        public void SetterValidSmallerThanCurrent()
+        {
+            SortedList<int> list = new SortedList<int> { 1, 4, 6, 8 };
+            list[1] = 3;
+            Assert.Equal(1, list[0]);
+            Assert.Equal(3, list[1]);
+            Assert.Equal(6, list[2]);
+        }
 
         [Fact]
         public void SetterInvalidSmallerThanPrevios()
@@ -236,36 +236,36 @@
             Assert.Equal(7, list[3]);
         }
 
-        //[Fact]
-        //public void SetterInvalidLastElement()
-        //{
-        //    SortedList<int> list = new SortedList<int> { 1, 4, 6, 8 };
-        //    list[3] = 5;
-        //    Assert.Equal(1, list[0]);
-        //    Assert.Equal(4, list[1]);
-        //    Assert.Equal(6, list[2]);
-        //    Assert.Equal(8, list[3]);
-        //}
+        [Fact]
+        public void SetterInvalidLastElement()
+        {
+            SortedList<int> list = new SortedList<int> { 1, 4, 6, 8 };
+            list[3] = 5;
+            Assert.Equal(1, list[0]);
+            Assert.Equal(4, list[1]);
+            Assert.Equal(6, list[2]);
+            Assert.Equal(8, list[3]);
+        }
 
-        //[Fact]
-        //public void InsertValidSmallerThanCurrent()
-        //{
-        //    SortedList<int> list = new SortedList<int> { 1, 4, 6, 8 };
-        //    list.Insert(1, 3);
-        //    Assert.Equal(1, list[0]);
-        //    Assert.Equal(3, list[1]);
-        //    Assert.Equal(4, list[2]);
-        //}
+        [Fact]
+        public void InsertValidSmallerThanCurrent()
+        {
+            SortedList<int> list = new SortedList<int> { 1, 4, 6, 8 };
+            list.Insert(1, 3);
+            Assert.Equal(1, list[0]);
+            Assert.Equal(3, list[1]);
+            Assert.Equal(4, list[2]);
+        }
 
-        //[Fact]
-        //public void InsertInvalidSmallerThanPrevios()
-        //{
-        //    SortedList<int> list = new SortedList<int> { 1, 4, 6, 8 };
-        //    list.Insert(1, 0);
-        //    Assert.Equal(1, list[0]);
-        //    Assert.Equal(4, list[1]);
-        //    Assert.Equal(6, list[2]);
-        //}
+        [Fact]
+        public void InsertInvalidSmallerThanPrevios()
+        {
+            SortedList<int> list = new SortedList<int> { 1, 4, 6, 8 };
+            list.Insert(1, 0);
+            Assert.Equal(1, list[0]);
+            Assert.Equal(4, list[1]);
+            Assert.Equal(6, list[2]);
+        }
 
         //[Fact]
         //public void InsertInvalidGreaterThanNext()

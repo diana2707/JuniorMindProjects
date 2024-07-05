@@ -30,15 +30,15 @@ namespace ObjectsCollection
             Sort();
         }
 
-        //public override void Insert(int index, T element)
-        //{
-        //    if (IsUnsortedInsert(index, element))
-        //    {
-        //        return;
-        //    }
+        public override void Insert(int index, T element)
+        {
+            if (element.CompareTo(array[index - 1]) < 0)
+            {
+                return;
+            }
 
-        //    base.Insert(index, element);
-        //}
+            base.Insert(index, element);
+        }
 
         public override int IndexOf(T element)
         {
