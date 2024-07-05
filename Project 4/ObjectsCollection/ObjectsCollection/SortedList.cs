@@ -30,8 +30,7 @@
 
         public override void Insert(int index, T element)
         {
-            if ((index != 0 && element.CompareTo(array[index - 1]) < 0) ||
-                element.CompareTo(array[index]) > 0)
+            if (IsUnsortedInsert(index, element))
             {
                 return;
             }
@@ -85,6 +84,12 @@
         {
             return (index != 0 && element.CompareTo(array[index - 1]) < 0) ||
             (index != Count - 1 && element.CompareTo(array[index + 1]) > 0);
+        }
+
+        private bool IsUnsortedInsert(int index, T element)
+        {
+            return (index != 0 && element.CompareTo(array[index - 1]) < 0) ||
+                element.CompareTo(array[index]) > 0;
         }
     }
 }
