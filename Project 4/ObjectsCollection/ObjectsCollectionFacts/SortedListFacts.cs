@@ -267,15 +267,15 @@
             Assert.Equal(6, list[2]);
         }
 
-        //[Fact]
-        //public void InsertInvalidGreaterThanNext()
-        //{
-        //    SortedList<int> list = new SortedList<int> { 1, 4, 6, 8 };
-        //    list.Insert(1, 7);
-        //    Assert.Equal(1, list[0]);
-        //    Assert.Equal(4, list[1]);
-        //    Assert.Equal(6, list[2]);
-        //}
+        [Fact]
+        public void InsertInvalidGreaterThanCurrent()
+        {
+            SortedList<int> list = new SortedList<int> { 1, 4, 6, 8 };
+            list.Insert(1, 5);
+            Assert.Equal(1, list[0]);
+            Assert.Equal(4, list[1]);
+            Assert.Equal(6, list[2]);
+        }
 
         //[Fact]
         //public void InsertValidFirstElement()
