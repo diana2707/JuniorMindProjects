@@ -10,7 +10,10 @@ namespace ObjectsCollection
         {
             array = new T[4];
             Count = 0;
+            IsReadOnly = false;
         }
+
+        public bool IsReadOnly { get; }
 
         public int Count { get; private set; }
 

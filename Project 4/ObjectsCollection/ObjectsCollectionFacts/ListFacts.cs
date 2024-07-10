@@ -382,5 +382,12 @@
                 Assert.Equal(item, item);
             }
         }
+
+        [Fact]
+        public void IsReadOnlyPropertyShouldReturnFalse()
+        {
+            List<int> list = new List<int> { 1, 3, 5, 7 };
+            Assert.False(list.IsReadOnly);
+        }
     }
 }
