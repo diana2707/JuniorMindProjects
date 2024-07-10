@@ -49,7 +49,7 @@ namespace ObjectsCollection
             return IndexOf(element) != -1;
         }
 
-        public void CopyTo(int[] array, int index)
+        public void CopyTo(T[] array, int index)
         {
             this.array.CopyTo(array, index);
         }
@@ -99,11 +99,12 @@ namespace ObjectsCollection
             Count--;
         }
 
-        public void Remove(T element)
+        public bool Remove(T element)
         {
             int index = IndexOf(element);
 
             RemoveAt(index);
+            return true;
         }
 
         private void EnsureArrayPositions()

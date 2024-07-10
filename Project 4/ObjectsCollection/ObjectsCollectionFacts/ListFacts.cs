@@ -413,5 +413,12 @@
             Assert.Equal(5, array[8]);
             Assert.Equal(7, array[9]);
         }
+
+        [Fact]
+        public void RemoveMethodShouldReturnTrueWhenElementIsRemoved()
+        {
+            List<int> list = new List<int> { 1, 3, 5, 7 };
+            Assert.True(list.Remove(1));
+        }
     }
 }
