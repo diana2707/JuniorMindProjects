@@ -389,5 +389,17 @@
             List<int> list = new List<int> { 1, 3, 5, 7 };
             Assert.False(list.IsReadOnly);
         }
+
+        [Fact]
+        public void CopyToMethodShouldCopyElementsToSpecifiedArrayStartingFrom0()
+        {
+            List<int> list = new List<int> { 1, 3, 5, 7 };
+            int[] array = new int[4];
+            list.CopyTo(array, 0);
+            Assert.Equal(1, array[0]);
+            Assert.Equal(3, array[1]);
+            Assert.Equal(5, array[2]);
+            Assert.Equal(7, array[3]);
+        }
     }
 }

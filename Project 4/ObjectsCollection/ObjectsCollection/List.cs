@@ -49,6 +49,11 @@ namespace ObjectsCollection
             return IndexOf(element) != -1;
         }
 
+        public void CopyTo(int[] array, int index)
+        {
+            this.array.CopyTo(array, index);
+        }
+
         public virtual int IndexOf(T element)
         {
             for (int i = 0; i < Count; i++)
