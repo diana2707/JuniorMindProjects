@@ -427,5 +427,12 @@
             List<int> list = new List<int> { 1, 3, 5, 7 };
             Assert.False(list.Remove(2));
         }
+
+        [Fact]
+        public void ListObjectIsAlsoAnIListObject()
+        {
+            IList<int> list = new List<int> { 1, 3, 5, 7 };
+            Assert.NotEmpty(list);
+        }
     }
 }

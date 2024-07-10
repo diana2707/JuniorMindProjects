@@ -2,7 +2,7 @@
 
 namespace ObjectsCollection
 {
-    internal class List<T> : IEnumerable<T>
+    internal class List<T> : IList<T>
     {
         protected T[] array;
 
