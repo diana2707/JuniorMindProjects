@@ -420,5 +420,12 @@
             List<int> list = new List<int> { 1, 3, 5, 7 };
             Assert.True(list.Remove(1));
         }
+
+        [Fact]
+        public void RemoveMethodShouldReturnFalseWhenElementIsNotFound()
+        {
+            List<int> list = new List<int> { 1, 3, 5, 7 };
+            Assert.False(list.Remove(2));
+        }
     }
 }

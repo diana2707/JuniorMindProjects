@@ -89,7 +89,7 @@ namespace ObjectsCollection
 
         public void RemoveAt(int index)
         {
-            if (index == -1 || index >= Count)
+            if (index < 0 || index >= Count)
             {
                 return;
             }
@@ -102,6 +102,11 @@ namespace ObjectsCollection
         public bool Remove(T element)
         {
             int index = IndexOf(element);
+
+            if (index == -1)
+            {
+                return false;
+            }
 
             RemoveAt(index);
             return true;
