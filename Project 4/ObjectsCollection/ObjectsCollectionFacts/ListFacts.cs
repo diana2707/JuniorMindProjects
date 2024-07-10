@@ -401,5 +401,17 @@
             Assert.Equal(5, array[2]);
             Assert.Equal(7, array[3]);
         }
+
+        [Fact]
+        public void CopyToMethodShouldCopyElementsToSpecifiedArrayStartingFromMiddleIndex()
+        {
+            List<int> list = new List<int> { 1, 3, 5, 7 };
+            int[] array = new int[10];
+            list.CopyTo(array, 6);
+            Assert.Equal(1, array[6]);
+            Assert.Equal(3, array[7]);
+            Assert.Equal(5, array[8]);
+            Assert.Equal(7, array[9]);
+        }
     }
 }
