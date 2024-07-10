@@ -14,7 +14,7 @@ namespace ObjectsCollection
             get => array[index];
             set
             {
-                if (!IsSorted(index, value))
+                if (IsUnsortedSetter(index, value))
                 {
                     return;
                 }
@@ -31,7 +31,7 @@ namespace ObjectsCollection
 
         public override void Insert(int index, int element)
         {
-            if (!IsSorted(index, element))
+            if (IsUnsortedInsert(index, element))
             {
                 return;
             }
@@ -78,12 +78,16 @@ namespace ObjectsCollection
                 }
         }
 
-        private bool IsSorted(int index, int element)
+        private bool IsUnsortedSetter(int index, int element)
         {
-            bool isValidFirstElement = index == 0 && element <= array[0];
-            bool isConsecutiveElement = index != 0 && array[index - 1] <= element && array[index] >= element;
+            return (index != 0 && element < array[index - 1]) ||
+                (index != Count - 1 && element > array[index + 1]);
+        }
 
-            return isValidFirstElement || isConsecutiveElement;
+        private bool IsUnsortedInsert(int index, int element)
+        {
+            return (index != 0 && element < array[index - 1]) ||
+                element > array[index];
         }
     }
 }

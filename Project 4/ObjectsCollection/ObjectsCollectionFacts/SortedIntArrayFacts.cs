@@ -258,5 +258,233 @@ namespace ObjectsCollection
             Assert.Equal(5, array[2]);
             Assert.Equal(8, array[3]);
         }
+
+        [Fact]
+        public void SetterValidGreaterThanCurrent()
+        {
+            SortedIntArray array = new SortedIntArray();
+            array.Add(1);
+            array.Add(4);
+            array.Add(6);
+            array.Add(8);
+
+            array[1] = 5;
+            Assert.Equal(1, array[0]);
+            Assert.Equal(5, array[1]);
+            Assert.Equal(6, array[2]);
+        }
+
+        [Fact]
+        public void SetterValidSmallerThanCurrent()
+        {
+            SortedIntArray array = new SortedIntArray();
+            array.Add(1);
+            array.Add(4);
+            array.Add(6);
+            array.Add(8);
+
+            array[1] = 3;
+            Assert.Equal(1, array[0]);
+            Assert.Equal(3, array[1]);
+            Assert.Equal(6, array[2]);
+        }
+
+        [Fact]
+        public void SetterInvalidSmallerThanPrevios()
+        {
+            SortedIntArray array = new SortedIntArray();
+            array.Add(1);
+            array.Add(4);
+            array.Add(6);
+            array.Add(8);
+
+            array[1] = 0;
+            Assert.Equal(1, array[0]);
+            Assert.Equal(4, array[1]);
+            Assert.Equal(6, array[2]);
+        }
+
+        [Fact]
+        public void SetterInvalidGreaterThanNext()
+        {
+            SortedIntArray array = new SortedIntArray();
+            array.Add(1);
+            array.Add(4);
+            array.Add(6);
+            array.Add(8);
+
+            array[1] = 7;
+            Assert.Equal(1, array[0]);
+            Assert.Equal(4, array[1]);
+            Assert.Equal(6, array[2]);
+        }
+
+        [Fact]
+        public void SetterValidFirstElement()
+        {
+            SortedIntArray array = new SortedIntArray();
+            array.Add(1);
+            array.Add(4);
+            array.Add(6);
+            array.Add(8);
+
+            array[0] = 2;
+            Assert.Equal(2, array[0]);
+            Assert.Equal(4, array[1]);
+            Assert.Equal(6, array[2]);
+        }
+
+        [Fact]
+        public void SetterInvalidFirstElement()
+        {
+            SortedIntArray array = new SortedIntArray();
+            array.Add(1);
+            array.Add(4);
+            array.Add(6);
+            array.Add(8);
+
+            array[0] = 5;
+            Assert.Equal(1, array[0]);
+            Assert.Equal(4, array[1]);
+            Assert.Equal(6, array[2]);
+        }
+
+        [Fact]
+        public void SetterValidLastElement()
+        {
+            SortedIntArray array = new SortedIntArray();
+            array.Add(1);
+            array.Add(4);
+            array.Add(6);
+            array.Add(8);
+
+            array[3] = 7;
+            Assert.Equal(1, array[0]);
+            Assert.Equal(4, array[1]);
+            Assert.Equal(6, array[2]);
+        }
+
+        [Fact]
+        public void SetterInvalidLastElement()
+        {
+            SortedIntArray array = new SortedIntArray();
+            array.Add(1);
+            array.Add(4);
+            array.Add(6);
+            array.Add(8);
+
+            array[3] = 5;
+            Assert.Equal(1, array[0]);
+            Assert.Equal(4, array[1]);
+            Assert.Equal(6, array[2]);
+        }
+
+        [Fact]
+        public void InsertValidSmallerThanCurrent()
+        {
+            SortedIntArray array = new SortedIntArray();
+            array.Add(1);
+            array.Add(4);
+            array.Add(6);
+            array.Add(8);
+
+            array.Insert(1, 3);
+            Assert.Equal(1, array[0]);
+            Assert.Equal(3, array[1]);
+            Assert.Equal(4, array[2]);
+        }
+
+        [Fact]
+        public void InsertInvalidSmallerThanPrevios()
+        {
+            SortedIntArray array = new SortedIntArray();
+            array.Add(1);
+            array.Add(4);
+            array.Add(6);
+            array.Add(8);
+
+            array.Insert(1, 0);
+            Assert.Equal(1, array[0]);
+            Assert.Equal(4, array[1]);
+            Assert.Equal(6, array[2]);
+        }
+
+        [Fact]
+        public void InsertInvalidGreaterThanCurrent()
+        {
+            SortedIntArray array = new SortedIntArray();
+            array.Add(1);
+            array.Add(4);
+            array.Add(6);
+            array.Add(8);
+
+            array.Insert(1, 5);
+            Assert.Equal(1, array[0]);
+            Assert.Equal(4, array[1]);
+            Assert.Equal(6, array[2]);
+        }
+
+        [Fact]
+        public void InsertValidFirstElement()
+        {
+            SortedIntArray array = new SortedIntArray();
+            array.Add(1);
+            array.Add(4);
+            array.Add(6);
+            array.Add(8);
+
+            array.Insert(0, 0);
+            Assert.Equal(0, array[0]);
+            Assert.Equal(1, array[1]);
+            Assert.Equal(4, array[2]);
+        }
+
+        [Fact]
+        public void InsertInvalidFirstElement()
+        {
+            SortedIntArray array = new SortedIntArray();
+            array.Add(1);
+            array.Add(4);
+            array.Add(6);
+            array.Add(8);
+
+            array.Insert(0, 2);
+            Assert.Equal(1, array[0]);
+            Assert.Equal(4, array[1]);
+            Assert.Equal(6, array[2]);
+        }
+
+        [Fact]
+        public void InsertValidLastElement()
+        {
+            SortedIntArray array = new SortedIntArray();
+            array.Add(1);
+            array.Add(4);
+            array.Add(6);
+            array.Add(8);
+
+            array.Insert(3, 7);
+            Assert.Equal(1, array[0]);
+            Assert.Equal(4, array[1]);
+            Assert.Equal(6, array[2]);
+            Assert.Equal(7, array[3]);
+            Assert.Equal(8, array[4]);
+        }
+
+        [Fact]
+        public void InsertInvalidLastElement()
+        {
+            SortedIntArray array = new SortedIntArray();
+            array.Add(1);
+            array.Add(4);
+            array.Add(6);
+            array.Add(8);
+
+            array.Insert(3, 5);
+            Assert.Equal(1, array[0]);
+            Assert.Equal(4, array[1]);
+            Assert.Equal(6, array[2]);
+            Assert.Equal(8, array[3]);
+        }
     }
 }
