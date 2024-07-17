@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Microsoft.VisualStudio.TestPlatform.ObjectModel;
+using System.Collections;
 
 namespace ObjectsCollection
 {
@@ -21,21 +22,13 @@ namespace ObjectsCollection
         {
             get
             {
-                if (index >= Count)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(index), "Index must be smaller than count");
-                }
-
+                Validate(index);
                 return array[index];
             }
 
             set
             {
-                if (index >= Count)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(index), "Index must be smaller than count");
-                }
-
+                Validate(index);
                 array[index] = value;
             }
         }
@@ -156,6 +149,16 @@ namespace ObjectsCollection
                 array[index] = array[index + 1];
                 index++;
             }
+        }
+
+        private void Validate(int index)
+        {
+            if (index < Count)
+            {
+                return;
+            }
+
+            throw new ArgumentOutOfRangeException(nameof(index), "Index must be smaller than count");
         }
     }
 }
