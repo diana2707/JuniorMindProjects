@@ -19,7 +19,15 @@ namespace ObjectsCollection
 
         public virtual T this[int index]
         {
-            get => array[index];
+            get
+            {
+                if (index >= Count)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(index), "Index must be smaller than count");
+                }
+
+                return array[index];
+            }
             set => array[index] = value;
         }
 

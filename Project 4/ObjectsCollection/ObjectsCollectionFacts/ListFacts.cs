@@ -6,8 +6,7 @@
         public void IndexerShouldSetAndGetIntegerElementAsObject()
         {
             const int number = 5;
-
-            List<int> array = new List<int>();
+            List<int> array = new List<int> { 0 };
             array[0] = number;
 
             Assert.Equal(5, array[0]);
@@ -18,7 +17,7 @@
         {
             const double number = 7.897;
 
-            List<double> array = new List<double>();
+            List<double> array = new List<double> { 0 };
             array[0] = number;
 
             Assert.Equal(7.897, array[0]);
@@ -29,7 +28,7 @@
         {
             const string text = "abc";
 
-            List<string> array = new List<string>();
+            List<string> array = new List<string> { "" };
             array[0] = text;
 
             Assert.Equal("abc", array[0]);
@@ -40,7 +39,7 @@
         {
             int[] integerArray = new int[1];
 
-            List<int[]> array = new List<int[]>();
+            List<int[]> array = new List<int[]> { new[] { 0 } };
             array[0] = integerArray;
 
             Assert.Equal(integerArray, array[0]);
@@ -433,6 +432,20 @@
         {
             IList<int> list = new List<int> { 1, 3, 5, 7 };
             Assert.NotEmpty(list);
+        }
+
+        [Fact]
+        public void GetterThrowsArgumentOutOfRangeExceptionWhenIndexIsEqualToCount()
+        {
+            IList<int> list = new List<int> { 1, 3, 5, 7, 9 };
+            Assert.Throws<ArgumentOutOfRangeException>(() => list[list.Count]);
+        }
+
+        [Fact]
+        public void GetterThrowsArgumentOutOfRangeExceptionWhenIndexIsLargerThanCount()
+        {
+            IList<int> list = new List<int> { 1, 3, 5, 7, 9 };
+            Assert.Throws<ArgumentOutOfRangeException>(() => list[10]);
         }
     }
 }
