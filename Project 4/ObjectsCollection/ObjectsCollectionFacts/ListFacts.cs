@@ -447,5 +447,19 @@
             IList<int> list = new List<int> { 1, 3, 5, 7, 9 };
             Assert.Throws<ArgumentOutOfRangeException>(() => list[10]);
         }
+
+        [Fact]
+        public void SetterThrowsArgumentOutOfRangeExceptionWhenIndexIsEqualToCount()
+        {
+            IList<int> list = new List<int> { 1, 3, 5, 7, 9 };
+            Assert.Throws<ArgumentOutOfRangeException>(() => list[list.Count] = 3);
+        }
+
+        [Fact]
+        public void SetterThrowsArgumentOutOfRangeExceptionWhenIndexIsLargerThanCount()
+        {
+            IList<int> list = new List<int> { 1, 3, 5, 7, 9 };
+            Assert.Throws<ArgumentOutOfRangeException>(() => list[10] = 3);
+        }
     }
 }

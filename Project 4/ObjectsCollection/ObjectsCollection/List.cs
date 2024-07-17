@@ -28,7 +28,16 @@ namespace ObjectsCollection
 
                 return array[index];
             }
-            set => array[index] = value;
+
+            set
+            {
+                if (index >= Count)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(index), "Index must be smaller than count");
+                }
+
+                array[index] = value;
+            }
         }
 
         public virtual void Add(T element)
