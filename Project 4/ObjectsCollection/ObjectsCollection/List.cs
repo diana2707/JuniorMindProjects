@@ -61,6 +61,8 @@ namespace ObjectsCollection
 
         public void CopyTo(T[] array, int index)
         {
+            ArgumentOutOfRangeException.ThrowIfNegative(index);
+
             this.array.CopyTo(array, index);
         }
 

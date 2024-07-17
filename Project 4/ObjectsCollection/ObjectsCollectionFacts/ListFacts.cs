@@ -475,5 +475,13 @@
             IList<int> list = new List<int> { 1, 3, 5, 7, 9 };
             Assert.Throws<ArgumentOutOfRangeException>(() => list[-3] = 3);
         }
+
+        [Fact]
+        public void CopyToMethodThrowsArgumentOutOfRangeExceptionWhenIndexIsLessThan0()
+        {
+            IList<int> list = new List<int> { 1, 3, 5, 7 };
+            int[] array = new int[4];
+            Assert.Throws<ArgumentOutOfRangeException>(() => list.CopyTo(array, -1));
+        }
     }
 }
