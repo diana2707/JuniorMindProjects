@@ -153,12 +153,12 @@ namespace ObjectsCollection
 
         private void Validate(int index)
         {
-            if (index < Count)
+            if (index >= 0 && index < Count)
             {
                 return;
             }
 
-            throw new ArgumentOutOfRangeException(nameof(index), "Index must be smaller than count");
+            throw new ArgumentOutOfRangeException(nameof(index), "Index must be between 0 and Count - 1");
         }
     }
 }
