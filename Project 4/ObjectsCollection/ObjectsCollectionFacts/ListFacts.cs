@@ -502,6 +502,14 @@
         }
 
         [Fact]
+        public void CopyToMethodThrowsArgumentExceptionWhenNumberofElementsIsGreaterThanAllocatedSapcejj()
+        {
+            IList<int> list = new List<int> { 1, 3, 5, 7, 8 };
+            int[] array = new int[5];
+            Assert.Throws<ArgumentException>(() => list.CopyTo(array, 10));
+        }
+
+        [Fact]
         public void InsertMethodThrowsArgumentOutOfRangeExceptionWhenIndexIsNegative()
         {
             IList<int> list = new List<int> { 1, 3, 5, 7 };

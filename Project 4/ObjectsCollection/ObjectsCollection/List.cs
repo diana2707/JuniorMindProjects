@@ -60,14 +60,7 @@ namespace ObjectsCollection
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            ArgumentOutOfRangeException.ThrowIfNegative(arrayIndex);
-            ArgumentNullException.ThrowIfNull(array);
-
-            if (array.Length - arrayIndex < Count)
-            {
-                throw new ArgumentException("Destination array was not long enough.", nameof(array));
-            }
-
+            Validate(array, arrayIndex);
             Array.Copy(this.array, 0, array, arrayIndex, Count);
         }
 
@@ -153,6 +146,19 @@ namespace ObjectsCollection
         {
             ArgumentOutOfRangeException.ThrowIfNegative(index);
             ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(index, Count);
+        }
+
+        private void Validate(T[] array, int arrayIndex)
+        {
+            ArgumentOutOfRangeException.ThrowIfNegative(arrayIndex);
+            ArgumentNullException.ThrowIfNull(array);
+
+            if (array.Length - arrayIndex >= Count)
+            {
+                return;
+            }
+
+            throw new ArgumentException("Destination array was not long enough.", nameof(array));
         }
     }
 }
