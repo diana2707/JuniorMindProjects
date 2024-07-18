@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualStudio.TestPlatform.ObjectModel;
-using System.Collections;
+﻿using System.Collections;
 
 namespace ObjectsCollection
 {
@@ -61,7 +60,7 @@ namespace ObjectsCollection
 
         public void CopyTo(T[] array, int index)
         {
-            this.array.CopyTo(array, index);
+            Array.Copy(this.array, 0, array, index, Count);
         }
 
         public virtual int IndexOf(T element)
