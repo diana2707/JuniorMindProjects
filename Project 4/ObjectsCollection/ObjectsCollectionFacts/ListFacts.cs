@@ -496,9 +496,9 @@
         [Fact]
         public void CopyToMethodThrowsArgumentExceptionWhenNumberofElementsIsGreaterThanAllocatedSapce()
         {
-            IList<int> list = new List<int> { 1, 3, 5, 7 };
-            int[] array = new int[2];
-            Assert.Throws<ArgumentException>(() => list.CopyTo(array, 0));
+            IList<int> list = new List<int> { 1, 3, 5, 7, 8 };
+            int[] array = new int[6];
+            Assert.Throws<ArgumentException>(() => list.CopyTo(array, 2));
         }
 
         [Fact]

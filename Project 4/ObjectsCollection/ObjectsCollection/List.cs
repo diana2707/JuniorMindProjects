@@ -58,9 +58,17 @@ namespace ObjectsCollection
             return IndexOf(element) != -1;
         }
 
-        public void CopyTo(T[] array, int index)
+        public void CopyTo(T[] array, int arrayIndex)
         {
-            Array.Copy(this.array, 0, array, index, Count);
+            ArgumentOutOfRangeException.ThrowIfNegative(arrayIndex);
+            ArgumentNullException.ThrowIfNull(array);
+
+            if (array.Length - arrayIndex < Count)
+            {
+                throw new ArgumentException("Destination array was not long enough.", nameof(array));
+            }
+
+            Array.Copy(this.array, 0, array, arrayIndex, Count);
         }
 
         public virtual int IndexOf(T element)
