@@ -61,8 +61,6 @@ namespace ObjectsCollection
 
         public void CopyTo(T[] array, int index)
         {
-            ArgumentOutOfRangeException.ThrowIfNegative(index);
-
             this.array.CopyTo(array, index);
         }
 
@@ -81,13 +79,8 @@ namespace ObjectsCollection
 
         public virtual void Insert(int index, T element)
         {
+            Validate(index);
             EnsureArrayPositions();
-
-            if (index >= Count)
-            {
-                return;
-            }
-
             ShiftElementsRight(index);
 
             array[index] = element;
@@ -155,12 +148,8 @@ namespace ObjectsCollection
 
         private void Validate(int index)
         {
-            if (index >= 0 && index < Count)
-            {
-                return;
-            }
-
-            throw new ArgumentOutOfRangeException(nameof(index), "Index must be between 0 and Count - 1");
+            ArgumentOutOfRangeException.ThrowIfNegative(index);
+            ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(index, Count);
         }
     }
 }

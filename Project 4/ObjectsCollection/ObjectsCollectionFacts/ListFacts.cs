@@ -483,5 +483,42 @@
             int[] array = new int[4];
             Assert.Throws<ArgumentOutOfRangeException>(() => list.CopyTo(array, -1));
         }
+
+        [Fact]
+        public void CopyToMethodThrowsArgumentNullExceptionWhenArrayIsNull()
+        {
+            IList<int> list = new List<int> { 1, 3, 5, 7 };
+            int[] array = null;
+            Assert.Throws<ArgumentNullException>(() => list.CopyTo(array, 0));
+        }
+
+        [Fact]
+        public void CopyToMethodThrowsArgumentExceptionWhenNumberofElementsIsGreaterThanAllocatedSapce()
+        {
+            IList<int> list = new List<int> { 1, 3, 5, 7 };
+            int[] array = new int[2];
+            Assert.Throws<ArgumentException>(() => list.CopyTo(array, 0));
+        }
+
+        [Fact]
+        public void InsertMethodThrowsArgumentOutOfRangeExceptionWhenIndexIsNegative()
+        {
+            IList<int> list = new List<int> { 1, 3, 5, 7 };
+            Assert.Throws<ArgumentOutOfRangeException>(() => list.Insert(-1, 0));
+        }
+
+        [Fact]
+        public void InsertMethodThrowsArgumentOutOfRangeExceptionWhenIndexIsEqualToCount()
+        {
+            IList<int> list = new List<int> { 1, 3, 5, 7 };
+            Assert.Throws<ArgumentOutOfRangeException>(() => list.Insert(list.Count, 0));
+        }
+
+        [Fact]
+        public void InsertMethodThrowsArgumentOutOfRangeExceptionWhenIndexIsGreaterThanCount()
+        {
+            IList<int> list = new List<int> { 1, 3, 5, 7 };
+            Assert.Throws<ArgumentOutOfRangeException>(() => list.Insert(10, 0));
+        }
     }
 }
