@@ -94,11 +94,7 @@ namespace ObjectsCollection
 
         public void RemoveAt(int index)
         {
-            if (index < 0 || index >= Count)
-            {
-                return;
-            }
-
+            Validate(index);
             ShiftElementsLeft(index);
 
             Count--;

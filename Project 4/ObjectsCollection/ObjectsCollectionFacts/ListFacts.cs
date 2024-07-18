@@ -322,8 +322,8 @@
             array.Add(3);
             array.Add(4);
             array.Add(5);
-            array.RemoveAt(5);
 
+            Assert.Throws<ArgumentOutOfRangeException>(() => array.RemoveAt(5));
             Assert.Equal(3, array[0]);
             Assert.Equal(4, array[1]);
             Assert.Equal(5, array[2]);
@@ -519,6 +519,27 @@
         {
             IList<int> list = new List<int> { 1, 3, 5, 7 };
             Assert.Throws<ArgumentOutOfRangeException>(() => list.Insert(10, 0));
+        }
+
+        [Fact]
+        public void RemoveAtMethodThrowsArgumentOutOfRangeExceptionWhenIndexIsNegative()
+        {
+            IList<int> list = new List<int> { 1, 3, 5, 7 };
+            Assert.Throws<ArgumentOutOfRangeException>(() => list.RemoveAt(-1));
+        }
+
+        [Fact]
+        public void RemoveAtMethodThrowsArgumentOutOfRangeExceptionWhenIndexIsEqualToCount()
+        {
+            IList<int> list = new List<int> { 1, 3, 5, 7 };
+            Assert.Throws<ArgumentOutOfRangeException>(() => list.RemoveAt(list.Count));
+        }
+
+        [Fact]
+        public void RemoveAtMethodThrowsArgumentOutOfRangeExceptionWhenIndexIsGreaterThanCount()
+        {
+            IList<int> list = new List<int> { 1, 3, 5, 7 };
+            Assert.Throws<ArgumentOutOfRangeException>(() => list.RemoveAt(10));
         }
     }
 }
