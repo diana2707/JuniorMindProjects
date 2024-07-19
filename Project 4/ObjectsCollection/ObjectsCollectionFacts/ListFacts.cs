@@ -478,6 +478,13 @@
         }
 
         [Fact]
+        public void SetterThrowsNotSupportedExceptionWhenListIsReadOnly()
+        {
+            IList<int> list = new List<int> { 1, 3, 5, 7, 9 };
+            Assert.Throws<NotSupportedException>(() => list[0] = 5);
+        }
+
+        [Fact]
         public void CopyToMethodThrowsArgumentOutOfRangeExceptionWhenIndexIsLessThan0()
         {
             IList<int> list = new List<int> { 1, 3, 5, 7 };

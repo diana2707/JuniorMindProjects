@@ -10,7 +10,7 @@ namespace ObjectsCollection
         {
             array = new T[4];
             Count = 0;
-            IsReadOnly = false;
+            IsReadOnly = true;
         }
 
         public bool IsReadOnly { get; }
@@ -28,6 +28,12 @@ namespace ObjectsCollection
             set
             {
                 Validate(index);
+
+                if (IsReadOnly)
+                {
+                    throw new NotSupportedException("List is read only.");
+                }
+
                 array[index] = value;
             }
         }
