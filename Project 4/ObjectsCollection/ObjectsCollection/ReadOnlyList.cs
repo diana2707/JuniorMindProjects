@@ -2,7 +2,7 @@
 
 namespace ObjectsCollection
 {
-    internal class ReadOnlyList<T>
+    internal class ReadOnlyList<T> : IList<T>
     {
         readonly IList<T> list;
 
@@ -31,6 +31,11 @@ namespace ObjectsCollection
             return list.GetEnumerator();
         }
 
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
         public bool Contains(T element)
         {
             return list.Contains(element);
@@ -52,9 +57,9 @@ namespace ObjectsCollection
 
         public void Clear() => throw new NotSupportedException();
 
-        public void RemoveAt(int index) => throw new NotSupportedException();
+        public bool Remove(T element) => throw new NotSupportedException();
 
-        public void Remove(int index) => throw new NotSupportedException();
+        public void RemoveAt(int index) => throw new NotSupportedException();
 
         private static void Validate(IList<T> list)
         {
