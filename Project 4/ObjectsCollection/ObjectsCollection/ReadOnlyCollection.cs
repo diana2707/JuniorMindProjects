@@ -4,8 +4,11 @@ namespace ObjectsCollection
 {
     internal class ReadOnlyCollection<T>
     {
-        public ReadOnlyCollection()
+        readonly IList<T> list;
+
+        public ReadOnlyCollection(IList<T> list)
         {
+            this.list = list;
         }
     }
 }

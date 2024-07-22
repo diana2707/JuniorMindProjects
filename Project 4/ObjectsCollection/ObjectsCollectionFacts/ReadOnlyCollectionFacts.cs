@@ -5,9 +5,10 @@ namespace ObjectsCollection
     public class ReadOnlyCollectionFacts
     {
         [Fact]
-        public void EmptyReadOnlyCollectionExists()
+        public void ReadOnlyCollectionIsWrapperForIListT()
         {
-            ReadOnlyCollection<int> readOnlyCollection = new ReadOnlyCollection<int>();
+            IList<int> list = new List<int>();
+            ReadOnlyCollection<int> readOnlyCollection = new ReadOnlyCollection<int>(list);
             Assert.IsType<ReadOnlyCollection<int>>(readOnlyCollection);
         }
     }
