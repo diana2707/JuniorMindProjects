@@ -8,8 +8,13 @@ namespace ObjectsCollection
 
         public ReadOnlyCollection(IList<T> list)
         {
-            ArgumentNullException.ThrowIfNull(list);
+            Validate(list);
             this.list = list;
+        }
+
+        private static void Validate(IList<T> list)
+        {
+            ArgumentNullException.ThrowIfNull(list);
         }
     }
 }
