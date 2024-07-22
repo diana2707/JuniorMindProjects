@@ -160,5 +160,13 @@ namespace ObjectsCollection
             ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
             Assert.Throws<NotSupportedException>(() => readOnlyList.RemoveAt(0));
         }
+
+        [Fact]
+        public void RemoveMethodShouldThrowNotSupportedException()
+        {
+            IList<int> list = new List<int>() { 1, 2, 3 };
+            ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
+            Assert.Throws<NotSupportedException>(() => readOnlyList.Remove(1));
+        }
     }
 }

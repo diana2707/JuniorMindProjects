@@ -54,6 +54,8 @@ namespace ObjectsCollection
 
         public void RemoveAt(int index) => throw new NotSupportedException();
 
+        public void Remove(int index) => throw new NotSupportedException();
+
         private static void Validate(IList<T> list)
         {
             ArgumentNullException.ThrowIfNull(list);
