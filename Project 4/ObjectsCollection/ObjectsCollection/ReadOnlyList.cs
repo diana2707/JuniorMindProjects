@@ -26,11 +26,6 @@ namespace ObjectsCollection
             set => throw new NotSupportedException();
         }
 
-        public void Add(T item)
-        {
-            throw new NotSupportedException();
-        }
-
         public IEnumerator<T> GetEnumerator()
         {
             return list.GetEnumerator();
@@ -51,15 +46,13 @@ namespace ObjectsCollection
             return list.IndexOf(element);
         }
 
-        public void Insert(int index, T element)
-        {
-            throw new NotSupportedException();
-        }
+        public void Add(T item) => throw new NotSupportedException();
 
-        public void Clear()
-        {
-            throw new NotSupportedException();
-        }
+        public void Insert(int index, T element) => throw new NotSupportedException();
+
+        public void Clear() => throw new NotSupportedException();
+
+        public void RemoveAt(int index) => throw new NotSupportedException();
 
         private static void Validate(IList<T> list)
         {
