@@ -51,6 +51,11 @@ namespace ObjectsCollection
             return list.IndexOf(element);
         }
 
+        public void Insert(int index, T element)
+        {
+            throw new NotSupportedException();
+        }
+
         private static void Validate(IList<T> list)
         {
             ArgumentNullException.ThrowIfNull(list);
