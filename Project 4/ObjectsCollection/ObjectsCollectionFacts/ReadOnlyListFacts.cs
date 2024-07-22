@@ -81,5 +81,15 @@ namespace ObjectsCollection
             ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
             Assert.Throws<NotSupportedException>(() => readOnlyList.Add(5));
         }
+
+        [Fact]
+        public void GetEnumeratorMethodShouldAllowEnumerationThroughReadOnlyList()
+        {
+            IList<int> list = new List<int>() { 1, 2, 3 };
+            foreach (int item in new ReadOnlyList<int>(list))
+            {
+                Assert.Equal(item, item);
+            }
+        }
     }
 }

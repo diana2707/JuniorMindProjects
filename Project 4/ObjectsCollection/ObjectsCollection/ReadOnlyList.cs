@@ -10,6 +10,7 @@ namespace ObjectsCollection
         {
             Validate(list);
             this.list = list;
+
             Count = list.Count;
             IsReadOnly = true;
         }
@@ -28,6 +29,11 @@ namespace ObjectsCollection
         public void Add(T item)
         {
             throw new NotSupportedException();
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return list.GetEnumerator();
         }
 
         private static void Validate(IList<T> list)
