@@ -120,5 +120,21 @@ namespace ObjectsCollection
             Assert.Equal(2, array[1]);
             Assert.Equal(3, array[2]);
         }
+
+        [Fact]
+        public void IndexOfMethodShouldReturnIndexOfElement()
+        {
+            IList<int> list = new List<int>() { 1, 2, 3 };
+            ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
+            Assert.Equal(0, readOnlyList.IndexOf(1));
+        }
+
+        [Fact]
+        public void IndexOfMethodShouldReturnNegativ1IfElementDoNotExists()
+        {
+            IList<int> list = new List<int>() { 1, 2, 3 };
+            ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
+            Assert.Equal(-1, readOnlyList.IndexOf(5));
+        }
     }
 }

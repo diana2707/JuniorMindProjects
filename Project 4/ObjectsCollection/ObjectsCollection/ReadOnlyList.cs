@@ -46,6 +46,11 @@ namespace ObjectsCollection
             list.CopyTo(array, arrayIndex);
         }
 
+        public int IndexOf(T element)
+        {
+            return list.IndexOf(element);
+        }
+
         private static void Validate(IList<T> list)
         {
             ArgumentNullException.ThrowIfNull(list);
