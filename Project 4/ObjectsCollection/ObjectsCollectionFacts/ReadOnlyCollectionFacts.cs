@@ -11,5 +11,11 @@ namespace ObjectsCollection
             ReadOnlyCollection<int> readOnlyCollection = new ReadOnlyCollection<int>(list);
             Assert.IsType<ReadOnlyCollection<int>>(readOnlyCollection);
         }
+
+        [Fact]
+        public void ThrowArgumentNullExceptionIfListIsNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => new ReadOnlyCollection<int>(null));
+        }
     }
 }
