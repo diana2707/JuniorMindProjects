@@ -11,9 +11,12 @@ namespace ObjectsCollection
             Validate(list);
             this.list = list;
             Count = list.Count;
+            IsReadOnly = true;
         }
 
         public int Count { get; }
+
+        public bool IsReadOnly { get; }
 
         public T this[int index]
         {

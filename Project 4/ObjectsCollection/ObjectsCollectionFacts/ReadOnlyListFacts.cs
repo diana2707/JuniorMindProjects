@@ -65,5 +65,13 @@ namespace ObjectsCollection
             ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
             Assert.Throws<NotSupportedException>(() => readOnlyList[2] = 4);
         }
+
+        [Fact]
+        public void IsReadOnlyShouldReturnTrue()
+        {
+            IList<int> list = new List<int>() { 1, 2, 3 };
+            ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
+            Assert.True(readOnlyList.IsReadOnly);
+        }
     }
 }
