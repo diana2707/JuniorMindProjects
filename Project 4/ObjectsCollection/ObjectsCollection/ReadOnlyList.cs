@@ -16,6 +16,11 @@ namespace ObjectsCollection
 
         public int Count { get; }
 
+        public T this[int index]
+        {
+            get => list[index];
+        }
+
         private static void Validate(IList<T> list)
         {
             ArgumentNullException.ThrowIfNull(list);

@@ -25,5 +25,14 @@ namespace ObjectsCollection
             ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
             Assert.Equal(3, readOnlyList.Count);
         }
+
+        [Fact]
+        public void GetterShouldReturnElementFromList()
+        {
+            IList<int> list = new List<int>() { 1, 2, 3 };
+            ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
+            Assert.Equal(3, readOnlyList[2]);
+        }
+
     }
 }
