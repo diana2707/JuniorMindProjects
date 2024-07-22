@@ -56,6 +56,11 @@ namespace ObjectsCollection
             throw new NotSupportedException();
         }
 
+        public void Clear()
+        {
+            throw new NotSupportedException();
+        }
+
         private static void Validate(IList<T> list)
         {
             ArgumentNullException.ThrowIfNull(list);
