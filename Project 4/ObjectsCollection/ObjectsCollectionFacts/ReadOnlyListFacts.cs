@@ -34,5 +34,28 @@ namespace ObjectsCollection
             Assert.Equal(3, readOnlyList[2]);
         }
 
+        [Fact]
+        public void GetterShouldThrowArgumentOutOfRangeExceptionIfIndexIsNegative()
+        {
+            IList<int> list = new List<int>() { 1, 2, 3 };
+            ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
+            Assert.Throws<ArgumentOutOfRangeException>(() => readOnlyList[-1]);
+        }
+
+        [Fact]
+        public void GetterShouldThrowArgumentOutOfRangeExceptionIfIndexIsEqualToCount()
+        {
+            IList<int> list = new List<int>() { 1, 2, 3 };
+            ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
+            Assert.Throws<ArgumentOutOfRangeException>(() => readOnlyList[3]);
+        }
+
+        [Fact]
+        public void GetterShouldThrowArgumentOutOfRangeExceptionIfIndexIsGreaterThenCount()
+        {
+            IList<int> list = new List<int>() { 1, 2, 3 };
+            ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
+            Assert.Throws<ArgumentOutOfRangeException>(() => readOnlyList[8]);
+        }
     }
 }
