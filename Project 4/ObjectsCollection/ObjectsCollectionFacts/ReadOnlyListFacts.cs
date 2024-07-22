@@ -107,5 +107,18 @@ namespace ObjectsCollection
             ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
             Assert.False(readOnlyList.Contains(12));
         }
+
+        [Fact]
+        public void CopyToMethodShouldCopyElements()
+        {
+            IList<int> list = new List<int>() { 1, 2, 3 };
+            ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
+            int[] array = new int[5];
+            readOnlyList.CopyTo(array, 0);
+
+            Assert.Equal(1, array[0]);
+            Assert.Equal(2, array[1]);
+            Assert.Equal(3, array[2]);
+        }
     }
 }

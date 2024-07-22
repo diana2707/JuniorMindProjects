@@ -41,6 +41,11 @@ namespace ObjectsCollection
             return list.Contains(element);
         }
 
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            list.CopyTo(array, arrayIndex);
+        }
+
         private static void Validate(IList<T> list)
         {
             ArgumentNullException.ThrowIfNull(list);
