@@ -73,5 +73,13 @@ namespace ObjectsCollection
             ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
             Assert.True(readOnlyList.IsReadOnly);
         }
+
+        [Fact]
+        public void AddMethodShouldThrowNotSuppertedException()
+        {
+            IList<int> list = new List<int>() { 1, 2, 3 };
+            ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
+            Assert.Throws<NotSupportedException>(() => readOnlyList.Add(5));
+        }
     }
 }

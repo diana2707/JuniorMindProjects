@@ -25,6 +25,11 @@ namespace ObjectsCollection
             set => throw new NotSupportedException();
         }
 
+        public void Add(T item)
+        {
+            throw new NotSupportedException();
+        }
+
         private static void Validate(IList<T> list)
         {
             ArgumentNullException.ThrowIfNull(list);
