@@ -1,4 +1,6 @@
-﻿namespace ObjectsCollection
+﻿using System.Collections;
+
+namespace ObjectsCollection
 {
     public class ListFacts
     {
