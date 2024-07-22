@@ -91,5 +91,21 @@ namespace ObjectsCollection
                 Assert.Equal(item, item);
             }
         }
+
+        [Fact]
+        public void ContainsMethodShouldReturnTrueWhenElementExists()
+        {
+            IList<int> list = new List<int>() { 1, 2, 3 };
+            ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
+            Assert.True(readOnlyList.Contains(2));
+        }
+
+        [Fact]
+        public void ContainsMethodShouldReturnFalseWhenElementDoNotExists()
+        {
+            IList<int> list = new List<int>() { 1, 2, 3 };
+            ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
+            Assert.False(readOnlyList.Contains(12));
+        }
     }
 }

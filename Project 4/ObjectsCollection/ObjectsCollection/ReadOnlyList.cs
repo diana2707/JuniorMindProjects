@@ -36,6 +36,11 @@ namespace ObjectsCollection
             return list.GetEnumerator();
         }
 
+        public bool Contains(T element)
+        {
+            return list.Contains(element);
+        }
+
         private static void Validate(IList<T> list)
         {
             ArgumentNullException.ThrowIfNull(list);
