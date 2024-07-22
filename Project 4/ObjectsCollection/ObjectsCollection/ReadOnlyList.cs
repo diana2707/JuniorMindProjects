@@ -18,6 +18,8 @@ namespace ObjectsCollection
         public T this[int index]
         {
             get => list[index];
+
+            set => throw new NotSupportedException();
         }
 
         private static void Validate(IList<T> list)

@@ -57,5 +57,13 @@ namespace ObjectsCollection
             ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
             Assert.Throws<ArgumentOutOfRangeException>(() => readOnlyList[8]);
         }
+
+        [Fact]
+        public void SetterShouldThrowNotSuppertedException()
+        {
+            IList<int> list = new List<int>() { 1, 2, 3 };
+            ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
+            Assert.Throws<NotSupportedException>(() => readOnlyList[2] = 4);
+        }
     }
 }
