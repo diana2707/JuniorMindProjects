@@ -15,7 +15,7 @@ namespace ObjectsCollection
 
         public void WriteToStream(string text)
         {
-            byte[] data = ConvertToByteArray(text);
+            byte[] data = Encoding.UTF8.GetBytes(text);
             stream.Write(data, 0, data.Length);
             stream.Flush();
         }
@@ -26,18 +26,6 @@ namespace ObjectsCollection
             stream.Position = 0;
             int bytesRead = stream.Read(data, 0, data.Length);
             return Encoding.UTF8.GetString(data);
-        }
-
-        private static byte[] ConvertToByteArray(string text)
-        {
-            byte[] data = new byte[text.Length];
-
-            for (int i = 0; i < text.Length; i++)
-            {
-                data[i] = (byte)text[i];
-            }
-
-            return data;
         }
     }
 }
