@@ -1,5 +1,6 @@
 ﻿using System.IO;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.IO.Compression;
+using System.Text;
 
 namespace ObjectsCollection
 {
@@ -15,9 +16,16 @@ namespace ObjectsCollection
         public void WriteToStream(string text)
         {
             byte[] data = ConvertToByteArray(text);
-
             stream.Write(data, 0, data.Length);
-            stream.Dispose();
+            stream.Flush();
+        }
+
+        public string ReadFromStream()
+        {
+            byte[] data = new byte[stream.Length];
+            stream.Position = 0;
+            int bytesRead = stream.Read(data, 0, data.Length);
+            return Encoding.UTF8.GetString(data);
         }
 
         private static byte[] ConvertToByteArray(string text)
