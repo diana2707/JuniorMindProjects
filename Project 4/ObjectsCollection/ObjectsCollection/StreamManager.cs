@@ -24,7 +24,7 @@ namespace ObjectsCollection
         {
             byte[] data = new byte[stream.Length];
             stream.Position = 0;
-            int bytesRead = stream.Read(data, 0, data.Length);
+            stream.Read(data, 0, data.Length);
             return Encoding.UTF8.GetString(data);
         }
     }
