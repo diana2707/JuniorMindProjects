@@ -3,7 +3,7 @@ using System.IO.Compression;
 
 namespace ObjectsCollection
 {
-    public interface IProvideGZipStream
+    public interface IGZipStreamProvider
     {
         GZipStream Create(Stream stream);
     }
