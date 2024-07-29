@@ -6,15 +6,17 @@ namespace ObjectsCollection
 {
     public class StreamManager
     {
-        readonly Stream stream;
+        private Stream stream;
 
         public StreamManager(Stream stream)
         {
             this.stream = stream;
         }
 
-        public void WriteToStream(string text)
+        public void WriteToStream(string text, GZipStreamCompressProvider compressProvider = null)
         {
+            stream = compressProvider != null ? compressProvider.Create(stream) : stream;
+
             byte[] data = Encoding.UTF8.GetBytes(text);
             stream.Write(data, 0, data.Length);
             stream.Flush();

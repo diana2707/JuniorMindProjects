@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.IO.Compression;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ObjectsCollection
 {
@@ -55,6 +56,22 @@ namespace ObjectsCollection
             streamManager.WriteToStream(text);
 
             Assert.Equal(text, streamManager.ReadFromStream());
+        }
+
+        [Fact]
+        public void WriteToStreamShouldWriteCompressedStreamWhenParameterIsNotNull()
+        {
+            using Stream stream = new MemoryStream();
+            GZipStreamCompressProvider compressProvider = new GZipStreamCompressProvider();
+            StreamManager streamManager = new StreamManager(stream);
+            const string text = "This is a text.";
+
+            streamManager.WriteToStream(text, compressProvider);
+
+            stream.Position = 0;
+            GZipStreamDecompressProvider decompressProvider = new GZipStreamDecompressProvider();
+            using StreamReader reader = new StreamReader(decompressProvider.Create(stream));
+            Assert.Equal(text, reader.ReadToEnd());
         }
     }
 }
