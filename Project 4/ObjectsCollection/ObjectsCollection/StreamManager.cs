@@ -30,23 +30,16 @@ namespace ObjectsCollection
             stream.Flush();
         }
 
-        //public string ReadFromStream(GZipStreamDecompressProvider decompressProvider = null)
-        //{
-        //    stream.Position = 0;
-        //    Stream decompressedStream = decompressProvider != null ? decompressProvider.Create(stream) : stream;
-        //    resultStream = new MemoryStream();
-        //    byte[] buffer = new byte[4096];
-        //    int bytesRead;
+        public string ReadFromStream(GZipStreamDecompressProvider decompressProvider = null)
+        {
+            using MemoryStream resultStream = new MemoryStream();
 
-        //    while ((bytesRead = decompressedStream.Read(buffer, 0, buffer.Length)) > 0)
-        //    {
-        //        resultStream.Write(buffer, 0, bytesRead);
-        //    }
+            stream.Position = 0;
+            using Stream decompressedStream = decompressProvider != null ? decompressProvider.Create(stream) : stream;
+            decompressedStream.CopyTo(resultStream);
 
-        //    byte[] data = resultStream.ToArray();
-
-        //    decompressedStream.Dispose();
-        //    return Encoding.UTF8.GetString(data);
-        //}
+            byte[] data = resultStream.ToArray();
+            return Encoding.UTF8.GetString(data);
+        }
     }
 }
