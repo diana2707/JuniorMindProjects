@@ -8,7 +8,7 @@ namespace ObjectsCollection
     {
         public GZipStream Create(Stream stream)
         {
-            return new GZipStream(stream, CompressionMode.Compress);
+            return new GZipStream(stream, CompressionMode.Compress, true);
         }
     }
 }

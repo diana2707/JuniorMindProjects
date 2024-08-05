@@ -6,7 +6,7 @@ namespace ObjectsCollection
 {
     public class StreamManager
     {
-        private Stream stream;
+        readonly Stream stream;
 
         public StreamManager(Stream stream)
         {
@@ -15,19 +15,38 @@ namespace ObjectsCollection
 
         public void WriteToStream(string text, GZipStreamCompressProvider compressProvider = null)
         {
-            stream = compressProvider != null ? compressProvider.Create(stream) : stream;
-
             byte[] data = Encoding.UTF8.GetBytes(text);
-            stream.Write(data, 0, data.Length);
+
+            if (compressProvider != null)
+            {
+                using GZipStream compressedStream = compressProvider.Create(stream);
+                compressedStream.Write(data, 0, data.Length);
+            }
+            else
+            {
+                stream.Write(data, 0, data.Length);
+            }
+
             stream.Flush();
         }
 
-        public string ReadFromStream()
-        {
-            byte[] data = new byte[stream.Length];
-            stream.Position = 0;
-            stream.Read(data, 0, data.Length);
-            return Encoding.UTF8.GetString(data);
-        }
+        //public string ReadFromStream(GZipStreamDecompressProvider decompressProvider = null)
+        //{
+        //    stream.Position = 0;
+        //    Stream decompressedStream = decompressProvider != null ? decompressProvider.Create(stream) : stream;
+        //    resultStream = new MemoryStream();
+        //    byte[] buffer = new byte[4096];
+        //    int bytesRead;
+
+        //    while ((bytesRead = decompressedStream.Read(buffer, 0, buffer.Length)) > 0)
+        //    {
+        //        resultStream.Write(buffer, 0, bytesRead);
+        //    }
+
+        //    byte[] data = resultStream.ToArray();
+
+        //    decompressedStream.Dispose();
+        //    return Encoding.UTF8.GetString(data);
+        //}
     }
 }
