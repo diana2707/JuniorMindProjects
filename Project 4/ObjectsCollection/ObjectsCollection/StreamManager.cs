@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.IO.Compression;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace ObjectsCollection
@@ -13,7 +14,7 @@ namespace ObjectsCollection
             this.stream = stream;
         }
 
-        public void WriteToStream(string text, GZipStreamCompressProvider compressProvider = null)
+        public void WriteToStream(string text, GZipStreamCompressProvider compressProvider = null, CryptoStreamEncryptionProvider encryptionProvider = null)
         {
             byte[] data = Encoding.UTF8.GetBytes(text);
 
@@ -23,6 +24,14 @@ namespace ObjectsCollection
                 using GZipStream gzipStream = compressProvider.Create(stream);
                 gzipStream.Write(data, 0, data.Length);
                 data = compressedStream.ToArray();
+            }
+
+            if (encryptionProvider != null)
+            {
+                using MemoryStream encryptedStream = new MemoryStream();
+                using CryptoStream cryptoStream = encryptionProvider.Create(encryptedStream);
+                cryptoStream.Write(data, 0, data.Length);
+                data = encryptedStream.ToArray();
             }
 
             stream.Write(data, 0, data.Length);

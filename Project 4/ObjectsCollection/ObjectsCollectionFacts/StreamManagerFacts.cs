@@ -119,5 +119,22 @@ namespace ObjectsCollection
             GZipStreamDecompressProvider decompressProvider = new GZipStreamDecompressProvider();
             Assert.Equal(text, streamManager.ReadFromStream(decompressProvider));
         }
+
+        [Fact]
+        public void WriteToStreamShouldWriteTextToAMemoryStreamAndEncriptWhenParameterIsNotNull()
+        {
+            using Stream memoryStream = new MemoryStream();
+            StreamManager streamManager = new StreamManager(memoryStream);
+            const string text = "This is an example.";
+            CryptoStreamEncryptionProvider encryptionProvider = new CryptoStreamEncryptionProvider();
+
+            streamManager.WriteToStream(text, encryptionProvider: encryptionProvider);
+
+            memoryStream.Position = 0;
+            using StreamReader reader = new StreamReader(memoryStream);
+
+            Assert.True(memoryStream.Length > 0);
+            Assert.NotEqual(text, reader.ReadToEnd());
+        }
     }
 }
