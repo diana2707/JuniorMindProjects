@@ -136,5 +136,36 @@ namespace ObjectsCollection
             Assert.True(memoryStream.Length > 0);
             Assert.NotEqual(text, reader.ReadToEnd());
         }
+
+        [Fact]
+        public void WriteToStreamShouldWriteTextToAFileStreamAndEncriptWhenParameterIsNotNull()
+        {
+            const string path = "C:\\Users\\Diana\\OneDrive\\Desktop\\my_file.txt";
+            using Stream fileStream = new FileStream(path, FileMode.Create);
+            StreamManager streamManager = new StreamManager(fileStream);
+            const string text = "This is an example.";
+            CryptoStreamEncryptionProvider encryptionProvider = new CryptoStreamEncryptionProvider();
+
+            streamManager.WriteToStream(text, encryptionProvider: encryptionProvider);
+
+            fileStream.Position = 0;
+            using StreamReader reader = new StreamReader(fileStream);
+
+            Assert.True(fileStream.Length > 0);
+            Assert.NotEqual(text, reader.ReadToEnd());
+        }
+
+        //[Fact]
+        //public void ReadFromStreamShouldDecryptAndReadMemoryStreamWhenParameterIsNotNull()
+        //{
+        //    using Stream memoryStream = new MemoryStream();
+        //    StreamManager streamManager = new StreamManager(memoryStream);
+        //    const string text = "This is an example.";
+        //    CryptoStreamEncryptionProvider encryptionProvider = new CryptoStreamEncryptionProvider();
+        //    streamManager.WriteToStream(text, encryptionProvider: encryptionProvider);
+
+        //    CryptoStreamDecryptionProvider decryptionProvider = new CryptoStreamDecryptionProvider();
+        //    Assert.Equal(text, streamManager.ReadFromStream(decryptionProvider));
+        //}
     }
 }

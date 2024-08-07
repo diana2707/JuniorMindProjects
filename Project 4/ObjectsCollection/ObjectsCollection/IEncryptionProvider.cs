@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 
 namespace ObjectsCollection
 {
-    public interface ICryptoStreamProvider
+    public interface IEncryptionProvider
     {
         CryptoStream Create(Stream stream);
     }
