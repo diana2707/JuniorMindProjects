@@ -14,7 +14,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="ObjectsCollectionFacts\CryptoStreamDecryptionProviderFacts.cs" />
 	  <Compile Remove="ObjectsCollectionFacts\ObjectArrayEnumFacts.cs" />
+	  <Compile Remove="ObjectsCollection\DecryptionProvider.cs" />
+	  <Compile Remove="ObjectsCollection\IDecryptionProvider.cs" />
 	  <Compile Remove="ObjectsCollection\ObjectArrayEnum.cs" />
 	</ItemGroup>
 

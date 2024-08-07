@@ -14,7 +14,7 @@ namespace ObjectsCollection
             this.stream = stream;
         }
 
-        public void WriteToStream(string text, GZipStreamCompressProvider compressProvider = null, CryptoStreamEncryptionProvider encryptionProvider = null)
+        public void WriteToStream(string text, GZipStreamCompressProvider compressProvider = null, EncryptionProvider encryptionProvider = null)
         {
             byte[] data = Encoding.UTF8.GetBytes(text);
 

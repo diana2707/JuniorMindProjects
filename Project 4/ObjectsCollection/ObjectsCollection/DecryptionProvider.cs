@@ -3,9 +3,9 @@ using System.Security.Cryptography;
 
 namespace ObjectsCollection
 {
-    public class CryptoStreamDecryptionProvider : ICryptoStreamProvider
+    public class DecryptionProvider : IDecryptionProvider
     {
-        public CryptoStream Create(Stream stream)
+        public CryptoStream Create(Stream stream, AESParameters aesParameters)
         {
             using Aes aes = Aes.Create();
             byte[] key = aes.Key;
