@@ -19,26 +19,25 @@ namespace ObjectsCollection
 
             if (compressProvider != null)
             {
-                using GZipStream compressedStream = compressProvider.Create(stream);
-                compressedStream.Write(data, 0, data.Length);
-            }
-            else
-            {
-                stream.Write(data, 0, data.Length);
+                using MemoryStream compressedStream = new MemoryStream();
+                using GZipStream gzipStream = compressProvider.Create(stream);
+                gzipStream.Write(data, 0, data.Length);
+                data = compressedStream.ToArray();
             }
 
+            stream.Write(data, 0, data.Length);
             stream.Flush();
         }
 
         public string ReadFromStream(GZipStreamDecompressProvider decompressProvider = null)
         {
-            using MemoryStream resultStream = new MemoryStream();
+            using MemoryStream resStream = new MemoryStream();
 
             stream.Position = 0;
             using Stream decompressedStream = decompressProvider != null ? decompressProvider.Create(stream) : stream;
-            decompressedStream.CopyTo(resultStream);
+            decompressedStream.CopyTo(resStream);
 
-            byte[] data = resultStream.ToArray();
+            byte[] data = resStream.ToArray();
             return Encoding.UTF8.GetString(data);
         }
     }
