@@ -2,7 +2,7 @@
 
 namespace ObjectsCollection
 {
-    public class CryptoStreamEncryptionProviderFacts
+    public class EncryptionProviderFacts
     {
         [Fact]
         public void ShouldReturnEncryptionCryptoStream()
