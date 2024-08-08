@@ -9,7 +9,7 @@ namespace ObjectsCollection
         public void ShouldReturnCompressedGZipStream()
         {
             using Stream stream = new MemoryStream();
-            GZipStreamCompressProvider gzipStreamCompressProvider = new GZipStreamCompressProvider();
+            CompressionProvider gzipStreamCompressProvider = new CompressionProvider();
             using Stream compressedStream = gzipStreamCompressProvider.Create(stream);
             Assert.IsType<GZipStream>(compressedStream);
         }

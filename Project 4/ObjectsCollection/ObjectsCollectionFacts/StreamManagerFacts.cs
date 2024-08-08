@@ -62,14 +62,14 @@ namespace ObjectsCollection
         public void WriteToStreamShouldWriteCompressedMemoryStreamWhenParameterIsNotNull()
         {
             using Stream stream = new MemoryStream();
-            GZipStreamCompressProvider compressProvider = new GZipStreamCompressProvider();
+            CompressionProvider compressProvider = new CompressionProvider();
             StreamManager streamManager = new StreamManager(stream);
             const string text = "This is a text.";
 
             streamManager.WriteToStream(text, compressProvider);
 
             stream.Position = 0;
-            GZipStreamDecompressProvider decompressProvider = new GZipStreamDecompressProvider();
+            DecompressionProvider decompressProvider = new DecompressionProvider();
             using StreamReader reader = new StreamReader(decompressProvider.Create(stream));
             Assert.Equal(text, reader.ReadToEnd());
         }
@@ -79,14 +79,14 @@ namespace ObjectsCollection
         {
             const string path = "C:\\Users\\Diana\\OneDrive\\Desktop\\my_file.txt";
             using Stream fileStream = new FileStream(path, FileMode.OpenOrCreate);
-            GZipStreamCompressProvider compressProvider = new GZipStreamCompressProvider();
+            CompressionProvider compressProvider = new CompressionProvider();
             StreamManager streamManager = new StreamManager(fileStream);
             const string text = "This is a text.";
 
             streamManager.WriteToStream(text, compressProvider);
 
             fileStream.Position = 0;
-            GZipStreamDecompressProvider decompressProvider = new GZipStreamDecompressProvider();
+            DecompressionProvider decompressProvider = new DecompressionProvider();
             using StreamReader reader = new StreamReader(decompressProvider.Create(fileStream));
             Assert.Equal(text, reader.ReadToEnd());
         }
@@ -96,12 +96,12 @@ namespace ObjectsCollection
         {
             using Stream stream = new MemoryStream();
 
-            GZipStreamCompressProvider compressProvider = new GZipStreamCompressProvider();
+            CompressionProvider compressProvider = new CompressionProvider();
             StreamManager streamManager = new StreamManager(stream);
             const string text = "This is a text.";
             streamManager.WriteToStream(text, compressProvider);
 
-            GZipStreamDecompressProvider decompressProvider = new GZipStreamDecompressProvider();
+            DecompressionProvider decompressProvider = new DecompressionProvider();
             Assert.Equal(text, streamManager.ReadFromStream(decompressProvider));
         }
 
@@ -111,12 +111,12 @@ namespace ObjectsCollection
             const string path = "C:\\Users\\Diana\\OneDrive\\Desktop\\my_file.txt";
             using Stream fileStream = new FileStream(path, FileMode.Create);
 
-            GZipStreamCompressProvider compressProvider = new GZipStreamCompressProvider();
+            CompressionProvider compressProvider = new CompressionProvider();
             StreamManager streamManager = new StreamManager(fileStream);
             const string text = "This is a text.";
             streamManager.WriteToStream(text, compressProvider);
 
-            GZipStreamDecompressProvider decompressProvider = new GZipStreamDecompressProvider();
+            DecompressionProvider decompressProvider = new DecompressionProvider();
             Assert.Equal(text, streamManager.ReadFromStream(decompressProvider));
         }
 

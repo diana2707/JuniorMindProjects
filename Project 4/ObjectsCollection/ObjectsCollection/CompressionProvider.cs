@@ -4,7 +4,7 @@ using System.IO.Compression;
 
 namespace ObjectsCollection
 {
-    public class GZipStreamCompressProvider : IGZipStreamProvider
+    public class CompressionProvider : IGZipStreamProvider
     {
         public GZipStream Create(Stream stream)
         {

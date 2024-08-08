@@ -14,14 +14,14 @@ namespace ObjectsCollection
             this.stream = stream;
         }
 
-        public void WriteToStream(string text, GZipStreamCompressProvider compressProvider = null, EncryptionProvider encryptionProvider = null)
+        public void WriteToStream(string text, CompressionProvider compressionProvider = null, EncryptionProvider encryptionProvider = null)
         {
             byte[] data = Encoding.UTF8.GetBytes(text);
 
-            if (compressProvider != null)
+            if (compressionProvider != null)
             {
                 using MemoryStream compressedStream = new MemoryStream();
-                using GZipStream gzipStream = compressProvider.Create(stream);
+                using GZipStream gzipStream = compressionProvider.Create(stream);
                 gzipStream.Write(data, 0, data.Length);
                 data = compressedStream.ToArray();
             }
@@ -38,12 +38,12 @@ namespace ObjectsCollection
             stream.Flush();
         }
 
-        public string ReadFromStream(GZipStreamDecompressProvider decompressProvider = null)
+        public string ReadFromStream(DecompressionProvider decompressionProvider = null)
         {
             using MemoryStream resStream = new MemoryStream();
 
             stream.Position = 0;
-            using Stream decompressedStream = decompressProvider != null ? decompressProvider.Create(stream) : stream;
+            using Stream decompressedStream = decompressionProvider != null ? decompressionProvider.Create(stream) : stream;
             decompressedStream.CopyTo(resStream);
 
             byte[] data = resStream.ToArray();
