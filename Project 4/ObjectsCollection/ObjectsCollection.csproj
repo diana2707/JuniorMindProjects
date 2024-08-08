@@ -18,10 +18,11 @@
 	  <Compile Remove="ObjectsCollectionFacts\CryptoStreamEncryptionProviderFacts.cs" />
 	  <Compile Remove="ObjectsCollectionFacts\EncryptorProviderFacts.cs" />
 	  <Compile Remove="ObjectsCollectionFacts\ObjectArrayEnumFacts.cs" />
+	  <Compile Remove="ObjectsCollectionFacts\StreamManagerFacts.cs" />
 	  <Compile Remove="ObjectsCollection\DecryptionProvider.cs" />
 	  <Compile Remove="ObjectsCollection\EncryptionProvider.cs" />
-	  <Compile Remove="ObjectsCollection\EncryptorDecryptorProvider.cs" />
 	  <Compile Remove="ObjectsCollection\ObjectArrayEnum.cs" />
+	  <Compile Remove="ObjectsCollection\StreamManager.cs" />
 	</ItemGroup>
 
   <ItemGroup>
