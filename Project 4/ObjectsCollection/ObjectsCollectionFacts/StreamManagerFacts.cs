@@ -126,7 +126,8 @@ namespace ObjectsCollection
             using Stream memoryStream = new MemoryStream();
             StreamManager streamManager = new StreamManager(memoryStream);
             const string text = "This is an example.";
-            EncryptionProvider encryptionProvider = new EncryptionProvider();
+            EncryptorDecryptorProvider encryptor = new EncryptorDecryptorProvider();
+            EncryptionProvider encryptionProvider = new EncryptionProvider(encryptor);
 
             streamManager.WriteToStream(text, encryptionProvider: encryptionProvider);
 
@@ -144,7 +145,8 @@ namespace ObjectsCollection
             using Stream fileStream = new FileStream(path, FileMode.Create);
             StreamManager streamManager = new StreamManager(fileStream);
             const string text = "This is an example.";
-            EncryptionProvider encryptionProvider = new EncryptionProvider();
+            EncryptorDecryptorProvider encryptor = new EncryptorDecryptorProvider();
+            EncryptionProvider encryptionProvider = new EncryptionProvider(encryptor);
 
             streamManager.WriteToStream(text, encryptionProvider: encryptionProvider);
 

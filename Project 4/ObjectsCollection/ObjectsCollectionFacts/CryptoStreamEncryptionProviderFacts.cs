@@ -8,7 +8,8 @@ namespace ObjectsCollection
         public void ShouldReturnEncryptionCryptoStream()
         {
             using Stream stream = new MemoryStream();
-            EncryptionProvider encryptionProvider = new EncryptionProvider();
+            EncryptorDecryptorProvider encryptor = new EncryptorDecryptorProvider();
+            EncryptionProvider encryptionProvider = new EncryptionProvider(encryptor);
             using Stream encryptedStream = encryptionProvider.Create(stream);
             Assert.IsType<CryptoStream>(encryptedStream);
         }

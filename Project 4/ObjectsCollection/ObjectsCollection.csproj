@@ -15,9 +15,12 @@
 
 	<ItemGroup>
 	  <Compile Remove="ObjectsCollectionFacts\CryptoStreamDecryptionProviderFacts.cs" />
+	  <Compile Remove="ObjectsCollectionFacts\CryptoStreamEncryptionProviderFacts.cs" />
+	  <Compile Remove="ObjectsCollectionFacts\EncryptorProviderFacts.cs" />
 	  <Compile Remove="ObjectsCollectionFacts\ObjectArrayEnumFacts.cs" />
 	  <Compile Remove="ObjectsCollection\DecryptionProvider.cs" />
-	  <Compile Remove="ObjectsCollection\IDecryptionProvider.cs" />
+	  <Compile Remove="ObjectsCollection\EncryptionProvider.cs" />
+	  <Compile Remove="ObjectsCollection\EncryptorDecryptorProvider.cs" />
 	  <Compile Remove="ObjectsCollection\ObjectArrayEnum.cs" />
 	</ItemGroup>
 

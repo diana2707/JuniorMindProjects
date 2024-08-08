@@ -3,19 +3,18 @@ using System.Security.Cryptography;
 
 namespace ObjectsCollection
 {
-    public class EncryptionProvider : IEncryptionProvider
+    public class EncryptionProvider : ICryptoStreamProvider
     {
-        readonly Aes aes;
+        readonly EncryptorDecryptorProvider encryptorProvider;
 
-        public EncryptionProvider()
+        public EncryptionProvider(EncryptorDecryptorProvider encryptorProvider)
         {
-            aes = Aes.Create();
+            this.encryptorProvider = encryptorProvider;
         }
 
         public CryptoStream Create(Stream stream)
         {
-            ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
-            return new CryptoStream(stream, encryptor, CryptoStreamMode.Write);
+            return new CryptoStream(stream, encryptorProvider.CreateEncryptor(), CryptoStreamMode.Write);
         }
     }
 }
