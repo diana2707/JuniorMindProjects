@@ -27,13 +27,7 @@ namespace ObjectsCollection
 
             if (encryptionProvider != null)
             {
-                using MemoryStream encryptedStream = new ();
-                using (CryptoStream cryptoStream = encryptionProvider.Create(encryptedStream))
-                {
-                    cryptoStream.Write(data, 0, data.Length);
-                }
-
-                data = encryptedStream.ToArray();
+               EncryptStream(encryptionProvider);
             }
 
             stream.Write(data, 0, data.Length);
@@ -85,6 +79,17 @@ namespace ObjectsCollection
             }
 
             data = compressedStream.ToArray();
+        }
+
+        private void EncryptStream(EncryptionProvider encryptionProvider)
+        {
+            using MemoryStream encryptedStream = new ();
+            using (CryptoStream cryptoStream = encryptionProvider.Create(encryptedStream))
+            {
+                cryptoStream.Write(data, 0, data.Length);
+            }
+
+            data = encryptedStream.ToArray();
         }
     }
 }
