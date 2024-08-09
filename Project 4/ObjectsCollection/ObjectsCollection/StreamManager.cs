@@ -1,8 +1,7 @@
-﻿using System.IO;
-using System.IO.Compression;
+﻿using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using Xunit.Sdk;
 
 namespace ObjectsCollection
 {
@@ -13,6 +12,7 @@ namespace ObjectsCollection
 
         public StreamManager(Stream stream)
         {
+            ArgumentNullException.ThrowIfNull(stream);
             this.stream = stream;
         }
 
@@ -45,14 +45,7 @@ namespace ObjectsCollection
 
             if (decryptionProvider != null)
             {
-                using MemoryStream decryptedStream = new ();
-                using (MemoryStream encryptedStream = new (data))
-                {
-                    using CryptoStream cryptoStream = decryptionProvider.Create(encryptedStream);
-                    cryptoStream.CopyTo(decryptedStream);
-                }
-
-                data = decryptedStream.ToArray();
+               DecryptStream(decryptionProvider);
             }
 
             if (decompressionProvider != null)
@@ -66,7 +59,7 @@ namespace ObjectsCollection
         private void CompressStream(CompressionProvider compressionProvider)
         {
             using MemoryStream compressedStream = new ();
-            using (Stream gzipStream = compressionProvider.Create(compressedStream))
+            using (GZipStream gzipStream = compressionProvider.Create(compressedStream))
             {
                 gzipStream.Write(data, 0, data.Length);
             }
@@ -87,14 +80,26 @@ namespace ObjectsCollection
 
         private void DecompressStream(DecompressionProvider decompressionProvider)
         {
-            using MemoryStream decompressedStream = new MemoryStream();
-            using (MemoryStream compressedStream = new MemoryStream(data))
+            using MemoryStream decompressedStream = new ();
+            using (MemoryStream compressedStream = new (data))
             {
                 using GZipStream gzipStream = decompressionProvider.Create(compressedStream);
                 gzipStream.CopyTo(decompressedStream);
             }
 
             data = decompressedStream.ToArray();
+        }
+
+        private void DecryptStream(DecryptionProvider decryptionProvider)
+        {
+            using MemoryStream decryptedStream = new ();
+            using (MemoryStream encryptedStream = new (data))
+            {
+                using CryptoStream cryptoStream = decryptionProvider.Create(encryptedStream);
+                cryptoStream.CopyTo(decryptedStream);
+            }
+
+            data = decryptedStream.ToArray();
         }
     }
 }

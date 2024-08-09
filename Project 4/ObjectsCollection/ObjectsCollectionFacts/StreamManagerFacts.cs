@@ -218,5 +218,13 @@ namespace ObjectsCollection
             DecompressionProvider decompressionProvider = new DecompressionProvider();
             Assert.Equal(text, streamManager.ReadFromStream(decompressionProvider, decryptionProvider));
         }
+
+        [Fact]
+        public void WriteToStreamShouldReturnArgumentNullExceptionWhenStreaIsNull()
+        {
+            using Stream memoryStream = null;
+
+            Assert.Throws<ArgumentNullException>(() => new StreamManager(memoryStream));
+        }
     }
 }
