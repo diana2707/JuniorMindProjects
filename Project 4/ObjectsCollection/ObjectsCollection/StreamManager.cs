@@ -2,12 +2,14 @@
 using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ObjectsCollection
 {
     public class StreamManager
     {
         readonly Stream stream;
+        private byte[] data;
 
         public StreamManager(Stream stream)
         {
@@ -16,17 +18,11 @@ namespace ObjectsCollection
 
         public void WriteToStream(string text, CompressionProvider compressionProvider = null, EncryptionProvider encryptionProvider = null)
         {
-            byte[] data = Encoding.UTF8.GetBytes(text);
+            data = Encoding.UTF8.GetBytes(text);
 
             if (compressionProvider != null)
             {
-                using MemoryStream compressedStream = new ();
-                using (Stream gzipStream = compressionProvider.Create(compressedStream))
-                {
-                    gzipStream.Write(data, 0, data.Length);
-                }
-
-                data = compressedStream.ToArray();
+                CompressStream(compressionProvider);
             }
 
             if (encryptionProvider != null)
@@ -46,7 +42,6 @@ namespace ObjectsCollection
 
         public string ReadFromStream(DecompressionProvider decompressionProvider = null, DecryptionProvider decryptionProvider = null)
         {
-            byte[] data;
             stream.Position = 0;
             using (MemoryStream dataStream = new ())
             {
@@ -79,6 +74,17 @@ namespace ObjectsCollection
             }
 
             return Encoding.UTF8.GetString(data);
+        }
+
+        private void CompressStream(CompressionProvider compressionProvider)
+        {
+            using MemoryStream compressedStream = new ();
+            using (Stream gzipStream = compressionProvider.Create(compressedStream))
+            {
+                gzipStream.Write(data, 0, data.Length);
+            }
+
+            data = compressedStream.ToArray();
         }
     }
 }
