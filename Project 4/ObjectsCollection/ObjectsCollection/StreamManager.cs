@@ -57,14 +57,7 @@ namespace ObjectsCollection
 
             if (decompressionProvider != null)
             {
-                using MemoryStream decompressedStream = new MemoryStream();
-                using (MemoryStream compressedStream = new MemoryStream(data))
-                {
-                    using GZipStream gzipStream = decompressionProvider.Create(compressedStream);
-                    gzipStream.CopyTo(decompressedStream);
-                }
-
-                data = decompressedStream.ToArray();
+                DecompressStream(decompressionProvider);
             }
 
             return Encoding.UTF8.GetString(data);
@@ -90,6 +83,18 @@ namespace ObjectsCollection
             }
 
             data = encryptedStream.ToArray();
+        }
+
+        private void DecompressStream(DecompressionProvider decompressionProvider)
+        {
+            using MemoryStream decompressedStream = new MemoryStream();
+            using (MemoryStream compressedStream = new MemoryStream(data))
+            {
+                using GZipStream gzipStream = decompressionProvider.Create(compressedStream);
+                gzipStream.CopyTo(decompressedStream);
+            }
+
+            data = decompressedStream.ToArray();
         }
     }
 }
