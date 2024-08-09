@@ -14,7 +14,6 @@ namespace ObjectsCollection
 
             streamManager.WriteToStream(text);
 
-            memoryStream.Position = 0;
             using StreamReader reader = new StreamReader(memoryStream);
             Assert.Equal(text, reader.ReadToEnd());
         }
@@ -29,7 +28,6 @@ namespace ObjectsCollection
 
             streamManager.WriteToStream(text);
 
-            fileStream.Position = 0;
             using StreamReader reader = new StreamReader(fileStream);
             string result = reader.ReadToEnd();
             Assert.Equal(text, result);
@@ -68,10 +66,11 @@ namespace ObjectsCollection
 
             streamManager.WriteToStream(text, compressProvider);
 
-            stream.Position = 0;
             DecompressionProvider decompressProvider = new DecompressionProvider();
-            using StreamReader reader = new StreamReader(decompressProvider.Create(stream));
-            Assert.Equal(text, reader.ReadToEnd());
+            using GZipStream decompressedStream = decompressProvider.Create(stream);
+            using StreamReader reader = new StreamReader(decompressedStream);
+            string decompressedText = reader.ReadToEnd();
+            Assert.Equal(text, decompressedText);
         }
 
         [Fact]
@@ -85,7 +84,6 @@ namespace ObjectsCollection
 
             streamManager.WriteToStream(text, compressProvider);
 
-            fileStream.Position = 0;
             DecompressionProvider decompressProvider = new DecompressionProvider();
             using StreamReader reader = new StreamReader(decompressProvider.Create(fileStream));
             Assert.Equal(text, reader.ReadToEnd());
@@ -126,16 +124,13 @@ namespace ObjectsCollection
             using Stream memoryStream = new MemoryStream();
             StreamManager streamManager = new StreamManager(memoryStream);
             const string text = "This is an example.";
-            EncryptorDecryptorProvider encryptor = new EncryptorDecryptorProvider();
-            EncryptionProvider encryptionProvider = new EncryptionProvider(encryptor);
+            EncryptorDecryptorProvider aesProvider = new EncryptorDecryptorProvider();
+            EncryptionProvider encryptionProvider = new EncryptionProvider(aesProvider);
 
             streamManager.WriteToStream(text, encryptionProvider: encryptionProvider);
 
-            memoryStream.Position = 0;
-            using StreamReader reader = new StreamReader(memoryStream);
-
-            Assert.True(memoryStream.Length > 0);
-            Assert.NotEqual(text, reader.ReadToEnd());
+            DecryptionProvider decryptionProvider = new DecryptionProvider(aesProvider);
+            Assert.Equal(text, streamManager.ReadFromStream(decryptionProvider: decryptionProvider));
         }
 
         [Fact]
@@ -145,29 +140,83 @@ namespace ObjectsCollection
             using Stream fileStream = new FileStream(path, FileMode.Create);
             StreamManager streamManager = new StreamManager(fileStream);
             const string text = "This is an example.";
-            EncryptorDecryptorProvider encryptor = new EncryptorDecryptorProvider();
-            EncryptionProvider encryptionProvider = new EncryptionProvider(encryptor);
+            EncryptorDecryptorProvider aesProvider = new EncryptorDecryptorProvider();
+            EncryptionProvider encryptionProvider = new EncryptionProvider(aesProvider);
 
             streamManager.WriteToStream(text, encryptionProvider: encryptionProvider);
 
-            fileStream.Position = 0;
-            using StreamReader reader = new StreamReader(fileStream);
-
-            Assert.True(fileStream.Length > 0);
-            Assert.NotEqual(text, reader.ReadToEnd());
+            DecryptionProvider decryptionProvider = new DecryptionProvider(aesProvider);
+            Assert.Equal(text, streamManager.ReadFromStream(decryptionProvider: decryptionProvider));
         }
 
-        //[Fact]
-        //public void ReadFromStreamShouldDecryptAndReadMemoryStreamWhenParameterIsNotNull()
-        //{
-        //    using Stream memoryStream = new MemoryStream();
-        //    StreamManager streamManager = new StreamManager(memoryStream);
-        //    const string text = "This is an example.";
-        //    CryptoStreamEncryptionProvider encryptionProvider = new CryptoStreamEncryptionProvider();
-        //    streamManager.WriteToStream(text, encryptionProvider: encryptionProvider);
+        [Fact]
+        public void ReadFromStreamShouldDecryptAndReadMemoryStreamWhenParameterIsNotNull()
+        {
+            using Stream memoryStream = new MemoryStream();
+            StreamManager streamManager = new StreamManager(memoryStream);
+            const string text = "This is an example.";
+            EncryptorDecryptorProvider encriptorDecriptorProvider = new EncryptorDecryptorProvider();
+            EncryptionProvider encryptionProvider = new EncryptionProvider(encriptorDecriptorProvider);
 
-        //    CryptoStreamDecryptionProvider decryptionProvider = new CryptoStreamDecryptionProvider();
-        //    Assert.Equal(text, streamManager.ReadFromStream(decryptionProvider));
-        //}
+            streamManager.WriteToStream(text, encryptionProvider: encryptionProvider);
+
+            DecryptionProvider decryptionProvider = new DecryptionProvider(encriptorDecriptorProvider);
+            Assert.Equal(text, streamManager.ReadFromStream(decryptionProvider: decryptionProvider));
+        }
+
+        [Fact]
+        public void ReadFromStreamShouldDecryptAndReadFileStreamWhenParameterIsNotNull()
+        {
+            const string path = "C:\\Users\\Diana\\OneDrive\\Desktop\\my_file.txt";
+            using Stream fileStream = new FileStream(path, FileMode.Create);
+            StreamManager streamManager = new StreamManager(fileStream);
+            const string text = "This is an encripted example.";
+            EncryptorDecryptorProvider encriptorDecriptorProvider = new EncryptorDecryptorProvider();
+            EncryptionProvider encryptionProvider = new EncryptionProvider(encriptorDecriptorProvider);
+
+            streamManager.WriteToStream(text, encryptionProvider: encryptionProvider);
+
+            DecryptionProvider decryptionProvider = new DecryptionProvider(encriptorDecriptorProvider);
+            Assert.Equal(text, streamManager.ReadFromStream(decryptionProvider: decryptionProvider));
+        }
+
+        [Fact]
+        public void WriteToStreamShouldWriteTextToAMemoryStreamAndCompressAndEncriptWhenParametersAreNotNull()
+        {
+            using Stream memoryStream = new MemoryStream();
+            StreamManager streamManager = new StreamManager(memoryStream);
+            const string text = "This is an example.";
+
+            CompressionProvider compressionProvider = new CompressionProvider();
+
+            EncryptorDecryptorProvider aesProvider = new EncryptorDecryptorProvider();
+            EncryptionProvider encryptionProvider = new EncryptionProvider(aesProvider);
+
+            streamManager.WriteToStream(text, compressionProvider, encryptionProvider);
+
+            DecryptionProvider decryptionProvider = new DecryptionProvider(aesProvider);
+            DecompressionProvider decompressionProvider = new DecompressionProvider();
+            Assert.Equal(text, streamManager.ReadFromStream(decompressionProvider, decryptionProvider));
+        }
+
+        [Fact]
+        public void WriteToStreamShouldWriteTextToAFileStreamAndCompressAndEncriptWhenParametersAreNotNull()
+        {
+            const string path = "C:\\Users\\Diana\\OneDrive\\Desktop\\my_file.txt";
+            using Stream fileStream = new FileStream(path, FileMode.Create);
+            StreamManager streamManager = new StreamManager(fileStream);
+            const string text = "This is an example.";
+
+            CompressionProvider compressionProvider = new CompressionProvider();
+
+            EncryptorDecryptorProvider aesProvider = new EncryptorDecryptorProvider();
+            EncryptionProvider encryptionProvider = new EncryptionProvider(aesProvider);
+
+            streamManager.WriteToStream(text, compressionProvider, encryptionProvider);
+
+            DecryptionProvider decryptionProvider = new DecryptionProvider(aesProvider);
+            DecompressionProvider decompressionProvider = new DecompressionProvider();
+            Assert.Equal(text, streamManager.ReadFromStream(decompressionProvider, decryptionProvider));
+        }
     }
 }

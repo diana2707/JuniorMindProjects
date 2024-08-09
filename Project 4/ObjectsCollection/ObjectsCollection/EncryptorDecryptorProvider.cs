@@ -5,20 +5,25 @@ namespace ObjectsCollection
 {
     public class EncryptorDecryptorProvider
     {
-        readonly Aes aes = Aes.Create();
+        readonly Aes aes;
+        readonly byte[] key;
+        readonly byte[] iv;
 
         public EncryptorDecryptorProvider()
         {
+            aes = Aes.Create();
+            key = aes.Key;
+            iv = aes.IV;
         }
 
         public ICryptoTransform CreateEncryptor()
         {
-            return aes.CreateEncryptor(aes.Key, aes.IV);
+            return aes.CreateEncryptor(key, iv);
         }
 
         public ICryptoTransform CreateDecryptor()
         {
-            return aes.CreateDecryptor(aes.Key, aes.IV);
+            return aes.CreateDecryptor(key, iv);
         }
     }
 }

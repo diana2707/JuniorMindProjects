@@ -14,7 +14,7 @@ namespace ObjectsCollection
 
         public CryptoStream Create(Stream stream)
         {
-            return new CryptoStream(stream, decryptorProvider.CreateDecryptor(), CryptoStreamMode.Write);
+            return new CryptoStream(stream, decryptorProvider.CreateDecryptor(), CryptoStreamMode.Read);
         }
     }
 }
