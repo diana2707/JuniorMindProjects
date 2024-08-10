@@ -1,7 +1,6 @@
 ﻿using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text;
-using Xunit.Sdk;
 
 namespace ObjectsCollection
 {
@@ -13,11 +12,14 @@ namespace ObjectsCollection
         public StreamManager(Stream stream)
         {
             ArgumentNullException.ThrowIfNull(stream);
+
             this.stream = stream;
         }
 
         public void WriteToStream(string text, CompressionProvider compressionProvider = null, EncryptionProvider encryptionProvider = null)
         {
+            ArgumentNullException.ThrowIfNull(text);
+
             data = Encoding.UTF8.GetBytes(text);
 
             if (compressionProvider != null)
@@ -80,26 +82,26 @@ namespace ObjectsCollection
 
         private void DecompressStream(DecompressionProvider decompressionProvider)
         {
-            using MemoryStream decompressedStream = new ();
-            using (MemoryStream compressedStream = new (data))
+            using MemoryStream resultStream = new ();
+            using (MemoryStream decompressedStream = new (data))
             {
-                using GZipStream gzipStream = decompressionProvider.Create(compressedStream);
-                gzipStream.CopyTo(decompressedStream);
+                using GZipStream gzipStream = decompressionProvider.Create(decompressedStream);
+                gzipStream.CopyTo(resultStream);
             }
 
-            data = decompressedStream.ToArray();
+            data = resultStream.ToArray();
         }
 
         private void DecryptStream(DecryptionProvider decryptionProvider)
         {
-            using MemoryStream decryptedStream = new ();
-            using (MemoryStream encryptedStream = new (data))
+            using MemoryStream resultStream = new ();
+            using (MemoryStream decryptedStream = new (data))
             {
-                using CryptoStream cryptoStream = decryptionProvider.Create(encryptedStream);
-                cryptoStream.CopyTo(decryptedStream);
+                using CryptoStream cryptoStream = decryptionProvider.Create(decryptedStream);
+                cryptoStream.CopyTo(resultStream);
             }
 
-            data = decryptedStream.ToArray();
+            data = resultStream.ToArray();
         }
     }
 }

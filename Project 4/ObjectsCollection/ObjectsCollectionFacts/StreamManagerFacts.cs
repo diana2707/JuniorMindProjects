@@ -220,11 +220,20 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void WriteToStreamShouldReturnArgumentNullExceptionWhenStreaIsNull()
+        public void StreamManagerShouldReturnArgumentNullExceptionWhenStreamIsNull()
         {
-            using Stream memoryStream = null;
+            using MemoryStream memoryStream = null;
 
             Assert.Throws<ArgumentNullException>(() => new StreamManager(memoryStream));
+        }
+
+        [Fact]
+        public void WriteToStreamShouldWriteTextToAMemoryStreamAndCompressAndEncriptWhenParametersAreNotNullmmmm()
+        {
+            using Stream memoryStream = new MemoryStream();
+            StreamManager streamManager = new StreamManager(memoryStream);
+
+            Assert.Throws<ArgumentNullException>(() => streamManager.WriteToStream(null));
         }
     }
 }
