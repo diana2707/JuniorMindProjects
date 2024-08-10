@@ -3,7 +3,7 @@ using System.IO.Compression;
 
 namespace ObjectsCollection
 {
-    public class GZipStreamDecompressProviderFacts
+    public class DecompressionProviderFacts
     {
         [Fact]
         public void ShouldReturnDecompressedGZipStream()

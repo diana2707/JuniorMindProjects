@@ -11,14 +11,14 @@ namespace ObjectsCollection
 
         public StreamManager(Stream stream)
         {
-            ArgumentNullException.ThrowIfNull(stream);
+            Validate(stream);
 
             this.stream = stream;
         }
 
         public void WriteToStream(string text, CompressionProvider compressionProvider = null, EncryptionProvider encryptionProvider = null)
         {
-            ArgumentNullException.ThrowIfNull(text);
+            Validate(text);
 
             data = Encoding.UTF8.GetBytes(text);
 
@@ -56,6 +56,11 @@ namespace ObjectsCollection
             }
 
             return Encoding.UTF8.GetString(data);
+        }
+
+        private static void Validate<T>(T argument)
+        {
+            ArgumentNullException.ThrowIfNull(argument);
         }
 
         private void CompressStream(CompressionProvider compressionProvider)

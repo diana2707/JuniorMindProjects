@@ -8,6 +8,7 @@ namespace ObjectsCollection
     {
         public GZipStream Create(Stream stream)
         {
+            ArgumentNullException.ThrowIfNull(stream);
             return new GZipStream(stream, CompressionMode.Compress);
         }
     }
