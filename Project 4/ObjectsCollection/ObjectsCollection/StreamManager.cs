@@ -18,7 +18,7 @@ namespace ObjectsCollection
 
         public void WriteToStream(string text, CompressionProvider compressionProvider = null, EncryptionProvider encryptionProvider = null)
         {
-            Validate(text);
+            ArgumentNullException.ThrowIfNull(text);
 
             data = Encoding.UTF8.GetBytes(text);
 
@@ -58,9 +58,18 @@ namespace ObjectsCollection
             return Encoding.UTF8.GetString(data);
         }
 
-        private static void Validate<T>(T argument)
+        private static void Validate(Stream stream)
         {
-            ArgumentNullException.ThrowIfNull(argument);
+            ArgumentNullException.ThrowIfNull(stream);
+
+            try
+            {
+                stream.Position = 0;
+            }
+            catch (ObjectDisposedException)
+            {
+                throw new ObjectDisposedException("Object was disposed");
+            }
         }
 
         private void CompressStream(CompressionProvider compressionProvider)

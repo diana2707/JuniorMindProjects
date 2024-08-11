@@ -235,5 +235,23 @@ namespace ObjectsCollection
 
             Assert.Throws<ArgumentNullException>(() => streamManager.WriteToStream(null));
         }
+
+        [Fact]
+        public void StreamManagerShouldReturnObjectDisposedExceptionWhenStreamIsDisposed()
+        {
+            using MemoryStream memoryStream = new ();
+            memoryStream.Dispose();
+
+            Assert.Throws<ObjectDisposedException>(() => new StreamManager(memoryStream));
+        }
+
+        [Fact]
+        public void StreamManagerShouldReturnObjectDisposedExceptionWhenStreamIsClosed()
+        {
+            using MemoryStream memoryStream = new ();
+            memoryStream.Close();
+
+            Assert.Throws<ObjectDisposedException>(() => new StreamManager(memoryStream));
+        }
     }
 }
