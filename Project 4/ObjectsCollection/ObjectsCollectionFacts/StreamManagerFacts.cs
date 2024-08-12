@@ -263,7 +263,7 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void ReadFromStreamShouldThrow()
+        public void ReadFromStreamShouldThrowNotSupportedExceptionWhenCanReadIsFalse()
         {
             const string path = "C:\\Users\\Diana\\OneDrive\\Desktop\\my_file.txt";
             using Stream fileStream = new FileStream(path, FileMode.Create, FileAccess.Write);
@@ -272,6 +272,17 @@ namespace ObjectsCollection
             streamManager.WriteToStream(text);
 
             Assert.Throws<NotSupportedException>(() => streamManager.ReadFromStream());
+        }
+
+        [Fact]
+        public void WriteToStreamShouldThrowNotSupportedExceptionWhenCanWriteIsFalse()
+        {
+            const string path = "C:\\Users\\Diana\\OneDrive\\Desktop\\my_file.txt";
+            using Stream fileStream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Read);
+            StreamManager streamManager = new StreamManager(fileStream);
+            const string text = "This is an example.";
+
+            Assert.Throws<NotSupportedException>(() => streamManager.WriteToStream(text));
         }
     }
 }

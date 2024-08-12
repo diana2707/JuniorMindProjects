@@ -18,7 +18,7 @@ namespace ObjectsCollection
 
         public void WriteToStream(string text, CompressionProvider compressionProvider = null, EncryptionProvider encryptionProvider = null)
         {
-            ArgumentNullException.ThrowIfNull(text);
+            ValidateForWriting(text, stream);
 
             data = Encoding.UTF8.GetBytes(text);
 
@@ -59,16 +59,6 @@ namespace ObjectsCollection
             return Encoding.UTF8.GetString(data);
         }
 
-        private static void ValidateForReading(Stream stream)
-        {
-            if (stream.CanRead)
-            {
-                return;
-            }
-
-            throw new NotSupportedException("Stream does not support reading.");
-        }
-
         private static void Validate(Stream stream)
         {
             ArgumentNullException.ThrowIfNull(stream);
@@ -89,6 +79,28 @@ namespace ObjectsCollection
             {
                 throw new IOException("The stream can not be managed correctly.");
             }
+        }
+
+        private static void ValidateForWriting(string text, Stream stream)
+        {
+            ArgumentNullException.ThrowIfNull(text);
+
+            if (stream.CanWrite)
+            {
+                return;
+            }
+
+            throw new NotSupportedException("Stream does not support reading.");
+        }
+
+        private static void ValidateForReading(Stream stream)
+        {
+            if (stream.CanRead)
+            {
+                return;
+            }
+
+            throw new NotSupportedException("Stream does not support reading.");
         }
 
         private void CompressStream(CompressionProvider compressionProvider)
