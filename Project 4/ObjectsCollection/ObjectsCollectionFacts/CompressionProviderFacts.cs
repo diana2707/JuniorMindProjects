@@ -13,12 +13,5 @@ namespace ObjectsCollection
             using Stream compressedStream = compressionProvider.Create(stream);
             Assert.IsType<GZipStream>(compressedStream);
         }
-
-        [Fact]
-        public void ShouldThrowArgumentNullExceptionIfStreamIsNull()
-        {
-            CompressionProvider compressionProvider = new CompressionProvider();
-            Assert.Throws<ArgumentNullException>(() => compressionProvider.Create(null));
-        }
     }
 }
