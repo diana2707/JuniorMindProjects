@@ -9,7 +9,7 @@ namespace ObjectsCollection
         public void ShouldReturDecryptedCryptoStream()
         {
             using Stream stream = new MemoryStream();
-            EncryptorDecryptorProvider decryptorProvider = new EncryptorDecryptorProvider();
+            AESProvider decryptorProvider = new AESProvider();
             DecryptionProvider decryptionProvider = new DecryptionProvider(decryptorProvider);
             using Stream decryptedStream = decryptionProvider.Create(stream);
             Assert.IsType<CryptoStream>(decryptedStream);

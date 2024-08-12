@@ -123,7 +123,7 @@ namespace ObjectsCollection
             using Stream memoryStream = new MemoryStream();
             StreamManager streamManager = new StreamManager(memoryStream);
             const string text = "This is an example.";
-            EncryptorDecryptorProvider aesProvider = new EncryptorDecryptorProvider();
+            AESProvider aesProvider = new AESProvider();
             EncryptionProvider encryptionProvider = new EncryptionProvider(aesProvider);
 
             streamManager.WriteToStream(text, encryptionProvider: encryptionProvider);
@@ -139,7 +139,7 @@ namespace ObjectsCollection
             using Stream fileStream = new FileStream(path, FileMode.Create);
             StreamManager streamManager = new StreamManager(fileStream);
             const string text = "This is an example.";
-            EncryptorDecryptorProvider aesProvider = new EncryptorDecryptorProvider();
+            AESProvider aesProvider = new AESProvider();
             EncryptionProvider encryptionProvider = new EncryptionProvider(aesProvider);
 
             streamManager.WriteToStream(text, encryptionProvider: encryptionProvider);
@@ -154,7 +154,7 @@ namespace ObjectsCollection
             using Stream memoryStream = new MemoryStream();
             StreamManager streamManager = new StreamManager(memoryStream);
             const string text = "This is an example.";
-            EncryptorDecryptorProvider encriptorDecriptorProvider = new EncryptorDecryptorProvider();
+            AESProvider encriptorDecriptorProvider = new AESProvider();
             EncryptionProvider encryptionProvider = new EncryptionProvider(encriptorDecriptorProvider);
 
             streamManager.WriteToStream(text, encryptionProvider: encryptionProvider);
@@ -170,7 +170,7 @@ namespace ObjectsCollection
             using Stream fileStream = new FileStream(path, FileMode.Create);
             StreamManager streamManager = new StreamManager(fileStream);
             const string text = "This is an encripted example.";
-            EncryptorDecryptorProvider encriptorDecriptorProvider = new EncryptorDecryptorProvider();
+            AESProvider encriptorDecriptorProvider = new AESProvider();
             EncryptionProvider encryptionProvider = new EncryptionProvider(encriptorDecriptorProvider);
 
             streamManager.WriteToStream(text, encryptionProvider: encryptionProvider);
@@ -188,7 +188,7 @@ namespace ObjectsCollection
 
             CompressionProvider compressionProvider = new CompressionProvider();
 
-            EncryptorDecryptorProvider aesProvider = new EncryptorDecryptorProvider();
+            AESProvider aesProvider = new AESProvider();
             EncryptionProvider encryptionProvider = new EncryptionProvider(aesProvider);
 
             streamManager.WriteToStream(text, compressionProvider, encryptionProvider);
@@ -208,7 +208,7 @@ namespace ObjectsCollection
 
             CompressionProvider compressionProvider = new CompressionProvider();
 
-            EncryptorDecryptorProvider aesProvider = new EncryptorDecryptorProvider();
+            AESProvider aesProvider = new AESProvider();
             EncryptionProvider encryptionProvider = new EncryptionProvider(aesProvider);
 
             streamManager.WriteToStream(text, compressionProvider, encryptionProvider);

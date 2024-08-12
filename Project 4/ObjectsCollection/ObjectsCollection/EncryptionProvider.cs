@@ -5,9 +5,9 @@ namespace ObjectsCollection
 {
     public class EncryptionProvider : ICryptoStreamProvider
     {
-        readonly EncryptorDecryptorProvider encryptorProvider;
+        readonly AESProvider encryptorProvider;
 
-        public EncryptionProvider(EncryptorDecryptorProvider encryptorProvider)
+        public EncryptionProvider(AESProvider encryptorProvider)
         {
             this.encryptorProvider = encryptorProvider;
         }

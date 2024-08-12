@@ -3,13 +3,13 @@ using System.Security.Cryptography;
 
 namespace ObjectsCollection
 {
-    public class EncryptorDecryptorProvider
+    public class AESProvider
     {
         readonly Aes aes;
         readonly byte[] key;
         readonly byte[] iv;
 
-        public EncryptorDecryptorProvider()
+        public AESProvider()
         {
             aes = Aes.Create();
             key = aes.Key;
