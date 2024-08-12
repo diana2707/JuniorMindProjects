@@ -253,5 +253,13 @@ namespace ObjectsCollection
 
             Assert.Throws<ObjectDisposedException>(() => new StreamManager(memoryStream));
         }
+
+        [Fact]
+        public void StreamManagerShouldReturnNotSupportedExceptionWhenCanSeekIsFalse()
+        {
+            using GZipStream gzipStream = new (new MemoryStream(), CompressionLevel.Optimal);
+
+            Assert.Throws<NotSupportedException>(() => new StreamManager(gzipStream));
+        }
     }
 }

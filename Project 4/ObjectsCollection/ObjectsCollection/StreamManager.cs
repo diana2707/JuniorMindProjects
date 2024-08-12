@@ -70,6 +70,14 @@ namespace ObjectsCollection
             {
                 throw new ObjectDisposedException("Object was disposed");
             }
+            catch (NotSupportedException)
+            {
+                throw new NotSupportedException("The stream is not seekable");
+            }
+            catch (IOException)
+            {
+                throw new IOException("The stream can not be managed correctly.");
+            }
         }
 
         private void CompressStream(CompressionProvider compressionProvider)
