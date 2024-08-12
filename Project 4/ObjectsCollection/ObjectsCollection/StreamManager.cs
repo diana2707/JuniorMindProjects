@@ -38,6 +38,7 @@ namespace ObjectsCollection
 
         public string ReadFromStream(DecompressionProvider decompressionProvider = null, DecryptionProvider decryptionProvider = null)
         {
+            ValidateForReading(stream);
             stream.Position = 0;
             using (MemoryStream dataStream = new ())
             {
@@ -56,6 +57,16 @@ namespace ObjectsCollection
             }
 
             return Encoding.UTF8.GetString(data);
+        }
+
+        private static void ValidateForReading(Stream stream)
+        {
+            if (stream.CanRead)
+            {
+                return;
+            }
+
+            throw new NotSupportedException("Stream does not support reading.");
         }
 
         private static void Validate(Stream stream)

@@ -261,5 +261,17 @@ namespace ObjectsCollection
 
             Assert.Throws<NotSupportedException>(() => new StreamManager(gzipStream));
         }
+
+        [Fact]
+        public void ReadFromStreamShouldThrow()
+        {
+            const string path = "C:\\Users\\Diana\\OneDrive\\Desktop\\my_file.txt";
+            using Stream fileStream = new FileStream(path, FileMode.Create, FileAccess.Write);
+            StreamManager streamManager = new StreamManager(fileStream);
+            const string text = "This is an example.";
+            streamManager.WriteToStream(text);
+
+            Assert.Throws<NotSupportedException>(() => streamManager.ReadFromStream());
+        }
     }
 }
