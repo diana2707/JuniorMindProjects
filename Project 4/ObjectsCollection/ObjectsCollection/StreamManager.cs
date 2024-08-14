@@ -27,7 +27,7 @@ namespace ObjectsCollection
         {
             ValidateForWriting(text, stream);
 
-            data = Encoding.UTF8.GetBytes(text);
+            data = ConvertStringToBytes(text);
 
             if (compress)
             {
@@ -46,6 +46,7 @@ namespace ObjectsCollection
         public string ReadFromStream(bool decompress = false, bool decrypt = false)
         {
             ValidateForReading(stream);
+
             stream.Position = 0;
             using (MemoryStream dataStream = new ())
             {
@@ -108,6 +109,11 @@ namespace ObjectsCollection
             }
 
             throw new NotSupportedException("Stream does not support reading.");
+        }
+
+        private static byte[] ConvertStringToBytes(string text)
+        {
+            return Encoding.UTF8.GetBytes(text);
         }
 
         private void CompressStream()
