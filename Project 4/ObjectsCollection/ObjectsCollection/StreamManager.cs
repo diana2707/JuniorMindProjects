@@ -117,7 +117,7 @@ namespace ObjectsCollection
         private void CompressStream()
         {
             using MemoryStream compressedStream = new ();
-            using (GZipStream gzipStream = new GZipStream(compressedStream, CompressionMode.Compress))
+            using (GZipStream gzipStream = new (compressedStream, CompressionMode.Compress))
             {
                 gzipStream.Write(data, 0, data.Length);
             }
@@ -129,7 +129,7 @@ namespace ObjectsCollection
         {
             using MemoryStream encryptedStream = new ();
             using (CryptoStream cryptoStream =
-                new CryptoStream(encryptedStream, aes.CreateEncryptor(key, iv), CryptoStreamMode.Write))
+                new (encryptedStream, aes.CreateEncryptor(key, iv), CryptoStreamMode.Write))
             {
                 cryptoStream.Write(data, 0, data.Length);
             }
@@ -142,7 +142,7 @@ namespace ObjectsCollection
             using MemoryStream resultStream = new ();
             using (MemoryStream decompressedStream = new (data))
             {
-                using GZipStream gzipStream = new GZipStream(decompressedStream, CompressionMode.Decompress);
+                using GZipStream gzipStream = new (decompressedStream, CompressionMode.Decompress);
                 gzipStream.CopyTo(resultStream);
             }
 
@@ -155,7 +155,7 @@ namespace ObjectsCollection
             using (MemoryStream decryptedStream = new (data))
             {
                 using CryptoStream cryptoStream =
-                    new CryptoStream(decryptedStream, aes.CreateDecryptor(key, iv), CryptoStreamMode.Read);
+                    new (decryptedStream, aes.CreateDecryptor(key, iv), CryptoStreamMode.Read);
                 cryptoStream.CopyTo(resultStream);
             }
 
