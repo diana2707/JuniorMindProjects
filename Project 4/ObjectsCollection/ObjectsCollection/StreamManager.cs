@@ -36,7 +36,7 @@ namespace ObjectsCollection
             stream.Position = 0;
         }
 
-        public string ReadFromStream(DecompressionProvider decompressionProvider = null, DecryptionProvider decryptionProvider = null)
+        public string ReadFromStream(bool decompress = false, DecryptionProvider decryptionProvider = null)
         {
             ValidateForReading(stream);
             stream.Position = 0;
@@ -51,9 +51,9 @@ namespace ObjectsCollection
                DecryptStream(decryptionProvider);
             }
 
-            if (decompressionProvider != null)
+            if (decompress)
             {
-                DecompressStream(decompressionProvider);
+                DecompressStream();
             }
 
             return Encoding.UTF8.GetString(data);
@@ -125,12 +125,12 @@ namespace ObjectsCollection
             data = encryptedStream.ToArray();
         }
 
-        private void DecompressStream(DecompressionProvider decompressionProvider)
+        private void DecompressStream()
         {
             using MemoryStream resultStream = new ();
             using (MemoryStream decompressedStream = new (data))
             {
-                using GZipStream gzipStream = decompressionProvider.Create(decompressedStream);
+                using GZipStream gzipStream = new GZipStream(decompressedStream, CompressionMode.Decompress);
                 gzipStream.CopyTo(resultStream);
             }
 

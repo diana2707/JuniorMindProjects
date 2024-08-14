@@ -70,35 +70,31 @@ namespace ObjectsCollection
             Assert.Equal(text, decompressedText);
         }
 
-        //[Fact]
-        //public void WriteToStreamShouldWriteCompressedFileStreamWhenParameterIsNotNull()
-        //{
-        //    const string path = "C:\\Users\\Diana\\OneDrive\\Desktop\\my_file.txt";
-        //    using Stream fileStream = new FileStream(path, FileMode.OpenOrCreate);
-        //    CompressionProvider compressProvider = new CompressionProvider();
-        //    StreamManager streamManager = new StreamManager(fileStream);
-        //    const string text = "This is a text.";
+        [Fact]
+        public void WriteToStreamShouldWriteCompressedFileStreamWhenParameterIsNotNull()
+        {
+            const string path = "C:\\Users\\Diana\\OneDrive\\Desktop\\my_file.txt";
+            using Stream fileStream = new FileStream(path, FileMode.OpenOrCreate);
+            StreamManager streamManager = new StreamManager(fileStream);
+            const string text = "This is a text.";
 
-        //    streamManager.WriteToStream(text, compressProvider);
+            streamManager.WriteToStream(text, true);
 
-        //    DecompressionProvider decompressProvider = new DecompressionProvider();
-        //    using StreamReader reader = new StreamReader(decompressProvider.Create(fileStream));
-        //    Assert.Equal(text, reader.ReadToEnd());
-        //}
+            using GZipStream decompressedStream = new GZipStream(fileStream, CompressionMode.Decompress);
+            using StreamReader reader = new StreamReader(decompressedStream);
+            Assert.Equal(text, reader.ReadToEnd());
+        }
 
-        //[Fact]
-        //public void ReadFromStreamShouldDecompressAndReadMemoryStreamWhenParameterIsNotNull()
-        //{
-        //    using Stream stream = new MemoryStream();
+        [Fact]
+        public void ReadFromStreamShouldDecompressAndReadMemoryStreamWhenParameterIsNotNull()
+        {
+            using Stream stream = new MemoryStream();
+            StreamManager streamManager = new StreamManager(stream);
+            const string text = "This is a text.";
+            streamManager.WriteToStream(text, true);
 
-        //    CompressionProvider compressProvider = new CompressionProvider();
-        //    StreamManager streamManager = new StreamManager(stream);
-        //    const string text = "This is a text.";
-        //    streamManager.WriteToStream(text, compressProvider);
-
-        //    DecompressionProvider decompressProvider = new DecompressionProvider();
-        //    Assert.Equal(text, streamManager.ReadFromStream(decompressProvider));
-        //}
+            Assert.Equal(text, streamManager.ReadFromStream(true));
+        }
 
         //[Fact]
         //public void ReadFromStreamShouldDecompressAndReadFileStreamWhenParameterIsNotNull()
