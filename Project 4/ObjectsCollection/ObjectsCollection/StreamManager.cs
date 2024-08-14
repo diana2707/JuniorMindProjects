@@ -7,6 +7,9 @@ namespace ObjectsCollection
     public class StreamManager
     {
         readonly Stream stream;
+        readonly Aes aes;
+        readonly byte[] key;
+        readonly byte[] iv;
         private byte[] data;
 
         public StreamManager(Stream stream)
@@ -14,9 +17,13 @@ namespace ObjectsCollection
             Validate(stream);
 
             this.stream = stream;
+
+            aes = Aes.Create();
+            key = aes.Key;
+            iv = aes.IV;
         }
 
-        public void WriteToStream(string text, bool compress = false, EncryptionProvider encryptionProvider = null)
+        public void WriteToStream(string text, bool compress = false, bool encrypt = false)
         {
             ValidateForWriting(text, stream);
 
@@ -27,16 +34,16 @@ namespace ObjectsCollection
                 CompressStream();
             }
 
-            if (encryptionProvider != null)
+            if (encrypt)
             {
-               EncryptStream(encryptionProvider);
+               EncryptStream();
             }
 
             stream.Write(data, 0, data.Length);
             stream.Position = 0;
         }
 
-        public string ReadFromStream(bool decompress = false, DecryptionProvider decryptionProvider = null)
+        public string ReadFromStream(bool decompress = false, bool decrypt = false)
         {
             ValidateForReading(stream);
             stream.Position = 0;
@@ -46,9 +53,9 @@ namespace ObjectsCollection
                 data = dataStream.ToArray();
             }
 
-            if (decryptionProvider != null)
+            if (decrypt)
             {
-               DecryptStream(decryptionProvider);
+               DecryptStream();
             }
 
             if (decompress)
@@ -114,10 +121,11 @@ namespace ObjectsCollection
             data = compressedStream.ToArray();
         }
 
-        private void EncryptStream(EncryptionProvider encryptionProvider)
+        private void EncryptStream()
         {
             using MemoryStream encryptedStream = new ();
-            using (CryptoStream cryptoStream = encryptionProvider.Create(encryptedStream))
+            using (CryptoStream cryptoStream =
+                new CryptoStream(encryptedStream, aes.CreateEncryptor(key, iv), CryptoStreamMode.Write))
             {
                 cryptoStream.Write(data, 0, data.Length);
             }
@@ -137,12 +145,13 @@ namespace ObjectsCollection
             data = resultStream.ToArray();
         }
 
-        private void DecryptStream(DecryptionProvider decryptionProvider)
+        private void DecryptStream()
         {
             using MemoryStream resultStream = new ();
             using (MemoryStream decryptedStream = new (data))
             {
-                using CryptoStream cryptoStream = decryptionProvider.Create(decryptedStream);
+                using CryptoStream cryptoStream =
+                    new CryptoStream(decryptedStream, aes.CreateDecryptor(key, iv), CryptoStreamMode.Read);
                 cryptoStream.CopyTo(resultStream);
             }
 
