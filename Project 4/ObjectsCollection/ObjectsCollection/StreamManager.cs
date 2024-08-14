@@ -16,15 +16,15 @@ namespace ObjectsCollection
             this.stream = stream;
         }
 
-        public void WriteToStream(string text, CompressionProvider compressionProvider = null, EncryptionProvider encryptionProvider = null)
+        public void WriteToStream(string text, bool compress = false, EncryptionProvider encryptionProvider = null)
         {
             ValidateForWriting(text, stream);
 
             data = Encoding.UTF8.GetBytes(text);
 
-            if (compressionProvider != null)
+            if (compress)
             {
-                CompressStream(compressionProvider);
+                CompressStream();
             }
 
             if (encryptionProvider != null)
@@ -103,10 +103,10 @@ namespace ObjectsCollection
             throw new NotSupportedException("Stream does not support reading.");
         }
 
-        private void CompressStream(CompressionProvider compressionProvider)
+        private void CompressStream()
         {
             using MemoryStream compressedStream = new ();
-            using (GZipStream gzipStream = compressionProvider.Create(compressedStream))
+            using (GZipStream gzipStream = new GZipStream(compressedStream, CompressionMode.Compress))
             {
                 gzipStream.Write(data, 0, data.Length);
             }
