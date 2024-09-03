@@ -133,108 +133,108 @@ namespace ObjectsCollection
             Assert.Equal(text, streamManager.ReadFromStream(decrypt: true));
         }
 
-        //[Fact]
-        //public void ReadFromStreamShouldDecryptAndReadFileStreamWhenParameterIsNotNull()
-        //{
-        //    const string path = "C:\\Users\\Diana\\OneDrive\\Desktop\\my_file.txt";
-        //    using Stream fileStream = new FileStream(path, FileMode.Create);
-        //    StreamManager streamManager = new StreamManager(fileStream);
-        //    const string text = "This is an encripted example.";
+        [Fact]
+        public void ReadFromStreamShouldDecryptAndReadFileStreamWhenParameterIsNotNull()
+        {
+            const string path = "C:\\Users\\Diana\\OneDrive\\Desktop\\my_file.txt";
+            using Stream fileStream = new FileStream(path, FileMode.Create);
+            StreamManager streamManager = new StreamManager(fileStream);
+            const string text = "This is an encripted example.";
 
-        //    streamManager.WriteToStream(text, encrypt: true);
+            streamManager.WriteToStream(text, encrypt: true);
 
-        //    Assert.Equal(text, streamManager.ReadFromStream(decrypt: true));
-        //}
+            Assert.Equal(text, streamManager.ReadFromStream(decrypt: true));
+        }
 
-        //[Fact]
-        //public void WriteToStreamShouldWriteTextToAMemoryStreamAndCompressAndEncriptWhenParametersAreNotNull()
-        //{
-        //    using Stream memoryStream = new MemoryStream();
-        //    StreamManager streamManager = new StreamManager(memoryStream);
-        //    const string text = "This is an example.";
+        [Fact]
+        public void WriteToStreamShouldWriteTextToAMemoryStreamAndCompressAndEncriptWhenParametersAreNotNull()
+        {
+            using Stream memoryStream = new MemoryStream();
+            StreamManager streamManager = new StreamManager(memoryStream);
+            const string text = "This is an example.";
 
-        //    streamManager.WriteToStream(text, true, true);
+            streamManager.WriteToStream(text, true, true);
 
-        //    Assert.Equal(text, streamManager.ReadFromStream(true, true));
-        //}
+            Assert.Equal(text, streamManager.ReadFromStream(true, true));
+        }
 
-        //[Fact]
-        //public void WriteToStreamShouldWriteTextToAFileStreamAndCompressAndEncriptWhenParametersAreNotNull()
-        //{
-        //    const string path = "C:\\Users\\Diana\\OneDrive\\Desktop\\my_file.txt";
-        //    using Stream fileStream = new FileStream(path, FileMode.Create);
-        //    StreamManager streamManager = new StreamManager(fileStream);
-        //    const string text = "This is an example.";
+        [Fact]
+        public void WriteToStreamShouldWriteTextToAFileStreamAndCompressAndEncriptWhenParametersAreNotNull()
+        {
+            const string path = "C:\\Users\\Diana\\OneDrive\\Desktop\\my_file.txt";
+            using Stream fileStream = new FileStream(path, FileMode.Create);
+            StreamManager streamManager = new StreamManager(fileStream);
+            const string text = "This is an example.";
 
-        //    streamManager.WriteToStream(text, true, true);
+            streamManager.WriteToStream(text, true, true);
 
-        //    Assert.Equal(text, streamManager.ReadFromStream(true, true));
-        //}
+            Assert.Equal(text, streamManager.ReadFromStream(true, true));
+        }
 
-        //[Fact]
-        //public void StreamManagerShouldReturnArgumentNullExceptionWhenStreamIsNull()
-        //{
-        //    using MemoryStream memoryStream = null;
+        [Fact]
+        public void StreamManagerShouldReturnArgumentNullExceptionWhenStreamIsNull()
+        {
+            using MemoryStream memoryStream = null;
 
-        //    Assert.Throws<ArgumentNullException>(() => new StreamManager(memoryStream));
-        //}
+            Assert.Throws<ArgumentNullException>(() => new StreamManager(memoryStream));
+        }
 
-        //[Fact]
-        //public void WriteToStreamShouldWriteTextToAMemoryStreamAndCompressAndEncriptWhenParametersAreNotNullmmmm()
-        //{
-        //    using Stream memoryStream = new MemoryStream();
-        //    StreamManager streamManager = new StreamManager(memoryStream);
+        [Fact]
+        public void WriteToStreamShouldWriteTextToAMemoryStreamAndCompressAndEncriptWhenParametersAreNotNullmmmm()
+        {
+            using Stream memoryStream = new MemoryStream();
+            StreamManager streamManager = new StreamManager(memoryStream);
 
-        //    Assert.Throws<ArgumentNullException>(() => streamManager.WriteToStream(null));
-        //}
+            Assert.Throws<ArgumentNullException>(() => streamManager.WriteToStream(null));
+        }
 
-        //[Fact]
-        //public void StreamManagerShouldReturnObjectDisposedExceptionWhenStreamIsDisposed()
-        //{
-        //    using MemoryStream memoryStream = new ();
-        //    memoryStream.Dispose();
+        [Fact]
+        public void StreamManagerShouldReturnObjectDisposedExceptionWhenStreamIsDisposed()
+        {
+            using MemoryStream memoryStream = new();
+            memoryStream.Dispose();
 
-        //    Assert.Throws<ObjectDisposedException>(() => new StreamManager(memoryStream));
-        //}
+            Assert.Throws<ObjectDisposedException>(() => new StreamManager(memoryStream));
+        }
 
-        //[Fact]
-        //public void StreamManagerShouldReturnObjectDisposedExceptionWhenStreamIsClosed()
-        //{
-        //    using MemoryStream memoryStream = new ();
-        //    memoryStream.Close();
+        [Fact]
+        public void StreamManagerShouldReturnObjectDisposedExceptionWhenStreamIsClosed()
+        {
+            using MemoryStream memoryStream = new();
+            memoryStream.Close();
 
-        //    Assert.Throws<ObjectDisposedException>(() => new StreamManager(memoryStream));
-        //}
+            Assert.Throws<ObjectDisposedException>(() => new StreamManager(memoryStream));
+        }
 
-        //[Fact]
-        //public void StreamManagerShouldReturnNotSupportedExceptionWhenCanSeekIsFalse()
-        //{
-        //    using GZipStream gzipStream = new (new MemoryStream(), CompressionLevel.Optimal);
+        [Fact]
+        public void StreamManagerShouldReturnNotSupportedExceptionWhenCanSeekIsFalse()
+        {
+            using GZipStream gzipStream = new(new MemoryStream(), CompressionLevel.Optimal);
 
-        //    Assert.Throws<NotSupportedException>(() => new StreamManager(gzipStream));
-        //}
+            Assert.Throws<NotSupportedException>(() => new StreamManager(gzipStream));
+        }
 
-        //[Fact]
-        //public void ReadFromStreamShouldThrowNotSupportedExceptionWhenCanReadIsFalse()
-        //{
-        //    const string path = "C:\\Users\\Diana\\OneDrive\\Desktop\\my_file.txt";
-        //    using Stream fileStream = new FileStream(path, FileMode.Create, FileAccess.Write);
-        //    StreamManager streamManager = new StreamManager(fileStream);
-        //    const string text = "This is an example.";
-        //    streamManager.WriteToStream(text);
+        [Fact]
+        public void ReadFromStreamShouldThrowNotSupportedExceptionWhenCanReadIsFalse()
+        {
+            const string path = "C:\\Users\\Diana\\OneDrive\\Desktop\\my_file.txt";
+            using Stream fileStream = new FileStream(path, FileMode.Create, FileAccess.Write);
+            StreamManager streamManager = new StreamManager(fileStream);
+            const string text = "This is an example.";
+            streamManager.WriteToStream(text);
 
-        //    Assert.Throws<NotSupportedException>(() => streamManager.ReadFromStream());
-        //}
+            Assert.Throws<NotSupportedException>(() => streamManager.ReadFromStream());
+        }
 
-        //[Fact]
-        //public void WriteToStreamShouldThrowNotSupportedExceptionWhenCanWriteIsFalse()
-        //{
-        //    const string path = "C:\\Users\\Diana\\OneDrive\\Desktop\\my_file.txt";
-        //    using Stream fileStream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Read);
-        //    StreamManager streamManager = new StreamManager(fileStream);
-        //    const string text = "This is an example.";
+        [Fact]
+        public void WriteToStreamShouldThrowNotSupportedExceptionWhenCanWriteIsFalse()
+        {
+            const string path = "C:\\Users\\Diana\\OneDrive\\Desktop\\my_file.txt";
+            using Stream fileStream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Read);
+            StreamManager streamManager = new StreamManager(fileStream);
+            const string text = "This is an example.";
 
-        //    Assert.Throws<NotSupportedException>(() => streamManager.WriteToStream(text));
-        //}
+            Assert.Throws<NotSupportedException>(() => streamManager.WriteToStream(text));
+        }
     }
 }
