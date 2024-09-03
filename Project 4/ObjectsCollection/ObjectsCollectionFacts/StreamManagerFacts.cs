@@ -13,6 +13,7 @@ namespace ObjectsCollection
 
             streamManager.WriteToStream(text);
 
+            memoryStream.Position = 0;
             using StreamReader reader = new StreamReader(memoryStream);
             Assert.Equal(text, reader.ReadToEnd());
         }
@@ -27,6 +28,7 @@ namespace ObjectsCollection
 
             streamManager.WriteToStream(text);
 
+            fileStream.Position = 0;
             using StreamReader reader = new StreamReader(fileStream);
             string result = reader.ReadToEnd();
             Assert.Equal(text, result);
@@ -64,6 +66,7 @@ namespace ObjectsCollection
 
             streamManager.WriteToStream(text, true);
 
+            stream.Position = 0;
             using GZipStream decompressedStream = new GZipStream(stream, CompressionMode.Decompress);
             using StreamReader reader = new StreamReader(decompressedStream);
             string decompressedText = reader.ReadToEnd();
@@ -80,6 +83,7 @@ namespace ObjectsCollection
 
             streamManager.WriteToStream(text, true);
 
+            fileStream.Position = 0;
             using GZipStream decompressedStream = new GZipStream(fileStream, CompressionMode.Decompress);
             using StreamReader reader = new StreamReader(decompressedStream);
             Assert.Equal(text, reader.ReadToEnd());

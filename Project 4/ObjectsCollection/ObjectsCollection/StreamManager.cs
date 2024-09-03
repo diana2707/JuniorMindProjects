@@ -30,24 +30,22 @@ namespace ObjectsCollection
             if (compress && encrypt)
             {
                 WriteCompressedAndEncrypted();
+                return;
             }
 
-            if (compress && !encrypt)
+            if (compress)
             {
                 WriteCompressed();
+                return;
             }
 
-            if (!compress && encrypt)
+            if (encrypt)
             {
                 WriteEncrypted();
+                return;
             }
 
-            if (!compress && !encrypt)
-            {
-                stream.Write(data, 0, data.Length);
-            }
-
-            stream.Position = 0;
+            stream.Write(data, 0, data.Length);
         }
 
         public string ReadFromStream(bool decompress = false, bool decrypt = false)
@@ -55,14 +53,7 @@ namespace ObjectsCollection
             stream.Position = 0;
             if (decompress && decrypt)
             {
-                using (MemoryStream tempStream = new ())
-                {
-                    using CryptoStream cryptoStream = new CryptoStream(stream, aes.CreateDecryptor(key, iv), CryptoStreamMode.Read, true);
-                    using GZipStream gzipStream = new GZipStream(cryptoStream, CompressionMode.Decompress, true);
-                    gzipStream.CopyTo(tempStream);
-                    data = tempStream.ToArray();
-                    return Encoding.UTF8.GetString(tempStream.ToArray());
-                }
+                return ReadDecompressedAndDecrypted();
             }
 
             if (decompress)
@@ -138,33 +129,33 @@ namespace ObjectsCollection
 
         private void WriteCompressedAndEncrypted()
         {
-            using (CryptoStream cryptoStream = new CryptoStream(stream, aes.CreateEncryptor(key, iv), CryptoStreamMode.Write, true))
-            {
-                using GZipStream gzipStream = new GZipStream(cryptoStream, CompressionMode.Compress, true);
-                gzipStream.Write(data, 0, data.Length);
-            }
-
-            stream.Position = 0;
+            using CryptoStream cryptoStream = new CryptoStream(stream, aes.CreateEncryptor(key, iv), CryptoStreamMode.Write, true);
+            using GZipStream gzipStream = new GZipStream(cryptoStream, CompressionMode.Compress, true);
+            gzipStream.Write(data, 0, data.Length);
         }
 
         private void WriteCompressed()
         {
-            using (GZipStream gzipStream = new GZipStream(stream, CompressionMode.Compress, true))
-            {
-                gzipStream.Write(data, 0, data.Length);
-            }
-
-            stream.Position = 0;
+            using GZipStream gzipStream = new GZipStream(stream, CompressionMode.Compress, true);
+            gzipStream.Write(data, 0, data.Length);
         }
 
         private void WriteEncrypted()
         {
-            using (CryptoStream cryptoStream = new CryptoStream(stream, aes.CreateEncryptor(key, iv), CryptoStreamMode.Write, true))
-            {
-                cryptoStream.Write(data, 0, data.Length);
-            }
+            using CryptoStream cryptoStream = new CryptoStream(stream, aes.CreateEncryptor(key, iv), CryptoStreamMode.Write, true);
+            cryptoStream.Write(data, 0, data.Length);
+        }
 
-            stream.Position = 0;
+        private string ReadDecompressedAndDecrypted()
+        {
+            using MemoryStream outputStream = new MemoryStream();
+
+            using CryptoStream cryptoStream = new CryptoStream(stream, aes.CreateDecryptor(key, iv), CryptoStreamMode.Read, true);
+            using GZipStream gzipStream = new GZipStream(cryptoStream, CompressionMode.Decompress, true);
+
+            gzipStream.CopyTo(outputStream);
+            data = outputStream.ToArray();
+            return Encoding.UTF8.GetString(outputStream.ToArray());
         }
 
 
