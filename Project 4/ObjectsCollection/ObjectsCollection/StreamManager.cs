@@ -25,7 +25,16 @@ namespace ObjectsCollection
 
         public void WriteToStream(string text, bool compress = false, bool leaveOpen = false)
         {
+            ValidateForWriting(text, stream);
+
             data = Encoding.UTF8.GetBytes(text);
+
+            if (compress)
+            {
+                using GZipStream gzipStream = new GZipStream(stream, CompressionMode.Compress, true);
+                gzipStream.Write(data, 0, data.Length);
+            }
+
             stream.Write(data, 0, data.Length);
             stream.Position = 0;
         }

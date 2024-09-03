@@ -17,20 +17,20 @@ namespace ObjectsCollection
             Assert.Equal(text, reader.ReadToEnd());
         }
 
-        //[Fact]
-        //public void WriteToStreamShouldWriteTextToAFileStream()
-        //{
-        //    const string path = "C:\\Users\\Diana\\OneDrive\\Desktop\\my_file.txt";
-        //    using Stream fileStream = new FileStream(path, FileMode.Create);
-        //    StreamManager streamManager = new StreamManager(fileStream);
-        //    const string text = "This is an example.";
+        [Fact]
+        public void WriteToStreamShouldWriteTextToAFileStream()
+        {
+            const string path = "C:\\Users\\Diana\\OneDrive\\Desktop\\my_file.txt";
+            using Stream fileStream = new FileStream(path, FileMode.Create);
+            StreamManager streamManager = new StreamManager(fileStream);
+            const string text = "This is an example.";
 
-        //    streamManager.WriteToStream(text);
+            streamManager.WriteToStream(text);
 
-        //    using StreamReader reader = new StreamReader(fileStream);
-        //    string result = reader.ReadToEnd();
-        //    Assert.Equal(text, result);
-        //}
+            using StreamReader reader = new StreamReader(fileStream);
+            string result = reader.ReadToEnd();
+            Assert.Equal(text, result);
+        }
 
         //[Fact]
         //public void ReadFromStreamShouldReadTextFromAMemoryStream()
@@ -55,35 +55,35 @@ namespace ObjectsCollection
         //    Assert.Equal(text, streamManager.ReadFromStream());
         //}
 
-        //[Fact]
-        //public void WriteToStreamShouldWriteCompressedMemoryStreamWhenParameterIsNotNull()
-        //{
-        //    using Stream stream = new MemoryStream();
-        //    StreamManager streamManager = new StreamManager(stream);
-        //    const string text = "This is a text.";
+        [Fact]
+        public void WriteToStreamShouldWriteCompressedMemoryStreamWhenParameterIsNotNull()
+        {
+            using Stream stream = new MemoryStream();
+            StreamManager streamManager = new StreamManager(stream);
+            const string text = "This is a text.";
 
-        //    streamManager.WriteToStream(text, true);
+            streamManager.WriteToStream(text, true);
 
-        //    using GZipStream decompressedStream = new GZipStream(stream, CompressionMode.Decompress);
-        //    using StreamReader reader = new StreamReader(decompressedStream);
-        //    string decompressedText = reader.ReadToEnd();
-        //    Assert.Equal(text, decompressedText);
-        //}
+            using GZipStream decompressedStream = new GZipStream(stream, CompressionMode.Decompress);
+            using StreamReader reader = new StreamReader(decompressedStream);
+            string decompressedText = reader.ReadToEnd();
+            Assert.Equal(text, decompressedText);
+        }
 
-        //[Fact]
-        //public void WriteToStreamShouldWriteCompressedFileStreamWhenParameterIsNotNull()
-        //{
-        //    const string path = "C:\\Users\\Diana\\OneDrive\\Desktop\\my_file.txt";
-        //    using Stream fileStream = new FileStream(path, FileMode.OpenOrCreate);
-        //    StreamManager streamManager = new StreamManager(fileStream);
-        //    const string text = "This is a text.";
+        [Fact]
+        public void WriteToStreamShouldWriteCompressedFileStreamWhenParameterIsNotNull()
+        {
+            const string path = "C:\\Users\\Diana\\OneDrive\\Desktop\\my_file.txt";
+            using Stream fileStream = new FileStream(path, FileMode.OpenOrCreate);
+            StreamManager streamManager = new StreamManager(fileStream);
+            const string text = "This is a text.";
 
-        //    streamManager.WriteToStream(text, true);
+            streamManager.WriteToStream(text, true);
 
-        //    using GZipStream decompressedStream = new GZipStream(fileStream, CompressionMode.Decompress);
-        //    using StreamReader reader = new StreamReader(decompressedStream);
-        //    Assert.Equal(text, reader.ReadToEnd());
-        //}
+            using GZipStream decompressedStream = new GZipStream(fileStream, CompressionMode.Decompress);
+            using StreamReader reader = new StreamReader(decompressedStream);
+            Assert.Equal(text, reader.ReadToEnd());
+        }
 
         //[Fact]
         //public void ReadFromStreamShouldDecompressAndReadMemoryStreamWhenParameterIsNotNull()
