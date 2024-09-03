@@ -58,12 +58,7 @@ namespace ObjectsCollection
 
             if (decompress)
             {
-                using (MemoryStream tempStream = new ())
-                {
-                    using GZipStream gzipStream = new GZipStream(stream, CompressionMode.Decompress, true);
-                    gzipStream.CopyTo(tempStream);
-                    return Encoding.UTF8.GetString(tempStream.ToArray());
-                }
+                return ReadDecompressed();
             }
 
             if (decrypt)
@@ -155,6 +150,15 @@ namespace ObjectsCollection
 
             gzipStream.CopyTo(outputStream);
             data = outputStream.ToArray();
+            return Encoding.UTF8.GetString(outputStream.ToArray());
+        }
+
+        private string ReadDecompressed()
+        {
+            using MemoryStream outputStream = new MemoryStream();
+            using GZipStream gzipStream = new GZipStream(stream, CompressionMode.Decompress, true);
+
+            gzipStream.CopyTo(outputStream);
             return Encoding.UTF8.GetString(outputStream.ToArray());
         }
 
