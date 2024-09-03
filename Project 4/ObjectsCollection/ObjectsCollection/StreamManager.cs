@@ -29,22 +29,22 @@ namespace ObjectsCollection
 
             if (compress && encrypt)
             {
-                WriteCompressedAndEncrypted();
+                WriteCompressedAndEncryptedData();
             }
 
             if (compress && !encrypt)
             {
-                WriteCompressed();
+                WriteCompressedData();
             }
 
             if (encrypt && !compress)
             {
-                WriteEncrypted();
+                WriteEncryptedData();
             }
 
             if (!compress && !encrypt)
             {
-                stream.Write(data, 0, data.Length);
+                WriteData();
             }
 
             stream.Position = 0;
@@ -55,22 +55,20 @@ namespace ObjectsCollection
             stream.Position = 0;
             if (decompress && decrypt)
             {
-                return ReadDecompressedAndDecrypted();
+                return ReadDecompressedAndDecryptedData();
             }
 
             if (decompress)
             {
-                return ReadDecompressed();
+                return ReadDecompressedData();
             }
 
             if (decrypt)
             {
-                return ReadDecrypted();
+                return ReadDecryptedData();
             }
 
-            using MemoryStream outputStream = new MemoryStream();
-            stream.CopyTo(outputStream);
-            return Encoding.UTF8.GetString(outputStream.ToArray());
+            return ReadData();
         }
 
         private static void Validate(Stream stream)
@@ -117,26 +115,31 @@ namespace ObjectsCollection
             throw new NotSupportedException("Stream does not support reading.");
         }
 
-        private void WriteCompressedAndEncrypted()
+        private void WriteCompressedAndEncryptedData()
         {
             using CryptoStream cryptoStream = new CryptoStream(stream, aes.CreateEncryptor(key, iv), CryptoStreamMode.Write, true);
             using GZipStream gzipStream = new GZipStream(cryptoStream, CompressionMode.Compress, true);
             gzipStream.Write(data, 0, data.Length);
         }
 
-        private void WriteCompressed()
+        private void WriteCompressedData()
         {
             using GZipStream gzipStream = new GZipStream(stream, CompressionMode.Compress, true);
             gzipStream.Write(data, 0, data.Length);
         }
 
-        private void WriteEncrypted()
+        private void WriteEncryptedData()
         {
             using CryptoStream cryptoStream = new CryptoStream(stream, aes.CreateEncryptor(key, iv), CryptoStreamMode.Write, true);
             cryptoStream.Write(data, 0, data.Length);
         }
 
-        private string ReadDecompressedAndDecrypted()
+        private void WriteData()
+        {
+            stream.Write(data, 0, data.Length);
+        }
+
+        private string ReadDecompressedAndDecryptedData()
         {
             using MemoryStream outputStream = new MemoryStream();
 
@@ -148,7 +151,7 @@ namespace ObjectsCollection
             return Encoding.UTF8.GetString(outputStream.ToArray());
         }
 
-        private string ReadDecompressed()
+        private string ReadDecompressedData()
         {
             using MemoryStream outputStream = new MemoryStream();
             using GZipStream gzipStream = new GZipStream(stream, CompressionMode.Decompress, true);
@@ -157,13 +160,20 @@ namespace ObjectsCollection
             return Encoding.UTF8.GetString(outputStream.ToArray());
         }
 
-        private string ReadDecrypted()
+        private string ReadDecryptedData()
         {
             using MemoryStream tempStream = new MemoryStream();
             using CryptoStream cryptoStream = new CryptoStream(stream, aes.CreateDecryptor(key, iv), CryptoStreamMode.Read, true);
 
             cryptoStream.CopyTo(tempStream);
             return Encoding.UTF8.GetString(tempStream.ToArray());
+        }
+
+        private string ReadData()
+        {
+            using MemoryStream outputStream = new MemoryStream();
+            stream.CopyTo(outputStream);
+            return Encoding.UTF8.GetString(outputStream.ToArray());
         }
     }
 }
