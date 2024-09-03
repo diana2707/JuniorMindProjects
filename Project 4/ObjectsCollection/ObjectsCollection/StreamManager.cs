@@ -30,22 +30,24 @@ namespace ObjectsCollection
             if (compress && encrypt)
             {
                 WriteCompressedAndEncrypted();
-                return;
             }
 
-            if (compress)
+            if (compress && !encrypt)
             {
                 WriteCompressed();
-                return;
             }
 
-            if (encrypt)
+            if (encrypt && !compress)
             {
                 WriteEncrypted();
-                return;
             }
 
-            stream.Write(data, 0, data.Length);
+            if (!compress && !encrypt)
+            {
+                stream.Write(data, 0, data.Length);
+            }
+
+            stream.Position = 0;
         }
 
         public string ReadFromStream(bool decompress = false, bool decrypt = false)
@@ -163,62 +165,5 @@ namespace ObjectsCollection
             cryptoStream.CopyTo(tempStream);
             return Encoding.UTF8.GetString(tempStream.ToArray());
         }
-
-
-
-        //private byte[] ConvertStreamToBytes()
-        //{
-        //    using MemoryStream dataStream = new ();
-        //    stream.CopyTo(dataStream);
-        //    return dataStream.ToArray();
-        //}
-
-        //private void CompressStream()
-        //{
-        //    using MemoryStream compressedStream = new ();
-        //    using (GZipStream gzipStream = new (compressedStream, CompressionMode.Compress))
-        //    {
-        //        gzipStream.Write(data, 0, data.Length);
-        //    }
-
-        //    data = compressedStream.ToArray();
-        //}
-
-        //private void EncryptStream()
-        //{
-        //    using MemoryStream encryptedStream = new ();
-        //    using (CryptoStream cryptoStream =
-        //        new (encryptedStream, aes.CreateEncryptor(key, iv), CryptoStreamMode.Write))
-        //    {
-        //        cryptoStream.Write(data, 0, data.Length);
-        //    }
-
-        //    data = encryptedStream.ToArray();
-        //}
-
-        //private void DecompressStream()
-        //{
-        //    using MemoryStream resultStream = new ();
-        //    using (MemoryStream decompressedStream = new (data))
-        //    {
-        //        using GZipStream gzipStream = new (decompressedStream, CompressionMode.Decompress);
-        //        gzipStream.CopyTo(resultStream);
-        //    }
-
-        //    data = resultStream.ToArray();
-        //}
-
-        //private void DecryptStream()
-        //{
-        //    using MemoryStream resultStream = new ();
-        //    using (MemoryStream decryptedStream = new (data))
-        //    {
-        //        using CryptoStream cryptoStream =
-        //            new (decryptedStream, aes.CreateDecryptor(key, iv), CryptoStreamMode.Read);
-        //        cryptoStream.CopyTo(resultStream);
-        //    }
-
-        //    data = resultStream.ToArray();
-        //}
     }
 }
