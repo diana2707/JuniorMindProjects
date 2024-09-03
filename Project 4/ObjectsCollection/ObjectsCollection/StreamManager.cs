@@ -23,45 +23,52 @@ namespace ObjectsCollection
             iv = aes.IV;
         }
 
-        public void WriteToStream(string text, bool compress = false, bool encrypt = false)
+        public void WriteToStream(string text, bool compress = false, bool leaveOpen = false)
         {
-            ValidateForWriting(text, stream);
-
             data = Encoding.UTF8.GetBytes(text);
-
-            if (compress)
-            {
-                CompressStream();
-            }
-
-            if (encrypt)
-            {
-               EncryptStream();
-            }
-
             stream.Write(data, 0, data.Length);
             stream.Position = 0;
         }
 
-        public string ReadFromStream(bool decompress = false, bool decrypt = false)
-        {
-            ValidateForReading(stream);
+        //public void WriteToStream(string text, bool compress = false, bool encrypt = false)
+        //{
+        //    ValidateForWriting(text, stream);
 
-            stream.Position = 0;
-            data = ConvertStreamToBytes();
+        //    data = Encoding.UTF8.GetBytes(text);
 
-            if (decrypt)
-            {
-               DecryptStream();
-            }
+        //    if (compress)
+        //    {
+        //        CompressStream();
+        //    }
 
-            if (decompress)
-            {
-                DecompressStream();
-            }
+        //    if (encrypt)
+        //    {
+        //       EncryptStream();
+        //    }
 
-            return Encoding.UTF8.GetString(data);
-        }
+        //    stream.Write(data, 0, data.Length);
+        //    stream.Position = 0;
+        //}
+
+        //public string ReadFromStream(bool decompress = false, bool decrypt = false)
+        //{
+        //    ValidateForReading(stream);
+
+        //    stream.Position = 0;
+        //    data = ConvertStreamToBytes();
+
+        //    if (decrypt)
+        //    {
+        //       DecryptStream();
+        //    }
+
+        //    if (decompress)
+        //    {
+        //        DecompressStream();
+        //    }
+
+        //    return Encoding.UTF8.GetString(data);
+        //}
 
         private static void Validate(Stream stream)
         {
