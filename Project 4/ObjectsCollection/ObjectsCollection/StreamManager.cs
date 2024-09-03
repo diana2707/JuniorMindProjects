@@ -34,8 +34,7 @@ namespace ObjectsCollection
 
             if (compress && !encrypt)
             {
-                using GZipStream gzipStream = new (stream, CompressionMode.Compress, true);
-                gzipStream.Write(data, 0, data.Length);
+                WriteCompressed();
             }
 
             if (!compress && encrypt)
@@ -52,6 +51,7 @@ namespace ObjectsCollection
             stream.Position = 0;
         }
 
+        
         public string ReadFromStream(bool decompress = false, bool decrypt = false)
         {
             stream.Position = 0;
@@ -140,11 +140,25 @@ namespace ObjectsCollection
 
         private void WriteCompressedAndEncrypted()
         {
-            using CryptoStream cryptoStream = new CryptoStream(stream, aes.CreateEncryptor(key, iv), CryptoStreamMode.Write, true);
-            using GZipStream gzipStream = new GZipStream(cryptoStream, CompressionMode.Compress, true);
-            gzipStream.Write(data, 0, data.Length);
+            using (CryptoStream cryptoStream = new CryptoStream(stream, aes.CreateEncryptor(key, iv), CryptoStreamMode.Write, true))
+            {
+                using GZipStream gzipStream = new GZipStream(cryptoStream, CompressionMode.Compress, true);
+                gzipStream.Write(data, 0, data.Length);
+            }
+
             stream.Position = 0;
         }
+
+        private void WriteCompressed()
+        {
+            using (GZipStream gzipStream = new GZipStream(stream, CompressionMode.Compress, true))
+            {
+                gzipStream.Write(data, 0, data.Length);
+            }
+
+            stream.Position = 0;
+        }
+
 
         //private byte[] ConvertStreamToBytes()
         //{
