@@ -39,8 +39,16 @@ namespace ObjectsCollection
             stream.Position = 0;
         }
 
-        public string ReadFromStream(bool compress = false, bool encrypt = false)
+        public string ReadFromStream(bool decompress = false, bool decrypt = false)
         {
+            if (decompress)
+            {
+                using MemoryStream tempStream = new ();
+                using GZipStream gzipStream = new GZipStream(stream, CompressionMode.Decompress, true);
+                gzipStream.CopyTo(tempStream);
+                return Encoding.UTF8.GetString(tempStream.ToArray());
+            }
+
             ValidateForReading(stream);
             stream.Position = 0;
 
