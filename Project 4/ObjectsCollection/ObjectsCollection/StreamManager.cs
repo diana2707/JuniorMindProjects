@@ -39,8 +39,7 @@ namespace ObjectsCollection
 
             if (!compress && encrypt)
             {
-                using CryptoStream cryptoStream = new CryptoStream(stream, aes.CreateEncryptor(key, iv), CryptoStreamMode.Write, true);
-                cryptoStream.Write(data, 0, data.Length);
+                WriteEncrypted();
             }
 
             if (!compress && !encrypt)
@@ -51,7 +50,6 @@ namespace ObjectsCollection
             stream.Position = 0;
         }
 
-        
         public string ReadFromStream(bool decompress = false, bool decrypt = false)
         {
             stream.Position = 0;
@@ -158,6 +156,17 @@ namespace ObjectsCollection
 
             stream.Position = 0;
         }
+
+        private void WriteEncrypted()
+        {
+            using (CryptoStream cryptoStream = new CryptoStream(stream, aes.CreateEncryptor(key, iv), CryptoStreamMode.Write, true))
+            {
+                cryptoStream.Write(data, 0, data.Length);
+            }
+
+            stream.Position = 0;
+        }
+
 
 
         //private byte[] ConvertStreamToBytes()
