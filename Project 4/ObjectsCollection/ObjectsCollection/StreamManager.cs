@@ -39,6 +39,16 @@ namespace ObjectsCollection
             stream.Position = 0;
         }
 
+        public string ReadFromStream(bool compress = false, bool encrypt = false)
+        {
+            ValidateForReading(stream);
+            stream.Position = 0;
+
+            using MemoryStream outputStream = new ();
+            stream.CopyTo(outputStream);
+            return Encoding.UTF8.GetString(outputStream.ToArray());
+        }
+
         //public void WriteToStream(string text, bool compress = false, bool encrypt = false)
         //{
         //    ValidateForWriting(text, stream);
