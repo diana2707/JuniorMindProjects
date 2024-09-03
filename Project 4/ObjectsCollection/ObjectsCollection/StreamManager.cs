@@ -63,19 +63,12 @@ namespace ObjectsCollection
 
             if (decrypt)
             {
-                using (MemoryStream tempStream = new ())
-                {
-                    using CryptoStream cryptoStream = new CryptoStream(stream, aes.CreateDecryptor(key, iv), CryptoStreamMode.Read, true);
-                    cryptoStream.CopyTo(tempStream);
-                    return Encoding.UTF8.GetString(tempStream.ToArray());
-                }
+                return ReadDecrypted();
             }
 
-            using (MemoryStream tempStream = new ())
-            {
-                stream.CopyTo(tempStream);
-                return Encoding.UTF8.GetString(tempStream.ToArray());
-            }
+            using MemoryStream outputStream = new MemoryStream();
+            stream.CopyTo(outputStream);
+            return Encoding.UTF8.GetString(outputStream.ToArray());
         }
 
         private static void Validate(Stream stream)
@@ -160,6 +153,15 @@ namespace ObjectsCollection
 
             gzipStream.CopyTo(outputStream);
             return Encoding.UTF8.GetString(outputStream.ToArray());
+        }
+
+        private string ReadDecrypted()
+        {
+            using MemoryStream tempStream = new MemoryStream();
+            using CryptoStream cryptoStream = new CryptoStream(stream, aes.CreateDecryptor(key, iv), CryptoStreamMode.Read, true);
+
+            cryptoStream.CopyTo(tempStream);
+            return Encoding.UTF8.GetString(tempStream.ToArray());
         }
 
 
