@@ -23,7 +23,7 @@ namespace ObjectsCollection
             iv = aes.IV;
         }
 
-        public void WriteToStream(string text, bool compress = false, bool leaveOpen = false)
+        public void WriteToStream(string text, bool compress = false, bool encrypt = false)
         {
             ValidateForWriting(text, stream);
 
@@ -31,11 +31,21 @@ namespace ObjectsCollection
 
             if (compress)
             {
-                using GZipStream gzipStream = new GZipStream(stream, CompressionMode.Compress, true);
+                using GZipStream gzipStream = new (stream, CompressionMode.Compress, true);
                 gzipStream.Write(data, 0, data.Length);
             }
 
-            stream.Write(data, 0, data.Length);
+            if (encrypt)
+            {
+                using CryptoStream cryptoStream = new (stream, aes.CreateEncryptor(key, iv), CryptoStreamMode.Write, true);
+                cryptoStream.Write(data, 0, data.Length);
+            }
+
+            if (!compress && !encrypt)
+            {
+                stream.Write(data, 0, data.Length);
+            }
+
             stream.Position = 0;
         }
 
@@ -43,10 +53,18 @@ namespace ObjectsCollection
         {
             if (decompress)
             {
-                using MemoryStream tempStream = new ();
-                using GZipStream gzipStream = new GZipStream(stream, CompressionMode.Decompress, true);
-                gzipStream.CopyTo(tempStream);
-                return Encoding.UTF8.GetString(tempStream.ToArray());
+                using MemoryStream decompressStream = new ();
+                using GZipStream gzipStream = new (stream, CompressionMode.Decompress, true);
+                gzipStream.CopyTo(decompressStream);
+                return Encoding.UTF8.GetString(decompressStream.ToArray());
+            }
+
+            if (decrypt)
+            {
+                using MemoryStream decryptStream = new ();
+                using CryptoStream cryptoStream = new (stream, aes.CreateDecryptor(key, iv), CryptoStreamMode.Read, true);
+                cryptoStream.CopyTo(decryptStream);
+                return Encoding.UTF8.GetString(decryptStream.ToArray());
             }
 
             ValidateForReading(stream);

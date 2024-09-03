@@ -85,53 +85,53 @@ namespace ObjectsCollection
             Assert.Equal(text, reader.ReadToEnd());
         }
 
-        //[Fact]
-        //public void ReadFromStreamShouldDecompressAndReadMemoryStreamWhenParameterIsNotNull()
-        //{
-        //    using Stream stream = new MemoryStream();
-        //    StreamManager streamManager = new StreamManager(stream);
-        //    const string text = "This is a text.";
-        //    streamManager.WriteToStream(text, true);
+        [Fact]
+        public void ReadFromStreamShouldDecompressAndReadMemoryStreamWhenParameterIsNotNull()
+        {
+            using Stream stream = new MemoryStream();
+            StreamManager streamManager = new StreamManager(stream);
+            const string text = "This is a text.";
+            streamManager.WriteToStream(text, true);
 
-        //    Assert.Equal(text, streamManager.ReadFromStream(true));
-        //}
+            Assert.Equal(text, streamManager.ReadFromStream(true));
+        }
 
-        //[Fact]
-        //public void ReadFromStreamShouldDecompressAndReadFileStreamWhenParameterIsNotNull()
-        //{
-        //    const string path = "C:\\Users\\Diana\\OneDrive\\Desktop\\my_file.txt";
-        //    using Stream fileStream = new FileStream(path, FileMode.Create);
-        //    StreamManager streamManager = new StreamManager(fileStream);
-        //    const string text = "This is a text.";
-        //    streamManager.WriteToStream(text, true);
+        [Fact]
+        public void ReadFromStreamShouldDecompressAndReadFileStreamWhenParameterIsNotNull()
+        {
+            const string path = "C:\\Users\\Diana\\OneDrive\\Desktop\\my_file.txt";
+            using Stream fileStream = new FileStream(path, FileMode.Create);
+            StreamManager streamManager = new StreamManager(fileStream);
+            const string text = "This is a text.";
+            streamManager.WriteToStream(text, true);
 
-        //    Assert.Equal(text, streamManager.ReadFromStream(true));
-        //}
+            Assert.Equal(text, streamManager.ReadFromStream(true));
+        }
 
-        //[Fact]
-        //public void WriteToStreamShouldWriteTextToAMemoryStreamAndEncriptWhenParameterIsNotNull()
-        //{
-        //    using Stream memoryStream = new MemoryStream();
-        //    StreamManager streamManager = new StreamManager(memoryStream);
-        //    const string text = "This is an example.";
+        [Fact]
+        public void WriteToStreamShouldWriteTextToAMemoryStreamAndEncriptWhenParameterIsNotNull()
+        {
+            using Stream memoryStream = new MemoryStream();
+            StreamManager streamManager = new StreamManager(memoryStream);
+            const string text = "This is an example.";
 
-        //    streamManager.WriteToStream(text, encrypt: true);
+            streamManager.WriteToStream(text, encrypt: true);
 
-        //    Assert.Equal(text, streamManager.ReadFromStream(decrypt: true));
-        //}
+            Assert.Equal(text, streamManager.ReadFromStream(decrypt: true));
+        }
 
-        //[Fact]
-        //public void WriteToStreamShouldWriteTextToAFileStreamAndEncriptWhenParameterIsNotNull()
-        //{
-        //    const string path = "C:\\Users\\Diana\\OneDrive\\Desktop\\my_file.txt";
-        //    using Stream fileStream = new FileStream(path, FileMode.Create);
-        //    StreamManager streamManager = new StreamManager(fileStream);
-        //    const string text = "This is an example.";
+        [Fact]
+        public void WriteToStreamShouldWriteTextToAFileStreamAndEncriptWhenParameterIsNotNull()
+        {
+            const string path = "C:\\Users\\Diana\\OneDrive\\Desktop\\my_file.txt";
+            using Stream fileStream = new FileStream(path, FileMode.Create);
+            StreamManager streamManager = new StreamManager(fileStream);
+            const string text = "This is an example.";
 
-        //    streamManager.WriteToStream(text, encrypt: true);
+            streamManager.WriteToStream(text, encrypt: true);
 
-        //    Assert.Equal(text, streamManager.ReadFromStream(decrypt: true));
-        //}
+            Assert.Equal(text, streamManager.ReadFromStream(decrypt: true));
+        }
 
         //[Fact]
         //public void ReadFromStreamShouldDecryptAndReadFileStreamWhenParameterIsNotNull()
