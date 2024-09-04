@@ -15,7 +15,6 @@ namespace ObjectsCollection
         public StreamManager(Stream stream)
         {
             this.stream = stream;
-            ValidateStream();
 
             aes = Aes.Create();
             key = aes.Key;
@@ -39,8 +38,7 @@ namespace ObjectsCollection
             }
 
             decoratedStream.Write(data, 0, data.Length);
-
-            Dispose(decoratedStream);
+            Flush(decoratedStream);
             stream.Position = 0;
         }
 
@@ -62,43 +60,20 @@ namespace ObjectsCollection
             }
 
             decoratedStream.CopyTo(outputStream);
-            Dispose(decoratedStream);
 
             return Encoding.UTF8.GetString(outputStream.ToArray());
         }
 
-        private static void Dispose(Stream decoratedStream)
+        private static void Flush(Stream decoratedStream)
         {
             if (decoratedStream is CryptoStream cryptoStream)
             {
-                cryptoStream.Dispose();
+                cryptoStream.FlushFinalBlock();
             }
 
             if (decoratedStream is GZipStream gzipStream)
             {
-                gzipStream.Dispose();
-            }
-        }
-
-        private void ValidateStream()
-        {
-            ArgumentNullException.ThrowIfNull(stream);
-
-            try
-            {
-                stream.Position = 0;
-            }
-            catch (ObjectDisposedException)
-            {
-                throw new ObjectDisposedException("Object was disposed");
-            }
-            catch (NotSupportedException)
-            {
-                throw new NotSupportedException("The stream is not seekable");
-            }
-            catch (IOException)
-            {
-                throw new IOException("The stream can not be managed correctly.");
+                gzipStream.Flush();
             }
         }
 

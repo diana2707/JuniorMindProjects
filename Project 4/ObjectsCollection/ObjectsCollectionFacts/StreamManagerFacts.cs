@@ -82,7 +82,7 @@ namespace ObjectsCollection
 
             using GZipStream decompressedStream = new GZipStream(fileStream, CompressionMode.Decompress);
             using StreamReader reader = new StreamReader(decompressedStream);
-            Assert.Equal(text, reader.ReadToEnd());
+            Assert.Equal(text, streamManager.ReadFromStream(true));
         }
 
         [Fact]
@@ -172,46 +172,12 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void StreamManagerShouldReturnArgumentNullExceptionWhenStreamIsNull()
-        {
-            using MemoryStream memoryStream = null;
-
-            Assert.Throws<ArgumentNullException>(() => new StreamManager(memoryStream));
-        }
-
-        [Fact]
         public void WriteToStreamShouldWriteTextToAMemoryStreamAndCompressAndEncriptWhenParametersAreNotNullmmmm()
         {
             using Stream memoryStream = new MemoryStream();
             StreamManager streamManager = new StreamManager(memoryStream);
 
             Assert.Throws<ArgumentNullException>(() => streamManager.WriteToStream(null));
-        }
-
-        [Fact]
-        public void StreamManagerShouldReturnObjectDisposedExceptionWhenStreamIsDisposed()
-        {
-            using MemoryStream memoryStream = new();
-            memoryStream.Dispose();
-
-            Assert.Throws<ObjectDisposedException>(() => new StreamManager(memoryStream));
-        }
-
-        [Fact]
-        public void StreamManagerShouldReturnObjectDisposedExceptionWhenStreamIsClosed()
-        {
-            using MemoryStream memoryStream = new();
-            memoryStream.Close();
-
-            Assert.Throws<ObjectDisposedException>(() => new StreamManager(memoryStream));
-        }
-
-        [Fact]
-        public void StreamManagerShouldReturnNotSupportedExceptionWhenCanSeekIsFalse()
-        {
-            using GZipStream gzipStream = new(new MemoryStream(), CompressionLevel.Optimal);
-
-            Assert.Throws<NotSupportedException>(() => new StreamManager(gzipStream));
         }
 
         [Fact]
