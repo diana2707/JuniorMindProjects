@@ -24,7 +24,7 @@ namespace ObjectsCollection
         public void WriteToStream(string text, bool compress = false, bool encrypt = false)
         {
             ValidateForWriting(text);
-            data = Encoding.UTF8.GetBytes(text);
+
             Stream decoratedStream = stream;
 
             if (compress)
@@ -37,7 +37,10 @@ namespace ObjectsCollection
                 decoratedStream = new CryptoStream(decoratedStream, aes.CreateEncryptor(key, iv), CryptoStreamMode.Write, true);
             }
 
-            decoratedStream.Write(data, 0, data.Length);
+            StreamWriter writer = new StreamWriter(decoratedStream);
+            writer.Write(text);
+            writer.Flush();
+
             Flush(decoratedStream);
             stream.Position = 0;
         }
