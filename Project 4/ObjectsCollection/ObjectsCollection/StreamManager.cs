@@ -39,10 +39,13 @@ namespace ObjectsCollection
             }
 
             decoratedStream.Write(data, 0, data.Length);
+            Dispose(decoratedStream);
+            stream.Position = 0;
         }
 
         public string ReadFromStream(bool decompress = false, bool decrypt = false)
         {
+            stream.Position = 0;
             Stream decoratedStream = stream;
             MemoryStream outputStream = new MemoryStream();
 
@@ -57,7 +60,21 @@ namespace ObjectsCollection
             }
 
             decoratedStream.CopyTo(outputStream);
+            Dispose(decoratedStream);
             return Encoding.UTF8.GetString(outputStream.ToArray());
+        }
+
+        private static void Dispose(Stream decoratedStream)
+        {
+            if (decoratedStream is CryptoStream cryptoStream)
+            {
+                cryptoStream.Dispose();
+            }
+
+            if (decoratedStream is GZipStream gzipStream)
+            {
+                gzipStream.Dispose();
+            }
         }
 
             //public void WriteToStream(string text, bool compress = false, bool encrypt = false)
