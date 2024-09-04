@@ -14,9 +14,8 @@ namespace ObjectsCollection
 
         public StreamManager(Stream stream)
         {
-            Validate(stream);
-
             this.stream = stream;
+            ValidateStream();
 
             aes = Aes.Create();
             key = aes.Key;
@@ -25,6 +24,7 @@ namespace ObjectsCollection
 
         public void WriteToStream(string text, bool compress = false, bool encrypt = false)
         {
+            ValidateForWriting(text);
             data = Encoding.UTF8.GetBytes(text);
             Stream decoratedStream = stream;
 
@@ -35,16 +35,18 @@ namespace ObjectsCollection
 
             if (encrypt)
             {
-                decoratedStream = new CryptoStream(decoratedStream, aes.CreateEncryptor(), CryptoStreamMode.Write, true);
+                decoratedStream = new CryptoStream(decoratedStream, aes.CreateEncryptor(key, iv), CryptoStreamMode.Write, true);
             }
 
             decoratedStream.Write(data, 0, data.Length);
+
             Dispose(decoratedStream);
             stream.Position = 0;
         }
 
         public string ReadFromStream(bool decompress = false, bool decrypt = false)
         {
+            ValidateForReading();
             stream.Position = 0;
             Stream decoratedStream = stream;
             MemoryStream outputStream = new MemoryStream();
@@ -56,11 +58,12 @@ namespace ObjectsCollection
 
             if (decrypt)
             {
-                decoratedStream = new CryptoStream(decoratedStream, aes.CreateDecryptor(), CryptoStreamMode.Read, true);
+                decoratedStream = new CryptoStream(decoratedStream, aes.CreateDecryptor(key, iv), CryptoStreamMode.Read, true);
             }
 
             decoratedStream.CopyTo(outputStream);
             Dispose(decoratedStream);
+
             return Encoding.UTF8.GetString(outputStream.ToArray());
         }
 
@@ -77,55 +80,7 @@ namespace ObjectsCollection
             }
         }
 
-            //public void WriteToStream(string text, bool compress = false, bool encrypt = false)
-            //{
-            //    data = Encoding.UTF8.GetBytes(text);
-
-            //    if (compress && encrypt)
-            //    {
-            //        WriteCompressedAndEncryptedData();
-            //    }
-
-            //    if (compress && !encrypt)
-            //    {
-            //        WriteCompressedData();
-            //    }
-
-            //    if (encrypt && !compress)
-            //    {
-            //        WriteEncryptedData();
-            //    }
-
-            //    if (!compress && !encrypt)
-            //    {
-            //        WriteData();
-            //    }
-
-            //    stream.Position = 0;
-            //}
-
-            //    public string ReadFromStream(bool decompress = false, bool decrypt = false)
-            //{
-            //    stream.Position = 0;
-            //    if (decompress && decrypt)
-            //    {
-            //        return ReadDecompressedAndDecryptedData();
-            //    }
-
-            //    if (decompress)
-            //    {
-            //        return ReadDecompressedData();
-            //    }
-
-            //    if (decrypt)
-            //    {
-            //        return ReadDecryptedData();
-            //    }
-
-            //    return ReadData();
-            //}
-
-            private static void Validate(Stream stream)
+        private void ValidateStream()
         {
             ArgumentNullException.ThrowIfNull(stream);
 
@@ -147,7 +102,7 @@ namespace ObjectsCollection
             }
         }
 
-        private static void ValidateForWriting(string text, Stream stream)
+        private void ValidateForWriting(string text)
         {
             ArgumentNullException.ThrowIfNull(text);
 
@@ -159,7 +114,7 @@ namespace ObjectsCollection
             throw new NotSupportedException("Stream does not support reading.");
         }
 
-        private static void ValidateForReading(Stream stream)
+        private void ValidateForReading()
         {
             if (stream.CanRead)
             {
@@ -167,67 +122,6 @@ namespace ObjectsCollection
             }
 
             throw new NotSupportedException("Stream does not support reading.");
-        }
-
-        private void WriteCompressedAndEncryptedData()
-        {
-            using CryptoStream cryptoStream = new CryptoStream(stream, aes.CreateEncryptor(key, iv), CryptoStreamMode.Write, true);
-            using GZipStream gzipStream = new GZipStream(cryptoStream, CompressionMode.Compress, true);
-            gzipStream.Write(data, 0, data.Length);
-        }
-
-        private void WriteCompressedData()
-        {
-            using GZipStream gzipStream = new GZipStream(stream, CompressionMode.Compress, true);
-            gzipStream.Write(data, 0, data.Length);
-        }
-
-        private void WriteEncryptedData()
-        {
-            using CryptoStream cryptoStream = new CryptoStream(stream, aes.CreateEncryptor(key, iv), CryptoStreamMode.Write, true);
-            cryptoStream.Write(data, 0, data.Length);
-        }
-
-        private void WriteData()
-        {
-            stream.Write(data, 0, data.Length);
-        }
-
-        private string ReadDecompressedAndDecryptedData()
-        {
-            using MemoryStream outputStream = new MemoryStream();
-
-            using CryptoStream cryptoStream = new CryptoStream(stream, aes.CreateDecryptor(key, iv), CryptoStreamMode.Read, true);
-            using GZipStream gzipStream = new GZipStream(cryptoStream, CompressionMode.Decompress, true);
-
-            gzipStream.CopyTo(outputStream);
-            data = outputStream.ToArray();
-            return Encoding.UTF8.GetString(outputStream.ToArray());
-        }
-
-        private string ReadDecompressedData()
-        {
-            using MemoryStream outputStream = new MemoryStream();
-            using GZipStream gzipStream = new GZipStream(stream, CompressionMode.Decompress, true);
-
-            gzipStream.CopyTo(outputStream);
-            return Encoding.UTF8.GetString(outputStream.ToArray());
-        }
-
-        private string ReadDecryptedData()
-        {
-            using MemoryStream tempStream = new MemoryStream();
-            using CryptoStream cryptoStream = new CryptoStream(stream, aes.CreateDecryptor(key, iv), CryptoStreamMode.Read, true);
-
-            cryptoStream.CopyTo(tempStream);
-            return Encoding.UTF8.GetString(tempStream.ToArray());
-        }
-
-        private string ReadData()
-        {
-            using MemoryStream outputStream = new MemoryStream();
-            stream.CopyTo(outputStream);
-            return Encoding.UTF8.GetString(outputStream.ToArray());
         }
     }
 }
