@@ -26,31 +26,49 @@ namespace ObjectsCollection
         public void WriteToStream(string text, bool compress = false, bool encrypt = false)
         {
             data = Encoding.UTF8.GetBytes(text);
+            Stream decoratedStream = stream;
 
-            if (compress && encrypt)
+            if (compress)
             {
-                WriteCompressedAndEncryptedData();
+                decoratedStream = new GZipStream(decoratedStream, CompressionMode.Compress, true);
             }
 
-            if (compress && !encrypt)
+            if (encrypt)
             {
-                WriteCompressedData();
+                decoratedStream = new CryptoStream(decoratedStream, aes.CreateEncryptor(), CryptoStreamMode.Write, true);
             }
 
-            if (encrypt && !compress)
-            {
-                WriteEncryptedData();
-            }
-
-            if (!compress && !encrypt)
-            {
-                WriteData();
-            }
-
-            stream.Position = 0;
+            decoratedStream.Write(data, 0, data.Length);
         }
 
-        public string ReadFromStream(bool decompress = false, bool decrypt = false)
+            //public void WriteToStream(string text, bool compress = false, bool encrypt = false)
+            //{
+            //    data = Encoding.UTF8.GetBytes(text);
+
+            //    if (compress && encrypt)
+            //    {
+            //        WriteCompressedAndEncryptedData();
+            //    }
+
+            //    if (compress && !encrypt)
+            //    {
+            //        WriteCompressedData();
+            //    }
+
+            //    if (encrypt && !compress)
+            //    {
+            //        WriteEncryptedData();
+            //    }
+
+            //    if (!compress && !encrypt)
+            //    {
+            //        WriteData();
+            //    }
+
+            //    stream.Position = 0;
+            //}
+
+            public string ReadFromStream(bool decompress = false, bool decrypt = false)
         {
             stream.Position = 0;
             if (decompress && decrypt)
