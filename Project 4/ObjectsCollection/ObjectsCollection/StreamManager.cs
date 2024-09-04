@@ -41,6 +41,25 @@ namespace ObjectsCollection
             decoratedStream.Write(data, 0, data.Length);
         }
 
+        public string ReadFromStream(bool decompress = false, bool decrypt = false)
+        {
+            Stream decoratedStream = stream;
+            MemoryStream outputStream = new MemoryStream();
+
+            if (decompress)
+            {
+                decoratedStream = new GZipStream(decoratedStream, CompressionMode.Decompress, true);
+            }
+
+            if (decrypt)
+            {
+                decoratedStream = new CryptoStream(decoratedStream, aes.CreateDecryptor(), CryptoStreamMode.Read, true);
+            }
+
+            decoratedStream.CopyTo(outputStream);
+            return Encoding.UTF8.GetString(outputStream.ToArray());
+        }
+
             //public void WriteToStream(string text, bool compress = false, bool encrypt = false)
             //{
             //    data = Encoding.UTF8.GetBytes(text);
@@ -68,28 +87,28 @@ namespace ObjectsCollection
             //    stream.Position = 0;
             //}
 
-            public string ReadFromStream(bool decompress = false, bool decrypt = false)
-        {
-            stream.Position = 0;
-            if (decompress && decrypt)
-            {
-                return ReadDecompressedAndDecryptedData();
-            }
+            //    public string ReadFromStream(bool decompress = false, bool decrypt = false)
+            //{
+            //    stream.Position = 0;
+            //    if (decompress && decrypt)
+            //    {
+            //        return ReadDecompressedAndDecryptedData();
+            //    }
 
-            if (decompress)
-            {
-                return ReadDecompressedData();
-            }
+            //    if (decompress)
+            //    {
+            //        return ReadDecompressedData();
+            //    }
 
-            if (decrypt)
-            {
-                return ReadDecryptedData();
-            }
+            //    if (decrypt)
+            //    {
+            //        return ReadDecryptedData();
+            //    }
 
-            return ReadData();
-        }
+            //    return ReadData();
+            //}
 
-        private static void Validate(Stream stream)
+            private static void Validate(Stream stream)
         {
             ArgumentNullException.ThrowIfNull(stream);
 
