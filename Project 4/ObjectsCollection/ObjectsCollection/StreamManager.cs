@@ -1,6 +1,5 @@
 ﻿using System.IO.Compression;
 using System.Security.Cryptography;
-using System.Text;
 
 namespace ObjectsCollection
 {
@@ -10,7 +9,6 @@ namespace ObjectsCollection
         readonly Aes aes;
         readonly byte[] key;
         readonly byte[] iv;
-        private byte[] data;
 
         public StreamManager(Stream stream)
         {
@@ -50,7 +48,6 @@ namespace ObjectsCollection
             ValidateForReading();
             stream.Position = 0;
             Stream decoratedStream = stream;
-            MemoryStream outputStream = new MemoryStream();
 
             if (decompress)
             {
@@ -62,9 +59,8 @@ namespace ObjectsCollection
                 decoratedStream = new CryptoStream(decoratedStream, aes.CreateDecryptor(key, iv), CryptoStreamMode.Read, true);
             }
 
-            decoratedStream.CopyTo(outputStream);
-
-            return Encoding.UTF8.GetString(outputStream.ToArray());
+            StreamReader reader = new StreamReader(decoratedStream);
+            return reader.ReadToEnd();
         }
 
         private static void Flush(Stream decoratedStream)
