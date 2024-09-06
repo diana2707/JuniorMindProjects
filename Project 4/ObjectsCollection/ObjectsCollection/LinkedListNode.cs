@@ -4,8 +4,11 @@ namespace ObjectsCollection
 {
     internal class LinkedListNode<T>
     {
-        public LinkedListNode()
+        public LinkedListNode(T value)
         {
+            Value = value;
         }
+
+        public T Value { get; set; }
     }
 }
