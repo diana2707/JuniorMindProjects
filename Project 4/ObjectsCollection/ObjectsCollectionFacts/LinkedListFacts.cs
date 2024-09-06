@@ -24,5 +24,12 @@ namespace ObjectsCollection
             var list = new LinkedList<int>();
             Assert.False(list.IsReadOnly);
         }
+
+        [Fact]
+        public void FirstShouldReturnNullWhenListIsEmpty()
+        {
+            var list = new LinkedList<int>();
+            Assert.Null(list.First);
+        }
     }
 }
