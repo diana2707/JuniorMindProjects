@@ -31,5 +31,12 @@ namespace ObjectsCollection
             var list = new LinkedList<int>();
             Assert.Null(list.First);
         }
+
+        [Fact]
+        public void LastShouldReturnNullWhenListIsEmpty()
+        {
+            var list = new LinkedList<int>();
+            Assert.Null(list.Last);
+        }
     }
 }
