@@ -6,6 +6,9 @@ namespace ObjectsCollection
     {
         public LinkedList()
         {
+            Count = 0;
         }
+
+        public int Count { get;  }
     }
 }

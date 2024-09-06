@@ -10,5 +10,12 @@ namespace ObjectsCollection
             var list = new LinkedList<int>();
             Assert.IsType<LinkedList<int>>(list);
         }
+
+        [Fact]
+        public void CountShouldReturn0WhenListIsEmpty()
+        {
+            var list = new LinkedList<int>();
+            Assert.Equal(0, list.Count);
+        }
     }
 }
