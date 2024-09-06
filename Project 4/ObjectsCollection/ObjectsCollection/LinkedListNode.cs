@@ -16,5 +16,6 @@ namespace ObjectsCollection
         public LinkedListNode<T>? Next { get; }
 
         public LinkedListNode<T>? Previous { get; }
+
     }
 }
