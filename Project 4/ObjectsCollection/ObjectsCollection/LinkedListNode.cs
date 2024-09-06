@@ -8,10 +8,13 @@ namespace ObjectsCollection
         {
             Value = value;
             Next = null;
+            Previous = null;
         }
 
         public T Value { get; set; }
 
         public LinkedListNode<T>? Next { get; }
+
+        public LinkedListNode<T>? Previous { get; }
     }
 }

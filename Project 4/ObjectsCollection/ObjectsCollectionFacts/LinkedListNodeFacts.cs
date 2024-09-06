@@ -24,5 +24,12 @@ namespace ObjectsCollection
             var node = new LinkedListNode<int>(5);
             Assert.Null(node.Next);
         }
+
+        [Fact]
+        public void PreviousShouldReturnNullWhenIsNoFollowingNode()
+        {
+            var node = new LinkedListNode<int>(5);
+            Assert.Null(node.Previous);
+        }
     }
 }
