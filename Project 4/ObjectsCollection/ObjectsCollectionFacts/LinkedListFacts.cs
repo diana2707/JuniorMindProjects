@@ -17,5 +17,12 @@ namespace ObjectsCollection
             var list = new LinkedList<int>();
             Assert.Equal(0, list.Count);
         }
+
+        [Fact]
+        public void IsreadOnlyShouldReturnFalse()
+        {
+            var list = new LinkedList<int>();
+            Assert.False(list.IsReadOnly);
+        }
     }
 }
