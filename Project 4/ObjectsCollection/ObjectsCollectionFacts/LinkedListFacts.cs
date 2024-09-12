@@ -74,5 +74,18 @@ namespace ObjectsCollection
             Assert.Null(list.Last);
             Assert.Equal(0, list.Count);
         }
+
+        [Fact]
+        public void ContainsShouldReturnTrueIfListContainsValue()
+        {
+            var list = new LinkedList<int>();
+            var first = new LinkedListNode<int>(1);
+            var second = new LinkedListNode<int>(2);
+            list.Add(first);
+            list.Add(second);
+
+            Assert.True(list.Contains(2));
+            Assert.False(list.Contains(3));
+        }
     }
 }

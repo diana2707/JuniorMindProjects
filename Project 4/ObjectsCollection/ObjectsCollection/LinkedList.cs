@@ -9,8 +9,8 @@ namespace ObjectsCollection
         public LinkedList()
         {
             sentinel = new LinkedListNode<T>(default);
-            sentinel.next = sentinel;
-            sentinel.previous = sentinel;
+            sentinel.Next = sentinel;
+            sentinel.Previous = sentinel;
 
             Count = 0;
             IsReadOnly = false;
@@ -18,9 +18,9 @@ namespace ObjectsCollection
 
         public int Count { get; private set; }
 
-        public LinkedListNode<T>? First => IsEmpty() ? null : sentinel.next;
+        public LinkedListNode<T>? First => IsEmpty() ? null : sentinel.Next;
 
-        public LinkedListNode<T>? Last => IsEmpty() ? null : sentinel.previous;
+        public LinkedListNode<T>? Last => IsEmpty() ? null : sentinel.Previous;
 
         public bool IsReadOnly { get; }
 
@@ -28,32 +28,54 @@ namespace ObjectsCollection
         {
             if (IsEmpty())
             {
-                sentinel.next = node;
-                node.previous = sentinel;
+                sentinel.Next = node;
+                node.Previous = sentinel;
             }
             else
             {
-                Last.next = node;
-                node.previous = Last;
+                Last.Next = node;
+                node.Previous = Last;
             }
 
-            sentinel.previous = node;
-            node.next = sentinel;
+            sentinel.Previous = node;
+            node.Next = sentinel;
 
             Count++;
         }
 
         public void Clear()
         {
-            sentinel.next = sentinel;
-            sentinel.previous = sentinel;
+            sentinel.Next = sentinel;
+            sentinel.Previous = sentinel;
 
             Count = 0;
         }
 
+        public bool Contains(T value)
+        {
+            if (IsEmpty() || value == null)
+            {
+                return false;
+            }
+
+            LinkedListNode<T> current = First;
+
+            while (current != sentinel)
+            {
+                if (current.Value.Equals(value))
+                {
+                    return true;
+                }
+
+                current = current.Next;
+            }
+
+            return false;
+        }
+
         private bool IsEmpty()
         {
-            return sentinel.next == sentinel;
+            return sentinel.Next == sentinel;
         }
     }
 }
