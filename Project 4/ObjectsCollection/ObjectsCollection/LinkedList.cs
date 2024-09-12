@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 
 namespace ObjectsCollection
 {
@@ -53,7 +54,7 @@ namespace ObjectsCollection
 
         public bool Contains(T value)
         {
-            if (IsEmpty() || value == null)
+            if (IsEmpty())
             {
                 return false;
             }
@@ -71,6 +72,20 @@ namespace ObjectsCollection
             }
 
             return false;
+        }
+
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            LinkedListNode<T> current = First;
+
+            for (int i = arrayIndex; i < Count + arrayIndex; i++)
+            {
+                if (current != sentinel)
+                {
+                    array[i] = current.Value;
+                    current = current.Next;
+                }
+            }
         }
 
         private bool IsEmpty()

@@ -87,5 +87,26 @@ namespace ObjectsCollection
             Assert.True(list.Contains(2));
             Assert.False(list.Contains(3));
         }
+
+        [Fact]
+        public void CopyTpShouldCopyNodesValuesToArray()
+        {
+            var list = new LinkedList<int>();
+            var array = new int[4];
+            var first = new LinkedListNode<int>(1);
+            var second = new LinkedListNode<int>(2);
+            var third = new LinkedListNode<int>(3);
+
+            list.Add(first);
+            list.Add(second);
+            list.Add(third);
+
+            list.CopyTo(array, 1);
+
+            Assert.Equal(0, array[0]);
+            Assert.Equal(1, array[1]);
+            Assert.Equal(2, array[2]);
+            Assert.Equal(3, array[3]);
+        }
     }
 }
