@@ -40,12 +40,24 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void AddShouldAddNodeToList()
+        public void AddShouldAddFirstNodeToList()
         {
             var list = new LinkedList<int>();
             var node = new LinkedListNode<int>(1);
             list.Add(node);
             Assert.Equal(node, list.First);
+        }
+
+        [Fact]
+        public void AddShouldAddNodesToList()
+        {
+            var list = new LinkedList<int>();
+            var first = new LinkedListNode<int>(1);
+            var second = new LinkedListNode<int>(2);
+            list.Add(first);
+            list.Add(second);
+            Assert.Equal(first, list.First);
+            Assert.Equal(second, list.Last);
         }
     }
 }

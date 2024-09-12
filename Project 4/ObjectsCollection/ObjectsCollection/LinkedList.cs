@@ -29,9 +29,18 @@ namespace ObjectsCollection
 
         public void Add(LinkedListNode<T> node)
         {
-            sentinel.next = node;
+            if (IsEmpty())
+            {
+                sentinel.next = node;
+                node.previous = sentinel;
+            }
+            else
+            {
+                Last.next = node;
+                node.previous = Last;
+            }
+
             sentinel.previous = node;
-            node.previous = sentinel;
             node.next = sentinel;
         }
 
