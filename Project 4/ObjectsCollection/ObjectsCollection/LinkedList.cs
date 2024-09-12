@@ -12,14 +12,11 @@ namespace ObjectsCollection
             sentinel.next = sentinel;
             sentinel.previous = sentinel;
 
-            //sentinel.next = First;
-            //sentinel.previous = Last;
-
             Count = 0;
             IsReadOnly = false;
         }
 
-        public int Count { get;  }
+        public int Count { get; private set; }
 
         public LinkedListNode<T>? First => IsEmpty() ? null : sentinel.next;
 
@@ -42,6 +39,16 @@ namespace ObjectsCollection
 
             sentinel.previous = node;
             node.next = sentinel;
+
+            Count++;
+        }
+
+        public void Clear()
+        {
+            sentinel.next = sentinel;
+            sentinel.previous = sentinel;
+
+            Count = 0;
         }
 
         private bool IsEmpty()

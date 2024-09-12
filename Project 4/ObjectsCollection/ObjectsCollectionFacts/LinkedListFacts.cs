@@ -58,6 +58,21 @@ namespace ObjectsCollection
             list.Add(second);
             Assert.Equal(first, list.First);
             Assert.Equal(second, list.Last);
+            Assert.Equal(2, list.Count);
+        }
+
+        [Fact]
+        public void ClearShouldSetCount0AndFirstAndLastToNull()
+        {
+            var list = new LinkedList<int>();
+            var first = new LinkedListNode<int>(1);
+            var second = new LinkedListNode<int>(2);
+            list.Add(first);
+            list.Add(second);
+            list.Clear();
+            Assert.Null(list.First);
+            Assert.Null(list.Last);
+            Assert.Equal(0, list.Count);
         }
     }
 }
