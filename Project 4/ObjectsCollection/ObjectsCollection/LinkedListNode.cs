@@ -4,11 +4,14 @@ namespace ObjectsCollection
 {
     internal class LinkedListNode<T>
     {
+        internal LinkedListNode<T>? next;
+        internal LinkedListNode<T>? previous;
+
         public LinkedListNode(T value)
         {
             Value = value;
-            Next = null;
-            Previous = null;
+            next = Next;
+            previous = Previous;
         }
 
         public T Value { get; set; }
@@ -16,6 +19,5 @@ namespace ObjectsCollection
         public LinkedListNode<T>? Next { get; }
 
         public LinkedListNode<T>? Previous { get; }
-
     }
 }

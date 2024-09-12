@@ -4,20 +4,40 @@ namespace ObjectsCollection
 {
     internal class LinkedList<T>
     {
+        readonly LinkedListNode<T> sentinel;
+
         public LinkedList()
         {
+            sentinel = new LinkedListNode<T>(default);
+            sentinel.next = sentinel;
+            sentinel.previous = sentinel;
+
+            //sentinel.next = First;
+            //sentinel.previous = Last;
+
             Count = 0;
-            First = null;
-            Last = null;
             IsReadOnly = false;
         }
 
         public int Count { get;  }
 
-        public LinkedListNode<T>? First { get; }
+        public LinkedListNode<T>? First => IsEmpty() ? null : sentinel.next;
 
-        public LinkedListNode<T>? Last { get; }
+        public LinkedListNode<T>? Last => IsEmpty() ? null : sentinel.previous;
 
         public bool IsReadOnly { get; }
+
+        public void Add(LinkedListNode<T> node)
+        {
+            sentinel.next = node;
+            sentinel.previous = node;
+            node.previous = sentinel;
+            node.next = sentinel;
+        }
+
+        private bool IsEmpty()
+        {
+            return sentinel.next == sentinel;
+        }
     }
 }

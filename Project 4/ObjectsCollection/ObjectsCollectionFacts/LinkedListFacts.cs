@@ -38,5 +38,14 @@ namespace ObjectsCollection
             var list = new LinkedList<int>();
             Assert.Null(list.Last);
         }
+
+        [Fact]
+        public void AddShouldAddNodeToList()
+        {
+            var list = new LinkedList<int>();
+            var node = new LinkedListNode<int>(1);
+            list.Add(node);
+            Assert.Equal(node, list.First);
+        }
     }
 }
