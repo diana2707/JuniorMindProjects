@@ -97,8 +97,7 @@ namespace ObjectsCollection
         {
             var list = new LinkedList<int>() { 1, 2, 3 };
 
-            list.Remove(3);
-
+            Assert.True(list.Remove(3));
             Assert.Equal(1, list.First.Value);
             Assert.Equal(2, list.Last.Value);
         }

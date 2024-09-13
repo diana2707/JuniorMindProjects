@@ -88,19 +88,24 @@ namespace ObjectsCollection
             }
         }
 
-        public void Remove(T value)
+        public bool Remove(T value)
         {
+            bool isRemoved = false;
             LinkedListNode<T> current = First;
 
             while (current != sentinel)
             {
                 if (current.Value.Equals(value))
                 {
-                    current.Previous = current.Next;
+                    current.Previous.Next = current.Next;
+                    current.Next.Previous = current.Previous;
+                    isRemoved = true;
                 }
 
                 current = current.Next;
             }
+
+            return isRemoved;
         }
 
         public IEnumerator<T> GetEnumerator()
