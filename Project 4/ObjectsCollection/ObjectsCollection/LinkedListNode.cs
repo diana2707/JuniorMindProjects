@@ -2,9 +2,8 @@
 
 namespace ObjectsCollection
 {
-    internal class LinkedListNode<T>
+    public class LinkedListNode<T>
     {
-
         public LinkedListNode(T value)
         {
             Value = value;

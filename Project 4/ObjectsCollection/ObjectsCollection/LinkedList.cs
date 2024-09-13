@@ -1,9 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System.Collections;
 
 namespace ObjectsCollection
 {
-    internal class LinkedList<T>
+    public class LinkedList<T> : IEnumerable<T>
     {
         readonly LinkedListNode<T> sentinel;
 
@@ -52,7 +51,7 @@ namespace ObjectsCollection
             Count = 0;
         }
 
-        public bool Contains(T value)
+        public bool Contains(T item)
         {
             if (IsEmpty())
             {
@@ -63,7 +62,7 @@ namespace ObjectsCollection
 
             while (current != sentinel)
             {
-                if (current.Value.Equals(value))
+                if (current.Value.Equals(item))
                 {
                     return true;
                 }
@@ -102,6 +101,28 @@ namespace ObjectsCollection
                 current = current.Next;
             }
         }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            LinkedListNode<T> current = First;
+
+            while (current != sentinel)
+            {
+                yield return current.Value;
+
+                current = current.Next;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        //IEnumerator IEnumerable.GetEnumerator()
+        //{
+        //    return GetEnumerator();
+        //}
 
         private bool IsEmpty()
         {

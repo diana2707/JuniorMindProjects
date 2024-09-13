@@ -113,7 +113,6 @@ namespace ObjectsCollection
         public void RemoveShouldRemoveNodeFromList()
         {
             var list = new LinkedList<int>();
-            var array = new int[4];
             var first = new LinkedListNode<int>(1);
             var second = new LinkedListNode<int>(2);
             var third = new LinkedListNode<int>(3);
@@ -126,6 +125,26 @@ namespace ObjectsCollection
 
             Assert.Equal(first, list.First);
             Assert.Equal(third, list.Last);
+        }
+
+        [Fact]
+        public void ShouldAllowEnumeration()
+        {
+            var list = new LinkedList<int>();
+            var first = new LinkedListNode<int>(1);
+            var second = new LinkedListNode<int>(2);
+            var third = new LinkedListNode<int>(3);
+
+            list.Add(first);
+            list.Add(second);
+            list.Add(third);
+
+            LinkedListNode<int> current = list.First;
+            foreach (var item in list)
+            {
+                Assert.Equal(current.Value, item);
+                current = current.Next;
+            }
         }
     }
 }
