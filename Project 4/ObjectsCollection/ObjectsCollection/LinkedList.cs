@@ -90,17 +90,7 @@ namespace ObjectsCollection
 
             LinkedListNode<T> current = Last;
 
-            while (current != sentinel)
-            {
-                if (current.Value.Equals(item))
-                {
-                    return current;
-                }
-
-                current = current.Previous;
-            }
-
-            return null;
+            return Search(item, Last);
         }
 
         public bool Remove(T item)
