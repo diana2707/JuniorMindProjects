@@ -88,6 +88,21 @@ namespace ObjectsCollection
             }
         }
 
+        public void Remove(T value)
+        {
+            LinkedListNode<T> current = First;
+
+            while (current != sentinel)
+            {
+                if (current.Value.Equals(value))
+                {
+                    current.Previous = current.Next;
+                }
+
+                current = current.Next;
+            }
+        }
+
         private bool IsEmpty()
         {
             return sentinel.Next == sentinel;

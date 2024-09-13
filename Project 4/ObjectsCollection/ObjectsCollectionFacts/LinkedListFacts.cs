@@ -108,5 +108,24 @@ namespace ObjectsCollection
             Assert.Equal(2, array[2]);
             Assert.Equal(3, array[3]);
         }
+
+        [Fact]
+        public void RemoveShouldRemoveNodeFromList()
+        {
+            var list = new LinkedList<int>();
+            var array = new int[4];
+            var first = new LinkedListNode<int>(1);
+            var second = new LinkedListNode<int>(2);
+            var third = new LinkedListNode<int>(3);
+
+            list.Add(first);
+            list.Add(second);
+            list.Add(third);
+
+            list.Remove(2);
+
+            Assert.Equal(first, list.First);
+            Assert.Equal(third, list.Last);
+        }
     }
 }
