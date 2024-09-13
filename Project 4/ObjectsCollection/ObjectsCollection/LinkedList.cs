@@ -88,6 +88,28 @@ namespace ObjectsCollection
             }
         }
 
+        public LinkedListNode<T> Find(T item)
+        {
+            if (IsEmpty())
+            {
+                return null;
+            }
+
+            LinkedListNode<T> current = First;
+
+            while (current != sentinel)
+            {
+                if (current.Value.Equals(item))
+                {
+                    return current;
+                }
+
+                current = current.Next;
+            }
+
+            return null;
+        }
+
         public bool Remove(T item)
         {
             bool isRemoved = false;

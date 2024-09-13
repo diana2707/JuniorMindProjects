@@ -50,7 +50,9 @@ namespace ObjectsCollection
         [Fact]
         public void AddShouldAddNodesToList()
         {
-            var list = new LinkedList<int>() { 1, 2 };
+            var list = new LinkedList<int>();
+            list.Add(1);
+            list.Add(2);
 
             Assert.Equal(1, list.First.Value);
             Assert.Equal(2, list.Last.Value);
@@ -93,13 +95,21 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void RemoveShouldRemoveNodeFromList()
+        public void RemoveShouldRemoveNodeFromListAndReturnTrue()
         {
             var list = new LinkedList<int>() { 1, 2, 3 };
 
             Assert.True(list.Remove(3));
             Assert.Equal(1, list.First.Value);
             Assert.Equal(2, list.Last.Value);
+        }
+
+        [Fact]
+        public void RemoveShouldNotRemoveNodeFromListAndReturnFalseIfValueIsMissing()
+        {
+            var list = new LinkedList<int>() { 1, 2, 3 };
+
+            Assert.False(list.Remove(5));
         }
 
         [Fact]
@@ -113,6 +123,35 @@ namespace ObjectsCollection
                 Assert.Equal(current.Value, item);
                 current = current.Next;
             }
+        }
+
+        [Fact]
+        public void FindShouldReturnFirstNodeThatContainsSpecificValue()
+        {
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
+            LinkedListNode<int> node = list.Find(2);
+
+            Assert.Equal(2, node.Value);
+            Assert.Equal(1, node.Previous.Value);
+            Assert.Equal(3, node.Next.Value);
+        }
+
+        [Fact]
+        public void FindShouldReturnNullWhenListIsEmpty()
+        {
+            var list = new LinkedList<int>();
+            LinkedListNode<int> node = list.Find(2);
+
+            Assert.Null(node);
+        }
+
+        [Fact]
+        public void FindShouldReturnNullWhenListDoNotContainValue()
+        {
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
+            LinkedListNode<int> node = list.Find(5);
+
+            Assert.Null(node);
         }
     }
 }
