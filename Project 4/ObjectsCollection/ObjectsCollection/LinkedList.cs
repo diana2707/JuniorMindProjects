@@ -54,24 +54,7 @@ namespace ObjectsCollection
 
         public bool Contains(T item)
         {
-            if (IsEmpty())
-            {
-                return false;
-            }
-
-            LinkedListNode<T> current = First;
-
-            while (current != sentinel)
-            {
-                if (current.Value.Equals(item))
-                {
-                    return true;
-                }
-
-                current = current.Next;
-            }
-
-            return false;
+            return !IsEmpty() && LinearSearch(First, item) != null;
         }
 
         public void CopyTo(T[] array, int arrayIndex)
@@ -172,6 +155,22 @@ namespace ObjectsCollection
         private bool IsEmpty()
         {
             return sentinel.Next == sentinel;
+        }
+
+        private LinkedListNode<T> LinearSearch(LinkedListNode<T> start, T value)
+        {
+            LinkedListNode<T> current = start;
+            while (current != sentinel)
+            {
+                if (current.Value.Equals(value))
+                {
+                    return current;
+                }
+
+                current = start == First ? current.Next : current.Previous;
+            }
+
+            return null;
         }
     }
 }
