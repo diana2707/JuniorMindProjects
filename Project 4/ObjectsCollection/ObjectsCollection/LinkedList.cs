@@ -54,7 +54,7 @@ namespace ObjectsCollection
 
         public bool Contains(T item)
         {
-            return !IsEmpty() && LinearSearch(First, item) != null;
+            return !IsEmpty() && Search(item, First) != null;
         }
 
         public void CopyTo(T[] array, int arrayIndex)
@@ -78,19 +78,7 @@ namespace ObjectsCollection
                 return null;
             }
 
-            LinkedListNode<T> current = First;
-
-            while (current != sentinel)
-            {
-                if (current.Value.Equals(item))
-                {
-                    return current;
-                }
-
-                current = current.Next;
-            }
-
-            return null;
+            return Search(item, First);
         }
 
         public LinkedListNode<T> FindLast(T item)
@@ -157,7 +145,7 @@ namespace ObjectsCollection
             return sentinel.Next == sentinel;
         }
 
-        private LinkedListNode<T> LinearSearch(LinkedListNode<T> start, T value)
+        private LinkedListNode<T> Search(T value, LinkedListNode<T> start)
         {
             LinkedListNode<T> current = start;
             while (current != sentinel)
