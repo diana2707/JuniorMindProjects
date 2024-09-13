@@ -24,8 +24,9 @@ namespace ObjectsCollection
 
         public bool IsReadOnly { get; }
 
-        public void Add(LinkedListNode<T> node)
+        public void Add(T item)
         {
+            LinkedListNode<T> node = new (item);
             if (IsEmpty())
             {
                 sentinel.Next = node;
