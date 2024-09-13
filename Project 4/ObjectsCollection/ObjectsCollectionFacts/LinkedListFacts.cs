@@ -153,5 +153,34 @@ namespace ObjectsCollection
 
             Assert.Null(node);
         }
+
+        [Fact]
+        public void FindShouldReturnLastNodeThatContainsSpecificValue()
+        {
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
+            LinkedListNode<int> node = list.FindLast(2);
+
+            Assert.Equal(2, node.Value);
+            Assert.Equal(3, node.Previous.Value);
+            Assert.Equal(4, node.Next.Value);
+        }
+
+        [Fact]
+        public void FindLastShouldReturnNullWhenListIsEmpty()
+        {
+            var list = new LinkedList<int>();
+            LinkedListNode<int> node = list.FindLast(2);
+
+            Assert.Null(node);
+        }
+
+        [Fact]
+        public void FindLastShouldReturnNullWhenListDoNotContainValue()
+        {
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
+            LinkedListNode<int> node = list.FindLast(5);
+
+            Assert.Null(node);
+        }
     }
 }

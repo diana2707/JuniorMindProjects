@@ -110,6 +110,28 @@ namespace ObjectsCollection
             return null;
         }
 
+        public LinkedListNode<T> FindLast(T item)
+        {
+            if (IsEmpty())
+            {
+                return null;
+            }
+
+            LinkedListNode<T> current = Last;
+
+            while (current != sentinel)
+            {
+                if (current.Value.Equals(item))
+                {
+                    return current;
+                }
+
+                current = current.Previous;
+            }
+
+            return null;
+        }
+
         public bool Remove(T item)
         {
             bool isRemoved = false;
