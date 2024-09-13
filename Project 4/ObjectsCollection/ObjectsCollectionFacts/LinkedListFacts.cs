@@ -113,6 +113,14 @@ namespace ObjectsCollection
         }
 
         [Fact]
+        public void RemoveShouldReturnFalseIfListIsEmpty()
+        {
+            var list = new LinkedList<int>();
+
+            Assert.False(list.Remove(5));
+        }
+
+        [Fact]
         public void ShouldAllowEnumeration()
         {
             var list = new LinkedList<int>() { 1, 2, 3 };

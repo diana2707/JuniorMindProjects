@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace ObjectsCollection
 {
@@ -54,7 +55,7 @@ namespace ObjectsCollection
 
         public bool Contains(T item)
         {
-            return !IsEmpty() && Search(item, First) != null;
+            return Search(item, true) != null;
         }
 
         public void CopyTo(T[] array, int arrayIndex)
@@ -73,44 +74,27 @@ namespace ObjectsCollection
 
         public LinkedListNode<T> Find(T item)
         {
-            if (IsEmpty())
-            {
-                return null;
-            }
-
-            return Search(item, First);
+            return Search(item, true);
         }
 
         public LinkedListNode<T> FindLast(T item)
         {
-            if (IsEmpty())
-            {
-                return null;
-            }
-
-            LinkedListNode<T> current = Last;
-
-            return Search(item, Last);
+            return Search(item, false);
         }
 
         public bool Remove(T item)
         {
-            bool isRemoved = false;
-            LinkedListNode<T> current = First;
+            LinkedListNode<T> toRemove = Search(item, true);
 
-            while (current != sentinel)
+            if (toRemove == null)
             {
-                if (current.Value.Equals(item))
-                {
-                    current.Previous.Next = current.Next;
-                    current.Next.Previous = current.Previous;
-                    isRemoved = true;
-                }
-
-                current = current.Next;
+                return false;
             }
 
-            return isRemoved;
+            toRemove.Previous.Next = toRemove.Next;
+            toRemove.Next.Previous = toRemove.Previous;
+
+            return true;
         }
 
         public IEnumerator<T> GetEnumerator()
@@ -135,9 +119,15 @@ namespace ObjectsCollection
             return sentinel.Next == sentinel;
         }
 
-        private LinkedListNode<T> Search(T value, LinkedListNode<T> start)
+        private LinkedListNode<T> Search(T value, bool startFromFirst)
         {
-            LinkedListNode<T> current = start;
+            if (IsEmpty())
+            {
+                return null;
+            }
+
+            LinkedListNode<T> current = startFromFirst ? First : Last;
+
             while (current != sentinel)
             {
                 if (current.Value.Equals(value))
@@ -145,7 +135,7 @@ namespace ObjectsCollection
                     return current;
                 }
 
-                current = start == First ? current.Next : current.Previous;
+                current = startFromFirst ? current.Next : current.Previous;
             }
 
             return null;
