@@ -2,7 +2,7 @@
 
 namespace ObjectsCollection
 {
-    public class LinkedList<T> : IEnumerable<T>
+    public class LinkedList<T> : ICollection<T>
     {
         readonly LinkedListNode<T> sentinel;
 
@@ -88,14 +88,14 @@ namespace ObjectsCollection
             }
         }
 
-        public bool Remove(T value)
+        public bool Remove(T item)
         {
             bool isRemoved = false;
             LinkedListNode<T> current = First;
 
             while (current != sentinel)
             {
-                if (current.Value.Equals(value))
+                if (current.Value.Equals(item))
                 {
                     current.Previous.Next = current.Next;
                     current.Next.Previous = current.Previous;
@@ -124,11 +124,6 @@ namespace ObjectsCollection
         {
             return GetEnumerator();
         }
-
-        //IEnumerator IEnumerable.GetEnumerator()
-        //{
-        //    return GetEnumerator();
-        //}
 
         private bool IsEmpty()
         {
