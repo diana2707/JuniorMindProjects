@@ -53,7 +53,7 @@ namespace ObjectsCollection
         {
             int[] array = { 1, 2 };
             var list = new LinkedList<int>(array);
-            
+
             Assert.Equal(1, list.First.Value);
             Assert.Equal(2, list.Last.Value);
             Assert.Equal(2, list.Count);
@@ -425,6 +425,14 @@ namespace ObjectsCollection
             Assert.Equal(1, list.First.Value);
             Assert.Equal(2, list.Last.Value);
             Assert.Equal(2, list.Count);
+        }
+
+        [Fact]
+        public void ConstructorThrowsArgumentNullExceptionWhenParameterIsNull()
+        {
+            int[] collection = null;
+
+            Assert.Throws<ArgumentNullException>(() => new LinkedList<int>(collection));
         }
     }
 }

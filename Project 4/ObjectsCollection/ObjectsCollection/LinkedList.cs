@@ -16,10 +16,14 @@ namespace ObjectsCollection
 
         public LinkedList(IEnumerable<T> collection) : this()
         {
+            ArgumentNullException.ThrowIfNull(collection);
+
             foreach (T item in collection)
             {
                 AddLast(item);
             }
+
+            //see to accept null values for items
         }
 
         public int Count { get; private set; }
@@ -257,6 +261,7 @@ namespace ObjectsCollection
 
         private void AddToEmptyList(LinkedListNode<T> node)
         {
+
             sentinel.Next = node;
             node.Previous = sentinel;
             sentinel.Previous = node;
