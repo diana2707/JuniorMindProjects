@@ -306,5 +306,21 @@ namespace ObjectsCollection
             Assert.Equal(5, previousNode.Next.Value);
             Assert.Equal(6, list.Count);
         }
+
+        [Fact]
+        public void AddLastShouldAddNewNodeOnLastPositionUsingPassedValue()
+        {
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
+            LinkedListNode<int> previousNode = list.Find(4);
+
+            list.AddLast(5);
+
+            LinkedListNode<int> newNode = list.Find(5);
+
+            Assert.Equal(5, list.Last.Value);
+            Assert.Equal(4, newNode.Previous.Value);
+            Assert.Equal(5, previousNode.Next.Value);
+            Assert.Equal(6, list.Count);
+        }
     }
 }

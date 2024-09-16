@@ -64,6 +64,15 @@ namespace ObjectsCollection
             Count++;
         }
 
+        public void AddLast(T item)
+        {
+            //when node is null throw exception 
+
+            LinkedListNode<T> newNode = new (item);
+
+            AddLast(newNode);
+        }
+
         public void AddLast(LinkedListNode<T> newNode)
         {
             //when node is null throw exception 
