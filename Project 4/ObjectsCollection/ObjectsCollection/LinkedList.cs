@@ -49,12 +49,7 @@ namespace ObjectsCollection
             //when node is null throw exception 
             LinkedListNode<T> newNode = new (item);
 
-            newNode.Previous = node;
-            newNode.Next = node.Next;
-            node.Next.Previous = newNode;
-            node.Next = newNode;
-
-            Count++;
+            AddAfter(node, newNode);
         }
 
         public void AddAfter(LinkedListNode<T> node, LinkedListNode<T> newNode)
