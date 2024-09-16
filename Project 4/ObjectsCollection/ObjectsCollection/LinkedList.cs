@@ -38,6 +38,7 @@ namespace ObjectsCollection
         public void AddFirst(T item)
         {
             //when node is null throw exception 
+            //verify it accept null values but not null next, previous, check every situation
 
             LinkedListNode<T> newNode = new (item);
 
@@ -186,8 +187,20 @@ namespace ObjectsCollection
         {
             //throw ex if node is null
 
+            if (node == null)
+            {
+                return;
+            }
+
             node.Previous.Next = node.Next;
             node.Next.Previous = node.Previous;
+            Count--;
+        }
+
+        public void RemoveFirst()
+        {
+            sentinel.Next = First.Next;
+            First.Next.Previous = sentinel;
             Count--;
         }
 

@@ -391,5 +391,28 @@ namespace ObjectsCollection
             Assert.Equal(2, list.Last.Value);
             Assert.Equal(2, list.Count);
         }
+
+        [Fact]
+        public void RemoveShouldMakeNoChangeWhenListIsEmpty()
+        {
+            var list = new LinkedList<int>();
+            LinkedListNode<int> node = new (4);
+
+            list.Remove(null);
+
+            Assert.Equal(0, list.Count);
+        }
+
+        [Fact]
+        public void RemoveFirstShouldRemoveFirstNode()
+        {
+            int[] collection = { 1, 2, 3 };
+            var list = new LinkedList<int>(collection);
+            list.RemoveFirst();
+
+            Assert.Equal(2, list.First.Value);
+            Assert.Equal(3, list.Last.Value);
+            Assert.Equal(2, list.Count);
+        }
     }
 }
