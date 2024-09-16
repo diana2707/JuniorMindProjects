@@ -204,6 +204,13 @@ namespace ObjectsCollection
             Count--;
         }
 
+        public void RemoveLast()
+        {
+            sentinel.Previous = Last.Previous;
+            Last.Previous.Next = sentinel;
+            Count--;
+        }
+
         public IEnumerator<T> GetEnumerator()
         {
             LinkedListNode<T> current = First;

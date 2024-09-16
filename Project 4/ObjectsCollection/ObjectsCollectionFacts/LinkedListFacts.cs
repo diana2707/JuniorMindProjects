@@ -414,5 +414,17 @@ namespace ObjectsCollection
             Assert.Equal(3, list.Last.Value);
             Assert.Equal(2, list.Count);
         }
+
+        [Fact]
+        public void RemoveLastShouldRemoveLastNode()
+        {
+            int[] collection = { 1, 2, 3 };
+            var list = new LinkedList<int>(collection);
+            list.RemoveLast();
+
+            Assert.Equal(1, list.First.Value);
+            Assert.Equal(2, list.Last.Value);
+            Assert.Equal(2, list.Count);
+        }
     }
 }
