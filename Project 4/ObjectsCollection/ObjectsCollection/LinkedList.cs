@@ -1,21 +1,26 @@
 ﻿using System.Collections;
-using System.Xml.Linq;
 
 namespace ObjectsCollection
 {
     public class LinkedList<T> : ICollection<T>
     {
-        readonly LinkedListNode<T> sentinel;
+        readonly LinkedListNode<T> sentinel = new LinkedListNode<T>(default);
 
         public LinkedList()
         {
-            sentinel = new LinkedListNode<T>(default);
             sentinel.Next = sentinel;
             sentinel.Previous = sentinel;
+            //should have a read only collection?
+        }
 
-            Count = 0;
-            //should a read only collection?
-            IsReadOnly = false;
+        public LinkedList(IEnumerable<T> collection)
+        {
+            sentinel.Next = sentinel;
+            sentinel.Previous = sentinel;
+            foreach (T item in collection)
+            {
+                Add(item);
+            }
         }
 
         public int Count { get; private set; }
@@ -24,7 +29,7 @@ namespace ObjectsCollection
 
         public LinkedListNode<T>? Last => IsEmpty() ? null : sentinel.Previous;
 
-        public bool IsReadOnly { get; }
+        public bool IsReadOnly => false;
 
         public void Add(T item)
         {

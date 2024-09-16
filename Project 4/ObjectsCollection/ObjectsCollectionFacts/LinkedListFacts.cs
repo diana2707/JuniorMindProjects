@@ -62,7 +62,8 @@ namespace ObjectsCollection
         [Fact]
         public void ClearShouldSetCount0AndFirstAndLastToNull()
         {
-            var list = new LinkedList<int>() { 1, 2 };
+            int[] array = { 1, 2 };
+            var list = new LinkedList<int>(array);
 
             list.Clear();
 
