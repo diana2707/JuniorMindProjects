@@ -172,17 +172,9 @@ namespace ObjectsCollection
 
         public bool Remove(T item)
         {
-            LinkedListNode<T> toRemove = Search(item, true);
+            LinkedListNode<T> node = Search(item, true);
 
-            if (toRemove == null)
-            {
-                return false;
-            }
-
-            toRemove.Previous.Next = toRemove.Next;
-            toRemove.Next.Previous = toRemove.Previous;
-
-            return true;
+            return Remove(node);
         }
 
         public bool Remove(LinkedListNode<T> node)
