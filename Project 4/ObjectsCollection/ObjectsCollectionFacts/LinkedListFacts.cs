@@ -225,5 +225,22 @@ namespace ObjectsCollection
             Assert.Equal(2, newNode.Next.Value);
             Assert.Equal(6, list.Count);
         }
+
+        [Fact]
+        public void AddBeforeShouldAddNodeBeforeSpecifiedNodeUsingNewNode()
+        {
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
+            LinkedListNode<int> previousNode = list.Find(3);
+            LinkedListNode<int> nextNode = list.FindLast(2);
+            LinkedListNode<int> newNode = new LinkedListNode<int>(4);
+
+            list.AddBefore(nextNode, newNode);
+
+            Assert.Equal(4, previousNode.Next.Value);
+            Assert.Equal(4, nextNode.Previous.Value);
+            Assert.Equal(3, newNode.Previous.Value);
+            Assert.Equal(2, newNode.Next.Value);
+            Assert.Equal(6, list.Count);
+        }
     }
 }

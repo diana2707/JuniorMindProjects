@@ -64,6 +64,18 @@ namespace ObjectsCollection
             Count++;
         }
 
+        public void AddBefore(LinkedListNode<T> node, LinkedListNode<T> newNode)
+        {
+            //when node is null throw exception 
+
+            newNode.Next = node;
+            newNode.Previous = node.Previous;
+            node.Previous.Next = newNode;
+            node.Previous = newNode;
+
+            Count++;
+        }
+
         public void Clear()
         {
             sentinel.Next = sentinel;
