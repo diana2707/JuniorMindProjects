@@ -173,21 +173,22 @@ namespace ObjectsCollection
         public bool Remove(T item)
         {
             LinkedListNode<T> node = Search(item, true);
-
-            return Remove(node);
-        }
-
-        public bool Remove(LinkedListNode<T> node)
-        {
             if (node == null)
             {
                 return false;
             }
 
+            Remove(node);
+            return true;
+        }
+
+        public void Remove(LinkedListNode<T> node)
+        {
+            //throw ex if node is null
+
             node.Previous.Next = node.Next;
             node.Next.Previous = node.Previous;
-
-            return true;
+            Count--;
         }
 
         public IEnumerator<T> GetEnumerator()

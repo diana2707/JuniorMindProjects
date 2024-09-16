@@ -106,6 +106,7 @@ namespace ObjectsCollection
             Assert.True(list.Remove(3));
             Assert.Equal(1, list.First.Value);
             Assert.Equal(2, list.Last.Value);
+            Assert.Equal(2, list.Count);
         }
 
         [Fact]
@@ -115,6 +116,7 @@ namespace ObjectsCollection
             var list = new LinkedList<int>(collection);
 
             Assert.False(list.Remove(5));
+            Assert.Equal(3, list.Count);
         }
 
         [Fact]
@@ -384,9 +386,10 @@ namespace ObjectsCollection
             var list = new LinkedList<int>(collection);
             LinkedListNode<int> node = list.Find(3);
 
-            Assert.True(list.Remove(node));
-            Assert.Equal(1, list.First.Value);
+            list.Remove(node);
+
             Assert.Equal(2, list.Last.Value);
+            Assert.Equal(2, list.Count);
         }
     }
 }
