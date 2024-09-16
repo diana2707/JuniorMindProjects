@@ -55,7 +55,18 @@ namespace ObjectsCollection
             node.Next = newNode;
 
             Count++;
+        }
 
+        public void AddAfter(LinkedListNode<T> node, LinkedListNode<T> newNode)
+        {
+            //when node is null throw exception 
+
+            newNode.Previous = node;
+            newNode.Next = node.Next;
+            node.Next.Previous = newNode;
+            node.Next = newNode;
+
+            Count++;
         }
 
         public void Clear()
