@@ -57,9 +57,21 @@ namespace ObjectsCollection
             //when node is null throw exception 
 
             newNode.Next = First;
-            newNode.Previous = sentinel.Previous;
+            newNode.Previous = sentinel;
             First.Previous = newNode;
             sentinel.Next = newNode;
+
+            Count++;
+        }
+
+        public void AddLast(LinkedListNode<T> newNode)
+        {
+            //when node is null throw exception 
+
+            newNode.Previous = Last;
+            newNode.Next = sentinel;
+            Last.Next = newNode;
+            sentinel.Previous = newNode;
 
             Count++;
         }

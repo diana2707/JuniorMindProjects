@@ -262,7 +262,7 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void AddFirstShouldAddNodeAfterSpecifiedNodeUsingNewNode()
+        public void AddFirstShouldAddNewNodeOnFirstPosition()
         {
             var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
             LinkedListNode<int> newNode = new LinkedListNode<int>(0);
@@ -277,7 +277,7 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void AddFirstShouldAddNodeAfterSpecifiedNodeUsingPassedValue()
+        public void AddFirstShouldCreateNewNodeAndAddValueOnFirstPosition()
         {
             var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
             LinkedListNode<int> nextNode = list.Find(1);
@@ -289,6 +289,21 @@ namespace ObjectsCollection
             Assert.Equal(0, list.First.Value);
             Assert.Equal(1, newNode.Next.Value);
             Assert.Equal(0, nextNode.Previous.Value);
+            Assert.Equal(6, list.Count);
+        }
+
+        [Fact]
+        public void AddLastShouldAddNewNodeOnLastPosition()
+        {
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
+            LinkedListNode<int> newNode = new LinkedListNode<int>(5);
+            LinkedListNode<int> previousNode = list.Find(4);
+
+            list.AddLast(newNode);
+
+            Assert.Equal(5, list.Last.Value);
+            Assert.Equal(4, newNode.Previous.Value);
+            Assert.Equal(5, previousNode.Next.Value);
             Assert.Equal(6, list.Count);
         }
     }
