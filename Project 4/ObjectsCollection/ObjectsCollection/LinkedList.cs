@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 
 namespace ObjectsCollection
 {
@@ -43,6 +42,20 @@ namespace ObjectsCollection
             node.Next = sentinel;
 
             Count++;
+        }
+
+        public void AddAfter(LinkedListNode<T> node, T item)
+        {
+            //when node is null throw exception 
+            LinkedListNode<T> newNode = new (item);
+
+            newNode.Previous = node;
+            newNode.Next = node.Next;
+            node.Next.Previous = newNode;
+            node.Next = newNode;
+
+            Count++;
+
         }
 
         public void Clear()
