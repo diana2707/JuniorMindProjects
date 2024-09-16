@@ -64,6 +64,15 @@ namespace ObjectsCollection
             Count++;
         }
 
+        public void AddBefore(LinkedListNode<T> node, T item)
+        {
+            //when node is null throw exception 
+
+            LinkedListNode<T> newNode = new (item);
+
+            AddBefore(node, newNode);
+        }
+
         public void AddBefore(LinkedListNode<T> node, LinkedListNode<T> newNode)
         {
             //when node is null throw exception 
