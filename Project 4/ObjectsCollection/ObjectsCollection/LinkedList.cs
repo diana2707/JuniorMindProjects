@@ -96,12 +96,13 @@ namespace ObjectsCollection
             Count++;
         }
 
-        public void AddAfter(LinkedListNode<T> node, T item)
+        public LinkedListNode<T> AddAfter(LinkedListNode<T> node, T item)
         {
             //when node is null throw exception 
             LinkedListNode<T> newNode = new (item);
 
             AddAfter(node, newNode);
+            return newNode;
         }
 
         public void AddAfter(LinkedListNode<T> node, LinkedListNode<T> newNode)

@@ -83,7 +83,7 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void CopyTpShouldCopyNodesValuesToArray()
+        public void CopyToShouldCopyNodesValuesToArray()
         {
             int[] collection = { 1, 2, 3 };
             var list = new LinkedList<int>(collection);
@@ -216,9 +216,7 @@ namespace ObjectsCollection
             LinkedListNode<int> previousNode = list.Find(3);
             LinkedListNode<int> nextNode = list.FindLast(2);
 
-            list.AddAfter(previousNode, 4);
-
-            LinkedListNode<int> newNode = list.Find(4);
+            LinkedListNode<int> newNode = list.AddAfter(previousNode, 4);
 
             Assert.Equal(4, previousNode.Next.Value);
             Assert.Equal(4, nextNode.Previous.Value);
