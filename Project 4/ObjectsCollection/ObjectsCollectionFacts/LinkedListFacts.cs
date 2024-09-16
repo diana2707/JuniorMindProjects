@@ -432,5 +432,14 @@ namespace ObjectsCollection
 
             Assert.Throws<ArgumentNullException>(() => new LinkedList<int>(collection));
         }
+
+        [Fact]
+        public void AddAfterThrowsArgumentNullExceptionWhenNodeIsNull()
+        {
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+
+            Assert.Throws<ArgumentNullException>(() => list.AddAfter(null, 4));
+        }
     }
 }

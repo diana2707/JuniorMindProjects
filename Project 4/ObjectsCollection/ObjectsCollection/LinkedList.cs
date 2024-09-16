@@ -98,7 +98,8 @@ namespace ObjectsCollection
 
         public LinkedListNode<T> AddAfter(LinkedListNode<T> node, T item)
         {
-            //when node is null throw exception 
+            ArgumentNullException.ThrowIfNull(node);
+
             LinkedListNode<T> newNode = new (item);
 
             AddAfter(node, newNode);
