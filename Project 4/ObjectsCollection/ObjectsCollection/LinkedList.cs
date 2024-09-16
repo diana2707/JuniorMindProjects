@@ -185,6 +185,19 @@ namespace ObjectsCollection
             return true;
         }
 
+        public bool Remove(LinkedListNode<T> node)
+        {
+            if (node == null)
+            {
+                return false;
+            }
+
+            node.Previous.Next = node.Next;
+            node.Next.Previous = node.Previous;
+
+            return true;
+        }
+
         public IEnumerator<T> GetEnumerator()
         {
             LinkedListNode<T> current = First;

@@ -376,5 +376,17 @@ namespace ObjectsCollection
             Assert.Equal(5, list.First.Value);
             Assert.Equal(1, list.Count);
         }
+
+        [Fact]
+        public void RemoveShouldRemoveNodeFromListAndReturnTrueWhenPassedANode()
+        {
+            int[] collection = { 1, 2, 3 };
+            var list = new LinkedList<int>(collection);
+            LinkedListNode<int> node = list.Find(3);
+
+            Assert.True(list.Remove(node));
+            Assert.Equal(1, list.First.Value);
+            Assert.Equal(2, list.Last.Value);
+        }
     }
 }
