@@ -14,6 +14,7 @@ namespace ObjectsCollection
             sentinel.Previous = sentinel;
 
             Count = 0;
+            //should a read only collection?
             IsReadOnly = false;
         }
 
@@ -27,20 +28,7 @@ namespace ObjectsCollection
 
         public void Add(T item)
         {
-            LinkedListNode<T> node = new (item);
-            if (IsEmpty())
-            {
-                AddToEmptyList(node);
-            }
-            else
-            {
-                node.Previous = Last;
-                node.Next = sentinel;
-                Last.Next = node;
-                sentinel.Previous = node;
-            }
-
-            Count++;
+            AddLast(item);
         }
 
         public void AddFirst(T item)
@@ -155,6 +143,7 @@ namespace ObjectsCollection
 
         public void CopyTo(T[] array, int arrayIndex)
         {
+            //why is implicit interface implementation?
             LinkedListNode<T> current = First;
 
             for (int i = arrayIndex; i < Count + arrayIndex; i++)
