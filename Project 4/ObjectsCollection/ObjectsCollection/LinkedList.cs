@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Xml.Linq;
 
 namespace ObjectsCollection
 {
@@ -29,17 +30,15 @@ namespace ObjectsCollection
             LinkedListNode<T> node = new (item);
             if (IsEmpty())
             {
-                sentinel.Next = node;
-                node.Previous = sentinel;
+                AddToEmptyList(node);
             }
             else
             {
-                Last.Next = node;
                 node.Previous = Last;
+                node.Next = sentinel;
+                Last.Next = node;
+                sentinel.Previous = node;
             }
-
-            sentinel.Previous = node;
-            node.Next = sentinel;
 
             Count++;
         }
@@ -47,6 +46,7 @@ namespace ObjectsCollection
         public void AddFirst(T item)
         {
             //when node is null throw exception 
+
             LinkedListNode<T> newNode = new (item);
 
             AddFirst(newNode);
@@ -56,10 +56,17 @@ namespace ObjectsCollection
         {
             //when node is null throw exception 
 
-            newNode.Next = First;
-            newNode.Previous = sentinel;
-            First.Previous = newNode;
-            sentinel.Next = newNode;
+            if (IsEmpty())
+            {
+                AddToEmptyList(newNode);
+            }
+            else
+            {
+                newNode.Next = First;
+                newNode.Previous = sentinel;
+                First.Previous = newNode;
+                sentinel.Next = newNode;
+            }
 
             Count++;
         }
@@ -77,10 +84,17 @@ namespace ObjectsCollection
         {
             //when node is null throw exception 
 
-            newNode.Previous = Last;
-            newNode.Next = sentinel;
-            Last.Next = newNode;
-            sentinel.Previous = newNode;
+            if (IsEmpty())
+            {
+                AddToEmptyList(newNode);
+            }
+            else
+            {
+                newNode.Previous = Last;
+                newNode.Next = sentinel;
+                Last.Next = newNode;
+                sentinel.Previous = newNode;
+            }
 
             Count++;
         }
@@ -220,6 +234,14 @@ namespace ObjectsCollection
             }
 
             return null;
+        }
+
+        private void AddToEmptyList(LinkedListNode<T> node)
+        {
+            sentinel.Next = node;
+            node.Previous = sentinel;
+            sentinel.Previous = node;
+            node.Next = sentinel;
         }
     }
 }

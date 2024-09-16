@@ -293,6 +293,18 @@ namespace ObjectsCollection
         }
 
         [Fact]
+        public void AddFirstShouldAddNewNodeWhenListIsEmptyUsingPassedValue()
+        {
+            var list = new LinkedList<int>();
+
+            list.AddFirst(5);
+
+            Assert.Equal(5, list.Last.Value);
+            Assert.Equal(5, list.First.Value);
+            Assert.Equal(1, list.Count);
+        }
+
+        [Fact]
         public void AddLastShouldAddNewNodeOnLastPosition()
         {
             var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
@@ -321,6 +333,18 @@ namespace ObjectsCollection
             Assert.Equal(4, newNode.Previous.Value);
             Assert.Equal(5, previousNode.Next.Value);
             Assert.Equal(6, list.Count);
+        }
+
+        [Fact]
+        public void AddLastShouldAddNewNodeWhenListIsEmptyUsingPassedValue()
+        {
+            var list = new LinkedList<int>();
+
+            list.AddLast(5);
+
+            Assert.Equal(5, list.Last.Value);
+            Assert.Equal(5, list.First.Value);
+            Assert.Equal(1, list.Count);
         }
     }
 }
