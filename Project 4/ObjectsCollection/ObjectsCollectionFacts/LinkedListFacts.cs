@@ -260,5 +260,20 @@ namespace ObjectsCollection
             Assert.Equal(2, newNode.Next.Value);
             Assert.Equal(6, list.Count);
         }
+
+        [Fact]
+        public void AddFirstShouldAddNodeAfterSpecifiedNodeUsingPassedValue()
+        {
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
+            LinkedListNode<int> newNode = new LinkedListNode<int>(0);
+            LinkedListNode<int> nextNode = list.Find(1);
+
+            list.AddFirst(newNode);
+
+            Assert.Equal(0, list.First.Value);
+            Assert.Equal(1, newNode.Next.Value);
+            Assert.Equal(0, nextNode.Previous.Value);
+            Assert.Equal(6, list.Count);
+        }
     }
 }

@@ -44,6 +44,18 @@ namespace ObjectsCollection
             Count++;
         }
 
+        public void AddFirst(LinkedListNode<T> newNode)
+        {
+            //when node is null throw exception 
+
+            newNode.Next = First;
+            newNode.Previous = sentinel.Previous;
+            First.Previous = newNode;
+            sentinel.Next = newNode;
+
+            Count++;
+        }
+
         public void AddAfter(LinkedListNode<T> node, T item)
         {
             //when node is null throw exception 
