@@ -64,6 +64,7 @@ namespace ObjectsCollection
                 newNode.Previous = sentinel;
                 First.Previous = newNode;
                 sentinel.Next = newNode;
+                newNode.List = this;
             }
 
             Count++;
@@ -92,6 +93,7 @@ namespace ObjectsCollection
                 newNode.Next = sentinel;
                 Last.Next = newNode;
                 sentinel.Previous = newNode;
+                newNode.List = this;
             }
 
             Count++;
@@ -118,6 +120,7 @@ namespace ObjectsCollection
             newNode.Next = node.Next;
             node.Next.Previous = newNode;
             node.Next = newNode;
+            newNode.List = this;
 
             Count++;
         }
@@ -139,6 +142,7 @@ namespace ObjectsCollection
             newNode.Previous = node.Previous;
             node.Previous.Next = newNode;
             node.Previous = newNode;
+            newNode.List = this;
 
             Count++;
         }
@@ -294,6 +298,7 @@ namespace ObjectsCollection
             node.Previous = sentinel;
             sentinel.Previous = node;
             node.Next = sentinel;
+            node.List = this;
         }
     }
 }
