@@ -441,5 +441,15 @@ namespace ObjectsCollection
 
             Assert.Throws<ArgumentNullException>(() => list.AddAfter(null, 4));
         }
+
+        [Fact]
+        public void AddAfterThrowsInvalidOperationExceptionWhenNodeIsNotFound()
+        {
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+            LinkedListNode<int> node = new (1);
+
+            Assert.Throws<InvalidOperationException>(() => list.AddAfter(node, 4));
+        }
     }
 }

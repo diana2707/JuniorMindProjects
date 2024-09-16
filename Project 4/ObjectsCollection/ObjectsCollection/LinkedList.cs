@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Newtonsoft.Json.Linq;
+using System.Collections;
 
 namespace ObjectsCollection
 {
@@ -98,8 +99,6 @@ namespace ObjectsCollection
 
         public LinkedListNode<T> AddAfter(LinkedListNode<T> node, T item)
         {
-            ArgumentNullException.ThrowIfNull(node);
-
             LinkedListNode<T> newNode = new (item);
 
             AddAfter(node, newNode);
@@ -108,7 +107,12 @@ namespace ObjectsCollection
 
         public void AddAfter(LinkedListNode<T> node, LinkedListNode<T> newNode)
         {
-            //when node is null throw exception 
+            ArgumentNullException.ThrowIfNull(node);
+
+            if (!IsNodeInList(node))
+            {
+                throw new InvalidOperationException();
+            }
 
             newNode.Previous = node;
             newNode.Next = node.Next;
@@ -259,6 +263,28 @@ namespace ObjectsCollection
             }
 
             return null;
+        }
+
+        private bool IsNodeInList(LinkedListNode<T> node)
+        {
+            if (IsEmpty())
+            {
+                return false;
+            }
+
+            LinkedListNode<T> current = First;
+
+            while (current != sentinel)
+            {
+                if (current.Equals(node))
+                {
+                    return true;
+                }
+
+                current = current.Next;
+            }
+
+            return false;
         }
 
         private void AddToEmptyList(LinkedListNode<T> node)
