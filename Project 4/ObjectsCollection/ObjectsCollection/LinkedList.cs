@@ -4,22 +4,21 @@ namespace ObjectsCollection
 {
     public class LinkedList<T> : ICollection<T>
     {
-        readonly LinkedListNode<T> sentinel = new LinkedListNode<T>(default);
+        readonly LinkedListNode<T> sentinel;
 
         public LinkedList()
         {
+            sentinel = new LinkedListNode<T>(default);
             sentinel.Next = sentinel;
             sentinel.Previous = sentinel;
             //should have a read only collection?
         }
 
-        public LinkedList(IEnumerable<T> collection)
+        public LinkedList(IEnumerable<T> collection) : this()
         {
-            sentinel.Next = sentinel;
-            sentinel.Previous = sentinel;
             foreach (T item in collection)
             {
-                Add(item);
+                AddLast(item);
             }
         }
 
@@ -31,7 +30,7 @@ namespace ObjectsCollection
 
         public bool IsReadOnly => false;
 
-        public void Add(T item)
+        void ICollection<T>.Add(T item)
         {
             AddLast(item);
         }

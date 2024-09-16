@@ -42,7 +42,8 @@ namespace ObjectsCollection
         [Fact]
         public void AddShouldAddFirstNodeToList()
         {
-            var list = new LinkedList<int>() { 1 };
+            int[] array = { 1 };
+            var list = new LinkedList<int>(array);
 
             Assert.Equal(1, list.First.Value);
         }
@@ -50,10 +51,9 @@ namespace ObjectsCollection
         [Fact]
         public void AddShouldAddNodesToList()
         {
-            var list = new LinkedList<int>();
-            list.Add(1);
-            list.Add(2);
-
+            int[] array = { 1, 2 };
+            var list = new LinkedList<int>(array);
+            
             Assert.Equal(1, list.First.Value);
             Assert.Equal(2, list.Last.Value);
             Assert.Equal(2, list.Count);
@@ -75,7 +75,8 @@ namespace ObjectsCollection
         [Fact]
         public void ContainsShouldReturnTrueIfListContainsValue()
         {
-            var list = new LinkedList<int>() { 1, 2 };
+            int[] array = { 1, 2 };
+            var list = new LinkedList<int>(array);
 
             Assert.True(list.Contains(2));
             Assert.False(list.Contains(3));
@@ -84,7 +85,8 @@ namespace ObjectsCollection
         [Fact]
         public void CopyTpShouldCopyNodesValuesToArray()
         {
-            var list = new LinkedList<int>() { 1, 2, 3 };
+            int[] collection = { 1, 2, 3 };
+            var list = new LinkedList<int>(collection);
             var array = new int[4];
 
             list.CopyTo(array, 1);
@@ -98,7 +100,8 @@ namespace ObjectsCollection
         [Fact]
         public void RemoveShouldRemoveNodeFromListAndReturnTrue()
         {
-            var list = new LinkedList<int>() { 1, 2, 3 };
+            int[] collection = { 1, 2, 3 };
+            var list = new LinkedList<int>(collection);
 
             Assert.True(list.Remove(3));
             Assert.Equal(1, list.First.Value);
@@ -108,7 +111,8 @@ namespace ObjectsCollection
         [Fact]
         public void RemoveShouldNotRemoveNodeFromListAndReturnFalseIfValueIsMissing()
         {
-            var list = new LinkedList<int>() { 1, 2, 3 };
+            int[] collection = { 1, 2, 3 };
+            var list = new LinkedList<int>(collection);
 
             Assert.False(list.Remove(5));
         }
@@ -124,7 +128,8 @@ namespace ObjectsCollection
         [Fact]
         public void ShouldAllowEnumeration()
         {
-            var list = new LinkedList<int>() { 1, 2, 3 };
+            int[] collection = { 1, 2, 3 };
+            var list = new LinkedList<int>(collection);
 
             LinkedListNode<int> current = list.First;
             foreach (var item in list)
@@ -137,7 +142,9 @@ namespace ObjectsCollection
         [Fact]
         public void FindShouldReturnFirstNodeThatContainsSpecificValue()
         {
-            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+
             LinkedListNode<int> node = list.Find(2);
 
             Assert.Equal(2, node.Value);
@@ -157,7 +164,9 @@ namespace ObjectsCollection
         [Fact]
         public void FindShouldReturnNullWhenListDoNotContainValue()
         {
-            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+
             LinkedListNode<int> node = list.Find(5);
 
             Assert.Null(node);
@@ -166,7 +175,9 @@ namespace ObjectsCollection
         [Fact]
         public void FindShouldReturnLastNodeThatContainsSpecificValue()
         {
-            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+
             LinkedListNode<int> node = list.FindLast(2);
 
             Assert.Equal(2, node.Value);
@@ -186,7 +197,9 @@ namespace ObjectsCollection
         [Fact]
         public void FindLastShouldReturnNullWhenListDoNotContainValue()
         {
-            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+
             LinkedListNode<int> node = list.FindLast(5);
 
             Assert.Null(node);
@@ -195,7 +208,9 @@ namespace ObjectsCollection
         [Fact]
         public void AddAfterShouldAddNodeAfterSpecifiedNodeUsingPassedValue()
         {
-            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+
             LinkedListNode<int> previousNode = list.Find(3);
             LinkedListNode<int> nextNode = list.FindLast(2);
 
@@ -213,7 +228,9 @@ namespace ObjectsCollection
         [Fact]
         public void AddAfterShouldAddNodeAfterSpecifiedNodeUsingNewNode()
         {
-            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+
             LinkedListNode<int> previousNode = list.Find(3);
             LinkedListNode<int> nextNode = list.FindLast(2);
             LinkedListNode<int> newNode = new LinkedListNode<int>(4);
@@ -230,7 +247,9 @@ namespace ObjectsCollection
         [Fact]
         public void AddBeforeShouldAddNodeBeforeSpecifiedNodeUsingNewNode()
         {
-            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+
             LinkedListNode<int> previousNode = list.Find(3);
             LinkedListNode<int> nextNode = list.FindLast(2);
             LinkedListNode<int> newNode = new LinkedListNode<int>(4);
@@ -247,7 +266,9 @@ namespace ObjectsCollection
         [Fact]
         public void AddBeforeShouldAddNodeAfterSpecifiedNodeUsingPassedValue()
         {
-            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+
             LinkedListNode<int> previousNode = list.Find(3);
             LinkedListNode<int> nextNode = list.FindLast(2);
 
@@ -265,7 +286,9 @@ namespace ObjectsCollection
         [Fact]
         public void AddFirstShouldAddNewNodeOnFirstPosition()
         {
-            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+
             LinkedListNode<int> newNode = new LinkedListNode<int>(0);
             LinkedListNode<int> nextNode = list.Find(1);
 
@@ -280,7 +303,9 @@ namespace ObjectsCollection
         [Fact]
         public void AddFirstShouldCreateNewNodeAndAddValueOnFirstPosition()
         {
-            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+
             LinkedListNode<int> nextNode = list.Find(1);
 
             list.AddFirst(0);
@@ -308,7 +333,9 @@ namespace ObjectsCollection
         [Fact]
         public void AddLastShouldAddNewNodeOnLastPosition()
         {
-            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+
             LinkedListNode<int> newNode = new LinkedListNode<int>(5);
             LinkedListNode<int> previousNode = list.Find(4);
 
@@ -323,7 +350,9 @@ namespace ObjectsCollection
         [Fact]
         public void AddLastShouldAddNewNodeOnLastPositionUsingPassedValue()
         {
-            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+
             LinkedListNode<int> previousNode = list.Find(4);
 
             list.AddLast(5);
