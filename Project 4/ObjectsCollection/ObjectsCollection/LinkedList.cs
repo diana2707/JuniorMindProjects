@@ -215,6 +215,11 @@ namespace ObjectsCollection
 
         public void RemoveLast()
         {
+            if (IsEmpty())
+            {
+                throw new InvalidOperationException("List is empty.");
+            }
+
             sentinel.Previous = Last.Previous;
             Last.Previous.Next = sentinel;
             Count--;
