@@ -50,11 +50,7 @@ namespace ObjectsCollection
 
         public void AddFirst(LinkedListNode<T> newNode)
         {
-            ArgumentNullException.ThrowIfNull(newNode);
-            if (newNode.List != null)
-            {
-                throw new InvalidOperationException("New node belongs to another list.");
-            }
+            Validate(newNode);
 
             if (IsEmpty())
             {
@@ -81,11 +77,7 @@ namespace ObjectsCollection
 
         public void AddLast(LinkedListNode<T> newNode)
         {
-            ArgumentNullException.ThrowIfNull(newNode);
-            if (newNode.List != null)
-            {
-                throw new InvalidOperationException("New node belongs to another list.");
-            }
+            Validate(newNode);
 
             if (IsEmpty())
             {
@@ -114,7 +106,7 @@ namespace ObjectsCollection
 
         public void AddAfter(LinkedListNode<T> node, LinkedListNode<T> newNode)
         {
-            ValidateNodes(node, newNode);
+            Validate(node, newNode);
 
             newNode.Previous = node;
             newNode.Next = node.Next;
@@ -136,7 +128,7 @@ namespace ObjectsCollection
 
         public void AddBefore(LinkedListNode<T> node, LinkedListNode<T> newNode)
         {
-            ValidateNodes(node, newNode);
+            Validate(node, newNode);
 
             newNode.Next = node;
             newNode.Previous = node.Previous;
@@ -300,16 +292,20 @@ namespace ObjectsCollection
             node.List = this;
         }
 
-        private void ValidateNodes(LinkedListNode<T> node, LinkedListNode<T> newNode)
+        private void Validate(LinkedListNode<T> node, LinkedListNode<T> newNode)
         {
             ArgumentNullException.ThrowIfNull(node);
-            ArgumentNullException.ThrowIfNull(newNode);
-
             if (!IsNodeInList(node))
             {
                 throw new InvalidOperationException("Node is not in the current list.");
             }
 
+            Validate(newNode);
+        }
+
+        private static void Validate(LinkedListNode<T> newNode)
+        {
+            ArgumentNullException.ThrowIfNull(newNode);
             if (newNode.List != null)
             {
                 throw new InvalidOperationException("New node belongs to another list.");
