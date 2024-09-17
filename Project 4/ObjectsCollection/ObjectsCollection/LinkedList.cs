@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Xml.Linq;
 
 namespace ObjectsCollection
 {
@@ -11,7 +12,6 @@ namespace ObjectsCollection
             sentinel = new LinkedListNode<T>(default);
             sentinel.Next = sentinel;
             sentinel.Previous = sentinel;
-            //should have a read only collection?
         }
 
         public LinkedList(IEnumerable<T> collection) : this()
@@ -22,8 +22,6 @@ namespace ObjectsCollection
             {
                 AddLast(item);
             }
-
-            //see to accept null values for items
         }
 
         public int Count { get; private set; }
@@ -41,8 +39,6 @@ namespace ObjectsCollection
 
         public void AddFirst(T item)
         {
-            //verify it accept null values but not null next, previous, check every situation
-
             LinkedListNode<T> newNode = new (item);
 
             AddFirst(newNode);
@@ -52,18 +48,7 @@ namespace ObjectsCollection
         {
             ValidateNewNode(newNode);
 
-            if (IsEmpty())
-            {
-                AddToEmptyList(newNode);
-            }
-            else
-            {
-                newNode.Next = First;
-                newNode.Previous = sentinel;
-                First.Previous = newNode;
-                sentinel.Next = newNode;
-                newNode.List = this;
-            }
+            SetNode(newNode, sentinel, true);
 
             Count++;
         }
@@ -79,28 +64,16 @@ namespace ObjectsCollection
         {
             ValidateNewNode(newNode);
 
-            if (IsEmpty())
-            {
-                AddToEmptyList(newNode);
-            }
-            else
-            {
-                newNode.Previous = Last;
-                newNode.Next = sentinel;
-                Last.Next = newNode;
-                sentinel.Previous = newNode;
-                newNode.List = this;
-            }
+            SetNode(newNode, sentinel, false);
 
             Count++;
         }
 
         public LinkedListNode<T> AddAfter(LinkedListNode<T> node, T item)
         {
-            //verifica edge case, AddAfter last node
             LinkedListNode<T> newNode = new (item);
-
             AddAfter(node, newNode);
+
             return newNode;
         }
 
@@ -109,22 +82,17 @@ namespace ObjectsCollection
             ValidateListNode(node);
             ValidateNewNode(newNode);
 
-            newNode.Previous = node;
-            newNode.Next = node.Next;
-            node.Next.Previous = newNode;
-            node.Next = newNode;
-            newNode.List = this;
+            SetNode(newNode, node, true);
 
             Count++;
         }
 
-        public void AddBefore(LinkedListNode<T> node, T item)
+        public LinkedListNode<T> AddBefore(LinkedListNode<T> node, T item)
         {
-            //verifica edge case, addbefore first node
-
             LinkedListNode<T> newNode = new (item);
-
             AddBefore(node, newNode);
+
+            return newNode;
         }
 
         public void AddBefore(LinkedListNode<T> node, LinkedListNode<T> newNode)
@@ -132,19 +100,14 @@ namespace ObjectsCollection
             ValidateListNode(node);
             ValidateNewNode(newNode);
 
-            newNode.Next = node;
-            newNode.Previous = node.Previous;
-            node.Previous.Next = newNode;
-            node.Previous = newNode;
-            newNode.List = this;
+            SetNode(newNode, node, false);
 
             Count++;
         }
 
         public void Clear()
         {
-            sentinel.Next = sentinel;
-            sentinel.Previous = sentinel;
+            SetNode(sentinel, sentinel, true);
 
             Count = 0;
         }
@@ -156,8 +119,6 @@ namespace ObjectsCollection
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            //why is implicit interface implementation?
-
             ValidateArray(array, arrayIndex);
 
             LinkedListNode<T> current = First;
@@ -199,8 +160,7 @@ namespace ObjectsCollection
         {
             ValidateListNode(node);
 
-            node.Previous.Next = node.Next;
-            node.Next.Previous = node.Previous;
+            RemoveNode(node);
             Count--;
         }
 
@@ -208,8 +168,7 @@ namespace ObjectsCollection
         {
             ValidateList();
 
-            sentinel.Next = First.Next;
-            First.Next.Previous = sentinel;
+            RemoveNode(First);
             Count--;
         }
 
@@ -217,8 +176,7 @@ namespace ObjectsCollection
         {
             ValidateList();
 
-            sentinel.Previous = Last.Previous;
-            Last.Previous.Next = sentinel;
+            RemoveNode(Last);
             Count--;
         }
 
@@ -237,6 +195,53 @@ namespace ObjectsCollection
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        private static void ValidateNewNode(LinkedListNode<T> node)
+        {
+            ArgumentNullException.ThrowIfNull(node);
+
+            if (node.List == null)
+            {
+                return;
+            }
+
+            throw new InvalidOperationException("New node belongs to another list.");
+        }
+
+        private void ValidateListNode(LinkedListNode<T> node)
+        {
+            ArgumentNullException.ThrowIfNull(node);
+
+            if (IsNodeInList(node))
+            {
+                return;
+            }
+
+            throw new InvalidOperationException("Node is not in the current list.");
+        }
+
+        private void ValidateList()
+        {
+            if (!IsEmpty())
+            {
+                return;
+            }
+
+            throw new InvalidOperationException("List is empty.");
+        }
+
+        private void ValidateArray(T[] array, int index)
+        {
+            ArgumentNullException.ThrowIfNull(array);
+            ArgumentOutOfRangeException.ThrowIfLessThan(index, 0);
+
+            if (Count <= array.Length - index)
+            {
+                return;
+            }
+
+            throw new ArgumentException("There is not enough space from index to end of array.");
         }
 
         private bool IsEmpty()
@@ -288,60 +293,28 @@ namespace ObjectsCollection
             return false;
         }
 
-        private void AddToEmptyList(LinkedListNode<T> node)
+        private void SetNode(LinkedListNode<T> newNode, LinkedListNode<T> referenceNode, bool newNodeFollowsRefNode)
         {
-            sentinel.Next = node;
-            node.Previous = sentinel;
-            sentinel.Previous = node;
-            node.Next = sentinel;
-            node.List = this;
+            newNode.List = this;
+            newNode.Next = newNodeFollowsRefNode ? referenceNode.Next : referenceNode;
+            newNode.Previous = newNodeFollowsRefNode ? referenceNode : referenceNode.Previous;
+
+            if (newNodeFollowsRefNode)
+            {
+                referenceNode.Next.Previous = newNode;
+                referenceNode.Next = newNode;
+            }
+            else
+            {
+                referenceNode.Previous.Next = newNode;
+                referenceNode.Previous = newNode;
+            }
         }
 
-        private static void ValidateNewNode(LinkedListNode<T> node)
+        private static void RemoveNode(LinkedListNode<T> node)
         {
-            ArgumentNullException.ThrowIfNull(node);
-
-            if (node.List == null)
-            {
-                return;
-            }
-
-            throw new InvalidOperationException("New node belongs to another list.");
-        }
-
-        private void ValidateListNode(LinkedListNode<T> node)
-        {
-            ArgumentNullException.ThrowIfNull(node);
-
-            if (IsNodeInList(node))
-            {
-                return;
-            }
-
-            throw new InvalidOperationException("Node is not in the current list.");
-        }
-
-        private void ValidateList()
-        {
-            if (!IsEmpty())
-            {
-                return;
-            }
-
-            throw new InvalidOperationException("List is empty.");
-        }
-
-        private void ValidateArray(T[] array, int index)
-        {
-            ArgumentNullException.ThrowIfNull(array);
-            ArgumentOutOfRangeException.ThrowIfLessThan(index, 0);
-
-            if (Count <= array.Length - index)
-            {
-                return;
-            }
-
-            throw new ArgumentException("There is not enough space from index to end of array.");
+            node.Previous.Next = node.Next;
+            node.Next.Previous = node.Previous;
         }
     }
 }

@@ -227,6 +227,21 @@ namespace ObjectsCollection
         }
 
         [Fact]
+        public void AddAfterShouldAddNodeAfterLastNodePassedValue()
+        {
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+
+            LinkedListNode<int> previousNode = list.Find(4);
+
+            LinkedListNode<int> newNode = list.AddAfter(previousNode, 5);
+
+            Assert.Equal(5, previousNode.Next.Value);
+            Assert.Equal(4, newNode.Previous.Value);
+            Assert.Equal(6, list.Count);
+        }
+
+        [Fact]
         public void AddAfterShouldAddNodeAfterSpecifiedNodeUsingNewNode()
         {
             int[] collection = { 1, 2, 3, 2, 4 };
@@ -273,14 +288,27 @@ namespace ObjectsCollection
             LinkedListNode<int> previousNode = list.Find(3);
             LinkedListNode<int> nextNode = list.FindLast(2);
 
-            list.AddBefore(nextNode, 4);
-
-            LinkedListNode<int> newNode = list.Find(4);
+            LinkedListNode<int> newNode = list.AddBefore(nextNode, 4);
 
             Assert.Equal(4, previousNode.Next.Value);
             Assert.Equal(4, nextNode.Previous.Value);
             Assert.Equal(3, newNode.Previous.Value);
             Assert.Equal(2, newNode.Next.Value);
+            Assert.Equal(6, list.Count);
+        }
+
+        [Fact]
+        public void AddBeforeShouldAddNodeBeforeFirstNodePassedValue()
+        {
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+
+            LinkedListNode<int> nextNode = list.Find(1);
+
+            LinkedListNode<int> newNode = list.AddBefore(nextNode, 6);
+
+            Assert.Equal(6, nextNode.Previous.Value);
+            Assert.Equal(1, newNode.Next.Value);
             Assert.Equal(6, list.Count);
         }
 
@@ -437,7 +465,7 @@ namespace ObjectsCollection
         {
             int[] collection = { 1, 2, 3, 2, 4 };
             var list = new LinkedList<int>(collection);
-            LinkedListNode<int> node = new (1);
+            LinkedListNode<int> node = new(1);
 
             Assert.Throws<InvalidOperationException>(() => list.AddAfter(node, 4));
         }
@@ -447,7 +475,7 @@ namespace ObjectsCollection
         {
             int[] collection = { 1, 2, 3, 2, 4 };
             var list = new LinkedList<int>(collection);
-            LinkedListNode<int> node = new (2);
+            LinkedListNode<int> node = new(2);
 
             Assert.Throws<ArgumentNullException>(() => list.AddAfter(null, node));
         }
@@ -467,8 +495,8 @@ namespace ObjectsCollection
         {
             int[] collection = { 1, 2, 3, 2, 4 };
             var list = new LinkedList<int>(collection);
-            LinkedListNode<int> node = new (1);
-            LinkedListNode<int> newNode = new (5);
+            LinkedListNode<int> node = new(1);
+            LinkedListNode<int> newNode = new(5);
 
             Assert.Throws<InvalidOperationException>(() => list.AddAfter(node, newNode));
         }
@@ -481,7 +509,7 @@ namespace ObjectsCollection
             var list2 = new LinkedList<int>();
 
             LinkedListNode<int> node = list1.Find(2);
-            LinkedListNode<int> newNode = new (5);
+            LinkedListNode<int> newNode = new(5);
             list2.AddFirst(newNode);
 
             Assert.Throws<InvalidOperationException>(() => list1.AddAfter(node, newNode));
@@ -501,7 +529,7 @@ namespace ObjectsCollection
         {
             int[] collection = { 1, 2, 3, 2, 4 };
             var list = new LinkedList<int>(collection);
-            LinkedListNode<int> node = new (2);
+            LinkedListNode<int> node = new(2);
 
             Assert.Throws<InvalidOperationException>(() => list.AddBefore(node, 4));
         }
@@ -511,7 +539,7 @@ namespace ObjectsCollection
         {
             int[] collection = { 1, 2, 3, 2, 4 };
             var list = new LinkedList<int>(collection);
-            LinkedListNode<int> node = new (2);
+            LinkedListNode<int> node = new(2);
 
             Assert.Throws<ArgumentNullException>(() => list.AddBefore(null, node));
         }
@@ -531,8 +559,8 @@ namespace ObjectsCollection
         {
             int[] collection = { 1, 2, 3, 2, 4 };
             var list = new LinkedList<int>(collection);
-            LinkedListNode<int> node = new (1);
-            LinkedListNode<int> newNode = new (5);
+            LinkedListNode<int> node = new(1);
+            LinkedListNode<int> newNode = new(5);
 
             Assert.Throws<InvalidOperationException>(() => list.AddBefore(node, newNode));
         }
@@ -545,7 +573,7 @@ namespace ObjectsCollection
             var list2 = new LinkedList<int>();
 
             LinkedListNode<int> node = list1.Find(2);
-            LinkedListNode<int> newNode = new (5);
+            LinkedListNode<int> newNode = new(5);
             list2.AddFirst(newNode);
 
             Assert.Throws<InvalidOperationException>(() => list1.AddBefore(node, newNode));
@@ -567,7 +595,7 @@ namespace ObjectsCollection
             var list1 = new LinkedList<int>(collection);
             var list2 = new LinkedList<int>();
 
-            LinkedListNode<int> node = new (5);
+            LinkedListNode<int> node = new(5);
             list2.AddFirst(node);
 
             Assert.Throws<InvalidOperationException>(() => list1.AddFirst(node));
@@ -589,7 +617,7 @@ namespace ObjectsCollection
             var list1 = new LinkedList<int>(collection);
             var list2 = new LinkedList<int>();
 
-            LinkedListNode<int> node = new (5);
+            LinkedListNode<int> node = new(5);
             list2.AddFirst(node);
 
             Assert.Throws<InvalidOperationException>(() => list1.AddLast(node));
@@ -609,7 +637,7 @@ namespace ObjectsCollection
         {
             int[] collection = { 1, 2, 3, 2, 4 };
             var list = new LinkedList<int>(collection);
-            LinkedListNode<int> node = new (1);
+            LinkedListNode<int> node = new(1);
 
             Assert.Throws<InvalidOperationException>(() => list.Remove(node));
         }
