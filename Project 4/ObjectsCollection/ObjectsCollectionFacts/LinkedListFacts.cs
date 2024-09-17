@@ -638,5 +638,15 @@ namespace ObjectsCollection
 
             Assert.Throws<ArgumentNullException>(() => list.CopyTo(null, 0));
         }
+
+        [Fact]
+        public void CopyToThrowsArgumentOutOfRangeIfIndexIsLessThen0()
+        {
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+            int[] array = new int[5];
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => list.CopyTo(array, -1));
+        }
     }
 }

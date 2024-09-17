@@ -159,6 +159,7 @@ namespace ObjectsCollection
             //why is implicit interface implementation?
 
             ArgumentNullException.ThrowIfNull(array);
+            ArgumentOutOfRangeException.ThrowIfLessThan(arrayIndex, 0);
 
             LinkedListNode<T> current = First;
 
