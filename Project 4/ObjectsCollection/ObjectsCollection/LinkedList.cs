@@ -158,13 +158,7 @@ namespace ObjectsCollection
         {
             //why is implicit interface implementation?
 
-            ArgumentNullException.ThrowIfNull(array);
-            ArgumentOutOfRangeException.ThrowIfLessThan(arrayIndex, 0);
-
-            if (Count > array.Length - arrayIndex)
-            {
-                throw new ArgumentException("There is not enough space from index to end of array.");
-            }
+            ValidateArray(array, arrayIndex);
 
             LinkedListNode<T> current = First;
 
@@ -335,6 +329,19 @@ namespace ObjectsCollection
             }
 
             throw new InvalidOperationException("List is empty.");
+        }
+
+        private void ValidateArray(T[] array, int index)
+        {
+            ArgumentNullException.ThrowIfNull(array);
+            ArgumentOutOfRangeException.ThrowIfLessThan(index, 0);
+
+            if (Count <= array.Length - index)
+            {
+                return;
+            }
+
+            throw new ArgumentException("There is not enough space from index to end of array.");
         }
     }
 }
