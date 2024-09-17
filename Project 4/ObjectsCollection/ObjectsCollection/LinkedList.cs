@@ -161,6 +161,11 @@ namespace ObjectsCollection
             ArgumentNullException.ThrowIfNull(array);
             ArgumentOutOfRangeException.ThrowIfLessThan(arrayIndex, 0);
 
+            if (Count > array.Length - arrayIndex)
+            {
+                throw new ArgumentException("There is not enough space from index to end of array.");
+            }
+
             LinkedListNode<T> current = First;
 
             for (int i = arrayIndex; i < Count + arrayIndex; i++)

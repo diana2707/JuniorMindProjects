@@ -648,5 +648,25 @@ namespace ObjectsCollection
 
             Assert.Throws<ArgumentOutOfRangeException>(() => list.CopyTo(array, -1));
         }
+
+        [Fact]
+        public void CopyToThrowsArgumentExceptionArraySizeIsLessThanCount()
+        {
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+            int[] array = new int[4];
+
+            Assert.Throws<ArgumentException>(() => list.CopyTo(array, 0));
+        }
+
+        [Fact]
+        public void CopyToThrowsArgumentExceptionIfSpaceFromIndexToArrayEndIsLessThanCount()
+        {
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+            int[] array = new int[5];
+
+            Assert.Throws<ArgumentException>(() => list.CopyTo(array, 2));
+        }
     }
 }
