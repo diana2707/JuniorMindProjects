@@ -613,5 +613,13 @@ namespace ObjectsCollection
 
             Assert.Throws<InvalidOperationException>(() => list.Remove(node));
         }
+
+        [Fact]
+        public void RemoveFirstThrowsInvalidOperationExceptionWhenListIsEmpty()
+        {
+            var list = new LinkedList<int>();
+
+            Assert.Throws<InvalidOperationException>(() => list.RemoveFirst());
+        }
     }
 }

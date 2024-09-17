@@ -203,6 +203,11 @@ namespace ObjectsCollection
 
         public void RemoveFirst()
         {
+            if (IsEmpty())
+            {
+                throw new InvalidOperationException("List is empty.");
+            }
+
             sentinel.Next = First.Next;
             First.Next.Previous = sentinel;
             Count--;
