@@ -51,7 +51,11 @@ namespace ObjectsCollection
 
         public void AddFirst(LinkedListNode<T> newNode)
         {
-            //when node is null throw exception 
+            ArgumentNullException.ThrowIfNull(newNode);
+            if (newNode.List != null)
+            {
+                throw new InvalidOperationException("New node belongs to another list.");
+            }
 
             if (IsEmpty())
             {

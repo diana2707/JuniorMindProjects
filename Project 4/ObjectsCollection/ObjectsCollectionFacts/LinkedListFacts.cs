@@ -498,10 +498,6 @@ namespace ObjectsCollection
             Assert.Throws<InvalidOperationException>(() => list1.AddAfter(node, newNode));
         }
 
-
-
-
-
         [Fact]
         public void AddBeforeThrowsArgumentNullExceptionWhenNodeIsNullWhenPassedValue()
         {
@@ -564,6 +560,28 @@ namespace ObjectsCollection
             list2.AddFirst(newNode);
 
             Assert.Throws<InvalidOperationException>(() => list1.AddBefore(node, newNode));
+        }
+
+        [Fact]
+        public void AddFirstThrowsArgumentNullExceptionWhenNodeIsNullWhenPassedNode()
+        {
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+
+            Assert.Throws<ArgumentNullException>(() => list.AddFirst(null));
+        }
+
+        [Fact]
+        public void AddFirstThrowsInvalidOperationExceptionWhenNewNodeBelongsToAnotherList()
+        {
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list1 = new LinkedList<int>(collection);
+            var list2 = new LinkedList<int>();
+
+            LinkedListNode<int> node = new (5);
+            list2.AddFirst(node);
+
+            Assert.Throws<InvalidOperationException>(() => list1.AddFirst(node));
         }
     }
 }
