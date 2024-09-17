@@ -100,6 +100,7 @@ namespace ObjectsCollection
 
         public LinkedListNode<T> AddAfter(LinkedListNode<T> node, T item)
         {
+            //verifica edge case, AddAfter last node
             LinkedListNode<T> newNode = new (item);
 
             AddAfter(node, newNode);
@@ -121,7 +122,7 @@ namespace ObjectsCollection
 
         public void AddBefore(LinkedListNode<T> node, T item)
         {
-            //when node is null throw exception 
+            //verifica edge case, addbefore first node
 
             LinkedListNode<T> newNode = new (item);
 
@@ -130,7 +131,7 @@ namespace ObjectsCollection
 
         public void AddBefore(LinkedListNode<T> node, LinkedListNode<T> newNode)
         {
-            //when node is null throw exception 
+            ValidateNodes(node, newNode);
 
             newNode.Next = node;
             newNode.Previous = node.Previous;

@@ -497,5 +497,73 @@ namespace ObjectsCollection
 
             Assert.Throws<InvalidOperationException>(() => list1.AddAfter(node, newNode));
         }
+
+
+
+
+
+        [Fact]
+        public void AddBeforeThrowsArgumentNullExceptionWhenNodeIsNullWhenPassedValue()
+        {
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+
+            Assert.Throws<ArgumentNullException>(() => list.AddBefore(null, 4));
+        }
+
+        [Fact]
+        public void AddBeforeThrowsInvalidOperationExceptionWhenNodeIsNotFound()
+        {
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+            LinkedListNode<int> node = new (2);
+
+            Assert.Throws<InvalidOperationException>(() => list.AddBefore(node, 4));
+        }
+
+        [Fact]
+        public void AddBeforeThrowsArgumentNullExceptionWhenNodeIsNullWhenPassedNode()
+        {
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+            LinkedListNode<int> node = new (2);
+
+            Assert.Throws<ArgumentNullException>(() => list.AddBefore(null, node));
+        }
+
+        [Fact]
+        public void AddBeforeThrowsArgumentNullExceptionWhenNewNodeIsNull()
+        {
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+            LinkedListNode<int> node = list.Find(2);
+
+            Assert.Throws<ArgumentNullException>(() => list.AddBefore(node, null));
+        }
+
+        [Fact]
+        public void AddBeforeThrowsInvalidOperationExceptionWhenNodeIsNotInCurrentList()
+        {
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+            LinkedListNode<int> node = new (1);
+            LinkedListNode<int> newNode = new (5);
+
+            Assert.Throws<InvalidOperationException>(() => list.AddBefore(node, newNode));
+        }
+
+        [Fact]
+        public void AddBeforeThrowsInvalidOperationExceptionWhenNewNodeBelongsToAnotherList()
+        {
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list1 = new LinkedList<int>(collection);
+            var list2 = new LinkedList<int>();
+
+            LinkedListNode<int> node = list1.Find(2);
+            LinkedListNode<int> newNode = new (5);
+            list2.AddFirst(newNode);
+
+            Assert.Throws<InvalidOperationException>(() => list1.AddBefore(node, newNode));
+        }
     }
 }
