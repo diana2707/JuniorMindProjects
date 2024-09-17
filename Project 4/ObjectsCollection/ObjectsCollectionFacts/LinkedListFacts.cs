@@ -392,17 +392,6 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void RemoveShouldMakeNoChangeWhenListIsEmpty()
-        {
-            var list = new LinkedList<int>();
-            LinkedListNode<int> node = new (4);
-
-            list.Remove(null);
-
-            Assert.Equal(0, list.Count);
-        }
-
-        [Fact]
         public void RemoveFirstShouldRemoveFirstNode()
         {
             int[] collection = { 1, 2, 3 };
@@ -594,7 +583,7 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void AddlastThrowsInvalidOperationExceptionWhenNewNodeBelongsToAnotherList()
+        public void AddLastThrowsInvalidOperationExceptionWhenNewNodeBelongsToAnotherList()
         {
             int[] collection = { 1, 2, 3, 2, 4 };
             var list1 = new LinkedList<int>(collection);
@@ -604,6 +593,25 @@ namespace ObjectsCollection
             list2.AddFirst(node);
 
             Assert.Throws<InvalidOperationException>(() => list1.AddLast(node));
+        }
+
+        [Fact]
+        public void RemoveThrowsArgumentNullExceptionWhenNodeIsNullWhenPassedNode()
+        {
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+
+            Assert.Throws<ArgumentNullException>(() => list.Remove(null));
+        }
+
+        [Fact]
+        public void RemoveThrowsInvalidOperationExceptionWhenNodeIsNotInCurrentList()
+        {
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+            LinkedListNode<int> node = new (1);
+
+            Assert.Throws<InvalidOperationException>(() => list.Remove(node));
         }
     }
 }

@@ -191,11 +191,10 @@ namespace ObjectsCollection
 
         public void Remove(LinkedListNode<T> node)
         {
-            //throw ex if node is null
-
-            if (node == null)
+            ArgumentNullException.ThrowIfNull(node);
+            if (!IsNodeInList(node))
             {
-                return;
+                throw new InvalidOperationException("Node is not in the current list.");
             }
 
             node.Previous.Next = node.Next;
