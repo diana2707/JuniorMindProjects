@@ -629,5 +629,14 @@ namespace ObjectsCollection
 
             Assert.Throws<InvalidOperationException>(() => list.RemoveLast());
         }
+
+        [Fact]
+        public void CopyToThrowsArgumentNullExceptionIfArrayIsNull()
+        {
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+
+            Assert.Throws<ArgumentNullException>(() => list.CopyTo(null, 0));
+        }
     }
 }

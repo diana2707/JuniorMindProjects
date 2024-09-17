@@ -157,6 +157,9 @@ namespace ObjectsCollection
         public void CopyTo(T[] array, int arrayIndex)
         {
             //why is implicit interface implementation?
+
+            ArgumentNullException.ThrowIfNull(array);
+
             LinkedListNode<T> current = First;
 
             for (int i = arrayIndex; i < Count + arrayIndex; i++)
@@ -238,7 +241,7 @@ namespace ObjectsCollection
 
         private bool IsEmpty()
         {
-            return sentinel.Next == sentinel;
+            return Count == 0;
         }
 
         private LinkedListNode<T> Search(T value, bool startFromFirst)
