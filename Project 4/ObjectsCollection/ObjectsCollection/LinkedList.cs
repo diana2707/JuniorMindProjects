@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using System.Collections;
+﻿using System.Collections;
 
 namespace ObjectsCollection
 {
@@ -110,10 +109,16 @@ namespace ObjectsCollection
         public void AddAfter(LinkedListNode<T> node, LinkedListNode<T> newNode)
         {
             ArgumentNullException.ThrowIfNull(node);
+            ArgumentNullException.ThrowIfNull(newNode);
 
             if (!IsNodeInList(node))
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("Node is not in the current list.");
+            }
+
+            if (newNode.List != null)
+            {
+                throw new InvalidOperationException("New node belongs to another list.");
             }
 
             newNode.Previous = node;
