@@ -250,12 +250,7 @@ namespace ObjectsCollection
 
         private LinkedListNode<T> Search(T value, bool startFromFirst)
         {
-            if (IsEmpty())
-            {
-                return null;
-            }
-
-            LinkedListNode<T> current = startFromFirst ? First : Last;
+            LinkedListNode<T> current = startFromFirst ? sentinel.Next : sentinel.Previous;
 
             while (current != sentinel)
             {
@@ -272,12 +267,7 @@ namespace ObjectsCollection
 
         private bool IsNodeInList(LinkedListNode<T> node)
         {
-            if (IsEmpty())
-            {
-                return false;
-            }
-
-            LinkedListNode<T> current = First;
+            LinkedListNode<T> current = sentinel.Next;
 
             while (current != sentinel)
             {
