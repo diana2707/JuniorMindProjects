@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Xml.Linq;
 
 namespace ObjectsCollection
 {
@@ -145,8 +144,8 @@ namespace ObjectsCollection
 
         public bool Remove(T item)
         {
-            //refactor to use IsNodeInList?
             LinkedListNode<T> node = Search(item, true);
+
             if (node == null)
             {
                 return false;
