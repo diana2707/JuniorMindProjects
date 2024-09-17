@@ -108,18 +108,7 @@ namespace ObjectsCollection
 
         public void AddAfter(LinkedListNode<T> node, LinkedListNode<T> newNode)
         {
-            ArgumentNullException.ThrowIfNull(node);
-            ArgumentNullException.ThrowIfNull(newNode);
-
-            if (!IsNodeInList(node))
-            {
-                throw new InvalidOperationException("Node is not in the current list.");
-            }
-
-            if (newNode.List != null)
-            {
-                throw new InvalidOperationException("New node belongs to another list.");
-            }
+            ValidateNodes(node, newNode);
 
             newNode.Previous = node;
             newNode.Next = node.Next;
@@ -298,12 +287,27 @@ namespace ObjectsCollection
 
         private void AddToEmptyList(LinkedListNode<T> node)
         {
-
             sentinel.Next = node;
             node.Previous = sentinel;
             sentinel.Previous = node;
             node.Next = sentinel;
             node.List = this;
+        }
+
+        private void ValidateNodes(LinkedListNode<T> node, LinkedListNode<T> newNode)
+        {
+            ArgumentNullException.ThrowIfNull(node);
+            ArgumentNullException.ThrowIfNull(newNode);
+
+            if (!IsNodeInList(node))
+            {
+                throw new InvalidOperationException("Node is not in the current list.");
+            }
+
+            if (newNode.List != null)
+            {
+                throw new InvalidOperationException("New node belongs to another list.");
+            }
         }
     }
 }
