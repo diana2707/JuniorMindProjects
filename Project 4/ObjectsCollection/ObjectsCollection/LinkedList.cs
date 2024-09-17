@@ -50,7 +50,7 @@ namespace ObjectsCollection
 
         public void AddFirst(LinkedListNode<T> newNode)
         {
-            Validate(newNode);
+            ValidateNewNode(newNode);
 
             if (IsEmpty())
             {
@@ -77,7 +77,7 @@ namespace ObjectsCollection
 
         public void AddLast(LinkedListNode<T> newNode)
         {
-            Validate(newNode);
+            ValidateNewNode(newNode);
 
             if (IsEmpty())
             {
@@ -106,7 +106,8 @@ namespace ObjectsCollection
 
         public void AddAfter(LinkedListNode<T> node, LinkedListNode<T> newNode)
         {
-            Validate(node, newNode);
+            ValidateListNode(node);
+            ValidateNewNode(newNode);
 
             newNode.Previous = node;
             newNode.Next = node.Next;
@@ -128,7 +129,8 @@ namespace ObjectsCollection
 
         public void AddBefore(LinkedListNode<T> node, LinkedListNode<T> newNode)
         {
-            Validate(node, newNode);
+            ValidateListNode(node);
+            ValidateNewNode(newNode);
 
             newNode.Next = node;
             newNode.Previous = node.Previous;
@@ -179,6 +181,7 @@ namespace ObjectsCollection
 
         public bool Remove(T item)
         {
+            //refactor to use IsNodeInList?
             LinkedListNode<T> node = Search(item, true);
             if (node == null)
             {
@@ -191,11 +194,7 @@ namespace ObjectsCollection
 
         public void Remove(LinkedListNode<T> node)
         {
-            ArgumentNullException.ThrowIfNull(node);
-            if (!IsNodeInList(node))
-            {
-                throw new InvalidOperationException("Node is not in the current list.");
-            }
+            ValidateListNode(node);
 
             node.Previous.Next = node.Next;
             node.Next.Previous = node.Previous;
@@ -291,24 +290,28 @@ namespace ObjectsCollection
             node.List = this;
         }
 
-        private void Validate(LinkedListNode<T> node, LinkedListNode<T> newNode)
+        private static void ValidateNewNode(LinkedListNode<T> node)
         {
             ArgumentNullException.ThrowIfNull(node);
-            if (!IsNodeInList(node))
+
+            if (node.List == null)
             {
-                throw new InvalidOperationException("Node is not in the current list.");
+                return;
             }
 
-            Validate(newNode);
+            throw new InvalidOperationException("New node belongs to another list.");
         }
 
-        private static void Validate(LinkedListNode<T> newNode)
+        private void ValidateListNode(LinkedListNode<T> node)
         {
-            ArgumentNullException.ThrowIfNull(newNode);
-            if (newNode.List != null)
+            ArgumentNullException.ThrowIfNull(node);
+
+            if (IsNodeInList(node))
             {
-                throw new InvalidOperationException("New node belongs to another list.");
+                return;
             }
+
+            throw new InvalidOperationException("Node is not in the current list.");
         }
     }
 }
