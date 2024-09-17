@@ -41,7 +41,6 @@ namespace ObjectsCollection
 
         public void AddFirst(T item)
         {
-            //when node is null throw exception 
             //verify it accept null values but not null next, previous, check every situation
 
             LinkedListNode<T> newNode = new (item);
@@ -75,8 +74,6 @@ namespace ObjectsCollection
 
         public void AddLast(T item)
         {
-            //when node is null throw exception 
-
             LinkedListNode<T> newNode = new (item);
 
             AddLast(newNode);
@@ -84,7 +81,11 @@ namespace ObjectsCollection
 
         public void AddLast(LinkedListNode<T> newNode)
         {
-            //when node is null throw exception 
+            ArgumentNullException.ThrowIfNull(newNode);
+            if (newNode.List != null)
+            {
+                throw new InvalidOperationException("New node belongs to another list.");
+            }
 
             if (IsEmpty())
             {

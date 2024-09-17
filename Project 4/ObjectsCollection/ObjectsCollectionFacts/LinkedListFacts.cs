@@ -583,5 +583,27 @@ namespace ObjectsCollection
 
             Assert.Throws<InvalidOperationException>(() => list1.AddFirst(node));
         }
+
+        [Fact]
+        public void AddLastThrowsArgumentNullExceptionWhenNodeIsNullWhenPassedNode()
+        {
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list = new LinkedList<int>(collection);
+
+            Assert.Throws<ArgumentNullException>(() => list.AddLast(null));
+        }
+
+        [Fact]
+        public void AddlastThrowsInvalidOperationExceptionWhenNewNodeBelongsToAnotherList()
+        {
+            int[] collection = { 1, 2, 3, 2, 4 };
+            var list1 = new LinkedList<int>(collection);
+            var list2 = new LinkedList<int>();
+
+            LinkedListNode<int> node = new (5);
+            list2.AddFirst(node);
+
+            Assert.Throws<InvalidOperationException>(() => list1.AddLast(node));
+        }
     }
 }
