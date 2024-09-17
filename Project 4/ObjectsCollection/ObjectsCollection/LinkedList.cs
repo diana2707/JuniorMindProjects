@@ -203,10 +203,7 @@ namespace ObjectsCollection
 
         public void RemoveFirst()
         {
-            if (IsEmpty())
-            {
-                throw new InvalidOperationException("List is empty.");
-            }
+            ValidateList();
 
             sentinel.Next = First.Next;
             First.Next.Previous = sentinel;
@@ -215,10 +212,7 @@ namespace ObjectsCollection
 
         public void RemoveLast()
         {
-            if (IsEmpty())
-            {
-                throw new InvalidOperationException("List is empty.");
-            }
+            ValidateList();
 
             sentinel.Previous = Last.Previous;
             Last.Previous.Next = sentinel;
@@ -322,6 +316,16 @@ namespace ObjectsCollection
             }
 
             throw new InvalidOperationException("Node is not in the current list.");
+        }
+
+        private void ValidateList()
+        {
+            if (!IsEmpty())
+            {
+                return;
+            }
+
+            throw new InvalidOperationException("List is empty.");
         }
     }
 }
