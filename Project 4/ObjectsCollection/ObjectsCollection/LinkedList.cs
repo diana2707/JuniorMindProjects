@@ -246,16 +246,14 @@ namespace ObjectsCollection
 
         private LinkedListNode<T> Search(T value, bool startFromFirst)
         {
-            LinkedListNode<T> current = startFromFirst ? sentinel.Next : sentinel.Previous;
-
-            while (current != sentinel)
+            for (LinkedListNode<T> current = startFromFirst ? sentinel.Next : sentinel.Previous;
+                current != sentinel;
+                current = startFromFirst ? current.Next : current.Previous)
             {
                 if (current.Value.Equals(value))
                 {
                     return current;
                 }
-
-                current = startFromFirst ? current.Next : current.Previous;
             }
 
             return null;
