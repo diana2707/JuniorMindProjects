@@ -181,13 +181,9 @@ namespace ObjectsCollection
 
         public IEnumerator<T> GetEnumerator()
         {
-            LinkedListNode<T> current = First;
-
-            while (current != sentinel)
+            for (LinkedListNode<T> current = First;  current != sentinel; current = current.Next)
             {
                 yield return current.Value;
-
-                current = current.Next;
             }
         }
 
