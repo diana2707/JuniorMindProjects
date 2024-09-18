@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Xml.Linq;
 
 namespace ObjectsCollection
 {
@@ -131,32 +130,23 @@ namespace ObjectsCollection
                 return false;
             }
 
-            Remove(node);
+            RemoveNode(node);
             return true;
         }
 
         public void Remove(LinkedListNode<T> node)
         {
-            ValidateListNode(node);
-
             RemoveNode(node);
-            Count--;
         }
 
         public void RemoveFirst()
         {
-            ValidateList();
-
             RemoveNode(First);
-            Count--;
         }
 
         public void RemoveLast()
         {
-            ValidateList();
-
             RemoveNode(Last);
-            Count--;
         }
 
         public IEnumerator<T> GetEnumerator()
@@ -264,9 +254,17 @@ namespace ObjectsCollection
             Count++;
         }
 
+        private void RemoveNode(LinkedListNode<T> node)
+        {
+            ValidateList();
+            ValidateListNode(node);
+
+            ResetLinkedNodes(node);
+            Count--;
+        }
+
         private void SetNode(LinkedListNode<T> newNode, LinkedListNode<T> referenceNode, bool newNodeFollowsRefNode)
         {
-            //denumeste referenceNode as listNode ca sa fie consistent denumirile
             newNode.List = this;
             newNode.Next = newNodeFollowsRefNode ? referenceNode.Next : referenceNode;
             newNode.Previous = newNodeFollowsRefNode ? referenceNode : referenceNode.Previous;
@@ -283,7 +281,7 @@ namespace ObjectsCollection
             }
         }
 
-        private static void RemoveNode(LinkedListNode<T> node)
+        private static void ResetLinkedNodes(LinkedListNode<T> node)
         {
             node.Previous.Next = node.Next;
             node.Next.Previous = node.Previous;
