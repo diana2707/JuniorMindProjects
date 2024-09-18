@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Xml.Linq;
 
 namespace ObjectsCollection
 {
@@ -39,75 +40,54 @@ namespace ObjectsCollection
         public void AddFirst(T item)
         {
             LinkedListNode<T> newNode = new (item);
-
-            AddFirst(newNode);
+            AddNode(newNode, sentinel, true);
         }
 
         public void AddFirst(LinkedListNode<T> newNode)
         {
-            ValidateNewNode(newNode);
-
-            SetNode(newNode, sentinel, true);
-
-            Count++;
+            AddNode(newNode, sentinel, true);
         }
 
         public void AddLast(T item)
         {
             LinkedListNode<T> newNode = new (item);
-
-            AddLast(newNode);
+            AddNode(newNode, sentinel, false);
         }
 
         public void AddLast(LinkedListNode<T> newNode)
         {
-            ValidateNewNode(newNode);
-
-            SetNode(newNode, sentinel, false);
-
-            Count++;
+            AddNode(newNode, sentinel, false);
         }
 
-        public LinkedListNode<T> AddAfter(LinkedListNode<T> node, T item)
+        public LinkedListNode<T> AddAfter(LinkedListNode<T> listNode, T item)
         {
             LinkedListNode<T> newNode = new (item);
-            AddAfter(node, newNode);
+            AddNode(newNode, listNode, true);
 
             return newNode;
         }
 
-        public void AddAfter(LinkedListNode<T> node, LinkedListNode<T> newNode)
+        public void AddAfter(LinkedListNode<T> listNode, LinkedListNode<T> newNode)
         {
-            ValidateListNode(node);
-            ValidateNewNode(newNode);
-
-            SetNode(newNode, node, true);
-
-            Count++;
+            AddNode(newNode, listNode, true);
         }
 
-        public LinkedListNode<T> AddBefore(LinkedListNode<T> node, T item)
+        public LinkedListNode<T> AddBefore(LinkedListNode<T> listNode, T item)
         {
             LinkedListNode<T> newNode = new (item);
-            AddBefore(node, newNode);
+            AddNode(newNode, listNode, false);
 
             return newNode;
         }
 
-        public void AddBefore(LinkedListNode<T> node, LinkedListNode<T> newNode)
+        public void AddBefore(LinkedListNode<T> listNode, LinkedListNode<T> newNode)
         {
-            ValidateListNode(node);
-            ValidateNewNode(newNode);
-
-            SetNode(newNode, node, false);
-
-            Count++;
+            AddNode(newNode, listNode, false);
         }
 
         public void Clear()
         {
             SetNode(sentinel, sentinel, true);
-
             Count = 0;
         }
 
@@ -272,8 +252,21 @@ namespace ObjectsCollection
             return false;
         }
 
+        private void AddNode(LinkedListNode<T> newNode, LinkedListNode<T> referenceNode, bool newNodeFollowsRefNode)
+        {
+            ValidateNewNode(newNode);
+            if (referenceNode != sentinel)
+            {
+                ValidateListNode(referenceNode);
+            }
+
+            SetNode(newNode, referenceNode, newNodeFollowsRefNode);
+            Count++;
+        }
+
         private void SetNode(LinkedListNode<T> newNode, LinkedListNode<T> referenceNode, bool newNodeFollowsRefNode)
         {
+            //denumeste referenceNode as listNode ca sa fie consistent denumirile
             newNode.List = this;
             newNode.Next = newNodeFollowsRefNode ? referenceNode.Next : referenceNode;
             newNode.Previous = newNodeFollowsRefNode ? referenceNode : referenceNode.Previous;
