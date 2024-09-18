@@ -263,16 +263,12 @@ namespace ObjectsCollection
 
         private bool IsNodeInList(LinkedListNode<T> node)
         {
-            LinkedListNode<T> current = sentinel.Next;
-
-            while (current != sentinel)
+            for (LinkedListNode<T> current = sentinel.Next; current != sentinel; current = current.Next)
             {
                 if (current.Equals(node))
                 {
                     return true;
                 }
-
-                current = current.Next;
             }
 
             return false;
