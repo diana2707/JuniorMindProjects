@@ -36,10 +36,11 @@ namespace ObjectsCollection
             AddLast(item);
         }
 
-        public void AddFirst(T item)
+        public LinkedListNode<T> AddFirst(T item)
         {
             LinkedListNode<T> newNode = new (item);
             AddNode(newNode, sentinel, true);
+            return newNode;
         }
 
         public void AddFirst(LinkedListNode<T> newNode)

@@ -327,16 +327,14 @@
         }
 
         [Fact]
-        public void AddFirstShouldCreateNewNodeAndAddValueOnFirstPosition()
+        public void AddFirstShouldCreateNewNodeAndAddValueOnFirstPositionAndReturnNewNode()
         {
             int[] collection = { 1, 2, 3, 2, 4 };
             var list = new LinkedList<int>(collection);
 
             LinkedListNode<int> nextNode = list.Find(1);
 
-            list.AddFirst(0);
-
-            LinkedListNode<int> newNode = list.Find(0);
+            LinkedListNode<int> newNode = list.AddFirst(0);
 
             Assert.Equal(0, list.First.Value);
             Assert.Equal(1, newNode.Next.Value);
@@ -349,10 +347,11 @@
         {
             var list = new LinkedList<int>();
 
-            list.AddFirst(5);
+            LinkedListNode<int> newNode = list.AddFirst(5);
 
             Assert.Equal(5, list.Last.Value);
             Assert.Equal(5, list.First.Value);
+            Assert.Equal(newNode, list.First);
             Assert.Equal(1, list.Count);
         }
 
