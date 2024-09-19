@@ -51,13 +51,14 @@ namespace ObjectsCollection
         public LinkedListNode<T> AddLast(T item)
         {
             LinkedListNode<T> newNode = new (item);
-            AddNode(newNode, sentinel, false);
+            AddAfter(sentinel.Previous, newNode);
+
             return newNode;
         }
 
         public void AddLast(LinkedListNode<T> newNode)
         {
-            AddNode(newNode, sentinel, false);
+            AddAfter(sentinel.Previous, newNode);
         }
 
         public LinkedListNode<T> AddAfter(LinkedListNode<T> listNode, T item)
