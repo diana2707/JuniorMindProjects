@@ -380,13 +380,12 @@
 
             LinkedListNode<int> previousNode = list.Find(4);
 
-            list.AddLast(5);
-
-            LinkedListNode<int> newNode = list.Find(5);
+            LinkedListNode<int> newNode = list.AddLast(5);
 
             Assert.Equal(5, list.Last.Value);
             Assert.Equal(4, newNode.Previous.Value);
             Assert.Equal(5, previousNode.Next.Value);
+            Assert.Equal(newNode, list.Last);
             Assert.Equal(6, list.Count);
         }
 
@@ -395,10 +394,11 @@
         {
             var list = new LinkedList<int>();
 
-            list.AddLast(5);
+            LinkedListNode<int> newNode = list.AddLast(5);
 
             Assert.Equal(5, list.Last.Value);
             Assert.Equal(5, list.First.Value);
+            Assert.Equal(newNode, list.Last);
             Assert.Equal(1, list.Count);
         }
 

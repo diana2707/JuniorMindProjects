@@ -48,10 +48,11 @@ namespace ObjectsCollection
             AddNode(newNode, sentinel, true);
         }
 
-        public void AddLast(T item)
+        public LinkedListNode<T> AddLast(T item)
         {
             LinkedListNode<T> newNode = new (item);
             AddNode(newNode, sentinel, false);
+            return newNode;
         }
 
         public void AddLast(LinkedListNode<T> newNode)
