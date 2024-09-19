@@ -101,7 +101,7 @@ namespace ObjectsCollection
         {
             ValidateArray(array, arrayIndex);
 
-            LinkedListNode<T> current = First;
+            LinkedListNode<T> current = sentinel.Next;
 
             for (int i = arrayIndex; i < Count + arrayIndex; i++)
             {
