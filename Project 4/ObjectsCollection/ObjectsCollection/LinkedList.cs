@@ -153,7 +153,7 @@ namespace ObjectsCollection
 
         public IEnumerator<T> GetEnumerator()
         {
-            for (LinkedListNode<T> current = First;  current != sentinel; current = current.Next)
+            for (LinkedListNode<T> current = sentinel.Next;  current != sentinel; current = current.Next)
             {
                 yield return current.Value;
             }
