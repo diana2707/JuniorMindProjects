@@ -159,12 +159,12 @@ namespace ObjectsCollection
 
         public void RemoveFirst()
         {
-            RemoveNode(sentinel.Next);
+            Remove(sentinel.Next);
         }
 
         public void RemoveLast()
         {
-            RemoveNode(sentinel.Previous);
+            Remove(sentinel.Previous);
         }
 
         public IEnumerator<T> GetEnumerator()
@@ -273,15 +273,6 @@ namespace ObjectsCollection
             }
 
             return false;
-        }
-
-        private void RemoveNode(LinkedListNode<T> node)
-        {
-            ValidateList();
-            ValidateListNode(node);
-
-            ResetLinkedNodes(node);
-            Count--;
         }
 
         private void SetNode(LinkedListNode<T> newNode, LinkedListNode<T> referenceNode, bool newNodeFollowsRefNode)
