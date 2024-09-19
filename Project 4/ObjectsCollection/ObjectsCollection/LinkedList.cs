@@ -94,7 +94,7 @@ namespace ObjectsCollection
 
         public bool Contains(T item)
         {
-            return Search(item, true) != null;
+            return SearchForward(item) != null;
         }
 
         public void CopyTo(T[] array, int arrayIndex)
@@ -115,17 +115,17 @@ namespace ObjectsCollection
 
         public LinkedListNode<T> Find(T item)
         {
-            return Search(item, true);
+            return SearchForward(item);
         }
 
         public LinkedListNode<T> FindLast(T item)
         {
-            return Search(item, false);
+            return SearchBackward(item);
         }
 
         public bool Remove(T item)
         {
-            LinkedListNode<T> node = Search(item, true);
+            LinkedListNode<T> node = SearchForward(item);
 
             if (node == null)
             {
@@ -216,11 +216,26 @@ namespace ObjectsCollection
             return Count == 0;
         }
 
-        private LinkedListNode<T> Search(T value, bool startFromFirst)
+        private LinkedListNode<T> SearchForward(T value)
         {
-            for (LinkedListNode<T> current = startFromFirst ? sentinel.Next : sentinel.Previous;
+            for (LinkedListNode<T> current = sentinel.Next;
                 current != sentinel;
-                current = startFromFirst ? current.Next : current.Previous)
+                current = current.Next)
+            {
+                if (current.Value.Equals(value))
+                {
+                    return current;
+                }
+            }
+
+            return null;
+        }
+
+        private LinkedListNode<T> SearchBackward(T value)
+        {
+            for (LinkedListNode<T> current = sentinel.Previous;
+                current != sentinel;
+                current = current.Previous)
             {
                 if (current.Value.Equals(value))
                 {
