@@ -39,13 +39,14 @@ namespace ObjectsCollection
         public LinkedListNode<T> AddFirst(T item)
         {
             LinkedListNode<T> newNode = new (item);
-            AddNode(newNode, sentinel, true);
+            AddAfter(sentinel, newNode);
+
             return newNode;
         }
 
         public void AddFirst(LinkedListNode<T> newNode)
         {
-            AddNode(newNode, sentinel, true);
+            AddAfter(sentinel, newNode);
         }
 
         public LinkedListNode<T> AddLast(T item)
@@ -268,18 +269,6 @@ namespace ObjectsCollection
             }
 
             return false;
-        }
-
-        private void AddNode(LinkedListNode<T> newNode, LinkedListNode<T> referenceNode, bool newNodeFollowsRefNode)
-        {
-            ValidateNewNode(newNode);
-            if (referenceNode != sentinel)
-            {
-                ValidateListNode(referenceNode);
-            }
-
-            SetNode(newNode, referenceNode, newNodeFollowsRefNode);
-            Count++;
         }
 
         private void RemoveNode(LinkedListNode<T> node)
