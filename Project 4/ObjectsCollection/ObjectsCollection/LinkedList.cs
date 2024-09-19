@@ -144,13 +144,17 @@ namespace ObjectsCollection
                 return false;
             }
 
-            RemoveNode(node);
+            Remove(node);
             return true;
         }
 
         public void Remove(LinkedListNode<T> node)
         {
-            RemoveNode(node);
+            ValidateList();
+            ValidateListNode(node);
+
+            ResetLinkedNodes(node);
+            Count--;
         }
 
         public void RemoveFirst()
