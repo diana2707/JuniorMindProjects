@@ -83,6 +83,7 @@ namespace ObjectsCollection
         public LinkedListNode<T> AddBefore(LinkedListNode<T> listNode, T item)
         {
             ValidateListNode(listNode);
+
             LinkedListNode<T> newNode = new (item);
             AddAfter(listNode.Previous, newNode);
 
@@ -91,7 +92,8 @@ namespace ObjectsCollection
 
         public void AddBefore(LinkedListNode<T> listNode, LinkedListNode<T> newNode)
         {
-            AddNode(newNode, listNode, false);
+            ValidateListNode(listNode);
+            AddAfter(listNode.Previous, newNode);
         }
 
         public void Clear()
