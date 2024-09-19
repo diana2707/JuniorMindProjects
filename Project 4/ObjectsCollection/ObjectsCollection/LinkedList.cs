@@ -63,20 +63,28 @@ namespace ObjectsCollection
         public LinkedListNode<T> AddAfter(LinkedListNode<T> listNode, T item)
         {
             LinkedListNode<T> newNode = new (item);
-            AddNode(newNode, listNode, true);
+            AddAfter(listNode, newNode);
 
             return newNode;
         }
 
         public void AddAfter(LinkedListNode<T> listNode, LinkedListNode<T> newNode)
         {
-            AddNode(newNode, listNode, true);
+            ValidateNewNode(newNode);
+            if (listNode != sentinel)
+            {
+                ValidateListNode(listNode);
+            }
+
+            SetNode(newNode, listNode, true);
+            Count++;
         }
 
         public LinkedListNode<T> AddBefore(LinkedListNode<T> listNode, T item)
         {
+            ValidateListNode(listNode);
             LinkedListNode<T> newNode = new (item);
-            AddNode(newNode, listNode, false);
+            AddAfter(listNode.Previous, newNode);
 
             return newNode;
         }
