@@ -143,12 +143,12 @@ namespace ObjectsCollection
 
         public void RemoveFirst()
         {
-            RemoveNode(First);
+            RemoveNode(sentinel.Next);
         }
 
         public void RemoveLast()
         {
-            RemoveNode(Last);
+            RemoveNode(sentinel.Previous);
         }
 
         public IEnumerator<T> GetEnumerator()
