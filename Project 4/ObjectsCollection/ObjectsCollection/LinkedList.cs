@@ -78,7 +78,13 @@ namespace ObjectsCollection
                 ValidateListNode(listNode);
             }
 
-            SetNode(newNode, listNode, true);
+            newNode.List = this;
+            newNode.Next = listNode.Next;
+            newNode.Previous = listNode;
+
+            listNode.Next.Previous = newNode;
+            listNode.Next = newNode;
+
             Count++;
         }
 
@@ -100,7 +106,7 @@ namespace ObjectsCollection
 
         public void Clear()
         {
-            SetNode(sentinel, sentinel, true);
+            AddAfter(sentinel, sentinel);
             Count = 0;
         }
 
@@ -273,24 +279,6 @@ namespace ObjectsCollection
             }
 
             return false;
-        }
-
-        private void SetNode(LinkedListNode<T> newNode, LinkedListNode<T> referenceNode, bool newNodeFollowsRefNode)
-        {
-            newNode.List = this;
-            newNode.Next = newNodeFollowsRefNode ? referenceNode.Next : referenceNode;
-            newNode.Previous = newNodeFollowsRefNode ? referenceNode : referenceNode.Previous;
-
-            if (newNodeFollowsRefNode)
-            {
-                referenceNode.Next.Previous = newNode;
-                referenceNode.Next = newNode;
-            }
-            else
-            {
-                referenceNode.Previous.Next = newNode;
-                referenceNode.Previous = newNode;
-            }
         }
 
         private static void ResetLinkedNodes(LinkedListNode<T> node)
