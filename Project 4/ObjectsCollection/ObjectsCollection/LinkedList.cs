@@ -39,7 +39,7 @@ namespace ObjectsCollection
         public LinkedListNode<T> AddFirst(T item)
         {
             LinkedListNode<T> newNode = new (item);
-            AddAfter(sentinel, newNode);
+            AddFirst(newNode);
 
             return newNode;
         }
