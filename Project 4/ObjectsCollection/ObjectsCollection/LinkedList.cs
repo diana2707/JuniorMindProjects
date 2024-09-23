@@ -11,6 +11,7 @@ namespace ObjectsCollection
             sentinel = new LinkedListNode<T>(default);
             sentinel.Next = sentinel;
             sentinel.Previous = sentinel;
+            sentinel.List = this;
         }
 
         public LinkedList(IEnumerable<T> collection) : this()
@@ -73,10 +74,7 @@ namespace ObjectsCollection
         public void AddAfter(LinkedListNode<T> listNode, LinkedListNode<T> newNode)
         {
             ValidateNewNode(newNode);
-            if (listNode != sentinel)
-            {
-                ValidateListNode(listNode);
-            }
+            ValidateListNode(listNode);
 
             newNode.List = this;
             newNode.Next = listNode.Next;
@@ -208,11 +206,11 @@ namespace ObjectsCollection
             return GetEnumerator();
         }
 
-        private static void ValidateNewNode(LinkedListNode<T> node)
+        private void ValidateNewNode(LinkedListNode<T> node)
         {
             ArgumentNullException.ThrowIfNull(node);
 
-            if (node.List == null)
+            if (node.List == null || node.Equals(sentinel))
             {
                 return;
             }
@@ -224,7 +222,7 @@ namespace ObjectsCollection
         {
             ArgumentNullException.ThrowIfNull(node);
 
-            if (IsNodeInList(node))
+            if (node.List == this)
             {
                 return;
             }
@@ -258,19 +256,6 @@ namespace ObjectsCollection
         private bool IsEmpty()
         {
             return Count == 0;
-        }
-
-        private bool IsNodeInList(LinkedListNode<T> node)
-        {
-            for (LinkedListNode<T> current = sentinel.Next; current != sentinel; current = current.Next)
-            {
-                if (current.Equals(node))
-                {
-                    return true;
-                }
-            }
-
-            return false;
         }
     }
 }
