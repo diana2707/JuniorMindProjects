@@ -112,7 +112,7 @@ namespace ObjectsCollection
 
         public bool Contains(T item)
         {
-            return SearchForward(item) != null;
+            return Find(item) != null;
         }
 
         public void CopyTo(T[] array, int arrayIndex)
@@ -133,17 +133,37 @@ namespace ObjectsCollection
 
         public LinkedListNode<T> Find(T item)
         {
-            return SearchForward(item);
+            for (LinkedListNode<T> current = sentinel.Next;
+                current != sentinel;
+                current = current.Next)
+            {
+                if (current.Value.Equals(item))
+                {
+                    return current;
+                }
+            }
+
+            return null;
         }
 
         public LinkedListNode<T> FindLast(T item)
         {
-            return SearchBackward(item);
+            for (LinkedListNode<T> current = sentinel.Previous;
+               current != sentinel;
+               current = current.Previous)
+            {
+                if (current.Value.Equals(item))
+                {
+                    return current;
+                }
+            }
+
+            return null;
         }
 
         public bool Remove(T item)
         {
-            LinkedListNode<T> node = SearchForward(item);
+            LinkedListNode<T> node = Find(item);
 
             if (node == null)
             {
@@ -238,36 +258,6 @@ namespace ObjectsCollection
         private bool IsEmpty()
         {
             return Count == 0;
-        }
-
-        private LinkedListNode<T> SearchForward(T value)
-        {
-            for (LinkedListNode<T> current = sentinel.Next;
-                current != sentinel;
-                current = current.Next)
-            {
-                if (current.Value.Equals(value))
-                {
-                    return current;
-                }
-            }
-
-            return null;
-        }
-
-        private LinkedListNode<T> SearchBackward(T value)
-        {
-            for (LinkedListNode<T> current = sentinel.Previous;
-                current != sentinel;
-                current = current.Previous)
-            {
-                if (current.Value.Equals(value))
-                {
-                    return current;
-                }
-            }
-
-            return null;
         }
 
         private bool IsNodeInList(LinkedListNode<T> node)
