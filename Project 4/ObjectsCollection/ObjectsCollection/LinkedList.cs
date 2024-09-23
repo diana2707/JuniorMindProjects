@@ -52,7 +52,7 @@ namespace ObjectsCollection
         public LinkedListNode<T> AddLast(T item)
         {
             LinkedListNode<T> newNode = new (item);
-            AddAfter(sentinel.Previous, newNode);
+            AddLast(newNode);
 
             return newNode;
         }
