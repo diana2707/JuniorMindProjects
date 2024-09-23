@@ -159,7 +159,9 @@ namespace ObjectsCollection
             ValidateList();
             ValidateListNode(node);
 
-            ResetLinkedNodes(node);
+            node.Previous.Next = node.Next;
+            node.Next.Previous = node.Previous;
+
             Count--;
         }
 
@@ -279,12 +281,6 @@ namespace ObjectsCollection
             }
 
             return false;
-        }
-
-        private static void ResetLinkedNodes(LinkedListNode<T> node)
-        {
-            node.Previous.Next = node.Next;
-            node.Next.Previous = node.Previous;
         }
     }
 }
