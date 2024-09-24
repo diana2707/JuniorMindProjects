@@ -394,6 +394,7 @@
 
             Assert.Equal(2, list.Last.Value);
             Assert.Equal(2, list.Count);
+            Assert.Null(node.List);
         }
 
         [Fact]

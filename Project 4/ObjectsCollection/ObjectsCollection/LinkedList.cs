@@ -164,6 +164,7 @@ namespace ObjectsCollection
 
             node.Previous.Next = node.Next;
             node.Next.Previous = node.Previous;
+            node.List = null;
 
             Count--;
         }
@@ -207,7 +208,7 @@ namespace ObjectsCollection
         {
             ArgumentNullException.ThrowIfNull(node);
 
-            if (node.List == this)
+            if (ReferenceEquals(node.List, this))
             {
                 return;
             }
