@@ -40,8 +40,7 @@
         [Fact]
         public void AddShouldAddFirstNodeToList()
         {
-            int[] array = { 1 };
-            var list = new LinkedList<int>(array);
+            var list = new LinkedList<int>() { 1 };
 
             Assert.Equal(1, list.First.Value);
         }
@@ -49,8 +48,7 @@
         [Fact]
         public void AddShouldAddNodesToList()
         {
-            int[] array = { 1, 2 };
-            var list = new LinkedList<int>(array);
+            var list = new LinkedList<int>() { 1, 2 };
 
             Assert.Equal(1, list.First.Value);
             Assert.Equal(2, list.Last.Value);
@@ -61,7 +59,7 @@
         public void ClearShouldSetCount0AndFirstAndLastToNull()
         {
             int[] array = { 1, 2 };
-            var list = new LinkedList<int>(array);
+            var list = new LinkedList<int>() { 1, 2 };
 
             list.Clear();
 
@@ -73,8 +71,7 @@
         [Fact]
         public void ContainsShouldReturnTrueIfListContainsValue()
         {
-            int[] array = { 1, 2 };
-            var list = new LinkedList<int>(array);
+            var list = new LinkedList<int>() { 1, 2 };
 
             Assert.True(list.Contains(2));
             Assert.False(list.Contains(3));
@@ -83,8 +80,7 @@
         [Fact]
         public void CopyToShouldCopyNodesValuesToArray()
         {
-            int[] collection = { 1, 2, 3 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3 };
             var array = new int[4];
 
             list.CopyTo(array, 1);
@@ -99,7 +95,7 @@
         public void RemoveShouldRemoveNodeFromListAndReturnTrue()
         {
             int[] collection = { 1, 2, 3 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3 };
 
             Assert.True(list.Remove(3));
             Assert.Equal(1, list.First.Value);
@@ -110,8 +106,7 @@
         [Fact]
         public void RemoveShouldNotRemoveNodeFromListAndReturnFalseIfValueIsMissing()
         {
-            int[] collection = { 1, 2, 3 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3 };
 
             Assert.False(list.Remove(5));
             Assert.Equal(3, list.Count);
@@ -128,8 +123,7 @@
         [Fact]
         public void ShouldAllowEnumeration()
         {
-            int[] collection = { 1, 2, 3 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3 };
 
             LinkedListNode<int> current = list.First;
             foreach (var item in list)
@@ -142,8 +136,7 @@
         [Fact]
         public void FindShouldReturnFirstNodeThatContainsSpecificValue()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
 
             LinkedListNode<int> node = list.Find(2);
 
@@ -164,8 +157,7 @@
         [Fact]
         public void FindShouldReturnNullWhenListDoNotContainValue()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
 
             LinkedListNode<int> node = list.Find(5);
 
@@ -175,8 +167,7 @@
         [Fact]
         public void FindShouldReturnLastNodeThatContainsSpecificValue()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
 
             LinkedListNode<int> node = list.FindLast(2);
 
@@ -197,8 +188,7 @@
         [Fact]
         public void FindLastShouldReturnNullWhenListDoNotContainValue()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
 
             LinkedListNode<int> node = list.FindLast(5);
 
@@ -208,8 +198,7 @@
         [Fact]
         public void AddAfterShouldAddNodeAfterSpecifiedNodeUsingPassedValue()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
 
             LinkedListNode<int> previousNode = list.Find(3);
             LinkedListNode<int> nextNode = list.FindLast(2);
@@ -226,8 +215,7 @@
         [Fact]
         public void AddAfterShouldAddNodeAfterLastNodePassedValue()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
 
             LinkedListNode<int> previousNode = list.Find(4);
 
@@ -241,8 +229,7 @@
         [Fact]
         public void AddAfterShouldAddNodeAfterSpecifiedNodeUsingNewNode()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
 
             LinkedListNode<int> previousNode = list.Find(3);
             LinkedListNode<int> nextNode = list.FindLast(2);
@@ -261,7 +248,7 @@
         public void AddBeforeShouldAddNodeBeforeSpecifiedNodeUsingNewNode()
         {
             int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
 
             LinkedListNode<int> previousNode = list.Find(3);
             LinkedListNode<int> nextNode = list.FindLast(2);
@@ -279,8 +266,7 @@
         [Fact]
         public void AddBeforeShouldAddNodeAfterSpecifiedNodeUsingPassedValue()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
 
             LinkedListNode<int> previousNode = list.Find(3);
             LinkedListNode<int> nextNode = list.FindLast(2);
@@ -297,8 +283,7 @@
         [Fact]
         public void AddBeforeShouldAddNodeBeforeFirstNodePassedValue()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
 
             LinkedListNode<int> nextNode = list.Find(1);
 
@@ -312,8 +297,7 @@
         [Fact]
         public void AddFirstShouldAddNewNodeOnFirstPosition()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
 
             LinkedListNode<int> newNode = new LinkedListNode<int>(0);
             LinkedListNode<int> nextNode = list.Find(1);
@@ -329,8 +313,7 @@
         [Fact]
         public void AddFirstShouldCreateNewNodeAndAddValueOnFirstPositionAndReturnNewNode()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
 
             LinkedListNode<int> nextNode = list.Find(1);
 
@@ -359,7 +342,7 @@
         public void AddLastShouldAddNewNodeOnLastPosition()
         {
             int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
 
             LinkedListNode<int> newNode = new LinkedListNode<int>(5);
             LinkedListNode<int> previousNode = list.Find(4);
@@ -375,8 +358,7 @@
         [Fact]
         public void AddLastShouldAddNewNodeOnLastPositionUsingPassedValue()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
 
             LinkedListNode<int> previousNode = list.Find(4);
 
@@ -405,8 +387,7 @@
         [Fact]
         public void RemoveShouldRemoveNodeFromListAndReturnTrueWhenPassedANode()
         {
-            int[] collection = { 1, 2, 3 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3 };
             LinkedListNode<int> node = list.Find(3);
 
             list.Remove(node);
@@ -418,8 +399,7 @@
         [Fact]
         public void RemoveFirstShouldRemoveFirstNode()
         {
-            int[] collection = { 1, 2, 3 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3 };
             list.RemoveFirst();
 
             Assert.Equal(2, list.First.Value);
@@ -430,8 +410,7 @@
         [Fact]
         public void RemoveLastShouldRemoveLastNode()
         {
-            int[] collection = { 1, 2, 3 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3 };
             list.RemoveLast();
 
             Assert.Equal(1, list.First.Value);
@@ -440,18 +419,9 @@
         }
 
         [Fact]
-        public void ConstructorThrowsArgumentNullExceptionWhenParameterIsNull()
-        {
-            int[] collection = null;
-
-            Assert.Throws<ArgumentNullException>(() => new LinkedList<int>(collection));
-        }
-
-        [Fact]
         public void AddAfterThrowsArgumentNullExceptionWhenNodeIsNullWhenPassedValue()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
 
             Assert.Throws<ArgumentNullException>(() => list.AddAfter(null, 4));
         }
@@ -459,9 +429,8 @@
         [Fact]
         public void AddAfterThrowsInvalidOperationExceptionWhenNodeIsNotFound()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
-            LinkedListNode<int> node = new(1);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
+            LinkedListNode<int> node = new (1);
 
             Assert.Throws<InvalidOperationException>(() => list.AddAfter(node, 4));
         }
@@ -469,9 +438,8 @@
         [Fact]
         public void AddAfterThrowsArgumentNullExceptionWhenNodeIsNullWhenPassedNode()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
-            LinkedListNode<int> node = new(2);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
+            LinkedListNode<int> node = new (2);
 
             Assert.Throws<ArgumentNullException>(() => list.AddAfter(null, node));
         }
@@ -479,8 +447,7 @@
         [Fact]
         public void AddAfterThrowsArgumentNullExceptionWhenNewNodeIsNull()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
             LinkedListNode<int> node = list.Find(2);
 
             Assert.Throws<ArgumentNullException>(() => list.AddAfter(node, null));
@@ -489,10 +456,9 @@
         [Fact]
         public void AddAfterThrowsInvalidOperationExceptionWhenNodeIsNotInCurrentList()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
-            LinkedListNode<int> node = new(1);
-            LinkedListNode<int> newNode = new(5);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
+            LinkedListNode<int> node = new (1);
+            LinkedListNode<int> newNode = new (5);
 
             Assert.Throws<InvalidOperationException>(() => list.AddAfter(node, newNode));
         }
@@ -500,12 +466,11 @@
         [Fact]
         public void AddAfterThrowsInvalidOperationExceptionWhenNewNodeBelongsToAnotherList()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list1 = new LinkedList<int>(collection);
+            var list1 = new LinkedList<int>() { 1, 2, 3, 2, 4 };
             var list2 = new LinkedList<int>();
 
             LinkedListNode<int> node = list1.Find(2);
-            LinkedListNode<int> newNode = new(5);
+            LinkedListNode<int> newNode = new (5);
             list2.AddFirst(newNode);
 
             Assert.Throws<InvalidOperationException>(() => list1.AddAfter(node, newNode));
@@ -514,8 +479,7 @@
         [Fact]
         public void AddBeforeThrowsArgumentNullExceptionWhenNodeIsNullWhenPassedValue()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
 
             Assert.Throws<ArgumentNullException>(() => list.AddBefore(null, 4));
         }
@@ -523,9 +487,8 @@
         [Fact]
         public void AddBeforeThrowsInvalidOperationExceptionWhenNodeIsNotFound()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
-            LinkedListNode<int> node = new(2);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
+            LinkedListNode<int> node = new (2);
 
             Assert.Throws<InvalidOperationException>(() => list.AddBefore(node, 4));
         }
@@ -533,9 +496,8 @@
         [Fact]
         public void AddBeforeThrowsArgumentNullExceptionWhenNodeIsNullWhenPassedNode()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
-            LinkedListNode<int> node = new(2);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
+            LinkedListNode<int> node = new (2);
 
             Assert.Throws<ArgumentNullException>(() => list.AddBefore(null, node));
         }
@@ -543,8 +505,7 @@
         [Fact]
         public void AddBeforeThrowsArgumentNullExceptionWhenNewNodeIsNull()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
             LinkedListNode<int> node = list.Find(2);
 
             Assert.Throws<ArgumentNullException>(() => list.AddBefore(node, null));
@@ -553,10 +514,9 @@
         [Fact]
         public void AddBeforeThrowsInvalidOperationExceptionWhenNodeIsNotInCurrentList()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
-            LinkedListNode<int> node = new(1);
-            LinkedListNode<int> newNode = new(5);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
+            LinkedListNode<int> node = new (1);
+            LinkedListNode<int> newNode = new (5);
 
             Assert.Throws<InvalidOperationException>(() => list.AddBefore(node, newNode));
         }
@@ -564,12 +524,11 @@
         [Fact]
         public void AddBeforeThrowsInvalidOperationExceptionWhenNewNodeBelongsToAnotherList()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list1 = new LinkedList<int>(collection);
+            var list1 = new LinkedList<int>() { 1, 2, 3, 2, 4 };
             var list2 = new LinkedList<int>();
 
             LinkedListNode<int> node = list1.Find(2);
-            LinkedListNode<int> newNode = new(5);
+            LinkedListNode<int> newNode = new (5);
             list2.AddFirst(newNode);
 
             Assert.Throws<InvalidOperationException>(() => list1.AddBefore(node, newNode));
@@ -578,8 +537,7 @@
         [Fact]
         public void AddFirstThrowsArgumentNullExceptionWhenNodeIsNullWhenPassedNode()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
 
             Assert.Throws<ArgumentNullException>(() => list.AddFirst(null));
         }
@@ -587,11 +545,10 @@
         [Fact]
         public void AddFirstThrowsInvalidOperationExceptionWhenNewNodeBelongsToAnotherList()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list1 = new LinkedList<int>(collection);
+            var list1 = new LinkedList<int>() { 1, 2, 3, 2, 4 };
             var list2 = new LinkedList<int>();
 
-            LinkedListNode<int> node = new(5);
+            LinkedListNode<int> node = new (5);
             list2.AddFirst(node);
 
             Assert.Throws<InvalidOperationException>(() => list1.AddFirst(node));
@@ -600,8 +557,7 @@
         [Fact]
         public void AddLastThrowsArgumentNullExceptionWhenNodeIsNullWhenPassedNode()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
 
             Assert.Throws<ArgumentNullException>(() => list.AddLast(null));
         }
@@ -609,11 +565,10 @@
         [Fact]
         public void AddLastThrowsInvalidOperationExceptionWhenNewNodeBelongsToAnotherList()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list1 = new LinkedList<int>(collection);
+            var list1 = new LinkedList<int>() { 1, 2, 3, 2, 4 };
             var list2 = new LinkedList<int>();
 
-            LinkedListNode<int> node = new(5);
+            LinkedListNode<int> node = new (5);
             list2.AddFirst(node);
 
             Assert.Throws<InvalidOperationException>(() => list1.AddLast(node));
@@ -622,8 +577,7 @@
         [Fact]
         public void RemoveThrowsArgumentNullExceptionWhenNodeIsNullWhenPassedNode()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
 
             Assert.Throws<ArgumentNullException>(() => list.Remove(null));
         }
@@ -631,9 +585,8 @@
         [Fact]
         public void RemoveThrowsInvalidOperationExceptionWhenNodeIsNotInCurrentList()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
-            LinkedListNode<int> node = new(1);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
+            LinkedListNode<int> node = new (1);
 
             Assert.Throws<InvalidOperationException>(() => list.Remove(node));
         }
@@ -657,8 +610,7 @@
         [Fact]
         public void CopyToThrowsArgumentNullExceptionIfArrayIsNull()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
 
             Assert.Throws<ArgumentNullException>(() => list.CopyTo(null, 0));
         }
@@ -666,8 +618,7 @@
         [Fact]
         public void CopyToThrowsArgumentOutOfRangeIfIndexIsLessThen0()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
             int[] array = new int[5];
 
             Assert.Throws<ArgumentOutOfRangeException>(() => list.CopyTo(array, -1));
@@ -676,8 +627,7 @@
         [Fact]
         public void CopyToThrowsArgumentExceptionArraySizeIsLessThanCount()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
             int[] array = new int[4];
 
             Assert.Throws<ArgumentException>(() => list.CopyTo(array, 0));
@@ -686,8 +636,7 @@
         [Fact]
         public void CopyToThrowsArgumentExceptionIfSpaceFromIndexToArrayEndIsLessThanCount()
         {
-            int[] collection = { 1, 2, 3, 2, 4 };
-            var list = new LinkedList<int>(collection);
+            var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
             int[] array = new int[5];
 
             Assert.Throws<ArgumentException>(() => list.CopyTo(array, 2));

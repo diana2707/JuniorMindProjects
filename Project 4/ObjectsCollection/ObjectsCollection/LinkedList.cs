@@ -14,16 +14,6 @@ namespace ObjectsCollection
             sentinel.List = this;
         }
 
-        public LinkedList(IEnumerable<T> collection) : this()
-        {
-            ArgumentNullException.ThrowIfNull(collection);
-
-            foreach (T item in collection)
-            {
-                AddLast(item);
-            }
-        }
-
         public int Count { get; private set; }
 
         public LinkedListNode<T>? First => IsEmpty() ? null : sentinel.Next;
@@ -32,7 +22,7 @@ namespace ObjectsCollection
 
         public bool IsReadOnly => false;
 
-        void ICollection<T>.Add(T item)
+        public void Add(T item)
         {
             AddLast(item);
         }
