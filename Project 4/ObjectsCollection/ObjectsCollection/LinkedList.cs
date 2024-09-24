@@ -105,15 +105,12 @@ namespace ObjectsCollection
         {
             ValidateArray(array, arrayIndex);
 
-            LinkedListNode<T> current = sentinel.Next;
-
-            for (int i = arrayIndex; i < Count + arrayIndex; i++)
+            for (LinkedListNode<T> current = sentinel.Next;
+                current != sentinel;
+                current = current.Next)
             {
-                if (current != sentinel)
-                {
-                    array[i] = current.Value;
-                    current = current.Next;
-                }
+                array[arrayIndex] = current.Value;
+                arrayIndex++;
             }
         }
 
