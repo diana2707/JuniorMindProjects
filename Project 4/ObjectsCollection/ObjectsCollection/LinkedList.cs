@@ -78,10 +78,8 @@ namespace ObjectsCollection
 
         public LinkedListNode<T> AddBefore(LinkedListNode<T> listNode, T item)
         {
-            ValidateListNode(listNode);
-
             LinkedListNode<T> newNode = new (item);
-            AddAfter(listNode.Previous, newNode);
+            AddBefore(listNode, newNode);
 
             return newNode;
         }
