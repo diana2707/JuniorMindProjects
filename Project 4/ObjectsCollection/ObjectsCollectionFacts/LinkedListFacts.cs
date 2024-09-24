@@ -69,6 +69,19 @@
         }
 
         [Fact]
+        public void ClearShouldSetNodesListToNull()
+        {
+            int[] array = { 1, 2 };
+            var list = new LinkedList<int>() { 1, 2 };
+            var first = list.First;
+            var last = list.Last;
+            list.Clear();
+
+            Assert.Null(first.List);
+            Assert.Null(last.List);
+        }
+
+        [Fact]
         public void ContainsShouldReturnTrueIfListContainsValue()
         {
             var list = new LinkedList<int>() { 1, 2 };

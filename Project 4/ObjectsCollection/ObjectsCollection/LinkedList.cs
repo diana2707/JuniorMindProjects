@@ -92,7 +92,16 @@ namespace ObjectsCollection
 
         public void Clear()
         {
-            AddAfter(sentinel, sentinel);
+            for (LinkedListNode<T> current = sentinel.Next;
+                current != sentinel;
+                current = current.Next)
+            {
+                current.List = null;
+            }
+
+            sentinel.Next = sentinel;
+            sentinel.Previous = sentinel;
+
             Count = 0;
         }
 
