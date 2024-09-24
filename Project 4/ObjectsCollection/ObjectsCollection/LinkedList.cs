@@ -201,11 +201,11 @@ namespace ObjectsCollection
             return GetEnumerator();
         }
 
-        private void ValidateNewNode(LinkedListNode<T> node)
+        private static void ValidateNewNode(LinkedListNode<T> node)
         {
             ArgumentNullException.ThrowIfNull(node);
 
-            if (node.List == null || node.Equals(sentinel))
+            if (node.List == null)
             {
                 return;
             }
