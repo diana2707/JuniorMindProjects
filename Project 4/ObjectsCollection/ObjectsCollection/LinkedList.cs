@@ -50,7 +50,7 @@ namespace ObjectsCollection
 
         public void AddLast(LinkedListNode<T> newNode)
         {
-            AddAfter(sentinel.Previous, newNode);
+            AddBefore(sentinel, newNode);
         }
 
         public LinkedListNode<T> AddAfter(LinkedListNode<T> listNode, T item)
