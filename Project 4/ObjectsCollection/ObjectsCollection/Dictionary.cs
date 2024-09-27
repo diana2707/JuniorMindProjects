@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Linq;
 
 namespace ObjectsCollection
 {
@@ -28,6 +29,11 @@ namespace ObjectsCollection
             get
             {
                 int bucketIndex = GetBucket(key);
+                if (buckets[bucketIndex] == -1)
+                {
+                    throw new InvalidOperationException("No element with this key was found");
+                }
+
                 for (Element<TKey, TValue> element = elements[buckets[bucketIndex]];
                     element.Next == -1;
                     element = elements[element.Next])
@@ -44,6 +50,11 @@ namespace ObjectsCollection
             set
             {
                 int bucketIndex = GetBucket(key);
+                if (buckets[bucketIndex] == -1)
+                {
+                    throw new InvalidOperationException("No element with this key was found");
+                }
+
                 for (Element<TKey, TValue> element = elements[buckets[bucketIndex]];
                     element.Next == -1;
                     element = elements[element.Next])
@@ -62,15 +73,38 @@ namespace ObjectsCollection
         public void Add(TKey key, TValue value)
         {
             int bucketIndex = GetBucket(key);
-            buckets[bucketIndex] = Count;
 
-            elements[Count] = new Element<TKey, TValue>(key, value);
+            //if (!IsEmpty())
+            //{
+
+            //}
+            //for (Element<TKey, TValue> element = elements[buckets[bucketIndex]];
+            //        element.Next == -1;
+            //        element = elements[element.Next])
+            //{
+            //    if (element.Key.Equals(key))
+            //    {
+            //        throw new InvalidOperationException("This key is already used");
+            //    }
+            //}
+
+            Element<TKey, TValue> newElement = new Element<TKey, TValue>(key, value);
+            newElement.Next = buckets[bucketIndex];
+
+            buckets[bucketIndex] = Count;
+            elements[Count] = newElement;
+
             Count++;
         }
 
         private int GetBucket(TKey key)
         {
             return Math.Abs(key.GetHashCode()) % capacity;
+        }
+
+        private bool IsEmpty()
+        {
+            return Count == 0;
         }
     }
 }

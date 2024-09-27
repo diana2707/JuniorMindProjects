@@ -36,6 +36,18 @@ namespace ObjectsCollection
         }
 
         [Fact]
+        public void AddMethodShouldAddAnElementWhenHasSameHashCode()
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>();
+            dictionary.Add(2, "Ana");
+            dictionary.Add(7, "Elena");
+
+            Assert.Equal("Ana", dictionary[2]);
+            Assert.Equal("Elena", dictionary[7]);
+            Assert.Equal(1, dictionary.Count);
+        }
+
+        [Fact]
         public void IndexerShouldGetAnElementByKey()
         {
             Dictionary<string, string> dictionary = new Dictionary<string, string>();
@@ -52,8 +64,29 @@ namespace ObjectsCollection
             dictionary.Add("first name", "Ana");
             dictionary.Add("last name", "Popescu");
             dictionary["last name"] = "Georgescu";
+
             Assert.Equal("Georgescu", dictionary["last name"]);
             Assert.Equal("Ana", dictionary["first name"]);
+        }
+
+        [Fact]
+        public void GetterShouldThrowInvalidOperationExceptionWhenKeyDoNotExists()
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            dictionary.Add("first name", "Ana");
+            dictionary.Add("last name", "Popescu");
+
+            Assert.Throws<InvalidOperationException>(() => dictionary["name"]);
+        }
+
+        [Fact]
+        public void SetterShouldThrowInvalidOperationExceptionWhenKeyDoNotExists()
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            dictionary.Add("first name", "Ana");
+            dictionary.Add("last name", "Popescu");
+
+            Assert.Throws<InvalidOperationException>(() => dictionary["name"] = "Elena");
         }
     }
 }
