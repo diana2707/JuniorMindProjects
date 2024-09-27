@@ -23,13 +23,54 @@ namespace ObjectsCollection
 
         public bool IsReadOnly => false;
 
+        public TValue this[TKey key]
+        {
+            get
+            {
+                int bucketIndex = GetBucket(key);
+                for (Element<TKey, TValue> element = elements[buckets[bucketIndex]];
+                    element.Next == -1;
+                    element = elements[element.Next])
+                {
+                    if (element.Key.Equals(key))
+                    {
+                        return element.Value;
+                    }
+                }
+
+                throw new InvalidOperationException("No element with this key was found");
+            }
+
+            set
+            {
+                int bucketIndex = GetBucket(key);
+                for (Element<TKey, TValue> element = elements[buckets[bucketIndex]];
+                    element.Next == -1;
+                    element = elements[element.Next])
+                {
+                    if (element.Key.Equals(key))
+                    {
+                        element.Value = value;
+                        return;
+                    }
+                }
+
+                throw new InvalidOperationException("No element with this key was found");
+            }
+        }
+
         public void Add(TKey key, TValue value)
         {
-            int hashCode = Math.Abs(key.GetHashCode()) % capacity;
-            buckets[hashCode] = Count;
+            int bucketIndex = GetBucket(key);
+            buckets[bucketIndex] = Count;
 
             elements[Count] = new Element<TKey, TValue>(key, value);
             Count++;
+        }
+
+        private int GetBucket(TKey key)
+        {
+            return Math.Abs(key.GetHashCode()) % capacity;
         }
     }
 }

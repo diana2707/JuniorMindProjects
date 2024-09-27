@@ -30,7 +30,30 @@ namespace ObjectsCollection
         {
             Dictionary<string, string> dictionary = new Dictionary<string, string>();
             dictionary.Add("name", "Ana");
+
+            Assert.Equal("Ana", dictionary["name"]);
             Assert.Equal(1, dictionary.Count);
+        }
+
+        [Fact]
+        public void IndexerShouldGetAnElementByKey()
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            dictionary.Add("first name", "Ana");
+            dictionary.Add("last name", "Popescu");
+            Assert.Equal("Popescu", dictionary["last name"]);
+            Assert.Equal("Ana", dictionary["first name"]);
+        }
+
+        [Fact]
+        public void IndexerShouldSetAnElementByKey()
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            dictionary.Add("first name", "Ana");
+            dictionary.Add("last name", "Popescu");
+            dictionary["last name"] = "Georgescu";
+            Assert.Equal("Georgescu", dictionary["last name"]);
+            Assert.Equal("Ana", dictionary["first name"]);
         }
     }
 }

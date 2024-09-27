@@ -8,12 +8,13 @@ namespace ObjectsCollection
         {
             Key = key;
             Value = value;
+            Next = -1;
         }
 
         public TKey Key { get; set; }
 
         public TValue Value { get; set; }
 
-        private int Next { get; set; }
+        internal int Next { get; set; }
     }
 }
