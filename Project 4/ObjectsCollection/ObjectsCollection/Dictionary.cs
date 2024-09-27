@@ -1,10 +1,22 @@
 ﻿using System;
-using System.Collections;
 
 namespace ObjectsCollection
 {
-    public class Dictionary
+    public class Dictionary<TKey, TValue>
     {
-        readonly int[] buckets = new int[5];
+        readonly int[] buckets;
+        readonly Element<TKey, TValue>[] elements;
+        readonly int initialCapacity = 7;
+
+        public Dictionary()
+        {
+            buckets = new int[initialCapacity];
+            elements = new Element<TKey, TValue>[initialCapacity];
+
+            for (int i = 0; i < initialCapacity; i++)
+            {
+                buckets[i] = -1;
+            }
+        }
     }
 }
