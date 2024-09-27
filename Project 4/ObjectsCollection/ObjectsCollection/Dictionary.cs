@@ -12,11 +12,14 @@ namespace ObjectsCollection
         {
             buckets = new int[initialCapacity];
             elements = new Element<TKey, TValue>[initialCapacity];
+            Count = 0;
 
             for (int i = 0; i < initialCapacity; i++)
             {
                 buckets[i] = -1;
             }
         }
+
+        public int Count { get; private set; }
     }
 }
