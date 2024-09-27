@@ -17,5 +17,12 @@ namespace ObjectsCollection
             Dictionary<int, int> dictionary = new Dictionary<int, int>();
             Assert.Equal(0, dictionary.Count);
         }
+
+        [Fact]
+        public void IsReadOnlyShouldReturnFalse()
+        {
+            Dictionary<int, int> dictionary = new Dictionary<int, int>();
+            Assert.False(dictionary.IsReadOnly);
+        }
     }
 }

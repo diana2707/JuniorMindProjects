@@ -12,7 +12,6 @@ namespace ObjectsCollection
         {
             buckets = new int[initialCapacity];
             elements = new Element<TKey, TValue>[initialCapacity];
-            Count = 0;
 
             for (int i = 0; i < initialCapacity; i++)
             {
@@ -21,5 +20,7 @@ namespace ObjectsCollection
         }
 
         public int Count { get; private set; }
+
+        public bool IsReadOnly => false;
     }
 }
