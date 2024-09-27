@@ -24,5 +24,13 @@ namespace ObjectsCollection
             Dictionary<int, int> dictionary = new Dictionary<int, int>();
             Assert.False(dictionary.IsReadOnly);
         }
+
+        [Fact]
+        public void AddMethodShouldAddAnElement()
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            dictionary.Add("name", "Ana");
+            Assert.Equal(1, dictionary.Count);
+        }
     }
 }
