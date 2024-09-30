@@ -60,6 +60,16 @@ namespace ObjectsCollection
         }
 
         [Fact]
+        public void AddItemMethodShouldAddKeyValuePair()
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            dictionary.Add(new KeyValuePair<string, string>("name", "Ana"));
+
+            Assert.Equal("Ana", dictionary["name"]);
+            Assert.Equal(1, dictionary.Count);
+        }
+
+        [Fact]
         public void GetterShouldGetAnElementByKey()
         {
             Dictionary<string, string> dictionary = new Dictionary<string, string>()
