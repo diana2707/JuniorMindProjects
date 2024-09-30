@@ -146,5 +146,66 @@ namespace ObjectsCollection
 
             Assert.Throws<InvalidOperationException>(() => dictionary["name"] = "Elena");
         }
+
+        [Fact]
+        public void RemoveShouldRemoveElementByKeyAndReturnTrue()
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
+            {
+                { "first name", "Ana" },
+                { "last name", "Popescu" }
+            };
+
+            Assert.True(dictionary.Remove("first name"));
+            Assert.Equal("Popescu", dictionary["last name"]);
+            Assert.Equal(1, dictionary.Count);
+        }
+
+        [Fact]
+        public void RemoveShouldRemoveElementByKeyAndReturnTrueWhenElementsAreInTheSameBucket()
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
+            {
+               { 2, "Ana" },
+               { 7, "Andrei" },
+               { 12, "Ion" }
+            };
+
+            Assert.True(dictionary.Remove(2));
+            Assert.Equal("Andrei", dictionary[7]);
+            Assert.Equal(2, dictionary.Count);
+        }
+
+        [Fact]
+        public void RemoveShouldRemoveElementByKeyAndReturnTrueWhenElementsAreInTheSameBucketAndExistsNextElement()
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
+            {
+               { 2, "Ana" },
+               { 7, "Andrei" },
+               { 12, "Ion" },
+               { 17, "Mircea" }
+            };
+
+            Assert.True(dictionary.Remove(7));
+            Assert.Equal("Ana", dictionary[2]);
+            Assert.Equal("Ion", dictionary[12]);
+            Assert.Equal(3, dictionary.Count);
+        }
+
+        [Fact]
+        public void RemoveShouldReturnFalseWhenKeyIsNotFound()
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
+            {
+               { 2, "Ana" },
+               { 7, "Andrei" },
+               { 12, "Ion" },
+               { 17, "Mircea" }
+            };
+
+            Assert.False(dictionary.Remove(1));
+            Assert.Equal(4, dictionary.Count);
+        }
     }
 }

@@ -118,6 +118,44 @@ namespace ObjectsCollection
             return GetEnumerator();
         }
 
+        public bool Remove(TKey key)
+        {
+            int bucketIndex = GetBucket(key);
+
+            if (buckets[bucketIndex] == -1)
+            {
+                return false;
+            }
+
+            Element<TKey, TValue> current = elements[buckets[bucketIndex]];
+            if (current.Key.Equals(key))
+            {
+                elements[buckets[bucketIndex]] = null;
+                buckets[bucketIndex] = current.Next;
+                Count--;
+
+                return true;
+            }
+
+            while (current.Next != -1)
+            {
+                Element<TKey, TValue> nextElement = elements[current.Next];
+                if (nextElement.Key.Equals(key))
+                {
+                    int nextIndex = nextElement.Next;
+                    elements[current.Next] = null;
+                    current.Next = nextIndex;
+                    Count--;
+
+                    return true;
+                }
+
+                current = nextElement;
+            }
+
+            return false;
+        }
+
         private int GetBucket(TKey key)
         {
             return Math.Abs(key.GetHashCode()) % capacity;
