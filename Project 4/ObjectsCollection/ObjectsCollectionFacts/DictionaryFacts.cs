@@ -210,5 +210,26 @@ namespace ObjectsCollection
             Assert.False(dictionary.Remove(1));
             Assert.Equal(4, dictionary.Count);
         }
+
+        [Fact]
+        public void AddShouldAddElementsInEmptySpaces()
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
+            {
+               { 2, "Ana" },
+               { 7, "Andrei" },
+               { 12, "Ion" },
+               { 17, "Mircea" }
+            };
+
+            dictionary.Remove(7);
+            dictionary.Remove(17);
+            dictionary.Add(22, "Mihaela");
+
+            Assert.Equal("Ana", dictionary[2]);
+            Assert.Equal("Mihaela", dictionary[22]);
+            Assert.Equal("Ion", dictionary[12]);
+            Assert.Equal(3, dictionary.Count);
+        }
     }
 }

@@ -100,8 +100,17 @@ namespace ObjectsCollection
             Element<TKey, TValue> newElement = new Element<TKey, TValue>(key, value);
             newElement.Next = buckets[bucketIndex];
 
-            buckets[bucketIndex] = Count;
-            elements[Count] = newElement;
+            if (freeIndex == -1)
+            {
+                buckets[bucketIndex] = Count;
+                elements[Count] = newElement;
+            }
+            else
+            {
+                buckets[bucketIndex] = freeIndex;
+                freeIndex = elements[freeIndex].Next;
+                elements[buckets[bucketIndex]] = newElement;
+            }
 
             Count++;
         }
@@ -133,9 +142,10 @@ namespace ObjectsCollection
             Element<TKey, TValue> current = elements[buckets[bucketIndex]];
             if (current.Key.Equals(key))
             {
+                int tempIndex = buckets[bucketIndex];
                 buckets[bucketIndex] = current.Next;
                 current.Next = freeIndex;
-                freeIndex = buckets[bucketIndex];
+                freeIndex = tempIndex;
                 Count--;
 
                 return true;
@@ -148,10 +158,10 @@ namespace ObjectsCollection
 
                 if (current.Key.Equals(key))
                 {
-                    int nextIndex = current.Next;
+                    int tempIndex = current.Next;
                     current.Next = freeIndex;
                     freeIndex = previous.Next;
-                    previous.Next = nextIndex;
+                    previous.Next = tempIndex;
                     Count--;
 
                     return true;
