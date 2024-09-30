@@ -44,11 +44,11 @@ namespace ObjectsCollection
 
             Assert.Equal("Ana", dictionary[2]);
             Assert.Equal("Elena", dictionary[7]);
-            Assert.Equal(1, dictionary.Count);
+            Assert.Equal(2, dictionary.Count);
         }
 
         [Fact]
-        public void IndexerShouldGetAnElementByKey()
+        public void GetterShouldGetAnElementByKey()
         {
             Dictionary<string, string> dictionary = new Dictionary<string, string>();
             dictionary.Add("first name", "Ana");
@@ -58,7 +58,17 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void IndexerShouldSetAnElementByKey()
+        public void GetterShouldGetAnElementByKeyWhenElementsAreInTheSameBucket()
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>();
+            dictionary.Add(2, "Ana");
+            dictionary.Add(7, "Popescu");
+            Assert.Equal("Popescu", dictionary[7]);
+            Assert.Equal("Ana", dictionary[2]);
+        }
+
+        [Fact]
+        public void SetterShouldSetAnElementByKey()
         {
             Dictionary<string, string> dictionary = new Dictionary<string, string>();
             dictionary.Add("first name", "Ana");
@@ -67,6 +77,18 @@ namespace ObjectsCollection
 
             Assert.Equal("Georgescu", dictionary["last name"]);
             Assert.Equal("Ana", dictionary["first name"]);
+        }
+
+        [Fact]
+        public void SetterShouldSetAnElementByKeyWhenTheElementsAreInTheSameBucket()
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>();
+            dictionary.Add(2, "Ana");
+            dictionary.Add(7, "Popescu");
+            dictionary[7] = "Georgescu";
+
+            Assert.Equal("Georgescu", dictionary[7]);
+            Assert.Equal("Ana", dictionary[2]);
         }
 
         [Fact]

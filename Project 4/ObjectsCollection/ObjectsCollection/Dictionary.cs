@@ -29,18 +29,26 @@ namespace ObjectsCollection
             get
             {
                 int bucketIndex = GetBucket(key);
+
                 if (buckets[bucketIndex] == -1)
                 {
                     throw new InvalidOperationException("No element with this key was found");
                 }
 
-                for (Element<TKey, TValue> element = elements[buckets[bucketIndex]];
-                    element.Next == -1;
-                    element = elements[element.Next])
+                Element<TKey, TValue> current = elements[buckets[bucketIndex]];
+
+                if (current.Key.Equals(key))
                 {
-                    if (element.Key.Equals(key))
+                    return current.Value;
+                }
+
+                while (current.Next != -1)
+                {
+                    current = elements[current.Next];
+
+                    if (current.Key.Equals(key))
                     {
-                        return element.Value;
+                        return current.Value;
                     }
                 }
 
@@ -50,18 +58,27 @@ namespace ObjectsCollection
             set
             {
                 int bucketIndex = GetBucket(key);
+
                 if (buckets[bucketIndex] == -1)
                 {
                     throw new InvalidOperationException("No element with this key was found");
                 }
 
-                for (Element<TKey, TValue> element = elements[buckets[bucketIndex]];
-                    element.Next == -1;
-                    element = elements[element.Next])
+                Element<TKey, TValue> current = elements[buckets[bucketIndex]];
+
+                if (current.Key.Equals(key))
                 {
-                    if (element.Key.Equals(key))
+                    current.Value = value;
+                    return;
+                }
+
+                while (current.Next != -1)
+                {
+                    current = elements[current.Next];
+
+                    if (current.Key.Equals(key))
                     {
-                        element.Value = value;
+                        current.Value = value;
                         return;
                     }
                 }
