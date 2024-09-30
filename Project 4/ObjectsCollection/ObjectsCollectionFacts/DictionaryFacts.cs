@@ -36,6 +36,18 @@ namespace ObjectsCollection
         }
 
         [Fact]
+        public void AddMethodShouldAddMoreElements()
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            dictionary.Add("first name", "Ana");
+            dictionary.Add("last name", "Popescu");
+
+            Assert.Equal("Ana", dictionary["first name"]);
+            Assert.Equal("Popescu", dictionary["last name"]);
+            Assert.Equal(2, dictionary.Count);
+        }
+
+        [Fact]
         public void AddMethodShouldAddAnElementWhenHasSameHashCode()
         {
             Dictionary<int, string> dictionary = new Dictionary<int, string>();
@@ -50,9 +62,12 @@ namespace ObjectsCollection
         [Fact]
         public void GetterShouldGetAnElementByKey()
         {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>();
-            dictionary.Add("first name", "Ana");
-            dictionary.Add("last name", "Popescu");
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
+            {
+                { "first name", "Ana" },
+                { "last name", "Popescu" }
+            };
+
             Assert.Equal("Popescu", dictionary["last name"]);
             Assert.Equal("Ana", dictionary["first name"]);
         }
@@ -60,9 +75,12 @@ namespace ObjectsCollection
         [Fact]
         public void GetterShouldGetAnElementByKeyWhenElementsAreInTheSameBucket()
         {
-            Dictionary<int, string> dictionary = new Dictionary<int, string>();
-            dictionary.Add(2, "Ana");
-            dictionary.Add(7, "Popescu");
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
+            {
+                { 2, "Ana" },
+                { 7, "Popescu" }
+            };
+
             Assert.Equal("Popescu", dictionary[7]);
             Assert.Equal("Ana", dictionary[2]);
         }
@@ -70,9 +88,11 @@ namespace ObjectsCollection
         [Fact]
         public void SetterShouldSetAnElementByKey()
         {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>();
-            dictionary.Add("first name", "Ana");
-            dictionary.Add("last name", "Popescu");
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
+            {
+                { "first name", "Ana" },
+                { "last name", "Popescu" }
+            };
             dictionary["last name"] = "Georgescu";
 
             Assert.Equal("Georgescu", dictionary["last name"]);
@@ -82,9 +102,11 @@ namespace ObjectsCollection
         [Fact]
         public void SetterShouldSetAnElementByKeyWhenTheElementsAreInTheSameBucket()
         {
-            Dictionary<int, string> dictionary = new Dictionary<int, string>();
-            dictionary.Add(2, "Ana");
-            dictionary.Add(7, "Popescu");
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
+            {
+                { 2, "Ana" },
+                { 7, "Popescu" }
+            };
             dictionary[7] = "Georgescu";
 
             Assert.Equal("Georgescu", dictionary[7]);
@@ -94,9 +116,11 @@ namespace ObjectsCollection
         [Fact]
         public void GetterShouldThrowInvalidOperationExceptionWhenKeyDoNotExists()
         {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>();
-            dictionary.Add("first name", "Ana");
-            dictionary.Add("last name", "Popescu");
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
+            {
+                { "first name", "Ana" },
+                { "last name", "Popescu" }
+            };
 
             Assert.Throws<InvalidOperationException>(() => dictionary["name"]);
         }
@@ -104,9 +128,11 @@ namespace ObjectsCollection
         [Fact]
         public void SetterShouldThrowInvalidOperationExceptionWhenKeyDoNotExists()
         {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>();
-            dictionary.Add("first name", "Ana");
-            dictionary.Add("last name", "Popescu");
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
+            {
+                { "first name", "Ana" },
+                { "last name", "Popescu" }
+            };
 
             Assert.Throws<InvalidOperationException>(() => dictionary["name"] = "Elena");
         }

@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Xml.Linq;
+using System.Collections;
 
 namespace ObjectsCollection
 {
-    public class Dictionary<TKey, TValue>
+    public class Dictionary<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>>
     {
         readonly int[] buckets;
         readonly Element<TKey, TValue>[] elements;
@@ -91,20 +91,6 @@ namespace ObjectsCollection
         {
             int bucketIndex = GetBucket(key);
 
-            //if (!IsEmpty())
-            //{
-
-            //}
-            //for (Element<TKey, TValue> element = elements[buckets[bucketIndex]];
-            //        element.Next == -1;
-            //        element = elements[element.Next])
-            //{
-            //    if (element.Key.Equals(key))
-            //    {
-            //        throw new InvalidOperationException("This key is already used");
-            //    }
-            //}
-
             Element<TKey, TValue> newElement = new Element<TKey, TValue>(key, value);
             newElement.Next = buckets[bucketIndex];
 
@@ -112,6 +98,19 @@ namespace ObjectsCollection
             elements[Count] = newElement;
 
             Count++;
+        }
+
+        public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                yield return new KeyValuePair<TKey, TValue>(elements[i].Key, elements[i].Value);
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
 
         private int GetBucket(TKey key)
