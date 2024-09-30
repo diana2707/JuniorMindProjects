@@ -171,6 +171,16 @@ namespace ObjectsCollection
             return false;
         }
 
+        public void Clear()
+        {
+            Count = 0;
+            freeIndex = -1;
+            for (int i = 0; i < capacity; i++)
+            {
+                buckets[i] = -1;
+            }
+        }
+
         private int GetBucket(TKey key)
         {
             return Math.Abs(key.GetHashCode()) % capacity;

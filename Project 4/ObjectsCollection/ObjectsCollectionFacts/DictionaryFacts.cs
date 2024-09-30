@@ -231,5 +231,21 @@ namespace ObjectsCollection
             Assert.Equal("Ion", dictionary[12]);
             Assert.Equal(3, dictionary.Count);
         }
+
+        [Fact]
+        public void ClearShouldRemoveAllElements()
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
+            {
+               { 2, "Ana" },
+               { 7, "Andrei" },
+               { 12, "Ion" },
+               { 17, "Mircea" }
+            };
+
+            dictionary.Clear();
+
+            Assert.Equal(0, dictionary.Count);
+        }
     }
 }
