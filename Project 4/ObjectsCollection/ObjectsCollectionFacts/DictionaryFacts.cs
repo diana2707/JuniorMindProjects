@@ -184,13 +184,16 @@ namespace ObjectsCollection
                { 2, "Ana" },
                { 7, "Andrei" },
                { 12, "Ion" },
-               { 17, "Mircea" }
+               { 17, "Mircea" },
+               { 22, "Maria" }
             };
 
+            Assert.True(dictionary.Remove(22));
             Assert.True(dictionary.Remove(7));
+            Assert.True(dictionary.Remove(17));
             Assert.Equal("Ana", dictionary[2]);
             Assert.Equal("Ion", dictionary[12]);
-            Assert.Equal(3, dictionary.Count);
+            Assert.Equal(2, dictionary.Count);
         }
 
         [Fact]

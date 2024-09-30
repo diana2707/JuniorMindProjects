@@ -8,6 +8,7 @@ namespace ObjectsCollection
         readonly int[] buckets;
         readonly Element<TKey, TValue>[] elements;
         readonly int capacity = 5;
+        private int freeIndex = -1;
 
         public Dictionary()
         {
@@ -120,6 +121,8 @@ namespace ObjectsCollection
 
         public bool Remove(TKey key)
         {
+            //nu uita sa updatezi add sa foloseasca spatiile libere
+
             int bucketIndex = GetBucket(key);
 
             if (buckets[bucketIndex] == -1)
@@ -130,8 +133,9 @@ namespace ObjectsCollection
             Element<TKey, TValue> current = elements[buckets[bucketIndex]];
             if (current.Key.Equals(key))
             {
-                elements[buckets[bucketIndex]] = null;
                 buckets[bucketIndex] = current.Next;
+                current.Next = freeIndex;
+                freeIndex = buckets[bucketIndex];
                 Count--;
 
                 return true;
@@ -139,18 +143,19 @@ namespace ObjectsCollection
 
             while (current.Next != -1)
             {
-                Element<TKey, TValue> nextElement = elements[current.Next];
-                if (nextElement.Key.Equals(key))
+                Element<TKey, TValue> previous = current;
+                current = elements[previous.Next];
+
+                if (current.Key.Equals(key))
                 {
-                    int nextIndex = nextElement.Next;
-                    elements[current.Next] = null;
-                    current.Next = nextIndex;
+                    int nextIndex = current.Next;
+                    current.Next = freeIndex;
+                    freeIndex = previous.Next;
+                    previous.Next = nextIndex;
                     Count--;
 
                     return true;
                 }
-
-                current = nextElement;
             }
 
             return false;
