@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 
 namespace ObjectsCollection
 {
@@ -285,6 +286,34 @@ namespace ObjectsCollection
             {
                 Assert.Contains(key, array);
             }
+        }
+
+        [Fact]
+        public void ContainKeyShouldReturnTrueWhenContainsTheKey()
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
+            {
+               { 2, "Ana" },
+               { 7, "Andrei" },
+               { 12, "Ion" },
+               { 17, "Mircea" }
+            };
+
+            Assert.True(dictionary.ContainsKey(12));
+        }
+
+        [Fact]
+        public void ContainKeyShouldReturnFalseWhenDoNotContainsTheKey()
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
+            {
+               { 2, "Ana" },
+               { 7, "Andrei" },
+               { 12, "Ion" },
+               { 17, "Mircea" }
+            };
+
+            Assert.False(dictionary.ContainsKey(1));
         }
 
         //[Fact]

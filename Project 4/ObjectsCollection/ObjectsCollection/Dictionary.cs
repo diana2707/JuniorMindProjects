@@ -208,10 +208,10 @@ namespace ObjectsCollection
             }
         }
 
-        //public bool Contains(KeyValuePair<TKey, TValue> item)
-        //{
-
-        //}
+        public bool ContainsKey(TKey key)
+        {
+            return Keys.Contains(key);
+        }
 
         private int GetBucket(TKey key)
         {
