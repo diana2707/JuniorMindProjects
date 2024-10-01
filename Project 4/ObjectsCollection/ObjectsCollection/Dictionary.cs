@@ -165,11 +165,12 @@ namespace ObjectsCollection
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
-            //sa nu mearga pentru elementele care au fost removed
-
             for (int i = 0; i < Count; i++)
             {
-                yield return new KeyValuePair<TKey, TValue>(elements[i].Key, elements[i].Value);
+                if (elements[i].IsActive)
+                {
+                    yield return new KeyValuePair<TKey, TValue>(elements[i].Key, elements[i].Value);
+                }
             }
         }
 
@@ -239,7 +240,7 @@ namespace ObjectsCollection
 
         public bool Contains(KeyValuePair<TKey, TValue> item)
         {
-            return TryGetvalue(item.Key, out var value) && value.Equals(item.Value);
+            return TryGetValue(item.Key, out var value) && value.Equals(item.Value);
         }
 
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
@@ -253,7 +254,7 @@ namespace ObjectsCollection
             }
         }
 
-        public bool TryGetvalue(TKey key, out TValue value)
+        public bool TryGetValue(TKey key, out TValue value)
         {
             if (!ContainsKey(key))
             {

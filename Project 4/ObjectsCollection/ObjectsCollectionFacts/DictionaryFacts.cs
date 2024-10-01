@@ -233,6 +233,35 @@ namespace ObjectsCollection
         }
 
         [Fact]
+        public void EnumeratorShouldReturnOnlyActiveElements()
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
+            {
+               { 2, "Ana" },
+               { 7, "Andrei" },
+               { 12, "Ion" },
+               { 17, "Mircea" }
+            };
+
+            dictionary.Remove(7);
+            dictionary.Remove(17);
+
+            KeyValuePair<int, string>[] array =
+            {
+                new KeyValuePair<int, string>(2, "Ana"),
+                new KeyValuePair<int, string>(12, "Ion")
+            };
+
+            int arrayIndex = 0;
+            foreach (var element in dictionary)
+            {
+                Assert.Equal(element.Key, array[arrayIndex].Key);
+                Assert.Equal(element.Value, array[arrayIndex].Value);
+                arrayIndex++;
+            }
+        }
+
+        [Fact]
         public void ClearShouldRemoveAllElements()
         {
             Dictionary<int, string> dictionary = new Dictionary<int, string>()
@@ -402,7 +431,7 @@ namespace ObjectsCollection
 
             string value;
 
-            Assert.True(dictionary.TryGetvalue(12, out value));
+            Assert.True(dictionary.TryGetValue(12, out value));
             Assert.Equal("Ion", value);
         }
 
@@ -420,7 +449,7 @@ namespace ObjectsCollection
 
             string value;
 
-            Assert.False(dictionary.TryGetvalue(12, out value));
+            Assert.False(dictionary.TryGetValue(12, out value));
             Assert.Null(value);
         }
 
@@ -437,7 +466,7 @@ namespace ObjectsCollection
 
             string value;
 
-            Assert.False(dictionary.TryGetvalue(10, out value));
+            Assert.False(dictionary.TryGetValue(10, out value));
             Assert.Null(value);
         }
 
