@@ -165,6 +165,7 @@ namespace ObjectsCollection
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
             //sa nu mearga pentru elementele care au fost removed
+
             for (int i = 0; i < Count; i++)
             {
                 yield return new KeyValuePair<TKey, TValue>(elements[i].Key, elements[i].Value);
@@ -234,13 +235,13 @@ namespace ObjectsCollection
 
         public bool Contains(KeyValuePair<TKey, TValue> item)
         {
-            //sa nu mearga pt elem removed
             return TryGetvalue(item.Key, out var value) && value.Equals(item.Value);
         }
 
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
-            //sa sara peste spatiile removed
+            ICollection<TKey> keys = Keys;
+
             for (int i = 0; i < Count; i++)
             {
                 array[arrayIndex] = new KeyValuePair<TKey, TValue>(elements[i].Key, elements[i].Value);
@@ -250,7 +251,6 @@ namespace ObjectsCollection
 
         public bool TryGetvalue(TKey key, out TValue value)
         {
-            //sa nu mearga pt elem removed
             if (!ContainsKey(key))
             {
                 value = default;

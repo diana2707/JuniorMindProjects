@@ -407,6 +407,24 @@ namespace ObjectsCollection
         }
 
         [Fact]
+        public void TryGetValueShouldReturnFalseWhenTheElementWasRemoved()
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
+            {
+               { 2, "Ana" },
+               { 7, "Andrei" },
+               { 12, "Ion" },
+               { 17, "Mircea" }
+            };
+            dictionary.Remove(12);
+
+            string value;
+
+            Assert.False(dictionary.TryGetvalue(12, out value));
+            Assert.Null(value);
+        }
+
+        [Fact]
         public void TryGetValueShouldReturnFalseWhenDoNotContainsTheKeyAndDefaultValue()
         {
             Dictionary<int, string> dictionary = new Dictionary<int, string>()
@@ -499,31 +517,31 @@ namespace ObjectsCollection
             Assert.Throws<InvalidOperationException>(() => dictionary[12]);
         }
 
-        //[Fact]
-        //public void CopyToShouldCopyKeyValuePairsInArrayAndExcludeRemovedElements()
-        //{
-        //    Dictionary<int, string> dictionary = new Dictionary<int, string>()
-        //    {
-        //        { 2, "Ana" },
-        //        { 7, "Andrei" },
-        //        { 12, "Ion" },
-        //        { 17, "Mircea" }
-        //    };
+        [Fact]
+        public void CopyToShouldCopyKeyValuePairsInArrayAndExcludeRemovedElements()
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
+            {
+                { 2, "Ana" },
+                { 7, "Andrei" },
+                { 12, "Ion" },
+                { 17, "Mircea" }
+            };
 
-        //    dictionary.Remove(2);
+            dictionary.Remove(2);
 
-        //    KeyValuePair<int, string>[] array = new KeyValuePair<int, string>[dictionary.Count];
-        //    dictionary.CopyTo(array, 0);
+            KeyValuePair<int, string>[] array = new KeyValuePair<int, string>[dictionary.Count];
+            dictionary.CopyTo(array, 0);
 
-        //    int index = 5;
-        //    foreach (KeyValuePair<int, string> pair in dictionary)
-        //    {
-        //        Assert.Equal(pair.Key, array[index].Key);
-        //        Assert.Equal(pair.Value, array[index].Value);
-        //        index++;
-        //    }
+            int index = 5;
+            foreach (KeyValuePair<int, string> pair in dictionary)
+            {
+                Assert.Equal(pair.Key, array[index].Key);
+                Assert.Equal(pair.Value, array[index].Value);
+                index++;
+            }
 
-        //    Assert.Equal(3, array.Length);
-        //}
+            Assert.Equal(3, array.Length);
+        }
     }
 }
