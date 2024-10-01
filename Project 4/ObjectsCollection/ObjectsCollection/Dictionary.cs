@@ -27,12 +27,22 @@ namespace ObjectsCollection
 
         public ICollection<TKey> Keys
         {
+            //ignora removed elements
             get
             {
                 TKey[] keys = new TKey[Count];
-                for (int i = 0; i < Count; i++)
+                int keysIndex = 0;
+
+                for (int i = 0; i < buckets.Length; i++)
                 {
-                    keys[i] = elements[i].Key;
+                    if (buckets[i] != -1)
+                    {
+                        for (int current = buckets[i]; current != -1; current = elements[current].Next)
+                        {
+                            keys[keysIndex] = elements[current].Key;
+                            keysIndex++;
+                        }
+                    }
                 }
 
                 return keys;
@@ -55,7 +65,6 @@ namespace ObjectsCollection
 
         public TValue this[TKey key]
         {
-            //nu ar trebui sa mearga get sau set pt elementele care au fost removed
             get
             {
                 int bucketIndex = GetBucket(key);

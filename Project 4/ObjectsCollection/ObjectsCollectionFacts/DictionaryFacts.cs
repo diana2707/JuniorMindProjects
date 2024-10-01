@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Linq;
 
 namespace ObjectsCollection
 {
@@ -270,6 +268,55 @@ namespace ObjectsCollection
         }
 
         [Fact]
+        public void KeysPropertyShouldReturnCollectionOfAllKeysWithoutTheOnesFromRemovedElement()
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
+            {
+               { 2, "Ana" },
+               { 7, "Andrei" },
+               { 12, "Ion" },
+               { 17, "Mircea" }
+            };
+
+            dictionary.Remove(2);
+
+            ICollection<int> collection = dictionary.Keys;
+            int[] array = { 7, 12, 17 };
+            foreach (int key in collection)
+            {
+                Assert.Contains(key, array);
+            }
+
+            Assert.Equal(3, collection.Count);
+        }
+
+        [Fact]
+        public void KeysPropertyShouldReturnCollectionOfAllKeysWhenAreDistributedInMoreBuckets()
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
+            {
+               { 2, "Ana" },
+               { 3, "Elene" },
+               { 7, "Andrei" },
+               { 8, "Dan" },
+               { 12, "Ion" }
+            };
+
+            dictionary.Remove(3);
+            dictionary.Remove(2);
+            dictionary.Remove(12);
+
+            ICollection<int> collection = dictionary.Keys;
+            int[] array = { 7, 8 };
+            foreach (int key in collection)
+            {
+                Assert.Contains(key, array);
+            }
+
+            Assert.Equal(2, collection.Count);
+        }
+
+        [Fact]
         public void ValuesPropertyShouldReturnCollectionOfAllValues()
         {
             Dictionary<int, string> dictionary = new Dictionary<int, string>()
@@ -408,6 +455,22 @@ namespace ObjectsCollection
                 Assert.Equal(pair.Value, array[index].Value);
                 index++;
             }
+        }
+
+        [Fact]
+        public void GetterShouldThrowInvalidOperationExceptionWhenUsedWithRemovedElement()
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
+            {
+               { 2, "Ana" },
+               { 7, "Andrei" },
+               { 12, "Ion" },
+               { 17, "Mircea" }
+            };
+
+            dictionary.Remove(12);
+
+            Assert.Throws<InvalidOperationException>(() => dictionary[12]);
         }
 
         //[Fact]
