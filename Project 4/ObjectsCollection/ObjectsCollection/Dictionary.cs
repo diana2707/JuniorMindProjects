@@ -124,6 +124,7 @@ namespace ObjectsCollection
 
         public void Add(TKey key, TValue value)
         {
+            //throw ex daca key exista deja
             int bucketIndex = GetBucket(key);
 
             Element<TKey, TValue> newElement = new Element<TKey, TValue>(key, value);
@@ -211,6 +212,18 @@ namespace ObjectsCollection
         public bool ContainsKey(TKey key)
         {
             return Keys.Contains(key);
+        }
+
+        public bool TryGetvalue(TKey key, out TValue value)
+        {
+            if (!ContainsKey(key))
+            {
+                value = default;
+                return false;
+            }
+
+            value = this[key];
+            return true;
         }
 
         private int GetBucket(TKey key)

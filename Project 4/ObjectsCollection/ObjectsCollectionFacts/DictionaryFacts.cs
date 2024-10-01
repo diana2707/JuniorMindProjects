@@ -316,6 +316,40 @@ namespace ObjectsCollection
             Assert.False(dictionary.ContainsKey(1));
         }
 
+        [Fact]
+        public void TryGetValueShouldReturnTrueWhenContainsTheKeyAndItsValue()
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
+            {
+               { 2, "Ana" },
+               { 7, "Andrei" },
+               { 12, "Ion" },
+               { 17, "Mircea" }
+            };
+
+            string value;
+
+            Assert.True(dictionary.TryGetvalue(12, out value));
+            Assert.Equal("Ion", value);
+        }
+
+        [Fact]
+        public void TryGetValueShouldReturnFalseWhenDoNotContainsTheKeyAndDefaultValue()
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
+            {
+               { 2, "Ana" },
+               { 7, "Andrei" },
+               { 12, "Ion" },
+               { 17, "Mircea" }
+            };
+
+            string value;
+
+            Assert.False(dictionary.TryGetvalue(10, out value));
+            Assert.Null(value);
+        }
+
         //[Fact]
         //public void ContainShouldReturnTrueWhenContaintValue()
         //{
