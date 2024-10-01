@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 
 namespace ObjectsCollection
 {
@@ -247,5 +248,38 @@ namespace ObjectsCollection
 
             Assert.Equal(0, dictionary.Count);
         }
-    }
+
+        [Fact]
+        public void KeysPropertyShouldReturnCollectionOfAllKeys()
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
+            {
+               { 2, "Ana" },
+               { 7, "Andrei" },
+               { 12, "Ion" },
+               { 17, "Mircea" }
+            };
+
+            ICollection<int> collection = dictionary.Keys;
+            int[] array = { 2, 7, 12, 17 };
+            foreach (int key in collection)
+            {
+                Assert.Contains(key, array);
+            }
+        }
+
+            //[Fact]
+            //public void ContainShouldReturnTrueWhenContaintValue()
+            //{
+            //    Dictionary<int, string> dictionary = new Dictionary<int, string>()
+            //    {
+            //       { 2, "Ana" },
+            //       { 7, "Andrei" },
+            //       { 12, "Ion" },
+            //       { 17, "Mircea" }
+            //    };
+
+            //    Assert.True(dictionary.Contains("Andrei");
+            //}
+        }
 }

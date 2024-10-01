@@ -25,8 +25,23 @@ namespace ObjectsCollection
 
         public bool IsReadOnly => false;
 
+        public ICollection<TKey> Keys
+        {
+            get
+            {
+                TKey[] keys = new TKey[Count];
+                for (int i = 0; i < Count; i++)
+                {
+                    keys[i] = elements[i].Key;
+                }
+
+                return keys;
+            }
+        }
+
         public TValue this[TKey key]
         {
+            //verifica daca freeIndex are vreo implicatie
             get
             {
                 int bucketIndex = GetBucket(key);
@@ -130,8 +145,6 @@ namespace ObjectsCollection
 
         public bool Remove(TKey key)
         {
-            //nu uita sa updatezi add sa foloseasca spatiile libere
-
             int bucketIndex = GetBucket(key);
 
             if (buckets[bucketIndex] == -1)
@@ -180,6 +193,11 @@ namespace ObjectsCollection
                 buckets[i] = -1;
             }
         }
+
+        //public bool Contains(KeyValuePair<TKey, TValue> item)
+        //{
+
+        //}
 
         private int GetBucket(TKey key)
         {
