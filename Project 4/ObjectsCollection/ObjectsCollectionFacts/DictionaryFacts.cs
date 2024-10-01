@@ -275,6 +275,11 @@ namespace ObjectsCollection
             dictionary.Clear();
 
             Assert.Equal(0, dictionary.Count);
+
+            foreach (var element in dictionary)
+            {
+                Assert.Null(element);
+            }
         }
 
         [Fact]
@@ -562,7 +567,7 @@ namespace ObjectsCollection
             KeyValuePair<int, string>[] array = new KeyValuePair<int, string>[dictionary.Count];
             dictionary.CopyTo(array, 0);
 
-            int index = 5;
+            int index = 0;
             foreach (KeyValuePair<int, string> pair in dictionary)
             {
                 Assert.Equal(pair.Key, array[index].Key);

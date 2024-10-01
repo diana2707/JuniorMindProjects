@@ -21,6 +21,8 @@ namespace ObjectsCollection
             }
         }
 
+        //verifica tot, acum ca ai adaugat isActive
+
         public int Count { get; private set; }
 
         public bool IsReadOnly => false;
@@ -165,9 +167,9 @@ namespace ObjectsCollection
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
-            for (int i = 0; i < Count; i++)
+            for (int i = 0; i < elements.Length; i++)
             {
-                if (elements[i].IsActive)
+                if (elements[i] != null && elements[i].IsActive)
                 {
                     yield return new KeyValuePair<TKey, TValue>(elements[i].Key, elements[i].Value);
                 }
@@ -229,7 +231,11 @@ namespace ObjectsCollection
             for (int i = 0; i < capacity; i++)
             {
                 buckets[i] = -1;
-                elements[i].IsActive = false;
+
+                if (elements[i] != null)
+                {
+                    elements[i].IsActive = false;
+                }
             }
         }
 
@@ -247,10 +253,13 @@ namespace ObjectsCollection
         {
             ICollection<TKey> keys = Keys;
 
-            for (int i = 0; i < Count; i++)
+            for (int i = 0; i < elements.Length; i++)
             {
-                array[arrayIndex] = new KeyValuePair<TKey, TValue>(elements[i].Key, elements[i].Value);
-                arrayIndex++;
+                if (elements[i] != null && elements[i].IsActive)
+                {
+                    array[arrayIndex] = new KeyValuePair<TKey, TValue>(elements[i].Key, elements[i].Value);
+                    arrayIndex++;
+                }
             }
         }
 
