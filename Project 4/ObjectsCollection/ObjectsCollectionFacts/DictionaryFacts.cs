@@ -363,5 +363,78 @@ namespace ObjectsCollection
 
             Assert.True(dictionary.Contains(new KeyValuePair<int, string>(7, "Andrei")));
         }
+
+        [Fact]
+        public void CopyToShouldCopyKeyValuePairsInArrayWhenIndexStartsAt0()
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
+            {
+               { 2, "Ana" },
+               { 7, "Andrei" },
+               { 12, "Ion" },
+               { 17, "Mircea" }
+            };
+
+            KeyValuePair<int, string>[] array = new KeyValuePair<int, string>[dictionary.Count];
+            dictionary.CopyTo(array, 0);
+
+            int index = 0;
+            foreach (KeyValuePair<int, string> pair in dictionary)
+            {
+                Assert.Equal(pair.Key, array[index].Key);
+                Assert.Equal(pair.Value, array[index].Value);
+                index++;
+            }
+        }
+
+        [Fact]
+        public void CopyToShouldCopyKeyValuePairsInArrayWhenIndexIsGreaterThan0()
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
+            {
+               { 2, "Ana" },
+               { 7, "Andrei" },
+               { 12, "Ion" },
+               { 17, "Mircea" }
+            };
+
+            KeyValuePair<int, string>[] array = new KeyValuePair<int, string>[10];
+            dictionary.CopyTo(array, 5);
+
+            int index = 5;
+            foreach (KeyValuePair<int, string> pair in dictionary)
+            {
+                Assert.Equal(pair.Key, array[index].Key);
+                Assert.Equal(pair.Value, array[index].Value);
+                index++;
+            }
+        }
+
+        //[Fact]
+        //public void CopyToShouldCopyKeyValuePairsInArrayAndExcludeRemovedElements()
+        //{
+        //    Dictionary<int, string> dictionary = new Dictionary<int, string>()
+        //    {
+        //        { 2, "Ana" },
+        //        { 7, "Andrei" },
+        //        { 12, "Ion" },
+        //        { 17, "Mircea" }
+        //    };
+
+        //    dictionary.Remove(2);
+
+        //    KeyValuePair<int, string>[] array = new KeyValuePair<int, string>[dictionary.Count];
+        //    dictionary.CopyTo(array, 0);
+
+        //    int index = 5;
+        //    foreach (KeyValuePair<int, string> pair in dictionary)
+        //    {
+        //        Assert.Equal(pair.Key, array[index].Key);
+        //        Assert.Equal(pair.Value, array[index].Value);
+        //        index++;
+        //    }
+
+        //    Assert.Equal(3, array.Length);
+        //}
     }
 }
