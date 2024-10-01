@@ -145,6 +145,7 @@ namespace ObjectsCollection
             int bucketIndex = GetBucket(key);
 
             Element<TKey, TValue> newElement = new Element<TKey, TValue>(key, value);
+            newElement.IsActive = true;
             newElement.Next = buckets[bucketIndex];
 
             if (freeIndex == -1)
@@ -193,6 +194,7 @@ namespace ObjectsCollection
                 buckets[bucketIndex] = current.Next;
                 current.Next = freeIndex;
                 freeIndex = tempIndex;
+                current.IsActive = false;
                 Count--;
 
                 return true;
@@ -209,6 +211,7 @@ namespace ObjectsCollection
                     current.Next = freeIndex;
                     freeIndex = previous.Next;
                     previous.Next = tempIndex;
+                    current.IsActive = false;
                     Count--;
 
                     return true;
@@ -225,6 +228,7 @@ namespace ObjectsCollection
             for (int i = 0; i < capacity; i++)
             {
                 buckets[i] = -1;
+                elements[i].IsActive = false;
             }
         }
 
