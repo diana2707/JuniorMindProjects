@@ -214,6 +214,11 @@ namespace ObjectsCollection
             return Keys.Contains(key);
         }
 
+        public bool Contains(KeyValuePair<TKey, TValue> item)
+        {
+            return TryGetvalue(item.Key, out var value) && value.Equals(item.Value);
+        }
+
         public bool TryGetvalue(TKey key, out TValue value)
         {
             if (!ContainsKey(key))

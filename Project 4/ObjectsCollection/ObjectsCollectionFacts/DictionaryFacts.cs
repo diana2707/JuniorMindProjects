@@ -350,18 +350,18 @@ namespace ObjectsCollection
             Assert.Null(value);
         }
 
-        //[Fact]
-        //public void ContainShouldReturnTrueWhenContaintValue()
-        //{
-        //    Dictionary<int, string> dictionary = new Dictionary<int, string>()
-        //    {
-        //       { 2, "Ana" },
-        //       { 7, "Andrei" },
-        //       { 12, "Ion" },
-        //       { 17, "Mircea" }
-        //    };
+        [Fact]
+        public void ContainShouldReturnTrueWhenContainsBothKeyAndValue()
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
+            {
+               { 2, "Ana" },
+               { 7, "Andrei" },
+               { 12, "Ion" },
+               { 17, "Mircea" }
+            };
 
-        //    Assert.True(dictionary.Contains("Andrei");
-        //}
+            Assert.True(dictionary.Contains(new KeyValuePair<int, string>(7, "Andrei")));
+        }
     }
 }
