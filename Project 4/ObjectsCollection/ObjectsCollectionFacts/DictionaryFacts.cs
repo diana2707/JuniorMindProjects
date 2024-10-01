@@ -563,6 +563,7 @@ namespace ObjectsCollection
             };
 
             dictionary.Remove(2);
+            dictionary.Remove(17);
 
             KeyValuePair<int, string>[] array = new KeyValuePair<int, string>[dictionary.Count];
             dictionary.CopyTo(array, 0);
@@ -575,7 +576,7 @@ namespace ObjectsCollection
                 index++;
             }
 
-            Assert.Equal(3, array.Length);
+            Assert.Equal(2, array.Length);
         }
     }
 }

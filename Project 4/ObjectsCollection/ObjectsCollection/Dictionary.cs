@@ -255,11 +255,13 @@ namespace ObjectsCollection
 
             for (int i = 0; i < elements.Length; i++)
             {
-                if (elements[i] != null && elements[i].IsActive)
+                if (elements[i]?.IsActive != true)
                 {
-                    array[arrayIndex] = new KeyValuePair<TKey, TValue>(elements[i].Key, elements[i].Value);
-                    arrayIndex++;
+                    continue;
                 }
+
+                array[arrayIndex] = new KeyValuePair<TKey, TValue>(elements[i].Key, elements[i].Value);
+                arrayIndex++;
             }
         }
 
