@@ -39,6 +39,20 @@ namespace ObjectsCollection
             }
         }
 
+        public ICollection<TValue> Values
+        {
+            get
+            {
+                TValue[] values = new TValue[Count];
+                for (int i = 0; i < Count; i++)
+                {
+                    values[i] = elements[i].Value;
+                }
+
+                return values;
+            }
+        }
+
         public TValue this[TKey key]
         {
             //verifica daca freeIndex are vreo implicatie

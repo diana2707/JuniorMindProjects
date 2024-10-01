@@ -268,18 +268,37 @@ namespace ObjectsCollection
             }
         }
 
-            //[Fact]
-            //public void ContainShouldReturnTrueWhenContaintValue()
-            //{
-            //    Dictionary<int, string> dictionary = new Dictionary<int, string>()
-            //    {
-            //       { 2, "Ana" },
-            //       { 7, "Andrei" },
-            //       { 12, "Ion" },
-            //       { 17, "Mircea" }
-            //    };
+        [Fact]
+        public void ValuesPropertyShouldReturnCollectionOfAllValues()
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
+            {
+               { 2, "Ana" },
+               { 7, "Andrei" },
+               { 12, "Ion" },
+               { 17, "Mircea" }
+            };
 
-            //    Assert.True(dictionary.Contains("Andrei");
-            //}
+            ICollection<string> collection = dictionary.Values;
+            string[] array = { "Ana", "Andrei", "Ion", "Mircea" };
+            foreach (string key in collection)
+            {
+                Assert.Contains(key, array);
+            }
         }
+
+        //[Fact]
+        //public void ContainShouldReturnTrueWhenContaintValue()
+        //{
+        //    Dictionary<int, string> dictionary = new Dictionary<int, string>()
+        //    {
+        //       { 2, "Ana" },
+        //       { 7, "Andrei" },
+        //       { 12, "Ion" },
+        //       { 17, "Mircea" }
+        //    };
+
+        //    Assert.True(dictionary.Contains("Andrei");
+        //}
+    }
 }
