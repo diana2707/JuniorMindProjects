@@ -336,6 +336,32 @@ namespace ObjectsCollection
         }
 
         [Fact]
+        public void ValuesPropertyShouldReturnCollectionOfAllValuesWithoutRemovedValues()
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
+            {
+               { 2, "Ana" },
+               { 3, "Elene" },
+               { 7, "Andrei" },
+               { 8, "Dan" },
+               { 12, "Ion" }
+            };
+
+            dictionary.Remove(3);
+            dictionary.Remove(2);
+            dictionary.Remove(12);
+
+            ICollection<string> collection = dictionary.Values;
+            string[] array = { "Andrei", "Dan" };
+            foreach (string value in collection)
+            {
+                Assert.Contains(value, array);
+            }
+
+            Assert.Equal(2, collection.Count);
+        }
+
+        [Fact]
         public void ContainKeyShouldReturnTrueWhenContainsTheKey()
         {
             Dictionary<int, string> dictionary = new Dictionary<int, string>()

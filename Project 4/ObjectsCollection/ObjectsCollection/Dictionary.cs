@@ -27,7 +27,6 @@ namespace ObjectsCollection
 
         public ICollection<TKey> Keys
         {
-            //ignora removed elements
             get
             {
                 TKey[] keys = new TKey[Count];
@@ -54,9 +53,18 @@ namespace ObjectsCollection
             get
             {
                 TValue[] values = new TValue[Count];
-                for (int i = 0; i < Count; i++)
+                int valuesIndex = 0;
+
+                for (int i = 0; i < buckets.Length; i++)
                 {
-                    values[i] = elements[i].Value;
+                    if (buckets[i] != -1)
+                    {
+                        for (int current = buckets[i]; current != -1; current = elements[current].Next)
+                        {
+                            values[valuesIndex] = elements[current].Value;
+                            valuesIndex++;
+                        }
+                    }
                 }
 
                 return values;
