@@ -597,7 +597,7 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void IndexerThrowsKeyNotFoundExceptionWhenKeyIsNull()
+        public void IndexerThrowsKeyNotFoundExceptionWhenKeyIsNotFound()
         {
             Dictionary<int, string> dictionary = new Dictionary<int, string>()
             {
@@ -609,6 +609,34 @@ namespace ObjectsCollection
 
             Assert.Throws<KeyNotFoundException>(() => dictionary[5]);
             Assert.Throws<KeyNotFoundException>(() => dictionary[5] = "Laura");
+        }
+
+        [Fact]
+        public void AddThrowsArgumentNullExceptionWhenKeyIsNull()
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
+            {
+                { "1", "Ana" },
+                { "2", "Andrei" },
+                { "3", "Ion" },
+                { "4", "Mircea" }
+            };
+
+            Assert.Throws<ArgumentNullException>(() => dictionary.Add(null, "aaa"));
+        }
+
+        [Fact]
+        public void AddThrowsArgumentExceptionWhenKeyIsAlreadyUsed()
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
+            {
+                { "1", "Ana" },
+                { "2", "Andrei" },
+                { "3", "Ion" },
+                { "4", "Mircea" }
+            };
+
+            Assert.Throws<ArgumentException>(() => dictionary.Add("4", "Alina"));
         }
     }
 }

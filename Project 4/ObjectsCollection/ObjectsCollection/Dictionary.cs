@@ -63,13 +63,13 @@ namespace ObjectsCollection
         {
             get
             {
-                ValidateKey(key);
+                ValidateKeyExists(key);
                 return GetElement(key).Value;
             }
 
             set
             {
-                ValidateKey(key);
+                ValidateKeyExists(key);
                 GetElement(key).Value = value;
             }
         }
@@ -81,7 +81,8 @@ namespace ObjectsCollection
 
         public void Add(TKey key, TValue value)
         {
-            //throw ex daca key exista deja
+            ValidateNewKey(key);
+
             int bucketIndex = GetBucket(key);
 
             Element<TKey, TValue> newElement = new Element<TKey, TValue>(key, value);
@@ -270,7 +271,7 @@ namespace ObjectsCollection
             throw new InvalidOperationException("No element with this key was found");
         }
 
-        private void ValidateKey(TKey key)
+        private void ValidateKeyExists(TKey key)
         {
             ArgumentNullException.ThrowIfNull(key);
 
@@ -280,6 +281,18 @@ namespace ObjectsCollection
             }
 
             throw new KeyNotFoundException("The key was not found.");
+        }
+
+        private void ValidateNewKey(TKey key)
+        {
+            ArgumentNullException.ThrowIfNull(key);
+
+            if (!ContainsKey(key))
+            {
+                return;
+            }
+
+            throw new ArgumentException("The key is already used.");
         }
     }
 }
