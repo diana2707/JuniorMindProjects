@@ -195,6 +195,7 @@ namespace ObjectsCollection
 
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
+            ValidateArray(array, arrayIndex);
             ICollection<TKey> keys = Keys;
 
             for (int i = 0; i < elements.Length; i++)
@@ -299,6 +300,19 @@ namespace ObjectsCollection
         private static void ValidateKeyValue(TKey key)
         {
             ArgumentNullException.ThrowIfNull(key);
+        }
+
+        private void ValidateArray(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
+        {
+            ArgumentNullException.ThrowIfNull(array);
+            ArgumentOutOfRangeException.ThrowIfLessThan(arrayIndex, 0);
+
+            if (array.Length - arrayIndex >= Count)
+            {
+                return;
+            }
+
+            throw new ArgumentException("Not enough space from arrayIndex to end of array");
         }
     }
 }

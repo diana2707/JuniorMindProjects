@@ -652,5 +652,67 @@ namespace ObjectsCollection
 
             Assert.Throws<ArgumentNullException>(() => dictionary.ContainsKey(null));
         }
+
+        [Fact]
+        public void CopyToThrowsArgumentNullExceptionWhenArrayIsNull()
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
+            {
+                { "1", "Ana" },
+                { "2", "Andrei" },
+                { "3", "Ion" },
+                { "4", "Mircea" }
+            };
+
+            Assert.Throws<ArgumentNullException>(() => dictionary.CopyTo(null, 0));
+        }
+
+        [Fact]
+        public void CopyToThrowsArgumentOutOfExceptionWhenArrayIndexIsLessThan0()
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
+            {
+                { "1", "Ana" },
+                { "2", "Andrei" },
+                { "3", "Ion" },
+                { "4", "Mircea" }
+            };
+
+            KeyValuePair<string, string>[] array = new KeyValuePair<string, string>[dictionary.Count];
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => dictionary.CopyTo(array, -1));
+        }
+
+        [Fact]
+        public void CopyToThrowsArgumentExceptionWhenArrayLengthIsLessThanCount()
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
+            {
+                { "1", "Ana" },
+                { "2", "Andrei" },
+                { "3", "Ion" },
+                { "4", "Mircea" }
+            };
+
+            KeyValuePair<string, string>[] array = new KeyValuePair<string, string>[3];
+
+            Assert.Throws<ArgumentException>(() => dictionary.CopyTo(array, 0));
+        }
+
+        [Fact]
+        public void CopyToThrowsArgumentExceptionWhenArrayLengthFromIndexIsLessThanCount()
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
+            {
+                { "1", "Ana" },
+                { "2", "Andrei" },
+                { "3", "Ion" },
+                { "4", "Mircea" }
+            };
+
+            KeyValuePair<string, string>[] array = new KeyValuePair<string, string>[dictionary.Count];
+
+            Assert.Throws<ArgumentException>(() => dictionary.CopyTo(array, 1));
+        }
     }
 }
