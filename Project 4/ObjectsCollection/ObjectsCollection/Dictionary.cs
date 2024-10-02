@@ -56,16 +56,15 @@ namespace ObjectsCollection
                 TValue[] values = new TValue[Count];
                 int valuesIndex = 0;
 
-                for (int i = 0; i < buckets.Length; i++)
+                for (int i = 0; i < elements.Length; i++)
                 {
-                    if (buckets[i] != -1)
+                    if (elements[i]?.IsActive != true)
                     {
-                        for (int current = buckets[i]; current != -1; current = elements[current].Next)
-                        {
-                            values[valuesIndex] = elements[current].Value;
-                            valuesIndex++;
-                        }
+                        continue;
                     }
+
+                    values[valuesIndex] = elements[i].Value;
+                    valuesIndex++;
                 }
 
                 return values;
