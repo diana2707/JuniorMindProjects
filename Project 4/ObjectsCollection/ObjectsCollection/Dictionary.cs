@@ -184,6 +184,7 @@ namespace ObjectsCollection
 
         public bool ContainsKey(TKey key)
         {
+            ValidateKeyValue(key);
             return Keys.Contains(key);
         }
 
@@ -273,7 +274,7 @@ namespace ObjectsCollection
 
         private void ValidateKeyExists(TKey key)
         {
-            ArgumentNullException.ThrowIfNull(key);
+            ValidateKeyValue(key);
 
             if (ContainsKey(key))
             {
@@ -285,7 +286,7 @@ namespace ObjectsCollection
 
         private void ValidateNewKey(TKey key)
         {
-            ArgumentNullException.ThrowIfNull(key);
+            ValidateKeyValue(key);
 
             if (!ContainsKey(key))
             {
@@ -293,6 +294,11 @@ namespace ObjectsCollection
             }
 
             throw new ArgumentException("The key is already used.");
+        }
+
+        private static void ValidateKeyValue(TKey key)
+        {
+            ArgumentNullException.ThrowIfNull(key);
         }
     }
 }

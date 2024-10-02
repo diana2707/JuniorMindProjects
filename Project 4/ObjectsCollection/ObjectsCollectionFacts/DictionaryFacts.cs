@@ -638,5 +638,19 @@ namespace ObjectsCollection
 
             Assert.Throws<ArgumentException>(() => dictionary.Add("4", "Alina"));
         }
+
+        [Fact]
+        public void ContainsThrowsArgumentNullExceptionWhenKeyIsNull()
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
+            {
+                { "1", "Ana" },
+                { "2", "Andrei" },
+                { "3", "Ion" },
+                { "4", "Mircea" }
+            };
+
+            Assert.Throws<ArgumentNullException>(() => dictionary.ContainsKey(null));
+        }
     }
 }
