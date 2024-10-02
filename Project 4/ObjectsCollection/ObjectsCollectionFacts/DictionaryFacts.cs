@@ -580,5 +580,35 @@ namespace ObjectsCollection
 
             Assert.Equal(2, array.Length);
         }
+
+        [Fact]
+        public void IndexerThrowsArgumentNullExceptionWhenKeyIsNull()
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
+            {
+                { "1", "Ana" },
+                { "2", "Andrei" },
+                { "3", "Ion" },
+                { "4", "Mircea" }
+            };
+
+            Assert.Throws<ArgumentNullException>(() => dictionary[null]);
+            Assert.Throws<ArgumentNullException>(() => dictionary[null] = "5");
+        }
+
+        [Fact]
+        public void IndexerThrowsKeyNotFoundExceptionWhenKeyIsNull()
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
+            {
+                { 1, "Ana" },
+                { 2, "Andrei" },
+                { 3, "Ion" },
+                { 4, "Mircea" }
+            };
+
+            Assert.Throws<KeyNotFoundException>(() => dictionary[5]);
+            Assert.Throws<KeyNotFoundException>(() => dictionary[5] = "Laura");
+        }
     }
 }

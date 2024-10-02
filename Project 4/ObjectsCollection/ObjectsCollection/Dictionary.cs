@@ -61,9 +61,17 @@ namespace ObjectsCollection
 
         public TValue this[TKey key]
         {
-            get => GetElement(key).Value;
+            get
+            {
+                ValidateKey(key);
+                return GetElement(key).Value;
+            }
 
-            set => GetElement(key).Value = value;
+            set
+            {
+                ValidateKey(key);
+                GetElement(key).Value = value;
+            }
         }
 
         public void Add(KeyValuePair<TKey, TValue> item)
@@ -260,6 +268,18 @@ namespace ObjectsCollection
             }
 
             throw new InvalidOperationException("No element with this key was found");
+        }
+
+        private void ValidateKey(TKey key)
+        {
+            ArgumentNullException.ThrowIfNull(key);
+
+            if (ContainsKey(key))
+            {
+                return;
+            }
+
+            throw new KeyNotFoundException("The key was not found.");
         }
     }
 }
