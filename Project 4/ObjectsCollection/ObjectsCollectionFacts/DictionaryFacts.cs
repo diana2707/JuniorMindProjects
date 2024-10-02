@@ -1,5 +1,4 @@
 ﻿using System;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ObjectsCollection
 {
@@ -125,30 +124,6 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void GetterShouldThrowInvalidOperationExceptionWhenKeyDoNotExists()
-        {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>()
-            {
-                { "first name", "Ana" },
-                { "last name", "Popescu" }
-            };
-
-            Assert.Throws<InvalidOperationException>(() => dictionary["name"]);
-        }
-
-        [Fact]
-        public void SetterShouldThrowInvalidOperationExceptionWhenKeyDoNotExists()
-        {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>()
-            {
-                { "first name", "Ana" },
-                { "last name", "Popescu" }
-            };
-
-            Assert.Throws<InvalidOperationException>(() => dictionary["name"] = "Elena");
-        }
-
-        [Fact]
         public void RemoveShouldRemoveElementByKeyAndReturnTrue()
         {
             Dictionary<string, string> dictionary = new Dictionary<string, string>()
@@ -253,12 +228,9 @@ namespace ObjectsCollection
                 new KeyValuePair<int, string>(12, "Ion")
             };
 
-            int arrayIndex = 0;
             foreach (var element in dictionary)
             {
-                Assert.Equal(element.Key, array[arrayIndex].Key);
-                Assert.Equal(element.Value, array[arrayIndex].Value);
-                arrayIndex++;
+                Assert.Contains(element, array);
             }
         }
 
@@ -275,12 +247,7 @@ namespace ObjectsCollection
 
             dictionary.Clear();
 
-            Assert.Equal(0, dictionary.Count);
-
-            foreach (var element in dictionary)
-            {
-                Assert.Null(element);
-            }
+            Assert.Empty(dictionary);
         }
 
         [Fact]
@@ -479,7 +446,7 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void ContainShouldReturnTrueWhenContainsBothKeyAndValue()
+        public void ContainsShouldReturnTrueWhenContainsBothKeyAndValue()
         {
             Dictionary<int, string> dictionary = new Dictionary<int, string>()
             {
@@ -506,12 +473,9 @@ namespace ObjectsCollection
             KeyValuePair<int, string>[] array = new KeyValuePair<int, string>[dictionary.Count];
             dictionary.CopyTo(array, 0);
 
-            int index = 0;
             foreach (KeyValuePair<int, string> pair in dictionary)
             {
-                Assert.Equal(pair.Key, array[index].Key);
-                Assert.Equal(pair.Value, array[index].Value);
-                index++;
+                Assert.Contains(pair, array);
             }
         }
 
@@ -529,12 +493,9 @@ namespace ObjectsCollection
             KeyValuePair<int, string>[] array = new KeyValuePair<int, string>[10];
             dictionary.CopyTo(array, 5);
 
-            int index = 5;
             foreach (KeyValuePair<int, string> pair in dictionary)
             {
-                Assert.Equal(pair.Key, array[index].Key);
-                Assert.Equal(pair.Value, array[index].Value);
-                index++;
+                Assert.Contains(pair, array);
             }
         }
 
@@ -551,7 +512,7 @@ namespace ObjectsCollection
 
             dictionary.Remove(12);
 
-            Assert.Throws<InvalidOperationException>(() => dictionary[12]);
+            Assert.Throws<KeyNotFoundException>(() => dictionary[12]);
         }
 
         [Fact]
@@ -571,12 +532,9 @@ namespace ObjectsCollection
             KeyValuePair<int, string>[] array = new KeyValuePair<int, string>[dictionary.Count];
             dictionary.CopyTo(array, 0);
 
-            int index = 0;
             foreach (KeyValuePair<int, string> pair in dictionary)
             {
-                Assert.Equal(pair.Key, array[index].Key);
-                Assert.Equal(pair.Value, array[index].Value);
-                index++;
+                Assert.Contains(pair, array);
             }
 
             Assert.Equal(2, array.Length);

@@ -106,11 +106,19 @@ namespace ObjectsCollection
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
-            Element<TKey, TValue>[] active = GetActiveElements();
-
-            for (int i = 0; i < Count; i++)
+            for (int i = 0; i < buckets.Length; i++)
             {
-                yield return new KeyValuePair<TKey, TValue>(active[i].Key, active[i].Value);
+                if (buckets[i] == -1)
+                {
+                    continue;
+                }
+
+                for (Element<TKey, TValue> current = elements[buckets[i]];
+                    current != null;
+                    current = current.Next != -1 ? elements[current.Next] : null)
+                {
+                    yield return new KeyValuePair<TKey, TValue>(current.Key, current.Value);
+                }
             }
         }
 
