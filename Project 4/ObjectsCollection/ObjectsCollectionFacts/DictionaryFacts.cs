@@ -729,5 +729,19 @@ namespace ObjectsCollection
 
             Assert.Throws<ArgumentNullException>(() => dictionary.Remove(null));
         }
+
+        [Fact]
+        public void TryGetValueThrowsArgumentNullExceptionIfKeyIsNull()
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
+            {
+                { "1", "Ana" },
+                { "2", "Andrei" },
+                { "3", "Ion" },
+                { "4", "Mircea" }
+            };
+
+            Assert.Throws<ArgumentNullException>(() => dictionary.TryGetValue(null, out string value));
+        }
     }
 }

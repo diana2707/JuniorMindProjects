@@ -214,6 +214,8 @@ namespace ObjectsCollection
 
         public bool TryGetValue(TKey key, out TValue value)
         {
+            ValidateKeyValue(key);
+
             if (!ContainsKey(key))
             {
                 value = default;
