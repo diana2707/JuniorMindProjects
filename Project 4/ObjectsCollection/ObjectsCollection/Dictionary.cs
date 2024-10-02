@@ -97,14 +97,11 @@ namespace ObjectsCollection
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
-            for (int i = 0; i < elements.Length; i++)
-            {
-                if (elements[i]?.IsActive != true)
-                {
-                    continue;
-                }
+            Element<TKey, TValue>[] active = GetActiveElements();
 
-                yield return new KeyValuePair<TKey, TValue>(elements[i].Key, elements[i].Value);
+            for (int i = 0; i < Count; i++)
+            {
+                yield return new KeyValuePair<TKey, TValue>(active[i].Key, active[i].Value);
             }
         }
 
