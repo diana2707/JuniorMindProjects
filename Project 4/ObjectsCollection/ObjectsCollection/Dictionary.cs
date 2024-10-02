@@ -47,18 +47,12 @@ namespace ObjectsCollection
         {
             get
             {
+                Element<TKey, TValue>[] active = GetActiveElements();
                 TValue[] values = new TValue[Count];
-                int valuesIndex = 0;
 
-                for (int i = 0; i < elements.Length; i++)
+                for (int i = 0; i < Count; i++)
                 {
-                    if (elements[i]?.IsActive != true)
-                    {
-                        continue;
-                    }
-
-                    values[valuesIndex] = elements[i].Value;
-                    valuesIndex++;
+                    values[i] = active[i].Value;
                 }
 
                 return values;
@@ -67,65 +61,9 @@ namespace ObjectsCollection
 
         public TValue this[TKey key]
         {
-            get
-            {
-                int bucketIndex = GetBucket(key);
+            get => GetElement(key).Value;
 
-                if (buckets[bucketIndex] == -1)
-                {
-                    throw new InvalidOperationException("No element with this key was found");
-                }
-
-                Element<TKey, TValue> current = elements[buckets[bucketIndex]];
-
-                if (current.Key.Equals(key))
-                {
-                    return current.Value;
-                }
-
-                while (current.Next != -1)
-                {
-                    current = elements[current.Next];
-
-                    if (current.Key.Equals(key))
-                    {
-                        return current.Value;
-                    }
-                }
-
-                throw new InvalidOperationException("No element with this key was found");
-            }
-
-            set
-            {
-                int bucketIndex = GetBucket(key);
-
-                if (buckets[bucketIndex] == -1)
-                {
-                    throw new InvalidOperationException("No element with this key was found");
-                }
-
-                Element<TKey, TValue> current = elements[buckets[bucketIndex]];
-
-                if (current.Key.Equals(key))
-                {
-                    current.Value = value;
-                    return;
-                }
-
-                while (current.Next != -1)
-                {
-                    current = elements[current.Next];
-
-                    if (current.Key.Equals(key))
-                    {
-                        current.Value = value;
-                        return;
-                    }
-                }
-
-                throw new InvalidOperationException("No element with this key was found");
-            }
+            set => GetElement(key).Value = value;
         }
 
         public void Add(KeyValuePair<TKey, TValue> item)
@@ -298,6 +236,28 @@ namespace ObjectsCollection
             }
 
             return active;
+        }
+
+        private Element<TKey, TValue> GetElement(TKey key)
+        {
+            int bucketIndex = GetBucket(key);
+
+            if (buckets[bucketIndex] == -1)
+            {
+                throw new InvalidOperationException("No element with this key was found");
+            }
+
+            for (Element<TKey, TValue> current = elements[buckets[bucketIndex]];
+                current != null;
+                current = current.Next != -1 ? elements[current.Next] : null)
+            {
+                if (current.Key.Equals(key))
+                {
+                    return current;
+                }
+            }
+
+            throw new InvalidOperationException("No element with this key was found");
         }
     }
 }
