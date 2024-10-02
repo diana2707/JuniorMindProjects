@@ -31,18 +31,12 @@ namespace ObjectsCollection
         {
             get
             {
+                Element<TKey, TValue>[] active = GetActiveElements();
                 TKey[] keys = new TKey[Count];
-                int keysIndex = 0;
 
-                for (int i = 0; i < elements.Length; i++)
+                for (int i = 0; i < Count; i++)
                 {
-                    if (elements[i]?.IsActive != true)
-                    {
-                        continue;
-                    }
-
-                    keys[keysIndex] = elements[i].Key;
-                    keysIndex++;
+                    keys[i] = active[i].Key;
                 }
 
                 return keys;
@@ -167,10 +161,12 @@ namespace ObjectsCollection
         {
             for (int i = 0; i < elements.Length; i++)
             {
-                if (elements[i] != null && elements[i].IsActive)
+                if (elements[i]?.IsActive != true)
                 {
-                    yield return new KeyValuePair<TKey, TValue>(elements[i].Key, elements[i].Value);
+                    continue;
                 }
+
+                yield return new KeyValuePair<TKey, TValue>(elements[i].Key, elements[i].Value);
             }
         }
 
@@ -283,6 +279,25 @@ namespace ObjectsCollection
         private bool IsEmpty()
         {
             return Count == 0;
+        }
+
+        private Element<TKey, TValue>[] GetActiveElements()
+        {
+            Element<TKey, TValue>[] active = new Element<TKey, TValue>[Count];
+            int activeIndex = 0;
+
+            for (int i = 0; i < elements.Length; i++)
+            {
+                if (elements[i]?.IsActive != true)
+                {
+                    continue;
+                }
+
+                active[activeIndex] = elements[i];
+                activeIndex++;
+            }
+
+            return active;
         }
     }
 }
