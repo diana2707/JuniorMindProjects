@@ -1,4 +1,5 @@
 ﻿using System;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ObjectsCollection
 {
@@ -713,6 +714,20 @@ namespace ObjectsCollection
             KeyValuePair<string, string>[] array = new KeyValuePair<string, string>[dictionary.Count];
 
             Assert.Throws<ArgumentException>(() => dictionary.CopyTo(array, 1));
+        }
+
+        [Fact]
+        public void RemoveThrowsArgumentNullExceptionIfKeyIsNull()
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
+            {
+                { "1", "Ana" },
+                { "2", "Andrei" },
+                { "3", "Ion" },
+                { "4", "Mircea" }
+            };
+
+            Assert.Throws<ArgumentNullException>(() => dictionary.Remove(null));
         }
     }
 }

@@ -121,6 +121,8 @@ namespace ObjectsCollection
 
         public bool Remove(TKey key)
         {
+            ValidateKeyValue(key);
+
             int bucketIndex = GetBucket(key);
 
             if (buckets[bucketIndex] == -1)
