@@ -86,7 +86,6 @@ namespace ObjectsCollection
             int bucketIndex = GetBucket(key);
 
             Element<TKey, TValue> newElement = new Element<TKey, TValue>(key, value);
-            newElement.IsActive = true;
             newElement.Next = buckets[bucketIndex];
 
             if (freeIndex == -1)
@@ -145,7 +144,6 @@ namespace ObjectsCollection
                 buckets[bucketIndex] = current.Next;
                 current.Next = freeIndex;
                 freeIndex = tempIndex;
-                current.IsActive = false;
                 Count--;
 
                 return true;
@@ -162,7 +160,6 @@ namespace ObjectsCollection
                     current.Next = freeIndex;
                     freeIndex = previous.Next;
                     previous.Next = tempIndex;
-                    current.IsActive = false;
                     Count--;
 
                     return true;
@@ -184,11 +181,6 @@ namespace ObjectsCollection
             for (int i = 0; i < capacity; i++)
             {
                 buckets[i] = -1;
-
-                if (elements[i] != null)
-                {
-                    elements[i].IsActive = false;
-                }
             }
         }
 
@@ -206,17 +198,10 @@ namespace ObjectsCollection
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
             ValidateArray(array, arrayIndex);
-            ICollection<TKey> keys = Keys;
 
-            for (int i = 0; i < elements.Length; i++)
+            foreach (KeyValuePair<TKey, TValue> pair in this)
             {
-                if (elements[i]?.IsActive != true)
-                {
-                    continue;
-                }
-
-                array[arrayIndex] = new KeyValuePair<TKey, TValue>(elements[i].Key, elements[i].Value);
-                arrayIndex++;
+                array[arrayIndex++] = pair;
             }
         }
 
@@ -244,32 +229,13 @@ namespace ObjectsCollection
             return Count == 0;
         }
 
-        private Element<TKey, TValue>[] GetActiveElements()
-        {
-            Element<TKey, TValue>[] active = new Element<TKey, TValue>[Count];
-            int activeIndex = 0;
-
-            for (int i = 0; i < elements.Length; i++)
-            {
-                if (elements[i]?.IsActive != true)
-                {
-                    continue;
-                }
-
-                active[activeIndex] = elements[i];
-                activeIndex++;
-            }
-
-            return active;
-        }
-
         private Element<TKey, TValue> GetElement(TKey key)
         {
             int bucketIndex = GetBucket(key);
 
             if (buckets[bucketIndex] == -1)
             {
-                throw new InvalidOperationException("No element with this key was found");
+                throw new KeyNotFoundException("No element with this key was found");
             }
 
             for (Element<TKey, TValue> current = elements[buckets[bucketIndex]];
@@ -282,7 +248,7 @@ namespace ObjectsCollection
                 }
             }
 
-            throw new InvalidOperationException("No element with this key was found");
+            throw new KeyNotFoundException("No element with this key was found");
         }
 
         private void ValidateKeyExists(TKey key)

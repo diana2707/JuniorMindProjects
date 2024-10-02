@@ -16,7 +16,5 @@ namespace ObjectsCollection
         public TValue Value { get; set; }
 
         internal int Next { get; set; }
-
-        internal bool IsActive { get; set; }
     }
 }
