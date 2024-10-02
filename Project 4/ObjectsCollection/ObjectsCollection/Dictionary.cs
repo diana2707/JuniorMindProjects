@@ -21,7 +21,7 @@ namespace ObjectsCollection
             }
         }
 
-        //verifica tot, acum ca ai adaugat isActive si refactorizeaza sa te folosesti de el
+        //ar fi mai bine ca in Element sa stochezi direct ca pereche ca sa nu creeze elemente noi la fiecare iteratie?
 
         public int Count { get; private set; }
 
@@ -31,12 +31,12 @@ namespace ObjectsCollection
         {
             get
             {
-                Element<TKey, TValue>[] active = GetActiveElements();
                 TKey[] keys = new TKey[Count];
 
-                for (int i = 0; i < Count; i++)
+                int index = 0;
+                foreach (KeyValuePair<TKey, TValue> pair in this)
                 {
-                    keys[i] = active[i].Key;
+                    keys[index++] = pair.Key;
                 }
 
                 return keys;
@@ -47,12 +47,12 @@ namespace ObjectsCollection
         {
             get
             {
-                Element<TKey, TValue>[] active = GetActiveElements();
                 TValue[] values = new TValue[Count];
 
-                for (int i = 0; i < Count; i++)
+                int index = 0;
+                foreach (KeyValuePair<TKey, TValue> pair in this)
                 {
-                    values[i] = active[i].Value;
+                    values[index++] = pair.Value;
                 }
 
                 return values;
