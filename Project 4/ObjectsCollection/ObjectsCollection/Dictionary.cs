@@ -21,7 +21,7 @@ namespace ObjectsCollection
             }
         }
 
-        //verifica tot, acum ca ai adaugat isActive
+        //verifica tot, acum ca ai adaugat isActive si refactorizeaza sa te folosesti de el
 
         public int Count { get; private set; }
 
@@ -34,16 +34,15 @@ namespace ObjectsCollection
                 TKey[] keys = new TKey[Count];
                 int keysIndex = 0;
 
-                for (int i = 0; i < buckets.Length; i++)
+                for (int i = 0; i < elements.Length; i++)
                 {
-                    if (buckets[i] != -1)
+                    if (elements[i]?.IsActive != true)
                     {
-                        for (int current = buckets[i]; current != -1; current = elements[current].Next)
-                        {
-                            keys[keysIndex] = elements[current].Key;
-                            keysIndex++;
-                        }
+                        continue;
                     }
+
+                    keys[keysIndex] = elements[i].Key;
+                    keysIndex++;
                 }
 
                 return keys;

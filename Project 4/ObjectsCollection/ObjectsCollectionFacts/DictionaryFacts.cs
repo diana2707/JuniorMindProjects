@@ -313,15 +313,17 @@ namespace ObjectsCollection
             };
 
             dictionary.Remove(2);
+            dictionary.Remove(17);
+            dictionary.Remove(7);
 
             ICollection<int> collection = dictionary.Keys;
-            int[] array = { 7, 12, 17 };
+            int[] array = { 12 };
             foreach (int key in collection)
             {
                 Assert.Contains(key, array);
             }
 
-            Assert.Equal(3, collection.Count);
+            Assert.Equal(1, collection.Count);
         }
 
         [Fact]
