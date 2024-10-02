@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace ObjectsCollection
 {
-    public class Dictionary<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>>
+    public class Dictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
         readonly int[] buckets;
         readonly Element<TKey, TValue>[] elements;
@@ -151,6 +151,11 @@ namespace ObjectsCollection
             }
 
             return false;
+        }
+
+        public bool Remove(KeyValuePair<TKey, TValue> item)
+        {
+            return Remove(item.Key);
         }
 
         public void Clear()
