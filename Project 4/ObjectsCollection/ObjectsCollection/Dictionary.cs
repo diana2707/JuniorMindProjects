@@ -205,13 +205,16 @@ namespace ObjectsCollection
 
         public bool TryGetValue(TKey key, out TValue value)
         {
-            if (!ContainsKey(key))
+            ValidateKeyNotNull(key);
+            Element<TKey, TValue> element = GetElement(key);
+
+            if (element == null)
             {
                 value = default;
                 return false;
             }
 
-            value = this[key];
+            value = element.Value;
             return true;
         }
 
