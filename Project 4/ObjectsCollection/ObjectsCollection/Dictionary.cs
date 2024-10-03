@@ -21,8 +21,6 @@ namespace ObjectsCollection
             }
         }
 
-        //ar fi mai bine ca in Element sa stochezi direct ca pereche ca sa nu creeze elemente noi la fiecare iteratie?
-
         public int Count { get; private set; }
 
         public bool IsReadOnly => false;
@@ -63,13 +61,13 @@ namespace ObjectsCollection
         {
             get
             {
-                ValidateKeyExists(key);
+                ValidateDictionaryKey(key);
                 return GetElement(key).Value;
             }
 
             set
             {
-                ValidateKeyExists(key);
+                ValidateDictionaryKey(key);
                 GetElement(key).Value = value;
             }
         }
@@ -128,7 +126,7 @@ namespace ObjectsCollection
 
         public bool Remove(TKey key)
         {
-            ValidateKeyValue(key);
+            ValidateKeyNotNull(key);
 
             int bucketIndex = GetBucket(key);
 
@@ -186,8 +184,8 @@ namespace ObjectsCollection
 
         public bool ContainsKey(TKey key)
         {
-            ValidateKeyValue(key);
-            return Keys.Contains(key);
+            ValidateKeyNotNull(key);
+            return GetElement(key) != null;
         }
 
         public bool Contains(KeyValuePair<TKey, TValue> item)
@@ -207,8 +205,6 @@ namespace ObjectsCollection
 
         public bool TryGetValue(TKey key, out TValue value)
         {
-            ValidateKeyValue(key);
-
             if (!ContainsKey(key))
             {
                 value = default;
@@ -232,13 +228,14 @@ namespace ObjectsCollection
         private Element<TKey, TValue> GetElement(TKey key)
         {
             int bucketIndex = GetBucket(key);
+            Element<TKey, TValue> current = null;
 
             if (buckets[bucketIndex] == -1)
             {
-                throw new KeyNotFoundException("No element with this key was found");
+                return current;
             }
 
-            for (Element<TKey, TValue> current = elements[buckets[bucketIndex]];
+            for (current = elements[buckets[bucketIndex]];
                 current != null;
                 current = current.Next != -1 ? elements[current.Next] : null)
             {
@@ -248,13 +245,11 @@ namespace ObjectsCollection
                 }
             }
 
-            throw new KeyNotFoundException("No element with this key was found");
+            return current;
         }
 
-        private void ValidateKeyExists(TKey key)
+        private void ValidateDictionaryKey(TKey key)
         {
-            ValidateKeyValue(key);
-
             if (ContainsKey(key))
             {
                 return;
@@ -265,8 +260,6 @@ namespace ObjectsCollection
 
         private void ValidateNewKey(TKey key)
         {
-            ValidateKeyValue(key);
-
             if (!ContainsKey(key))
             {
                 return;
@@ -275,7 +268,7 @@ namespace ObjectsCollection
             throw new ArgumentException("The key is already used.");
         }
 
-        private static void ValidateKeyValue(TKey key)
+        private static void ValidateKeyNotNull(TKey key)
         {
             ArgumentNullException.ThrowIfNull(key);
         }
