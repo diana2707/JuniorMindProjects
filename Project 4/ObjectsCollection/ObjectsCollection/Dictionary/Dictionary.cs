@@ -130,39 +130,39 @@ namespace ObjectsCollection
 
             int bucketIndex = GetBucket(key);
 
-            if (buckets[bucketIndex] == -1)
+            int currentIndex = buckets[bucketIndex];
+            int previousIndex = -1;
+
+            if (currentIndex == -1)
             {
                 return false;
             }
 
             Element<TKey, TValue> current = elements[buckets[bucketIndex]];
 
-            if (current.Key.Equals(key))
+            while (current != null)
             {
-                int tempIndex = buckets[bucketIndex];
-                buckets[bucketIndex] = current.Next;
-                current.Next = freeIndex;
-                freeIndex = tempIndex;
-                Count--;
-
-                return true;
-            }
-
-            while (current.Next != -1)
-            {
-                Element<TKey, TValue> previous = current;
-                current = elements[previous.Next];
-
                 if (current.Key.Equals(key))
                 {
-                    int tempIndex = current.Next;
+                    if (previousIndex == -1)
+                    {
+                        buckets[bucketIndex] = current.Next;
+                    }
+                    else
+                    {
+                        elements[previousIndex].Next = current.Next;
+                    }
+
                     current.Next = freeIndex;
-                    freeIndex = previous.Next;
-                    previous.Next = tempIndex;
+                    freeIndex = currentIndex;
                     Count--;
 
                     return true;
                 }
+
+                previousIndex = currentIndex;
+                currentIndex = current.Next;
+                current = currentIndex != -1 ? elements[currentIndex] : null;
             }
 
             return false;
