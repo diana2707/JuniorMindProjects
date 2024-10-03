@@ -136,6 +136,7 @@ namespace ObjectsCollection
             }
 
             Element<TKey, TValue> current = elements[buckets[bucketIndex]];
+
             if (current.Key.Equals(key))
             {
                 int tempIndex = buckets[bucketIndex];
@@ -184,8 +185,7 @@ namespace ObjectsCollection
 
         public bool ContainsKey(TKey key)
         {
-            ValidateKeyNotNull(key);
-            return GetElement(key) != null;
+            return TryGetValue(key, out var value);
         }
 
         public bool Contains(KeyValuePair<TKey, TValue> item)
