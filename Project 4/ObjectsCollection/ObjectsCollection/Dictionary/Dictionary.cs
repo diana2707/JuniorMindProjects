@@ -13,14 +13,11 @@ namespace ObjectsCollection
         public Dictionary(int capacity)
         {
             this.capacity = capacity;
+
             buckets = new int[capacity];
+            Array.Fill(buckets, -1);
+
             elements = new Element<TKey, TValue>[capacity];
-
-            for (int i = 0; i < capacity; i++)
-            {
-                buckets[i] = -1;
-            }
-
             freeIndex = -1;
         }
 
@@ -180,10 +177,7 @@ namespace ObjectsCollection
         {
             Count = 0;
             freeIndex = -1;
-            for (int i = 0; i < capacity; i++)
-            {
-                buckets[i] = -1;
-            }
+            Array.Fill(buckets, -1);
         }
 
         public bool ContainsKey(TKey key)
