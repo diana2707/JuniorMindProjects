@@ -84,19 +84,12 @@ namespace ObjectsCollection
             int bucketIndex = GetBucket(key);
 
             Element<TKey, TValue> newElement = new Element<TKey, TValue>(key, value);
-            newElement.Next = buckets[bucketIndex];
+            int elementIndex = freeIndex == -1 ? Count : freeIndex;
 
-            if (freeIndex == -1)
-            {
-                buckets[bucketIndex] = Count;
-                elements[Count] = newElement;
-            }
-            else
-            {
-                buckets[bucketIndex] = freeIndex;
-                freeIndex = elements[freeIndex].Next;
-                elements[buckets[bucketIndex]] = newElement;
-            }
+            newElement.Next = buckets[bucketIndex];
+            buckets[bucketIndex] = elementIndex;
+            elements[elementIndex] = newElement;
+            freeIndex = freeIndex == -1 ? -1 : elements[freeIndex].Next;
 
             Count++;
         }
