@@ -115,43 +115,33 @@ namespace ObjectsCollection
             ValidateKeyNotNull(key);
 
             int bucketIndex = GetBucket(key);
+            int previousIndex;
 
-            int currentIndex = buckets[bucketIndex];
-            int previousIndex = -1;
-
-            if (currentIndex == -1)
+            try
+            {
+                previousIndex = GetPreviousIndex(key);
+            }
+            catch (KeyNotFoundException)
             {
                 return false;
             }
 
-            Element<TKey, TValue> current = elements[buckets[bucketIndex]];
+            int currentIndex = previousIndex == -1 ? buckets[bucketIndex] : elements[previousIndex].Next;
 
-            while (current != null)
+            if (previousIndex == -1)
             {
-                if (current.Key.Equals(key))
-                {
-                    if (previousIndex == -1)
-                    {
-                        buckets[bucketIndex] = current.Next;
-                    }
-                    else
-                    {
-                        elements[previousIndex].Next = current.Next;
-                    }
-
-                    current.Next = freeIndex;
-                    freeIndex = currentIndex;
-                    Count--;
-
-                    return true;
-                }
-
-                previousIndex = currentIndex;
-                currentIndex = current.Next;
-                current = currentIndex != -1 ? elements[currentIndex] : null;
+                buckets[bucketIndex] = elements[currentIndex].Next;
+            }
+            else
+            {
+                elements[previousIndex].Next = elements[currentIndex].Next;
             }
 
-            return false;
+            elements[currentIndex].Next = freeIndex;
+            freeIndex = currentIndex;
+            Count--;
+
+            return true;
         }
 
         public bool Remove(KeyValuePair<TKey, TValue> item)
@@ -189,6 +179,7 @@ namespace ObjectsCollection
         public bool TryGetValue(TKey key, out TValue value)
         {
             ValidateKeyNotNull(key);
+
             Element<TKey, TValue> element;
             try
             {
