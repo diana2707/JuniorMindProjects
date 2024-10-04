@@ -7,28 +7,28 @@ namespace ObjectsCollection
         [Fact]
         public void ConstructorShouldReturnTypeDictionary()
         {
-            Dictionary<int, int> dictionary = new Dictionary<int, int>(5);
+            Dictionary<int, int> dictionary = new Dictionary<int, int>();
             Assert.IsType<Dictionary<int, int>>(dictionary);
         }
 
         [Fact]
         public void CountShouldReturn0WhenDictionaryIsEmpty()
         {
-            Dictionary<int, int> dictionary = new Dictionary<int, int>(5);
+            Dictionary<int, int> dictionary = new Dictionary<int, int>();
             Assert.Equal(0, dictionary.Count);
         }
 
         [Fact]
         public void IsReadOnlyShouldReturnFalse()
         {
-            Dictionary<int, int> dictionary = new Dictionary<int, int>(5);
+            Dictionary<int, int> dictionary = new Dictionary<int, int>();
             Assert.False(dictionary.IsReadOnly);
         }
 
         [Fact]
         public void AddMethodShouldAddAnElement()
         {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>(5);
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
             dictionary.Add("name", "Ana");
 
             Assert.Equal("Ana", dictionary["name"]);
@@ -38,7 +38,7 @@ namespace ObjectsCollection
         [Fact]
         public void AddMethodShouldAddMoreElements()
         {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>(5);
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
             dictionary.Add("first name", "Ana");
             dictionary.Add("last name", "Popescu");
 
@@ -50,7 +50,7 @@ namespace ObjectsCollection
         [Fact]
         public void AddMethodShouldAddAnElementWhenHasSameHashCode()
         {
-            Dictionary<int, string> dictionary = new Dictionary<int, string>(5);
+            Dictionary<int, string> dictionary = new Dictionary<int, string>();
             dictionary.Add(2, "Ana");
             dictionary.Add(7, "Elena");
 
@@ -62,7 +62,7 @@ namespace ObjectsCollection
         [Fact]
         public void AddItemMethodShouldAddKeyValuePair()
         {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>(5);
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
             dictionary.Add(new KeyValuePair<string, string>("name", "Ana"));
 
             Assert.Equal("Ana", dictionary["name"]);
@@ -72,7 +72,7 @@ namespace ObjectsCollection
         [Fact]
         public void GetterShouldGetAnElementByKey()
         {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>(5)
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
             {
                 { "first name", "Ana" },
                 { "last name", "Popescu" }
@@ -85,7 +85,7 @@ namespace ObjectsCollection
         [Fact]
         public void GetterShouldGetAnElementByKeyWhenElementsAreInTheSameBucket()
         {
-            Dictionary<int, string> dictionary = new Dictionary<int, string>(5)
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
             {
                 { 2, "Ana" },
                 { 7, "Popescu" }
@@ -98,7 +98,7 @@ namespace ObjectsCollection
         [Fact]
         public void SetterShouldSetAnElementByKey()
         {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>(5)
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
             {
                 { "first name", "Ana" },
                 { "last name", "Popescu" }
@@ -112,7 +112,7 @@ namespace ObjectsCollection
         [Fact]
         public void SetterShouldSetAnElementByKeyWhenTheElementsAreInTheSameBucket()
         {
-            Dictionary<int, string> dictionary = new Dictionary<int, string>(5)
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
             {
                 { 2, "Ana" },
                 { 7, "Popescu" }
@@ -126,7 +126,7 @@ namespace ObjectsCollection
         [Fact]
         public void RemoveShouldRemoveElementByKeyAndReturnTrue()
         {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>(5)
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
             {
                 { "first name", "Ana" },
                 { "last name", "Popescu" }
@@ -140,7 +140,7 @@ namespace ObjectsCollection
         [Fact]
         public void RemoveShouldRemoveElementByKeyAndReturnTrueWhenElementsAreInTheSameBucket()
         {
-            Dictionary<int, string> dictionary = new Dictionary<int, string>(5)
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
             {
                { 2, "Ana" },
                { 7, "Andrei" },
@@ -155,7 +155,7 @@ namespace ObjectsCollection
         [Fact]
         public void RemoveShouldRemoveElementByKeyAndReturnTrueWhenElementsAreInTheSameBucketAndExistsNextElement()
         {
-            Dictionary<int, string> dictionary = new Dictionary<int, string>(5)
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
             {
                { 2, "Ana" },
                { 7, "Andrei" },
@@ -175,7 +175,7 @@ namespace ObjectsCollection
         [Fact]
         public void RemoveShouldReturnFalseWhenKeyIsNotFound()
         {
-            Dictionary<int, string> dictionary = new Dictionary<int, string>(5)
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
             {
                { 2, "Ana" },
                { 7, "Andrei" },
@@ -190,7 +190,7 @@ namespace ObjectsCollection
         [Fact]
         public void AddShouldAddElementsInEmptySpaces()
         {
-            Dictionary<int, string> dictionary = new Dictionary<int, string>(5)
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
             {
                { 2, "Ana" },
                { 7, "Andrei" },
@@ -211,7 +211,7 @@ namespace ObjectsCollection
         [Fact]
         public void EnumeratorShouldReturnOnlyActiveElements()
         {
-            Dictionary<int, string> dictionary = new Dictionary<int, string>(5)
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
             {
                { 2, "Ana" },
                { 7, "Andrei" },
@@ -237,7 +237,7 @@ namespace ObjectsCollection
         [Fact]
         public void ClearShouldRemoveAllElements()
         {
-            Dictionary<int, string> dictionary = new Dictionary<int, string>(5)
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
             {
                { 2, "Ana" },
                { 7, "Andrei" },
@@ -253,7 +253,7 @@ namespace ObjectsCollection
         [Fact]
         public void KeysPropertyShouldReturnCollectionOfAllKeys()
         {
-            Dictionary<int, string> dictionary = new Dictionary<int, string>(5)
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
             {
                { 2, "Ana" },
                { 7, "Andrei" },
@@ -272,7 +272,7 @@ namespace ObjectsCollection
         [Fact]
         public void KeysPropertyShouldReturnCollectionOfAllKeysWithoutTheOnesFromRemovedElement()
         {
-            Dictionary<int, string> dictionary = new Dictionary<int, string>(5)
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
             {
                { 2, "Ana" },
                { 7, "Andrei" },
@@ -297,7 +297,7 @@ namespace ObjectsCollection
         [Fact]
         public void KeysPropertyShouldReturnCollectionOfAllKeysWhenAreDistributedInMoreBuckets()
         {
-            Dictionary<int, string> dictionary = new Dictionary<int, string>(5)
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
             {
                { 2, "Ana" },
                { 3, "Elene" },
@@ -323,7 +323,7 @@ namespace ObjectsCollection
         [Fact]
         public void ValuesPropertyShouldReturnCollectionOfAllValues()
         {
-            Dictionary<int, string> dictionary = new Dictionary<int, string>(5)
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
             {
                { 2, "Ana" },
                { 7, "Andrei" },
@@ -342,7 +342,7 @@ namespace ObjectsCollection
         [Fact]
         public void ValuesPropertyShouldReturnCollectionOfAllValuesWithoutRemovedValues()
         {
-            Dictionary<int, string> dictionary = new Dictionary<int, string>(5)
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
             {
                { 2, "Ana" },
                { 3, "Elene" },
@@ -368,7 +368,7 @@ namespace ObjectsCollection
         [Fact]
         public void ContainKeyShouldReturnTrueWhenContainsTheKey()
         {
-            Dictionary<int, string> dictionary = new Dictionary<int, string>(5)
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
             {
                { 2, "Ana" },
                { 7, "Andrei" },
@@ -382,7 +382,7 @@ namespace ObjectsCollection
         [Fact]
         public void ContainKeyShouldReturnFalseWhenDoNotContainsTheKey()
         {
-            Dictionary<int, string> dictionary = new Dictionary<int, string>(5)
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
             {
                { 2, "Ana" },
                { 7, "Andrei" },
@@ -396,7 +396,7 @@ namespace ObjectsCollection
         [Fact]
         public void TryGetValueShouldReturnTrueWhenContainsTheKeyAndItsValue()
         {
-            Dictionary<int, string> dictionary = new Dictionary<int, string>(5)
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
             {
                { 2, "Ana" },
                { 7, "Andrei" },
@@ -413,7 +413,7 @@ namespace ObjectsCollection
         [Fact]
         public void TryGetValueShouldReturnFalseWhenTheElementWasRemoved()
         {
-            Dictionary<int, string> dictionary = new Dictionary<int, string>(5)
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
             {
                { 2, "Ana" },
                { 7, "Andrei" },
@@ -431,7 +431,7 @@ namespace ObjectsCollection
         [Fact]
         public void TryGetValueShouldReturnFalseWhenDoNotContainsTheKeyAndDefaultValue()
         {
-            Dictionary<int, string> dictionary = new Dictionary<int, string>(5)
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
             {
                { 2, "Ana" },
                { 7, "Andrei" },
@@ -448,7 +448,7 @@ namespace ObjectsCollection
         [Fact]
         public void ContainsShouldReturnTrueWhenContainsBothKeyAndValue()
         {
-            Dictionary<int, string> dictionary = new Dictionary<int, string>(5)
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
             {
                { 2, "Ana" },
                { 7, "Andrei" },
@@ -462,7 +462,7 @@ namespace ObjectsCollection
         [Fact]
         public void CopyToShouldCopyKeyValuePairsInArrayWhenIndexStartsAt0()
         {
-            Dictionary<int, string> dictionary = new Dictionary<int, string>(5)
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
             {
                { 2, "Ana" },
                { 7, "Andrei" },
@@ -482,7 +482,7 @@ namespace ObjectsCollection
         [Fact]
         public void CopyToShouldCopyKeyValuePairsInArrayWhenIndexIsGreaterThan0()
         {
-            Dictionary<int, string> dictionary = new Dictionary<int, string>(5)
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
             {
                { 2, "Ana" },
                { 7, "Andrei" },
@@ -502,7 +502,7 @@ namespace ObjectsCollection
         [Fact]
         public void GetterShouldThrowInvalidOperationExceptionWhenUsedWithRemovedElement()
         {
-            Dictionary<int, string> dictionary = new Dictionary<int, string>(5)
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
             {
                { 2, "Ana" },
                { 7, "Andrei" },
@@ -518,7 +518,7 @@ namespace ObjectsCollection
         [Fact]
         public void CopyToShouldCopyKeyValuePairsInArrayAndExcludeRemovedElements()
         {
-            Dictionary<int, string> dictionary = new Dictionary<int, string>(5)
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
             {
                 { 2, "Ana" },
                 { 7, "Andrei" },
@@ -543,7 +543,7 @@ namespace ObjectsCollection
         [Fact]
         public void IndexerThrowsArgumentNullExceptionWhenKeyIsNull()
         {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>(5)
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
             {
                 { "1", "Ana" },
                 { "2", "Andrei" },
@@ -558,7 +558,7 @@ namespace ObjectsCollection
         [Fact]
         public void SetterAddsElementWhenKeyIsNotFound()
         {
-            Dictionary<int, string> dictionary = new Dictionary<int, string>(5)
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
             {
                 { 1, "Ana" },
                 { 2, "Andrei" },
@@ -575,7 +575,7 @@ namespace ObjectsCollection
         [Fact]
         public void AddThrowsArgumentNullExceptionWhenKeyIsNull()
         {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>(5)
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
             {
                 { "1", "Ana" },
                 { "2", "Andrei" },
@@ -589,7 +589,7 @@ namespace ObjectsCollection
         [Fact]
         public void AddThrowsArgumentExceptionWhenKeyIsAlreadyUsed()
         {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>(5)
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
             {
                 { "1", "Ana" },
                 { "2", "Andrei" },
@@ -603,7 +603,7 @@ namespace ObjectsCollection
         [Fact]
         public void ContainsThrowsArgumentNullExceptionWhenKeyIsNull()
         {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>(5)
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
             {
                 { "1", "Ana" },
                 { "2", "Andrei" },
@@ -617,7 +617,7 @@ namespace ObjectsCollection
         [Fact]
         public void CopyToThrowsArgumentNullExceptionWhenArrayIsNull()
         {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>(5)
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
             {
                 { "1", "Ana" },
                 { "2", "Andrei" },
@@ -631,7 +631,7 @@ namespace ObjectsCollection
         [Fact]
         public void CopyToThrowsArgumentOutOfExceptionWhenArrayIndexIsLessThan0()
         {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>(5)
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
             {
                 { "1", "Ana" },
                 { "2", "Andrei" },
@@ -647,7 +647,7 @@ namespace ObjectsCollection
         [Fact]
         public void CopyToThrowsArgumentExceptionWhenArrayLengthIsLessThanCount()
         {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>(5)
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
             {
                 { "1", "Ana" },
                 { "2", "Andrei" },
@@ -663,7 +663,7 @@ namespace ObjectsCollection
         [Fact]
         public void CopyToThrowsArgumentExceptionWhenArrayLengthFromIndexIsLessThanCount()
         {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>(5)
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
             {
                 { "1", "Ana" },
                 { "2", "Andrei" },
@@ -679,7 +679,7 @@ namespace ObjectsCollection
         [Fact]
         public void RemoveThrowsArgumentNullExceptionIfKeyIsNull()
         {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>(5)
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
             {
                 { "1", "Ana" },
                 { "2", "Andrei" },
@@ -693,7 +693,7 @@ namespace ObjectsCollection
         [Fact]
         public void TryGetValueThrowsArgumentNullExceptionIfKeyIsNull()
         {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>(5)
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
             {
                 { "1", "Ana" },
                 { "2", "Andrei" },

@@ -11,7 +11,7 @@ namespace ObjectsCollection
         readonly int capacity;
         private int freeIndex;
 
-        public Dictionary(int capacity)
+        public Dictionary(int capacity = 5)
         {
             this.capacity = capacity;
 
