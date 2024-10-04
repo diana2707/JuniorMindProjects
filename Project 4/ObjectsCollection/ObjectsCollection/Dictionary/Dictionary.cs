@@ -7,11 +7,12 @@ namespace ObjectsCollection
     {
         readonly int[] buckets;
         readonly Element<TKey, TValue>[] elements;
-        readonly int capacity = 5;
-        private int freeIndex = -1;
+        readonly int capacity;
+        private int freeIndex;
 
-        public Dictionary()
+        public Dictionary(int capacity)
         {
+            this.capacity = capacity;
             buckets = new int[capacity];
             elements = new Element<TKey, TValue>[capacity];
 
@@ -19,6 +20,8 @@ namespace ObjectsCollection
             {
                 buckets[i] = -1;
             }
+
+            freeIndex = -1;
         }
 
         public int Count { get; private set; }
