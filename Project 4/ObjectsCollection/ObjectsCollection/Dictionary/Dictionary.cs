@@ -98,16 +98,9 @@ namespace ObjectsCollection
         {
             for (int i = 0; i < buckets.Length; i++)
             {
-                if (buckets[i] == -1)
+                for (int j = buckets[i]; j != -1; j = elements[j].Next)
                 {
-                    continue;
-                }
-
-                for (Element<TKey, TValue> current = elements[buckets[i]];
-                    current != null;
-                    current = current.Next != -1 ? elements[current.Next] : null)
-                {
-                    yield return new KeyValuePair<TKey, TValue>(current.Key, current.Value);
+                    yield return new KeyValuePair<TKey, TValue>(elements[j].Key, elements[j].Value);
                 }
             }
         }
