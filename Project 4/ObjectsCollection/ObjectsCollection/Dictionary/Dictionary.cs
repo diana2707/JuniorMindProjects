@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections;
 
 namespace ObjectsCollection
@@ -61,8 +62,10 @@ namespace ObjectsCollection
         {
             get
             {
-                ValidateDictionaryKey(key);
-                return GetElement(key).Value;
+                ValidateKeyNotNull(key);
+
+                Element<TKey, TValue> element = GetElement(key);
+                return element == null ? throw new KeyNotFoundException("The key was not found.") : element.Value;
             }
 
             set
@@ -70,12 +73,14 @@ namespace ObjectsCollection
                 ValidateKeyNotNull(key);
 
                 Element<TKey, TValue> element = GetElement(key);
-                if (element == null)
+
+                if (element != null)
                 {
-                    Add(key, value);
+                    element.Value = value;
+                    return;
                 }
 
-                GetElement(key).Value = value;
+                Add(key, value);
             }
         }
 
@@ -201,11 +206,6 @@ namespace ObjectsCollection
             return Math.Abs(key.GetHashCode()) % capacity;
         }
 
-        private bool IsEmpty()
-        {
-            return Count == 0;
-        }
-
         private Element<TKey, TValue> GetElement(TKey key)
         {
             int bucketIndex = GetBucket(key);
@@ -242,16 +242,6 @@ namespace ObjectsCollection
             }
 
             return -2;
-        }
-
-        private void ValidateDictionaryKey(TKey key)
-        {
-            if (ContainsKey(key))
-            {
-                return;
-            }
-
-            throw new KeyNotFoundException("The key was not found.");
         }
 
         private void ValidateNewKey(TKey key)
