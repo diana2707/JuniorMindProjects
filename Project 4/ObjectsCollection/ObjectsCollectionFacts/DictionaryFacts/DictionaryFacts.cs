@@ -556,7 +556,7 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void IndexerThrowsKeyNotFoundExceptionWhenKeyIsNotFound()
+        public void SetterAddsElementWhenKeyIsNotFound()
         {
             Dictionary<int, string> dictionary = new Dictionary<int, string>(5)
             {
@@ -566,8 +566,10 @@ namespace ObjectsCollection
                 { 4, "Mircea" }
             };
 
-            Assert.Throws<KeyNotFoundException>(() => dictionary[5]);
-            Assert.Throws<KeyNotFoundException>(() => dictionary[5] = "Laura");
+            dictionary[5] = "Laura";
+
+            Assert.Equal("Laura", dictionary[5]);
+            Assert.Equal(5, dictionary.Count);
         }
 
         [Fact]

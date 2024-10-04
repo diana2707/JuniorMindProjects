@@ -67,7 +67,14 @@ namespace ObjectsCollection
 
             set
             {
-                ValidateDictionaryKey(key);
+                ValidateKeyNotNull(key);
+
+                Element<TKey, TValue> element = GetElement(key);
+                if (element == null)
+                {
+                    Add(key, value);
+                }
+
                 GetElement(key).Value = value;
             }
         }
@@ -115,13 +122,9 @@ namespace ObjectsCollection
             ValidateKeyNotNull(key);
 
             int bucketIndex = GetBucket(key);
-            int previousIndex;
+            int previousIndex = GetPreviousIndex(key);
 
-            try
-            {
-                previousIndex = GetPreviousIndex(key);
-            }
-            catch (KeyNotFoundException)
+            if (previousIndex == -2)
             {
                 return false;
             }
@@ -181,11 +184,9 @@ namespace ObjectsCollection
             ValidateKeyNotNull(key);
 
             Element<TKey, TValue> element;
-            try
-            {
-                element = GetElement(key);
-            }
-            catch (KeyNotFoundException)
+            element = GetElement(key);
+
+            if (element == null)
             {
                 value = default;
                 return false;
@@ -209,6 +210,11 @@ namespace ObjectsCollection
         {
             int bucketIndex = GetBucket(key);
             int previousIndex = GetPreviousIndex(key);
+
+            if (previousIndex == -2)
+            {
+                return null;
+            }
 
             int currentIndex = previousIndex == -1 ? buckets[bucketIndex] : elements[previousIndex].Next;
 
@@ -235,7 +241,7 @@ namespace ObjectsCollection
                 previousIndex = currentIndex;
             }
 
-            throw new KeyNotFoundException("The key was not found.");
+            return -2;
         }
 
         private void ValidateDictionaryKey(TKey key)
