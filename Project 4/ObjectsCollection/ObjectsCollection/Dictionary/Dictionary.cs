@@ -189,9 +189,12 @@ namespace ObjectsCollection
         public bool TryGetValue(TKey key, out TValue value)
         {
             ValidateKeyNotNull(key);
-            Element<TKey, TValue> element = GetElement(key);
-
-            if (element == null)
+            Element<TKey, TValue> element;
+            try
+            {
+                element = GetElement(key);
+            }
+            catch (KeyNotFoundException)
             {
                 value = default;
                 return false;
@@ -214,24 +217,34 @@ namespace ObjectsCollection
         private Element<TKey, TValue> GetElement(TKey key)
         {
             int bucketIndex = GetBucket(key);
-            Element<TKey, TValue> current = null;
+            int previousIndex = GetPreviousIndex(key);
 
-            if (buckets[bucketIndex] == -1)
-            {
-                return current;
-            }
+            int currentIndex = previousIndex == -1 ? buckets[bucketIndex] : elements[previousIndex].Next;
 
-            for (current = elements[buckets[bucketIndex]];
-                current != null;
-                current = current.Next != -1 ? elements[current.Next] : null)
+            return elements[currentIndex];
+        }
+
+        private int GetPreviousIndex(TKey key)
+        {
+            int bucketIndex = GetBucket(key);
+            int previousIndex = -1;
+
+            for (int currentIndex = buckets[bucketIndex]; currentIndex != -1; currentIndex = elements[currentIndex].Next)
             {
-                if (current.Key.Equals(key))
+                if (elements[currentIndex] == null)
                 {
-                    return current;
+                    continue;
                 }
+
+                if (elements[currentIndex].Key.Equals(key))
+                {
+                    return previousIndex;
+                }
+
+                previousIndex = currentIndex;
             }
 
-            return current;
+            throw new KeyNotFoundException("The key was not found.");
         }
 
         private void ValidateDictionaryKey(TKey key)
