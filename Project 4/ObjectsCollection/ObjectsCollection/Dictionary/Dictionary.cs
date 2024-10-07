@@ -125,26 +125,24 @@ namespace ObjectsCollection
             ValidateKeyNotNull(key);
 
             int bucketIndex = GetBucket(key);
-            int previousIndex = GetPreviousIndex(key);
+            (int previous, int current) = GetIndexes(key);
 
-            if (previousIndex == -2)
+            if (current == -1)
             {
                 return false;
             }
 
-            int currentIndex = previousIndex == -1 ? buckets[bucketIndex] : elements[previousIndex].Next;
-
-            if (previousIndex == -1)
+            if (previous == -1)
             {
-                buckets[bucketIndex] = elements[currentIndex].Next;
+                buckets[bucketIndex] = elements[current].Next;
             }
             else
             {
-                elements[previousIndex].Next = elements[currentIndex].Next;
+                elements[previous].Next = elements[current].Next;
             }
 
-            elements[currentIndex].Next = freeIndex;
-            freeIndex = currentIndex;
+            elements[current].Next = freeIndex;
+            freeIndex = current;
             Count--;
 
             return true;
@@ -206,25 +204,23 @@ namespace ObjectsCollection
 
         private Element<TKey, TValue> GetElement(TKey key)
         {
-            int bucketIndex = GetBucket(key);
-            int previousIndex = GetPreviousIndex(key);
+            (int previous, int current) = GetIndexes(key);
 
-            if (previousIndex == -2)
+            if (current == -1)
             {
                 return null;
             }
 
-            int currentIndex = previousIndex == -1 ? buckets[bucketIndex] : elements[previousIndex].Next;
-
-            return elements[currentIndex];
+            return elements[current];
         }
 
-        private int GetPreviousIndex(TKey key)
+        private (int previous, int current) GetIndexes(TKey key)
         {
             int bucketIndex = GetBucket(key);
             int previousIndex = -1;
+            int currentIndex;
 
-            for (int currentIndex = buckets[bucketIndex]; currentIndex != -1; currentIndex = elements[currentIndex].Next)
+            for (currentIndex = buckets[bucketIndex]; currentIndex != -1; currentIndex = elements[currentIndex].Next)
             {
                 if (elements[currentIndex] == null)
                 {
@@ -233,13 +229,13 @@ namespace ObjectsCollection
 
                 if (elements[currentIndex].Key.Equals(key))
                 {
-                    return previousIndex;
+                    return (previousIndex, currentIndex);
                 }
 
                 previousIndex = currentIndex;
             }
 
-            return -2;
+            return (previousIndex, currentIndex);
         }
 
         private void ValidateNewKey(TKey key)
