@@ -8,6 +8,7 @@ namespace ObjectsCollection
         public RadixTreeNode()
         {
             Prefix = string.Empty;
+            Children = new Dictionary<string, RadixTreeNode>();
         }
 
         public string Prefix { get; set; }

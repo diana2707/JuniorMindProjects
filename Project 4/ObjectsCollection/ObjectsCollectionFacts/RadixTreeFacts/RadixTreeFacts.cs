@@ -15,5 +15,13 @@
             var tree = new RadixTree();
             Assert.Equal(0, tree.Count);
         }
+
+        [Fact]
+        public void AddShouldAddFirstElementWhenTreeIsEmpty()
+        {
+            var tree = new RadixTree();
+            tree.Add("cat");
+            Assert.Equal(1, tree.Count);
+        }
     }
 }

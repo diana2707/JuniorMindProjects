@@ -14,5 +14,14 @@ namespace ObjectsCollection
         }
 
         public int Count { get; private set; }
+
+        public void Add(string item)
+        {
+            RadixTreeNode node = new RadixTreeNode();
+            node.Prefix = item;
+            root.Children.Add(item, node);
+
+            Count++;
+        }
     }
 }
