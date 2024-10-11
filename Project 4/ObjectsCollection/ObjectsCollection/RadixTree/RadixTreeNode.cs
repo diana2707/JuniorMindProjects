@@ -11,5 +11,7 @@ namespace ObjectsCollection
         }
 
         public string Prefix { get; set; }
+
+        public Dictionary<string, RadixTreeNode> Children { get; set; }
     }
 }

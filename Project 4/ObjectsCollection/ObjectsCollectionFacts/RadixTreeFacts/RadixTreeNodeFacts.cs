@@ -10,10 +10,17 @@
         }
 
         [Fact]
-        public void PrefixIsEmptyString()
+        public void PrefixIsEmptyStringWhenTreeIsEmpty()
         {
             RadixTreeNode node = new ();
-            Assert.Equal(string.Empty, node.Prefix);
+            Assert.Empty(node.Prefix);
+        }
+
+        [Fact]
+        public void ChildrenIsNullWhenTreeIsEmpty()
+        {
+            RadixTreeNode node = new ();
+            Assert.Null(node.Children);
         }
     }
 }
