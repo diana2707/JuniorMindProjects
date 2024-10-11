@@ -23,5 +23,14 @@
             tree.Add("cat");
             Assert.Equal(1, tree.Count);
         }
+
+        [Fact]
+        public void AddShouldAddElementWhenPrefixIsCommon()
+        {
+            var tree = new RadixTree();
+            tree.Add("cat");
+            tree.Add("car");
+            Assert.Equal(2, tree.Count);
+        }
     }
 }
