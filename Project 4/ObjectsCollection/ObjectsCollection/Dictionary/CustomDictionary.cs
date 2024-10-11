@@ -2,14 +2,14 @@
 
 namespace ObjectsCollection
 {
-    public class Dictionary<TKey, TValue> : IDictionary<TKey, TValue>
+    public class CustomDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
         readonly int[] buckets;
         readonly Element<TKey, TValue>[] elements;
         readonly int capacity;
         private int freeIndex;
 
-        public Dictionary(int capacity = 5)
+        public CustomDictionary(int capacity = 5)
         {
             this.capacity = capacity;
 
