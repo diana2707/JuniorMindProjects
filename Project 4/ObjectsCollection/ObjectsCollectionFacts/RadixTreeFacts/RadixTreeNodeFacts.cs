@@ -1,7 +1,4 @@
-﻿using ObjectsCollection.ObjectsCollection.RadixTree;
-using System;
-
-namespace ObjectsCollection
+﻿namespace ObjectsCollection
 {
     public class RadixTreeNodeFacts
     {
@@ -10,6 +7,13 @@ namespace ObjectsCollection
         {
             RadixTreeNode node = new ();
             Assert.IsType<RadixTreeNode>(node);
+        }
+
+        [Fact]
+        public void PrefixIsEmptyString()
+        {
+            RadixTreeNode node = new ();
+            Assert.Equal(string.Empty, node.Prefix);
         }
     }
 }
