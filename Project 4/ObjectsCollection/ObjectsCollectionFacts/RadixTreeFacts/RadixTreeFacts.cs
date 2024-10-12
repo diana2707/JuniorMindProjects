@@ -32,5 +32,27 @@
             tree.Add("car");
             Assert.Equal(2, tree.Count);
         }
+
+        [Fact]
+        public void ContainsShouldReturnTrueIfStringExistsInTree()
+        {
+            var tree = new RadixTree();
+            tree.Add("cat");
+            tree.Add("car");
+            Assert.True(tree.Contains("car"));
+            Assert.True(tree.Contains("cat"));
+        }
+
+        [Fact]
+        public void ContainsShouldReturnFalseIfStringDoNotExistsInTree()
+        {
+            var tree = new RadixTree();
+            tree.Add("cat");
+            tree.Add("car");
+            Assert.False(tree.Contains("camel"));
+            Assert.False(tree.Contains("ca"));
+            Assert.False(tree.Contains("container"));
+            Assert.False(tree.Contains("book"));
+        }
     }
 }

@@ -17,6 +17,7 @@ namespace ObjectsCollection
 
         public void Add(string item)
         {
+            //verifica diferite scenarii si continua sa implementezi
             if (Count == 0)
             {
                 RadixTreeNode node = new ();
@@ -54,6 +55,31 @@ namespace ObjectsCollection
             }
 
             Count++;
+        }
+
+        public bool Contains(string item)
+        {
+            RadixTreeNode currentNode = root;
+            string currentString = item;
+
+            int index = 0;
+
+            while (index < currentString.Length && currentNode.Children.TryGetValue(currentString[index], out currentNode))
+            {
+                currentString = currentString[index..];
+
+                if (currentNode.IsWord && currentString == currentNode.Prefix)
+                {
+                    return true;
+                }
+
+                if (!currentNode.IsWord && currentString.StartsWith(currentNode.Prefix))
+                {
+                    index += currentNode.Prefix.Length;
+                }
+            }
+
+            return false;
         }
     }
 }
