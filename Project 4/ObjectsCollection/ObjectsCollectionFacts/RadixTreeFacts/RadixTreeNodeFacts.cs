@@ -20,7 +20,7 @@
         public void ChildrenIsNullWhenTreeIsEmpty()
         {
             RadixTreeNode node = new ();
-            Assert.Null(node.Children);
+            Assert.Empty(node.Children);
         }
 
         [Fact]

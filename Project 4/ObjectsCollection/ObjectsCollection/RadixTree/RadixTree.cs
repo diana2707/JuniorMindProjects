@@ -17,42 +17,37 @@ namespace ObjectsCollection
 
         public void Add(string item)
         {
-            //verifica diferite scenarii si continua sa implementezi
-            if (Count == 0)
-            {
-                RadixTreeNode node = new ();
-                node.Prefix = item;
-                node.IsWord = true;
-                root.Children.Add(item[0], node);
-            }
-            else
-            {
-                if (root.Children.TryGetValue(item[0], out RadixTreeNode? node))
-                {
-                    int index = 0;
-                    string current = node.Prefix;
+            RadixTreeNode currentNode = root;
+            string currentString = item;
+            int index = 0;
 
-                    while (item[index] == current[index])
-                    {
-                        index++;
-                    }
+            while (index < currentString.Length && currentNode.Children.TryGetValue(currentString[index], out RadixTreeNode node))
+            {
+                currentNode = node;
+                string currentPrefix = currentNode.Prefix;
+                currentString = currentString[index..];
+
+                if (!currentString.StartsWith(currentPrefix))
+                {
+                    index = GetPrefixEndPosition(currentString, currentPrefix);
+                    currentNode.Prefix = currentString[..index];
+                    currentNode.IsWord = false;
 
                     RadixTreeNode newNode1 = new ();
-                    RadixTreeNode newNode2 = new ();
-
-                    node.Prefix = current[..index];
-                    node.IsWord = false;
-
-                    newNode1.Prefix = current[index..];
+                    newNode1.Prefix = currentPrefix[index..];
                     newNode1.IsWord = true;
+                    currentNode.Children.Add(newNode1.Prefix[0], newNode1);
 
-                    newNode2.Prefix = item[index..];
-                    newNode2.IsWord = true;
-
-                    node.Children.Add(newNode1.Prefix[0], newNode1);
-                    node.Children.Add(newNode2.Prefix[0], newNode2);
+                    break;
                 }
+
+                index = currentPrefix.Length;
             }
+
+            RadixTreeNode newNode = new ();
+            newNode.Prefix = currentString[index..];
+            newNode.IsWord = true;
+            currentNode.Children.Add(currentString[index], newNode);
 
             Count++;
         }
@@ -75,11 +70,26 @@ namespace ObjectsCollection
 
                 if (!currentNode.IsWord && currentString.StartsWith(currentNode.Prefix))
                 {
-                    index += currentNode.Prefix.Length;
+                    index = currentNode.Prefix.Length; //de vf daca mai e corect sau refac la +=
                 }
             }
 
             return false;
+        }
+
+        private int GetPrefixEndPosition(string first, string second)
+        {
+            int minLength = Math.Min(first.Length, second.Length);
+            int index = 0;
+            for (int i = 0; i < minLength; i++)
+            {
+                if (first[i] == second[i])
+                {
+                    index++;
+                }
+            }
+
+            return index;
         }
     }
 }

@@ -34,6 +34,19 @@
         }
 
         [Fact]
+        public void AddShouldAddElementWhenNewStringHasAnotherWordAsPrefix()
+        {
+            var tree = new RadixTree();
+            tree.Add("cat");
+            tree.Add("car");
+            tree.Add("cabage");
+            tree.Add("candle");
+            Assert.True(tree.Contains("cabage"));
+            Assert.True(tree.Contains("candle"));
+            Assert.Equal(4, tree.Count);
+        }
+
+        [Fact]
         public void ContainsShouldReturnTrueIfStringExistsInTree()
         {
             var tree = new RadixTree();
