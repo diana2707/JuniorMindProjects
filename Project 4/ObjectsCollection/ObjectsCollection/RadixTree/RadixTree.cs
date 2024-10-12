@@ -68,7 +68,7 @@ namespace ObjectsCollection
                     return true;
                 }
 
-                if (!currentNode.IsWord && currentString.StartsWith(currentNode.Prefix))
+                if (currentString.StartsWith(currentNode.Prefix))
                 {
                     index = currentNode.Prefix.Length; //de vf daca mai e corect sau refac la +=
                 }
