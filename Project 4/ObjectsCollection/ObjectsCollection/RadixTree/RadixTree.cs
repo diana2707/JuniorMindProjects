@@ -73,27 +73,57 @@ namespace ObjectsCollection
 
         public bool Contains(string item)
         {
+            RadixTreeNode node = GetLastCommonNode(item);
+
+            if (node.IsWord && item.EndsWith(node.Prefix))
+            {
+                return true;
+            }
+
+            //RadixTreeNode currentNode = root;
+            //string currentString = item;
+
+            //int index = 0;
+
+            //while (index < currentString.Length && currentNode.Children.TryGetValue(currentString[index], out currentNode))
+            //{
+            //    currentString = currentString[index..];
+
+            //    if (currentNode.IsWord && currentString == currentNode.Prefix)
+            //    {
+            //        return true;
+            //    }
+
+            //    if (currentString.StartsWith(currentNode.Prefix))
+            //    {
+            //        index = currentNode.Prefix.Length; //de vf daca mai e corect sau refac la +=
+            //    }
+            //}
+
+
+            return false;
+        }
+
+        private RadixTreeNode GetLastCommonNode(string currentString)
+        {
             RadixTreeNode currentNode = root;
-            string currentString = item;
 
             int index = 0;
 
-            while (index < currentString.Length && currentNode.Children.TryGetValue(currentString[index], out currentNode))
+            while (index < currentString.Length && currentNode.Children.TryGetValue(currentString[index], out RadixTreeNode node))
             {
+                currentNode = node;
                 currentString = currentString[index..];
 
-                if (currentNode.IsWord && currentString == currentNode.Prefix)
+                if (!currentString.StartsWith(currentNode.Prefix))
                 {
-                    return true;
+                    break;
                 }
 
-                if (currentString.StartsWith(currentNode.Prefix))
-                {
-                    index = currentNode.Prefix.Length; //de vf daca mai e corect sau refac la +=
-                }
+                index = currentNode.Prefix.Length;
             }
 
-            return false;
+            return currentNode;
         }
 
         private int GetPrefixEndPosition(string first, string second)
