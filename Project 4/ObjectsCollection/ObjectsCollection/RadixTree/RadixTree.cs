@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Reflection;
 
 namespace ObjectsCollection
 {
@@ -18,40 +20,35 @@ namespace ObjectsCollection
         public void Add(string item)
         {
             //vf sa nu se introduca dubluri
-            RadixTreeNode currentNode = root;
+            RadixTreeNode currentNode = GetLastCommonNode(item, out int index);
             string currentString = item;
             string currentPrefix = "";
-            int index = 0;
 
             //verfica daca exista copii ai nodului curent
-            while (index < currentString.Length && currentNode.Children.TryGetValue(currentString[index], out RadixTreeNode node))
+
+            currentPrefix = currentNode.Prefix;
+            currentString = currentString[index..];
+
+            //verifica daca nodul curent trebuie sa se sparga sau nu
+            if (!currentString.StartsWith(currentPrefix))
             {
-                currentNode = node;
-                currentPrefix = currentNode.Prefix;
-                currentString = currentString[index..];
+                index = GetPrefixEndPosition(currentString, currentPrefix);
 
-                //verifica daca nodul curent trebuie sa se sparga sau nu
-                if (!currentString.StartsWith(currentPrefix))
-                {
-                    index = GetPrefixEndPosition(currentString, currentPrefix);
+                //nod nou cu ce ramane din nodul care se sparge
+                RadixTreeNode newNode1 = new();
+                newNode1.Children = currentNode.Children.ToDictionary();
+                newNode1.Prefix = currentPrefix[index..];
+                newNode1.IsWord = true;
 
-                    //nod nou cu ce ramane din nodul care se sparge
-                    RadixTreeNode newNode1 = new ();
-                    newNode1.Children = currentNode.Children.ToDictionary();
-                    newNode1.Prefix = currentPrefix[index..];
-                    newNode1.IsWord = true;
-
-                    //se seteaza nodul care se sparge
-                    currentNode.Children.Clear();
-                    currentNode.Children.Add(newNode1.Prefix[0], newNode1);
-                    currentNode.Prefix = currentString[..index];
-                    currentNode.IsWord = false;
-
-                    break;
-                }
-
-                //inainteaza indexul pentru stringul curent cu lungimea prefixului deja verificat
-                index = currentPrefix.Length;
+                //se seteaza nodul care se sparge
+                currentNode.Children.Clear();
+                currentNode.Children.Add(newNode1.Prefix[0], newNode1);
+                currentNode.Prefix = currentString[..index];
+                currentNode.IsWord = false;
+            }
+            else
+            {
+                index = currentNode.Prefix.Length;
             }
 
             //se adauga ultimul nod cu partea din string ramasa neadaugata (indexul trebuie sa marcheze punctul in care nu mai nimic comun)
@@ -73,53 +70,31 @@ namespace ObjectsCollection
 
         public bool Contains(string item)
         {
-            RadixTreeNode node = GetLastCommonNode(item);
+            RadixTreeNode node = GetLastCommonNode(item, out int index);
 
-            if (node.IsWord && item.EndsWith(node.Prefix))
-            {
-                return true;
-            }
-
-            //RadixTreeNode currentNode = root;
-            //string currentString = item;
-
-            //int index = 0;
-
-            //while (index < currentString.Length && currentNode.Children.TryGetValue(currentString[index], out currentNode))
-            //{
-            //    currentString = currentString[index..];
-
-            //    if (currentNode.IsWord && currentString == currentNode.Prefix)
-            //    {
-            //        return true;
-            //    }
-
-            //    if (currentString.StartsWith(currentNode.Prefix))
-            //    {
-            //        index = currentNode.Prefix.Length; //de vf daca mai e corect sau refac la +=
-            //    }
-            //}
-
-            return false;
+            return node.IsWord && item.EndsWith(node.Prefix);
         }
 
-        private RadixTreeNode GetLastCommonNode(string currentString)
+        private RadixTreeNode GetLastCommonNode(string currentString, out int index)//pot sa il numesc mai bine ca sa reflect ca iese si indexul?
         {
             RadixTreeNode currentNode = root;
 
-            int index = 0;
+            index = 0;
 
             while (index < currentString.Length && currentNode.Children.TryGetValue(currentString[index], out RadixTreeNode node))
             {
                 currentNode = node;
 
-                if (currentString.IndexOf(currentNode.Prefix, index, currentNode.Prefix.Length) != index)
+                if (currentNode.Prefix.Length > currentString.Length - index
+                    || currentString.IndexOf(currentNode.Prefix, index, currentNode.Prefix.Length) != index)
                 {
-                    break;
+                    return currentNode;
                 }
 
                 index += currentNode.Prefix.Length;
             }
+
+            index = index - currentNode.Prefix.Length;
 
             return currentNode;
         }
