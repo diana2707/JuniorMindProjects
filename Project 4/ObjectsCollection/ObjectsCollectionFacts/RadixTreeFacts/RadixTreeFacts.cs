@@ -58,6 +58,17 @@
         }
 
         [Fact]
+        public void AddShouldAddElementWhenNewStringIsPartOfAWordFromTree()
+        {
+            var tree = new RadixTree();
+            tree.Add("catnip");
+            tree.Add("cat");
+            Assert.True(tree.Contains("cat"));
+            Assert.True(tree.Contains("catnip"));
+            Assert.Equal(2, tree.Count);
+        }
+
+        [Fact]
         public void ContainsShouldReturnTrueIfStringExistsInTree()
         {
             var tree = new RadixTree();
