@@ -37,10 +37,12 @@ namespace ObjectsCollection
 
                     //nod nou cu ce ramane din nodul care se sparge
                     RadixTreeNode newNode1 = new ();
+                    newNode1.Children = currentNode.Children.ToDictionary();
                     newNode1.Prefix = currentPrefix[index..];
                     newNode1.IsWord = true;
 
                     //se seteaza nodul care se sparge
+                    currentNode.Children.Clear();
                     currentNode.Children.Add(newNode1.Prefix[0], newNode1);
                     currentNode.Prefix = currentString[..index];
                     currentNode.IsWord = false;
