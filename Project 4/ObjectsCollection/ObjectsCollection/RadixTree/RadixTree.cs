@@ -17,6 +17,7 @@ namespace ObjectsCollection
 
         public void Add(string item)
         {
+            //vf sa nu se introduca dubluri
             RadixTreeNode currentNode = root;
             string currentString = item;
             string currentPrefix = "";
@@ -42,11 +43,9 @@ namespace ObjectsCollection
                     //se seteaza nodul care se sparge
                     currentNode.Children.Add(newNode1.Prefix[0], newNode1);
                     currentNode.Prefix = currentString[..index];
-                    currentNode.IsWord = currentString.Length == index;
+                    currentNode.IsWord = false;
 
                     break;
-                    //catnip - cat => nu vreau sa mai intre in codul urmator pt ca deja am cat-nip corect
-                    //cat - catnip => nu intra in codul de mai sus si sperge folosind codul de mai jos dar ajunge tot la cat -nip 
                 }
 
                 //inainteaza indexul pentru stringul curent cu lungimea prefixului deja verificat
@@ -60,6 +59,11 @@ namespace ObjectsCollection
                 newNode.Prefix = currentString[index..];
                 newNode.IsWord = true;
                 currentNode.Children.Add(currentString[index], newNode);
+            }
+            //prefixul din nodul curent coincide cu ce ramane din string, deci doar se marcheaza ca si cuvant 
+            else
+            {
+                currentNode.IsWord = true;
             }
 
             Count++;

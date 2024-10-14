@@ -69,6 +69,32 @@
         }
 
         [Fact]
+        public void AddShouldAddElementWhenNewStringIsPrefixFor2WordsInTree()
+        {
+            var tree = new RadixTree();
+            tree.Add("catnip");
+            tree.Add("category");
+            tree.Add("cat");
+            Assert.True(tree.Contains("cat"));
+            Assert.True(tree.Contains("catnip"));
+            Assert.True(tree.Contains("category"));
+            Assert.Equal(3, tree.Count);
+        }
+
+        [Fact]
+        public void AddShouldNotAddElementWhen2StringsHaveWordAsCommonPrefix()
+        {
+            var tree = new RadixTree();
+            tree.Add("catnip");
+            tree.Add("category");
+
+            Assert.False(tree.Contains("cat"));
+            Assert.True(tree.Contains("catnip"));
+            Assert.True(tree.Contains("category"));
+            Assert.Equal(2, tree.Count);
+        }
+
+        [Fact]
         public void ContainsShouldReturnTrueIfStringExistsInTree()
         {
             var tree = new RadixTree();
