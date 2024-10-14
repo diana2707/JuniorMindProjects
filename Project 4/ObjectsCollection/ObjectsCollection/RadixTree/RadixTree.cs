@@ -100,7 +100,6 @@ namespace ObjectsCollection
             //    }
             //}
 
-
             return false;
         }
 
@@ -113,14 +112,13 @@ namespace ObjectsCollection
             while (index < currentString.Length && currentNode.Children.TryGetValue(currentString[index], out RadixTreeNode node))
             {
                 currentNode = node;
-                currentString = currentString[index..];
 
-                if (!currentString.StartsWith(currentNode.Prefix))
+                if (currentString.IndexOf(currentNode.Prefix, index, currentNode.Prefix.Length) != index)
                 {
                     break;
                 }
 
-                index = currentNode.Prefix.Length;
+                index += currentNode.Prefix.Length;
             }
 
             return currentNode;
