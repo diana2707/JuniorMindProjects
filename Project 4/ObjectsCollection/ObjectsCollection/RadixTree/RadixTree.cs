@@ -29,8 +29,7 @@ namespace ObjectsCollection
             //currentString = currentString[index..];
 
             //verifica daca nodul curent trebuie sa se sparga sau nu
-            if (currentNode.Prefix.Length > currentString.Length - itemIndex
-                    || currentString.IndexOf(currentNode.Prefix, itemIndex, currentNode.Prefix.Length) != itemIndex)
+            if (IsPartialPrefix(currentNode, currentString, itemIndex))
             {
                 (prefixIndex, itemIndex) = GetEndIndexes(currentPrefix, currentString, itemIndex);
 
@@ -87,8 +86,7 @@ namespace ObjectsCollection
                 currentNode = node;
                 nodeIndex = index;
 
-                if (currentNode.Prefix.Length > currentString.Length - index
-                    || currentString.IndexOf(currentNode.Prefix, index, currentNode.Prefix.Length) != index)
+                if (IsPartialPrefix(currentNode, currentString, index))
                 {
                     return currentNode;
                 }
@@ -114,6 +112,12 @@ namespace ObjectsCollection
             }
 
             return (prefixIndex, itemIndex);
+        }
+
+        private bool IsPartialPrefix(RadixTreeNode currentNode, string currentString, int index)
+        {
+            return currentNode.Prefix.Length > currentString.Length - index
+                    || currentString.IndexOf(currentNode.Prefix, index, currentNode.Prefix.Length) != index;
         }
     }
 }
