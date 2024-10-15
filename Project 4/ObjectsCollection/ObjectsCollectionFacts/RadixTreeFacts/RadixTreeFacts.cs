@@ -152,5 +152,18 @@
             Assert.True(tree.Contains("cabage"));
             Assert.Equal(2, tree.Count);
         }
+
+        [Fact]
+        public void RemoveShouldReturnTrueWhenRemovesWordsThatArePrefixForOtherWords()
+        {
+            var tree = new RadixTree();
+            tree.Add("cat");
+            tree.Add("catnip");
+            tree.Remove("cat");
+
+            Assert.False(tree.Contains("cat"));
+            Assert.True(tree.Contains("catnip"));
+            Assert.Equal(1, tree.Count);
+        }
     }
 }

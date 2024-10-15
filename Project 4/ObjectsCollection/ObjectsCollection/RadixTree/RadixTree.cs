@@ -51,13 +51,6 @@ namespace ObjectsCollection
             Count++;
         }
 
-        private void SetNode(RadixTreeNode node, string prefix, Dictionary<char, RadixTreeNode> children, bool isWord)
-        {
-            node.Prefix = prefix;
-            node.IsWord = isWord;
-            node.Children = children.ToDictionary();
-        }
-
         public bool Contains(string item)
         {
             RadixTreeNode node = GetLastCommonNode(item, out int index);
@@ -88,6 +81,20 @@ namespace ObjectsCollection
             return currentNode;
         }
 
+        public bool Remove(string item)
+        {
+            RadixTreeNode node = GetLastCommonNode(item, out int index);
+
+            if (node.Children.Count > 0)
+            {
+                node.IsWord = false;
+                Count--;
+                return true;
+            }
+
+            return false;
+        }
+
         private (int prefixIndex, int itemIndex) GetEndIndexes(string prefix, string item, int itemIndex)
         {
             int minLength = Math.Min(prefix.Length, item.Length - itemIndex);
@@ -109,6 +116,13 @@ namespace ObjectsCollection
         {
             return node.Prefix.Length > item.Length - itemIndex
                     || item.IndexOf(node.Prefix, itemIndex, node.Prefix.Length) != itemIndex;
+        }
+
+        private void SetNode(RadixTreeNode node, string prefix, Dictionary<char, RadixTreeNode> children, bool isWord)
+        {
+            node.Prefix = prefix;
+            node.IsWord = isWord;
+            node.Children = children.ToDictionary();
         }
     }
 }
