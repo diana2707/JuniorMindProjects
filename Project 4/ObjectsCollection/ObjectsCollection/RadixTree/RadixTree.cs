@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Reflection;
-using Xunit;
 
 namespace ObjectsCollection
 {
@@ -24,43 +22,40 @@ namespace ObjectsCollection
 
             RadixTreeNode node = GetLastCommonNode(item, out int itemIndex);
 
-            //verifica daca nodul curent trebuie sa se sparga sau nu
             if (IsPartialPrefix(node, item, itemIndex))
             {
                 (int prefixIndex, itemIndex) = GetEndIndexes(node.Prefix, item, itemIndex);
 
-                //nod nou cu ce ramane din nodul care se sparge
-                RadixTreeNode childNode = new ();
-                childNode.Children = node.Children.ToDictionary();
-                childNode.Prefix = node.Prefix[prefixIndex..];
-                childNode.IsWord = true;
+                RadixTreeNode splitNode = new ();
+                SetNode(splitNode, node.Prefix[prefixIndex..], node.Children, true);
 
-                //se seteaza nodul care se sparge
-                node.Children.Clear();
-                node.Children.Add(childNode.Prefix[0], childNode);
-                node.Prefix = node.Prefix[..prefixIndex];
-                node.IsWord = false;
+                Dictionary<char, RadixTreeNode> children = new () { { splitNode.Prefix[0], splitNode } };
+                SetNode(node, node.Prefix[..prefixIndex], children, false);
             }
             else
             {
                 itemIndex += node.Prefix.Length;
             }
 
-            //se adauga ultimul nod cu partea din string ramasa neadaugata (indexul trebuie sa marcheze punctul in care nu mai nimic comun)
             if (item.Length != itemIndex)
             {
-                RadixTreeNode childNode = new ();
-                childNode.Prefix = item[itemIndex..];
-                childNode.IsWord = true;
-                node.Children.Add(item[itemIndex], childNode);
+                RadixTreeNode newNode = new ();
+                SetNode(newNode, item[itemIndex..], newNode.Children, true);
+                node.Children.Add(item[itemIndex], newNode);
             }
-            //prefixul din nodul curent coincide cu ce ramane din string, deci doar se marcheaza ca si cuvant 
             else
             {
                 node.IsWord = true;
             }
 
             Count++;
+        }
+
+        private void SetNode(RadixTreeNode node, string prefix, Dictionary<char, RadixTreeNode> children, bool isWord)
+        {
+            node.Prefix = prefix;
+            node.IsWord = isWord;
+            node.Children = children.ToDictionary();
         }
 
         public bool Contains(string item)
