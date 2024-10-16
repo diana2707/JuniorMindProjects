@@ -20,7 +20,7 @@ namespace ObjectsCollection
         {
             //vf sa nu se introduca dubluri
 
-            RadixTreeNode node = GetLastCommonNode(item, out int itemIndex);
+            (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item, out int itemIndex);
 
             if (IsPartialPrefix(node, item, itemIndex))
             {
@@ -53,46 +53,89 @@ namespace ObjectsCollection
 
         public bool Contains(string item)
         {
-            RadixTreeNode node = GetLastCommonNode(item, out int index);
+            (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item, out int index);
 
             return node.IsWord && item.EndsWith(node.Prefix);
         }
 
-        private RadixTreeNode GetLastCommonNode(string item, out int itemIndex)//pot sa il numesc mai bine ca sa reflect ca iese si indexul?
+        public bool Remove(string item)
+        {
+            (RadixTreeNode penultimateNode, RadixTreeNode node) = GetLastCommonNodes(item, out int index);
+
+            if (!node.IsWord || !item.EndsWith(node.Prefix))
+            {
+                return false;
+            }
+
+            if (node.Children.Count == 0)
+            {
+                Count--;
+                return penultimateNode.Children.Remove(item[index]);
+            }
+
+            node.IsWord = false;
+            Count--;
+            return true;
+        }
+
+        //private RadixTreeNode GetLastCommonNode(string item, out int itemIndex)//pot sa il numesc mai bine ca sa reflect ca iese si indexul?
+        //{
+        //    RadixTreeNode penultimateNode = GetPenultimateCommonNode(item, out itemIndex);
+
+        //    //e oare corect sa returneze root si cand nu exista cuvantul(copii), si cand copii sunt imediat dupa root
+        //    if (penultimateNode == null)
+        //    {
+        //        return root;
+        //    }
+
+        //    return penultimateNode.Children.GetValueOrDefault(item[itemIndex]);
+
+
+        //    //RadixTreeNode currentNode = root;
+
+        //    //int index = 0;
+        //    //itemIndex = index;
+
+        //    //while (index < item.Length && currentNode.Children.TryGetValue(item[index], out RadixTreeNode node))
+        //    //{
+        //    //    currentNode = node;
+        //    //    itemIndex = index;
+
+        //    //    if (IsPartialPrefix(currentNode, item, itemIndex))
+        //    //    {
+        //    //        return currentNode;
+        //    //    }
+
+        //    //    index += currentNode.Prefix.Length;
+        //    //}
+
+        //    //return currentNode;
+        //}
+
+        private (RadixTreeNode penultimateNode, RadixTreeNode lastNode) GetLastCommonNodes(string item, out int itemIndex)//face cam multe metoda asta, sa o fac sa returneze doar previous?
         {
             RadixTreeNode currentNode = root;
+            RadixTreeNode penultimateNode = root;
+            //string prefix = "";
 
             int index = 0;
             itemIndex = index;
 
             while (index < item.Length && currentNode.Children.TryGetValue(item[index], out RadixTreeNode node))
             {
-                currentNode = node;
                 itemIndex = index;
+                penultimateNode = currentNode;
+                currentNode = node;
 
-                if (IsPartialPrefix(currentNode, item, itemIndex))
+                if (IsPartialPrefix(node, item, itemIndex))
                 {
-                    return currentNode;
+                    return (penultimateNode, currentNode);
                 }
 
-                index += currentNode.Prefix.Length;
+                index += node.Prefix.Length;
             }
 
-            return currentNode;
-        }
-
-        public bool Remove(string item)
-        {
-            RadixTreeNode node = GetLastCommonNode(item, out int index);
-
-            if (node.Children.Count > 0)
-            {
-                node.IsWord = false;
-                Count--;
-                return true;
-            }
-
-            return false;
+            return (penultimateNode, currentNode);
         }
 
         private (int prefixIndex, int itemIndex) GetEndIndexes(string prefix, string item, int itemIndex)

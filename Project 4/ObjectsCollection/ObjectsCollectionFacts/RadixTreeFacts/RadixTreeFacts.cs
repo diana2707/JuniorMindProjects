@@ -165,5 +165,64 @@
             Assert.True(tree.Contains("catnip"));
             Assert.Equal(1, tree.Count);
         }
+
+        [Fact]
+        public void RemoveShouldReturnTrueWhenRemovesWordsWithNoCommonSufix()
+        {
+            var tree = new RadixTree();
+            tree.Add("cat");
+            tree.Add("car");
+
+            Assert.True(tree.Remove("car"));
+            Assert.False(tree.Contains("car"));
+            Assert.True(tree.Contains("cat"));
+            Assert.Equal(1, tree.Count);
+        }
+
+        [Fact]
+        public void RemoveShouldReturnFalseWhenTriesToRemoveWordsThatAreNotInTree()
+        {
+            var tree = new RadixTree();
+            tree.Add("cat");
+            tree.Add("car");
+
+            Assert.False(tree.Remove("cab"));
+            Assert.True(tree.Contains("car"));
+            Assert.True(tree.Contains("cat"));
+            Assert.Equal(2, tree.Count);
+        }
+
+        [Fact]
+        public void RemoveShouldReturnTrueAndRemoveStringsWhenTreeHasMultipleStrings()
+        {
+            var tree = new RadixTree();
+            tree.Add("romane");
+            tree.Add("romanus");
+            tree.Add("rom");
+            tree.Add("romulus");
+            tree.Add("rub");
+            tree.Add("rubens");
+            tree.Add("ben");
+            tree.Add("ruber");
+            tree.Add("rubicundus");
+
+            Assert.True(tree.Remove("rom"));
+            Assert.True(tree.Remove("rubicundus"));
+            Assert.True(tree.Remove("ben"));
+            Assert.True(tree.Remove("romanus"));
+
+            Assert.True(tree.Contains("romane"));
+            Assert.True(tree.Contains("romulus"));
+            Assert.True(tree.Contains("rub"));
+            Assert.True(tree.Contains("rubens"));
+            Assert.True(tree.Contains("ruber"));
+
+            Assert.False(tree.Contains("rom"));
+            Assert.False(tree.Contains("rubicundus"));
+            Assert.False(tree.Contains("ben"));
+            Assert.False(tree.Contains("romanus"));
+
+            Assert.Equal(5, tree.Count);
+        }
     }
 }
