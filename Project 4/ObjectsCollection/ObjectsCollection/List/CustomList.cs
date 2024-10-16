@@ -2,11 +2,11 @@
 
 namespace ObjectsCollection
 {
-    internal class List<T> : IList<T>
+    internal class CustomList<T> : IList<T>
     {
         protected T[] array;
 
-        public List()
+        public CustomList()
         {
             array = new T[4];
             Count = 0;

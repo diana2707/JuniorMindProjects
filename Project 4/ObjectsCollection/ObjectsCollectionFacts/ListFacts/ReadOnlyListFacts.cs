@@ -7,7 +7,7 @@ namespace ObjectsCollection
         [Fact]
         public void ReadOnlyListIsWrapperForIListObject()
         {
-            List<int> list = new List<int>();
+            CustomList<int> list = new CustomList<int>();
             ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
             Assert.IsType<ReadOnlyList<int>>(readOnlyList);
         }
@@ -21,7 +21,7 @@ namespace ObjectsCollection
         [Fact]
         public void CountMethodShouldReturnNumberOfElements()
         {
-            List<int> list = new List<int>() { 1, 2, 3 };
+            CustomList<int> list = new CustomList<int>() { 1, 2, 3 };
             ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
             Assert.Equal(3, readOnlyList.Count);
         }
@@ -29,7 +29,7 @@ namespace ObjectsCollection
         [Fact]
         public void GetterShouldReturnElementFromList()
         {
-            List<int> list = new List<int>() { 1, 2, 3 };
+            CustomList<int> list = new CustomList<int>() { 1, 2, 3 };
             ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
             Assert.Equal(3, readOnlyList[2]);
         }
@@ -37,7 +37,7 @@ namespace ObjectsCollection
         [Fact]
         public void GetterShouldThrowArgumentOutOfRangeExceptionIfIndexIsNegative()
         {
-            List<int> list = new List<int>() { 1, 2, 3 };
+            CustomList<int> list = new CustomList<int>() { 1, 2, 3 };
             ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
             Assert.Throws<ArgumentOutOfRangeException>(() => readOnlyList[-1]);
         }
@@ -45,7 +45,7 @@ namespace ObjectsCollection
         [Fact]
         public void GetterShouldThrowArgumentOutOfRangeExceptionIfIndexIsEqualToCount()
         {
-            List<int> list = new List<int>() { 1, 2, 3 };
+            CustomList<int> list = new CustomList<int>() { 1, 2, 3 };
             ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
             Assert.Throws<ArgumentOutOfRangeException>(() => readOnlyList[3]);
         }
@@ -53,7 +53,7 @@ namespace ObjectsCollection
         [Fact]
         public void GetterShouldThrowArgumentOutOfRangeExceptionIfIndexIsGreaterThenCount()
         {
-            List<int> list = new List<int>() { 1, 2, 3 };
+            CustomList<int> list = new CustomList<int>() { 1, 2, 3 };
             ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
             Assert.Throws<ArgumentOutOfRangeException>(() => readOnlyList[8]);
         }
@@ -61,7 +61,7 @@ namespace ObjectsCollection
         [Fact]
         public void SetterShouldThrowNotSuppertedException()
         {
-            List<int> list = new List<int>() { 1, 2, 3 };
+            CustomList<int> list = new CustomList<int>() { 1, 2, 3 };
             ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
             Assert.Throws<NotSupportedException>(() => readOnlyList[2] = 4);
         }
@@ -69,7 +69,7 @@ namespace ObjectsCollection
         [Fact]
         public void IsReadOnlyShouldReturnTrue()
         {
-            List<int> list = new List<int>() { 1, 2, 3 };
+            CustomList<int> list = new CustomList<int>() { 1, 2, 3 };
             ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
             Assert.True(readOnlyList.IsReadOnly);
         }
@@ -77,7 +77,7 @@ namespace ObjectsCollection
         [Fact]
         public void AddMethodShouldThrowNotSuppertedException()
         {
-            List<int> list = new List<int>() { 1, 2, 3 };
+            CustomList<int> list = new CustomList<int>() { 1, 2, 3 };
             ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
             Assert.Throws<NotSupportedException>(() => readOnlyList.Add(5));
         }
@@ -85,7 +85,7 @@ namespace ObjectsCollection
         [Fact]
         public void GetEnumeratorMethodShouldAllowEnumerationThroughReadOnlyList()
         {
-            List<int> list = new List<int>() { 1, 2, 3 };
+            CustomList<int> list = new CustomList<int>() { 1, 2, 3 };
             foreach (int item in new ReadOnlyList<int>(list))
             {
                 Assert.Equal(item, item);
@@ -95,7 +95,7 @@ namespace ObjectsCollection
         [Fact]
         public void ContainsMethodShouldReturnTrueWhenElementExists()
         {
-            List<int> list = new List<int>() { 1, 2, 3 };
+            CustomList<int> list = new CustomList<int>() { 1, 2, 3 };
             ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
             Assert.True(readOnlyList.Contains(2));
         }
@@ -103,7 +103,7 @@ namespace ObjectsCollection
         [Fact]
         public void ContainsMethodShouldReturnFalseWhenElementDoNotExists()
         {
-            List<int> list = new List<int>() { 1, 2, 3 };
+            CustomList<int> list = new CustomList<int>() { 1, 2, 3 };
             ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
             Assert.False(readOnlyList.Contains(12));
         }
@@ -111,7 +111,7 @@ namespace ObjectsCollection
         [Fact]
         public void CopyToMethodShouldCopyElements()
         {
-            List<int> list = new List<int>() { 1, 2, 3 };
+            CustomList<int> list = new CustomList<int>() { 1, 2, 3 };
             ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
             int[] array = new int[5];
             readOnlyList.CopyTo(array, 0);
@@ -124,7 +124,7 @@ namespace ObjectsCollection
         [Fact]
         public void IndexOfMethodShouldReturnIndexOfElement()
         {
-            List<int> list = new List<int>() { 1, 2, 3 };
+            CustomList<int> list = new CustomList<int>() { 1, 2, 3 };
             ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
             Assert.Equal(0, readOnlyList.IndexOf(1));
         }
@@ -132,7 +132,7 @@ namespace ObjectsCollection
         [Fact]
         public void IndexOfMethodShouldReturnNegativ1IfElementDoNotExists()
         {
-            List<int> list = new List<int>() { 1, 2, 3 };
+            CustomList<int> list = new CustomList<int>() { 1, 2, 3 };
             ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
             Assert.Equal(-1, readOnlyList.IndexOf(5));
         }
@@ -140,7 +140,7 @@ namespace ObjectsCollection
         [Fact]
         public void InsertMethodShouldThrowNotSupportedException()
         {
-            List<int> list = new List<int>() { 1, 2, 3 };
+            CustomList<int> list = new CustomList<int>() { 1, 2, 3 };
             ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
             Assert.Throws<NotSupportedException>(() => readOnlyList.Insert(0, 8));
         }
@@ -148,7 +148,7 @@ namespace ObjectsCollection
         [Fact]
         public void ClearMethodShouldThrowNotSupportedException()
         {
-            List<int> list = new List<int>() { 1, 2, 3 };
+            CustomList<int> list = new CustomList<int>() { 1, 2, 3 };
             ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
             Assert.Throws<NotSupportedException>(() => readOnlyList.Clear());
         }
@@ -156,7 +156,7 @@ namespace ObjectsCollection
         [Fact]
         public void RemoveAtMethodShouldThrowNotSupportedException()
         {
-            List<int> list = new List<int>() { 1, 2, 3 };
+            CustomList<int> list = new CustomList<int>() { 1, 2, 3 };
             ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
             Assert.Throws<NotSupportedException>(() => readOnlyList.RemoveAt(0));
         }
@@ -164,7 +164,7 @@ namespace ObjectsCollection
         [Fact]
         public void RemoveMethodShouldThrowNotSupportedException()
         {
-            List<int> list = new List<int>() { 1, 2, 3 };
+            CustomList<int> list = new CustomList<int>() { 1, 2, 3 };
             ReadOnlyList<int> readOnlyList = new ReadOnlyList<int>(list);
             Assert.Throws<NotSupportedException>(() => readOnlyList.Remove(1));
         }
@@ -172,7 +172,7 @@ namespace ObjectsCollection
         [Fact]
         public void ReadOnlyListIsIListObject()
         {
-            List<int> list = new List<int>() { 1, 2, 3 };
+            CustomList<int> list = new CustomList<int>() { 1, 2, 3 };
             IList<int> readOnlyList = new ReadOnlyList<int>(list);
             Assert.IsAssignableFrom<IList<int>>(readOnlyList);
         }

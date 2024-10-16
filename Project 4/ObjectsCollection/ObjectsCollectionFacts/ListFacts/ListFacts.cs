@@ -8,7 +8,7 @@ namespace ObjectsCollection
         public void IndexerShouldSetAndGetIntegerElementAsObject()
         {
             const int number = 5;
-            List<int> array = new List<int> { 0 };
+            CustomList<int> array = new CustomList<int> { 0 };
             array[0] = number;
 
             Assert.Equal(5, array[0]);
@@ -19,7 +19,7 @@ namespace ObjectsCollection
         {
             const double number = 7.897;
 
-            List<double> array = new List<double> { 0 };
+            CustomList<double> array = new CustomList<double> { 0 };
             array[0] = number;
 
             Assert.Equal(7.897, array[0]);
@@ -30,7 +30,7 @@ namespace ObjectsCollection
         {
             const string text = "abc";
 
-            List<string> array = new List<string> { "" };
+            CustomList<string> array = new CustomList<string> { "" };
             array[0] = text;
 
             Assert.Equal("abc", array[0]);
@@ -41,7 +41,7 @@ namespace ObjectsCollection
         {
             int[] integerArray = new int[1];
 
-            List<int[]> array = new List<int[]> { new[] { 0 } };
+            CustomList<int[]> array = new CustomList<int[]> { new[] { 0 } };
             array[0] = integerArray;
 
             Assert.Equal(integerArray, array[0]);
@@ -51,7 +51,7 @@ namespace ObjectsCollection
         public void AddMethodShouldAddOneElement()
         {
             const string text = "abc";
-            List<string> array = new List<string>();
+            CustomList<string> array = new CustomList<string>();
             array.Add(text);
 
             Assert.Equal("abc", array[0]);
@@ -60,7 +60,7 @@ namespace ObjectsCollection
         [Fact]
         public void AddMethodShouldAddOneElementWhenArrayHasOver4Elements()
         {
-            List<int> array = new List<int>();
+            CustomList<int> array = new CustomList<int>();
             array.Add(1);
             array.Add(2);
             array.Add(3);
@@ -73,7 +73,7 @@ namespace ObjectsCollection
         [Fact]
         public void CountShouldReturnCorrectNumberOfElements()
         {
-            List<int> array = new List<int>();
+            CustomList<int> array = new CustomList<int>();
             array.Add(5);
             array.Add(6);
 
@@ -83,7 +83,7 @@ namespace ObjectsCollection
         [Fact]
         public void IndexOfMethodShouldReturnCorrectIndexOfElementWhenStringElementExists()
         {
-            List<string> array = new List<string>();
+            CustomList<string> array = new CustomList<string>();
             array.Add("a");
             array.Add("b");
             array.Add("c");
@@ -94,7 +94,7 @@ namespace ObjectsCollection
         [Fact]
         public void IndexOfMethodShouldReturnCorrectIndexOfElementWhenIntegerElementExists()
         {
-            List<int> array = new List<int>();
+            CustomList<int> array = new CustomList<int>();
             array.Add(1);
             array.Add(2);
             array.Add(3);
@@ -105,7 +105,7 @@ namespace ObjectsCollection
         [Fact]
         public void IndexOfMethodShouldReturnCorrectIndexOfElementWhenDoubleElementExists()
         {
-            List<double> array = new List<double>();
+            CustomList<double> array = new CustomList<double>();
             array.Add(1.5);
             array.Add(2.5);
             array.Add(3.5);
@@ -120,7 +120,7 @@ namespace ObjectsCollection
             int[] arr2 = { 4, 5, 6 };
             int[] arr3 = { 7, 8, 9 };
 
-            List<int[]> array = new List<int[]>();
+            CustomList<int[]> array = new CustomList<int[]>();
             array.Add(arr1);
             array.Add(arr2);
             array.Add(arr3);
@@ -135,7 +135,7 @@ namespace ObjectsCollection
             IntArray arr2 = new IntArray();
             IntArray arr3 = new IntArray();
 
-            List<IntArray> array = new List<IntArray>();
+            CustomList<IntArray> array = new CustomList<IntArray>();
             array.Add(arr1);
             array.Add(arr2);
             array.Add(arr3);
@@ -146,7 +146,7 @@ namespace ObjectsCollection
         [Fact]
         public void IndexOfMethodShouldReturnMinus1WhenStringElementDoNotExists()
         {
-            List<string> array = new List<string>();
+            CustomList<string> array = new CustomList<string>();
             array.Add("a");
             array.Add("b");
             array.Add("c");
@@ -157,7 +157,7 @@ namespace ObjectsCollection
         [Fact]
         public void IndexOfMethodShouldReturnMinus1WhenIntegerElementDoNotExists()
         {
-            List<int> array = new List<int>();
+            CustomList<int> array = new CustomList<int>();
             array.Add(1);
             array.Add(2);
             array.Add(3);
@@ -168,7 +168,7 @@ namespace ObjectsCollection
         [Fact]
         public void IndexOfMethodShouldReturnMinus1WhenDoubleElementDoNotExists()
         {
-            List<double> array = new List<double>();
+            CustomList<double> array = new CustomList<double>();
             array.Add(1.5);
             array.Add(2.5);
             array.Add(3.5);
@@ -184,7 +184,7 @@ namespace ObjectsCollection
             int[] arr3 = { 7, 8, 9 };
             int[] arr4 = { 10, 11, 12 };
 
-            List<int[]> array = new List<int[]>();
+            CustomList<int[]> array = new CustomList<int[]>();
             array.Add(arr1);
             array.Add(arr2);
             array.Add(arr3);
@@ -195,7 +195,7 @@ namespace ObjectsCollection
         [Fact]
         public void InsertMethodShouldInsertCorrectIntegerElement()
         {
-            List<int> array = new List<int>();
+            CustomList<int> array = new CustomList<int>();
             array.Add(3);
             array.Add(5);
             array.Add(6);
@@ -208,7 +208,7 @@ namespace ObjectsCollection
         [Fact]
         public void InsertMethodShouldInsertCorrectStringElement()
         {
-            List<string> array = new List<string>();
+            CustomList<string> array = new CustomList<string>();
             array.Add("a");
             array.Add("b");
             array.Add("c");
@@ -221,7 +221,7 @@ namespace ObjectsCollection
         [Fact]
         public void InsertMethodShouldInsertCorrectDoubleElement()
         {
-            List<double> array = new List<double>();
+            CustomList<double> array = new CustomList<double>();
             array.Add(3.4);
             array.Add(2.1);
             array.Add(7.8);
@@ -238,7 +238,7 @@ namespace ObjectsCollection
             int[] arr2 = { 4, 5, 6 };
             int[] arr3 = { 7, 8, 9 };
 
-            List<int[]> test = new List<int[]>();
+            CustomList<int[]> test = new CustomList<int[]>();
             test.Add(arr1);
             test.Add(arr2);
             test.Insert(1, arr3);
@@ -250,11 +250,11 @@ namespace ObjectsCollection
         [Fact]
         public void InsertMethodShouldInsertCorrectObjectElement()
         {
-            List<IntArray> arr1 = new List<IntArray>();
-            List<IntArray> arr2 = new List<IntArray>();
-            List<IntArray> arr3 = new List<IntArray>();
+            CustomList<IntArray> arr1 = new CustomList<IntArray>();
+            CustomList<IntArray> arr2 = new CustomList<IntArray>();
+            CustomList<IntArray> arr3 = new CustomList<IntArray>();
 
-            List<List<IntArray>> test = new List<List<IntArray>>();
+            CustomList<CustomList<IntArray>> test = new CustomList<CustomList<IntArray>>();
             test.Add(arr1);
             test.Add(arr2);
             test.Insert(1, arr3);
@@ -266,7 +266,7 @@ namespace ObjectsCollection
         [Fact]
         public void ClearMethodShouldSetAllElementToDefault()
         {
-            List<int> array = new List<int>();
+            CustomList<int> array = new CustomList<int>();
             array.Add(3);
             array.Add(4);
             array.Clear();
@@ -277,7 +277,7 @@ namespace ObjectsCollection
         [Fact]
         public void RemoveAtMethodShouldRemoveTheCorrectIntegerElement()
         {
-            List<int> array = new List<int>();
+            CustomList<int> array = new CustomList<int>();
             array.Add(3);
             array.Add(7);
             array.Add(5);
@@ -294,7 +294,7 @@ namespace ObjectsCollection
             int[] arr2 = { 4, 5, 6 };
             int[] arr3 = { 7, 8, 9 };
 
-            List<int[]> array = new List<int[]>();
+            CustomList<int[]> array = new CustomList<int[]>();
             array.Add(arr1);
             array.Add(arr2);
             array.Add(arr3);
@@ -307,7 +307,7 @@ namespace ObjectsCollection
         [Fact]
         public void RemoveAtMethodShouldRemoveTheCorrectStringElement()
         {
-            List<string> array = new List<string>();
+            CustomList<string> array = new CustomList<string>();
             array.Add("a");
             array.Add("b");
             array.Add("c");
@@ -320,7 +320,7 @@ namespace ObjectsCollection
         [Fact]
         public void RemoveAtMethodShouldNotChangeIntegerWhenIndexDoesNotExist()
         {
-            List<int> array = new List<int>();
+            CustomList<int> array = new CustomList<int>();
             array.Add(3);
             array.Add(4);
             array.Add(5);
@@ -334,7 +334,7 @@ namespace ObjectsCollection
         [Fact]
         public void RemoveMethodShouldRemoveTheCorrectIntegerElement()
         {
-            List<int> array = new List<int>();
+            CustomList<int> array = new CustomList<int>();
             array.Add(3);
             array.Add(4);
             array.Add(5);
@@ -347,7 +347,7 @@ namespace ObjectsCollection
         [Fact]
         public void RemoveMethodShouldRemoveTheCorrectStringElement()
         {
-            List<string> array = new List<string>();
+            CustomList<string> array = new CustomList<string>();
             array.Add("a");
             array.Add("b");
             array.Add("c");
@@ -364,7 +364,7 @@ namespace ObjectsCollection
             int[] arr2 = { 4, 5, 6 };
             int[] arr3 = { 7, 8, 9 };
 
-            List<int[]> array = new List<int[]>();
+            CustomList<int[]> array = new CustomList<int[]>();
             array.Add(arr1);
             array.Add(arr2);
             array.Add(arr3);
@@ -377,7 +377,7 @@ namespace ObjectsCollection
         [Fact]
         public void VerifyIEnumerableInterfaceAllowsForeachUse()
         {
-            foreach (var item in new List<int> { 1, 2, 3 })
+            foreach (var item in new CustomList<int> { 1, 2, 3 })
             {
                 Assert.NotNull(item);
                 Assert.Equal(item, item);
@@ -387,14 +387,14 @@ namespace ObjectsCollection
         [Fact]
         public void IsReadOnlyPropertyShouldReturnFalse()
         {
-            List<int> list = new List<int> { 1, 3, 5, 7 };
+            CustomList<int> list = new CustomList<int> { 1, 3, 5, 7 };
             Assert.False(list.IsReadOnly);
         }
 
         [Fact]
         public void CopyToMethodShouldCopyElementsToSpecifiedArrayStartingFrom0()
         {
-            List<int> list = new List<int> { 1, 3, 5, 7, 8 };
+            CustomList<int> list = new CustomList<int> { 1, 3, 5, 7, 8 };
             int[] array = new int[5];
             list.CopyTo(array, 0);
             Assert.Equal(1, array[0]);
@@ -407,7 +407,7 @@ namespace ObjectsCollection
         [Fact]
         public void CopyToMethodShouldCopyElementsToSpecifiedArrayStartingFromMiddleIndex()
         {
-            List<int> list = new List<int> { 1, 3, 5, 7 };
+            CustomList<int> list = new CustomList<int> { 1, 3, 5, 7 };
             int[] array = new int[10];
             list.CopyTo(array, 6);
             Assert.Equal(1, array[6]);
@@ -419,70 +419,70 @@ namespace ObjectsCollection
         [Fact]
         public void RemoveMethodShouldReturnTrueWhenElementIsRemoved()
         {
-            List<int> list = new List<int> { 1, 3, 5, 7 };
+            CustomList<int> list = new CustomList<int> { 1, 3, 5, 7 };
             Assert.True(list.Remove(1));
         }
 
         [Fact]
         public void RemoveMethodShouldReturnFalseWhenElementIsNotFound()
         {
-            List<int> list = new List<int> { 1, 3, 5, 7 };
+            CustomList<int> list = new CustomList<int> { 1, 3, 5, 7 };
             Assert.False(list.Remove(2));
         }
 
         [Fact]
         public void ListObjectIsAlsoAnIListObject()
         {
-            IList<int> list = new List<int> { 1, 3, 5, 7 };
+            IList<int> list = new CustomList<int> { 1, 3, 5, 7 };
             Assert.NotEmpty(list);
         }
 
         [Fact]
         public void GetterThrowsArgumentOutOfRangeExceptionWhenIndexIsEqualToCount()
         {
-            IList<int> list = new List<int> { 1, 3, 5, 7, 9 };
+            IList<int> list = new CustomList<int> { 1, 3, 5, 7, 9 };
             Assert.Throws<ArgumentOutOfRangeException>(() => list[list.Count]);
         }
 
         [Fact]
         public void GetterThrowsArgumentOutOfRangeExceptionWhenIndexIsLessThan0()
         {
-            IList<int> list = new List<int> { 1, 3, 5, 7, 9 };
+            IList<int> list = new CustomList<int> { 1, 3, 5, 7, 9 };
             Assert.Throws<ArgumentOutOfRangeException>(() => list[-1]);
         }
 
         [Fact]
         public void GetterThrowsArgumentOutOfRangeExceptionWhenIndexIsLargerThanCount()
         {
-            IList<int> list = new List<int> { 1, 3, 5, 7, 9 };
+            IList<int> list = new CustomList<int> { 1, 3, 5, 7, 9 };
             Assert.Throws<ArgumentOutOfRangeException>(() => list[10]);
         }
 
         [Fact]
         public void SetterThrowsArgumentOutOfRangeExceptionWhenIndexIsEqualToCount()
         {
-            IList<int> list = new List<int> { 1, 3, 5, 7, 9 };
+            IList<int> list = new CustomList<int> { 1, 3, 5, 7, 9 };
             Assert.Throws<ArgumentOutOfRangeException>(() => list[list.Count] = 3);
         }
 
         [Fact]
         public void SetterThrowsArgumentOutOfRangeExceptionWhenIndexIsLargerThanCount()
         {
-            IList<int> list = new List<int> { 1, 3, 5, 7, 9 };
+            IList<int> list = new CustomList<int> { 1, 3, 5, 7, 9 };
             Assert.Throws<ArgumentOutOfRangeException>(() => list[10] = 3);
         }
 
         [Fact]
         public void SetterThrowsArgumentOutOfRangeExceptionWhenIndexIsLessThan0()
         {
-            IList<int> list = new List<int> { 1, 3, 5, 7, 9 };
+            IList<int> list = new CustomList<int> { 1, 3, 5, 7, 9 };
             Assert.Throws<ArgumentOutOfRangeException>(() => list[-3] = 3);
         }
 
         [Fact]
         public void CopyToMethodThrowsArgumentOutOfRangeExceptionWhenIndexIsLessThan0()
         {
-            IList<int> list = new List<int> { 1, 3, 5, 7 };
+            IList<int> list = new CustomList<int> { 1, 3, 5, 7 };
             int[] array = new int[4];
             Assert.Throws<ArgumentOutOfRangeException>(() => list.CopyTo(array, -1));
         }
@@ -490,7 +490,7 @@ namespace ObjectsCollection
         [Fact]
         public void CopyToMethodThrowsArgumentNullExceptionWhenArrayIsNull()
         {
-            IList<int> list = new List<int> { 1, 3, 5, 7 };
+            IList<int> list = new CustomList<int> { 1, 3, 5, 7 };
             int[] array = null;
             Assert.Throws<ArgumentNullException>(() => list.CopyTo(array, 0));
         }
@@ -498,7 +498,7 @@ namespace ObjectsCollection
         [Fact]
         public void CopyToMethodThrowsArgumentExceptionWhenNumberofElementsIsGreaterThanAllocatedSapce()
         {
-            IList<int> list = new List<int> { 1, 3, 5, 7, 8 };
+            IList<int> list = new CustomList<int> { 1, 3, 5, 7, 8 };
             int[] array = new int[6];
             Assert.Throws<ArgumentException>(() => list.CopyTo(array, 2));
         }
@@ -506,7 +506,7 @@ namespace ObjectsCollection
         [Fact]
         public void CopyToMethodThrowsArgumentExceptionWhenNumberofElementsIsGreaterThanAllocatedSapcejj()
         {
-            IList<int> list = new List<int> { 1, 3, 5, 7, 8 };
+            IList<int> list = new CustomList<int> { 1, 3, 5, 7, 8 };
             int[] array = new int[5];
             Assert.Throws<ArgumentException>(() => list.CopyTo(array, 10));
         }
@@ -514,42 +514,42 @@ namespace ObjectsCollection
         [Fact]
         public void InsertMethodThrowsArgumentOutOfRangeExceptionWhenIndexIsNegative()
         {
-            IList<int> list = new List<int> { 1, 3, 5, 7 };
+            IList<int> list = new CustomList<int> { 1, 3, 5, 7 };
             Assert.Throws<ArgumentOutOfRangeException>(() => list.Insert(-1, 0));
         }
 
         [Fact]
         public void InsertMethodThrowsArgumentOutOfRangeExceptionWhenIndexIsEqualToCount()
         {
-            IList<int> list = new List<int> { 1, 3, 5, 7 };
+            IList<int> list = new CustomList<int> { 1, 3, 5, 7 };
             Assert.Throws<ArgumentOutOfRangeException>(() => list.Insert(list.Count, 0));
         }
 
         [Fact]
         public void InsertMethodThrowsArgumentOutOfRangeExceptionWhenIndexIsGreaterThanCount()
         {
-            IList<int> list = new List<int> { 1, 3, 5, 7 };
+            IList<int> list = new CustomList<int> { 1, 3, 5, 7 };
             Assert.Throws<ArgumentOutOfRangeException>(() => list.Insert(10, 0));
         }
 
         [Fact]
         public void RemoveAtMethodThrowsArgumentOutOfRangeExceptionWhenIndexIsNegative()
         {
-            IList<int> list = new List<int> { 1, 3, 5, 7 };
+            IList<int> list = new CustomList<int> { 1, 3, 5, 7 };
             Assert.Throws<ArgumentOutOfRangeException>(() => list.RemoveAt(-1));
         }
 
         [Fact]
         public void RemoveAtMethodThrowsArgumentOutOfRangeExceptionWhenIndexIsEqualToCount()
         {
-            IList<int> list = new List<int> { 1, 3, 5, 7 };
+            IList<int> list = new CustomList<int> { 1, 3, 5, 7 };
             Assert.Throws<ArgumentOutOfRangeException>(() => list.RemoveAt(list.Count));
         }
 
         [Fact]
         public void RemoveAtMethodThrowsArgumentOutOfRangeExceptionWhenIndexIsGreaterThanCount()
         {
-            IList<int> list = new List<int> { 1, 3, 5, 7 };
+            IList<int> list = new CustomList<int> { 1, 3, 5, 7 };
             Assert.Throws<ArgumentOutOfRangeException>(() => list.RemoveAt(10));
         }
     }

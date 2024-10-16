@@ -1,6 +1,6 @@
 ﻿namespace ObjectsCollection
 {
-    internal class SortedList<T> : List<T>
+    internal class SortedList<T> : CustomList<T>
         where T : IComparable<T>
     {
         public SortedList()

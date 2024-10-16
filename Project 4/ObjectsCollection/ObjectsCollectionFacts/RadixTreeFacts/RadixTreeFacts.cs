@@ -222,7 +222,35 @@
             Assert.False(tree.Contains("ben"));
             Assert.False(tree.Contains("romanus"));
 
+            Assert.False(tree.Contains("roman"));
+
             Assert.Equal(5, tree.Count);
+        }
+
+        [Fact]
+        public void GetEnumeratorShouldEnumerateThroughAllStrings()
+        {
+            var tree = new RadixTree();
+            tree.Add("romane");
+            tree.Add("romanus");
+            tree.Add("rom");
+            tree.Add("romulus");
+            tree.Add("rub");
+            tree.Add("rubens");
+            tree.Add("ben");
+            tree.Add("ruber");
+            tree.Add("rubicundus");
+
+            string[] array = { "romane", "romanus", "rom", "romulus", "rub", "rubens", "ben", "ruber", "rubicundus" };
+            int count = 0;
+
+            foreach (var item in tree)
+            {
+                Assert.Contains(item, array);
+                count++;
+            }
+
+            Assert.Equal(count, tree.Count);
         }
     }
 }

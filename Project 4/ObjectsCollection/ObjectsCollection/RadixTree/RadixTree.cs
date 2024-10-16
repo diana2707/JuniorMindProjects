@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 
 namespace ObjectsCollection
 {
-    public class RadixTree
+    public class RadixTree : IEnumerable<string>
     {
         readonly RadixTreeNode root;
 
@@ -27,7 +27,7 @@ namespace ObjectsCollection
                 (int prefixIndex, itemIndex) = GetEndIndexes(node.Prefix, item, itemIndex);
 
                 RadixTreeNode splitNode = new ();
-                SetNode(splitNode, node.Prefix[prefixIndex..], node.Children, true);
+                SetNode(splitNode, node.Prefix[prefixIndex..], node.Children, node.IsWord);
 
                 Dictionary<char, RadixTreeNode> children = new () { { splitNode.Prefix[0], splitNode } };
                 SetNode(node, node.Prefix[..prefixIndex], children, false);
@@ -76,6 +76,32 @@ namespace ObjectsCollection
             node.IsWord = false;
             Count--;
             return true;
+        }
+
+        public IEnumerator<string> GetEnumerator()
+        {
+            return Traverse(root, "").GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        private IEnumerable<string> Traverse(RadixTreeNode node, string prefix)
+        {
+            if (node.IsWord)
+            {
+                yield return prefix;
+            }
+
+            foreach (var child in node.Children)
+            {
+                foreach (string item in Traverse(child.Value, prefix + child.Value.Prefix))
+                {
+                    yield return item;
+                }
+            }
         }
 
         //private RadixTreeNode GetLastCommonNode(string item, out int itemIndex)//pot sa il numesc mai bine ca sa reflect ca iese si indexul?
