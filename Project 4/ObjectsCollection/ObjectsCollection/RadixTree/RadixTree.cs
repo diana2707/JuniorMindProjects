@@ -78,6 +78,22 @@ namespace ObjectsCollection
             return true;
         }
 
+        public List<string> GetAllItemsByPrefix(string prefix)
+        {
+            List<string> items = new List<string>();
+            (RadixTreeNode penultimateNode, RadixTreeNode node) = GetLastCommonNodes(prefix, out int index);
+
+            if (!prefix.EndsWith(node.Prefix) && !node.Prefix.StartsWith(prefix[index..]))
+            {
+                return items;
+            }
+
+            prefix = prefix[..index] + node.Prefix;
+            items.AddRange(Traverse(node, prefix));
+
+            return items;
+        }
+
         public IEnumerator<string> GetEnumerator()
         {
             return Traverse(root, "").GetEnumerator();

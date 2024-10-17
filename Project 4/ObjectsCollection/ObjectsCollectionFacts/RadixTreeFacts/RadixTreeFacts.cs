@@ -252,5 +252,49 @@
 
             Assert.Equal(count, tree.Count);
         }
+
+        [Fact]
+        public void GetAllItemsByPrefixShouldReturnsListWithAllStringsStartingWithPrefix()
+        {
+            var tree = new RadixTree();
+            tree.Add("romane");
+            tree.Add("romanus");
+            tree.Add("rom");
+            tree.Add("romulus");
+            tree.Add("rub");
+            tree.Add("rubens");
+            tree.Add("ben");
+            tree.Add("ruber");
+            tree.Add("rubicundus");
+
+            string[] array = { "romane", "romanus", "rom", "romulus" };
+
+            int count = 0;
+
+            foreach (var item in tree.GetAllItemsByPrefix("ro"))
+            {
+                Assert.Contains(item, array);
+                count++;
+            }
+
+            Assert.Equal(count, array.Length);
+        }
+
+        [Fact]
+        public void GetAllItemsByPrefixShouldReturnsEmptyListWhenPrefixIfNotPresent()
+        {
+            var tree = new RadixTree();
+            tree.Add("romane");
+            tree.Add("romanus");
+            tree.Add("rom");
+            tree.Add("romulus");
+            tree.Add("rub");
+            tree.Add("rubens");
+            tree.Add("ben");
+            tree.Add("ruber");
+            tree.Add("rubicundus");
+
+            Assert.Empty(tree.GetAllItemsByPrefix("ron"));
+        }
     }
 }
