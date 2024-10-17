@@ -18,7 +18,7 @@ namespace ObjectsCollection
         {
             ValidateArgumentIsNotNull(item);
 
-            (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item, out int lastNodeIndex);
+            (RadixTreeNode previousNode, RadixTreeNode node, int lastNodeIndex) = GetLastCommonNodes(item);
             int itemIndex = lastNodeIndex;
 
             ValidateNewItem(item, node);
@@ -57,7 +57,7 @@ namespace ObjectsCollection
         {
             ValidateArgumentIsNotNull(item);
 
-            (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item, out int index);
+            (RadixTreeNode previousNode, RadixTreeNode node, int lastNodeIndex) = GetLastCommonNodes(item);
 
             return Contains(item, node);
         }
@@ -66,7 +66,7 @@ namespace ObjectsCollection
         {
             ValidateArgumentIsNotNull(item);
 
-            (RadixTreeNode penultimateNode, RadixTreeNode node) = GetLastCommonNodes(item, out int index);
+            (RadixTreeNode previousNode, RadixTreeNode node, int lastNodeIndex) = GetLastCommonNodes(item);
 
             if (!node.IsWord || !item.EndsWith(node.Prefix))
             {
@@ -76,7 +76,7 @@ namespace ObjectsCollection
             if (node.Children.Count == 0)
             {
                 Count--;
-                return penultimateNode.Children.Remove(item[index]);
+                return previousNode.Children.Remove(item[lastNodeIndex]);
             }
 
             node.IsWord = false;
@@ -89,7 +89,7 @@ namespace ObjectsCollection
             ValidateArgumentIsNotNull(prefix);
 
             List<string> items = new List<string>();
-            (RadixTreeNode penultimateNode, RadixTreeNode node) = GetLastCommonNodes(prefix, out int index);
+            (RadixTreeNode previousNode, RadixTreeNode node, int index) = GetLastCommonNodes(prefix);
 
             //vezi daca poti refactoriza ca sa redici substringurile
             if (!prefix.EndsWith(node.Prefix) && !node.Prefix.StartsWith(prefix[index..]))
@@ -107,7 +107,7 @@ namespace ObjectsCollection
         {
             ValidateArgumentIsNotNull(item);
 
-            (RadixTreeNode penultimateNode, RadixTreeNode node) = GetLastCommonNodes(item, out int index);
+            (RadixTreeNode previousNode, RadixTreeNode node, int index) = GetLastCommonNodes(item);
 
             int itemIndex = GetEndIndex(node.Prefix, item, index);
 
@@ -174,30 +174,29 @@ namespace ObjectsCollection
         //    //return currentNode;
         //}
 
-        private (RadixTreeNode penultimateNode, RadixTreeNode lastNode) GetLastCommonNodes(string item, out int itemIndex)//face cam multe metoda asta, sa o fac sa returneze doar previous?
+        private (RadixTreeNode previousNode, RadixTreeNode lastNode, int lastNodeIndex) GetLastCommonNodes(string item)
         {
-            RadixTreeNode currentNode = root;
-            RadixTreeNode penultimateNode = root;
-            //string prefix = "";
+            RadixTreeNode lastNode = root;
+            RadixTreeNode previousNode = root;
 
             int index = 0;
-            itemIndex = index;
+            int lastNodeIndex = index;
 
-            while (index < item.Length && currentNode.Children.TryGetValue(item[index], out RadixTreeNode node))
+            while (index < item.Length && lastNode.Children.TryGetValue(item[index], out RadixTreeNode node))
             {
-                itemIndex = index;
-                penultimateNode = currentNode;
-                currentNode = node;
+                lastNodeIndex = index;
+                previousNode = lastNode;
+                lastNode = node;
 
-                if (IsPartialPrefix(node, item, itemIndex))
+                if (IsPartialPrefix(node, item, lastNodeIndex))
                 {
-                    return (penultimateNode, currentNode);
+                    return (previousNode, lastNode, lastNodeIndex);
                 }
 
                 index += node.Prefix.Length;
             }
 
-            return (penultimateNode, currentNode);
+            return (previousNode, lastNode, lastNodeIndex);
         }
 
         private int GetEndIndex(string prefix, string item, int lastNodeIndex)
