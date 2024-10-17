@@ -103,6 +103,8 @@ namespace ObjectsCollection
 
         public string GetLongestPrefixMatch(string item)
         {
+            ValidateArgumentIsNotNull(item);
+
             (RadixTreeNode penultimateNode, RadixTreeNode node) = GetLastCommonNodes(item, out int index);
 
             (int prefixIndex, int itemIndex) = GetEndIndexes(node.Prefix, item, index);

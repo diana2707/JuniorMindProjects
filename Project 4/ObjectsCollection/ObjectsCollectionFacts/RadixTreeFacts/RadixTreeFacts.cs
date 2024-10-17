@@ -354,5 +354,12 @@
             var tree = new RadixTree();
             Assert.Throws<ArgumentNullException>(() => tree.GetAllItemsByPrefix(null));
         }
+
+        [Fact]
+        public void GetLongestPrefixMatchShouldThrowArgumentNullExceptionIfItemIsNull()
+        {
+            var tree = new RadixTree();
+            Assert.Throws<ArgumentNullException>(() => tree.GetLongestPrefixMatch(null));
+        }
     }
 }
