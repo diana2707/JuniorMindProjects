@@ -333,5 +333,12 @@
 
             Assert.Throws<ArgumentException>(() => tree.Add("romane"));
         }
+
+        [Fact]
+        public void ContainsShouldThrowArgumentNullExceptionIfItemIsNull()
+        {
+            var tree = new RadixTree();
+            Assert.Throws<ArgumentNullException>(() => tree.Contains(null));
+        }
     }
 }

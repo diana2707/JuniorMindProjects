@@ -53,6 +53,8 @@ namespace ObjectsCollection
 
         public bool Contains(string item)
         {
+            ValidateItemIsNotNull(item);
+
             (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item, out int index);
 
             return Contains(item, node);
