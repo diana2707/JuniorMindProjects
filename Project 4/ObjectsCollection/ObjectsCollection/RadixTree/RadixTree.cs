@@ -16,7 +16,7 @@ namespace ObjectsCollection
 
         public void Add(string item)
         {
-            ValidateItemIsNotNull(item);
+            ValidateArgumentIsNotNull(item);
 
             (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item, out int itemIndex);
 
@@ -53,7 +53,7 @@ namespace ObjectsCollection
 
         public bool Contains(string item)
         {
-            ValidateItemIsNotNull(item);
+            ValidateArgumentIsNotNull(item);
 
             (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item, out int index);
 
@@ -62,7 +62,7 @@ namespace ObjectsCollection
 
         public bool Remove(string item)
         {
-            ValidateItemIsNotNull(item);
+            ValidateArgumentIsNotNull(item);
 
             (RadixTreeNode penultimateNode, RadixTreeNode node) = GetLastCommonNodes(item, out int index);
 
@@ -84,6 +84,8 @@ namespace ObjectsCollection
 
         public List<string> GetAllItemsByPrefix(string prefix)
         {
+            ValidateArgumentIsNotNull(prefix);
+
             List<string> items = new List<string>();
             (RadixTreeNode penultimateNode, RadixTreeNode node) = GetLastCommonNodes(prefix, out int index);
 
@@ -229,7 +231,7 @@ namespace ObjectsCollection
             node.Children = children.ToDictionary();
         }
 
-        private void ValidateItemIsNotNull(string item)
+        private void ValidateArgumentIsNotNull(string item)
         {
             ArgumentNullException.ThrowIfNull(item);
         }

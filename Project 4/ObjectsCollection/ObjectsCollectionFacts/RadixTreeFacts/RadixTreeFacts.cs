@@ -347,5 +347,12 @@
             var tree = new RadixTree();
             Assert.Throws<ArgumentNullException>(() => tree.Remove(null));
         }
+
+        [Fact]
+        public void GetAllItemsByPrefixShouldThrowArgumentNullExceptionIfItemIsNull()
+        {
+            var tree = new RadixTree();
+            Assert.Throws<ArgumentNullException>(() => tree.GetAllItemsByPrefix(null));
+        }
     }
 }
