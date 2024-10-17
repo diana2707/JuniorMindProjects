@@ -316,5 +316,22 @@
             Assert.Equal("rub", tree.GetLongestPrefixMatch("ruby"));
             Assert.Equal("", tree.GetLongestPrefixMatch("dog"));
         }
+
+        [Fact]
+        public void AddShouldThrowArgumentNullExceptionIfItemIsNull()
+        {
+            var tree = new RadixTree();
+            Assert.Throws<ArgumentNullException>(() => tree.Add(null));
+        }
+
+        [Fact]
+        public void AddShouldThrowArgumentsExceptionWhenItemIsAlreadyInTheTree()
+        {
+            var tree = new RadixTree();
+            tree.Add("romane");
+            tree.Add("romanus");
+
+            Assert.Throws<ArgumentException>(() => tree.Add("romane"));
+        }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 
 namespace ObjectsCollection
 {
@@ -18,9 +16,11 @@ namespace ObjectsCollection
 
         public void Add(string item)
         {
-            //vf sa nu se introduca dubluri
+            ValidateItemIsNotNull(item);
 
             (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item, out int itemIndex);
+
+            ValidateNewItem(item, node);
 
             if (IsPartialPrefix(node, item, itemIndex))
             {
@@ -55,7 +55,7 @@ namespace ObjectsCollection
         {
             (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item, out int index);
 
-            return node.IsWord && item.EndsWith(node.Prefix);
+            return Contains(item, node);
         }
 
         public bool Remove(string item)
@@ -207,6 +207,11 @@ namespace ObjectsCollection
             return (prefixIndex, itemIndex);
         }
 
+        private bool Contains(string item, RadixTreeNode node)
+        {
+            return node.IsWord && item.EndsWith(node.Prefix);
+        }
+
         private bool IsPartialPrefix(RadixTreeNode node, string item, int itemIndex)
         {
             return node.Prefix.Length > item.Length - itemIndex
@@ -218,6 +223,21 @@ namespace ObjectsCollection
             node.Prefix = prefix;
             node.IsWord = isWord;
             node.Children = children.ToDictionary();
+        }
+
+        private void ValidateItemIsNotNull(string item)
+        {
+            ArgumentNullException.ThrowIfNull(item);
+        }
+
+        private void ValidateNewItem(string item, RadixTreeNode node)
+        {
+            if (!Contains(item, node))
+            {
+                return;
+            }
+
+            throw new ArgumentException("The item is already stored in the tree.");
         }
     }
 }
