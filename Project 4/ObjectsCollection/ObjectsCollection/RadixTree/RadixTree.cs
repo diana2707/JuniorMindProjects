@@ -18,13 +18,15 @@ namespace ObjectsCollection
         {
             ValidateArgumentIsNotNull(item);
 
-            (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item, out int itemIndex);
+            (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item, out int lastNodeIndex);
+            int itemIndex = lastNodeIndex;
 
             ValidateNewItem(item, node);
 
-            if (IsPartialPrefix(node, item, itemIndex))
+            if (IsPartialPrefix(node, item, lastNodeIndex))
             {
-                (int prefixIndex, itemIndex) = GetEndIndexes(node.Prefix, item, itemIndex);
+                itemIndex = GetEndIndex(node.Prefix, item, lastNodeIndex);
+                int prefixIndex = itemIndex - lastNodeIndex;
 
                 RadixTreeNode splitNode = new ();
                 SetNode(splitNode, node.Prefix[prefixIndex..], node.Children, node.IsWord);
@@ -107,7 +109,7 @@ namespace ObjectsCollection
 
             (RadixTreeNode penultimateNode, RadixTreeNode node) = GetLastCommonNodes(item, out int index);
 
-            (int prefixIndex, int itemIndex) = GetEndIndexes(node.Prefix, item, index);
+            int itemIndex = GetEndIndex(node.Prefix, item, index);
 
             return item[..itemIndex];
         }
@@ -198,21 +200,20 @@ namespace ObjectsCollection
             return (penultimateNode, currentNode);
         }
 
-        private (int prefixIndex, int itemIndex) GetEndIndexes(string prefix, string item, int itemIndex)
+        private int GetEndIndex(string prefix, string item, int lastNodeIndex)
         {
-            int minLength = Math.Min(prefix.Length, item.Length - itemIndex);
-            int prefixIndex = 0;
+            int minLength = Math.Min(prefix.Length, item.Length - lastNodeIndex);
+            int itemIndex = lastNodeIndex;
 
             for (int i = 0; i < minLength; i++)
             {
                 if (prefix[i] == item[itemIndex])
                 {
-                    prefixIndex++;
                     itemIndex++;
                 }
             }
 
-            return (prefixIndex, itemIndex);
+            return itemIndex;
         }
 
         private bool Contains(string item, RadixTreeNode node)

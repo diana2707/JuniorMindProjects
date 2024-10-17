@@ -187,6 +187,7 @@
             tree.Add("car");
 
             Assert.False(tree.Remove("cab"));
+            Assert.False(tree.Remove("bag"));
             Assert.True(tree.Contains("car"));
             Assert.True(tree.Contains("cat"));
             Assert.Equal(2, tree.Count);
