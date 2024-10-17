@@ -296,5 +296,25 @@
 
             Assert.Empty(tree.GetAllItemsByPrefix("ron"));
         }
+
+        [Fact]
+        public void GetLongestPrefixMatchShouldReturnsStringWithLongestMatchFromTree()
+        {
+            var tree = new RadixTree();
+            tree.Add("romane");
+            tree.Add("romanus");
+            tree.Add("rom");
+            tree.Add("romulus");
+            tree.Add("rub");
+            tree.Add("rubens");
+            tree.Add("ben");
+            tree.Add("ruber");
+            tree.Add("rubicundus");
+
+            Assert.Equal("rubic", tree.GetLongestPrefixMatch("rubicon"));
+            Assert.Equal("rube", tree.GetLongestPrefixMatch("rubeus"));
+            Assert.Equal("rub", tree.GetLongestPrefixMatch("ruby"));
+            Assert.Equal("", tree.GetLongestPrefixMatch("dog"));
+        }
     }
 }

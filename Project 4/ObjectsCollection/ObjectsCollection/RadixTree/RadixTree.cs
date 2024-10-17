@@ -83,6 +83,7 @@ namespace ObjectsCollection
             List<string> items = new List<string>();
             (RadixTreeNode penultimateNode, RadixTreeNode node) = GetLastCommonNodes(prefix, out int index);
 
+            //vezi daca poti refactoriza ca sa redici substringurile
             if (!prefix.EndsWith(node.Prefix) && !node.Prefix.StartsWith(prefix[index..]))
             {
                 return items;
@@ -92,6 +93,15 @@ namespace ObjectsCollection
             items.AddRange(Traverse(node, prefix));
 
             return items;
+        }
+
+        public string GetLongestPrefixMatch(string item)
+        {
+            (RadixTreeNode penultimateNode, RadixTreeNode node) = GetLastCommonNodes(item, out int index);
+
+            (int prefixIndex, int itemIndex) = GetEndIndexes(node.Prefix, item, index);
+
+            return item[..itemIndex];
         }
 
         public IEnumerator<string> GetEnumerator()
