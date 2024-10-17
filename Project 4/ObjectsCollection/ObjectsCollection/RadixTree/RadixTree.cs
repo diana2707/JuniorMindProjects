@@ -62,6 +62,8 @@ namespace ObjectsCollection
 
         public bool Remove(string item)
         {
+            ValidateItemIsNotNull(item);
+
             (RadixTreeNode penultimateNode, RadixTreeNode node) = GetLastCommonNodes(item, out int index);
 
             if (!node.IsWord || !item.EndsWith(node.Prefix))

@@ -340,5 +340,12 @@
             var tree = new RadixTree();
             Assert.Throws<ArgumentNullException>(() => tree.Contains(null));
         }
+
+        [Fact]
+        public void RemoveShouldThrowArgumentNullExceptionIfItemIsNull()
+        {
+            var tree = new RadixTree();
+            Assert.Throws<ArgumentNullException>(() => tree.Remove(null));
+        }
     }
 }
