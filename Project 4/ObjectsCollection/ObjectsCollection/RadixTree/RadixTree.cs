@@ -18,21 +18,22 @@ namespace ObjectsCollection
         {
             ValidateArgumentIsNotNull(item);
 
-            (RadixTreeNode previousNode, RadixTreeNode node, int lastNodeIndex) = GetLastCommonNodes(item);
-            int itemIndex = lastNodeIndex;
+            (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item);
+            int itemIndex = node.PrefixIndex;
 
             ValidateNewItem(item, node);
 
-            if (IsPartialPrefix(node, item, lastNodeIndex))
+            if (IsPartialPrefix(node, item))
             {
-                itemIndex = GetEndIndex(node.Prefix, item, lastNodeIndex);
-                int prefixIndex = itemIndex - lastNodeIndex;
+                //node.PreficIndex este lastNodeIndex
+                itemIndex = GetEndIndex(node.Prefix, item, node.PrefixIndex);
+                int prefixIndex = itemIndex - node.PrefixIndex;
 
                 RadixTreeNode splitNode = new ();
-                SetNode(splitNode, node.Prefix[prefixIndex..], node.Children, node.IsWord);
+                SetNode(splitNode, node.Prefix[prefixIndex..], itemIndex, node.Children, node.IsWord);
 
                 Dictionary<char, RadixTreeNode> children = new () { { splitNode.Prefix[0], splitNode } };
-                SetNode(node, node.Prefix[..prefixIndex], children, false);
+                SetNode(node, node.Prefix[..prefixIndex], node.PrefixIndex, children, false);
             }
             else
             {
@@ -42,7 +43,7 @@ namespace ObjectsCollection
             if (item.Length != itemIndex)
             {
                 RadixTreeNode newNode = new ();
-                SetNode(newNode, item[itemIndex..], newNode.Children, true);
+                SetNode(newNode, item[itemIndex..], itemIndex, newNode.Children, true);
                 node.Children.Add(item[itemIndex], newNode);
             }
             else
@@ -57,7 +58,7 @@ namespace ObjectsCollection
         {
             ValidateArgumentIsNotNull(item);
 
-            (RadixTreeNode previousNode, RadixTreeNode node, int lastNodeIndex) = GetLastCommonNodes(item);
+            (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item);
 
             return Contains(item, node);
         }
@@ -66,7 +67,7 @@ namespace ObjectsCollection
         {
             ValidateArgumentIsNotNull(item);
 
-            (RadixTreeNode previousNode, RadixTreeNode node, int lastNodeIndex) = GetLastCommonNodes(item);
+            (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item);
 
             if (!node.IsWord || !item.EndsWith(node.Prefix))
             {
@@ -76,7 +77,7 @@ namespace ObjectsCollection
             if (node.Children.Count == 0)
             {
                 Count--;
-                return previousNode.Children.Remove(item[lastNodeIndex]);
+                return previousNode.Children.Remove(item[node.PrefixIndex]);
             }
 
             node.IsWord = false;
@@ -89,15 +90,15 @@ namespace ObjectsCollection
             ValidateArgumentIsNotNull(prefix);
 
             List<string> items = new List<string>();
-            (RadixTreeNode previousNode, RadixTreeNode node, int index) = GetLastCommonNodes(prefix);
+            (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(prefix);
 
             //vezi daca poti refactoriza ca sa redici substringurile
-            if (!prefix.EndsWith(node.Prefix) && !node.Prefix.StartsWith(prefix[index..]))
+            if (!prefix.EndsWith(node.Prefix) && !node.Prefix.StartsWith(prefix[node.PrefixIndex..]))
             {
                 return items;
             }
 
-            prefix = prefix[..index] + node.Prefix;
+            prefix = prefix[..node.PrefixIndex] + node.Prefix;
             items.AddRange(Traverse(node, prefix));
 
             return items;
@@ -107,9 +108,9 @@ namespace ObjectsCollection
         {
             ValidateArgumentIsNotNull(item);
 
-            (RadixTreeNode previousNode, RadixTreeNode node, int index) = GetLastCommonNodes(item);
+            (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item);
 
-            int itemIndex = GetEndIndex(node.Prefix, item, index);
+            int itemIndex = GetEndIndex(node.Prefix, item, node.PrefixIndex);
 
             return item[..itemIndex];
         }
@@ -161,15 +162,16 @@ namespace ObjectsCollection
             return node.IsWord && item.EndsWith(node.Prefix);
         }
 
-        private static bool IsPartialPrefix(RadixTreeNode node, string item, int itemIndex)
+        private static bool IsPartialPrefix(RadixTreeNode node, string item)
         {
-            return node.Prefix.Length > item.Length - itemIndex
-                    || item.IndexOf(node.Prefix, itemIndex, node.Prefix.Length) != itemIndex;
+            return node.Prefix.Length > item.Length - node.PrefixIndex
+                    || item.IndexOf(node.Prefix, node.PrefixIndex, node.Prefix.Length) != node.PrefixIndex;
         }
 
-        private static void SetNode(RadixTreeNode node, string prefix, Dictionary<char, RadixTreeNode> children, bool isWord)
+        private static void SetNode(RadixTreeNode node, string prefix, int prefixIndex, Dictionary<char, RadixTreeNode> children, bool isWord)
         {
             node.Prefix = prefix;
+            node.PrefixIndex = prefixIndex;
             node.IsWord = isWord;
             node.Children = children.ToDictionary();
         }
@@ -189,29 +191,27 @@ namespace ObjectsCollection
             throw new ArgumentException("The item is already stored in the tree.");
         }
 
-        private (RadixTreeNode previousNode, RadixTreeNode lastNode, int lastNodeIndex) GetLastCommonNodes(string item)
+        private (RadixTreeNode previousNode, RadixTreeNode lastNode) GetLastCommonNodes(string item)
         {
             RadixTreeNode lastNode = root;
             RadixTreeNode previousNode = root;
 
             int index = 0;
-            int lastNodeIndex = index;
 
             while (index < item.Length && lastNode.Children.TryGetValue(item[index], out RadixTreeNode node))
             {
-                lastNodeIndex = index;
                 previousNode = lastNode;
                 lastNode = node;
 
-                if (IsPartialPrefix(node, item, lastNodeIndex))
+                if (IsPartialPrefix(node, item))
                 {
-                    return (previousNode, lastNode, lastNodeIndex);
+                    return (previousNode, lastNode);
                 }
 
                 index += node.Prefix.Length;
             }
 
-            return (previousNode, lastNode, lastNodeIndex);
+            return (previousNode, lastNode);
         }
     }
 }
