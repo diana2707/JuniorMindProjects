@@ -29,5 +29,12 @@
             RadixTreeNode node = new ();
             Assert.False(node.IsWord);
         }
+
+        [Fact]
+        public void PrefixIndexIsNegative1WhenTreeIsEmpty()
+        {
+            RadixTreeNode node = new ();
+            Assert.Equal(-1, node.PrefixIndex);
+        }
     }
 }

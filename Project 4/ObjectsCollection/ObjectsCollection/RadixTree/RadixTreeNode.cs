@@ -8,10 +8,13 @@ namespace ObjectsCollection
         public RadixTreeNode()
         {
             Prefix = string.Empty;
+            PrefixIndex = -1;
             Children = new Dictionary<char, RadixTreeNode>();
         }
 
         public string Prefix { get; set; }
+
+        public int PrefixIndex { get; set; }
 
         public Dictionary<char, RadixTreeNode> Children { get; set; }
 

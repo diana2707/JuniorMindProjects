@@ -124,7 +124,7 @@ namespace ObjectsCollection
             return GetEnumerator();
         }
 
-        private IEnumerable<string> Traverse(RadixTreeNode node, string prefix)
+        private static IEnumerable<string> Traverse(RadixTreeNode node, string prefix)
         {
             if (node.IsWord)
             {
@@ -140,39 +140,54 @@ namespace ObjectsCollection
             }
         }
 
-        //private RadixTreeNode GetLastCommonNode(string item, out int itemIndex)//pot sa il numesc mai bine ca sa reflect ca iese si indexul?
-        //{
-        //    RadixTreeNode penultimateNode = GetPenultimateCommonNode(item, out itemIndex);
+        private static int GetEndIndex(string prefix, string item, int lastNodeIndex)
+        {
+            int minLength = Math.Min(prefix.Length, item.Length - lastNodeIndex);
+            int itemIndex = lastNodeIndex;
 
-        //    //e oare corect sa returneze root si cand nu exista cuvantul(copii), si cand copii sunt imediat dupa root
-        //    if (penultimateNode == null)
-        //    {
-        //        return root;
-        //    }
+            for (int i = 0; i < minLength; i++)
+            {
+                if (prefix[i] == item[itemIndex])
+                {
+                    itemIndex++;
+                }
+            }
 
-        //    return penultimateNode.Children.GetValueOrDefault(item[itemIndex]);
+            return itemIndex;
+        }
 
+        private static bool Contains(string item, RadixTreeNode node)
+        {
+            return node.IsWord && item.EndsWith(node.Prefix);
+        }
 
-        //    //RadixTreeNode currentNode = root;
+        private static bool IsPartialPrefix(RadixTreeNode node, string item, int itemIndex)
+        {
+            return node.Prefix.Length > item.Length - itemIndex
+                    || item.IndexOf(node.Prefix, itemIndex, node.Prefix.Length) != itemIndex;
+        }
 
-        //    //int index = 0;
-        //    //itemIndex = index;
+        private static void SetNode(RadixTreeNode node, string prefix, Dictionary<char, RadixTreeNode> children, bool isWord)
+        {
+            node.Prefix = prefix;
+            node.IsWord = isWord;
+            node.Children = children.ToDictionary();
+        }
 
-        //    //while (index < item.Length && currentNode.Children.TryGetValue(item[index], out RadixTreeNode node))
-        //    //{
-        //    //    currentNode = node;
-        //    //    itemIndex = index;
+        private static void ValidateArgumentIsNotNull(string item)
+        {
+            ArgumentNullException.ThrowIfNull(item);
+        }
 
-        //    //    if (IsPartialPrefix(currentNode, item, itemIndex))
-        //    //    {
-        //    //        return currentNode;
-        //    //    }
+        private static void ValidateNewItem(string item, RadixTreeNode node)
+        {
+            if (!Contains(item, node))
+            {
+                return;
+            }
 
-        //    //    index += currentNode.Prefix.Length;
-        //    //}
-
-        //    //return currentNode;
-        //}
+            throw new ArgumentException("The item is already stored in the tree.");
+        }
 
         private (RadixTreeNode previousNode, RadixTreeNode lastNode, int lastNodeIndex) GetLastCommonNodes(string item)
         {
@@ -197,55 +212,6 @@ namespace ObjectsCollection
             }
 
             return (previousNode, lastNode, lastNodeIndex);
-        }
-
-        private int GetEndIndex(string prefix, string item, int lastNodeIndex)
-        {
-            int minLength = Math.Min(prefix.Length, item.Length - lastNodeIndex);
-            int itemIndex = lastNodeIndex;
-
-            for (int i = 0; i < minLength; i++)
-            {
-                if (prefix[i] == item[itemIndex])
-                {
-                    itemIndex++;
-                }
-            }
-
-            return itemIndex;
-        }
-
-        private bool Contains(string item, RadixTreeNode node)
-        {
-            return node.IsWord && item.EndsWith(node.Prefix);
-        }
-
-        private bool IsPartialPrefix(RadixTreeNode node, string item, int itemIndex)
-        {
-            return node.Prefix.Length > item.Length - itemIndex
-                    || item.IndexOf(node.Prefix, itemIndex, node.Prefix.Length) != itemIndex;
-        }
-
-        private void SetNode(RadixTreeNode node, string prefix, Dictionary<char, RadixTreeNode> children, bool isWord)
-        {
-            node.Prefix = prefix;
-            node.IsWord = isWord;
-            node.Children = children.ToDictionary();
-        }
-
-        private void ValidateArgumentIsNotNull(string item)
-        {
-            ArgumentNullException.ThrowIfNull(item);
-        }
-
-        private void ValidateNewItem(string item, RadixTreeNode node)
-        {
-            if (!Contains(item, node))
-            {
-                return;
-            }
-
-            throw new ArgumentException("The item is already stored in the tree.");
         }
     }
 }
