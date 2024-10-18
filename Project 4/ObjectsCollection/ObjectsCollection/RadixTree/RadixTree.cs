@@ -85,11 +85,12 @@ namespace ObjectsCollection
         {
             ValidateArgumentIsNotNull(prefix);
 
-            List<string> items = new List<string>();
+            List<string> items = [];
             (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(prefix);
 
-            //vezi daca poti refactoriza ca sa redici substringurile
-            if (!prefix.EndsWith(node.Prefix) && !node.Prefix.StartsWith(prefix[node.PrefixPosition..]))
+            int splitIndex = GetCommonPrefixEndIndex(node.Prefix, prefix, node.PrefixPosition);
+
+            if (prefix.Length > splitIndex)
             {
                 return items;
             }
