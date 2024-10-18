@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Xml.Linq;
 
 namespace ObjectsCollection
 {
@@ -20,18 +19,13 @@ namespace ObjectsCollection
             ValidateArgumentIsNotNull(item);
 
             (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item);
-            int splitIndex = node.PrefixPosition;
+            int splitIndex = GetCommonPrefixEndIndex(item, node.Prefix, node.PrefixPosition);
 
             ValidateNewItem(item, node);
 
             if (IsPartialPrefix(node, item))
             {
-                splitIndex = GetCommonPrefixEndIndex(node.Prefix, item, node.PrefixPosition);
                 SplitNode(node, splitIndex);
-            }
-            else
-            {
-                splitIndex += node.Prefix.Length;
             }
 
             if (IsItemLongerThanPrefix(item, splitIndex))
@@ -88,9 +82,9 @@ namespace ObjectsCollection
             List<string> items = [];
             (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(prefix);
 
-            int splitIndex = GetCommonPrefixEndIndex(node.Prefix, prefix, node.PrefixPosition);
+            int splitIndex = GetCommonPrefixEndIndex(prefix, node.Prefix, node.PrefixPosition);
 
-            if (prefix.Length > splitIndex)
+            if (prefix.Length != splitIndex)
             {
                 return items;
             }
@@ -107,9 +101,9 @@ namespace ObjectsCollection
 
             (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item);
 
-            int itemIndex = GetCommonPrefixEndIndex(node.Prefix, item, node.PrefixPosition);
+            int splitIndex = GetCommonPrefixEndIndex(item, node.Prefix, node.PrefixPosition);
 
-            return item[..itemIndex];
+            return item[..splitIndex];
         }
 
         public IEnumerator<string> GetEnumerator()
@@ -138,20 +132,20 @@ namespace ObjectsCollection
             }
         }
 
-        private static int GetCommonPrefixEndIndex(string prefix, string item, int prefixPosition)
+        private static int GetCommonPrefixEndIndex(string item, string prefix, int prefixPosition)
         {
             int minLength = Math.Min(prefix.Length, item.Length - prefixPosition);
-            int itemIndex = prefixPosition;
+            int endIndex = prefixPosition;
 
             for (int i = 0; i < minLength; i++)
             {
-                if (prefix[i] == item[itemIndex])
+                if (prefix[i] == item[endIndex])
                 {
-                    itemIndex++;
+                    endIndex++;
                 }
             }
 
-            return itemIndex;
+            return endIndex;
         }
 
         private static bool Contains(string item, RadixTreeNode node)
