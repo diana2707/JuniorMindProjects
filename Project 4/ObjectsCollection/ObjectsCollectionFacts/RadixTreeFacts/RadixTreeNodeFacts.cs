@@ -34,7 +34,7 @@
         public void PrefixIndexIsNegative1WhenTreeIsEmpty()
         {
             RadixTreeNode node = new ();
-            Assert.Equal(0, node.PrefixIndex);
+            Assert.Equal(0, node.PrefixPosition);
         }
     }
 }

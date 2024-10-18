@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Xml.Linq;
 
 namespace ObjectsCollection
 {
@@ -19,21 +20,14 @@ namespace ObjectsCollection
             ValidateArgumentIsNotNull(item);
 
             (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item);
-            int itemIndex = node.PrefixIndex;
+            int itemIndex = node.PrefixPosition;
 
             ValidateNewItem(item, node);
 
             if (IsPartialPrefix(node, item))
             {
-                //node.PreficIndex este lastNodeIndex
-                itemIndex = GetEndIndex(node.Prefix, item, node.PrefixIndex);
-                int prefixIndex = itemIndex - node.PrefixIndex;
-
-                RadixTreeNode splitNode = new ();
-                SetNode(splitNode, node.Prefix[prefixIndex..], itemIndex, node.Children, node.IsWord);
-
-                Dictionary<char, RadixTreeNode> children = new () { { splitNode.Prefix[0], splitNode } };
-                SetNode(node, node.Prefix[..prefixIndex], node.PrefixIndex, children, false);
+                itemIndex = GetEndCommonIndex(node.Prefix, item, node.PrefixPosition);
+                SplitNode(node, itemIndex);
             }
             else
             {
@@ -77,7 +71,7 @@ namespace ObjectsCollection
             if (node.Children.Count == 0)
             {
                 Count--;
-                return previousNode.Children.Remove(item[node.PrefixIndex]);
+                return previousNode.Children.Remove(item[node.PrefixPosition]);
             }
 
             node.IsWord = false;
@@ -93,12 +87,12 @@ namespace ObjectsCollection
             (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(prefix);
 
             //vezi daca poti refactoriza ca sa redici substringurile
-            if (!prefix.EndsWith(node.Prefix) && !node.Prefix.StartsWith(prefix[node.PrefixIndex..]))
+            if (!prefix.EndsWith(node.Prefix) && !node.Prefix.StartsWith(prefix[node.PrefixPosition..]))
             {
                 return items;
             }
 
-            prefix = prefix[..node.PrefixIndex] + node.Prefix;
+            prefix = prefix[..node.PrefixPosition] + node.Prefix;
             items.AddRange(Traverse(node, prefix));
 
             return items;
@@ -110,7 +104,7 @@ namespace ObjectsCollection
 
             (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item);
 
-            int itemIndex = GetEndIndex(node.Prefix, item, node.PrefixIndex);
+            int itemIndex = GetEndIndex(node.Prefix, item, node.PrefixPosition);
 
             return item[..itemIndex];
         }
@@ -141,10 +135,10 @@ namespace ObjectsCollection
             }
         }
 
-        private static int GetEndIndex(string prefix, string item, int lastNodeIndex)
+        private static int GetEndIndex(string prefix, string item, int prefixPosition)
         {
-            int minLength = Math.Min(prefix.Length, item.Length - lastNodeIndex);
-            int itemIndex = lastNodeIndex;
+            int minLength = Math.Min(prefix.Length, item.Length - prefixPosition);
+            int itemIndex = prefixPosition;
 
             for (int i = 0; i < minLength; i++)
             {
@@ -164,14 +158,26 @@ namespace ObjectsCollection
 
         private static bool IsPartialPrefix(RadixTreeNode node, string item)
         {
-            return node.Prefix.Length > item.Length - node.PrefixIndex
-                    || item.IndexOf(node.Prefix, node.PrefixIndex, node.Prefix.Length) != node.PrefixIndex;
+            return node.Prefix.Length > item.Length - node.PrefixPosition
+                    || item.IndexOf(node.Prefix, node.PrefixPosition, node.Prefix.Length) != node.PrefixPosition;
+        }
+
+        private static void SplitNode(RadixTreeNode node, int itemIndex)
+        {
+            int splitIndex = itemIndex - node.PrefixPosition;
+
+            RadixTreeNode newNode = new ();
+            SetNode(newNode, node.Prefix[splitIndex..], itemIndex, node.Children, node.IsWord);
+
+            node.Children.Clear();
+            node.Children.Add(newNode.Prefix[0], newNode);
+            SetNode(node, node.Prefix[..splitIndex], node.PrefixPosition, node.Children, false);
         }
 
         private static void SetNode(RadixTreeNode node, string prefix, int prefixIndex, Dictionary<char, RadixTreeNode> children, bool isWord)
         {
             node.Prefix = prefix;
-            node.PrefixIndex = prefixIndex;
+            node.PrefixPosition = prefixIndex;
             node.IsWord = isWord;
             node.Children = children.ToDictionary();
         }
