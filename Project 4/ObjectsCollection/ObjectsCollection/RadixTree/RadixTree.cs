@@ -20,25 +20,25 @@ namespace ObjectsCollection
             ValidateArgumentIsNotNull(item);
 
             (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item);
-            int itemIndex = node.PrefixPosition;
+            int splitIndex = node.PrefixPosition;
 
             ValidateNewItem(item, node);
 
             if (IsPartialPrefix(node, item))
             {
-                itemIndex = GetEndCommonIndex(node.Prefix, item, node.PrefixPosition);
-                SplitNode(node, itemIndex);
+                splitIndex = GetCommonPrefixEndIndex(node.Prefix, item, node.PrefixPosition);
+                SplitNode(node, splitIndex);
             }
             else
             {
-                itemIndex += node.Prefix.Length;
+                splitIndex += node.Prefix.Length;
             }
 
-            if (item.Length != itemIndex)
+            if (IsItemLongerThanPrefix(item, splitIndex))
             {
                 RadixTreeNode newNode = new ();
-                SetNode(newNode, item[itemIndex..], itemIndex, newNode.Children, true);
-                node.Children.Add(item[itemIndex], newNode);
+                SetNode(newNode, item[splitIndex..], splitIndex, newNode.Children, true);
+                node.Children.Add(item[splitIndex], newNode);
             }
             else
             {
@@ -104,7 +104,7 @@ namespace ObjectsCollection
 
             (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item);
 
-            int itemIndex = GetEndIndex(node.Prefix, item, node.PrefixPosition);
+            int itemIndex = GetCommonPrefixEndIndex(node.Prefix, item, node.PrefixPosition);
 
             return item[..itemIndex];
         }
@@ -135,7 +135,7 @@ namespace ObjectsCollection
             }
         }
 
-        private static int GetEndIndex(string prefix, string item, int prefixPosition)
+        private static int GetCommonPrefixEndIndex(string prefix, string item, int prefixPosition)
         {
             int minLength = Math.Min(prefix.Length, item.Length - prefixPosition);
             int itemIndex = prefixPosition;
@@ -162,16 +162,21 @@ namespace ObjectsCollection
                     || item.IndexOf(node.Prefix, node.PrefixPosition, node.Prefix.Length) != node.PrefixPosition;
         }
 
-        private static void SplitNode(RadixTreeNode node, int itemIndex)
+        private static bool IsItemLongerThanPrefix(string item, int splitIndex)
         {
-            int splitIndex = itemIndex - node.PrefixPosition;
+            return item.Length != splitIndex;
+        }
+
+        private static void SplitNode(RadixTreeNode node, int splitIndex)
+        {
+            int prefixSplitIndex = splitIndex - node.PrefixPosition;
 
             RadixTreeNode newNode = new ();
-            SetNode(newNode, node.Prefix[splitIndex..], itemIndex, node.Children, node.IsWord);
+            SetNode(newNode, node.Prefix[prefixSplitIndex..], splitIndex, node.Children, node.IsWord);
 
             node.Children.Clear();
             node.Children.Add(newNode.Prefix[0], newNode);
-            SetNode(node, node.Prefix[..splitIndex], node.PrefixPosition, node.Children, false);
+            SetNode(node, node.Prefix[..prefixSplitIndex], node.PrefixPosition, node.Children, false);
         }
 
         private static void SetNode(RadixTreeNode node, string prefix, int prefixIndex, Dictionary<char, RadixTreeNode> children, bool isWord)
