@@ -70,11 +70,13 @@ namespace ObjectsCollection
 
             if (node.Children.Count == 0)
             {
-                Count--;
-                return previousNode.Children.Remove(item[node.PrefixPosition]);
+                previousNode.Children.Remove(item[node.PrefixPosition]);
+            }
+            else
+            {
+                node.IsWord = false;
             }
 
-            node.IsWord = false;
             Count--;
             return true;
         }
