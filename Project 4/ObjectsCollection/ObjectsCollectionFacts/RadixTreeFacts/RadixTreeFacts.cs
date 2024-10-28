@@ -17,6 +17,13 @@
         }
 
         [Fact]
+        public void IsReadOnlyShouldReturnFalse()
+        {
+            var tree = new RadixTree();
+            Assert.False(tree.IsReadOnly);
+        }
+
+        [Fact]
         public void AddShouldAddFirstElementWhenTreeIsEmpty()
         {
             var tree = new RadixTree();

@@ -10,9 +10,12 @@ namespace ObjectsCollection
         {
             root = new RadixTreeNode();
             Count = 0;
+            IsReadOnly = false;
         }
 
         public int Count { get; private set; }
+
+        public bool IsReadOnly { get; }
 
         public void Add(string item)
         {
