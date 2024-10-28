@@ -411,5 +411,31 @@
                 Assert.True(array.Contains(item));
             }
         }
+
+        [Fact]
+        public void CopyToShouldThrowArgumentNullExceptionWhenArrayIsNull()
+        {
+            var tree = new RadixTree() { "Ana", "Anda", "Alina", "Maria", "Mara" };
+
+            Assert.Throws<ArgumentNullException>(() => tree.CopyTo(null, 0));
+        }
+
+        [Fact]
+        public void CopyToShouldThrowArgumentOutOfRangeExceptionWhenIndexIsLessThan0()
+        {
+            var tree = new RadixTree() { "Ana", "Anda", "Alina", "Maria", "Mara" };
+            string[] array = new string[5];
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => tree.CopyTo(array, -1));
+        }
+
+        [Fact]
+        public void CopyToShouldThrowArgumentExceptionWhenNumberOfItemsInTreeIsGreaterThanSpaceFromIndexToArrayEnd()
+        {
+            var tree = new RadixTree() { "Ana", "Anda", "Alina", "Maria", "Mara" };
+            string[] array = new string[5];
+
+            Assert.Throws<ArgumentException>(() => tree.CopyTo(array, 1));
+        }
     }
 }

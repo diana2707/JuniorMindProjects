@@ -62,6 +62,8 @@ namespace ObjectsCollection
 
         public void CopyTo(string[] array, int arrayIndex)
         {
+            ValidateArray(array, arrayIndex);
+
             foreach (string item in this)
             {
                 array[arrayIndex] = item;
@@ -215,6 +217,19 @@ namespace ObjectsCollection
             }
 
             throw new ArgumentException("The item is already stored in the tree.");
+        }
+
+        private void ValidateArray(string[] array, int index)
+        {
+            ArgumentNullException.ThrowIfNull(array);
+            ArgumentOutOfRangeException.ThrowIfLessThan(index, 0);
+
+            if (array.Length - index >= Count)
+            {
+                return;
+            }
+
+            throw new ArgumentException("The number of items in tree is greater than the space from index to end of array.");
         }
 
         private (RadixTreeNode previousNode, RadixTreeNode lastNode) GetLastCommonNodes(string item)
