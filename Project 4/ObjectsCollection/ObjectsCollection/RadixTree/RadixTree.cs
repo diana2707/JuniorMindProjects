@@ -170,7 +170,7 @@ namespace ObjectsCollection
 
         private static bool Contains(string item, RadixTreeNode node)
         {
-            return node.IsWord && item.EndsWith(node.Prefix);
+            return node.IsWord && item.EndsWith(node.Prefix) && (item.Length - node.PrefixPosition) == node.Prefix.Length;
         }
 
         private static bool IsPartialPrefix(RadixTreeNode node, string item)

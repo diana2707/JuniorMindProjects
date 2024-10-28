@@ -161,6 +161,16 @@
         }
 
         [Fact]
+        public void ContainsShouldReturnTrueWhenEndOfStringIsTheSameAsPrefix()
+        {
+            var tree = new RadixTree() { "Ana", "Anda", "Alina", "Ana-Maria", "Maria", "Mara" };
+
+            Assert.True(tree.Contains("Ana"));
+            Assert.True(tree.Contains("Ana-Maria"));
+            Assert.Equal(6, tree.Count);
+        }
+
+        [Fact]
         public void RemoveShouldReturnTrueWhenRemovesWordsThatArePrefixForOtherWords()
         {
             var tree = new RadixTree();
