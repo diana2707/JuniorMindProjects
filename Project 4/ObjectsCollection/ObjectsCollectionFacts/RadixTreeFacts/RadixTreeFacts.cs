@@ -385,5 +385,31 @@
             Assert.Equal(0, count);
             Assert.Empty(tree);
         }
+
+        [Fact]
+        public void CopyToShouldCopyItemsToArray()
+        {
+            var tree = new RadixTree() { "Ana", "Anda", "Alina", "Maria", "Mara" };
+            string[] array = new string[tree.Count];
+            tree.CopyTo(array, 0);
+
+            foreach (var item in tree)
+            {
+                Assert.True(array.Contains(item));
+            }
+        }
+
+        [Fact]
+        public void CopyToShouldCopyItemsToArrayWhenIndexIsLargerThan0()
+        {
+            var tree = new RadixTree() { "Ana", "Anda", "Alina", "Maria", "Mara" };
+            string[] array = new string[10];
+            tree.CopyTo(array, 5);
+
+            foreach (var item in tree)
+            {
+                Assert.True(array.Contains(item));
+            }
+        }
     }
 }

@@ -60,6 +60,15 @@ namespace ObjectsCollection
             return Contains(item, node);
         }
 
+        public void CopyTo(string[] array, int arrayIndex)
+        {
+            foreach (string item in this)
+            {
+                array[arrayIndex] = item;
+                arrayIndex++;
+            }
+        }
+
         public bool Remove(string item)
         {
             ValidateArgumentIsNotNull(item);
