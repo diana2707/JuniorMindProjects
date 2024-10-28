@@ -2,7 +2,7 @@
 
 namespace ObjectsCollection
 {
-    public class RadixTree : IEnumerable<string>
+    public class RadixTree : ICollection<string>
     {
         readonly RadixTreeNode root;
 
