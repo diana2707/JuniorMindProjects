@@ -45,6 +45,12 @@ namespace ObjectsCollection
             Count++;
         }
 
+        public void Clear()
+        {
+            root.Children.Clear();
+            Count = 0;
+        }
+
         public bool Contains(string item)
         {
             ValidateArgumentIsNotNull(item);

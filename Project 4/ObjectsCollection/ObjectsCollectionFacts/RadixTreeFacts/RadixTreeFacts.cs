@@ -369,5 +369,21 @@
             var tree = new RadixTree();
             Assert.Throws<ArgumentNullException>(() => tree.GetLongestPrefixMatch(null));
         }
+
+        [Fact]
+        public void ClearShouldSetCounTo0AndClearRootNodeChildren()
+        {
+            var tree = new RadixTree() { "Ana", "Anda", "Alina", "Maria" };
+            tree.Clear();
+
+            int count = 0;
+            foreach (var item in tree)
+            {
+                count++;
+            }
+
+            Assert.Equal(0, count);
+            Assert.Empty(tree);
+        }
     }
 }
