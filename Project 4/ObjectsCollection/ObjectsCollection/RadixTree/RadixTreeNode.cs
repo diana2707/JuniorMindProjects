@@ -7,10 +7,10 @@ namespace ObjectsCollection
     {
         public RadixTreeNode()
         {
-            Children = new Dictionary<char, RadixTreeNode>();
+            Children = new Dictionary<string, RadixTreeNode>();
         }
 
-        public Dictionary<char, RadixTreeNode> Children { get; set; }
+        public Dictionary<string, RadixTreeNode> Children { get; set; }
 
         public bool IsWord { get; set; }
     }
