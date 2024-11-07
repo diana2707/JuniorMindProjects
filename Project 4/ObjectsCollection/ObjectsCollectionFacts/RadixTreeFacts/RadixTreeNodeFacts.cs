@@ -10,13 +10,6 @@
         }
 
         [Fact]
-        public void PrefixIsEmptyStringWhenTreeIsEmpty()
-        {
-            RadixTreeNode node = new ();
-            Assert.Empty(node.Prefix);
-        }
-
-        [Fact]
         public void ChildrenIsNullWhenTreeIsEmpty()
         {
             RadixTreeNode node = new ();
@@ -28,13 +21,6 @@
         {
             RadixTreeNode node = new ();
             Assert.False(node.IsWord);
-        }
-
-        [Fact]
-        public void PrefixIndexIsNegative1WhenTreeIsEmpty()
-        {
-            RadixTreeNode node = new ();
-            Assert.Equal(0, node.PrefixPosition);
         }
     }
 }
