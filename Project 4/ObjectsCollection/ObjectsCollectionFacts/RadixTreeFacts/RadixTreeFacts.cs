@@ -2,12 +2,12 @@
 {
     public class RadixTreeFacts
     {
-        //[Fact]
-        //public void RadixTreeClassExists()
-        //{
-        //    var tree = new RadixTree();
-        //    Assert.IsType<RadixTree>(tree);
-        //}
+        [Fact]
+        public void RadixTreeClassExists()
+        {
+            var tree = new RadixTree<string>();
+            Assert.IsType<RadixTree<string>>(tree);
+        }
 
         //[Fact]
         //public void CountShouldReturn0WhenTreeIsEmpty()
