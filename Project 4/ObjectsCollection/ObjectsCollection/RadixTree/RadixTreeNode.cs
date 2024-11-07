@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace ObjectsCollection
 {
-    internal class RadixTreeNode
+    internal class RadixTreeNode<T>
     {
         public RadixTreeNode()
         {
-            Children = new Dictionary<string, RadixTreeNode>();
+            Children = new Dictionary<string, RadixTreeNode<T>>();
         }
 
-        public Dictionary<string, RadixTreeNode> Children { get; set; }
+        public Dictionary<string, RadixTreeNode<T>> Children { get; set; }
 
         public bool IsWord { get; set; }
     }

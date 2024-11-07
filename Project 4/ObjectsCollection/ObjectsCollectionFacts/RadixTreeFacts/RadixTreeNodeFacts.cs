@@ -5,21 +5,21 @@
         [Fact]
         public void RadixTreeNodeClassExists()
         {
-            RadixTreeNode node = new ();
-            Assert.IsType<RadixTreeNode>(node);
+            RadixTreeNode<string> node = new ();
+            Assert.IsType<RadixTreeNode<string>>(node);
         }
 
         [Fact]
         public void ChildrenIsNullWhenTreeIsEmpty()
         {
-            RadixTreeNode node = new ();
+            RadixTreeNode<string> node = new ();
             Assert.Empty(node.Children);
         }
 
         [Fact]
         public void IsWordIsNullWhenTreeIsEmpty()
         {
-            RadixTreeNode node = new ();
+            RadixTreeNode<string> node = new ();
             Assert.False(node.IsWord);
         }
     }
