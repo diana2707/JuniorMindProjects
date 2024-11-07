@@ -10,17 +10,24 @@
         }
 
         [Fact]
-        public void ChildrenIsNullWhenTreeIsEmpty()
+        public void ChildrenIsEmptyWhenTreeIsEmpty()
         {
             RadixTreeNode<string> node = new ();
             Assert.Empty(node.Children);
         }
 
         [Fact]
-        public void IsWordIsNullWhenTreeIsEmpty()
+        public void IsWordIsFalseWhenTreeIsEmpty()
         {
             RadixTreeNode<string> node = new ();
             Assert.False(node.IsWord);
+        }
+
+        [Fact]
+        public void ValueIsNullWhenTreeIsEmpty()
+        {
+            RadixTreeNode<string> node = new ();
+            Assert.Null(node.Value);
         }
     }
 }

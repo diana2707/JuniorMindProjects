@@ -12,6 +12,8 @@ namespace ObjectsCollection
 
         public Dictionary<string, RadixTreeNode<T>> Children { get; set; }
 
+        public T Value { get; set; }
+
         public bool IsWord { get; set; }
     }
 }
