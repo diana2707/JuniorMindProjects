@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace ObjectsCollection
 {
-    public class RadixTree<T>
+    public class RadixTree<T> : IEnumerable<T>
         where T : IEnumerable<char>
     {
         readonly RadixTreeNode<T> root;
@@ -162,6 +162,32 @@ namespace ObjectsCollection
 
             Count--;
             return true;
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return Traverse(root).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        private static IEnumerable<T> Traverse(RadixTreeNode<T> node)
+        {
+            if (node.IsWord)
+            {
+                yield return node.Value;
+            }
+
+            foreach (var child in node.Children)
+            {
+                foreach (T item in Traverse(child.Value))
+                {
+                    yield return item;
+                }
+            }
         }
 
         //    public void Add(string item)

@@ -186,93 +186,93 @@
             Assert.Equal(1, tree.Count);
         }
 
-        //[Fact]
-        //public void RemoveShouldReturnTrueWhenRemovesWordsWithNoCommonSufix()
-        //{
-        //    var tree = new RadixTree();
-        //    tree.Add("cat");
-        //    tree.Add("car");
+        [Fact]
+        public void RemoveShouldReturnTrueWhenRemovesWordsWithNoCommonSufix()
+        {
+            var tree = new RadixTree<string>();
+            tree.Add("cat");
+            tree.Add("car");
 
-        //    Assert.True(tree.Remove("car"));
-        //    Assert.False(tree.Contains("car"));
-        //    Assert.True(tree.Contains("cat"));
-        //    Assert.Equal(1, tree.Count);
-        //}
+            Assert.True(tree.Remove("car"));
+            Assert.False(tree.Contains("car"));
+            Assert.True(tree.Contains("cat"));
+            Assert.Equal(1, tree.Count);
+        }
 
-        //[Fact]
-        //public void RemoveShouldReturnFalseWhenTriesToRemoveWordsThatAreNotInTree()
-        //{
-        //    var tree = new RadixTree();
-        //    tree.Add("cat");
-        //    tree.Add("car");
+        [Fact]
+        public void RemoveShouldReturnFalseWhenTriesToRemoveWordsThatAreNotInTree()
+        {
+            var tree = new RadixTree<string>();
+            tree.Add("cat");
+            tree.Add("car");
 
-        //    Assert.False(tree.Remove("cab"));
-        //    Assert.False(tree.Remove("bag"));
-        //    Assert.True(tree.Contains("car"));
-        //    Assert.True(tree.Contains("cat"));
-        //    Assert.Equal(2, tree.Count);
-        //}
+            Assert.False(tree.Remove("cab"));
+            Assert.False(tree.Remove("bag"));
+            Assert.True(tree.Contains("car"));
+            Assert.True(tree.Contains("cat"));
+            Assert.Equal(2, tree.Count);
+        }
 
-        //[Fact]
-        //public void RemoveShouldReturnTrueAndRemoveStringsWhenTreeHasMultipleStrings()
-        //{
-        //    var tree = new RadixTree();
-        //    tree.Add("romane");
-        //    tree.Add("romanus");
-        //    tree.Add("rom");
-        //    tree.Add("romulus");
-        //    tree.Add("rub");
-        //    tree.Add("rubens");
-        //    tree.Add("ben");
-        //    tree.Add("ruber");
-        //    tree.Add("rubicundus");
+        [Fact]
+        public void RemoveShouldReturnTrueAndRemoveStringsWhenTreeHasMultipleStrings()
+        {
+            var tree = new RadixTree<string>();
+            tree.Add("romane");
+            tree.Add("romanus");
+            tree.Add("rom");
+            tree.Add("romulus");
+            tree.Add("rub");
+            tree.Add("rubens");
+            tree.Add("ben");
+            tree.Add("ruber");
+            tree.Add("rubicundus");
 
-        //    Assert.True(tree.Remove("rom"));
-        //    Assert.True(tree.Remove("rubicundus"));
-        //    Assert.True(tree.Remove("ben"));
-        //    Assert.True(tree.Remove("romanus"));
+            Assert.True(tree.Remove("rom"));
+            Assert.True(tree.Remove("rubicundus"));
+            Assert.True(tree.Remove("ben"));
+            Assert.True(tree.Remove("romanus"));
 
-        //    Assert.True(tree.Contains("romane"));
-        //    Assert.True(tree.Contains("romulus"));
-        //    Assert.True(tree.Contains("rub"));
-        //    Assert.True(tree.Contains("rubens"));
-        //    Assert.True(tree.Contains("ruber"));
+            Assert.True(tree.Contains("romane"));
+            Assert.True(tree.Contains("romulus"));
+            Assert.True(tree.Contains("rub"));
+            Assert.True(tree.Contains("rubens"));
+            Assert.True(tree.Contains("ruber"));
 
-        //    Assert.False(tree.Contains("rom"));
-        //    Assert.False(tree.Contains("rubicundus"));
-        //    Assert.False(tree.Contains("ben"));
-        //    Assert.False(tree.Contains("romanus"));
+            Assert.False(tree.Contains("rom"));
+            Assert.False(tree.Contains("rubicundus"));
+            Assert.False(tree.Contains("ben"));
+            Assert.False(tree.Contains("romanus"));
 
-        //    Assert.False(tree.Contains("roman"));
+            Assert.False(tree.Contains("roman"));
 
-        //    Assert.Equal(5, tree.Count);
-        //}
+            Assert.Equal(5, tree.Count);
+        }
 
-        //[Fact]
-        //public void GetEnumeratorShouldEnumerateThroughAllStrings()
-        //{
-        //    var tree = new RadixTree();
-        //    tree.Add("romane");
-        //    tree.Add("romanus");
-        //    tree.Add("rom");
-        //    tree.Add("romulus");
-        //    tree.Add("rub");
-        //    tree.Add("rubens");
-        //    tree.Add("ben");
-        //    tree.Add("ruber");
-        //    tree.Add("rubicundus");
+        [Fact]
+        public void GetEnumeratorShouldEnumerateThroughAllStrings()
+        {
+            var tree = new RadixTree<string>();
+            tree.Add("romane");
+            tree.Add("romanus");
+            tree.Add("rom");
+            tree.Add("romulus");
+            tree.Add("rub");
+            tree.Add("rubens");
+            tree.Add("ben");
+            tree.Add("ruber");
+            tree.Add("rubicundus");
 
-        //    string[] array = { "romane", "romanus", "rom", "romulus", "rub", "rubens", "ben", "ruber", "rubicundus" };
-        //    int count = 0;
+            string[] array = { "romane", "romanus", "rom", "romulus", "rub", "rubens", "ben", "ruber", "rubicundus" };
+            int count = 0;
 
-        //    foreach (var item in tree)
-        //    {
-        //        Assert.Contains(item, array);
-        //        count++;
-        //    }
+            foreach (var item in tree)
+            {
+                Assert.Contains(item, array);
+                count++;
+            }
 
-        //    Assert.Equal(count, tree.Count);
-        //}
+            Assert.Equal(count, tree.Count);
+        }
 
         //[Fact]
         //public void GetAllItemsByPrefixShouldReturnsListWithAllStringsStartingWithPrefix()
