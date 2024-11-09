@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Xml.Linq;
 
 namespace ObjectsCollection
 {
@@ -10,14 +11,117 @@ namespace ObjectsCollection
         public RadixTree()
         {
             root = new RadixTreeNode<T>();
-            //Count = 0;
+            Count = 0;
             //IsReadOnly = false;
         }
-    }
 
-        //    public int Count { get; private set; }
+        public int Count { get; private set; }
 
-        //    public bool IsReadOnly { get; }
+        public bool IsReadOnly { get; }
+
+        public void Add(T item)
+        {
+            string key = item.ToString();
+
+            (RadixTreeNode<T> parent, string prefix, int keyIndex) = GetLastCommonNode(key);
+            RadixTreeNode<T> child = parent.Children.Count > 0 ? parent.Children[prefix] : parent;
+            int commonPrefixLength = GetCommonPrefixLength(prefix, key, keyIndex);
+
+            //ValidateArgumentIsNotNull(item);
+
+            //ValidateNewItem(item, node);
+
+            if (IsPartialPrefix(prefix, key, keyIndex))
+            {
+                keyIndex += commonPrefixLength;
+
+                RadixTreeNode<T> newNode = new ();
+                newNode.IsWord = child.IsWord;
+                newNode.Children = child.Children;
+                newNode.Value = child.Value;
+
+                RadixTreeNode<T> splitNewNode = new ();
+                splitNewNode.Children.Add(prefix[commonPrefixLength..], newNode);
+
+                parent.Children.Add(prefix[..commonPrefixLength], splitNewNode);
+                child = parent.Children[prefix[..commonPrefixLength]];
+                parent.Children.Remove(prefix);
+            }
+            else
+            {
+                keyIndex += commonPrefixLength;
+            }
+
+            if (key.Length != commonPrefixLength)
+            {
+                RadixTreeNode<T> newNode = new ();
+                newNode.IsWord = true;
+                newNode.Value = item;
+
+                child.Children.Add(key[keyIndex..], newNode);
+            }
+            else
+            {
+                child.IsWord = true;
+            }
+
+            Count++;
+        }
+
+        private (RadixTreeNode<T> node, string prefix, int keyIndex) GetLastCommonNode(string key)
+        {
+            string prefix = "";
+            int keyIndex = 0;
+            bool hasPrefix = true;
+            RadixTreeNode<T> previousNode = root;
+            RadixTreeNode<T> currentNode = root;
+
+            while (hasPrefix)
+            {
+                hasPrefix = false;
+                foreach (var child in currentNode.Children)
+                {
+                    int prefixLength = GetCommonPrefixLength(child.Key, key, keyIndex);
+
+                    if (prefixLength > 0)
+                    {
+                        hasPrefix = true;
+                        previousNode = currentNode;
+                        keyIndex = keyIndex + prefix.Length;
+
+                        prefix = child.Key;
+                        currentNode = child.Value;
+                        break;
+                    }
+                }
+            }
+
+            return (previousNode, prefix, keyIndex);
+        }
+
+        private static int GetCommonPrefixLength(string prefix, string key, int keyIndex)
+        {
+            int minLength = Math.Min(prefix.Length, key.Length - keyIndex);
+            int prefixLength = 0;
+
+            for (int i = 0; i < minLength; i++)
+            {
+                if (prefix[i] != key[keyIndex++])
+                {
+                   break;
+                }
+
+                prefixLength++;
+            }
+
+            return prefixLength;
+        }
+
+        private static bool IsPartialPrefix(string prefix, string key, int keyIndex)
+        {
+            return prefix.Length > key.Length - keyIndex
+                    || key.IndexOf(prefix, keyIndex, prefix.Length) != keyIndex;
+        }
 
         //    public void Add(string item)
         //    {
@@ -258,3 +362,4 @@ namespace ObjectsCollection
         //    }
         //}
     }
+}

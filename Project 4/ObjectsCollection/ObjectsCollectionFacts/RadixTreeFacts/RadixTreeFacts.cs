@@ -9,84 +9,84 @@
             Assert.IsType<RadixTree<string>>(tree);
         }
 
-        //[Fact]
-        //public void CountShouldReturn0WhenTreeIsEmpty()
-        //{
-        //    var tree = new RadixTree();
-        //    Assert.Equal(0, tree.Count);
-        //}
+        [Fact]
+        public void CountShouldReturn0WhenTreeIsEmpty()
+        {
+            var tree = new RadixTree<string>();
+            Assert.Equal(0, tree.Count);
+        }
 
-        //[Fact]
-        //public void IsReadOnlyShouldReturnFalse()
-        //{
-        //    var tree = new RadixTree();
-        //    Assert.False(tree.IsReadOnly);
-        //}
+        [Fact]
+        public void IsReadOnlyShouldReturnFalse()
+        {
+            var tree = new RadixTree<string>();
+            Assert.False(tree.IsReadOnly);
+        }
 
-        //[Fact]
-        //public void AddShouldAddFirstElementWhenTreeIsEmpty()
-        //{
-        //    var tree = new RadixTree();
-        //    tree.Add("cat");
-        //    Assert.Equal(1, tree.Count);
-        //}
+        [Fact]
+        public void AddShouldAddFirstElementWhenTreeIsEmpty()
+        {
+            var tree = new RadixTree<string>();
+            tree.Add("cat");
+            Assert.Equal(1, tree.Count);
+        }
 
-        //[Fact]
-        //public void AddShouldAddElementWhenPrefixIsCommon()
-        //{
-        //    var tree = new RadixTree();
-        //    tree.Add("cat");
-        //    tree.Add("car");
-        //    Assert.Equal(2, tree.Count);
-        //}
+        [Fact]
+        public void AddShouldAddElementWhenPrefixIsCommon()
+        {
+            var tree = new RadixTree<string>();
+            tree.Add("cat");
+            tree.Add("car");
+            Assert.Equal(2, tree.Count);
+        }
 
-        //[Fact]
-        //public void AddShouldAddMultipleElementsWhenPrefixIscommon()
-        //{
-        //    var tree = new RadixTree();
-        //    tree.Add("cat");
-        //    tree.Add("car");
-        //    tree.Add("cabage");
-        //    tree.Add("candle");
-        //    Assert.True(tree.Contains("cabage"));
-        //    Assert.True(tree.Contains("candle"));
-        //    Assert.Equal(4, tree.Count);
-        //}
+        [Fact]
+        public void AddShouldAddMultipleElementsWhenPrefixIscommon()
+        {
+            var tree = new RadixTree<string>();
+            tree.Add("cat");
+            tree.Add("car");
+            tree.Add("cabage");
+            tree.Add("candle");
+            //Assert.True(tree.Contains("cabage"));
+            //Assert.True(tree.Contains("candle"));
+            Assert.Equal(4, tree.Count);
+        }
 
-        //[Fact]
-        //public void AddShouldAddElementWhenNewStringHasAnotherWordAsPrefix()
-        //{
-        //    var tree = new RadixTree();
-        //    tree.Add("cat");
-        //    tree.Add("catnip");
-        //    Assert.True(tree.Contains("cat"));
-        //    Assert.True(tree.Contains("catnip"));
-        //    Assert.Equal(2, tree.Count);
-        //}
+        [Fact]
+        public void AddShouldAddElementWhenNewStringHasAnotherWordAsPrefix()
+        {
+            var tree = new RadixTree<string>();
+            tree.Add("cat");
+            tree.Add("catnip");
+            //Assert.True(tree.Contains("cat"));
+            //Assert.True(tree.Contains("catnip"));
+            Assert.Equal(2, tree.Count);
+        }
 
-        //[Fact]
-        //public void AddShouldAddElementWhenNewStringIsPartOfAWordFromTree()
-        //{
-        //    var tree = new RadixTree();
-        //    tree.Add("catnip");
-        //    tree.Add("cat");
-        //    Assert.True(tree.Contains("cat"));
-        //    Assert.True(tree.Contains("catnip"));
-        //    Assert.Equal(2, tree.Count);
-        //}
+        [Fact]
+        public void AddShouldAddElementWhenNewStringIsPartOfAWordFromTree()
+        {
+            var tree = new RadixTree<string>();
+            tree.Add("catnip");
+            tree.Add("cat");
+            //Assert.True(tree.Contains("cat"));
+            //Assert.True(tree.Contains("catnip"));
+            Assert.Equal(2, tree.Count);
+        }
 
-        //[Fact]
-        //public void AddShouldAddElementWhenNewStringIsPrefixFor2WordsInTree()
-        //{
-        //    var tree = new RadixTree();
-        //    tree.Add("catnip");
-        //    tree.Add("category");
-        //    tree.Add("cat");
-        //    Assert.True(tree.Contains("cat"));
-        //    Assert.True(tree.Contains("catnip"));
-        //    Assert.True(tree.Contains("category"));
-        //    Assert.Equal(3, tree.Count);
-        //}
+        [Fact]
+        public void AddShouldAddElementWhenNewStringIsPrefixFor2WordsInTree()
+        {
+            var tree = new RadixTree<string>();
+            tree.Add("catnip");
+            tree.Add("category");
+            tree.Add("cat");
+            //Assert.True(tree.Contains("cat"));
+            //Assert.True(tree.Contains("catnip"));
+            //Assert.True(tree.Contains("category"));
+            Assert.Equal(3, tree.Count);
+        }
 
         //[Fact]
         //public void AddShouldNotAddElementWhen2StringsHaveWordAsCommonPrefix()
