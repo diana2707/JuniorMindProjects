@@ -133,7 +133,7 @@ namespace ObjectsCollection
             string key = item.ToString();
 
             (RadixTreeNode<T> parent, string prefix, int keyIndex) = GetLastCommonNode(key);
-            RadixTreeNode<T> child = parent.Children.Count > 0 ? parent.Children[prefix] : parent;
+            RadixTreeNode<T> child = parent == null ? root : parent.Children[prefix];
 
             return item.Equals(child.Value);
         }
