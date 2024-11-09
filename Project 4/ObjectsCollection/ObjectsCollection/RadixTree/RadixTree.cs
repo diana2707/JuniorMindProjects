@@ -24,7 +24,7 @@ namespace ObjectsCollection
             string key = item.ToString();
 
             (RadixTreeNode<T> parent, string prefix, int keyIndex) = GetLastCommonNode(key);
-            RadixTreeNode<T> child = parent.Children.Count > 0 ? parent.Children[prefix] : parent;
+            RadixTreeNode<T> child = parent == null ? root : parent.Children[prefix];
             int commonPrefixLength = GetCommonPrefixLength(prefix, key, keyIndex);
 
             //ValidateArgumentIsNotNull(item);
@@ -63,6 +63,7 @@ namespace ObjectsCollection
             else
             {
                 child.IsWord = true;
+                child.Value = item;
             }
 
             Count++;
@@ -72,8 +73,9 @@ namespace ObjectsCollection
         {
             string prefix = "";
             int keyIndex = 0;
+            int currentIndex = 0;
             bool hasPrefix = true;
-            RadixTreeNode<T> previousNode = root;
+            RadixTreeNode<T> previousNode = null;
             RadixTreeNode<T> currentNode = root;
 
             while (hasPrefix)
@@ -81,7 +83,7 @@ namespace ObjectsCollection
                 hasPrefix = false;
                 foreach (var child in currentNode.Children)
                 {
-                    int prefixLength = GetCommonPrefixLength(child.Key, key, keyIndex);
+                    int prefixLength = GetCommonPrefixLength(child.Key, key, currentIndex);
 
                     if (prefixLength > 0)
                     {
@@ -90,6 +92,7 @@ namespace ObjectsCollection
                         keyIndex = keyIndex + prefix.Length;
 
                         prefix = child.Key;
+                        currentIndex += prefix.Length;
                         currentNode = child.Value;
                         break;
                     }
@@ -121,6 +124,18 @@ namespace ObjectsCollection
         {
             return prefix.Length > key.Length - keyIndex
                     || key.IndexOf(prefix, keyIndex, prefix.Length) != keyIndex;
+        }
+
+        public bool Contains(T item)
+        {
+            //ValidateArgumentIsNotNull(item);
+
+            string key = item.ToString();
+
+            (RadixTreeNode<T> parent, string prefix, int keyIndex) = GetLastCommonNode(key);
+            RadixTreeNode<T> child = parent.Children.Count > 0 ? parent.Children[prefix] : parent;
+
+            return item.Equals(child.Value);
         }
 
         //    public void Add(string item)

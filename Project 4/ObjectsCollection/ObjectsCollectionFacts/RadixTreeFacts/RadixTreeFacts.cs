@@ -48,8 +48,11 @@
             tree.Add("car");
             tree.Add("cabage");
             tree.Add("candle");
-            //Assert.True(tree.Contains("cabage"));
-            //Assert.True(tree.Contains("candle"));
+            Assert.True(tree.Contains("cat"));
+            Assert.True(tree.Contains("car"));
+            Assert.True(tree.Contains("cabage"));
+            Assert.True(tree.Contains("candle"));
+
             Assert.Equal(4, tree.Count);
         }
 
@@ -59,8 +62,8 @@
             var tree = new RadixTree<string>();
             tree.Add("cat");
             tree.Add("catnip");
-            //Assert.True(tree.Contains("cat"));
-            //Assert.True(tree.Contains("catnip"));
+            Assert.True(tree.Contains("cat"));
+            Assert.True(tree.Contains("catnip"));
             Assert.Equal(2, tree.Count);
         }
 
@@ -70,8 +73,8 @@
             var tree = new RadixTree<string>();
             tree.Add("catnip");
             tree.Add("cat");
-            //Assert.True(tree.Contains("cat"));
-            //Assert.True(tree.Contains("catnip"));
+            Assert.True(tree.Contains("cat"));
+            Assert.True(tree.Contains("catnip"));
             Assert.Equal(2, tree.Count);
         }
 
@@ -82,60 +85,60 @@
             tree.Add("catnip");
             tree.Add("category");
             tree.Add("cat");
-            //Assert.True(tree.Contains("cat"));
-            //Assert.True(tree.Contains("catnip"));
-            //Assert.True(tree.Contains("category"));
+            Assert.True(tree.Contains("cat"));
+            Assert.True(tree.Contains("catnip"));
+            Assert.True(tree.Contains("category"));
             Assert.Equal(3, tree.Count);
         }
 
-        //[Fact]
-        //public void AddShouldNotAddElementWhen2StringsHaveWordAsCommonPrefix()
-        //{
-        //    var tree = new RadixTree();
-        //    tree.Add("catnip");
-        //    tree.Add("category");
+        [Fact]
+        public void AddShouldNotAddElementWhen2StringsHaveWordAsCommonPrefix()
+        {
+            var tree = new RadixTree<string>();
+            tree.Add("catnip");
+            tree.Add("category");
 
-        //    Assert.False(tree.Contains("cat"));
-        //    Assert.True(tree.Contains("catnip"));
-        //    Assert.True(tree.Contains("category"));
-        //    Assert.Equal(2, tree.Count);
-        //}
+            Assert.False(tree.Contains("cat"));
+            Assert.True(tree.Contains("catnip"));
+            Assert.True(tree.Contains("category"));
+            Assert.Equal(2, tree.Count);
+        }
 
-        //[Fact]
-        //public void AddShouldAddElementsWithDifferntLengthsAndCommonPrefixes()
-        //{
-        //    var tree = new RadixTree();
-        //    tree.Add("romane");
-        //    tree.Add("romanus");
-        //    tree.Add("rom");
-        //    tree.Add("romulus");
-        //    tree.Add("rub");
-        //    tree.Add("rubens");
-        //    tree.Add("ben");
-        //    tree.Add("ruber");
-        //    tree.Add("rubicundus");
+        [Fact]
+        public void AddShouldAddElementsWithDifferntLengthsAndCommonPrefixes()
+        {
+            var tree = new RadixTree<string>();
+            tree.Add("romane");
+            tree.Add("romanus");
+            tree.Add("rom");
+            tree.Add("romulus");
+            tree.Add("rub");
+            tree.Add("rubens");
+            tree.Add("ben");
+            tree.Add("ruber");
+            tree.Add("rubicundus");
 
-        //    Assert.True(tree.Contains("romane"));
-        //    Assert.True(tree.Contains("romanus"));
-        //    Assert.True(tree.Contains("rom"));
-        //    Assert.True(tree.Contains("romulus"));
-        //    Assert.True(tree.Contains("rub"));
-        //    Assert.True(tree.Contains("rubens"));
-        //    Assert.True(tree.Contains("ben"));
-        //    Assert.True(tree.Contains("ruber"));
-        //    Assert.True(tree.Contains("rubicundus"));
-        //    Assert.Equal(9, tree.Count);
-        //}
+            Assert.True(tree.Contains("romane"));
+            Assert.True(tree.Contains("romanus"));
+            Assert.True(tree.Contains("rom"));
+            Assert.True(tree.Contains("romulus"));
+            Assert.True(tree.Contains("rub"));
+            Assert.True(tree.Contains("rubens"));
+            Assert.True(tree.Contains("ben"));
+            Assert.True(tree.Contains("ruber"));
+            Assert.True(tree.Contains("rubicundus"));
+            Assert.Equal(9, tree.Count);
+        }
 
-        //[Fact]
-        //public void ContainsShouldReturnTrueIfStringExistsInTree()
-        //{
-        //    var tree = new RadixTree();
-        //    tree.Add("cat");
-        //    tree.Add("car");
-        //    Assert.True(tree.Contains("car"));
-        //    Assert.True(tree.Contains("cat"));
-        //}
+        [Fact]
+        public void ContainsShouldReturnTrueIfStringExistsInTree()
+        {
+            var tree = new RadixTree<string>();
+            tree.Add("cat");
+            tree.Add("car");
+            Assert.True(tree.Contains("car"));
+            Assert.True(tree.Contains("cat"));
+        }
 
         //[Fact]
         //public void ContainsShouldReturnFalseIfStringDoNotExistsInTree()
