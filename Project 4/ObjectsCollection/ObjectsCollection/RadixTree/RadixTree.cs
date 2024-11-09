@@ -138,6 +138,32 @@ namespace ObjectsCollection
             return item.Equals(child.Value);
         }
 
+        public bool Remove(T item)
+        {
+            //ValidateArgumentIsNotNull(item);
+            string key = item.ToString();
+            (RadixTreeNode<T> parent, string prefix, int keyIndex) = GetLastCommonNode(key);
+            RadixTreeNode<T> child = parent == null ? root : parent.Children[prefix];
+
+            if (!child.IsWord || !key.EndsWith(prefix))
+            {
+                return false;
+            }
+
+            if (child.Children.Count == 0)
+            {
+                parent.Children.Remove(prefix);
+            }
+            else
+            {
+                child.IsWord = false;
+                child.Value = default;
+            }
+
+            Count--;
+            return true;
+        }
+
         //    public void Add(string item)
         //    {
         //        ValidateArgumentIsNotNull(item);
