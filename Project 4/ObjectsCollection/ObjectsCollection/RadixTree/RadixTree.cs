@@ -29,9 +29,7 @@ namespace ObjectsCollection
             RadixTreeNode<T> child = parent == null ? root : parent.Children[prefix];
             int commonPrefixLength = GetCommonPrefixLength(prefix, key, keyIndex);
 
-            //ValidateArgumentIsNotNull(item);
-
-            //ValidateNewItem(item, node);
+            ValidateNewItem(item, child);
 
             if (IsPartialPrefix(prefix, key, keyIndex))
             {
@@ -137,7 +135,12 @@ namespace ObjectsCollection
             (RadixTreeNode<T> parent, string prefix, int keyIndex) = GetLastCommonNode(key);
             RadixTreeNode<T> child = parent == null ? root : parent.Children[prefix];
 
-            return item.Equals(child.Value);
+            return Contains(item, child);
+        }
+
+        private static bool Contains(T item, RadixTreeNode<T> node)
+        {
+            return item.Equals(node.Value);
         }
 
         public bool Remove(T item)
@@ -230,243 +233,253 @@ namespace ObjectsCollection
             ArgumentNullException.ThrowIfNull(item);
         }
 
-        //    public void Add(string item)
-        //    {
-        //        ValidateArgumentIsNotNull(item);
+        private static void ValidateNewItem(T item, RadixTreeNode<T> node)
+        {
+            if (!Contains(item, node))
+            {
+                return;
+            }
 
-        //        (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item);
-        //        int splitIndex = GetCommonPrefixEndIndex(item, node.Prefix, node.PrefixPosition);
+            throw new ArgumentException("The item is already stored in the tree.");
+        }
 
-        //        ValidateNewItem(item, node);
+            //    public void Add(string item)
+            //    {
+            //        ValidateArgumentIsNotNull(item);
 
-        //        if (IsPartialPrefix(node, item))
-        //        {
-        //            SplitNode(node, splitIndex);
-        //        }
+            //        (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item);
+            //        int splitIndex = GetCommonPrefixEndIndex(item, node.Prefix, node.PrefixPosition);
 
-        //        if (IsItemLongerThanPrefix(item, splitIndex))
-        //        {
-        //            RadixTreeNode newNode = new ();
-        //            SetNode(newNode, item[splitIndex..], splitIndex, newNode.Children, true);
-        //            node.Children.Add(item[splitIndex], newNode);
-        //        }
-        //        else
-        //        {
-        //            node.IsWord = true;
-        //        }
+            //        ValidateNewItem(item, node);
 
-        //        Count++;
-        //    }
+            //        if (IsPartialPrefix(node, item))
+            //        {
+            //            SplitNode(node, splitIndex);
+            //        }
 
-        //    public void Clear()
-        //    {
-        //        root.Children.Clear();
-        //        Count = 0;
-        //    }
+            //        if (IsItemLongerThanPrefix(item, splitIndex))
+            //        {
+            //            RadixTreeNode newNode = new ();
+            //            SetNode(newNode, item[splitIndex..], splitIndex, newNode.Children, true);
+            //            node.Children.Add(item[splitIndex], newNode);
+            //        }
+            //        else
+            //        {
+            //            node.IsWord = true;
+            //        }
 
-        //    public bool Contains(string item)
-        //    {
-        //        ValidateArgumentIsNotNull(item);
+            //        Count++;
+            //    }
 
-        //        (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item);
+            //    public void Clear()
+            //    {
+            //        root.Children.Clear();
+            //        Count = 0;
+            //    }
 
-        //        return Contains(item, node);
-        //    }
+            //    public bool Contains(string item)
+            //    {
+            //        ValidateArgumentIsNotNull(item);
 
-        //    public void CopyTo(string[] array, int arrayIndex)
-        //    {
-        //        ValidateArray(array, arrayIndex);
+            //        (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item);
 
-        //        foreach (string item in this)
-        //        {
-        //            array[arrayIndex] = item;
-        //            arrayIndex++;
-        //        }
-        //    }
+            //        return Contains(item, node);
+            //    }
 
-        //    public bool Remove(string item)
-        //    {
-        //        ValidateArgumentIsNotNull(item);
+            //    public void CopyTo(string[] array, int arrayIndex)
+            //    {
+            //        ValidateArray(array, arrayIndex);
 
-        //        (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item);
+            //        foreach (string item in this)
+            //        {
+            //            array[arrayIndex] = item;
+            //            arrayIndex++;
+            //        }
+            //    }
 
-        //        if (!node.IsWord || !item.EndsWith(node.Prefix))
-        //        {
-        //            return false;
-        //        }
+            //    public bool Remove(string item)
+            //    {
+            //        ValidateArgumentIsNotNull(item);
 
-        //        if (node.Children.Count == 0)
-        //        {
-        //            previousNode.Children.Remove(item[node.PrefixPosition]);
-        //        }
-        //        else
-        //        {
-        //            node.IsWord = false;
-        //        }
+            //        (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item);
 
-        //        Count--;
-        //        return true;
-        //    }
+            //        if (!node.IsWord || !item.EndsWith(node.Prefix))
+            //        {
+            //            return false;
+            //        }
 
-        //    public List<string> GetAllItemsByPrefix(string prefix)
-        //    {
-        //        ValidateArgumentIsNotNull(prefix);
+            //        if (node.Children.Count == 0)
+            //        {
+            //            previousNode.Children.Remove(item[node.PrefixPosition]);
+            //        }
+            //        else
+            //        {
+            //            node.IsWord = false;
+            //        }
 
-        //        List<string> items = [];
-        //        (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(prefix);
+            //        Count--;
+            //        return true;
+            //    }
 
-        //        int splitIndex = GetCommonPrefixEndIndex(prefix, node.Prefix, node.PrefixPosition);
+            //    public List<string> GetAllItemsByPrefix(string prefix)
+            //    {
+            //        ValidateArgumentIsNotNull(prefix);
 
-        //        if (prefix.Length != splitIndex)
-        //        {
-        //            return items;
-        //        }
+            //        List<string> items = [];
+            //        (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(prefix);
 
-        //        prefix = prefix[..node.PrefixPosition] + node.Prefix;
-        //        items.AddRange(Traverse(node, prefix));
+            //        int splitIndex = GetCommonPrefixEndIndex(prefix, node.Prefix, node.PrefixPosition);
 
-        //        return items;
-        //    }
+            //        if (prefix.Length != splitIndex)
+            //        {
+            //            return items;
+            //        }
 
-        //    public string GetLongestPrefixMatch(string item)
-        //    {
-        //        ValidateArgumentIsNotNull(item);
+            //        prefix = prefix[..node.PrefixPosition] + node.Prefix;
+            //        items.AddRange(Traverse(node, prefix));
 
-        //        (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item);
+            //        return items;
+            //    }
 
-        //        int splitIndex = GetCommonPrefixEndIndex(item, node.Prefix, node.PrefixPosition);
+            //    public string GetLongestPrefixMatch(string item)
+            //    {
+            //        ValidateArgumentIsNotNull(item);
 
-        //        return item[..splitIndex];
-        //    }
+            //        (RadixTreeNode previousNode, RadixTreeNode node) = GetLastCommonNodes(item);
 
-        //    public IEnumerator<string> GetEnumerator()
-        //    {
-        //        return Traverse(root, "").GetEnumerator();
-        //    }
+            //        int splitIndex = GetCommonPrefixEndIndex(item, node.Prefix, node.PrefixPosition);
 
-        //    IEnumerator IEnumerable.GetEnumerator()
-        //    {
-        //        return GetEnumerator();
-        //    }
+            //        return item[..splitIndex];
+            //    }
 
-        //    private static IEnumerable<string> Traverse(RadixTreeNode node, string prefix)
-        //    {
-        //        if (node.IsWord)
-        //        {
-        //            yield return prefix;
-        //        }
+            //    public IEnumerator<string> GetEnumerator()
+            //    {
+            //        return Traverse(root, "").GetEnumerator();
+            //    }
 
-        //        foreach (var child in node.Children)
-        //        {
-        //            foreach (string item in Traverse(child.Value, prefix + child.Value.Prefix))
-        //            {
-        //                yield return item;
-        //            }
-        //        }
-        //    }
+            //    IEnumerator IEnumerable.GetEnumerator()
+            //    {
+            //        return GetEnumerator();
+            //    }
 
-        //    private static int GetCommonPrefixEndIndex(string item, string prefix, int prefixPosition)
-        //    {
-        //        int minLength = Math.Min(prefix.Length, item.Length - prefixPosition);
-        //        int endIndex = prefixPosition;
+            //    private static IEnumerable<string> Traverse(RadixTreeNode node, string prefix)
+            //    {
+            //        if (node.IsWord)
+            //        {
+            //            yield return prefix;
+            //        }
 
-        //        for (int i = 0; i < minLength; i++)
-        //        {
-        //            if (prefix[i] == item[endIndex])
-        //            {
-        //                endIndex++;
-        //            }
-        //        }
+            //        foreach (var child in node.Children)
+            //        {
+            //            foreach (string item in Traverse(child.Value, prefix + child.Value.Prefix))
+            //            {
+            //                yield return item;
+            //            }
+            //        }
+            //    }
 
-        //        return endIndex;
-        //    }
+            //    private static int GetCommonPrefixEndIndex(string item, string prefix, int prefixPosition)
+            //    {
+            //        int minLength = Math.Min(prefix.Length, item.Length - prefixPosition);
+            //        int endIndex = prefixPosition;
 
-        //    private static bool Contains(string item, RadixTreeNode node)
-        //    {
-        //        return node.IsWord && item.EndsWith(node.Prefix) && (item.Length - node.PrefixPosition) == node.Prefix.Length;
-        //    }
+            //        for (int i = 0; i < minLength; i++)
+            //        {
+            //            if (prefix[i] == item[endIndex])
+            //            {
+            //                endIndex++;
+            //            }
+            //        }
 
-        //    private static bool IsPartialPrefix(RadixTreeNode node, string item)
-        //    {
-        //        return node.Prefix.Length > item.Length - node.PrefixPosition
-        //                || item.IndexOf(node.Prefix, node.PrefixPosition, node.Prefix.Length) != node.PrefixPosition;
-        //    }
+            //        return endIndex;
+            //    }
 
-        //    private static bool IsItemLongerThanPrefix(string item, int splitIndex)
-        //    {
-        //        return item.Length != splitIndex;
-        //    }
+            //    private static bool Contains(string item, RadixTreeNode node)
+            //    {
+            //        return node.IsWord && item.EndsWith(node.Prefix) && (item.Length - node.PrefixPosition) == node.Prefix.Length;
+            //    }
 
-        //    private static void SplitNode(RadixTreeNode node, int splitIndex)
-        //    {
-        //        int prefixSplitIndex = splitIndex - node.PrefixPosition;
+            //    private static bool IsPartialPrefix(RadixTreeNode node, string item)
+            //    {
+            //        return node.Prefix.Length > item.Length - node.PrefixPosition
+            //                || item.IndexOf(node.Prefix, node.PrefixPosition, node.Prefix.Length) != node.PrefixPosition;
+            //    }
 
-        //        RadixTreeNode newNode = new ();
-        //        SetNode(newNode, node.Prefix[prefixSplitIndex..], splitIndex, node.Children, node.IsWord);
+            //    private static bool IsItemLongerThanPrefix(string item, int splitIndex)
+            //    {
+            //        return item.Length != splitIndex;
+            //    }
 
-        //        node.Children.Clear();
-        //        node.Children.Add(newNode.Prefix[0], newNode);
-        //        SetNode(node, node.Prefix[..prefixSplitIndex], node.PrefixPosition, node.Children, false);
-        //    }
+            //    private static void SplitNode(RadixTreeNode node, int splitIndex)
+            //    {
+            //        int prefixSplitIndex = splitIndex - node.PrefixPosition;
 
-        //    private static void SetNode(RadixTreeNode node, string prefix, int prefixIndex, Dictionary<char, RadixTreeNode> children, bool isWord)
-        //    {
-        //        node.Prefix = prefix;
-        //        node.PrefixPosition = prefixIndex;
-        //        node.IsWord = isWord;
-        //        node.Children = children.ToDictionary();
-        //    }
+            //        RadixTreeNode newNode = new ();
+            //        SetNode(newNode, node.Prefix[prefixSplitIndex..], splitIndex, node.Children, node.IsWord);
 
-        //    private static void ValidateArgumentIsNotNull(string item)
-        //    {
-        //        ArgumentNullException.ThrowIfNull(item);
-        //    }
+            //        node.Children.Clear();
+            //        node.Children.Add(newNode.Prefix[0], newNode);
+            //        SetNode(node, node.Prefix[..prefixSplitIndex], node.PrefixPosition, node.Children, false);
+            //    }
 
-        //    private static void ValidateNewItem(string item, RadixTreeNode node)
-        //    {
-        //        if (!Contains(item, node))
-        //        {
-        //            return;
-        //        }
+            //    private static void SetNode(RadixTreeNode node, string prefix, int prefixIndex, Dictionary<char, RadixTreeNode> children, bool isWord)
+            //    {
+            //        node.Prefix = prefix;
+            //        node.PrefixPosition = prefixIndex;
+            //        node.IsWord = isWord;
+            //        node.Children = children.ToDictionary();
+            //    }
 
-        //        throw new ArgumentException("The item is already stored in the tree.");
-        //    }
+            //    private static void ValidateArgumentIsNotNull(string item)
+            //    {
+            //        ArgumentNullException.ThrowIfNull(item);
+            //    }
 
-        //    private void ValidateArray(string[] array, int index)
-        //    {
-        //        ArgumentNullException.ThrowIfNull(array);
-        //        ArgumentOutOfRangeException.ThrowIfLessThan(index, 0);
+            //    private static void ValidateNewItem(string item, RadixTreeNode node)
+            //    {
+            //        if (!Contains(item, node))
+            //        {
+            //            return;
+            //        }
 
-        //        if (array.Length - index >= Count)
-        //        {
-        //            return;
-        //        }
+            //        throw new ArgumentException("The item is already stored in the tree.");
+            //    }
 
-        //        throw new ArgumentException("The number of items in tree is greater than the space from index to end of array.");
-        //    }
+            //    private void ValidateArray(string[] array, int index)
+            //    {
+            //        ArgumentNullException.ThrowIfNull(array);
+            //        ArgumentOutOfRangeException.ThrowIfLessThan(index, 0);
 
-        //    private (RadixTreeNode previousNode, RadixTreeNode lastNode) GetLastCommonNodes(string item)
-        //    {
-        //        RadixTreeNode lastNode = root;
-        //        RadixTreeNode previousNode = root;
+            //        if (array.Length - index >= Count)
+            //        {
+            //            return;
+            //        }
 
-        //        int index = 0;
+            //        throw new ArgumentException("The number of items in tree is greater than the space from index to end of array.");
+            //    }
 
-        //        while (index < item.Length && lastNode.Children.TryGetValue(item[index], out RadixTreeNode node))
-        //        {
-        //            previousNode = lastNode;
-        //            lastNode = node;
+            //    private (RadixTreeNode previousNode, RadixTreeNode lastNode) GetLastCommonNodes(string item)
+            //    {
+            //        RadixTreeNode lastNode = root;
+            //        RadixTreeNode previousNode = root;
 
-        //            if (IsPartialPrefix(node, item))
-        //            {
-        //                return (previousNode, lastNode);
-        //            }
+            //        int index = 0;
 
-        //            index += node.Prefix.Length;
-        //        }
+            //        while (index < item.Length && lastNode.Children.TryGetValue(item[index], out RadixTreeNode node))
+            //        {
+            //            previousNode = lastNode;
+            //            lastNode = node;
 
-        //        return (previousNode, lastNode);
-        //    }
-        //}
-    }
+            //            if (IsPartialPrefix(node, item))
+            //            {
+            //                return (previousNode, lastNode);
+            //            }
+
+            //            index += node.Prefix.Length;
+            //        }
+
+            //        return (previousNode, lastNode);
+            //    }
+            //}
+        }
 }

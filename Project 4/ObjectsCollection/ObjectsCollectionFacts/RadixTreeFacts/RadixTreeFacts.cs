@@ -345,15 +345,15 @@
             Assert.Throws<ArgumentNullException>(() => tree.Add(null));
         }
 
-        //[Fact]
-        //public void AddShouldThrowArgumentsExceptionWhenItemIsAlreadyInTheTree()
-        //{
-        //    var tree = new RadixTree();
-        //    tree.Add("romane");
-        //    tree.Add("romanus");
+        [Fact]
+        public void AddShouldThrowArgumentsExceptionWhenItemIsAlreadyInTheTree()
+        {
+            var tree = new RadixTree<string>();
+            tree.Add("romane");
+            tree.Add("romanus");
 
-        //    Assert.Throws<ArgumentException>(() => tree.Add("romane"));
-        //}
+            Assert.Throws<ArgumentException>(() => tree.Add("romane"));
+        }
 
         //[Fact]
         //public void ContainsShouldThrowArgumentNullExceptionIfItemIsNull()
