@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Xml.Linq;
 
 namespace ObjectsCollection
 {
@@ -204,22 +203,20 @@ namespace ObjectsCollection
             string prefix = "";
             int keyIndex = 0;
             int currentIndex = 0;
-            bool hasPrefix = true;
+            bool hasChildren = true;
             RadixTreeNode<T> previousNode = null;
             RadixTreeNode<T> currentNode = root;
 
-            while (hasPrefix)
+            while (hasChildren)
             {
-                hasPrefix = false;
+                hasChildren = false;
                 foreach (var child in currentNode.Children)
                 {
-                    int prefixLength = GetCommonPrefixLength(child.Key, key, currentIndex);
-
-                    if (prefixLength > 0)
+                    if (HasPrefix(child.Key, key, currentIndex))
                     {
-                        hasPrefix = true;
+                        hasChildren = true;
                         previousNode = currentNode;
-                        keyIndex = keyIndex + prefix.Length;
+                        keyIndex += prefix.Length;
 
                         prefix = child.Key;
                         currentIndex += prefix.Length;
@@ -236,6 +233,11 @@ namespace ObjectsCollection
         {
             return prefix.Length > key.Length - keyIndex
                     || key.IndexOf(prefix, keyIndex, prefix.Length) == -1;
+        }
+
+        private static bool HasPrefix(string prefix, string key, int keyIndex)
+        {
+            return keyIndex < key.Length && prefix[0] == key[keyIndex];
         }
 
         private static IEnumerable<T> Traverse(RadixTreeNode<T> node)
