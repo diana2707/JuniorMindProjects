@@ -163,15 +163,15 @@
             Assert.Equal(2, tree.Count);
         }
 
-        //[Fact]
-        //public void ContainsShouldReturnTrueWhenEndOfStringIsTheSameAsPrefix()
-        //{
-        //    var tree = new RadixTree<string>() { "Ana", "Anda", "Alina", "Ana-Maria", "Maria", "Mara" };
+        [Fact]
+        public void ContainsShouldReturnTrueWhenEndOfStringIsTheSameAsPrefix()
+        {
+            var tree = new RadixTree<string>() { "Ana", "Anda", "Alina", "Ana-Maria", "Maria", "Mara" };
 
-        //    Assert.True(tree.Contains("Ana"));
-        //    Assert.True(tree.Contains("Ana-Maria"));
-        //    Assert.Equal(6, tree.Count);
-        //}
+            Assert.True(tree.Contains("Ana"));
+            Assert.True(tree.Contains("Ana-Maria"));
+            Assert.Equal(6, tree.Count);
+        }
 
         [Fact]
         public void RemoveShouldReturnTrueWhenRemovesWordsThatArePrefixForOtherWords()
@@ -355,100 +355,100 @@
             Assert.Throws<ArgumentException>(() => tree.Add("romane"));
         }
 
-        //[Fact]
-        //public void ContainsShouldThrowArgumentNullExceptionIfItemIsNull()
-        //{
-        //    var tree = new RadixTree();
-        //    Assert.Throws<ArgumentNullException>(() => tree.Contains(null));
-        //}
+        [Fact]
+        public void ContainsShouldThrowArgumentNullExceptionIfItemIsNull()
+        {
+            var tree = new RadixTree<string>();
+            Assert.Throws<ArgumentNullException>(() => tree.Contains(null));
+        }
 
-        //[Fact]
-        //public void RemoveShouldThrowArgumentNullExceptionIfItemIsNull()
-        //{
-        //    var tree = new RadixTree();
-        //    Assert.Throws<ArgumentNullException>(() => tree.Remove(null));
-        //}
+        [Fact]
+        public void RemoveShouldThrowArgumentNullExceptionIfItemIsNull()
+        {
+            var tree = new RadixTree<string>();
+            Assert.Throws<ArgumentNullException>(() => tree.Remove(null));
+        }
 
-        //[Fact]
-        //public void GetAllItemsByPrefixShouldThrowArgumentNullExceptionIfItemIsNull()
-        //{
-        //    var tree = new RadixTree();
-        //    Assert.Throws<ArgumentNullException>(() => tree.GetAllItemsByPrefix(null));
-        //}
+        [Fact]
+        public void GetAllItemsByPrefixShouldThrowArgumentNullExceptionIfItemIsNull()
+        {
+            var tree = new RadixTree<string>();
+            Assert.Throws<ArgumentNullException>(() => tree.GetAllItemsByPrefix(null));
+        }
 
-        //[Fact]
-        //public void GetLongestPrefixMatchShouldThrowArgumentNullExceptionIfItemIsNull()
-        //{
-        //    var tree = new RadixTree();
-        //    Assert.Throws<ArgumentNullException>(() => tree.GetLongestPrefixMatch(null));
-        //}
+        [Fact]
+        public void GetLongestPrefixMatchShouldThrowArgumentNullExceptionIfItemIsNull()
+        {
+            var tree = new RadixTree<string>();
+            Assert.Throws<ArgumentNullException>(() => tree.GetLongestPrefixMatch(null));
+        }
 
-        //[Fact]
-        //public void ClearShouldSetCounTo0AndClearRootNodeChildren()
-        //{
-        //    var tree = new RadixTree() { "Ana", "Anda", "Alina", "Maria" };
-        //    tree.Clear();
+        [Fact]
+        public void ClearShouldSetCounTo0AndClearRootNodeChildren()
+        {
+            var tree = new RadixTree<string>() { "Ana", "Anda", "Alina", "Maria" };
+            tree.Clear();
 
-        //    int count = 0;
-        //    foreach (var item in tree)
-        //    {
-        //        count++;
-        //    }
+            int count = 0;
+            foreach (var item in tree)
+            {
+                count++;
+            }
 
-        //    Assert.Equal(0, count);
-        //    Assert.Empty(tree);
-        //}
+            Assert.Equal(0, count);
+            Assert.Empty(tree);
+        }
 
-        //[Fact]
-        //public void CopyToShouldCopyItemsToArray()
-        //{
-        //    var tree = new RadixTree() { "Ana", "Anda", "Alina", "Maria", "Mara" };
-        //    string[] array = new string[tree.Count];
-        //    tree.CopyTo(array, 0);
+        [Fact]
+        public void CopyToShouldCopyItemsToArray()
+        {
+            var tree = new RadixTree<string>() { "Ana", "Anda", "Alina", "Maria", "Mara" };
+            string[] array = new string[tree.Count];
+            tree.CopyTo(array, 0);
 
-        //    foreach (var item in tree)
-        //    {
-        //        Assert.True(array.Contains(item));
-        //    }
-        //}
+            foreach (var item in tree)
+            {
+                Assert.True(array.Contains(item));
+            }
+        }
 
-        //[Fact]
-        //public void CopyToShouldCopyItemsToArrayWhenIndexIsLargerThan0()
-        //{
-        //    var tree = new RadixTree() { "Ana", "Anda", "Alina", "Maria", "Mara" };
-        //    string[] array = new string[10];
-        //    tree.CopyTo(array, 5);
+        [Fact]
+        public void CopyToShouldCopyItemsToArrayWhenIndexIsLargerThan0()
+        {
+            var tree = new RadixTree<string>() { "Ana", "Anda", "Alina", "Maria", "Mara" };
+            string[] array = new string[10];
+            tree.CopyTo(array, 5);
 
-        //    foreach (var item in tree)
-        //    {
-        //        Assert.True(array.Contains(item));
-        //    }
-        //}
+            foreach (var item in tree)
+            {
+                Assert.True(array.Contains(item));
+            }
+        }
 
-        //[Fact]
-        //public void CopyToShouldThrowArgumentNullExceptionWhenArrayIsNull()
-        //{
-        //    var tree = new RadixTree() { "Ana", "Anda", "Alina", "Maria", "Mara" };
+        [Fact]
+        public void CopyToShouldThrowArgumentNullExceptionWhenArrayIsNull()
+        {
+            var tree = new RadixTree<string>() { "Ana", "Anda", "Alina", "Maria", "Mara" };
 
-        //    Assert.Throws<ArgumentNullException>(() => tree.CopyTo(null, 0));
-        //}
+            Assert.Throws<ArgumentNullException>(() => tree.CopyTo(null, 0));
+        }
 
-        //[Fact]
-        //public void CopyToShouldThrowArgumentOutOfRangeExceptionWhenIndexIsLessThan0()
-        //{
-        //    var tree = new RadixTree() { "Ana", "Anda", "Alina", "Maria", "Mara" };
-        //    string[] array = new string[5];
+        [Fact]
+        public void CopyToShouldThrowArgumentOutOfRangeExceptionWhenIndexIsLessThan0()
+        {
+            var tree = new RadixTree<string>() { "Ana", "Anda", "Alina", "Maria", "Mara" };
+            string[] array = new string[5];
 
-        //    Assert.Throws<ArgumentOutOfRangeException>(() => tree.CopyTo(array, -1));
-        //}
+            Assert.Throws<ArgumentOutOfRangeException>(() => tree.CopyTo(array, -1));
+        }
 
-        //[Fact]
-        //public void CopyToShouldThrowArgumentExceptionWhenNumberOfItemsInTreeIsGreaterThanSpaceFromIndexToArrayEnd()
-        //{
-        //    var tree = new RadixTree() { "Ana", "Anda", "Alina", "Maria", "Mara" };
-        //    string[] array = new string[5];
+        [Fact]
+        public void CopyToShouldThrowArgumentExceptionWhenNumberOfItemsInTreeIsGreaterThanSpaceFromIndexToArrayEnd()
+        {
+            var tree = new RadixTree<string>() { "Ana", "Anda", "Alina", "Maria", "Mara" };
+            string[] array = new string[5];
 
-        //    Assert.Throws<ArgumentException>(() => tree.CopyTo(array, 1));
-        //}
+            Assert.Throws<ArgumentException>(() => tree.CopyTo(array, 1));
+        }
     }
 }
