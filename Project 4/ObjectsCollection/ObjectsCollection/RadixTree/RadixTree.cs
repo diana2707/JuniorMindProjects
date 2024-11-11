@@ -123,7 +123,7 @@ namespace ObjectsCollection
         private static bool IsPartialPrefix(string prefix, string key, int keyIndex)
         {
             return prefix.Length > key.Length - keyIndex
-                    || key.IndexOf(prefix, keyIndex, prefix.Length) != keyIndex;
+                    || key.IndexOf(prefix, keyIndex, prefix.Length) == -1;
         }
 
         public bool Contains(T item)
@@ -188,6 +188,26 @@ namespace ObjectsCollection
                     yield return item;
                 }
             }
+        }
+
+        public List<T> GetAllItemsByPrefix(string commonKey)
+        {
+            //ValidateArgumentIsNotNull(prefix);
+
+            List<T> items = [];
+            (RadixTreeNode<T> parent, string prefix, int keyIndex) = GetLastCommonNode(commonKey);
+            RadixTreeNode<T> child = parent == null ? root : parent.Children[prefix];
+
+            int prefixLength = GetCommonPrefixLength(prefix, commonKey, keyIndex);
+
+            if (commonKey.Length != keyIndex + prefixLength)
+            {
+                return items;
+            }
+
+            items.AddRange(Traverse(child));
+
+            return items;
         }
 
         //    public void Add(string item)
