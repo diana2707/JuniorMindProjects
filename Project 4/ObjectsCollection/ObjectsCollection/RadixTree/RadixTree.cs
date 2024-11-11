@@ -23,10 +23,11 @@ namespace ObjectsCollection
         {
             ValidateItemIsNotNull(item);
 
-            string key = item.ToString();
+            string key = GetKey(item);
 
             (RadixTreeNode<T> parent, string prefix, int keyIndex) = GetLastCommonNode(key);
             RadixTreeNode<T> child = parent == null ? root : parent.Children[prefix];
+
             int commonPrefixLength = GetCommonPrefixLength(prefix, key, keyIndex);
 
             ValidateNewItem(item, child);
@@ -73,7 +74,7 @@ namespace ObjectsCollection
         {
             ValidateItemIsNotNull(item);
 
-            string key = item.ToString();
+            string key = GetKey(item);
 
             (RadixTreeNode<T> parent, string prefix, int keyIndex) = GetLastCommonNode(key);
             RadixTreeNode<T> child = parent == null ? root : parent.Children[prefix];
@@ -84,7 +85,9 @@ namespace ObjectsCollection
         public bool Remove(T item)
         {
             ValidateItemIsNotNull(item);
-            string key = item.ToString();
+
+            string key = GetKey(item);
+
             (RadixTreeNode<T> parent, string prefix, int keyIndex) = GetLastCommonNode(key);
             RadixTreeNode<T> child = parent == null ? root : parent.Children[prefix];
 
@@ -122,6 +125,7 @@ namespace ObjectsCollection
             ValidateKeyIsNotNull(commonKey);
 
             List<T> items = [];
+
             (RadixTreeNode<T> parent, string prefix, int keyIndex) = GetLastCommonNode(commonKey);
             RadixTreeNode<T> child = parent == null ? root : parent.Children[prefix];
 
@@ -141,9 +145,9 @@ namespace ObjectsCollection
         {
             ValidateItemIsNotNull(item);
 
-            string key = item.ToString();
+            string key = GetKey(item);
+
             (RadixTreeNode<T> parent, string prefix, int keyIndex) = GetLastCommonNode(key);
-            RadixTreeNode<T> child = parent == null ? root : parent.Children[prefix];
 
             int commonPrefixLength = GetCommonPrefixLength(prefix, key, keyIndex);
 
@@ -188,6 +192,11 @@ namespace ObjectsCollection
             }
 
             return prefixLength;
+        }
+
+        private static string GetKey(T item)
+        {
+            return item.ToString();
         }
 
         private (RadixTreeNode<T> node, string prefix, int keyIndex) GetLastCommonNode(string key)
