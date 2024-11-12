@@ -57,12 +57,7 @@ namespace ObjectsCollection
 
         private RadixTreeNode<T> SplitNode(RadixTreeNode<T> previousNode, RadixTreeNode<T> lastNode, string prefix, int splitIndex)
         {
-            RadixTreeNode<T> newNode = new ()
-            {
-                IsWord = lastNode.IsWord,
-                Children = lastNode.Children,
-                Value = lastNode.Value
-            };
+            RadixTreeNode<T> newNode = SetNewNode(lastNode.Children, lastNode.Value, lastNode.IsWord);
 
             RadixTreeNode<T> splitNode = new ();
             splitNode.Children.Add(prefix[splitIndex..], newNode);
@@ -73,7 +68,17 @@ namespace ObjectsCollection
             return splitNode;
         }
 
-        private bool IsKeyLongerThanPrefix(string key, int commonPrefixLength)
+        private static RadixTreeNode<T> SetNewNode(Dictionary<string, RadixTreeNode<T>> children, T value, bool isWord)
+        {
+            return new ()
+            {
+                IsWord = isWord,
+                Children = children,
+                Value = value
+            };
+        }
+
+        private static bool IsKeyLongerThanPrefix(string key, int commonPrefixLength)
         {
             return key.Length != commonPrefixLength;
         }
