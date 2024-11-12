@@ -1,5 +1,4 @@
-﻿using System.Linq;
-
+﻿
 namespace ObjectsCollection
 {
     public class RadixTreeFacts

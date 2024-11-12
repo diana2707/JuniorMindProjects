@@ -47,10 +47,11 @@ namespace ObjectsCollection
             Count++;
         }
 
-        //private bool IsKeyLongerThanPrefix(string key, int commonPrefixLength)
-        //{
-        //    return key.Length != commonPrefixLength;
-        //}
+        public void Clear()
+        {
+            root.Children.Clear();
+            Count = 0;
+        }
 
         public bool Contains(T item)
         {
@@ -59,9 +60,62 @@ namespace ObjectsCollection
             string key = GetKey(item);
 
             (RadixTreeNode<T> parent, RadixTreeNode<T> child, string prefix, int keyIndex) = GetLastNodes(key);
-            //RadixTreeNode<T> child = parent == null ? root : parent.Children[prefix];
 
             return Contains(item, child);
+        }
+
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            ValidateArray(array, arrayIndex);
+
+            foreach (T item in this)
+            {
+                array[arrayIndex] = item;
+                arrayIndex++;
+            }
+        }
+
+        public List<T> GetAllItemsByPrefix(string commonKey)
+        {
+            ValidateKeyIsNotNull(commonKey);
+
+            List<T> items = [];
+
+            (RadixTreeNode<T> parent, RadixTreeNode<T> child, string prefix, int keyIndex) = GetLastNodes(commonKey);
+
+            int prefixLength = GetCommonPrefixLength(prefix, commonKey, keyIndex);
+
+            if (commonKey.Length != keyIndex + prefixLength)
+            {
+                return items;
+            }
+
+            items.AddRange(Traverse(child));
+
+            return items;
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return Traverse(root).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public string GetLongestPrefixMatch(T item)
+        {
+            ValidateItemIsNotNull(item);
+
+            string key = GetKey(item);
+
+            (RadixTreeNode<T> parent, RadixTreeNode<T> child, string prefix, int keyIndex) = GetLastNodes(key);
+
+            int commonPrefixLength = GetCommonPrefixLength(prefix, key, keyIndex);
+
+            return key[.. (keyIndex + commonPrefixLength)];
         }
 
         public bool Remove(T item)
@@ -71,7 +125,6 @@ namespace ObjectsCollection
             string key = GetKey(item);
 
             (RadixTreeNode<T> parent, RadixTreeNode<T> child, string prefix, int keyIndex) = GetLastNodes(key);
-            //RadixTreeNode<T> child = parent == null ? root : parent.Children[prefix];
 
             if (!child.IsWord || !key.EndsWith(prefix))
             {
@@ -90,67 +143,6 @@ namespace ObjectsCollection
 
             Count--;
             return true;
-        }
-
-        public IEnumerator<T> GetEnumerator()
-        {
-            return Traverse(root).GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        public List<T> GetAllItemsByPrefix(string commonKey)
-        {
-            ValidateKeyIsNotNull(commonKey);
-
-            List<T> items = [];
-
-            (RadixTreeNode<T> parent, RadixTreeNode<T> child, string prefix, int keyIndex) = GetLastNodes(commonKey);
-            //RadixTreeNode<T> child = parent == null ? root : parent.Children[prefix];
-
-            int prefixLength = GetCommonPrefixLength(prefix, commonKey, keyIndex);
-
-            if (commonKey.Length != keyIndex + prefixLength)
-            {
-                return items;
-            }
-
-            items.AddRange(Traverse(child));
-
-            return items;
-        }
-
-        public string GetLongestPrefixMatch(T item)
-        {
-            ValidateItemIsNotNull(item);
-
-            string key = GetKey(item);
-
-            (RadixTreeNode<T> parent, RadixTreeNode<T> child, string prefix, int keyIndex) = GetLastNodes(key);
-
-            int commonPrefixLength = GetCommonPrefixLength(prefix, key, keyIndex);
-
-            return key[.. (keyIndex + commonPrefixLength)];
-        }
-
-        public void CopyTo(T[] array, int arrayIndex)
-        {
-            ValidateArray(array, arrayIndex);
-
-            foreach (T item in this)
-            {
-                array[arrayIndex] = item;
-                arrayIndex++;
-            }
-        }
-
-        public void Clear()
-        {
-            root.Children.Clear();
-            Count = 0;
         }
 
         private static RadixTreeNode<T> AddRemainingKey(RadixTreeNode<T> node, string key, int keyIndex)
@@ -200,14 +192,14 @@ namespace ObjectsCollection
 
         private static RadixTreeNode<T> SplitPrefix(RadixTreeNode<T> parent, RadixTreeNode<T> child, string prefix, int splitIndex)
         {
-            RadixTreeNode<T> newNode = new()
+            RadixTreeNode<T> newNode = new ()
             {
                 IsWord = child.IsWord,
                 Children = child.Children,
                 Value = child.Value
             };
 
-            RadixTreeNode<T> splitNode = new();
+            RadixTreeNode<T> splitNode = new ();
             splitNode.Children.Add(prefix[splitIndex..], newNode);
 
             parent.Children.Add(prefix[..splitIndex], splitNode);
