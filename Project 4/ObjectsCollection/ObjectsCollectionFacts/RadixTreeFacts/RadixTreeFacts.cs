@@ -113,6 +113,7 @@ namespace ObjectsCollection
             tree.Add("romane");
             tree.Add("romanus");
             tree.Add("rom");
+            tree.Add("romanum");
             tree.Add("romulus");
             tree.Add("rub");
             tree.Add("rubens");
@@ -124,12 +125,13 @@ namespace ObjectsCollection
             Assert.True(tree.Contains("romanus"));
             Assert.True(tree.Contains("rom"));
             Assert.True(tree.Contains("romulus"));
+            Assert.True(tree.Contains("romanum"));
             Assert.True(tree.Contains("rub"));
             Assert.True(tree.Contains("rubens"));
             Assert.True(tree.Contains("ben"));
             Assert.True(tree.Contains("ruber"));
             Assert.True(tree.Contains("rubicundus"));
-            Assert.Equal(9, tree.Count);
+            Assert.Equal(10, tree.Count);
         }
 
         [Fact]

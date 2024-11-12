@@ -29,54 +29,28 @@ namespace ObjectsCollection
 
             int commonPrefixLength = GetCommonPrefixLength(prefix, key, keyIndex);
 
-            if (IsPartialPrefix(prefix, key, keyIndex))
+            if (IsPartialMatch(prefix, commonPrefixLength))
             {
-                lastNode = SplitNode(previousNode, lastNode, prefix, commonPrefixLength);
+                lastNode = SplitPrefix(previousNode, lastNode, prefix, commonPrefixLength);
             }
 
             keyIndex += commonPrefixLength;
 
-            if (IsKeyLongerThanPrefix(key, commonPrefixLength))
+            if (IsPartialMatch(key, keyIndex))
             {
-                RadixTreeNode<T> newNode = new ()
-                {
-                    IsWord = true,
-                    Value = item
-                };
+                lastNode = AddRemainingKey(lastNode, key, keyIndex);
+            }
 
-                lastNode.Children.Add(key[keyIndex..], newNode);
-            }
-            else
-            {
-                lastNode.IsWord = true;
-                lastNode.Value = item;
-            }
+            lastNode.IsWord = true;
+            lastNode.Value = item;
 
             Count++;
         }
 
-        private RadixTreeNode<T> SplitNode(RadixTreeNode<T> parent, RadixTreeNode<T> child, string prefix, int splitIndex)
-        {
-            RadixTreeNode<T> newNode = new ()
-            {
-                IsWord = child.IsWord,
-                Children = child.Children,
-                Value = child.Value
-            };
-
-            RadixTreeNode<T> splitNode = new ();
-            splitNode.Children.Add(prefix[splitIndex..], newNode);
-
-            parent.Children.Add(prefix[..splitIndex], splitNode);
-            parent.Children.Remove(prefix);
-
-            return splitNode;
-        }
-
-        private bool IsKeyLongerThanPrefix(string key, int commonPrefixLength)
-        {
-            return key.Length != commonPrefixLength;
-        }
+        //private bool IsKeyLongerThanPrefix(string key, int commonPrefixLength)
+        //{
+        //    return key.Length != commonPrefixLength;
+        //}
 
         public bool Contains(T item)
         {
@@ -179,6 +153,13 @@ namespace ObjectsCollection
             Count = 0;
         }
 
+        private static RadixTreeNode<T> AddRemainingKey(RadixTreeNode<T> node, string key, int keyIndex)
+        {
+            RadixTreeNode<T> newNode = new ();
+            node.Children.Add(key[keyIndex..], newNode);
+            return newNode;
+        }
+
         private static bool Contains(T item, RadixTreeNode<T> node)
         {
             return item.Equals(node.Value);
@@ -207,48 +188,32 @@ namespace ObjectsCollection
             return new string(item.ToArray());
         }
 
-        private (RadixTreeNode<T> previousNode, RadixTreeNode<T> currentNode, string prefix, int keyIndex) GetLastNodes(string key)
-        {
-            RadixTreeNode<T> previousNode = null;
-            RadixTreeNode<T> currentNode = root;
-            string prefix = string.Empty;
-            int keyIndex = 0;
-
-            bool matchFound = true;
-
-            while (matchFound)
-            {
-                matchFound = false;
-
-                foreach (var child in currentNode.Children)
-                {
-                    if (HasPrefix(child.Key, key, keyIndex))
-                    {
-                        previousNode = currentNode;
-                        currentNode = child.Value;
-                        prefix = child.Key;
-                        keyIndex += prefix.Length;
-
-                        matchFound = true;
-                        break;
-                    }
-                }
-            }
-
-            keyIndex -= prefix.Length;
-
-            return (previousNode, currentNode, prefix, keyIndex);
-        }
-
-        private static bool IsPartialPrefix(string prefix, string key, int keyIndex)
-        {
-            return prefix.Length > key.Length - keyIndex
-                    || key.IndexOf(prefix, keyIndex, prefix.Length) == -1;
-        }
-
         private static bool HasPrefix(string prefix, string key, int keyIndex)
         {
             return keyIndex < key.Length && prefix[0] == key[keyIndex];
+        }
+
+        private static bool IsPartialMatch(string input, int splitIndex)
+        {
+            return input.Length > splitIndex;
+        }
+
+        private static RadixTreeNode<T> SplitPrefix(RadixTreeNode<T> parent, RadixTreeNode<T> child, string prefix, int splitIndex)
+        {
+            RadixTreeNode<T> newNode = new()
+            {
+                IsWord = child.IsWord,
+                Children = child.Children,
+                Value = child.Value
+            };
+
+            RadixTreeNode<T> splitNode = new();
+            splitNode.Children.Add(prefix[splitIndex..], newNode);
+
+            parent.Children.Add(prefix[..splitIndex], splitNode);
+            parent.Children.Remove(prefix);
+
+            return splitNode;
         }
 
         private static IEnumerable<T> Traverse(RadixTreeNode<T> node)
@@ -298,6 +263,39 @@ namespace ObjectsCollection
             }
 
             throw new ArgumentException("The number of items in tree is greater than the space from index to end of array.");
+        }
+
+        private (RadixTreeNode<T> previousNode, RadixTreeNode<T> currentNode, string prefix, int keyIndex) GetLastNodes(string key)
+        {
+            RadixTreeNode<T> previousNode = null;
+            RadixTreeNode<T> currentNode = root;
+            string prefix = string.Empty;
+            int keyIndex = 0;
+
+            bool matchFound = true;
+
+            while (matchFound)
+            {
+                matchFound = false;
+
+                foreach (var child in currentNode.Children)
+                {
+                    if (HasPrefix(child.Key, key, keyIndex))
+                    {
+                        previousNode = currentNode;
+                        currentNode = child.Value;
+                        prefix = child.Key;
+                        keyIndex += prefix.Length;
+
+                        matchFound = true;
+                        break;
+                    }
+                }
+            }
+
+            keyIndex -= prefix.Length;
+
+            return (previousNode, currentNode, prefix, keyIndex);
         }
     }
 }
