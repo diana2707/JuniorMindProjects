@@ -23,50 +23,59 @@ namespace ObjectsCollection
             ValidateItemIsNotNull(item);
 
             string key = GetKey(item);
+            (RadixTreeNode<T> previousNode, RadixTreeNode<T> lastNode, string prefix, int keyIndex) = GetLastNodes(key);
 
-            (RadixTreeNode<T> parent, string prefix, int keyIndex) = GetLastCommonNode(key);
-            RadixTreeNode<T> child = parent == null ? root : parent.Children[prefix];
+            ValidateNewItem(item, lastNode);
 
             int commonPrefixLength = GetCommonPrefixLength(prefix, key, keyIndex);
 
-            ValidateNewItem(item, child);
-
             if (IsPartialPrefix(prefix, key, keyIndex))
             {
-                keyIndex += commonPrefixLength;
+                lastNode = SplitNode(previousNode, lastNode, prefix, commonPrefixLength);
+            }
 
-                RadixTreeNode<T> newNode = new ();
-                newNode.IsWord = child.IsWord;
-                newNode.Children = child.Children;
-                newNode.Value = child.Value;
+            keyIndex += commonPrefixLength;
 
-                RadixTreeNode<T> splitNewNode = new ();
-                splitNewNode.Children.Add(prefix[commonPrefixLength..], newNode);
+            if (IsKeyLongerThanPrefix(key, commonPrefixLength))
+            {
+                RadixTreeNode<T> newNode = new ()
+                {
+                    IsWord = true,
+                    Value = item
+                };
 
-                parent.Children.Add(prefix[..commonPrefixLength], splitNewNode);
-                child = parent.Children[prefix[..commonPrefixLength]];
-                parent.Children.Remove(prefix);
+                lastNode.Children.Add(key[keyIndex..], newNode);
             }
             else
             {
-                keyIndex += commonPrefixLength;
-            }
-
-            if (key.Length != commonPrefixLength)
-            {
-                RadixTreeNode<T> newNode = new ();
-                newNode.IsWord = true;
-                newNode.Value = item;
-
-                child.Children.Add(key[keyIndex..], newNode);
-            }
-            else
-            {
-                child.IsWord = true;
-                child.Value = item;
+                lastNode.IsWord = true;
+                lastNode.Value = item;
             }
 
             Count++;
+        }
+
+        private RadixTreeNode<T> SplitNode(RadixTreeNode<T> previousNode, RadixTreeNode<T> lastNode, string prefix, int splitIndex)
+        {
+            RadixTreeNode<T> newNode = new ()
+            {
+                IsWord = lastNode.IsWord,
+                Children = lastNode.Children,
+                Value = lastNode.Value
+            };
+
+            RadixTreeNode<T> splitNode = new ();
+            splitNode.Children.Add(prefix[splitIndex..], newNode);
+
+            previousNode.Children.Add(prefix[..splitIndex], splitNode);
+            previousNode.Children.Remove(prefix);
+
+            return splitNode;
+        }
+
+        private bool IsKeyLongerThanPrefix(string key, int commonPrefixLength)
+        {
+            return key.Length != commonPrefixLength;
         }
 
         public bool Contains(T item)
@@ -75,8 +84,8 @@ namespace ObjectsCollection
 
             string key = GetKey(item);
 
-            (RadixTreeNode<T> parent, string prefix, int keyIndex) = GetLastCommonNode(key);
-            RadixTreeNode<T> child = parent == null ? root : parent.Children[prefix];
+            (RadixTreeNode<T> parent, RadixTreeNode<T> child, string prefix, int keyIndex) = GetLastNodes(key);
+            //RadixTreeNode<T> child = parent == null ? root : parent.Children[prefix];
 
             return Contains(item, child);
         }
@@ -87,8 +96,8 @@ namespace ObjectsCollection
 
             string key = GetKey(item);
 
-            (RadixTreeNode<T> parent, string prefix, int keyIndex) = GetLastCommonNode(key);
-            RadixTreeNode<T> child = parent == null ? root : parent.Children[prefix];
+            (RadixTreeNode<T> parent, RadixTreeNode<T> child, string prefix, int keyIndex) = GetLastNodes(key);
+            //RadixTreeNode<T> child = parent == null ? root : parent.Children[prefix];
 
             if (!child.IsWord || !key.EndsWith(prefix))
             {
@@ -125,8 +134,8 @@ namespace ObjectsCollection
 
             List<T> items = [];
 
-            (RadixTreeNode<T> parent, string prefix, int keyIndex) = GetLastCommonNode(commonKey);
-            RadixTreeNode<T> child = parent == null ? root : parent.Children[prefix];
+            (RadixTreeNode<T> parent, RadixTreeNode<T> child, string prefix, int keyIndex) = GetLastNodes(commonKey);
+            //RadixTreeNode<T> child = parent == null ? root : parent.Children[prefix];
 
             int prefixLength = GetCommonPrefixLength(prefix, commonKey, keyIndex);
 
@@ -146,7 +155,7 @@ namespace ObjectsCollection
 
             string key = GetKey(item);
 
-            (RadixTreeNode<T> parent, string prefix, int keyIndex) = GetLastCommonNode(key);
+            (RadixTreeNode<T> parent, RadixTreeNode<T> child, string prefix, int keyIndex) = GetLastNodes(key);
 
             int commonPrefixLength = GetCommonPrefixLength(prefix, key, keyIndex);
 
@@ -198,35 +207,37 @@ namespace ObjectsCollection
             return item.ToString();
         }
 
-        private (RadixTreeNode<T> node, string prefix, int keyIndex) GetLastCommonNode(string key)
+        private (RadixTreeNode<T> previousNode, RadixTreeNode<T> currentNode, string prefix, int keyIndex) GetLastNodes(string key)
         {
-            string prefix = "";
-            int keyIndex = 0;
-            int currentIndex = 0;
-            bool hasChildren = true;
             RadixTreeNode<T> previousNode = null;
             RadixTreeNode<T> currentNode = root;
+            string prefix = string.Empty;
+            int keyIndex = 0;
 
-            while (hasChildren)
+            bool matchFound = true;
+
+            while (matchFound)
             {
-                hasChildren = false;
+                matchFound = false;
+
                 foreach (var child in currentNode.Children)
                 {
-                    if (HasPrefix(child.Key, key, currentIndex))
+                    if (HasPrefix(child.Key, key, keyIndex))
                     {
-                        hasChildren = true;
                         previousNode = currentNode;
+                        currentNode = child.Value;
+                        prefix = child.Key;
                         keyIndex += prefix.Length;
 
-                        prefix = child.Key;
-                        currentIndex += prefix.Length;
-                        currentNode = child.Value;
+                        matchFound = true;
                         break;
                     }
                 }
             }
 
-            return (previousNode, prefix, keyIndex);
+            keyIndex -= prefix.Length;
+
+            return (previousNode, currentNode, prefix, keyIndex);
         }
 
         private static bool IsPartialPrefix(string prefix, string key, int keyIndex)
@@ -288,7 +299,5 @@ namespace ObjectsCollection
 
             throw new ArgumentException("The number of items in tree is greater than the space from index to end of array.");
         }
-
-
     }
 }
