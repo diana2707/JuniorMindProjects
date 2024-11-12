@@ -55,30 +55,25 @@ namespace ObjectsCollection
             Count++;
         }
 
-        private RadixTreeNode<T> SplitNode(RadixTreeNode<T> previousNode, RadixTreeNode<T> lastNode, string prefix, int splitIndex)
+        private RadixTreeNode<T> SplitNode(RadixTreeNode<T> parent, RadixTreeNode<T> child, string prefix, int splitIndex)
         {
-            RadixTreeNode<T> newNode = SetNewNode(lastNode.Children, lastNode.Value, lastNode.IsWord);
+            RadixTreeNode<T> newNode = new ()
+            {
+                IsWord = child.IsWord,
+                Children = child.Children,
+                Value = child.Value
+            };
 
             RadixTreeNode<T> splitNode = new ();
             splitNode.Children.Add(prefix[splitIndex..], newNode);
 
-            previousNode.Children.Add(prefix[..splitIndex], splitNode);
-            previousNode.Children.Remove(prefix);
+            parent.Children.Add(prefix[..splitIndex], splitNode);
+            parent.Children.Remove(prefix);
 
             return splitNode;
         }
 
-        private static RadixTreeNode<T> SetNewNode(Dictionary<string, RadixTreeNode<T>> children, T value, bool isWord)
-        {
-            return new ()
-            {
-                IsWord = isWord,
-                Children = children,
-                Value = value
-            };
-        }
-
-        private static bool IsKeyLongerThanPrefix(string key, int commonPrefixLength)
+        private bool IsKeyLongerThanPrefix(string key, int commonPrefixLength)
         {
             return key.Length != commonPrefixLength;
         }
@@ -209,7 +204,7 @@ namespace ObjectsCollection
 
         private static string GetKey(T item)
         {
-            return item.ToString();
+            return new string(item.ToArray());
         }
 
         private (RadixTreeNode<T> previousNode, RadixTreeNode<T> currentNode, string prefix, int keyIndex) GetLastNodes(string key)
