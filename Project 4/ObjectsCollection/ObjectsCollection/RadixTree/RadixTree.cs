@@ -2,7 +2,7 @@
 
 namespace ObjectsCollection
 {
-    public class RadixTree<T>
+    public class RadixTree<T> : IEnumerable<IEnumerable<T>>
         where T : IEquatable<T>
     {
         readonly RadixTreeNode<T> root;
@@ -58,6 +58,32 @@ namespace ObjectsCollection
         {
             return node.IsEnd && prefix.Count() == key.Count();
             //return item.Equals(node.Value);
+        }
+
+        public IEnumerator<IEnumerable<T>> GetEnumerator()
+        {
+            return Traverse(root, []).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        private static IEnumerable<IEnumerable<T>> Traverse(RadixTreeNode<T> node, IEnumerable<T> key)
+        {
+            if (node.IsEnd)
+            {
+                yield return key;
+            }
+
+            foreach (var child in node.Children)
+            {
+                foreach (IEnumerable<T> item in Traverse(child.Value, key.Concat(child.Key)))
+                {
+                    yield return item;
+                }
+            }
         }
 
         private static RadixTreeNode<T> SplitPrefix(RadixTreeNode<T> parent, RadixTreeNode<T> child, IEnumerable<T> prefix, int commonPrefixLength)
