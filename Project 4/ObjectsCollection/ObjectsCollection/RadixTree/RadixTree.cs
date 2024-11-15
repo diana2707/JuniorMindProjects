@@ -116,6 +116,28 @@ namespace ObjectsCollection
             }
         }
 
+        public List<IEnumerable<T>> GetAllItemsByPrefix(IEnumerable<T> commonKey)
+        {
+            //ValidateKeyIsNotNull(commonKey);
+
+            List<IEnumerable<T>> items = [];
+
+            (RadixTreeNode<T> parent, RadixTreeNode<T> child, IEnumerable<T> prefix, IEnumerable<T> remainingKey) = GetLastNodes(commonKey);
+
+            int prefixLength = GetCommonPrefixLength(prefix, remainingKey);
+
+            if (remainingKey.Count() > prefixLength)
+            {
+                return items;
+            }
+
+            commonKey = commonKey.Concat(prefix.Skip(prefixLength));
+
+            items.AddRange(Traverse(child, commonKey));
+
+            return items;
+        }
+
         private static RadixTreeNode<T> SplitPrefix(RadixTreeNode<T> parent, RadixTreeNode<T> child, IEnumerable<T> prefix, int commonPrefixLength)
         {
             RadixTreeNode<T> newNode = new ()
