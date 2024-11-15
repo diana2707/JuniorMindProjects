@@ -45,6 +45,21 @@ namespace ObjectsCollection
             Count++;
         }
 
+        public bool Contains(IEnumerable<T> key)
+        {
+            //ValidateItemIsNotNull(item);
+
+            (RadixTreeNode<T> previousNode, RadixTreeNode<T> lastNode, IEnumerable<T> prefix, key) = GetLastNodes(key);
+
+            return Contains(key, prefix, lastNode);
+        }
+
+        private static bool Contains(IEnumerable<T> prefix, IEnumerable<T> key, RadixTreeNode<T> node)
+        {
+            return node.IsEnd && prefix.Count() == key.Count();
+            //return item.Equals(node.Value);
+        }
+
         private static RadixTreeNode<T> SplitPrefix(RadixTreeNode<T> parent, RadixTreeNode<T> child, IEnumerable<T> prefix, int commonPrefixLength)
         {
             RadixTreeNode<T> newNode = new ()
