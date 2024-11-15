@@ -18,11 +18,126 @@ namespace ObjectsCollection
 
         public bool IsReadOnly { get; }
 
-        public void Add(IEnumerable<T> collection)
+        public void Add(IEnumerable<T> key)
         {
-            root.Children.Add(collection, new RadixTreeNode<T>());
+            //ValidateItemIsNotNull(item);
+
+            (RadixTreeNode<T> previousNode, RadixTreeNode<T> lastNode, IEnumerable<T> prefix, key) = GetLastNodes(key);
+
+            //ValidateNewItem(item, lastNode);
+
+            int commonPrefixLength = GetCommonPrefixLength(prefix, key);
+
+            if (IsPartialMatch(prefix, commonPrefixLength))
+            {
+                lastNode = SplitPrefix(previousNode, lastNode, prefix, commonPrefixLength);
+            }
+
+            key = key.Skip(commonPrefixLength);
+
+            if (IsPartialMatch(key, 0))
+            {
+                lastNode = AddRemainingKey(lastNode, key);
+            }
+
+            lastNode.IsEnd = true;
 
             Count++;
+        }
+
+        private static RadixTreeNode<T> SplitPrefix(RadixTreeNode<T> parent, RadixTreeNode<T> child, IEnumerable<T> prefix, int commonPrefixLength)
+        {
+            RadixTreeNode<T> newNode = new ()
+            {
+                IsEnd = child.IsEnd,
+                Children = child.Children
+            };
+
+            RadixTreeNode<T> splitNode = new ();
+            splitNode.Children.Add(prefix.Skip(commonPrefixLength), newNode);
+
+            parent.Children.Add(prefix.Take(commonPrefixLength), splitNode);
+            parent.Children.Remove(prefix);
+
+            return splitNode;
+        }
+
+        private static RadixTreeNode<T> AddRemainingKey(RadixTreeNode<T> node, IEnumerable<T> key)
+        {
+            RadixTreeNode<T> newNode = new ();
+            node.Children.Add(key, newNode);
+            return newNode;
+        }
+
+        private (RadixTreeNode<T> previousNode, RadixTreeNode<T> currentNode, IEnumerable<T> prefix, IEnumerable<T> remainingKey) GetLastNodes(IEnumerable<T> key)
+        {
+            RadixTreeNode<T> previousNode = null;
+            RadixTreeNode<T> currentNode = root;
+            IEnumerable<T> prefix = [];
+            IEnumerable<T> remainingKey = key;
+            int consumedKeyLength = 0;
+
+            bool matchFound = true;
+
+            while (matchFound)
+            {
+                matchFound = false;
+
+                foreach (var child in currentNode.Children)
+                {
+                    if (HasPrefix(child.Key, remainingKey))
+                    {
+                        previousNode = currentNode;
+                        currentNode = child.Value;
+                        prefix = child.Key;
+                        remainingKey = remainingKey.Skip(prefix.Count());
+                        consumedKeyLength += prefix.Count();
+
+                        matchFound = true;
+                        break;
+                    }
+                }
+            }
+
+            consumedKeyLength -= prefix.Count();
+
+            return (previousNode, currentNode, prefix, key.Skip(consumedKeyLength));
+        }
+
+        private static bool HasPrefix(IEnumerable<T> prefix, IEnumerable<T> key)
+        {
+            return GetCommonPrefixLength(prefix, key) > 0;
+        }
+
+        private static bool IsPartialMatch(IEnumerable<T> input, int commonPrefixLength)
+        {
+            return input.Count() > commonPrefixLength;
+        }
+
+        private static int GetCommonPrefixLength(IEnumerable<T> prefix, IEnumerable<T> key)
+        {
+            IEnumerator<T> prefixEnumerator = prefix.GetEnumerator();
+            IEnumerator<T> keyEnumerator = key.GetEnumerator();
+
+            int prefixLength = 0;
+            bool matchFound = true;
+
+            while (matchFound)
+            {
+                matchFound = false;
+                if (prefixEnumerator.MoveNext() && keyEnumerator.MoveNext())
+                {
+                    if (!prefixEnumerator.Current.Equals(keyEnumerator.Current))
+                    {
+                        break;
+                    }
+
+                    prefixLength++;
+                    matchFound = true;
+                }
+            }
+
+            return prefixLength;
         }
     }
 
