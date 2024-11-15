@@ -50,6 +50,31 @@ namespace ObjectsCollection
             Count++;
         }
 
+        public bool Remove(IEnumerable<T> key)
+        {
+            //ValidateItemIsNotNull(item);
+
+            (RadixTreeNode<T> parent, RadixTreeNode<T> child, IEnumerable<T> prefix, key) = GetLastNodes(key);
+
+            //refa, veri daca poti face un IsEqual
+            if (!child.IsEnd || !(GetCommonPrefixLength(prefix, key) == key.Count() && key.Count() == prefix.Count()) /*key.EndsWith(prefix)*/)
+            {
+                return false;
+            }
+
+            if (child.Children.Count == 0)
+            {
+                parent.Children.Remove(prefix);
+            }
+            else
+            {
+                child.IsEnd = false;
+            }
+
+            Count--;
+            return true;
+        }
+
         public bool Contains(IEnumerable<T> key)
         {
             //ValidateItemIsNotNull(item);
@@ -61,8 +86,8 @@ namespace ObjectsCollection
 
         private static bool Contains(IEnumerable<T> prefix, IEnumerable<T> key, RadixTreeNode<T> node)
         {
-            return node.IsEnd && prefix.Count() == key.Count();
-            //return item.Equals(node.Value);
+            //sa scriu o metoda IsEqual pentru colectii? dar tot la fel iterez? nu imi place, vreau sa o simplific
+            return node.IsEnd && GetCommonPrefixLength(prefix, key) == key.Count() && key.Count() == prefix.Count();
         }
 
         public IEnumerator<IEnumerable<T>> GetEnumerator()

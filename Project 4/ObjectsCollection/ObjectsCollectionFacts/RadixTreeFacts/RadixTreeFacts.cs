@@ -315,218 +315,218 @@
             Assert.Equal(6, tree.Count);
         }
 
-        //[Fact]
-        //public void RemoveShouldReturnTrueWhenRemovesWordsThatArePrefixForOtherWords()
-        //{
-        //    var tree = new RadixTree<string>();
-        //    tree.Add("cat");
-        //    tree.Add("catnip");
-        //    tree.Remove("cat");
+        [Fact]
+        public void RemoveShouldReturnTrueWhenRemovesWordsThatArePrefixForOtherWords()
+        {
+            var tree = new RadixTree<char>();
+            tree.Add("cat");
+            tree.Add("catnip");
+            tree.Remove("cat");
 
-        //    Assert.DoesNotContain("cat", tree);
-        //    Assert.Contains("catnip", tree);
-        //    Assert.Single(tree);
-        //}
+            Assert.DoesNotContain("cat", tree);
+            Assert.Contains("catnip", tree);
+            Assert.Single(tree);
+        }
 
-        //[Fact]
-        //public void RemoveShouldReturnTrueWhenRemovesWordsWithNoCommonSufix()
-        //{
-        //    var tree = new RadixTree<string>();
-        //    tree.Add("cat");
-        //    tree.Add("car");
+        [Fact]
+        public void RemoveShouldReturnTrueWhenRemovesWordsWithNoCommonSufix()
+        {
+            var tree = new RadixTree<char>();
+            tree.Add("cat");
+            tree.Add("car");
 
-        //    Assert.True(tree.Remove("car"));
-        //    Assert.DoesNotContain("car", tree);
-        //    Assert.Contains("cat", tree);
-        //    Assert.Single(tree);
-        //}
+            Assert.True(tree.Remove("car"));
+            Assert.DoesNotContain("car", tree);
+            Assert.Contains("cat", tree);
+            Assert.Single(tree);
+        }
 
-        //[Fact]
-        //public void RemoveShouldReturnFalseWhenTriesToRemoveWordsThatAreNotInTree()
-        //{
-        //    var tree = new RadixTree<string>();
-        //    tree.Add("cat");
-        //    tree.Add("car");
+        [Fact]
+        public void RemoveShouldReturnFalseWhenTriesToRemoveWordsThatAreNotInTree()
+        {
+            var tree = new RadixTree<char>();
+            tree.Add("cat");
+            tree.Add("car");
 
-        //    Assert.False(tree.Remove("cab"));
-        //    Assert.False(tree.Remove("bag"));
-        //    Assert.Contains("car", tree);
-        //    Assert.Contains("cat", tree);
-        //    Assert.Equal(2, tree.Count);
-        //}
+            Assert.False(tree.Remove("cab"));
+            Assert.False(tree.Remove("bag"));
+            Assert.Contains("car", tree);
+            Assert.Contains("cat", tree);
+            Assert.Equal(2, tree.Count);
+        }
 
-        //[Fact]
-        //public void RemoveShouldReturnTrueAndRemoveStringsWhenTreeHasMultipleStrings()
-        //{
-        //    var tree = new RadixTree<string>();
-        //    tree.Add("romane");
-        //    tree.Add("romanus");
-        //    tree.Add("rom");
-        //    tree.Add("romulus");
-        //    tree.Add("rub");
-        //    tree.Add("rubens");
-        //    tree.Add("ben");
-        //    tree.Add("ruber");
-        //    tree.Add("rubicundus");
+        [Fact]
+        public void RemoveShouldReturnTrueAndRemoveStringsWhenTreeHasMultipleStrings()
+        {
+            var tree = new RadixTree<char>();
+            tree.Add("romane");
+            tree.Add("romanus");
+            tree.Add("rom");
+            tree.Add("romulus");
+            tree.Add("rub");
+            tree.Add("rubens");
+            tree.Add("ben");
+            tree.Add("ruber");
+            tree.Add("rubicundus");
 
-        //    Assert.True(tree.Remove("rom"));
-        //    Assert.True(tree.Remove("rubicundus"));
-        //    Assert.True(tree.Remove("ben"));
-        //    Assert.True(tree.Remove("romanus"));
+            Assert.True(tree.Remove("rom"));
+            Assert.True(tree.Remove("rubicundus"));
+            Assert.True(tree.Remove("ben"));
+            Assert.True(tree.Remove("romanus"));
 
-        //    Assert.Contains("romane", tree);
-        //    Assert.Contains("romulus", tree);
-        //    Assert.Contains("rub", tree);
-        //    Assert.Contains("rubens", tree);
-        //    Assert.Contains("ruber", tree);
+            Assert.Contains("romane", tree);
+            Assert.Contains("romulus", tree);
+            Assert.Contains("rub", tree);
+            Assert.Contains("rubens", tree);
+            Assert.Contains("ruber", tree);
 
-        //    Assert.DoesNotContain("rom", tree);
-        //    Assert.DoesNotContain("rubicundus", tree);
-        //    Assert.DoesNotContain("ben", tree);
-        //    Assert.DoesNotContain("romanus", tree);
+            Assert.DoesNotContain("rom", tree);
+            Assert.DoesNotContain("rubicundus", tree);
+            Assert.DoesNotContain("ben", tree);
+            Assert.DoesNotContain("romanus", tree);
 
-        //    Assert.DoesNotContain("roman", tree);
+            Assert.DoesNotContain("roman", tree);
 
-        //    Assert.Equal(5, tree.Count);
-        //}
+            Assert.Equal(5, tree.Count);
+        }
 
-        //[Fact]
-        //public void RemoveShouldRemoveListsOfCharsElements()
-        //{
-        //    var tree = new RadixTree<List<char>>();
-        //    var romane = new List<char>() { 'r', 'o', 'm', 'a', 'n', 'e' };
-        //    var romanus = new List<char>() { 'r', 'o', 'm', 'a', 'n', 'u', 's' };
-        //    var rom = new List<char>() { 'r', 'o', 'm' };
-        //    var romulus = new List<char>() { 'r', 'o', 'm', 'u', 'l', 'u', 's' };
-        //    var rub = new List<char>() { 'r', 'u', 'b' };
-        //    var rubens = new List<char>() { 'r', 'u', 'b', 'e', 'n', 's' };
-        //    var ben = new List<char>() { 'b', 'e', 'n' };
-        //    var ruber = new List<char>() { 'r', 'u', 'b', 'e', 'r' };
-        //    var rubicundus = new List<char>() { 'r', 'u', 'b', 'i', 'c', 'u', 'n', 'd', 'u', 's' };
-        //    var roman = new List<char>() { 'r', 'o', 'm', 'a', 'n' };
+        [Fact]
+        public void RemoveShouldRemoveListsOfCharsElements()
+        {
+            var tree = new RadixTree<char>();
+            var romane = new List<char>() { 'r', 'o', 'm', 'a', 'n', 'e' };
+            var romanus = new List<char>() { 'r', 'o', 'm', 'a', 'n', 'u', 's' };
+            var rom = new List<char>() { 'r', 'o', 'm' };
+            var romulus = new List<char>() { 'r', 'o', 'm', 'u', 'l', 'u', 's' };
+            var rub = new List<char>() { 'r', 'u', 'b' };
+            var rubens = new List<char>() { 'r', 'u', 'b', 'e', 'n', 's' };
+            var ben = new List<char>() { 'b', 'e', 'n' };
+            var ruber = new List<char>() { 'r', 'u', 'b', 'e', 'r' };
+            var rubicundus = new List<char>() { 'r', 'u', 'b', 'i', 'c', 'u', 'n', 'd', 'u', 's' };
+            var roman = new List<char>() { 'r', 'o', 'm', 'a', 'n' };
 
-        //    tree.Add(romane);
-        //    tree.Add(romanus);
-        //    tree.Add(rom);
-        //    tree.Add(romulus);
-        //    tree.Add(rub);
-        //    tree.Add(rubens);
-        //    tree.Add(ben);
-        //    tree.Add(ruber);
-        //    tree.Add(rubicundus);
+            tree.Add(romane);
+            tree.Add(romanus);
+            tree.Add(rom);
+            tree.Add(romulus);
+            tree.Add(rub);
+            tree.Add(rubens);
+            tree.Add(ben);
+            tree.Add(ruber);
+            tree.Add(rubicundus);
 
-        //    Assert.True(tree.Remove(rom));
-        //    Assert.True(tree.Remove(rubicundus));
-        //    Assert.True(tree.Remove(ben));
-        //    Assert.True(tree.Remove(romanus));
+            Assert.True(tree.Remove(rom));
+            Assert.True(tree.Remove(rubicundus));
+            Assert.True(tree.Remove(ben));
+            Assert.True(tree.Remove(romanus));
 
-        //    Assert.Contains(romane, tree);
-        //    Assert.Contains(romulus, tree);
-        //    Assert.Contains(rub, tree);
-        //    Assert.Contains(rubens, tree);
-        //    Assert.Contains(ruber, tree);
+            Assert.Contains(romane, tree);
+            Assert.Contains(romulus, tree);
+            Assert.Contains(rub, tree);
+            Assert.Contains(rubens, tree);
+            Assert.Contains(ruber, tree);
 
-        //    Assert.DoesNotContain(rom, tree);
-        //    Assert.DoesNotContain(rubicundus, tree);
-        //    Assert.DoesNotContain(ben, tree);
-        //    Assert.DoesNotContain(romanus, tree);
+            Assert.DoesNotContain(rom, tree);
+            Assert.DoesNotContain(rubicundus, tree);
+            Assert.DoesNotContain(ben, tree);
+            Assert.DoesNotContain(romanus, tree);
 
-        //    Assert.DoesNotContain(roman, tree);
+            Assert.DoesNotContain(roman, tree);
 
-        //    Assert.Equal(5, tree.Count);
-        //}
+            Assert.Equal(5, tree.Count);
+        }
 
-        //[Fact]
-        //public void RemoveShouldRemoveListsOfIntElements()
-        //{
-        //    var tree = new RadixTree<List<int>>();
-        //    var list1 = new List<int>() { 1, 2, 3, 4, 5, 6 };
-        //    var list2 = new List<int>() { 1, 2, 3, 4, 5, 7, 8 };
-        //    var list3 = new List<int>() { 1, 2, 3 };
-        //    var list4 = new List<int>() { 1, 2, 3, 7, 9, 7, 8 };
-        //    var list5 = new List<int>() { 1, 7, 10 };
-        //    var list6 = new List<int>() { 1, 7, 10, 6, 5, 8 };
-        //    var list7 = new List<int>() { 10, 6, 5 };
-        //    var list8 = new List<int>() { 1, 7, 10, 6, 1 };
-        //    var list9 = new List<int>() { 1, 7, 10, 12, 13, 7, 5, 14, 7, 8 };
-        //    var list10 = new List<int>() { 1, 2, 3, 4, 5 };
+        [Fact]
+        public void RemoveShouldRemoveListsOfIntElements()
+        {
+            var tree = new RadixTree<int>();
+            var list1 = new List<int>() { 1, 2, 3, 4, 5, 6 };
+            var list2 = new List<int>() { 1, 2, 3, 4, 5, 7, 8 };
+            var list3 = new List<int>() { 1, 2, 3 };
+            var list4 = new List<int>() { 1, 2, 3, 7, 9, 7, 8 };
+            var list5 = new List<int>() { 1, 7, 10 };
+            var list6 = new List<int>() { 1, 7, 10, 6, 5, 8 };
+            var list7 = new List<int>() { 10, 6, 5 };
+            var list8 = new List<int>() { 1, 7, 10, 6, 1 };
+            var list9 = new List<int>() { 1, 7, 10, 12, 13, 7, 5, 14, 7, 8 };
+            var list10 = new List<int>() { 1, 2, 3, 4, 5 };
 
-        //    tree.Add(list1);
-        //    tree.Add(list2);
-        //    tree.Add(list3);
-        //    tree.Add(list4);
-        //    tree.Add(list5);
-        //    tree.Add(list6);
-        //    tree.Add(list7);
-        //    tree.Add(list8);
-        //    tree.Add(list9);
+            tree.Add(list1);
+            tree.Add(list2);
+            tree.Add(list3);
+            tree.Add(list4);
+            tree.Add(list5);
+            tree.Add(list6);
+            tree.Add(list7);
+            tree.Add(list8);
+            tree.Add(list9);
 
-        //    Assert.True(tree.Remove(list3));
-        //    Assert.True(tree.Remove(list9));
-        //    Assert.True(tree.Remove(list7));
-        //    Assert.True(tree.Remove(list2));
+            Assert.True(tree.Remove(list3));
+            Assert.True(tree.Remove(list9));
+            Assert.True(tree.Remove(list7));
+            Assert.True(tree.Remove(list2));
 
-        //    Assert.Contains(list1, tree);
-        //    Assert.Contains(list4, tree);
-        //    Assert.Contains(list5, tree);
-        //    Assert.Contains(list6, tree);
-        //    Assert.Contains(list8, tree);
+            Assert.Contains(list1, tree);
+            Assert.Contains(list4, tree);
+            Assert.Contains(list5, tree);
+            Assert.Contains(list6, tree);
+            Assert.Contains(list8, tree);
 
-        //    Assert.DoesNotContain(list3, tree);
-        //    Assert.DoesNotContain(list9, tree);
-        //    Assert.DoesNotContain(list7, tree);
-        //    Assert.DoesNotContain(list2, tree);
+            Assert.DoesNotContain(list3, tree);
+            Assert.DoesNotContain(list9, tree);
+            Assert.DoesNotContain(list7, tree);
+            Assert.DoesNotContain(list2, tree);
 
-        //    Assert.DoesNotContain(list10, tree);
+            Assert.DoesNotContain(list10, tree);
 
-        //    Assert.Equal(5, tree.Count);
-        //}
+            Assert.Equal(5, tree.Count);
+        }
 
-        //[Fact]
-        //public void RemoveShoulRemoveArrayOfCharsElements()
-        //{
-        //    var tree = new RadixTree<char[]>();
-        //    char[] romane = ['r', 'o', 'm', 'a', 'n', 'e'];
-        //    char[] romanus = ['r', 'o', 'm', 'a', 'n', 'u', 's'];
-        //    char[] rom = ['r', 'o', 'm'];
-        //    char[] romulus = ['r', 'o', 'm', 'u', 'l', 'u', 's'];
-        //    char[] rub = ['r', 'u', 'b'];
-        //    char[] rubens = ['r', 'u', 'b', 'e', 'n', 's'];
-        //    char[] ben = ['b', 'e', 'n'];
-        //    char[] ruber = ['r', 'u', 'b', 'e', 'r'];
-        //    char[] rubicundus = ['r', 'u', 'b', 'i', 'c', 'u', 'n', 'd', 'u', 's'];
-        //    char[] roman = ['r', 'o', 'm', 'a', 'n'];
+        [Fact]
+        public void RemoveShoulRemoveArrayOfCharsElements()
+        {
+            var tree = new RadixTree<char>();
+            char[] romane = ['r', 'o', 'm', 'a', 'n', 'e'];
+            char[] romanus = ['r', 'o', 'm', 'a', 'n', 'u', 's'];
+            char[] rom = ['r', 'o', 'm'];
+            char[] romulus = ['r', 'o', 'm', 'u', 'l', 'u', 's'];
+            char[] rub = ['r', 'u', 'b'];
+            char[] rubens = ['r', 'u', 'b', 'e', 'n', 's'];
+            char[] ben = ['b', 'e', 'n'];
+            char[] ruber = ['r', 'u', 'b', 'e', 'r'];
+            char[] rubicundus = ['r', 'u', 'b', 'i', 'c', 'u', 'n', 'd', 'u', 's'];
+            char[] roman = ['r', 'o', 'm', 'a', 'n'];
 
-        //    tree.Add(romane);
-        //    tree.Add(romanus);
-        //    tree.Add(rom);
-        //    tree.Add(romulus);
-        //    tree.Add(rub);
-        //    tree.Add(rubens);
-        //    tree.Add(ben);
-        //    tree.Add(ruber);
-        //    tree.Add(rubicundus);
+            tree.Add(romane);
+            tree.Add(romanus);
+            tree.Add(rom);
+            tree.Add(romulus);
+            tree.Add(rub);
+            tree.Add(rubens);
+            tree.Add(ben);
+            tree.Add(ruber);
+            tree.Add(rubicundus);
 
-        //    Assert.True(tree.Remove(rom));
-        //    Assert.True(tree.Remove(rubicundus));
-        //    Assert.True(tree.Remove(ben));
-        //    Assert.True(tree.Remove(romanus));
+            Assert.True(tree.Remove(rom));
+            Assert.True(tree.Remove(rubicundus));
+            Assert.True(tree.Remove(ben));
+            Assert.True(tree.Remove(romanus));
 
-        //    Assert.Contains(romane, tree);
-        //    Assert.Contains(romulus, tree);
-        //    Assert.Contains(rub, tree);
-        //    Assert.Contains(rubens, tree);
-        //    Assert.Contains(ruber, tree);
+            Assert.Contains(romane, tree);
+            Assert.Contains(romulus, tree);
+            Assert.Contains(rub, tree);
+            Assert.Contains(rubens, tree);
+            Assert.Contains(ruber, tree);
 
-        //    Assert.DoesNotContain(rom, tree);
-        //    Assert.DoesNotContain(rubicundus, tree);
-        //    Assert.DoesNotContain(ben, tree);
-        //    Assert.DoesNotContain(romanus, tree);
+            Assert.DoesNotContain(rom, tree);
+            Assert.DoesNotContain(rubicundus, tree);
+            Assert.DoesNotContain(ben, tree);
+            Assert.DoesNotContain(romanus, tree);
 
-        //    Assert.DoesNotContain(roman, tree);
+            Assert.DoesNotContain(roman, tree);
 
-        //    Assert.Equal(5, tree.Count);
-        //}
+            Assert.Equal(5, tree.Count);
+        }
 
         [Fact]
         public void GetEnumeratorShouldEnumerateThroughAllStrings()
