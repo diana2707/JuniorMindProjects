@@ -22,12 +22,5 @@
             RadixTreeNode<string> node = new ();
             Assert.False(node.IsWord);
         }
-
-        [Fact]
-        public void ValueIsNullWhenTreeIsEmpty()
-        {
-            RadixTreeNode<string> node = new ();
-            Assert.Null(node.Value);
-        }
     }
 }
