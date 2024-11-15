@@ -48,10 +48,10 @@
             tree.Add("car");
             tree.Add("cabage");
             tree.Add("candle");
-            //Assert.Contains("cat", tree);
-            //Assert.Contains("car", tree);
-            //Assert.Contains("cabage", tree);
-            //Assert.Contains("candle", tree);
+            Assert.Contains("cat", tree);
+            Assert.Contains("car", tree);
+            Assert.Contains("cabage", tree);
+            Assert.Contains("candle", tree);
 
             Assert.Equal(4, tree.Count);
         }
@@ -62,8 +62,8 @@
             var tree = new RadixTree<char>();
             tree.Add("cat");
             tree.Add("catnip");
-            //Assert.Contains("cat", tree);
-            //Assert.Contains("catnip", tree);
+            Assert.Contains("cat", tree);
+            Assert.Contains("catnip", tree);
             Assert.Equal(2, tree.Count);
         }
 
@@ -73,8 +73,8 @@
             var tree = new RadixTree<char>();
             tree.Add("catnip");
             tree.Add("cat");
-            //Assert.Contains("cat", tree);
-            //Assert.Contains("catnip", tree);
+            Assert.Contains("cat", tree);
+            Assert.Contains("catnip", tree);
             Assert.Equal(2, tree.Count);
         }
 
@@ -85,9 +85,9 @@
             tree.Add("catnip");
             tree.Add("category");
             tree.Add("cat");
-            //Assert.Contains("cat", tree);
-            //Assert.Contains("catnip", tree);
-            //Assert.Contains("category", tree);
+            Assert.Contains("cat", tree);
+            Assert.Contains("catnip", tree);
+            Assert.Contains("category", tree);
             Assert.Equal(3, tree.Count);
         }
 
@@ -98,9 +98,9 @@
             tree.Add("catnip");
             tree.Add("category");
 
-            //Assert.DoesNotContain("cat", tree);
-            //Assert.Contains("catnip", tree);
-            //Assert.Contains("category", tree);
+            Assert.DoesNotContain("cat", tree);
+            Assert.Contains("catnip", tree);
+            Assert.Contains("category", tree);
             Assert.Equal(2, tree.Count);
         }
 
@@ -119,16 +119,16 @@
             tree.Add("ruber");
             tree.Add("rubicundus");
 
-            //Assert.Contains("romane", tree);
-            //Assert.Contains("romanus", tree);
-            //Assert.Contains("rom", tree);
-            //Assert.Contains("romulus", tree);
-            //Assert.Contains("romanum", tree);
-            //Assert.Contains("rub", tree);
-            //Assert.Contains("rubens", tree);
-            //Assert.Contains("ben", tree);
-            //Assert.Contains("ruber", tree);
-            //Assert.Contains("rubicundus", tree);
+            Assert.Contains("romane", tree);
+            Assert.Contains("romanus", tree);
+            Assert.Contains("rom", tree);
+            Assert.Contains("romulus", tree);
+            Assert.Contains("romanum", tree);
+            Assert.Contains("rub", tree);
+            Assert.Contains("rubens", tree);
+            Assert.Contains("ben", tree);
+            Assert.Contains("ruber", tree);
+            Assert.Contains("rubicundus", tree);
             Assert.Equal(10, tree.Count);
         }
 
@@ -156,15 +156,15 @@
             tree.Add(list8);
             tree.Add(list9);
 
-            //Assert.Contains(list1, tree);
-            //Assert.Contains(list2, tree);
-            //Assert.Contains(list3, tree);
-            //Assert.Contains(list4, tree);
-            //Assert.Contains(list5, tree);
-            //Assert.Contains(list6, tree);
-            //Assert.Contains(list7, tree);
-            //Assert.Contains(list8, tree);
-            //Assert.Contains(list9, tree);
+            Assert.Contains(list1, tree);
+            Assert.Contains(list2, tree);
+            Assert.Contains(list3, tree);
+            Assert.Contains(list4, tree);
+            Assert.Contains(list5, tree);
+            Assert.Contains(list6, tree);
+            Assert.Contains(list7, tree);
+            Assert.Contains(list8, tree);
+            Assert.Contains(list9, tree);
             Assert.Equal(9, tree.Count);
         }
 
@@ -192,15 +192,15 @@
             tree.Add(ruber);
             tree.Add(rubicundus);
 
-            //Assert.Contains(romane, tree);
-            //Assert.Contains(romanus, tree);
-            //Assert.Contains(rom, tree);
-            //Assert.Contains(romulus, tree);
-            //Assert.Contains(rub, tree);
-            //Assert.Contains(rubens, tree);
-            //Assert.Contains(ben, tree);
-            //Assert.Contains(ruber, tree);
-            //Assert.Contains(rubicundus, tree);
+            Assert.Contains(romane, tree);
+            Assert.Contains(romanus, tree);
+            Assert.Contains(rom, tree);
+            Assert.Contains(romulus, tree);
+            Assert.Contains(rub, tree);
+            Assert.Contains(rubens, tree);
+            Assert.Contains(ben, tree);
+            Assert.Contains(ruber, tree);
+            Assert.Contains(rubicundus, tree);
             Assert.Equal(9, tree.Count);
         }
 
@@ -228,15 +228,15 @@
             tree.Add(ruber);
             tree.Add(rubicundus);
 
-            //Assert.Contains(romane, tree);
-            //Assert.Contains(romanus, tree);
-            //Assert.Contains(rom, tree);
-            //Assert.Contains(romulus, tree);
-            //Assert.Contains(rub, tree);
-            //Assert.Contains(rubens, tree);
-            //Assert.Contains(ben, tree);
-            //Assert.Contains(ruber, tree);
-            //Assert.Contains(rubicundus, tree);
+            Assert.Contains(romane, tree);
+            Assert.Contains(romanus, tree);
+            Assert.Contains(rom, tree);
+            Assert.Contains(romulus, tree);
+            Assert.Contains(rub, tree);
+            Assert.Contains(rubens, tree);
+            Assert.Contains(ben, tree);
+            Assert.Contains(ruber, tree);
+            Assert.Contains(rubicundus, tree);
             Assert.Equal(9, tree.Count);
         }
 
@@ -273,47 +273,47 @@
             Assert.Equal(2, tree.Count);
         }
 
-        //[Fact]
-        //public void ContainsShouldReturnTrueWhenEndOfStringIsTheSameAsPrefix()
-        //{
-        //    var tree = new RadixTree<char>() { "Ana", "Anda", "Alina", "Ana-Maria", "Maria", "Mara" };
+        [Fact]
+        public void ContainsShouldReturnTrueWhenEndOfStringIsTheSameAsPrefix()
+        {
+            var tree = new RadixTree<char>() { "Ana", "Anda", "Alina", "Ana-Maria", "Maria", "Mara" };
 
-        //    Assert.True(tree.Contains("Ana"));
-        //    Assert.True(tree.Contains("Ana-Maria"));
-        //    Assert.Equal(6, tree.Count);
-        //}
+            Assert.True(tree.Contains("Ana"));
+            Assert.True(tree.Contains("Ana-Maria"));
+            Assert.Equal(6, tree.Count);
+        }
 
-        //[Fact]
-        //public void ContainsShouldReturnTrueWhenElementsAreListOfChars()
-        //{
-        //    var ana = new List<char>() { 'A', 'n', 'a' };
-        //    var anda = new List<char>() { 'A', 'n', 'd', 'a' };
-        //    var alina = new List<char>() { 'A', 'l', 'i', 'n', 'a' };
-        //    var anaMaria = new List<char>() { 'A', 'n', 'a', '-', 'M', 'a', 'r', 'i', 'a' };
-        //    var maria = new List<char>() { 'M', 'a', 'r', 'i', 'a' };
-        //    var mara = new List<char>() { 'M', 'a', 'r', 'a' };
-        //    var tree = new RadixTree<char>() { ana, anda, alina, anaMaria, maria, mara };
+        [Fact]
+        public void ContainsShouldReturnTrueWhenElementsAreListOfChars()
+        {
+            var ana = new List<char>() { 'A', 'n', 'a' };
+            var anda = new List<char>() { 'A', 'n', 'd', 'a' };
+            var alina = new List<char>() { 'A', 'l', 'i', 'n', 'a' };
+            var anaMaria = new List<char>() { 'A', 'n', 'a', '-', 'M', 'a', 'r', 'i', 'a' };
+            var maria = new List<char>() { 'M', 'a', 'r', 'i', 'a' };
+            var mara = new List<char>() { 'M', 'a', 'r', 'a' };
+            var tree = new RadixTree<char>() { ana, anda, alina, anaMaria, maria, mara };
 
-        //    Assert.True(tree.Contains(ana));
-        //    Assert.True(tree.Contains(anaMaria));
-        //    Assert.Equal(6, tree.Count);
-        //}
+            Assert.True(tree.Contains(ana));
+            Assert.True(tree.Contains(anaMaria));
+            Assert.Equal(6, tree.Count);
+        }
 
-        //[Fact]
-        //public void ContainsShouldReturnTrueWhenElementsAreArrayOfChars()
-        //{
-        //    char[] ana = ['A', 'n', 'a'];
-        //    char[] anda = ['A', 'n', 'd', 'a'];
-        //    char[] alina = ['A', 'l', 'i', 'n', 'a'];
-        //    char[] anaMaria = ['A', 'n', 'a', '-', 'M', 'a', 'r', 'i', 'a'];
-        //    char[] maria = ['M', 'a', 'r', 'i', 'a'];
-        //    char[] mara = ['M', 'a', 'r', 'a'];
-        //    var tree = new RadixTree<char[]>() { ana, anda, alina, anaMaria, maria, mara };
+        [Fact]
+        public void ContainsShouldReturnTrueWhenElementsAreArrayOfChars()
+        {
+            char[] ana = ['A', 'n', 'a'];
+            char[] anda = ['A', 'n', 'd', 'a'];
+            char[] alina = ['A', 'l', 'i', 'n', 'a'];
+            char[] anaMaria = ['A', 'n', 'a', '-', 'M', 'a', 'r', 'i', 'a'];
+            char[] maria = ['M', 'a', 'r', 'i', 'a'];
+            char[] mara = ['M', 'a', 'r', 'a'];
+            var tree = new RadixTree<char>() { ana, anda, alina, anaMaria, maria, mara };
 
-        //    Assert.True(tree.Contains(ana));
-        //    Assert.True(tree.Contains(anaMaria));
-        //    Assert.Equal(6, tree.Count);
-        //}
+            Assert.True(tree.Contains(ana));
+            Assert.True(tree.Contains(anaMaria));
+            Assert.Equal(6, tree.Count);
+        }
 
         //[Fact]
         //public void RemoveShouldReturnTrueWhenRemovesWordsThatArePrefixForOtherWords()

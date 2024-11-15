@@ -18,6 +18,11 @@ namespace ObjectsCollection
 
         public bool IsReadOnly { get; }
 
+        public void Add(T item)
+        {
+            Add([item]);
+        }
+
         public void Add(IEnumerable<T> key)
         {
             //ValidateItemIsNotNull(item);
