@@ -2,26 +2,26 @@
 {
     public class RadixTreeFacts
     {
-        //[Fact]
-        //public void RadixTreeClassExists()
-        //{
-        //    var tree = new RadixTree<string>();
-        //    Assert.IsType<RadixTree<string>>(tree);
-        //}
+        [Fact]
+        public void RadixTreeClassExists()
+        {
+            var tree = new RadixTree<char>();
+            Assert.IsType<RadixTree<char>>(tree);
+        }
 
-        //[Fact]
-        //public void CountShouldReturn0WhenTreeIsEmpty()
-        //{
-        //    var tree = new RadixTree<string>();
-        //    Assert.Empty(tree);
-        //}
+        [Fact]
+        public void CountShouldReturn0WhenTreeIsEmpty()
+        {
+            var tree = new RadixTree<char>();
+            Assert.Equal(0, tree.Count);
+        }
 
-        //[Fact]
-        //public void IsReadOnlyShouldReturnFalse()
-        //{
-        //    var tree = new RadixTree<string>();
-        //    Assert.False(tree.IsReadOnly);
-        //}
+        [Fact]
+        public void IsReadOnlyShouldReturnFalse()
+        {
+            var tree = new RadixTree<string>();
+            Assert.False(tree.IsReadOnly);
+        }
 
         //[Fact]
         //public void AddShouldAddFirstElementWhenTreeIsEmpty()

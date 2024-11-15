@@ -2,6 +2,24 @@
 
 namespace ObjectsCollection
 {
+    public class RadixTree<T>
+        where T : IEquatable<T>
+    {
+        readonly RadixTreeNode<T> root;
+
+        public RadixTree()
+        {
+            root = new RadixTreeNode<T>();
+            Count = 0;
+            IsReadOnly = false;
+        }
+
+        public int Count { get; private set; }
+
+        public bool IsReadOnly { get; }
+    }
+
+
     //public class RadixTree<T> : ICollection<T>
     //    /*where T : IEnumerable<char>*/
     //{
