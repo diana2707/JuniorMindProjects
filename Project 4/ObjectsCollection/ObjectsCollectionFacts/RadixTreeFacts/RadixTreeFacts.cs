@@ -23,13 +23,13 @@
             Assert.False(tree.IsReadOnly);
         }
 
-        //[Fact]
-        //public void AddShouldAddFirstElementWhenTreeIsEmpty()
-        //{
-        //    var tree = new RadixTree<string>();
-        //    tree.Add("cat");
-        //    Assert.Single(tree);
-        //}
+        [Fact]
+        public void AddShouldAddFirstElementWhenTreeIsEmpty()
+        {
+            var tree = new RadixTree<char>();
+            tree.Add("cat");
+            Assert.Equal(1, tree.Count);
+        }
 
         //[Fact]
         //public void AddShouldAddElementWhenPrefixIsCommon()

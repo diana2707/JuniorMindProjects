@@ -17,6 +17,13 @@ namespace ObjectsCollection
         public int Count { get; private set; }
 
         public bool IsReadOnly { get; }
+
+        public void Add(IEnumerable<T> collection)
+        {
+            root.Children.Add(collection, new RadixTreeNode<T>());
+
+            Count++;
+        }
     }
 
 
