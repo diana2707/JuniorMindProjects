@@ -20,7 +20,7 @@
         public void IsWordIsFalseWhenTreeIsEmpty()
         {
             RadixTreeNode<string> node = new ();
-            Assert.False(node.IsWord);
+            Assert.False(node.IsEnd);
         }
     }
 }

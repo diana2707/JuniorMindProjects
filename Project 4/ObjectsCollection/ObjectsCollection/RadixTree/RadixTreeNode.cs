@@ -12,6 +12,6 @@ namespace ObjectsCollection
 
         public Dictionary<IEnumerable<T>, RadixTreeNode<T>> Children { get; set; }
 
-        public bool IsWord { get; set; }
+        public bool IsEnd { get; set; }
     }
 }
