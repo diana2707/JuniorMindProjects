@@ -840,43 +840,43 @@
             }
         }
 
-        //[Fact]
-        //public void CopyToShouldCopyItemsToArrayWhenIndexIsLargerThan0()
-        //{
-        //    var tree = new RadixTree<string>() { "Ana", "Anda", "Alina", "Maria", "Mara" };
-        //    string[] array = new string[10];
-        //    tree.CopyTo(array, 5);
+        [Fact]
+        public void CopyToShouldCopyItemsToArrayWhenIndexIsLargerThan0()
+        {
+            var tree = new RadixTree<char>() { "Ana", "Anda", "Alina", "Maria", "Mara" };
+            IEnumerable<char>[] array = new IEnumerable<char>[10];
+            tree.CopyTo(array, 5);
 
-        //    foreach (var item in tree)
-        //    {
-        //        Assert.Contains(item, array);
-        //    }
-        //}
+            foreach (var item in tree)
+            {
+                Assert.Contains(item, array);
+            }
+        }
 
-        //[Fact]
-        //public void CopyToShouldThrowArgumentNullExceptionWhenArrayIsNull()
-        //{
-        //    var tree = new RadixTree<string>() { "Ana", "Anda", "Alina", "Maria", "Mara" };
+        [Fact]
+        public void CopyToShouldThrowArgumentNullExceptionWhenArrayIsNull()
+        {
+            var tree = new RadixTree<char>() { "Ana", "Anda", "Alina", "Maria", "Mara" };
 
-        //    Assert.Throws<ArgumentNullException>(() => tree.CopyTo(null, 0));
-        //}
+            Assert.Throws<ArgumentNullException>(() => tree.CopyTo(null, 0));
+        }
 
-        //[Fact]
-        //public void CopyToShouldThrowArgumentOutOfRangeExceptionWhenIndexIsLessThan0()
-        //{
-        //    var tree = new RadixTree<string>() { "Ana", "Anda", "Alina", "Maria", "Mara" };
-        //    string[] array = new string[5];
+        [Fact]
+        public void CopyToShouldThrowArgumentOutOfRangeExceptionWhenIndexIsLessThan0()
+        {
+            var tree = new RadixTree<char>() { "Ana", "Anda", "Alina", "Maria", "Mara" };
+            IEnumerable<char>[] array = new IEnumerable<char>[5];
 
-        //    Assert.Throws<ArgumentOutOfRangeException>(() => tree.CopyTo(array, -1));
-        //}
+            Assert.Throws<ArgumentOutOfRangeException>(() => tree.CopyTo(array, -1));
+        }
 
-        //[Fact]
-        //public void CopyToShouldThrowArgumentExceptionWhenNumberOfItemsInTreeIsGreaterThanSpaceFromIndexToArrayEnd()
-        //{
-        //    var tree = new RadixTree<string>() { "Ana", "Anda", "Alina", "Maria", "Mara" };
-        //    string[] array = new string[5];
+        [Fact]
+        public void CopyToShouldThrowArgumentExceptionWhenNumberOfItemsInTreeIsGreaterThanSpaceFromIndexToArrayEnd()
+        {
+            var tree = new RadixTree<char>() { "Ana", "Anda", "Alina", "Maria", "Mara" };
+            IEnumerable<char>[] array = new IEnumerable<char>[5];
 
-        //    Assert.Throws<ArgumentException>(() => tree.CopyTo(array, 1));
-        //}
+            Assert.Throws<ArgumentException>(() => tree.CopyTo(array, 1));
+        }
     }
 }
