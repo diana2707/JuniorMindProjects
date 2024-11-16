@@ -25,7 +25,7 @@ namespace ObjectsCollection
 
         public void Add(IEnumerable<T> key)
         {
-            //ValidateItemIsNotNull(item);
+            ValidateItemIsNotNull(key);
 
             (RadixTreeNode<T> previousNode, RadixTreeNode<T> lastNode, IEnumerable<T> prefix, key) = GetLastNodes(key);
 
@@ -244,8 +244,12 @@ namespace ObjectsCollection
 
             return prefixLength;
         }
-    }
 
+        private static void ValidateItemIsNotNull(IEnumerable<T> key)
+        {
+            ArgumentNullException.ThrowIfNull(key);
+        }
+    }
 
     //public class RadixTree<T> : ICollection<T>
     //    /*where T : IEnumerable<char>*/

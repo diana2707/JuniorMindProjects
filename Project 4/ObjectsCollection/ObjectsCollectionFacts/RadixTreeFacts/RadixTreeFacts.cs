@@ -766,12 +766,12 @@
             Assert.Equal([], tree.GetLongestPrefixMatch("dog"));
         }
 
-        //[Fact]
-        //public void AddShouldThrowArgumentNullExceptionIfItemIsNull()
-        //{
-        //    var tree = new RadixTree<string>();
-        //    Assert.Throws<ArgumentNullException>(() => tree.Add(null));
-        //}
+        [Fact]
+        public void AddShouldThrowArgumentNullExceptionIfItemIsNull()
+        {
+            var tree = new RadixTree<char>();
+            Assert.Throws<ArgumentNullException>(() => tree.Add(null));
+        }
 
         //[Fact]
         //public void AddShouldThrowArgumentsExceptionWhenItemIsAlreadyInTheTree()
