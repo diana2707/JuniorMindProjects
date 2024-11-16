@@ -33,14 +33,14 @@ namespace ObjectsCollection
 
             int commonPrefixLength = GetCommonPrefixLength(prefix, remainingKey);
 
-            if (IsPartial(prefix, commonPrefixLength))
+            if (IsPartialyCommon(prefix, commonPrefixLength))
             {
                 lastNode = SplitPrefix(previousNode, lastNode, prefix, commonPrefixLength);
             }
 
-            if (IsPartial(remainingKey, commonPrefixLength))
+            if (IsPartialyCommon(remainingKey, commonPrefixLength))
             {
-                lastNode = AddRemainingKey(lastNode, remainingKey.Skip(commonPrefixLength));
+                lastNode = AddRemainingKey(lastNode, remainingKey, commonPrefixLength);
             }
 
             lastNode.IsEnd = true;
@@ -141,10 +141,10 @@ namespace ObjectsCollection
             return true;
         }
 
-        private static RadixTreeNode<T> AddRemainingKey(RadixTreeNode<T> node, IEnumerable<T> key)
+        private static RadixTreeNode<T> AddRemainingKey(RadixTreeNode<T> node, IEnumerable<T> key, int commonPrefixLength)
         {
             RadixTreeNode<T> newNode = new ();
-            node.Children.Add(key, newNode);
+            node.Children.Add(key.Skip(commonPrefixLength), newNode);
             return newNode;
         }
 
@@ -173,12 +173,12 @@ namespace ObjectsCollection
             return prefixLength;
         }
 
-        private static bool HasPrefix(IEnumerable<T> prefix, IEnumerable<T> key)
+        private static bool HasCommonPrefix(IEnumerable<T> first, IEnumerable<T> second)
         {
-            return GetCommonPrefixLength(prefix, key) > 0;
+            return GetCommonPrefixLength(first, second) > 0;
         }
 
-        private static bool IsPartial(IEnumerable<T> input, int commonPrefixLength)
+        private static bool IsPartialyCommon(IEnumerable<T> input, int commonPrefixLength)
         {
             return input.Count() > commonPrefixLength;
         }
@@ -260,7 +260,7 @@ namespace ObjectsCollection
 
                 foreach (var child in currentNode.Children)
                 {
-                    if (HasPrefix(child.Key, remainingKey))
+                    if (HasCommonPrefix(child.Key, remainingKey))
                     {
                         previousNode = currentNode;
                         currentNode = child.Value;
