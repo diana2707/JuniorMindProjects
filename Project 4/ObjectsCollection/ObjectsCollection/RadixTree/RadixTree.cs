@@ -159,21 +159,15 @@ namespace ObjectsCollection
             IEnumerator<T> keyEnumerator = key.GetEnumerator();
 
             int prefixLength = 0;
-            bool matchFound = true;
 
-            while (matchFound)
+            while (prefixEnumerator.MoveNext() && keyEnumerator.MoveNext())
             {
-                matchFound = false;
-                if (prefixEnumerator.MoveNext() && keyEnumerator.MoveNext())
+                if (!prefixEnumerator.Current.Equals(keyEnumerator.Current))
                 {
-                    if (!prefixEnumerator.Current.Equals(keyEnumerator.Current))
-                    {
-                        break;
-                    }
-
-                    prefixLength++;
-                    matchFound = true;
+                    break;
                 }
+
+                prefixLength++;
             }
 
             return prefixLength;
