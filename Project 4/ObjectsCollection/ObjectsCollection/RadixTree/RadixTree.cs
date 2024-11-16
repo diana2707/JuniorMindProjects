@@ -33,12 +33,12 @@ namespace ObjectsCollection
 
             int commonPrefixLength = GetCommonPrefixLength(prefix, remainingKey);
 
-            if (IsPartialyCommon(prefix, commonPrefixLength))
+            if (IsPartialMatch(prefix, commonPrefixLength))
             {
                 lastNode = SplitPrefix(previousNode, lastNode, prefix, commonPrefixLength);
             }
 
-            if (IsPartialyCommon(remainingKey, commonPrefixLength))
+            if (IsPartialMatch(remainingKey, commonPrefixLength))
             {
                 lastNode = AddRemainingKey(lastNode, remainingKey, commonPrefixLength);
             }
@@ -178,7 +178,7 @@ namespace ObjectsCollection
             return GetCommonPrefixLength(first, second) > 0;
         }
 
-        private static bool IsPartialyCommon(IEnumerable<T> input, int commonPrefixLength)
+        private static bool IsPartialMatch(IEnumerable<T> input, int commonPrefixLength)
         {
             return input.Count() > commonPrefixLength;
         }
@@ -250,7 +250,6 @@ namespace ObjectsCollection
             RadixTreeNode<T> currentNode = root;
             IEnumerable<T> prefix = [];
             IEnumerable<T> remainingKey = key;
-            int consumedKeyLength = 0;
 
             bool matchFound = true;
 
@@ -260,23 +259,22 @@ namespace ObjectsCollection
 
                 foreach (var child in currentNode.Children)
                 {
-                    if (HasCommonPrefix(child.Key, remainingKey))
+                    if (HasCommonPrefix(child.Key, key))
                     {
                         previousNode = currentNode;
                         currentNode = child.Value;
                         prefix = child.Key;
-                        remainingKey = remainingKey.Skip(prefix.Count());
-                        consumedKeyLength += prefix.Count();
+                        remainingKey = key;
 
+                        key = key.Skip(prefix.Count());
                         matchFound = true;
+
                         break;
                     }
                 }
             }
 
-            consumedKeyLength -= prefix.Count();
-
-            return (previousNode, currentNode, prefix, key.Skip(consumedKeyLength));
+            return (previousNode, currentNode, prefix, remainingKey);
         }
     }
 }
