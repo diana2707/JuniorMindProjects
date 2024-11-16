@@ -113,19 +113,17 @@ namespace ObjectsCollection
             (RadixTreeNode<T> parent, RadixTreeNode<T> child, IEnumerable<T> prefix, IEnumerable<T> remainingKey) = GetLastNodes(key);
 
             int commonPrefixLength = GetCommonPrefixLength(prefix, remainingKey);
-            key = key.Take(key.Count() - remainingKey.Count() + commonPrefixLength);
 
-            return key;
+            return key.Take(key.Count() - remainingKey.Count() + commonPrefixLength);
         }
 
         public bool Remove(IEnumerable<T> key)
         {
             ValidateArgumentIsNotNull(key);
 
-            (RadixTreeNode<T> parent, RadixTreeNode<T> child, IEnumerable<T> prefix, key) = GetLastNodes(key);
+            (RadixTreeNode<T> parent, RadixTreeNode<T> child, IEnumerable<T> prefix, IEnumerable<T> remainingKey) = GetLastNodes(key);
 
-            //refa, veri daca poti face un IsEqual
-            if (!child.IsEnd || !(GetCommonPrefixLength(prefix, key) == key.Count() && key.Count() == prefix.Count()) /*key.EndsWith(prefix)*/)
+            if (!child.IsEnd || !prefix.SequenceEqual(remainingKey))
             {
                 return false;
             }
