@@ -58,9 +58,9 @@ namespace ObjectsCollection
         {
             ValidateArgumentIsNotNull(key);
 
-            (RadixTreeNode<T> previousNode, RadixTreeNode<T> lastNode, IEnumerable<T> prefix, key) = GetLastNodes(key);
+            (RadixTreeNode<T> previousNode, RadixTreeNode<T> lastNode, IEnumerable<T> prefix, IEnumerable<T> remainingKey) = GetLastNodes(key);
 
-            return Contains(key, prefix, lastNode);
+            return Contains(remainingKey, prefix, lastNode);
         }
 
         public void CopyTo(IEnumerable<T>[] array, int arrayIndex)
@@ -80,18 +80,18 @@ namespace ObjectsCollection
 
             List<IEnumerable<T>> items = [];
 
-            (RadixTreeNode<T> parent, RadixTreeNode<T> child, IEnumerable<T> prefix, IEnumerable<T> remainingKey) = GetLastNodes(commonKey);
+            (RadixTreeNode<T> previousNode, RadixTreeNode<T> lastNode, IEnumerable<T> prefix, IEnumerable<T> remainingKey) = GetLastNodes(commonKey);
 
-            int prefixLength = GetCommonPrefixLength(prefix, remainingKey);
+            int commonPrefixLength = GetCommonPrefixLength(prefix, remainingKey);
 
-            if (remainingKey.Count() > prefixLength)
+            if (remainingKey.Count() > commonPrefixLength)
             {
                 return items;
             }
 
-            commonKey = commonKey.Concat(prefix.Skip(prefixLength));
+            commonKey = commonKey.Concat(prefix.Skip(commonPrefixLength));
 
-            items.AddRange(Traverse(child, commonKey));
+            items.AddRange(Traverse(lastNode, commonKey));
 
             return items;
         }
