@@ -138,6 +138,18 @@ namespace ObjectsCollection
             return items;
         }
 
+        public IEnumerable<T> GetLongestPrefixMatch(IEnumerable<T> key)
+        {
+            //ValidateItemIsNotNull(item);
+
+            (RadixTreeNode<T> parent, RadixTreeNode<T> child, IEnumerable<T> prefix, IEnumerable<T> remainingKey) = GetLastNodes(key);
+
+            int commonPrefixLength = GetCommonPrefixLength(prefix, remainingKey);
+            key = key.Take(key.Count() - remainingKey.Count() + commonPrefixLength);
+
+            return key;
+        }
+
         private static RadixTreeNode<T> SplitPrefix(RadixTreeNode<T> parent, RadixTreeNode<T> child, IEnumerable<T> prefix, int commonPrefixLength)
         {
             RadixTreeNode<T> newNode = new ()
