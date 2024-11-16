@@ -25,7 +25,7 @@ namespace ObjectsCollection
 
         public void Add(IEnumerable<T> key)
         {
-            ValidateItemIsNotNull(key);
+            ValidateArgumentIsNotNull(key);
 
             (RadixTreeNode<T> previousNode, RadixTreeNode<T> lastNode, IEnumerable<T> prefix, key) = GetLastNodes(key);
 
@@ -50,9 +50,15 @@ namespace ObjectsCollection
             Count++;
         }
 
+        public void Clear()
+        {
+            root.Children.Clear();
+            Count = 0;
+        }
+
         public bool Remove(IEnumerable<T> key)
         {
-            //ValidateItemIsNotNull(item);
+            ValidateArgumentIsNotNull(key);
 
             (RadixTreeNode<T> parent, RadixTreeNode<T> child, IEnumerable<T> prefix, key) = GetLastNodes(key);
 
@@ -77,11 +83,22 @@ namespace ObjectsCollection
 
         public bool Contains(IEnumerable<T> key)
         {
-            //ValidateItemIsNotNull(item);
+            ValidateArgumentIsNotNull(key);
 
             (RadixTreeNode<T> previousNode, RadixTreeNode<T> lastNode, IEnumerable<T> prefix, key) = GetLastNodes(key);
 
             return Contains(key, prefix, lastNode);
+        }
+
+        public void CopyTo(IEnumerable<T>[] array, int arrayIndex)
+        {
+            ValidateArray(array, arrayIndex);
+
+            foreach (IEnumerable<T> item in this)
+            {
+                array[arrayIndex] = item;
+                arrayIndex++;
+            }
         }
 
         private static bool Contains(IEnumerable<T> prefix, IEnumerable<T> key, RadixTreeNode<T> node)
@@ -118,7 +135,7 @@ namespace ObjectsCollection
 
         public List<IEnumerable<T>> GetAllItemsByPrefix(IEnumerable<T> commonKey)
         {
-            //ValidateKeyIsNotNull(commonKey);
+            ValidateArgumentIsNotNull(commonKey);
 
             List<IEnumerable<T>> items = [];
 
@@ -140,7 +157,7 @@ namespace ObjectsCollection
 
         public IEnumerable<T> GetLongestPrefixMatch(IEnumerable<T> key)
         {
-            //ValidateItemIsNotNull(item);
+            ValidateArgumentIsNotNull(key);
 
             (RadixTreeNode<T> parent, RadixTreeNode<T> child, IEnumerable<T> prefix, IEnumerable<T> remainingKey) = GetLastNodes(key);
 
@@ -245,7 +262,7 @@ namespace ObjectsCollection
             return prefixLength;
         }
 
-        private static void ValidateItemIsNotNull(IEnumerable<T> key)
+        private static void ValidateArgumentIsNotNull(IEnumerable<T> key)
         {
             ArgumentNullException.ThrowIfNull(key);
         }
@@ -258,6 +275,19 @@ namespace ObjectsCollection
             }
 
             throw new ArgumentException("The item is already stored in the tree.");
+        }
+
+        private void ValidateArray(IEnumerable<T>[] array, int index)
+        {
+            ArgumentNullException.ThrowIfNull(array);
+            ArgumentOutOfRangeException.ThrowIfLessThan(index, 0);
+
+            if (array.Length - index >= Count)
+            {
+                return;
+            }
+
+            throw new ArgumentException("The number of items in tree is greater than the space from index to end of array.");
         }
     }
 
