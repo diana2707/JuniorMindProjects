@@ -29,7 +29,7 @@ namespace ObjectsCollection
 
             (RadixTreeNode<T> previousNode, RadixTreeNode<T> lastNode, IEnumerable<T> prefix, IEnumerable<T> remainingKey) = GetLastNodes(key);
 
-            ValidateNewItem(prefix, remainingKey, lastNode);
+            ValidateNewItem(prefix, remainingKey, lastNode.IsEnd);
 
             int commonPrefixLength = GetCommonPrefixLength(prefix, remainingKey);
 
@@ -60,7 +60,7 @@ namespace ObjectsCollection
 
             (RadixTreeNode<T> previousNode, RadixTreeNode<T> lastNode, IEnumerable<T> prefix, IEnumerable<T> remainingKey) = GetLastNodes(key);
 
-            return Contains(remainingKey, prefix, lastNode);
+            return Contains(remainingKey, prefix, lastNode.IsEnd);
         }
 
         public void CopyTo(IEnumerable<T>[] array, int arrayIndex)
@@ -143,15 +143,14 @@ namespace ObjectsCollection
 
         private static RadixTreeNode<T> AddRemainingKey(RadixTreeNode<T> node, IEnumerable<T> key)
         {
-            RadixTreeNode<T> newNode = new();
+            RadixTreeNode<T> newNode = new ();
             node.Children.Add(key, newNode);
             return newNode;
         }
 
-        private static bool Contains(IEnumerable<T> prefix, IEnumerable<T> key, RadixTreeNode<T> node)
+        private static bool Contains(IEnumerable<T> prefix, IEnumerable<T> key, bool isEnd)
         {
-            //sa scriu o metoda IsEqual pentru colectii? dar tot la fel iterez? nu imi place, vreau sa o simplific
-            return node.IsEnd && GetCommonPrefixLength(prefix, key) == key.Count() && key.Count() == prefix.Count();
+            return isEnd && prefix.SequenceEqual(key);
         }
 
         private static int GetCommonPrefixLength(IEnumerable<T> prefix, IEnumerable<T> key)
@@ -228,9 +227,9 @@ namespace ObjectsCollection
             ArgumentNullException.ThrowIfNull(key);
         }
 
-        private static void ValidateNewItem(IEnumerable<T> prefix, IEnumerable<T> key, RadixTreeNode<T> node)
+        private static void ValidateNewItem(IEnumerable<T> prefix, IEnumerable<T> key, bool isEnd)
         {
-            if (!Contains(prefix, key, node))
+            if (!Contains(prefix, key, isEnd))
             {
                 return;
             }
