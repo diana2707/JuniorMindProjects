@@ -58,6 +58,28 @@ namespace ObjectsCollection
             return Contains(remainingItem, lastNode);
         }
 
+        public List<IEnumerable<T>> GetAllItemsByPrefix(IEnumerable<T> prefix)
+        {
+            //ValidateArgumentIsNotNull(prefix);
+
+            List<IEnumerable<T>> items = [];
+
+            (RadixTreeNode<T> previousNode, RadixTreeNode<T> lastNode, List<T> remainingPrefix) = GetLastCommonNodes(prefix.ToList());
+
+            int commonPrefixLength = GetCommonPrefixLength(lastNode.Prefix, remainingPrefix);
+
+            if (remainingPrefix.Count > commonPrefixLength)
+            {
+                return items;
+            }
+
+            prefix = prefix.Concat(lastNode.Prefix.Skip(commonPrefixLength));
+
+            items.AddRange(Traverse(lastNode, prefix));
+
+            return items;
+        }
+
         public bool Remove(IEnumerable<T> item)
         {
             //ValidateArgumentIsNotNull(item);
