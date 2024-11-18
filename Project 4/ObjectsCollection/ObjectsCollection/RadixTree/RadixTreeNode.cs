@@ -8,11 +8,12 @@ namespace ObjectsCollection
         public RadixTreeNode()
         {
             Prefix = [];
-            Children = new Dictionary<IEnumerable<T>, RadixTreeNode<T>>();
+            Children = new List<RadixTreeNode<T>>();
         }
 
         public List<T> Prefix { get; set; }
-        public Dictionary<IEnumerable<T>, RadixTreeNode<T>> Children { get; set; }
+
+        public List<RadixTreeNode<T>> Children { get; set; }
 
         public bool IsEnd { get; set; }
     }
