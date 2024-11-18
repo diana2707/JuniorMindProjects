@@ -80,6 +80,21 @@ namespace ObjectsCollection
             return items;
         }
 
+        public IEnumerable<T> GetLongestPrefixMatch(IEnumerable<T> item)
+        {
+            //ValidateArgumentIsNotNull(item);
+
+            List<T> itemList = item.ToList();
+
+            (RadixTreeNode<T> previousNode, RadixTreeNode<T> currentNode, List<T> remainingItem) = GetLastCommonNodes(itemList);
+
+            int commonPrefixLength = GetCommonPrefixLength(currentNode.Prefix, remainingItem);
+
+            //return item.Take(item.Count() - remainingItem.Count() + commonPrefixLength);
+
+            return itemList.GetRange(0, itemList.Count - remainingItem.Count + commonPrefixLength);
+        }
+
         public bool Remove(IEnumerable<T> item)
         {
             //ValidateArgumentIsNotNull(item);

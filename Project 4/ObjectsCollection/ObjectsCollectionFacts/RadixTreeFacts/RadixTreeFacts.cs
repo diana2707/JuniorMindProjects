@@ -746,25 +746,25 @@
             Assert.Empty(tree.GetAllItemsByPrefix("ron"));
         }
 
-        //        [Fact]
-        //        public void GetLongestPrefixMatchShouldReturnsStringWithLongestMatchFromTree()
-        //        {
-        //            var tree = new RadixTree<char>();
-        //            tree.Add("romane");
-        //            tree.Add("romanus");
-        //            tree.Add("rom");
-        //            tree.Add("romulus");
-        //            tree.Add("rub");
-        //            tree.Add("rubens");
-        //            tree.Add("ben");
-        //            tree.Add("ruber");
-        //            tree.Add("rubicundus");
+        [Fact]
+        public void GetLongestPrefixMatchShouldReturnsStringWithLongestMatchFromTree()
+        {
+            var tree = new RadixTree<char>();
+            tree.Add("romane");
+            tree.Add("romanus");
+            tree.Add("rom");
+            tree.Add("romulus");
+            tree.Add("rub");
+            tree.Add("rubens");
+            tree.Add("ben");
+            tree.Add("ruber");
+            tree.Add("rubicundus");
 
-        //            Assert.Equal(['r', 'u', 'b', 'i', 'c'], tree.GetLongestPrefixMatch("rubicon"));
-        //            Assert.Equal(['r', 'u', 'b', 'e'], tree.GetLongestPrefixMatch("rubeus"));
-        //            Assert.Equal(['r', 'u', 'b'], tree.GetLongestPrefixMatch("ruby"));
-        //            Assert.Equal([], tree.GetLongestPrefixMatch("dog"));
-        //        }
+            Assert.Equal(['r', 'u', 'b', 'i', 'c'], tree.GetLongestPrefixMatch("rubicon"));
+            Assert.Equal(['r', 'u', 'b', 'e'], tree.GetLongestPrefixMatch("rubeus"));
+            Assert.Equal(['r', 'u', 'b'], tree.GetLongestPrefixMatch("ruby"));
+            Assert.Equal([], tree.GetLongestPrefixMatch("dog"));
+        }
 
         //        [Fact]
         //        public void AddShouldThrowArgumentNullExceptionIfItemIsNull()
