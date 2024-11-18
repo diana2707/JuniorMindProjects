@@ -240,80 +240,80 @@
             Assert.Equal(9, tree.Count);
         }
 
-        //        [Fact]
-        //        public void ContainsShouldReturnTrueIfStringExistsInTree()
-        //        {
-        //            var tree = new RadixTree<char>();
-        //            tree.Add("cat");
-        //            tree.Add("car");
-        //            Assert.True(tree.Contains("car"));
-        //            Assert.True(tree.Contains("cat"));
-        //        }
+        [Fact]
+        public void ContainsShouldReturnTrueIfStringExistsInTree()
+        {
+            var tree = new RadixTree<char>();
+            tree.Add("cat");
+            tree.Add("car");
+            Assert.True(tree.Contains("car"));
+            Assert.True(tree.Contains("cat"));
+        }
 
-        //        [Fact]
-        //        public void ContainsShouldReturnFalseIfStringDoNotExistsInTree()
-        //        {
-        //            var tree = new RadixTree<char>();
-        //            tree.Add("cat");
-        //            tree.Add("car");
-        //            Assert.False(tree.Contains("camel"));
-        //            Assert.False(tree.Contains("ca"));
-        //            Assert.False(tree.Contains("container"));
-        //            Assert.False(tree.Contains("book"));
-        //        }
+        [Fact]
+        public void ContainsShouldReturnFalseIfStringDoNotExistsInTree()
+        {
+            var tree = new RadixTree<char>();
+            tree.Add("cat");
+            tree.Add("car");
+            Assert.False(tree.Contains("camel"));
+            Assert.False(tree.Contains("ca"));
+            Assert.False(tree.Contains("container"));
+            Assert.False(tree.Contains("book"));
+        }
 
-        //        [Fact]
-        //        public void ContainsShouldReturnTrueWhenNewStringHasAnotherWordAsPrefix()
-        //        {
-        //            var tree = new RadixTree<char>();
-        //            tree.Add("cab");
-        //            tree.Add("cabage");
-        //            Assert.True(tree.Contains("cab"));
-        //            Assert.True(tree.Contains("cabage"));
-        //            Assert.Equal(2, tree.Count);
-        //        }
+        [Fact]
+        public void ContainsShouldReturnTrueWhenNewStringHasAnotherWordAsPrefix()
+        {
+            var tree = new RadixTree<char>();
+            tree.Add("cab");
+            tree.Add("cabage");
+            Assert.True(tree.Contains("cab"));
+            Assert.True(tree.Contains("cabage"));
+            Assert.Equal(2, tree.Count);
+        }
 
-        //        [Fact]
-        //        public void ContainsShouldReturnTrueWhenEndOfStringIsTheSameAsPrefix()
-        //        {
-        //            var tree = new RadixTree<char>() { "Ana", "Anda", "Alina", "Ana-Maria", "Maria", "Mara" };
+        [Fact]
+        public void ContainsShouldReturnTrueWhenEndOfStringIsTheSameAsPrefix()
+        {
+            var tree = new RadixTree<char>() { "Ana", "Anda", "Alina", "Ana-Maria", "Maria", "Mara" };
 
-        //            Assert.True(tree.Contains("Ana"));
-        //            Assert.True(tree.Contains("Ana-Maria"));
-        //            Assert.Equal(6, tree.Count);
-        //        }
+            Assert.True(tree.Contains("Ana"));
+            Assert.True(tree.Contains("Ana-Maria"));
+            Assert.Equal(6, tree.Count);
+        }
 
-        //        [Fact]
-        //        public void ContainsShouldReturnTrueWhenElementsAreListOfChars()
-        //        {
-        //            var ana = new List<char>() { 'A', 'n', 'a' };
-        //            var anda = new List<char>() { 'A', 'n', 'd', 'a' };
-        //            var alina = new List<char>() { 'A', 'l', 'i', 'n', 'a' };
-        //            var anaMaria = new List<char>() { 'A', 'n', 'a', '-', 'M', 'a', 'r', 'i', 'a' };
-        //            var maria = new List<char>() { 'M', 'a', 'r', 'i', 'a' };
-        //            var mara = new List<char>() { 'M', 'a', 'r', 'a' };
-        //            var tree = new RadixTree<char>() { ana, anda, alina, anaMaria, maria, mara };
+        [Fact]
+        public void ContainsShouldReturnTrueWhenElementsAreListOfChars()
+        {
+            var ana = new List<char>() { 'A', 'n', 'a' };
+            var anda = new List<char>() { 'A', 'n', 'd', 'a' };
+            var alina = new List<char>() { 'A', 'l', 'i', 'n', 'a' };
+            var anaMaria = new List<char>() { 'A', 'n', 'a', '-', 'M', 'a', 'r', 'i', 'a' };
+            var maria = new List<char>() { 'M', 'a', 'r', 'i', 'a' };
+            var mara = new List<char>() { 'M', 'a', 'r', 'a' };
+            var tree = new RadixTree<char>() { ana, anda, alina, anaMaria, maria, mara };
 
-        //            Assert.True(tree.Contains(ana));
-        //            Assert.True(tree.Contains(anaMaria));
-        //            Assert.Equal(6, tree.Count);
-        //        }
+            Assert.True(tree.Contains(ana));
+            Assert.True(tree.Contains(anaMaria));
+            Assert.Equal(6, tree.Count);
+        }
 
-        //        [Fact]
-        //        public void ContainsShouldReturnTrueWhenElementsAreArrayOfChars()
-        //        {
-        //            char[] ana = ['A', 'n', 'a'];
-        //            char[] anda = ['A', 'n', 'd', 'a'];
-        //            char[] alina = ['A', 'l', 'i', 'n', 'a'];
-        //            char[] anaMaria = ['A', 'n', 'a', '-', 'M', 'a', 'r', 'i', 'a'];
-        //            char[] maria = ['M', 'a', 'r', 'i', 'a'];
-        //            char[] mara = ['M', 'a', 'r', 'a'];
-        //            var tree = new RadixTree<char>() { ana, anda, alina, anaMaria, maria, mara };
+        [Fact]
+        public void ContainsShouldReturnTrueWhenElementsAreArrayOfChars()
+        {
+            char[] ana = ['A', 'n', 'a'];
+            char[] anda = ['A', 'n', 'd', 'a'];
+            char[] alina = ['A', 'l', 'i', 'n', 'a'];
+            char[] anaMaria = ['A', 'n', 'a', '-', 'M', 'a', 'r', 'i', 'a'];
+            char[] maria = ['M', 'a', 'r', 'i', 'a'];
+            char[] mara = ['M', 'a', 'r', 'a'];
+            var tree = new RadixTree<char>() { ana, anda, alina, anaMaria, maria, mara };
 
-        //            Assert.True(tree.Contains(ana));
-        //            Assert.True(tree.Contains(anaMaria));
-        //            Assert.Equal(6, tree.Count);
-        //        }
+            Assert.True(tree.Contains(ana));
+            Assert.True(tree.Contains(anaMaria));
+            Assert.Equal(6, tree.Count);
+        }
 
         //        [Fact]
         //        public void RemoveShouldReturnTrueWhenRemovesWordsThatArePrefixForOtherWords()

@@ -20,6 +20,8 @@ namespace ObjectsCollection
 
         public void Add(IEnumerable<T> item)
         {
+            //sa separ validarile si traversarea de inserarea propriu-zisa 
+
             //ValidateArgumentIsNotNull(item);
 
             List<T> itemList = item.ToList();
@@ -43,6 +45,22 @@ namespace ObjectsCollection
             lastNode.IsEnd = true;
 
             Count++;
+        }
+
+        public bool Contains(IEnumerable<T> item)
+        {
+            //ValidateArgumentIsNotNull(item);
+
+            List<T> itemList = item.ToList();
+
+            (RadixTreeNode<T> previousNode, RadixTreeNode<T> lastNode, List<T> remainingItem) = GetLastCommonNodes(itemList);
+
+            return Contains(remainingItem, lastNode);
+        }
+
+        private static bool Contains(List<T> item, RadixTreeNode<T> node)
+        {
+            return node.IsEnd && node.Prefix.SequenceEqual(item);
         }
 
         public IEnumerator<IEnumerable<T>> GetEnumerator()
