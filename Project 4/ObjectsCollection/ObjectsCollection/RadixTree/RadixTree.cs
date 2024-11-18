@@ -20,8 +20,6 @@ namespace ObjectsCollection
 
         public void Add(IEnumerable<T> item)
         {
-            //sa separ validarile si traversarea de inserarea propriu-zisa 
-
             ValidateArgumentIsNotNull(item);
 
             (RadixTreeNode<T> previousNode, RadixTreeNode<T> lastNode, List<T> remainingItem) = GetLastCommonNodes(item.ToList());
@@ -29,25 +27,6 @@ namespace ObjectsCollection
             ValidateNewItem(remainingItem, lastNode);
 
             Add(remainingItem, lastNode);
-        }
-
-        private void Add(List<T> item, RadixTreeNode<T> node)
-        {
-            int splitIndex = GetCommonPrefixLength(node.Prefix, item);
-
-            if (IsPartialMatch(node.Prefix, splitIndex))
-            {
-                SplitNode(splitIndex, node);
-            }
-
-            if (IsPartialMatch(item, splitIndex))
-            {
-                node = AddNode(item, splitIndex, node);
-            }
-
-            node.IsEnd = true;
-
-            Count++;
         }
 
         public void Clear()
@@ -100,6 +79,16 @@ namespace ObjectsCollection
             return items;
         }
 
+        public IEnumerator<IEnumerable<T>> GetEnumerator()
+        {
+            return Traverse(root, []).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
         public IEnumerable<T> GetLongestPrefixMatch(IEnumerable<T> item)
         {
             ValidateArgumentIsNotNull(item);
@@ -139,19 +128,37 @@ namespace ObjectsCollection
             return true;
         }
 
+        private void Add(List<T> item, RadixTreeNode<T> node)
+        {
+            int splitIndex = GetCommonPrefixLength(node.Prefix, item);
+
+            if (IsPartialMatch(node.Prefix, splitIndex))
+            {
+                SplitNode(splitIndex, node);
+            }
+
+            if (IsPartialMatch(item, splitIndex))
+            {
+                node = AddNode(item, splitIndex, node);
+            }
+
+            node.IsEnd = true;
+
+            Count++;
+        }
+
+        private static RadixTreeNode<T> AddNode(List<T> prefix, int splitIndex, RadixTreeNode<T> parent)
+        {
+            RadixTreeNode<T> newNode = new ();
+            newNode.Prefix = prefix.GetRange(splitIndex, prefix.Count - splitIndex);
+
+            parent.Children.Add(newNode);
+            return newNode;
+        }
+
         private static bool Contains(List<T> item, RadixTreeNode<T> node)
         {
             return node.IsEnd && node.Prefix.SequenceEqual(item);
-        }
-
-        public IEnumerator<IEnumerable<T>> GetEnumerator()
-        {
-            return Traverse(root, []).GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
         }
 
         private static IEnumerable<IEnumerable<T>> Traverse(RadixTreeNode<T> node, IEnumerable<T> prefix)
@@ -168,6 +175,24 @@ namespace ObjectsCollection
                     yield return item;
                 }
             }
+        }
+
+        private static int GetCommonPrefixLength(List<T> key, List<T> item)
+        {
+            int prefixLength = 0;
+            int minLength = key.Count < item.Count ? key.Count : item.Count;
+
+            for (int i = 0; i < minLength; i++)
+            {
+                if (!key[i].Equals(item[i]))
+                {
+                    break;
+                }
+
+                prefixLength++;
+            }
+
+            return prefixLength;
         }
 
         private (RadixTreeNode<T> previousNode, RadixTreeNode<T> currentNode, List<T> remainingItem) GetLastCommonNodes(List<T> item)
@@ -203,24 +228,6 @@ namespace ObjectsCollection
             return (previousNode, currentNode, remainingItem);
         }
 
-        private static int GetCommonPrefixLength(List<T> key, List<T> item)
-        {
-            int prefixLength = 0;
-            int minLength = key.Count < item.Count ? key.Count : item.Count;
-
-            for (int i = 0; i < minLength; i++)
-            {
-                if (!key[i].Equals(item[i]))
-                {
-                    break;
-                }
-
-                prefixLength++;
-            }
-
-            return prefixLength;
-        }
-
         private static bool HasCommonPrefix(List<T> prefix, List<T> item)
         {
             return GetCommonPrefixLength(prefix, item) > 0;
@@ -246,15 +253,6 @@ namespace ObjectsCollection
             currentNode.Children.Add(newNode);
             currentNode.Prefix = currentNode.Prefix.GetRange(0, splitIndex);
             currentNode.IsEnd = false;
-        }
-
-        private static RadixTreeNode<T> AddNode(List<T> prefix, int splitIndex, RadixTreeNode<T> parent)
-        {
-            RadixTreeNode<T> newNode = new ();
-            newNode.Prefix = prefix.GetRange(splitIndex, prefix.Count - splitIndex);
-
-            parent.Children.Add(newNode);
-            return newNode;
         }
 
         private static void ValidateArgumentIsNotNull(IEnumerable<T> item)

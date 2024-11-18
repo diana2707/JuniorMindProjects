@@ -17,6 +17,13 @@
         }
 
         [Fact]
+        public void PathLengthIs0WhenTreeIsEmpty()
+        {
+            RadixTreeNode<string> node = new ();
+            Assert.Equal(0, node.PathLength);
+        }
+
+        [Fact]
         public void ChildrenIsEmptyWhenTreeIsEmpty()
         {
             RadixTreeNode<string> node = new ();
