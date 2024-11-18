@@ -10,6 +10,13 @@
         }
 
         [Fact]
+        public void PrefixIsEmptyWhenTreeIsEmpty()
+        {
+            RadixTreeNode<string> node = new ();
+            Assert.Empty(node.Prefix);
+        }
+
+        [Fact]
         public void ChildrenIsEmptyWhenTreeIsEmpty()
         {
             RadixTreeNode<string> node = new ();

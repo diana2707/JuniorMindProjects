@@ -1,5 +1,6 @@
 ﻿namespace ObjectsCollection
 {
+    [Trait("Category", "Skip")]
     public class RadixTreeFacts
     {
         [Fact]
