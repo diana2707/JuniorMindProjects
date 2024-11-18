@@ -58,6 +58,32 @@ namespace ObjectsCollection
             return Contains(remainingItem, lastNode);
         }
 
+        public bool Remove(IEnumerable<T> item)
+        {
+            //ValidateArgumentIsNotNull(item);
+
+            List<T> itemList = item.ToList();
+
+            (RadixTreeNode<T> previousNode, RadixTreeNode<T> currentNode, List<T> remainingItem) = GetLastCommonNodes(itemList);
+
+            if (!Contains(remainingItem, currentNode))
+            {
+                return false;
+            }
+
+            if (currentNode.Children.Count == 0)
+            {
+                previousNode.Children.Remove(currentNode);
+            }
+            else
+            {
+                currentNode.IsEnd = false;
+            }
+
+            Count--;
+            return true;
+        }
+
         private static bool Contains(List<T> item, RadixTreeNode<T> node)
         {
             return node.IsEnd && node.Prefix.SequenceEqual(item);
@@ -73,7 +99,7 @@ namespace ObjectsCollection
             return GetEnumerator();
         }
 
-        private static IEnumerable<IEnumerable<T>> Traverse(RadixTreeNode<T> node, List<T> prefix)
+        private static IEnumerable<IEnumerable<T>> Traverse(RadixTreeNode<T> node, IEnumerable<T> prefix)
         {
             if (node.IsEnd)
             {
@@ -82,7 +108,7 @@ namespace ObjectsCollection
 
             foreach (var child in node.Children)
             {
-                foreach (IEnumerable<T> item in Traverse(child, prefix.Concat(child.Prefix).ToList()))
+                foreach (IEnumerable<T> item in Traverse(child, prefix.Concat(child.Prefix)))
                 {
                     yield return item;
                 }
