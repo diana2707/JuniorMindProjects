@@ -48,10 +48,10 @@
             tree.Add("car");
             tree.Add("cabage");
             tree.Add("candle");
-            //Assert.Contains("cat", tree);
-            //Assert.Contains("car", tree);
-            //Assert.Contains("cabage", tree);
-            //Assert.Contains("candle", tree);
+            Assert.Contains("cat", tree);
+            Assert.Contains("car", tree);
+            Assert.Contains("cabage", tree);
+            Assert.Contains("candle", tree);
 
             Assert.Equal(4, tree.Count);
         }
@@ -62,8 +62,8 @@
             var tree = new RadixTree<char>();
             tree.Add("cat");
             tree.Add("catnip");
-            //Assert.Contains("cat", tree);
-            //Assert.Contains("catnip", tree);
+            Assert.Contains("cat", tree);
+            Assert.Contains("catnip", tree);
             Assert.Equal(2, tree.Count);
         }
 
@@ -73,8 +73,8 @@
             var tree = new RadixTree<char>();
             tree.Add("catnip");
             tree.Add("cat");
-            //Assert.Contains("cat", tree);
-            //Assert.Contains("catnip", tree);
+            Assert.Contains("cat", tree);
+            Assert.Contains("catnip", tree);
             Assert.Equal(2, tree.Count);
         }
 
@@ -85,9 +85,9 @@
             tree.Add("catnip");
             tree.Add("category");
             tree.Add("cat");
-            //Assert.Contains("cat", tree);
-            //Assert.Contains("catnip", tree);
-            //Assert.Contains("category", tree);
+            Assert.Contains("cat", tree);
+            Assert.Contains("catnip", tree);
+            Assert.Contains("category", tree);
             Assert.Equal(3, tree.Count);
         }
 
@@ -98,9 +98,9 @@
             tree.Add("catnip");
             tree.Add("category");
 
-            //Assert.DoesNotContain("cat", tree);
-            //Assert.Contains("catnip", tree);
-            //Assert.Contains("category", tree);
+            Assert.DoesNotContain("cat", tree);
+            Assert.Contains("catnip", tree);
+            Assert.Contains("category", tree);
             Assert.Equal(2, tree.Count);
         }
 
@@ -119,16 +119,16 @@
             tree.Add("ruber");
             tree.Add("rubicundus");
 
-            //Assert.Contains("romane", tree);
-            //Assert.Contains("romanus", tree);
-            //Assert.Contains("rom", tree);
-            //Assert.Contains("romulus", tree);
-            //Assert.Contains("romanum", tree);
-            //Assert.Contains("rub", tree);
-            //Assert.Contains("rubens", tree);
-            //Assert.Contains("ben", tree);
-            //Assert.Contains("ruber", tree);
-            //Assert.Contains("rubicundus", tree);
+            Assert.Contains("romane", tree);
+            Assert.Contains("romanus", tree);
+            Assert.Contains("rom", tree);
+            Assert.Contains("romulus", tree);
+            Assert.Contains("romanum", tree);
+            Assert.Contains("rub", tree);
+            Assert.Contains("rubens", tree);
+            Assert.Contains("ben", tree);
+            Assert.Contains("ruber", tree);
+            Assert.Contains("rubicundus", tree);
             Assert.Equal(10, tree.Count);
         }
 
@@ -156,15 +156,15 @@
             tree.Add(list8);
             tree.Add(list9);
 
-            //Assert.Contains(list1, tree);
-            //Assert.Contains(list2, tree);
-            //Assert.Contains(list3, tree);
-            //Assert.Contains(list4, tree);
-            //Assert.Contains(list5, tree);
-            //Assert.Contains(list6, tree);
-            //Assert.Contains(list7, tree);
-            //Assert.Contains(list8, tree);
-            //Assert.Contains(list9, tree);
+            Assert.Contains(list1, tree);
+            Assert.Contains(list2, tree);
+            Assert.Contains(list3, tree);
+            Assert.Contains(list4, tree);
+            Assert.Contains(list5, tree);
+            Assert.Contains(list6, tree);
+            Assert.Contains(list7, tree);
+            Assert.Contains(list8, tree);
+            Assert.Contains(list9, tree);
             Assert.Equal(9, tree.Count);
         }
 
@@ -192,15 +192,15 @@
             tree.Add(ruber);
             tree.Add(rubicundus);
 
-            //Assert.Contains(romane, tree);
-            //Assert.Contains(romanus, tree);
-            //Assert.Contains(rom, tree);
-            //Assert.Contains(romulus, tree);
-            //Assert.Contains(rub, tree);
-            //Assert.Contains(rubens, tree);
-            //Assert.Contains(ben, tree);
-            //Assert.Contains(ruber, tree);
-            //Assert.Contains(rubicundus, tree);
+            Assert.Contains(romane, tree);
+            Assert.Contains(romanus, tree);
+            Assert.Contains(rom, tree);
+            Assert.Contains(romulus, tree);
+            Assert.Contains(rub, tree);
+            Assert.Contains(rubens, tree);
+            Assert.Contains(ben, tree);
+            Assert.Contains(ruber, tree);
+            Assert.Contains(rubicundus, tree);
             Assert.Equal(9, tree.Count);
         }
 
@@ -228,15 +228,15 @@
             tree.Add(ruber);
             tree.Add(rubicundus);
 
-            //Assert.Contains(romane, tree);
-            //Assert.Contains(romanus, tree);
-            //Assert.Contains(rom, tree);
-            //Assert.Contains(romulus, tree);
-            //Assert.Contains(rub, tree);
-            //Assert.Contains(rubens, tree);
-            //Assert.Contains(ben, tree);
-            //Assert.Contains(ruber, tree);
-            //Assert.Contains(rubicundus, tree);
+            Assert.Contains(romane, tree);
+            Assert.Contains(romanus, tree);
+            Assert.Contains(rom, tree);
+            Assert.Contains(romulus, tree);
+            Assert.Contains(rub, tree);
+            Assert.Contains(rubens, tree);
+            Assert.Contains(ben, tree);
+            Assert.Contains(ruber, tree);
+            Assert.Contains(rubicundus, tree);
             Assert.Equal(9, tree.Count);
         }
 
@@ -528,104 +528,104 @@
         //            Assert.Equal(5, tree.Count);
         //        }
 
-        //        [Fact]
-        //        public void GetEnumeratorShouldEnumerateThroughAllStrings()
-        //        {
-        //            var tree = new RadixTree<char>();
-        //            tree.Add("romane");
-        //            tree.Add("romanus");
-        //            tree.Add("rom");
-        //            tree.Add("romulus");
-        //            tree.Add("rub");
-        //            tree.Add("rubens");
-        //            tree.Add("ben");
-        //            tree.Add("ruber");
-        //            tree.Add("rubicundus");
+        [Fact]
+        public void GetEnumeratorShouldEnumerateThroughAllStrings()
+        {
+            var tree = new RadixTree<char>();
+            tree.Add("romane");
+            tree.Add("romanus");
+            tree.Add("rom");
+            tree.Add("romulus");
+            tree.Add("rub");
+            tree.Add("rubens");
+            tree.Add("ben");
+            tree.Add("ruber");
+            tree.Add("rubicundus");
 
-        //            string[] array = { "romane", "romanus", "rom", "romulus", "rub", "rubens", "ben", "ruber", "rubicundus" };
-        //            int count = 0;
+            string[] array = { "romane", "romanus", "rom", "romulus", "rub", "rubens", "ben", "ruber", "rubicundus" };
+            int count = 0;
 
-        //            foreach (var item in tree)
-        //            {
-        //                Assert.Contains(item, array);
-        //                count++;
-        //            }
+            foreach (var item in tree)
+            {
+                Assert.Contains(item, array);
+                count++;
+            }
 
-        //            Assert.Equal(count, tree.Count);
-        //        }
+            Assert.Equal(count, tree.Count);
+        }
 
-        //        [Fact]
-        //        public void GetEnumeratorShouldEnumerateThroughAllListOfChars()
-        //        {
-        //            var tree = new RadixTree<char>();
+        [Fact]
+        public void GetEnumeratorShouldEnumerateThroughAllListOfChars()
+        {
+            var tree = new RadixTree<char>();
 
-        //            var romane = new List<char>() { 'r', 'o', 'm', 'a', 'n', 'e' };
-        //            var romanus = new List<char>() { 'r', 'o', 'm', 'a', 'n', 'u', 's' };
-        //            var rom = new List<char>() { 'r', 'o', 'm' };
-        //            var romulus = new List<char>() { 'r', 'o', 'm', 'u', 'l', 'u', 's' };
-        //            var rub = new List<char>() { 'r', 'u', 'b' };
-        //            var rubens = new List<char>() { 'r', 'u', 'b', 'e', 'n', 's' };
-        //            var ben = new List<char>() { 'b', 'e', 'n' };
-        //            var ruber = new List<char>() { 'r', 'u', 'b', 'e', 'r' };
-        //            var rubicundus = new List<char>() { 'r', 'u', 'b', 'i', 'c', 'u', 'n', 'd', 'u', 's' };
+            var romane = new List<char>() { 'r', 'o', 'm', 'a', 'n', 'e' };
+            var romanus = new List<char>() { 'r', 'o', 'm', 'a', 'n', 'u', 's' };
+            var rom = new List<char>() { 'r', 'o', 'm' };
+            var romulus = new List<char>() { 'r', 'o', 'm', 'u', 'l', 'u', 's' };
+            var rub = new List<char>() { 'r', 'u', 'b' };
+            var rubens = new List<char>() { 'r', 'u', 'b', 'e', 'n', 's' };
+            var ben = new List<char>() { 'b', 'e', 'n' };
+            var ruber = new List<char>() { 'r', 'u', 'b', 'e', 'r' };
+            var rubicundus = new List<char>() { 'r', 'u', 'b', 'i', 'c', 'u', 'n', 'd', 'u', 's' };
 
-        //            tree.Add(romane);
-        //            tree.Add(romanus);
-        //            tree.Add(rom);
-        //            tree.Add(romulus);
-        //            tree.Add(rub);
-        //            tree.Add(rubens);
-        //            tree.Add(ben);
-        //            tree.Add(ruber);
-        //            tree.Add(rubicundus);
+            tree.Add(romane);
+            tree.Add(romanus);
+            tree.Add(rom);
+            tree.Add(romulus);
+            tree.Add(rub);
+            tree.Add(rubens);
+            tree.Add(ben);
+            tree.Add(ruber);
+            tree.Add(rubicundus);
 
-        //            List<char>[] array = { romane, romanus, rom, romulus, rub, rubens, ben, ruber, rubicundus };
-        //            int count = 0;
+            List<char>[] array = { romane, romanus, rom, romulus, rub, rubens, ben, ruber, rubicundus };
+            int count = 0;
 
-        //            foreach (var item in tree)
-        //            {
-        //                Assert.Contains(item, array);
-        //                count++;
-        //            }
+            foreach (var item in tree)
+            {
+                Assert.Contains(item, array);
+                count++;
+            }
 
-        //            Assert.Equal(count, tree.Count);
-        //        }
+            Assert.Equal(count, tree.Count);
+        }
 
-        //        [Fact]
-        //        public void GetEnumeratorShouldEnumerateThroughAllArraysOfChars()
-        //        {
-        //            var tree = new RadixTree<char>();
-        //            char[] romane = ['r', 'o', 'm', 'a', 'n', 'e'];
-        //            char[] romanus = ['r', 'o', 'm', 'a', 'n', 'u', 's'];
-        //            char[] rom = ['r', 'o', 'm'];
-        //            char[] romulus = ['r', 'o', 'm', 'u', 'l', 'u', 's'];
-        //            char[] rub = ['r', 'u', 'b'];
-        //            char[] rubens = ['r', 'u', 'b', 'e', 'n', 's'];
-        //            char[] ben = ['b', 'e', 'n'];
-        //            char[] ruber = ['r', 'u', 'b', 'e', 'r'];
-        //            char[] rubicundus = ['r', 'u', 'b', 'i', 'c', 'u', 'n', 'd', 'u', 's'];
+        [Fact]
+        public void GetEnumeratorShouldEnumerateThroughAllArraysOfChars()
+        {
+            var tree = new RadixTree<char>();
+            char[] romane = ['r', 'o', 'm', 'a', 'n', 'e'];
+            char[] romanus = ['r', 'o', 'm', 'a', 'n', 'u', 's'];
+            char[] rom = ['r', 'o', 'm'];
+            char[] romulus = ['r', 'o', 'm', 'u', 'l', 'u', 's'];
+            char[] rub = ['r', 'u', 'b'];
+            char[] rubens = ['r', 'u', 'b', 'e', 'n', 's'];
+            char[] ben = ['b', 'e', 'n'];
+            char[] ruber = ['r', 'u', 'b', 'e', 'r'];
+            char[] rubicundus = ['r', 'u', 'b', 'i', 'c', 'u', 'n', 'd', 'u', 's'];
 
-        //            tree.Add(romane);
-        //            tree.Add(romanus);
-        //            tree.Add(rom);
-        //            tree.Add(romulus);
-        //            tree.Add(rub);
-        //            tree.Add(rubens);
-        //            tree.Add(ben);
-        //            tree.Add(ruber);
-        //            tree.Add(rubicundus);
+            tree.Add(romane);
+            tree.Add(romanus);
+            tree.Add(rom);
+            tree.Add(romulus);
+            tree.Add(rub);
+            tree.Add(rubens);
+            tree.Add(ben);
+            tree.Add(ruber);
+            tree.Add(rubicundus);
 
-        //            char[][] array = { romane, romanus, rom, romulus, rub, rubens, ben, ruber, rubicundus };
-        //            int count = 0;
+            char[][] array = { romane, romanus, rom, romulus, rub, rubens, ben, ruber, rubicundus };
+            int count = 0;
 
-        //            foreach (var item in tree)
-        //            {
-        //                Assert.Contains(item, array);
-        //                count++;
-        //            }
+            foreach (var item in tree)
+            {
+                Assert.Contains(item, array);
+                count++;
+            }
 
-        //            Assert.Equal(count, tree.Count);
-        //        }
+            Assert.Equal(count, tree.Count);
+        }
 
         //        [Fact]
         //        public void GetAllItemsByPrefixShouldReturnsListWithAllStringsStartingWithPrefix()

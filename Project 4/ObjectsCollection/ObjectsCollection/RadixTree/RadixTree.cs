@@ -2,7 +2,7 @@
 
 namespace ObjectsCollection
 {
-    public class RadixTree<T> /*ICollection<IEnumerable<T>>*/
+    public class RadixTree<T> : IEnumerable<IEnumerable<T>>
         where T : IEquatable<T>
     {
         readonly RadixTreeNode<T> root;
@@ -32,7 +32,7 @@ namespace ObjectsCollection
 
             if (IsPartialMatch(lastNode.Prefix, splitIndex))
             {
-                SplitNode(splitIndex, previousNode, lastNode);
+                SplitNode(splitIndex, lastNode);
             }
 
             if (IsPartialMatch(remainingItem, splitIndex))
@@ -43,6 +43,32 @@ namespace ObjectsCollection
             lastNode.IsEnd = true;
 
             Count++;
+        }
+
+        public IEnumerator<IEnumerable<T>> GetEnumerator()
+        {
+            return Traverse(root, []).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        private static IEnumerable<IEnumerable<T>> Traverse(RadixTreeNode<T> node, List<T> prefix)
+        {
+            if (node.IsEnd)
+            {
+                yield return prefix;
+            }
+
+            foreach (var child in node.Children)
+            {
+                foreach (IEnumerable<T> item in Traverse(child, prefix.Concat(child.Prefix).ToList()))
+                {
+                    yield return item;
+                }
+            }
         }
 
         private (RadixTreeNode<T> previousNode, RadixTreeNode<T> currentNode, List<T> remainingItem) GetLastCommonNodes(List<T> item)
@@ -65,7 +91,9 @@ namespace ObjectsCollection
                         currentNode = child;
                         remainingItem = item;
 
-                        item = child.Prefix.Count < item.Count ? item.GetRange(child.Prefix.Count, item.Count - child.Prefix.Count) : []; /*item.Skip(child.Prefix.Count());*/
+                        item = child.Prefix.Count < item.Count ?
+                            item.GetRange(child.Prefix.Count, item.Count - child.Prefix.Count)
+                            : [];
                         matchFound = true;
 
                         break;
@@ -104,7 +132,7 @@ namespace ObjectsCollection
             return input.Count > commonPrefixLength;
         }
 
-        private static void SplitNode(int splitIndex, RadixTreeNode<T> previousNode, RadixTreeNode<T> currentNode)
+        private static void SplitNode(int splitIndex, RadixTreeNode<T> currentNode)
         {
             //RadixTreeNode<T> newNode = AddNode(currentNode.Prefix, splitIndex, currentNode);
 
