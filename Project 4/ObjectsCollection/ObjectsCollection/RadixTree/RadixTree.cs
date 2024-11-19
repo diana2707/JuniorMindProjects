@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace ObjectsCollection
 {
@@ -20,9 +21,7 @@ namespace ObjectsCollection
 
         public void Add(IEnumerable<T> item)
         {
-            ValidateArgumentIsNotNull(item);
-
-            List<T> itemList = item.ToList();
+            List<T> itemList = GetValidList(item);
 
             (RadixTreeNode<T> previousNode, RadixTreeNode<T> lastNode) = GetLastCommonNodes(itemList);
 
@@ -50,9 +49,7 @@ namespace ObjectsCollection
 
         public bool Contains(IEnumerable<T> item)
         {
-            ValidateArgumentIsNotNull(item);
-
-            List<T> itemList = item.ToList();
+            List<T> itemList = GetValidList(item);
 
             (RadixTreeNode<T> previousNode, RadixTreeNode<T> lastNode) = GetLastCommonNodes(itemList);
 
@@ -61,9 +58,7 @@ namespace ObjectsCollection
 
         public List<IEnumerable<T>> GetAllItemsByPrefix(IEnumerable<T> prefix)
         {
-            ValidateArgumentIsNotNull(prefix);
-
-            List<T> prefixList = prefix.ToList();
+            List<T> prefixList = GetValidList(prefix);
 
             (RadixTreeNode<T> previousNode, RadixTreeNode<T> lastNode) = GetLastCommonNodes(prefixList);
 
@@ -82,9 +77,7 @@ namespace ObjectsCollection
 
         public IEnumerable<T> GetLongestPrefixMatch(IEnumerable<T> item)
         {
-            ValidateArgumentIsNotNull(item);
-
-            List<T> itemList = item.ToList();
+            List<T> itemList = GetValidList(item);
 
             (RadixTreeNode<T> previousNode, RadixTreeNode<T> currentNode) = GetLastCommonNodes(itemList);
 
@@ -97,9 +90,7 @@ namespace ObjectsCollection
 
         public bool Remove(IEnumerable<T> item)
         {
-            ValidateArgumentIsNotNull(item);
-
-            List<T> itemList = item.ToList();
+            List<T> itemList = GetValidList(item);
 
             (RadixTreeNode<T> previousNode, RadixTreeNode<T> currentNode) = GetLastCommonNodes(itemList);
 
@@ -154,22 +145,10 @@ namespace ObjectsCollection
 
             parent.Children.Add(newNode);
             return newNode;
-
-            //RadixTreeNode<T> newNode = new ();
-            //newNode.Prefix = prefix.GetRange(splitIndex, prefix.Count - splitIndex);
-            //newNode.PathLength += prefix.Count;
-
-            //parent.Children.Add(newNode);
-            //return newNode;
         }
 
         private static bool Contains(List<T> item, RadixTreeNode<T> node)
         {
-            //sa introduc un GetRemainingItem? sau un EndsWith?
-
-            //item = item.GetRange(node.PathLength - node.Prefix.Count, node.Prefix.Count);
-            //return node.IsEnd && node.Prefix.SequenceEqual(item);
-
             return node.IsEnd && item.Count == node.PathLength && GetCommonPrefixLength(node, item) == node.Prefix.Count;
         }
 
@@ -201,7 +180,6 @@ namespace ObjectsCollection
             }
 
             prefix.AddRange(node.Prefix.Skip(commonPrefixLength));
-            //prefix = prefix.Concat(node.Prefix.Skip(commonPrefixLength));
 
             items.AddRange(Traverse(node, prefix));
 
@@ -226,24 +204,6 @@ namespace ObjectsCollection
 
             return prefixLength;
         }
-
-        //private static int GetCommonPrefixLength(List<T> key, List<T> item)
-        //{
-        //    int prefixLength = 0;
-        //    int minLength = key.Count < item.Count ? key.Count : item.Count;
-
-        //    for (int i = 0; i < minLength; i++)
-        //    {
-        //        if (!key[i].Equals(item[i]))
-        //        {
-        //            break;
-        //        }
-
-        //        prefixLength++;
-        //    }
-
-        //    return prefixLength;
-        //}
 
         private (RadixTreeNode<T> previousNode, RadixTreeNode<T> currentNode) GetLastCommonNodes(List<T> item)
         {
@@ -272,6 +232,12 @@ namespace ObjectsCollection
             return (previousNode, currentNode);
         }
 
+        private static List<T> GetValidList(IEnumerable<T> item)
+        {
+            ArgumentNullException.ThrowIfNull(item);
+            return item.ToList();
+        }
+
         private static bool HasCommonPrefix(RadixTreeNode<T> node, List<T> item)
         {
             return GetCommonPrefixLength(node, item) > 0;
@@ -298,11 +264,6 @@ namespace ObjectsCollection
             currentNode.Prefix = currentNode.Prefix.GetRange(0, splitIndex);
             currentNode.PathLength -= newNode.Prefix.Count;
             currentNode.IsEnd = false;
-        }
-
-        private static void ValidateArgumentIsNotNull(IEnumerable<T> item)
-        {
-            ArgumentNullException.ThrowIfNull(item);
         }
 
         private static void ValidateNewItem(List<T> item, RadixTreeNode<T> node)
