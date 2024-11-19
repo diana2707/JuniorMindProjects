@@ -134,7 +134,12 @@ namespace ObjectsCollection
 
         private static bool Contains(List<T> item, RadixTreeNode<T> node)
         {
-            return node.IsEnd && item.Count == node.PathLength && GetCommonPrefixLength(node, item) == node.Prefix.Count;
+            return node.IsEnd && ItemEndsWithPrefix(item, node);
+        }
+
+        private static bool ItemEndsWithPrefix(List<T> item, RadixTreeNode<T> node)
+        {
+            return GetCommonPrefixLength(node, item) == node.Prefix.Count && item.Count == node.PathLength;
         }
 
         private static IEnumerable<IEnumerable<T>> Traverse(RadixTreeNode<T> node, IEnumerable<T> prefix)
