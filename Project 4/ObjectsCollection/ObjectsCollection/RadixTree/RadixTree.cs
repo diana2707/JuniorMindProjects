@@ -94,22 +94,7 @@ namespace ObjectsCollection
 
             (RadixTreeNode<T> previousNode, RadixTreeNode<T> currentNode) = GetLastCommonNodes(itemList);
 
-            if (!Contains(itemList, currentNode))
-            {
-                return false;
-            }
-
-            if (currentNode.Children.Count == 0)
-            {
-                previousNode.Children.Remove(currentNode);
-            }
-            else
-            {
-                currentNode.IsEnd = false;
-            }
-
-            Count--;
-            return true;
+            return Remove(itemList, previousNode, currentNode);
         }
 
         private int GetRemainingItemLength(List<T> item, int commonPrefixLength, RadixTreeNode<T> node)
@@ -264,6 +249,26 @@ namespace ObjectsCollection
             currentNode.Prefix = currentNode.Prefix.GetRange(0, splitIndex);
             currentNode.PathLength -= newNode.Prefix.Count;
             currentNode.IsEnd = false;
+        }
+
+        private bool Remove(List<T> item, RadixTreeNode<T> previousNode, RadixTreeNode<T> currentNode)
+        {
+            if (!Contains(item, currentNode))
+            {
+                return false;
+            }
+
+            if (currentNode.Children.Count == 0)
+            {
+                previousNode.Children.Remove(currentNode);
+            }
+            else
+            {
+                currentNode.IsEnd = false;
+            }
+
+            Count--;
+            return true;
         }
 
         private static void ValidateNewItem(List<T> item, RadixTreeNode<T> node)
