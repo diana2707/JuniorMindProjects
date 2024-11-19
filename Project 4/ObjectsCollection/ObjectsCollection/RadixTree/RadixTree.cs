@@ -63,24 +63,11 @@ namespace ObjectsCollection
         {
             ValidateArgumentIsNotNull(prefix);
 
-            List<IEnumerable<T>> items = [];
-
             List<T> prefixList = prefix.ToList();
 
             (RadixTreeNode<T> previousNode, RadixTreeNode<T> lastNode) = GetLastCommonNodes(prefixList);
 
-            int commonPrefixLength = GetCommonPrefixLength(lastNode, prefixList);
-
-            if (GetRemainingItemLength(prefixList, commonPrefixLength, lastNode) > 0)
-            {
-                return items;
-            }
-
-            prefix = prefix.Concat(lastNode.Prefix.Skip(commonPrefixLength));
-
-            items.AddRange(Traverse(lastNode, prefix));
-
-            return items;
+            return GetAllItemsByPrefix(lastNode, prefixList);
         }
 
         public IEnumerator<IEnumerable<T>> GetEnumerator()
@@ -202,6 +189,25 @@ namespace ObjectsCollection
             }
         }
 
+        private List<IEnumerable<T>> GetAllItemsByPrefix(RadixTreeNode<T> node, List<T> prefix)
+        {
+            List<IEnumerable<T>> items = [];
+
+            int commonPrefixLength = GetCommonPrefixLength(node, prefix);
+
+            if (GetRemainingItemLength(prefix, commonPrefixLength, node) > 0)
+            {
+                return items;
+            }
+
+            prefix.AddRange(node.Prefix.Skip(commonPrefixLength));
+            //prefix = prefix.Concat(node.Prefix.Skip(commonPrefixLength));
+
+            items.AddRange(Traverse(node, prefix));
+
+            return items;
+        }
+
         private static int GetCommonPrefixLength(RadixTreeNode<T> node, List<T> item)
         {
             int prefixLength = 0;
@@ -243,7 +249,6 @@ namespace ObjectsCollection
         {
             RadixTreeNode<T> previousNode = null;
             RadixTreeNode<T> currentNode = root;
-            //List<T> remainingItem = item;
 
             bool matchFound = true;
 
@@ -253,17 +258,12 @@ namespace ObjectsCollection
 
                 foreach (var child in currentNode.Children)
                 {
-                    if (HasCommonPrefix(child, item)/*HasCommonPrefix(child.Prefix, item*/)
+                    if (HasCommonPrefix(child, item))
                     {
                         previousNode = currentNode;
                         currentNode = child;
-                        //remainingItem = item;
 
-                        //item = child.Prefix.Count < item.Count ?
-                        //    item.GetRange(child.Prefix.Count, item.Count - child.Prefix.Count)
-                        //    : [];
                         matchFound = true;
-
                         break;
                     }
                 }
