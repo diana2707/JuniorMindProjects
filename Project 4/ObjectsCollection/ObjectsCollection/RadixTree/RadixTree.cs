@@ -112,11 +112,26 @@ namespace ObjectsCollection
 
         public bool Remove(IEnumerable<T> item)
         {
-            List<T> itemList = GetAsValidList(item);
+            List<T> key = GetAsValidList(item);
 
-            (RadixTreeNode<T> previousNode, RadixTreeNode<T> currentNode) = GetLastCommonNodes(itemList);
+            (RadixTreeNode<T> previousNode, RadixTreeNode<T> node) = GetLastCommonNodes(key);
 
-            return Remove(itemList, previousNode, currentNode);
+            if (!Contains(key, node))
+            {
+                return false;
+            }
+
+            if (node.Children.Count == 0)
+            {
+                previousNode.Remove(node);
+            }
+            else
+            {
+                node.IsEnd = false;
+            }
+
+            Count--;
+            return true;
         }
 
         private static bool Contains(List<T> item, RadixTreeNode<T> node)
@@ -205,26 +220,6 @@ namespace ObjectsCollection
         private static bool IsPartialMatch(List<T> input, int commonPrefixLength)
         {
             return input.Count > commonPrefixLength;
-        }
-
-        private bool Remove(List<T> item, RadixTreeNode<T> previousNode, RadixTreeNode<T> currentNode)
-        {
-            if (!Contains(item, currentNode))
-            {
-                return false;
-            }
-
-            if (currentNode.Children.Count == 0)
-            {
-                previousNode.Remove(currentNode);
-            }
-            else
-            {
-                currentNode.IsEnd = false;
-            }
-
-            Count--;
-            return true;
         }
 
         private static void ValidateNewItem(List<T> item, RadixTreeNode<T> node)
