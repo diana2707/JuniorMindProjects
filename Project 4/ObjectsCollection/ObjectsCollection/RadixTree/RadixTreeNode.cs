@@ -23,7 +23,7 @@ namespace ObjectsCollection
         internal RadixTreeNode<T> AddLeaf(List<T> segment)
         {
             RadixTreeNode<T> node = new ();
-            node.Segment = segment /*item.GetRange(PathLength, item.Count - PathLength)*/;
+            node.Segment = segment;
             node.PathLength = PathLength + segment.Count;
 
             Children.Add(node);
@@ -45,6 +45,11 @@ namespace ObjectsCollection
             Segment = Segment.GetRange(0, splitIndex);
             PathLength -= newNode.Segment.Count;
             IsEnd = false;
+        }
+
+        internal void Remove(RadixTreeNode<T> child)
+        {
+            Children.Remove(child);
         }
     }
 }

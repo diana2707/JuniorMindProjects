@@ -122,16 +122,6 @@ namespace ObjectsCollection
             return item.GetRange(itemSplitIndex, item.Count - itemSplitIndex);
         }
 
-        //private static RadixTreeNode<T> AddNode(List<T> item, RadixTreeNode<T> parent)
-        //{
-        //    RadixTreeNode<T> node = new ();
-        //    node.Segment = item.GetRange(parent.PathLength, item.Count - parent.PathLength);
-        //    node.PathLength = item.Count;
-
-        //    parent.Children.Add(node);
-        //    return node;
-        //}
-
         private static bool Contains(List<T> item, RadixTreeNode<T> node)
         {
             return node.IsEnd && ItemEndsWithPrefix(item, node);
@@ -235,23 +225,6 @@ namespace ObjectsCollection
             return input.Count > commonPrefixLength;
         }
 
-        //private static void SplitNode(int splitIndex, RadixTreeNode<T> currentNode)
-        //{
-        //    RadixTreeNode<T> newNode = new ()
-        //    {
-        //        Segment = currentNode.Segment.GetRange(splitIndex, currentNode.Segment.Count - splitIndex),
-        //        PathLength = currentNode.PathLength,
-        //        Children = currentNode.Children.ToList(),
-        //        IsEnd = currentNode.IsEnd
-        //    };
-
-        //    currentNode.Children.Clear();
-        //    currentNode.Children.Add(newNode);
-        //    currentNode.Segment = currentNode.Segment.GetRange(0, splitIndex);
-        //    currentNode.PathLength -= newNode.Segment.Count;
-        //    currentNode.IsEnd = false;
-        //}
-
         private bool Remove(List<T> item, RadixTreeNode<T> previousNode, RadixTreeNode<T> currentNode)
         {
             if (!Contains(item, currentNode))
@@ -261,7 +234,7 @@ namespace ObjectsCollection
 
             if (currentNode.Children.Count == 0)
             {
-                previousNode.Children.Remove(currentNode);
+                previousNode.Remove(currentNode);
             }
             else
             {
