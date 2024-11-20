@@ -98,30 +98,21 @@ namespace ObjectsCollection
         private void Add(List<T> item, RadixTreeNode<T> node)
         {
             (int segmentIndex, int itemIndex) = GetSplitIndexes(node, item);
-            //item = GetRemainingItem(item, segmentIndex, node);
 
             if (IsPartialMatch(node.Segment, segmentIndex))
             {
                 node.Split(segmentIndex);
             }
 
-            if (IsPartialMatch(item, itemIndex /*node.PathLength*/))
+            if (IsPartialMatch(item, itemIndex))
             {
-                item = GetRemainingItem(item, itemIndex);
+                item = item.GetRange(itemIndex, item.Count - itemIndex);
                 node = node.AddLeaf(item);
             }
 
             node.IsEnd = true;
 
             Count++;
-        }
-
-        //vezi daca e mai bine sa o inlocuiesti cu functia care iti da indexul pt item (GetSplitIndexes? si o metoda intermediara pentru GetNodes?)
-        private static List<T> GetRemainingItem(List<T> item, int splitIndex)
-        {
-            return item.GetRange(splitIndex, item.Count - splitIndex);
-            //int itemSplitIndex = node.PathLength - node.Segment.Count + segmentSplitIndex;
-            //return item.GetRange(itemSplitIndex, item.Count - itemSplitIndex);
         }
 
         private static bool Contains(List<T> item, RadixTreeNode<T> node)
@@ -154,16 +145,12 @@ namespace ObjectsCollection
 
             (int segmentIndex, int prefixIndex) = GetSplitIndexes(node, prefix);
 
-            List<T> remainingPrefix = GetRemainingItem(prefix, prefixIndex);
-
-            //int itemSplitIndex = node.PathLength - node.Segment.Count + splitIndex;
-
-            if (IsPartialMatch(prefix, prefix.Count - remainingPrefix.Count))
+            if (IsPartialMatch(prefix, prefixIndex))
             {
                 return items;
             }
 
-            prefix.AddRange(node.Segment.Skip(segmentIndex));
+            prefix.AddRange(node.Segment.GetRange(segmentIndex, node.Segment.Count - segmentIndex));
 
             items.AddRange(Traverse(node, prefix));
 
