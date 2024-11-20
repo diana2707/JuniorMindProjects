@@ -21,13 +21,27 @@ namespace ObjectsCollection
 
         public void Add(IEnumerable<T> item)
         {
-            List<T> itemList = GetValidList(item);
+            //separa cele 2
+            List<T> key = GetValidList(item);
 
-            (RadixTreeNode<T> previousNode, RadixTreeNode<T> lastNode) = GetLastCommonNodes(itemList);
+            (RadixTreeNode<T> previousNode, RadixTreeNode<T> node) = GetLastCommonNodes(key);
 
-            ValidateNewItem(itemList, lastNode);
+            ValidateNewItem(key, node);
 
-            Add(itemList, lastNode);
+            (int segmentIndex, int keyIndex) = GetSplitIndexes(node, key);
+
+            if (IsPartialMatch(node.Segment, segmentIndex))
+            {
+                node.Split(segmentIndex);
+            }
+
+            if (IsPartialMatch(key, keyIndex))
+            {
+                node = node.AddLeaf(GetRemainingKey(key, keyIndex));
+            }
+
+            node.IsEnd = true;
+            Count++;
         }
 
         public void Clear()
@@ -93,26 +107,6 @@ namespace ObjectsCollection
             (RadixTreeNode<T> previousNode, RadixTreeNode<T> currentNode) = GetLastCommonNodes(itemList);
 
             return Remove(itemList, previousNode, currentNode);
-        }
-
-        private void Add(List<T> item, RadixTreeNode<T> node)
-        {
-            (int segmentIndex, int itemIndex) = GetSplitIndexes(node, item);
-
-            if (IsPartialMatch(node.Segment, segmentIndex))
-            {
-                node.Split(segmentIndex);
-            }
-
-            if (IsPartialMatch(item, itemIndex))
-            {
-                item = item.GetRange(itemIndex, item.Count - itemIndex);
-                node = node.AddLeaf(item);
-            }
-
-            node.IsEnd = true;
-
-            Count++;
         }
 
         private static bool Contains(List<T> item, RadixTreeNode<T> node)
@@ -209,6 +203,11 @@ namespace ObjectsCollection
         {
             ArgumentNullException.ThrowIfNull(item);
             return item.ToList();
+        }
+
+        private static List<T> GetRemainingKey(List<T> key, int keyIndex)
+        {
+            return key.GetRange(keyIndex, key.Count - keyIndex);
         }
 
         private static bool IsPartialMatch(List<T> input, int commonPrefixLength)

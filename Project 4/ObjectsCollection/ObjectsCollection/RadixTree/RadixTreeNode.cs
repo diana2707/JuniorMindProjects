@@ -25,6 +25,7 @@ namespace ObjectsCollection
             RadixTreeNode<T> node = new ();
             node.Segment = segment;
             node.PathLength = PathLength + segment.Count;
+            node.IsEnd = true;
 
             Children.Add(node);
             return node;
