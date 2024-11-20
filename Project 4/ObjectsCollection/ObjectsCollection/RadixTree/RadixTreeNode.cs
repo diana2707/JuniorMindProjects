@@ -30,7 +30,7 @@ namespace ObjectsCollection
             return node;
         }
 
-        internal void SplitNode(int splitIndex)
+        internal void Split(int splitIndex)
         {
             RadixTreeNode<T> newNode = new ()
             {

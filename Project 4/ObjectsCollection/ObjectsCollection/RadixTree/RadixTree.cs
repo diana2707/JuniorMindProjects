@@ -81,10 +81,10 @@ namespace ObjectsCollection
 
             (RadixTreeNode<T> previousNode, RadixTreeNode<T> currentNode) = GetLastCommonNodes(itemList);
 
-            int commonPrefixLength = GetCommonPrefixLength(currentNode, itemList);
-            int remainingItemLength = currentNode.PathLength - currentNode.Segment.Count + commonPrefixLength;
+            int splitIndex = GetPrefixLength(currentNode, itemList);
+            List<T> remainingItem = GetRemainingItem(itemList, splitIndex, currentNode);
 
-            return itemList.GetRange(0, remainingItemLength);
+            return itemList.GetRange(0, itemList.Count - remainingItem.Count);
         }
 
         public bool Remove(IEnumerable<T> item)
@@ -98,12 +98,12 @@ namespace ObjectsCollection
 
         private void Add(List<T> item, RadixTreeNode<T> node)
         {
-            int splitIndex = GetCommonPrefixLength(node, item);
+            int splitIndex = GetPrefixLength(node, item);
             item = GetRemainingItem(item, splitIndex, node);
 
             if (IsPartialMatch(node.Segment, splitIndex))
             {
-                node.SplitNode(splitIndex);
+                node.Split(splitIndex);
             }
 
             if (IsPartialMatch(item, 0 /*node.PathLength*/))
@@ -129,7 +129,7 @@ namespace ObjectsCollection
 
         private static bool ItemEndsWithPrefix(List<T> item, RadixTreeNode<T> node)
         {
-            return GetCommonPrefixLength(node, item) == node.Segment.Count && item.Count == node.PathLength;
+            return GetPrefixLength(node, item) == node.Segment.Count && item.Count == node.PathLength;
         }
 
         private static IEnumerable<IEnumerable<T>> Traverse(RadixTreeNode<T> node, IEnumerable<T> prefix)
@@ -152,7 +152,7 @@ namespace ObjectsCollection
         {
             List<IEnumerable<T>> items = [];
 
-            int commonPrefixLength = GetCommonPrefixLength(node, prefix);
+            int commonPrefixLength = GetPrefixLength(node, prefix);
 
             int itemSplitIndex = node.PathLength - node.Segment.Count + commonPrefixLength;
 
@@ -168,7 +168,7 @@ namespace ObjectsCollection
             return items;
         }
 
-        private static int GetCommonPrefixLength(RadixTreeNode<T> node, List<T> item)
+        private static int GetPrefixLength(RadixTreeNode<T> node, List<T> item)
         {
             int prefixLength = 0;
             int itemIndex = node.PathLength - node.Segment.Count;
@@ -200,7 +200,7 @@ namespace ObjectsCollection
 
                 foreach (var child in currentNode.Children)
                 {
-                    if (GetCommonPrefixLength(child, item) > 0)
+                    if (GetPrefixLength(child, item) > 0)
                     {
                         previousNode = currentNode;
                         currentNode = child;
