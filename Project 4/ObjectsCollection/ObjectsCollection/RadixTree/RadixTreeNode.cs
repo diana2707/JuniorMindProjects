@@ -1,24 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace ObjectsCollection
 {
     internal class RadixTreeNode<T>
     {
-        public RadixTreeNode()
+        internal RadixTreeNode()
         {
             Segment = [];
             PathLength = 0;
             Children = new List<RadixTreeNode<T>>();
         }
 
-        public List<T> Segment { get; set; }
+        internal List<T> Segment { get; set; }
 
-        public int PathLength { get; set; }
+        internal int PathLength { get; set; }
 
-        public List<RadixTreeNode<T>> Children { get; set; }
+        internal List<RadixTreeNode<T>> Children { get; set; }
 
-        public bool IsEnd { get; set; }
+        internal bool IsEnd { get; set; }
 
         internal RadixTreeNode<T> AddLeaf(List<T> segment)
         {
