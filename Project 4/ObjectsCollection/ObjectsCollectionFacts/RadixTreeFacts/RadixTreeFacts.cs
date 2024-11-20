@@ -628,7 +628,7 @@
         }
 
         [Fact]
-        public void GetAllItemsByPrefixShouldReturnsListWithAllStringsStartingWithPrefix()
+        public void FindByPrefixShouldReturnsListWithAllStringsStartingWithPrefix()
         {
             var tree = new RadixTree<char>();
             tree.Add("romane");
@@ -655,7 +655,7 @@
         }
 
         [Fact]
-        public void GetAllItemsByPrefixShouldReturnsListWithAllListsOfCharsStartingWithPrefix()
+        public void FindIByPrefixShouldReturnsListWithAllListsOfCharsStartingWithPrefix()
         {
             var tree = new RadixTree<char>();
 
@@ -693,7 +693,7 @@
         }
 
         [Fact]
-        public void GetAllItemsByPrefixShouldReturnsListWithAllArraysOfCharsStartingWithPrefix()
+        public void FindByPrefixShouldReturnsListWithAllArraysOfCharsStartingWithPrefix()
         {
             var tree = new RadixTree<char>();
             char[] romane = ['r', 'o', 'm', 'a', 'n', 'e'];
@@ -730,7 +730,7 @@
         }
 
         [Fact]
-        public void GetAllItemsByPrefixShouldReturnsEmptyListWhenPrefixIfNotPresent()
+        public void FindByPrefixShouldReturnsEmptyListWhenPrefixIfNotPresent()
         {
             var tree = new RadixTree<char>();
             tree.Add("romane");
@@ -747,7 +747,7 @@
         }
 
         [Fact]
-        public void GetLongestPrefixMatchShouldReturnsStringWithLongestMatchFromTree()
+        public void GetPrefixMatchShouldReturnsStringWithLongestMatchFromTree()
         {
             var tree = new RadixTree<char>();
             tree.Add("romane");
@@ -760,10 +760,10 @@
             tree.Add("ruber");
             tree.Add("rubicundus");
 
-            Assert.Equal(['r', 'u', 'b', 'i', 'c'], tree.GetLongestPrefixMatch("rubicon"));
-            Assert.Equal(['r', 'u', 'b', 'e'], tree.GetLongestPrefixMatch("rubeus"));
-            Assert.Equal(['r', 'u', 'b'], tree.GetLongestPrefixMatch("ruby"));
-            Assert.Equal([], tree.GetLongestPrefixMatch("dog"));
+            Assert.Equal(['r', 'u', 'b', 'i', 'c'], tree.GetPrefixMatch("rubicon"));
+            Assert.Equal(['r', 'u', 'b', 'e'], tree.GetPrefixMatch("rubeus"));
+            Assert.Equal(['r', 'u', 'b'], tree.GetPrefixMatch("ruby"));
+            Assert.Equal([], tree.GetPrefixMatch("dog"));
         }
 
         [Fact]
@@ -808,7 +808,7 @@
         public void GetLongestPrefixMatchShouldThrowArgumentNullExceptionIfItemIsNull()
         {
             var tree = new RadixTree<char>();
-            Assert.Throws<ArgumentNullException>(() => tree.GetLongestPrefixMatch(null));
+            Assert.Throws<ArgumentNullException>(() => tree.GetPrefixMatch(null));
         }
 
         [Fact]

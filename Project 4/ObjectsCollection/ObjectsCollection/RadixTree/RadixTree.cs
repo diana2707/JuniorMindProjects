@@ -21,7 +21,6 @@ namespace ObjectsCollection
 
         public void Add(IEnumerable<T> item)
         {
-            //separa cele 2
             List<T> key = GetAsValidList(item);
 
             (RadixTreeNode<T> previousNode, RadixTreeNode<T> node) = GetLastCommonNodes(key);
@@ -100,7 +99,7 @@ namespace ObjectsCollection
             return GetEnumerator();
         }
 
-        public IEnumerable<T> GetLongestPrefixMatch(IEnumerable<T> item)
+        public IEnumerable<T> GetPrefixMatch(IEnumerable<T> item)
         {
             List<T> itemList = GetAsValidList(item);
 
