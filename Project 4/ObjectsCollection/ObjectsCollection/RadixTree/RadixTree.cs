@@ -178,10 +178,10 @@ namespace ObjectsCollection
             return (segmentIndex, itemIndex);
         }
 
-        private (RadixTreeNode<T> previousNode, RadixTreeNode<T> currentNode) GetLastCommonNodes(List<T> item)
+        private (RadixTreeNode<T> previous, RadixTreeNode<T> current) GetLastCommonNodes(List<T> key)
         {
-            RadixTreeNode<T> previousNode = null;
-            RadixTreeNode<T> currentNode = root;
+            RadixTreeNode<T> previous = null;
+            RadixTreeNode<T> current = root;
 
             bool matchFound = true;
 
@@ -189,13 +189,13 @@ namespace ObjectsCollection
             {
                 matchFound = false;
 
-                foreach (var child in currentNode.Children)
+                foreach (var child in current.Children)
                 {
-                    (int segmentIndex, int itemIndex) = GetSplitIndexes(child, item);
+                    (int segmentIndex, int keyIndex) = GetSplitIndexes(child, key);
                     if (segmentIndex > 0)
                     {
-                        previousNode = currentNode;
-                        currentNode = child;
+                        previous = current;
+                        current = child;
 
                         matchFound = true;
                         break;
@@ -203,7 +203,7 @@ namespace ObjectsCollection
                 }
             }
 
-            return (previousNode, currentNode);
+            return (previous, current);
         }
 
         private static List<T> GetAsValidList(IEnumerable<T> item)
