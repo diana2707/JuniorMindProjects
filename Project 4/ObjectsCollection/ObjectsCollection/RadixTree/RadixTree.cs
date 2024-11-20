@@ -82,9 +82,8 @@ namespace ObjectsCollection
             (RadixTreeNode<T> previousNode, RadixTreeNode<T> currentNode) = GetLastCommonNodes(itemList);
 
             (int segmentIndex, int itemIndex) = GetSplitIndexes(currentNode, itemList);
-            //List<T> remainingItem = GetRemainingItem(itemList, segmentIndex, currentNode);
 
-            return itemList.GetRange(0, itemIndex/*itemList.Count - remainingItem.Count*/);
+            return itemList.GetRange(0, itemIndex);
         }
 
         public bool Remove(IEnumerable<T> item)
@@ -127,13 +126,10 @@ namespace ObjectsCollection
 
         private static bool Contains(List<T> item, RadixTreeNode<T> node)
         {
-            return node.IsEnd && ItemEndsWithSegment(item, node);
-        }
-
-        private static bool ItemEndsWithSegment(List<T> item, RadixTreeNode<T> node)
-        {
             (int segmentIndex, int itemIndex) = GetSplitIndexes(node, item);
-            return /*GetPrefixLength(node, item)*/ segmentIndex == node.Segment.Count && item.Count == node.PathLength;
+            bool itemEndsWithSegment = segmentIndex == node.Segment.Count && itemIndex == item.Count;
+
+            return node.IsEnd && itemEndsWithSegment;
         }
 
         private static IEnumerable<IEnumerable<T>> Traverse(RadixTreeNode<T> node, IEnumerable<T> prefix)
