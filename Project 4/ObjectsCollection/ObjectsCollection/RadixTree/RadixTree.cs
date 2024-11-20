@@ -20,7 +20,7 @@ namespace ObjectsCollection
 
         public void Add(IEnumerable<T> item)
         {
-            List<T> key = GetAsValidList(item);
+            List<T> key = ValidateAndConvertToList(item);
 
             (RadixTreeNode<T> parent, RadixTreeNode<T> node) = GetLastCommonNodes(key);
 
@@ -61,7 +61,7 @@ namespace ObjectsCollection
 
         public bool Contains(IEnumerable<T> item)
         {
-            List<T> key = GetAsValidList(item);
+            List<T> key = ValidateAndConvertToList(item);
 
             (RadixTreeNode<T> parent, RadixTreeNode<T> node) = GetLastCommonNodes(key);
 
@@ -71,7 +71,7 @@ namespace ObjectsCollection
         public List<IEnumerable<T>> FindByPrefix(IEnumerable<T> prefix)
         {
             List<IEnumerable<T>> items = [];
-            List<T> key = GetAsValidList(prefix);
+            List<T> key = ValidateAndConvertToList(prefix);
 
             (RadixTreeNode<T> parent, RadixTreeNode<T> node) = GetLastCommonNodes(key);
             (int segmentIndex, int keyIndex) = GetSplitIndexes(node, key);
@@ -100,7 +100,7 @@ namespace ObjectsCollection
 
         public IEnumerable<T> GetPrefixMatch(IEnumerable<T> item)
         {
-            List<T> key = GetAsValidList(item);
+            List<T> key = ValidateAndConvertToList(item);
 
             (RadixTreeNode<T> parent, RadixTreeNode<T> node) = GetLastCommonNodes(key);
 
@@ -111,7 +111,7 @@ namespace ObjectsCollection
 
         public bool Remove(IEnumerable<T> item)
         {
-            List<T> key = GetAsValidList(item);
+            List<T> key = ValidateAndConvertToList(item);
 
             (RadixTreeNode<T> parent, RadixTreeNode<T> node) = GetLastCommonNodes(key);
 
@@ -215,7 +215,7 @@ namespace ObjectsCollection
             return input.Count > commonPrefixLength;
         }
 
-        private static List<T> GetAsValidList(IEnumerable<T> item)
+        private static List<T> ValidateAndConvertToList(IEnumerable<T> item)
         {
             ArgumentNullException.ThrowIfNull(item);
             return item.ToList();
