@@ -1,9 +1,8 @@
 ﻿using System.Collections;
-using System.Xml.Linq;
 
 namespace ObjectsCollection
 {
-    public class RadixTree<T> : IEnumerable<IEnumerable<T>>
+    public class RadixTree<T> : ICollection<IEnumerable<T>>
         where T : IEquatable<T>
     {
         readonly RadixTreeNode<T> root;
@@ -23,9 +22,9 @@ namespace ObjectsCollection
         {
             List<T> key = GetAsValidList(item);
 
-            (RadixTreeNode<T> previousNode, RadixTreeNode<T> node) = GetLastCommonNodes(key);
+            (RadixTreeNode<T> parent, RadixTreeNode<T> node) = GetLastCommonNodes(key);
 
-            ValidateNewItem(key, node);
+            ValidateNewKey(key, node);
 
             (int segmentIndex, int keyIndex) = GetSplitIndexes(node, key);
 
@@ -62,11 +61,11 @@ namespace ObjectsCollection
 
         public bool Contains(IEnumerable<T> item)
         {
-            List<T> itemList = GetAsValidList(item);
+            List<T> key = GetAsValidList(item);
 
-            (RadixTreeNode<T> previousNode, RadixTreeNode<T> lastNode) = GetLastCommonNodes(itemList);
+            (RadixTreeNode<T> parent, RadixTreeNode<T> node) = GetLastCommonNodes(key);
 
-            return Contains(itemList, lastNode);
+            return Contains(key, node);
         }
 
         public List<IEnumerable<T>> FindByPrefix(IEnumerable<T> prefix)
@@ -74,7 +73,7 @@ namespace ObjectsCollection
             List<IEnumerable<T>> items = [];
             List<T> key = GetAsValidList(prefix);
 
-            (RadixTreeNode<T> previousNode, RadixTreeNode<T> node) = GetLastCommonNodes(key);
+            (RadixTreeNode<T> parent, RadixTreeNode<T> node) = GetLastCommonNodes(key);
             (int segmentIndex, int keyIndex) = GetSplitIndexes(node, key);
 
             if (IsPartialMatch(key, keyIndex))
@@ -101,20 +100,20 @@ namespace ObjectsCollection
 
         public IEnumerable<T> GetPrefixMatch(IEnumerable<T> item)
         {
-            List<T> itemList = GetAsValidList(item);
+            List<T> key = GetAsValidList(item);
 
-            (RadixTreeNode<T> previousNode, RadixTreeNode<T> currentNode) = GetLastCommonNodes(itemList);
+            (RadixTreeNode<T> parent, RadixTreeNode<T> node) = GetLastCommonNodes(key);
 
-            (int segmentIndex, int itemIndex) = GetSplitIndexes(currentNode, itemList);
+            (int segmentIndex, int keyIndex) = GetSplitIndexes(node, key);
 
-            return itemList.GetRange(0, itemIndex);
+            return key.GetRange(0, keyIndex);
         }
 
         public bool Remove(IEnumerable<T> item)
         {
             List<T> key = GetAsValidList(item);
 
-            (RadixTreeNode<T> previousNode, RadixTreeNode<T> node) = GetLastCommonNodes(key);
+            (RadixTreeNode<T> parent, RadixTreeNode<T> node) = GetLastCommonNodes(key);
 
             if (!Contains(key, node))
             {
@@ -123,7 +122,7 @@ namespace ObjectsCollection
 
             if (node.Children.Count == 0)
             {
-                previousNode.Remove(node);
+                parent.Remove(node);
             }
             else
             {
@@ -134,48 +133,48 @@ namespace ObjectsCollection
             return true;
         }
 
-        private static bool Contains(List<T> item, RadixTreeNode<T> node)
+        private static bool Contains(List<T> key, RadixTreeNode<T> node)
         {
-            (int segmentIndex, int itemIndex) = GetSplitIndexes(node, item);
-            bool itemEndsWithSegment = segmentIndex == node.Segment.Count && itemIndex == item.Count;
+            (int segmentIndex, int keyIndex) = GetSplitIndexes(node, key);
+            bool keyEndsWithSegment = segmentIndex == node.Segment.Count && keyIndex == key.Count;
 
-            return node.IsEnd && itemEndsWithSegment;
+            return node.IsEnd && keyEndsWithSegment;
         }
 
-        private static IEnumerable<IEnumerable<T>> Traverse(RadixTreeNode<T> node, IEnumerable<T> prefix)
+        private static IEnumerable<IEnumerable<T>> Traverse(RadixTreeNode<T> node, IEnumerable<T> key)
         {
             if (node.IsEnd)
             {
-                yield return prefix;
+                yield return key;
             }
 
             foreach (var child in node.Children)
             {
-                foreach (IEnumerable<T> item in Traverse(child, prefix.Concat(child.Segment)))
+                foreach (IEnumerable<T> item in Traverse(child, key.Concat(child.Segment)))
                 {
                     yield return item;
                 }
             }
         }
 
-        private static (int segmentIndex, int itemIndex) GetSplitIndexes(RadixTreeNode<T> node, List<T> item)
+        private static (int segmentIndex, int keyIndex) GetSplitIndexes(RadixTreeNode<T> node, List<T> key)
         {
             int segmentIndex = 0;
-            int itemIndex = node.PathLength - node.Segment.Count;
-            int minLength = Math.Min(node.Segment.Count, item.Count - itemIndex);
+            int keyIndex = node.PathLength - node.Segment.Count;
+            int minLength = Math.Min(node.Segment.Count, key.Count - keyIndex);
 
             for (int i = 0; i < minLength; i++)
             {
-                if (!node.Segment[i].Equals(item[itemIndex]))
+                if (!node.Segment[i].Equals(key[keyIndex]))
                 {
                     break;
                 }
 
                 segmentIndex++;
-                itemIndex++;
+                keyIndex++;
             }
 
-            return (segmentIndex, itemIndex);
+            return (segmentIndex, keyIndex);
         }
 
         private (RadixTreeNode<T> previous, RadixTreeNode<T> current) GetLastCommonNodes(List<T> key)
@@ -206,12 +205,6 @@ namespace ObjectsCollection
             return (previous, current);
         }
 
-        private static List<T> GetAsValidList(IEnumerable<T> item)
-        {
-            ArgumentNullException.ThrowIfNull(item);
-            return item.ToList();
-        }
-
         private static List<T> GetRemainingPart(List<T> input, int splitIndex)
         {
             return input.GetRange(splitIndex, input.Count - splitIndex);
@@ -222,7 +215,13 @@ namespace ObjectsCollection
             return input.Count > commonPrefixLength;
         }
 
-        private static void ValidateNewItem(List<T> item, RadixTreeNode<T> node)
+        private static List<T> GetAsValidList(IEnumerable<T> item)
+        {
+            ArgumentNullException.ThrowIfNull(item);
+            return item.ToList();
+        }
+
+        private static void ValidateNewKey(List<T> item, RadixTreeNode<T> node)
         {
             if (!Contains(item, node))
             {
