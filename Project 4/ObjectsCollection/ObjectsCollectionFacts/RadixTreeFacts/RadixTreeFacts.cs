@@ -645,7 +645,7 @@
 
             int count = 0;
 
-            foreach (var item in tree.GetAllItemsByPrefix("ro"))
+            foreach (var item in tree.FindByPrefix("ro"))
             {
                 Assert.Contains(item, array);
                 count++;
@@ -683,7 +683,7 @@
 
             int count = 0;
 
-            foreach (var item in tree.GetAllItemsByPrefix("ro"))
+            foreach (var item in tree.FindByPrefix("ro"))
             {
                 Assert.Contains(item, array);
                 count++;
@@ -720,7 +720,7 @@
 
             int count = 0;
 
-            foreach (var item in tree.GetAllItemsByPrefix("ro"))
+            foreach (var item in tree.FindByPrefix("ro"))
             {
                 Assert.Contains(item, array);
                 count++;
@@ -743,7 +743,7 @@
             tree.Add("ruber");
             tree.Add("rubicundus");
 
-            Assert.Empty(tree.GetAllItemsByPrefix("ron"));
+            Assert.Empty(tree.FindByPrefix("ron"));
         }
 
         [Fact]
@@ -801,7 +801,7 @@
         public void GetAllItemsByPrefixShouldThrowArgumentNullExceptionIfItemIsNull()
         {
             var tree = new RadixTree<char>();
-            Assert.Throws<ArgumentNullException>(() => tree.GetAllItemsByPrefix(null));
+            Assert.Throws<ArgumentNullException>(() => tree.FindByPrefix(null));
         }
 
         [Fact]

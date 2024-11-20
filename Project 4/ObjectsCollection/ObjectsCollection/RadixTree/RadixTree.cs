@@ -22,7 +22,7 @@ namespace ObjectsCollection
         public void Add(IEnumerable<T> item)
         {
             //separa cele 2
-            List<T> key = GetValidList(item);
+            List<T> key = GetAsValidList(item);
 
             (RadixTreeNode<T> previousNode, RadixTreeNode<T> node) = GetLastCommonNodes(key);
 
@@ -37,7 +37,7 @@ namespace ObjectsCollection
 
             if (IsPartialMatch(key, keyIndex))
             {
-                node = node.AddLeaf(GetRemainingKey(key, keyIndex));
+                node = node.AddLeaf(GetRemainingPart(key, keyIndex));
             }
 
             node.IsEnd = true;
@@ -63,20 +63,31 @@ namespace ObjectsCollection
 
         public bool Contains(IEnumerable<T> item)
         {
-            List<T> itemList = GetValidList(item);
+            List<T> itemList = GetAsValidList(item);
 
             (RadixTreeNode<T> previousNode, RadixTreeNode<T> lastNode) = GetLastCommonNodes(itemList);
 
             return Contains(itemList, lastNode);
         }
 
-        public List<IEnumerable<T>> GetAllItemsByPrefix(IEnumerable<T> prefix)
+        public List<IEnumerable<T>> FindByPrefix(IEnumerable<T> prefix)
         {
-            List<T> prefixList = GetValidList(prefix);
+            List<IEnumerable<T>> items = [];
+            List<T> key = GetAsValidList(prefix);
 
-            (RadixTreeNode<T> previousNode, RadixTreeNode<T> lastNode) = GetLastCommonNodes(prefixList);
+            (RadixTreeNode<T> previousNode, RadixTreeNode<T> node) = GetLastCommonNodes(key);
+            (int segmentIndex, int keyIndex) = GetSplitIndexes(node, key);
 
-            return GetAllItemsByPrefix(lastNode, prefixList);
+            if (IsPartialMatch(key, keyIndex))
+            {
+                return items;
+            }
+
+            key.AddRange(GetRemainingPart(node.Segment, segmentIndex));
+
+            items.AddRange(Traverse(node, key));
+
+            return items;
         }
 
         public IEnumerator<IEnumerable<T>> GetEnumerator()
@@ -91,7 +102,7 @@ namespace ObjectsCollection
 
         public IEnumerable<T> GetLongestPrefixMatch(IEnumerable<T> item)
         {
-            List<T> itemList = GetValidList(item);
+            List<T> itemList = GetAsValidList(item);
 
             (RadixTreeNode<T> previousNode, RadixTreeNode<T> currentNode) = GetLastCommonNodes(itemList);
 
@@ -102,7 +113,7 @@ namespace ObjectsCollection
 
         public bool Remove(IEnumerable<T> item)
         {
-            List<T> itemList = GetValidList(item);
+            List<T> itemList = GetAsValidList(item);
 
             (RadixTreeNode<T> previousNode, RadixTreeNode<T> currentNode) = GetLastCommonNodes(itemList);
 
@@ -131,24 +142,6 @@ namespace ObjectsCollection
                     yield return item;
                 }
             }
-        }
-
-        private static List<IEnumerable<T>> GetAllItemsByPrefix(RadixTreeNode<T> node, List<T> prefix)
-        {
-            List<IEnumerable<T>> items = [];
-
-            (int segmentIndex, int prefixIndex) = GetSplitIndexes(node, prefix);
-
-            if (IsPartialMatch(prefix, prefixIndex))
-            {
-                return items;
-            }
-
-            prefix.AddRange(node.Segment.GetRange(segmentIndex, node.Segment.Count - segmentIndex));
-
-            items.AddRange(Traverse(node, prefix));
-
-            return items;
         }
 
         private static (int segmentIndex, int itemIndex) GetSplitIndexes(RadixTreeNode<T> node, List<T> item)
@@ -199,15 +192,15 @@ namespace ObjectsCollection
             return (previousNode, currentNode);
         }
 
-        private static List<T> GetValidList(IEnumerable<T> item)
+        private static List<T> GetAsValidList(IEnumerable<T> item)
         {
             ArgumentNullException.ThrowIfNull(item);
             return item.ToList();
         }
 
-        private static List<T> GetRemainingKey(List<T> key, int keyIndex)
+        private static List<T> GetRemainingPart(List<T> input, int splitIndex)
         {
-            return key.GetRange(keyIndex, key.Count - keyIndex);
+            return input.GetRange(splitIndex, input.Count - splitIndex);
         }
 
         private static bool IsPartialMatch(List<T> input, int commonPrefixLength)
