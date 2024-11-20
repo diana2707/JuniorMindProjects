@@ -13,7 +13,7 @@
         public void PrefixIsEmptyWhenTreeIsEmpty()
         {
             RadixTreeNode<string> node = new ();
-            Assert.Empty(node.Prefix);
+            Assert.Empty(node.Segment);
         }
 
         [Fact]

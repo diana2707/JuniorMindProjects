@@ -7,17 +7,34 @@ namespace ObjectsCollection
     {
         public RadixTreeNode()
         {
-            Prefix = [];
+            Segment = [];
             PathLength = 0;
             Children = new List<RadixTreeNode<T>>();
         }
 
-        public List<T> Prefix { get; set; }
+        public List<T> Segment { get; set; }
 
         public int PathLength { get; set; }
 
         public List<RadixTreeNode<T>> Children { get; set; }
 
         public bool IsEnd { get; set; }
+
+        internal void SplitNode(int splitIndex)
+        {
+            RadixTreeNode<T> newNode = new ()
+            {
+                Segment = Segment.GetRange(splitIndex, Segment.Count - splitIndex),
+                PathLength = PathLength,
+                Children = Children.ToList(),
+                IsEnd = IsEnd
+            };
+
+            Children.Clear();
+            Children.Add(newNode);
+            Segment = Segment.GetRange(0, splitIndex);
+            PathLength -= newNode.Segment.Count;
+            IsEnd = false;
+        }
     }
 }

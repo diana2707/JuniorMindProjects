@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace ObjectsCollection
 {
@@ -82,10 +82,9 @@ namespace ObjectsCollection
             (RadixTreeNode<T> previousNode, RadixTreeNode<T> currentNode) = GetLastCommonNodes(itemList);
 
             int commonPrefixLength = GetCommonPrefixLength(currentNode, itemList);
+            int remainingItemLength = currentNode.PathLength - currentNode.Segment.Count + commonPrefixLength;
 
-            int remainingItemLength = GetRemainingItemLength(itemList, commonPrefixLength, currentNode);
-
-            return itemList.GetRange(0, itemList.Count - remainingItemLength);
+            return itemList.GetRange(0, remainingItemLength);
         }
 
         public bool Remove(IEnumerable<T> item)
@@ -97,21 +96,15 @@ namespace ObjectsCollection
             return Remove(itemList, previousNode, currentNode);
         }
 
-        private int GetRemainingItemLength(List<T> item, int commonPrefixLength, RadixTreeNode<T> node)
-        {
-            return item.Count - node.PathLength + node.Prefix.Count - commonPrefixLength;
-        }
-
         private void Add(List<T> item, RadixTreeNode<T> node)
         {
             int splitIndex = GetCommonPrefixLength(node, item);
 
-            if (IsPartialMatch(node.Prefix, splitIndex))
+            if (IsPartialMatch(node.Segment, splitIndex))
             {
-                SplitNode(splitIndex, node);
+                node.SplitNode(splitIndex);
             }
 
-            //ae corect pt ca node.Path a fost actualizat in if-ul anterior
             if (IsPartialMatch(item, node.PathLength))
             {
                 node = AddNode(item, node);
@@ -124,12 +117,12 @@ namespace ObjectsCollection
 
         private static RadixTreeNode<T> AddNode(List<T> item, RadixTreeNode<T> parent)
         {
-            RadixTreeNode<T> newNode = new ();
-            newNode.Prefix = item.GetRange(parent.PathLength, item.Count - parent.PathLength);
-            newNode.PathLength = item.Count;
+            RadixTreeNode<T> node = new ();
+            node.Segment = item.GetRange(parent.PathLength, item.Count - parent.PathLength);
+            node.PathLength = item.Count;
 
-            parent.Children.Add(newNode);
-            return newNode;
+            parent.Children.Add(node);
+            return node;
         }
 
         private static bool Contains(List<T> item, RadixTreeNode<T> node)
@@ -139,7 +132,7 @@ namespace ObjectsCollection
 
         private static bool ItemEndsWithPrefix(List<T> item, RadixTreeNode<T> node)
         {
-            return GetCommonPrefixLength(node, item) == node.Prefix.Count && item.Count == node.PathLength;
+            return GetCommonPrefixLength(node, item) == node.Segment.Count && item.Count == node.PathLength;
         }
 
         private static IEnumerable<IEnumerable<T>> Traverse(RadixTreeNode<T> node, IEnumerable<T> prefix)
@@ -151,25 +144,27 @@ namespace ObjectsCollection
 
             foreach (var child in node.Children)
             {
-                foreach (IEnumerable<T> item in Traverse(child, prefix.Concat(child.Prefix)))
+                foreach (IEnumerable<T> item in Traverse(child, prefix.Concat(child.Segment)))
                 {
                     yield return item;
                 }
             }
         }
 
-        private List<IEnumerable<T>> GetAllItemsByPrefix(RadixTreeNode<T> node, List<T> prefix)
+        private static List<IEnumerable<T>> GetAllItemsByPrefix(RadixTreeNode<T> node, List<T> prefix)
         {
             List<IEnumerable<T>> items = [];
 
             int commonPrefixLength = GetCommonPrefixLength(node, prefix);
 
-            if (GetRemainingItemLength(prefix, commonPrefixLength, node) > 0)
+            int itemSplitIndex = node.PathLength - node.Segment.Count + commonPrefixLength;
+
+            if (IsPartialMatch(prefix, itemSplitIndex))
             {
                 return items;
             }
 
-            prefix.AddRange(node.Prefix.Skip(commonPrefixLength));
+            prefix.AddRange(node.Segment.Skip(commonPrefixLength));
 
             items.AddRange(Traverse(node, prefix));
 
@@ -179,12 +174,12 @@ namespace ObjectsCollection
         private static int GetCommonPrefixLength(RadixTreeNode<T> node, List<T> item)
         {
             int prefixLength = 0;
-            int itemIndex = node.PathLength - node.Prefix.Count;
-            int minLength = Math.Min(node.Prefix.Count, item.Count - itemIndex);
+            int itemIndex = node.PathLength - node.Segment.Count;
+            int minLength = Math.Min(node.Segment.Count, item.Count - itemIndex);
 
             for (int i = 0; i < minLength; i++)
             {
-                if (!node.Prefix[i].Equals(item[itemIndex++]))
+                if (!node.Segment[i].Equals(item[itemIndex++]))
                 {
                     break;
                 }
@@ -208,7 +203,7 @@ namespace ObjectsCollection
 
                 foreach (var child in currentNode.Children)
                 {
-                    if (HasCommonPrefix(child, item))
+                    if (GetCommonPrefixLength(child, item) > 0)
                     {
                         previousNode = currentNode;
                         currentNode = child;
@@ -228,33 +223,27 @@ namespace ObjectsCollection
             return item.ToList();
         }
 
-        private static bool HasCommonPrefix(RadixTreeNode<T> node, List<T> item)
-        {
-            return GetCommonPrefixLength(node, item) > 0;
-        }
-
         private static bool IsPartialMatch(List<T> input, int commonPrefixLength)
         {
             return input.Count > commonPrefixLength;
         }
 
-        private static void SplitNode(int splitIndex, RadixTreeNode<T> currentNode)
-        {
-            // sa extrag o functie de AddMiddleNode, vs AddLeafNode
-            RadixTreeNode<T> newNode = new ()
-            {
-                Prefix = currentNode.Prefix.GetRange(splitIndex, currentNode.Prefix.Count - splitIndex),
-                PathLength = currentNode.PathLength,
-                Children = currentNode.Children.ToList(),
-                IsEnd = currentNode.IsEnd
-            };
+        //private static void SplitNode(int splitIndex, RadixTreeNode<T> currentNode)
+        //{
+        //    RadixTreeNode<T> newNode = new ()
+        //    {
+        //        Segment = currentNode.Segment.GetRange(splitIndex, currentNode.Segment.Count - splitIndex),
+        //        PathLength = currentNode.PathLength,
+        //        Children = currentNode.Children.ToList(),
+        //        IsEnd = currentNode.IsEnd
+        //    };
 
-            currentNode.Children.Clear();
-            currentNode.Children.Add(newNode);
-            currentNode.Prefix = currentNode.Prefix.GetRange(0, splitIndex);
-            currentNode.PathLength -= newNode.Prefix.Count;
-            currentNode.IsEnd = false;
-        }
+        //    currentNode.Children.Clear();
+        //    currentNode.Children.Add(newNode);
+        //    currentNode.Segment = currentNode.Segment.GetRange(0, splitIndex);
+        //    currentNode.PathLength -= newNode.Segment.Count;
+        //    currentNode.IsEnd = false;
+        //}
 
         private bool Remove(List<T> item, RadixTreeNode<T> previousNode, RadixTreeNode<T> currentNode)
         {
