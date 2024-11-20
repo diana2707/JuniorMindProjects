@@ -99,21 +99,27 @@ namespace ObjectsCollection
         private void Add(List<T> item, RadixTreeNode<T> node)
         {
             int splitIndex = GetCommonPrefixLength(node, item);
+            item = GetRemainingItem(item, splitIndex, node);
 
             if (IsPartialMatch(node.Segment, splitIndex))
             {
                 node.SplitNode(splitIndex);
             }
 
-            if (IsPartialMatch(item, node.PathLength))
+            if (IsPartialMatch(item, 0 /*node.PathLength*/))
             {
-                item = item.GetRange(node.PathLength, item.Count - node.PathLength);
                 node = node.AddLeaf(item);
             }
 
             node.IsEnd = true;
 
             Count++;
+        }
+
+        private static List<T> GetRemainingItem(List<T> item, int segmentSplitIndex, RadixTreeNode<T> node)
+        {
+            int itemSplitIndex = node.PathLength - node.Segment.Count + segmentSplitIndex;
+            return item.GetRange(itemSplitIndex, item.Count - itemSplitIndex);
         }
 
         //private static RadixTreeNode<T> AddNode(List<T> item, RadixTreeNode<T> parent)
