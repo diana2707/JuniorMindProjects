@@ -107,7 +107,8 @@ namespace ObjectsCollection
 
             if (IsPartialMatch(item, node.PathLength))
             {
-                node = AddNode(item, node);
+                item = item.GetRange(node.PathLength, item.Count - node.PathLength);
+                node = node.AddLeaf(item);
             }
 
             node.IsEnd = true;
@@ -115,15 +116,15 @@ namespace ObjectsCollection
             Count++;
         }
 
-        private static RadixTreeNode<T> AddNode(List<T> item, RadixTreeNode<T> parent)
-        {
-            RadixTreeNode<T> node = new ();
-            node.Segment = item.GetRange(parent.PathLength, item.Count - parent.PathLength);
-            node.PathLength = item.Count;
+        //private static RadixTreeNode<T> AddNode(List<T> item, RadixTreeNode<T> parent)
+        //{
+        //    RadixTreeNode<T> node = new ();
+        //    node.Segment = item.GetRange(parent.PathLength, item.Count - parent.PathLength);
+        //    node.PathLength = item.Count;
 
-            parent.Children.Add(node);
-            return node;
-        }
+        //    parent.Children.Add(node);
+        //    return node;
+        //}
 
         private static bool Contains(List<T> item, RadixTreeNode<T> node)
         {

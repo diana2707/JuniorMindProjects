@@ -20,6 +20,16 @@ namespace ObjectsCollection
 
         public bool IsEnd { get; set; }
 
+        internal RadixTreeNode<T> AddLeaf(List<T> segment)
+        {
+            RadixTreeNode<T> node = new ();
+            node.Segment = segment /*item.GetRange(PathLength, item.Count - PathLength)*/;
+            node.PathLength = PathLength + segment.Count;
+
+            Children.Add(node);
+            return node;
+        }
+
         internal void SplitNode(int splitIndex)
         {
             RadixTreeNode<T> newNode = new ()
