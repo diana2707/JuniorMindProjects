@@ -22,7 +22,7 @@ namespace ObjectsCollection
         {
             List<T> key = ValidateAndConvertToList(item);
 
-            (RadixTreeNode<T> parent, RadixTreeNode<T> node) = GetLastCommonNodes(key);
+            (RadixTreeNode<T> parent, RadixTreeNode<T> node) = GetLastCommonNode(key);
 
             ValidateNewKey(key, node);
 
@@ -177,10 +177,12 @@ namespace ObjectsCollection
             return (segmentIndex, keyIndex);
         }
 
-        private (RadixTreeNode<T> previous, RadixTreeNode<T> current) GetLastCommonNodes(List<T> key)
+        private SearchResult Search(List<T> key)
         {
-            RadixTreeNode<T> previous = null;
-            RadixTreeNode<T> current = root;
+            RadixTreeNode<T> parent = null;
+            RadixTreeNode<T> child = root;
+            int segmentIndex = 0;
+            int keyIndex = 0;
 
             bool matchFound = true;
 
@@ -188,13 +190,15 @@ namespace ObjectsCollection
             {
                 matchFound = false;
 
-                foreach (var child in current.Children)
+                foreach (var node in child.Children)
                 {
-                    (int segmentIndex, int keyIndex) = GetSplitIndexes(child, key);
-                    if (segmentIndex > 0)
+                    (int currentSegmentIndex, int currentKeyIndex) = GetSplitIndexes(node, key);
+                    if (currentSegmentIndex > 0)
                     {
-                        previous = current;
-                        current = child;
+                        parent = child;
+                        child = node;
+                        segmentIndex = currentSegmentIndex;
+                        keyIndex = currentKeyIndex;
 
                         matchFound = true;
                         break;
@@ -202,7 +206,7 @@ namespace ObjectsCollection
                 }
             }
 
-            return (previous, current);
+            return new SearchResult(parent, child, segmentIndex, keyIndex);
         }
 
         private static List<T> GetRemainingPart(List<T> input, int splitIndex)
@@ -246,18 +250,21 @@ namespace ObjectsCollection
 
         private struct SearchResult
         {
-            private SearchResult(RadixTreeNode<T> parent, RadixTreeNode<T> child, int pathLength)
+            public SearchResult(RadixTreeNode<T> parent, RadixTreeNode<T> child, int segmentIndex, int keyIndex)
             {
                 Parent = parent;
                 Child = child;
-                PathLength = pathLength;
+                SegmentIndex = segmentIndex;
+                KeyIndex = keyIndex;
             }
 
-            private RadixTreeNode<T> Parent { get; }
+            public RadixTreeNode<T> Parent { get; }
 
-            private RadixTreeNode<T> Child { get; }
+            public RadixTreeNode<T> Child { get; }
 
-            int PathLength { get; }
+            public int KeyIndex { get; }
+
+            public int SegmentIndex { get; }
         }
     }
 }
