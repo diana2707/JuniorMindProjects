@@ -2,7 +2,7 @@
 
 namespace ObjectsCollection
 {
-    public class RadixTree<T> /*ICollection<IEnumerable<T>>*/
+    public class RadixTree<T> : IEnumerable<IEnumerable<T>> /*ICollection<IEnumerable<T>>*/
         where T : IEquatable<T>
     {
         readonly RadixTreeNode<T> root;
@@ -86,15 +86,15 @@ namespace ObjectsCollection
         //    return items;
         //}
 
-        //public IEnumerator<IEnumerable<T>> GetEnumerator()
-        //{
-        //    return Traverse(root, []).GetEnumerator();
-        //}
+        public IEnumerator<IEnumerable<T>> GetEnumerator()
+        {
+            return Traverse(root, []).GetEnumerator();
+        }
 
-        //IEnumerator IEnumerable.GetEnumerator()
-        //{
-        //    return GetEnumerator();
-        //}
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
 
         //public IEnumerable<T> GetPrefixMatch(IEnumerable<T> item)
         //{
@@ -107,29 +107,29 @@ namespace ObjectsCollection
         //    return key.GetRange(0, keyIndex);
         //}
 
-        //public bool Remove(IEnumerable<T> item)
-        //{
-        //    List<T> key = ValidateAndConvertToList(item);
+        public bool Remove(IEnumerable<T> item)
+        {
+            List<T> key = ValidateAndConvertToList(item);
 
-        //    (RadixTreeNode<T> parent, RadixTreeNode<T> node) = GetLastCommonNodes(key);
+            SearchResult result = Search(key);
 
-        //    if (!Contains(key, node))
-        //    {
-        //        return false;
-        //    }
+            if (!Contains(key, result.Child))
+            {
+                return false;
+            }
 
-        //    if (node.Children.Count == 0)
-        //    {
-        //        parent.Remove(node);
-        //    }
-        //    else
-        //    {
-        //        node.IsEnd = false;
-        //    }
+            if (result.Child.Children.Count == 0)
+            {
+                result.Parent.Remove(result.Child);
+            }
+            else
+            {
+                result.Child.IsEnd = false;
+            }
 
-        //    Count--;
-        //    return true;
-        //}
+            Count--;
+            return true;
+        }
 
         private static bool Contains(List<T> key, RadixTreeNode<T> node)
         {
