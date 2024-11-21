@@ -2,7 +2,7 @@
 
 namespace ObjectsCollection
 {
-    public class RadixTree<T> : ICollection<IEnumerable<T>>
+    public class RadixTree<T> /*ICollection<IEnumerable<T>>*/
         where T : IEquatable<T>
     {
         readonly RadixTreeNode<T> root;
@@ -22,23 +22,21 @@ namespace ObjectsCollection
         {
             List<T> key = ValidateAndConvertToList(item);
 
-            (RadixTreeNode<T> parent, RadixTreeNode<T> node) = GetLastCommonNode(key);
+            SearchResult result = Search(key);
 
-            ValidateNewKey(key, node);
+            ValidateNewKey(key, result.Child);
 
-            (int segmentIndex, int keyIndex) = GetSplitIndexes(node, key);
-
-            if (IsPartialMatch(node.Segment, segmentIndex))
+            if (IsPartialMatch(result.Child.Segment, result.SegmentIndex))
             {
-                node.Split(segmentIndex);
+                result.Child.Split(result.SegmentIndex);
             }
 
-            if (IsPartialMatch(key, keyIndex))
+            if (IsPartialMatch(key, result.KeyIndex))
             {
-                node = node.AddLeaf(GetRemainingPart(key, keyIndex));
+                result.Child = result.Child.AddLeaf(GetRemainingPart(key, result.KeyIndex));
             }
 
-            node.IsEnd = true;
+            result.Child.IsEnd = true;
             Count++;
         }
 
@@ -48,90 +46,90 @@ namespace ObjectsCollection
             Count = 0;
         }
 
-        public void CopyTo(IEnumerable<T>[] array, int arrayIndex)
-        {
-            ValidateArray(array, arrayIndex);
+        //public void CopyTo(IEnumerable<T>[] array, int arrayIndex)
+        //{
+        //    ValidateArray(array, arrayIndex);
 
-            foreach (IEnumerable<T> item in this)
-            {
-                array[arrayIndex] = item;
-                arrayIndex++;
-            }
-        }
+        //    foreach (IEnumerable<T> item in this)
+        //    {
+        //        array[arrayIndex] = item;
+        //        arrayIndex++;
+        //    }
+        //}
 
-        public bool Contains(IEnumerable<T> item)
-        {
-            List<T> key = ValidateAndConvertToList(item);
+        //public bool Contains(IEnumerable<T> item)
+        //{
+        //    List<T> key = ValidateAndConvertToList(item);
 
-            (RadixTreeNode<T> parent, RadixTreeNode<T> node) = GetLastCommonNodes(key);
+        //    (RadixTreeNode<T> parent, RadixTreeNode<T> node) = GetLastCommonNodes(key);
 
-            return Contains(key, node);
-        }
+        //    return Contains(key, node);
+        //}
 
-        public List<IEnumerable<T>> FindByPrefix(IEnumerable<T> prefix)
-        {
-            List<IEnumerable<T>> items = [];
-            List<T> key = ValidateAndConvertToList(prefix);
+        //public List<IEnumerable<T>> FindByPrefix(IEnumerable<T> prefix)
+        //{
+        //    List<IEnumerable<T>> items = [];
+        //    List<T> key = ValidateAndConvertToList(prefix);
 
-            (RadixTreeNode<T> parent, RadixTreeNode<T> node) = GetLastCommonNodes(key);
-            (int segmentIndex, int keyIndex) = GetSplitIndexes(node, key);
+        //    (RadixTreeNode<T> parent, RadixTreeNode<T> node) = GetLastCommonNodes(key);
+        //    (int segmentIndex, int keyIndex) = GetSplitIndexes(node, key);
 
-            if (IsPartialMatch(key, keyIndex))
-            {
-                return items;
-            }
+        //    if (IsPartialMatch(key, keyIndex))
+        //    {
+        //        return items;
+        //    }
 
-            key.AddRange(GetRemainingPart(node.Segment, segmentIndex));
+        //    key.AddRange(GetRemainingPart(node.Segment, segmentIndex));
 
-            items.AddRange(Traverse(node, key));
+        //    items.AddRange(Traverse(node, key));
 
-            return items;
-        }
+        //    return items;
+        //}
 
-        public IEnumerator<IEnumerable<T>> GetEnumerator()
-        {
-            return Traverse(root, []).GetEnumerator();
-        }
+        //public IEnumerator<IEnumerable<T>> GetEnumerator()
+        //{
+        //    return Traverse(root, []).GetEnumerator();
+        //}
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        //IEnumerator IEnumerable.GetEnumerator()
+        //{
+        //    return GetEnumerator();
+        //}
 
-        public IEnumerable<T> GetPrefixMatch(IEnumerable<T> item)
-        {
-            List<T> key = ValidateAndConvertToList(item);
+        //public IEnumerable<T> GetPrefixMatch(IEnumerable<T> item)
+        //{
+        //    List<T> key = ValidateAndConvertToList(item);
 
-            (RadixTreeNode<T> parent, RadixTreeNode<T> node) = GetLastCommonNodes(key);
+        //    (RadixTreeNode<T> parent, RadixTreeNode<T> node) = GetLastCommonNodes(key);
 
-            (int segmentIndex, int keyIndex) = GetSplitIndexes(node, key);
+        //    (int segmentIndex, int keyIndex) = GetSplitIndexes(node, key);
 
-            return key.GetRange(0, keyIndex);
-        }
+        //    return key.GetRange(0, keyIndex);
+        //}
 
-        public bool Remove(IEnumerable<T> item)
-        {
-            List<T> key = ValidateAndConvertToList(item);
+        //public bool Remove(IEnumerable<T> item)
+        //{
+        //    List<T> key = ValidateAndConvertToList(item);
 
-            (RadixTreeNode<T> parent, RadixTreeNode<T> node) = GetLastCommonNodes(key);
+        //    (RadixTreeNode<T> parent, RadixTreeNode<T> node) = GetLastCommonNodes(key);
 
-            if (!Contains(key, node))
-            {
-                return false;
-            }
+        //    if (!Contains(key, node))
+        //    {
+        //        return false;
+        //    }
 
-            if (node.Children.Count == 0)
-            {
-                parent.Remove(node);
-            }
-            else
-            {
-                node.IsEnd = false;
-            }
+        //    if (node.Children.Count == 0)
+        //    {
+        //        parent.Remove(node);
+        //    }
+        //    else
+        //    {
+        //        node.IsEnd = false;
+        //    }
 
-            Count--;
-            return true;
-        }
+        //    Count--;
+        //    return true;
+        //}
 
         private static bool Contains(List<T> key, RadixTreeNode<T> node)
         {
@@ -248,7 +246,7 @@ namespace ObjectsCollection
             throw new ArgumentException("The number of items in tree is greater than the space from index to end of array.");
         }
 
-        private struct SearchResult
+        private class SearchResult
         {
             public SearchResult(RadixTreeNode<T> parent, RadixTreeNode<T> child, int segmentIndex, int keyIndex)
             {
@@ -260,7 +258,7 @@ namespace ObjectsCollection
 
             public RadixTreeNode<T> Parent { get; }
 
-            public RadixTreeNode<T> Child { get; }
+            public RadixTreeNode<T> Child { get; set; }
 
             public int KeyIndex { get; }
 
