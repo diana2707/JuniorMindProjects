@@ -24,7 +24,7 @@ namespace ObjectsCollection
 
             SearchResult result = Search(key);
 
-            ValidateNewKey(key, result.Child);
+            ValidateNewKey(key, result);
 
             if (IsPartialMatch(result.Child.Segment, result.SegmentIndex))
             {
@@ -63,7 +63,7 @@ namespace ObjectsCollection
 
             SearchResult result = Search(key);
 
-            return Contains(key, result.Child);
+            return Contains(key, result);
         }
 
         public List<IEnumerable<T>> FindByPrefix(IEnumerable<T> prefix)
@@ -110,7 +110,7 @@ namespace ObjectsCollection
 
             SearchResult result = Search(key);
 
-            if (!Contains(key, result.Child))
+            if (!Contains(key, result))
             {
                 return false;
             }
@@ -128,12 +128,12 @@ namespace ObjectsCollection
             return true;
         }
 
-        private static bool Contains(List<T> key, RadixTreeNode<T> node)
+        private static bool Contains(List<T> key, SearchResult result)
         {
-            (int segmentIndex, int keyIndex) = GetSplitIndexes(node, key);
-            bool keyEndsWithSegment = segmentIndex == node.Segment.Count && keyIndex == key.Count;
+            bool keyEndsWithSegment = result.SegmentIndex == result.Child.Segment.Count
+                && result.KeyIndex == key.Count;
 
-            return node.IsEnd && keyEndsWithSegment;
+            return result.Child.IsEnd && keyEndsWithSegment;
         }
 
         private static IEnumerable<IEnumerable<T>> Traverse(RadixTreeNode<T> node, IEnumerable<T> key)
@@ -152,15 +152,14 @@ namespace ObjectsCollection
             }
         }
 
-        private static (int segmentIndex, int keyIndex) GetSplitIndexes(RadixTreeNode<T> node, List<T> key)
+        private static (int segmentIndex, int keyIndex) GetSplitIndexes(List<T> segment, List<T> key, int keyIndex)
         {
             int segmentIndex = 0;
-            int keyIndex = node.PathLength - node.Segment.Count;
-            int minLength = Math.Min(node.Segment.Count, key.Count - keyIndex);
+            int minLength = Math.Min(segment.Count, key.Count - keyIndex);
 
             for (int i = 0; i < minLength; i++)
             {
-                if (!node.Segment[i].Equals(key[keyIndex]))
+                if (!segment[i].Equals(key[keyIndex]))
                 {
                     break;
                 }
@@ -187,7 +186,7 @@ namespace ObjectsCollection
 
                 foreach (var node in child.Children)
                 {
-                    (int currentSegmentIndex, int currentKeyIndex) = GetSplitIndexes(node, key);
+                    (int currentSegmentIndex, int currentKeyIndex) = GetSplitIndexes(node.Segment, key, keyIndex);
                     if (currentSegmentIndex > 0)
                     {
                         parent = child;
@@ -195,10 +194,11 @@ namespace ObjectsCollection
                         segmentIndex = currentSegmentIndex;
                         keyIndex = currentKeyIndex;
 
-                        matchFound = true;
+                        matchFound = segmentIndex == node.Segment.Count;
                         break;
                     }
                 }
+
             }
 
             return new SearchResult(parent, child, segmentIndex, keyIndex);
@@ -220,9 +220,9 @@ namespace ObjectsCollection
             return item.ToList();
         }
 
-        private static void ValidateNewKey(List<T> item, RadixTreeNode<T> node)
+        private static void ValidateNewKey(List<T> key, SearchResult result)
         {
-            if (!Contains(item, node))
+            if (!Contains(key, result))
             {
                 return;
             }

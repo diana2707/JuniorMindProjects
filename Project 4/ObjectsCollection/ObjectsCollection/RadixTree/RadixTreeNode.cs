@@ -7,13 +7,10 @@ namespace ObjectsCollection
         internal RadixTreeNode()
         {
             Segment = [];
-            PathLength = 0;
             Children = new List<RadixTreeNode<T>>();
         }
 
         internal List<T> Segment { get; set; }
-
-        internal int PathLength { get; set; }
 
         internal List<RadixTreeNode<T>> Children { get; set; }
 
@@ -23,7 +20,6 @@ namespace ObjectsCollection
         {
             RadixTreeNode<T> node = new ();
             node.Segment = segment;
-            node.PathLength = PathLength + segment.Count;
             node.IsEnd = true;
 
             Children.Add(node);
@@ -35,7 +31,6 @@ namespace ObjectsCollection
             RadixTreeNode<T> newNode = new ()
             {
                 Segment = Segment.GetRange(splitIndex, Segment.Count - splitIndex),
-                PathLength = PathLength,
                 Children = Children.ToList(),
                 IsEnd = IsEnd
             };
@@ -43,7 +38,6 @@ namespace ObjectsCollection
             Children.Clear();
             Children.Add(newNode);
             Segment = Segment.GetRange(0, splitIndex);
-            PathLength -= newNode.Segment.Count;
             IsEnd = false;
         }
 

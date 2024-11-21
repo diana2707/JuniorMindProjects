@@ -17,13 +17,6 @@
         }
 
         [Fact]
-        public void PathLengthIs0WhenTreeIsEmpty()
-        {
-            RadixTreeNode<string> node = new ();
-            Assert.Equal(0, node.PathLength);
-        }
-
-        [Fact]
         public void ChildrenIsEmptyWhenTreeIsEmpty()
         {
             RadixTreeNode<string> node = new ();
@@ -48,7 +41,6 @@
             Assert.Single(parent.Children);
             Assert.Equal(segment, leaf.Segment);
             Assert.True(leaf.IsEnd);
-            Assert.Equal(1, leaf.PathLength);
         }
 
         [Fact]
@@ -56,7 +48,6 @@
         {
             RadixTreeNode<char> node = new ();
             node.Segment = ['a', 'b'];
-            node.PathLength = 2;
             node.IsEnd = true;
             node.Children.Add(new RadixTreeNode<char>());
             node.Children.Add(new RadixTreeNode<char>());
@@ -67,12 +58,10 @@
 
             Assert.Single(node.Children);
             Assert.Equal(['a'], node.Segment);
-            Assert.Equal(1, node.PathLength);
             Assert.False(node.IsEnd);
 
             Assert.Equal(2, newNode.Children.Count);
             Assert.Equal(['b'], newNode.Segment);
-            Assert.Equal(2, newNode.PathLength);
             Assert.True(newNode.IsEnd);
         }
 
