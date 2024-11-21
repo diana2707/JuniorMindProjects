@@ -243,5 +243,21 @@ namespace ObjectsCollection
 
             throw new ArgumentException("The number of items in tree is greater than the space from index to end of array.");
         }
+
+        private struct SearchResult
+        {
+            private SearchResult(RadixTreeNode<T> parent, RadixTreeNode<T> child, int pathLength)
+            {
+                Parent = parent;
+                Child = child;
+                PathLength = pathLength;
+            }
+
+            private RadixTreeNode<T> Parent { get; }
+
+            private RadixTreeNode<T> Child { get; }
+
+            int PathLength { get; }
+        }
     }
 }
