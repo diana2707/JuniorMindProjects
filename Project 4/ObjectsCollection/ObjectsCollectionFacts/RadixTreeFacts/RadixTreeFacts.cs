@@ -627,124 +627,124 @@
             Assert.Equal(count, tree.Count);
         }
 
-        //[Fact]
-        //public void FindByPrefixShouldReturnsListWithAllStringsStartingWithPrefix()
-        //{
-        //    var tree = new RadixTree<char>();
-        //    tree.Add("romane");
-        //    tree.Add("romanus");
-        //    tree.Add("rom");
-        //    tree.Add("romulus");
-        //    tree.Add("rub");
-        //    tree.Add("rubens");
-        //    tree.Add("ben");
-        //    tree.Add("ruber");
-        //    tree.Add("rubicundus");
+        [Fact]
+        public void FindByPrefixShouldReturnsListWithAllStringsStartingWithPrefix()
+        {
+            var tree = new RadixTree<char>();
+            tree.Add("romane");
+            tree.Add("romanus");
+            tree.Add("rom");
+            tree.Add("romulus");
+            tree.Add("rub");
+            tree.Add("rubens");
+            tree.Add("ben");
+            tree.Add("ruber");
+            tree.Add("rubicundus");
 
-        //    string[] array = { "romane", "romanus", "rom", "romulus" };
+            string[] array = { "romane", "romanus", "rom", "romulus" };
 
-        //    int count = 0;
+            int count = 0;
 
-        //    foreach (var item in tree.FindByPrefix("ro"))
-        //    {
-        //        Assert.Contains(item, array);
-        //        count++;
-        //    }
+            foreach (var item in tree.FindByPrefix("ro"))
+            {
+                Assert.Contains(item, array);
+                count++;
+            }
 
-        //    Assert.Equal(count, array.Length);
-        //}
+            Assert.Equal(count, array.Length);
+        }
 
-        //[Fact]
-        //public void FindIByPrefixShouldReturnsListWithAllListsOfCharsStartingWithPrefix()
-        //{
-        //    var tree = new RadixTree<char>();
+        [Fact]
+        public void FindIByPrefixShouldReturnsListWithAllListsOfCharsStartingWithPrefix()
+        {
+            var tree = new RadixTree<char>();
 
-        //    var romane = new List<char>() { 'r', 'o', 'm', 'a', 'n', 'e' };
-        //    var romanus = new List<char>() { 'r', 'o', 'm', 'a', 'n', 'u', 's' };
-        //    var rom = new List<char>() { 'r', 'o', 'm' };
-        //    var romulus = new List<char>() { 'r', 'o', 'm', 'u', 'l', 'u', 's' };
-        //    var rub = new List<char>() { 'r', 'u', 'b' };
-        //    var rubens = new List<char>() { 'r', 'u', 'b', 'e', 'n', 's' };
-        //    var ben = new List<char>() { 'b', 'e', 'n' };
-        //    var ruber = new List<char>() { 'r', 'u', 'b', 'e', 'r' };
-        //    var rubicundus = new List<char>() { 'r', 'u', 'b', 'i', 'c', 'u', 'n', 'd', 'u', 's' };
+            var romane = new List<char>() { 'r', 'o', 'm', 'a', 'n', 'e' };
+            var romanus = new List<char>() { 'r', 'o', 'm', 'a', 'n', 'u', 's' };
+            var rom = new List<char>() { 'r', 'o', 'm' };
+            var romulus = new List<char>() { 'r', 'o', 'm', 'u', 'l', 'u', 's' };
+            var rub = new List<char>() { 'r', 'u', 'b' };
+            var rubens = new List<char>() { 'r', 'u', 'b', 'e', 'n', 's' };
+            var ben = new List<char>() { 'b', 'e', 'n' };
+            var ruber = new List<char>() { 'r', 'u', 'b', 'e', 'r' };
+            var rubicundus = new List<char>() { 'r', 'u', 'b', 'i', 'c', 'u', 'n', 'd', 'u', 's' };
 
-        //    tree.Add(romane);
-        //    tree.Add(romanus);
-        //    tree.Add(rom);
-        //    tree.Add(romulus);
-        //    tree.Add(rub);
-        //    tree.Add(rubens);
-        //    tree.Add(ben);
-        //    tree.Add(ruber);
-        //    tree.Add(rubicundus);
+            tree.Add(romane);
+            tree.Add(romanus);
+            tree.Add(rom);
+            tree.Add(romulus);
+            tree.Add(rub);
+            tree.Add(rubens);
+            tree.Add(ben);
+            tree.Add(ruber);
+            tree.Add(rubicundus);
 
-        //    List<char>[] array = { romane, romanus, rom, romulus };
+            List<char>[] array = { romane, romanus, rom, romulus };
 
-        //    int count = 0;
+            int count = 0;
 
-        //    foreach (var item in tree.FindByPrefix("ro"))
-        //    {
-        //        Assert.Contains(item, array);
-        //        count++;
-        //    }
+            foreach (var item in tree.FindByPrefix("ro"))
+            {
+                Assert.Contains(item, array);
+                count++;
+            }
 
-        //    Assert.Equal(count, array.Length);
-        //}
+            Assert.Equal(count, array.Length);
+        }
 
-        //[Fact]
-        //public void FindByPrefixShouldReturnsListWithAllArraysOfCharsStartingWithPrefix()
-        //{
-        //    var tree = new RadixTree<char>();
-        //    char[] romane = ['r', 'o', 'm', 'a', 'n', 'e'];
-        //    char[] romanus = ['r', 'o', 'm', 'a', 'n', 'u', 's'];
-        //    char[] rom = ['r', 'o', 'm'];
-        //    char[] romulus = ['r', 'o', 'm', 'u', 'l', 'u', 's'];
-        //    char[] rub = ['r', 'u', 'b'];
-        //    char[] rubens = ['r', 'u', 'b', 'e', 'n', 's'];
-        //    char[] ben = ['b', 'e', 'n'];
-        //    char[] ruber = ['r', 'u', 'b', 'e', 'r'];
-        //    char[] rubicundus = ['r', 'u', 'b', 'i', 'c', 'u', 'n', 'd', 'u', 's'];
+        [Fact]
+        public void FindByPrefixShouldReturnsListWithAllArraysOfCharsStartingWithPrefix()
+        {
+            var tree = new RadixTree<char>();
+            char[] romane = ['r', 'o', 'm', 'a', 'n', 'e'];
+            char[] romanus = ['r', 'o', 'm', 'a', 'n', 'u', 's'];
+            char[] rom = ['r', 'o', 'm'];
+            char[] romulus = ['r', 'o', 'm', 'u', 'l', 'u', 's'];
+            char[] rub = ['r', 'u', 'b'];
+            char[] rubens = ['r', 'u', 'b', 'e', 'n', 's'];
+            char[] ben = ['b', 'e', 'n'];
+            char[] ruber = ['r', 'u', 'b', 'e', 'r'];
+            char[] rubicundus = ['r', 'u', 'b', 'i', 'c', 'u', 'n', 'd', 'u', 's'];
 
-        //    tree.Add(romane);
-        //    tree.Add(romanus);
-        //    tree.Add(rom);
-        //    tree.Add(romulus);
-        //    tree.Add(rub);
-        //    tree.Add(rubens);
-        //    tree.Add(ben);
-        //    tree.Add(ruber);
-        //    tree.Add(rubicundus);
+            tree.Add(romane);
+            tree.Add(romanus);
+            tree.Add(rom);
+            tree.Add(romulus);
+            tree.Add(rub);
+            tree.Add(rubens);
+            tree.Add(ben);
+            tree.Add(ruber);
+            tree.Add(rubicundus);
 
-        //    char[][] array = { romane, romanus, rom, romulus };
+            char[][] array = { romane, romanus, rom, romulus };
 
-        //    int count = 0;
+            int count = 0;
 
-        //    foreach (var item in tree.FindByPrefix("ro"))
-        //    {
-        //        Assert.Contains(item, array);
-        //        count++;
-        //    }
+            foreach (var item in tree.FindByPrefix("ro"))
+            {
+                Assert.Contains(item, array);
+                count++;
+            }
 
-        //    Assert.Equal(count, array.Length);
-        //}
+            Assert.Equal(count, array.Length);
+        }
 
-        //[Fact]
-        //public void FindByPrefixShouldReturnsEmptyListWhenPrefixIfNotPresent()
-        //{
-        //    var tree = new RadixTree<char>();
-        //    tree.Add("romane");
-        //    tree.Add("romanus");
-        //    tree.Add("rom");
-        //    tree.Add("romulus");
-        //    tree.Add("rub");
-        //    tree.Add("rubens");
-        //    tree.Add("ben");
-        //    tree.Add("ruber");
-        //    tree.Add("rubicundus");
+        [Fact]
+        public void FindByPrefixShouldReturnsEmptyListWhenPrefixIfNotPresent()
+        {
+            var tree = new RadixTree<char>();
+            tree.Add("romane");
+            tree.Add("romanus");
+            tree.Add("rom");
+            tree.Add("romulus");
+            tree.Add("rub");
+            tree.Add("rubens");
+            tree.Add("ben");
+            tree.Add("ruber");
+            tree.Add("rubicundus");
 
-        //    Assert.Empty(tree.FindByPrefix("ron"));
-        //}
+            Assert.Empty(tree.FindByPrefix("ron"));
+        }
 
         //[Fact]
         //public void GetPrefixMatchShouldReturnsStringWithLongestMatchFromTree()

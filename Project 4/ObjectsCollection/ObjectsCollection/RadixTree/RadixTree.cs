@@ -46,16 +46,16 @@ namespace ObjectsCollection
             Count = 0;
         }
 
-        //public void CopyTo(IEnumerable<T>[] array, int arrayIndex)
-        //{
-        //    ValidateArray(array, arrayIndex);
+        public void CopyTo(IEnumerable<T>[] array, int arrayIndex)
+        {
+            ValidateArray(array, arrayIndex);
 
-        //    foreach (IEnumerable<T> item in this)
-        //    {
-        //        array[arrayIndex] = item;
-        //        arrayIndex++;
-        //    }
-        //}
+            foreach (IEnumerable<T> item in this)
+            {
+                array[arrayIndex] = item;
+                arrayIndex++;
+            }
+        }
 
         public bool Contains(IEnumerable<T> item)
         {
@@ -66,25 +66,24 @@ namespace ObjectsCollection
             return Contains(key, result.Child);
         }
 
-        //public List<IEnumerable<T>> FindByPrefix(IEnumerable<T> prefix)
-        //{
-        //    List<IEnumerable<T>> items = [];
-        //    List<T> key = ValidateAndConvertToList(prefix);
+        public List<IEnumerable<T>> FindByPrefix(IEnumerable<T> prefix)
+        {
+            List<IEnumerable<T>> items = [];
+            List<T> key = ValidateAndConvertToList(prefix);
 
-        //    (RadixTreeNode<T> parent, RadixTreeNode<T> node) = GetLastCommonNodes(key);
-        //    (int segmentIndex, int keyIndex) = GetSplitIndexes(node, key);
+            SearchResult result = Search(key);
 
-        //    if (IsPartialMatch(key, keyIndex))
-        //    {
-        //        return items;
-        //    }
+            if (IsPartialMatch(key, result.KeyIndex))
+            {
+                return items;
+            }
 
-        //    key.AddRange(GetRemainingPart(node.Segment, segmentIndex));
+            key.AddRange(GetRemainingPart(result.Child.Segment, result.SegmentIndex));
 
-        //    items.AddRange(Traverse(node, key));
+            items.AddRange(Traverse(result.Child, key));
 
-        //    return items;
-        //}
+            return items;
+        }
 
         public IEnumerator<IEnumerable<T>> GetEnumerator()
         {
