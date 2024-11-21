@@ -2,7 +2,7 @@
 
 namespace ObjectsCollection
 {
-    public class RadixTree<T> : IEnumerable<IEnumerable<T>> /*ICollection<IEnumerable<T>>*/
+    public class RadixTree<T> : ICollection<IEnumerable<T>>
         where T : IEquatable<T>
     {
         readonly RadixTreeNode<T> root;
@@ -33,10 +33,13 @@ namespace ObjectsCollection
 
             if (IsPartialMatch(key, result.KeyIndex))
             {
-                result.Child = result.Child.AddLeaf(GetRemainingPart(key, result.KeyIndex));
+                result.Child.AddLeaf(GetRemainingPart(key, result.KeyIndex));
+            }
+            else
+            {
+                result.Child.IsEnd = true;
             }
 
-            result.Child.IsEnd = true;
             Count++;
         }
 
@@ -198,7 +201,6 @@ namespace ObjectsCollection
                         break;
                     }
                 }
-
             }
 
             return new SearchResult(parent, child, segmentIndex, keyIndex);
@@ -243,7 +245,7 @@ namespace ObjectsCollection
             throw new ArgumentException("The number of items in tree is greater than the space from index to end of array.");
         }
 
-        private class SearchResult
+        readonly struct SearchResult
         {
             public SearchResult(RadixTreeNode<T> parent, RadixTreeNode<T> child, int segmentIndex, int keyIndex)
             {
@@ -255,7 +257,7 @@ namespace ObjectsCollection
 
             public RadixTreeNode<T> Parent { get; }
 
-            public RadixTreeNode<T> Child { get; set; }
+            public RadixTreeNode<T> Child { get; }
 
             public int KeyIndex { get; }
 

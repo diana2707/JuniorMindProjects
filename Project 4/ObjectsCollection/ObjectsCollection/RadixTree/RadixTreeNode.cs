@@ -16,14 +16,13 @@ namespace ObjectsCollection
 
         internal bool IsEnd { get; set; }
 
-        internal RadixTreeNode<T> AddLeaf(List<T> segment)
+        internal void AddLeaf(List<T> segment)
         {
             RadixTreeNode<T> node = new ();
             node.Segment = segment;
             node.IsEnd = true;
 
             Children.Add(node);
-            return node;
         }
 
         internal void Split(int splitIndex)

@@ -36,7 +36,8 @@
             RadixTreeNode<char> parent = new ();
             List<char> segment = new () { 'a' };
 
-            RadixTreeNode<char> leaf = parent.AddLeaf(segment);
+            parent.AddLeaf(segment);
+            RadixTreeNode<char> leaf = parent.Children[0];
 
             Assert.Single(parent.Children);
             Assert.Equal(segment, leaf.Segment);
