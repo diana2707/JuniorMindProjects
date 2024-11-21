@@ -95,16 +95,14 @@ namespace ObjectsCollection
             return GetEnumerator();
         }
 
-        //public IEnumerable<T> GetPrefixMatch(IEnumerable<T> item)
-        //{
-        //    List<T> key = ValidateAndConvertToList(item);
+        public IEnumerable<T> GetPrefixMatch(IEnumerable<T> item)
+        {
+            List<T> key = ValidateAndConvertToList(item);
 
-        //    (RadixTreeNode<T> parent, RadixTreeNode<T> node) = GetLastCommonNodes(key);
+            SearchResult result = Search(key);
 
-        //    (int segmentIndex, int keyIndex) = GetSplitIndexes(node, key);
-
-        //    return key.GetRange(0, keyIndex);
-        //}
+            return key.GetRange(0, result.KeyIndex);
+        }
 
         public bool Remove(IEnumerable<T> item)
         {
