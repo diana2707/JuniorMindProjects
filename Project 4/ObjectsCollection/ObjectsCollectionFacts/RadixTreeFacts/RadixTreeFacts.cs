@@ -240,38 +240,38 @@
             Assert.Equal(9, tree.Count);
         }
 
-        //[Fact]
-        //public void ContainsShouldReturnTrueIfStringExistsInTree()
-        //{
-        //    var tree = new RadixTree<char>();
-        //    tree.Add("cat");
-        //    tree.Add("car");
-        //    Assert.True(tree.Contains("car"));
-        //    Assert.True(tree.Contains("cat"));
-        //}
+        [Fact]
+        public void ContainsShouldReturnTrueIfStringExistsInTree()
+        {
+            var tree = new RadixTree<char>();
+            tree.Add("cat");
+            tree.Add("car");
+            Assert.True(tree.Contains("car"));
+            Assert.True(tree.Contains("cat"));
+        }
 
-        //[Fact]
-        //public void ContainsShouldReturnFalseIfStringDoNotExistsInTree()
-        //{
-        //    var tree = new RadixTree<char>();
-        //    tree.Add("cat");
-        //    tree.Add("car");
-        //    Assert.False(tree.Contains("camel"));
-        //    Assert.False(tree.Contains("ca"));
-        //    Assert.False(tree.Contains("container"));
-        //    Assert.False(tree.Contains("book"));
-        //}
+        [Fact]
+        public void ContainsShouldReturnFalseIfStringDoNotExistsInTree()
+        {
+            var tree = new RadixTree<char>();
+            tree.Add("cat");
+            tree.Add("car");
+            Assert.False(tree.Contains("camel"));
+            Assert.False(tree.Contains("ca"));
+            Assert.False(tree.Contains("container"));
+            Assert.False(tree.Contains("book"));
+        }
 
-        //[Fact]
-        //public void ContainsShouldReturnTrueWhenNewStringHasAnotherWordAsPrefix()
-        //{
-        //    var tree = new RadixTree<char>();
-        //    tree.Add("cab");
-        //    tree.Add("cabage");
-        //    Assert.True(tree.Contains("cab"));
-        //    Assert.True(tree.Contains("cabage"));
-        //    Assert.Equal(2, tree.Count);
-        //}
+        [Fact]
+        public void ContainsShouldReturnTrueWhenNewStringHasAnotherWordAsPrefix()
+        {
+            var tree = new RadixTree<char>();
+            tree.Add("cab");
+            tree.Add("cabage");
+            Assert.True(tree.Contains("cab"));
+            Assert.True(tree.Contains("cabage"));
+            Assert.Equal(2, tree.Count);
+        }
 
         //[Fact]
         //public void ContainsShouldReturnTrueWhenEndOfStringIsTheSameAsPrefix()

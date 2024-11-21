@@ -57,14 +57,14 @@ namespace ObjectsCollection
         //    }
         //}
 
-        //public bool Contains(IEnumerable<T> item)
-        //{
-        //    List<T> key = ValidateAndConvertToList(item);
+        public bool Contains(IEnumerable<T> item)
+        {
+            List<T> key = ValidateAndConvertToList(item);
 
-        //    (RadixTreeNode<T> parent, RadixTreeNode<T> node) = GetLastCommonNodes(key);
+            SearchResult result = Search(key);
 
-        //    return Contains(key, node);
-        //}
+            return Contains(key, result.Child);
+        }
 
         //public List<IEnumerable<T>> FindByPrefix(IEnumerable<T> prefix)
         //{
