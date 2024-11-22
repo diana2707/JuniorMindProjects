@@ -18,15 +18,13 @@ namespace ObjectsCollection
             Assert.Equal(0, tree.Count);
         }
 
-        //[Fact]
-        //public void AddShouldInsertFirstData()
-        //{
-        //    var tree = new AVLTree<int>();
-        //    tree.Add(10);
+        [Fact]
+        public void AddShouldInsertFirstData()
+        {
+            var tree = new AVLTree<int>();
+            tree.Add(10);
 
-        //    Assert.Equal
-
-        //}
-
+            Assert.Equal(1, tree.Count);
+        }
     }
 }

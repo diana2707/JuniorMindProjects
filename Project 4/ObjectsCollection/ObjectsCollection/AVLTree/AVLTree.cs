@@ -12,5 +12,11 @@ namespace ObjectsCollection
         }
 
         public int Count { get; private set; }
+
+        public void Add(T item)
+        {
+            root.Data = item;
+            Count++;
+        }
     }
 }
