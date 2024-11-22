@@ -3,6 +3,7 @@
 namespace ObjectsCollection
 {
     public class AVLTree<T>
+        where T : IComparable<T>
     {
         readonly AVLTreeNode<T> root = new ();
 
@@ -15,7 +16,16 @@ namespace ObjectsCollection
 
         public void Add(T item)
         {
-            root.Data = item;
+            if (Count == 0)
+            {
+                root.Data = item;
+            }
+
+            //if (item < root.Data)
+            //{
+            //    root.LeftChild.Data = item; 
+            //}
+            
             Count++;
         }
     }

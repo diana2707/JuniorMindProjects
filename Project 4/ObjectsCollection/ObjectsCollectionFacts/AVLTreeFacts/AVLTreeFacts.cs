@@ -26,5 +26,15 @@ namespace ObjectsCollection
 
             Assert.Equal(1, tree.Count);
         }
+
+        [Fact]
+        public void AddShouldInsertSecondDataInLeftChildWhenSmaller()
+        {
+            var tree = new AVLTree<int>();
+            tree.Add(10);
+            tree.Add(5);
+
+            Assert.Equal(1, tree.Count);
+        }
     }
 }
