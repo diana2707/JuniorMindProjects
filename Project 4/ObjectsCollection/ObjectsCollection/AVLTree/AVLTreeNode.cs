@@ -10,5 +10,7 @@ namespace ObjectsCollection
         }
 
         internal T Data { get; set; }
+
+        internal AVLTreeNode<T> LeftChild { get; set; }
     }
 }
