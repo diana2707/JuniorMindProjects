@@ -1,12 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ObjectsCollection.ObjectsCollectionFacts.AVLTreeFacts
+namespace ObjectsCollection
 {
-    internal class AVLTreeFacts
+    public class AVLTreeFacts
     {
+        [Fact]
+        public void AVLTreeShouldReturnExists()
+        {
+            var tree = new AVLTree<int>();
+            Assert.IsType<AVLTree<int>>(tree);
+        }
+
     }
 }
