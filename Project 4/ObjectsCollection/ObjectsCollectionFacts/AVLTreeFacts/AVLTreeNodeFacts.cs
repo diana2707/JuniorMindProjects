@@ -25,5 +25,12 @@ namespace ObjectsCollection
             Assert.Null(node.LeftChild);
         }
 
+        [Fact]
+        public void RightChildIsNullWhenTreeIsEmpty()
+        {
+            var node = new AVLTreeNode<int>();
+            Assert.Null(node.RightChild);
+        }
+
     }
 }
