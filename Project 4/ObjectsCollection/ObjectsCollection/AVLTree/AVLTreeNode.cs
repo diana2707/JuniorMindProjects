@@ -2,8 +2,13 @@
 
 namespace ObjectsCollection
 {
-    internal class AVLTreeNode
+    internal class AVLTreeNode<T>
     {
-        public AVLTreeNode() { }
+        internal AVLTreeNode()
+        {
+            Data = default;
+        }
+
+        internal T Data { get; set; }
     }
 }

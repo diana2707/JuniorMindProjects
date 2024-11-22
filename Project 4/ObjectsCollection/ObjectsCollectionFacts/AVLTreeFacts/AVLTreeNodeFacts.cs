@@ -7,8 +7,15 @@ namespace ObjectsCollection
         [Fact]
         public void AVLTreeNodeClassIsEmpty()
         {
-            var node = new AVLTreeNode();
-            Assert.IsType<AVLTreeNode>(node);
+            var node = new AVLTreeNode<int>();
+            Assert.IsType<AVLTreeNode<int>>(node);
+        }
+
+        [Fact]
+        public void DataIsDefaultWhenTreeIsEmpty()
+        {
+            var node = new AVLTreeNode<int>();
+            Assert.Equal(0, node.Data);
         }
 
     }
