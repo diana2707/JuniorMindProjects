@@ -20,12 +20,12 @@ namespace ObjectsCollection
             {
                 root.Data = item;
             }
+            else if (item.CompareTo(root.Data) < 0)
+            {
+                root.LeftChild = new ();
+                root.LeftChild.Data = item;
+            }
 
-            //if (item < root.Data)
-            //{
-            //    root.LeftChild.Data = item; 
-            //}
-            
             Count++;
         }
     }

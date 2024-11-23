@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ObjectsCollection
+﻿namespace ObjectsCollection
 {
     internal class SortedIntArray : IntArray
     {
@@ -67,15 +65,15 @@ namespace ObjectsCollection
 
         private void Sort()
         {
-                int j = Count - 1;
-                int k = j - 1;
+            int j = Count - 1;
+            int k = j - 1;
 
-                while (k >= 0 && array[j] < array[k])
-                {
-                    (array[j], array[k]) = (array[k], array[j]);
-                    j--;
-                    k--;
-                }
+            while (k >= 0 && array[j] < array[k])
+            {
+                (array[j], array[k]) = (array[k], array[j]);
+                j--;
+                k--;
+            }
         }
 
         private bool IsUnsortedSetter(int index, int element)

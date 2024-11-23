@@ -34,7 +34,7 @@ namespace ObjectsCollection
             tree.Add(10);
             tree.Add(5);
 
-            Assert.Equal(1, tree.Count);
+            Assert.Equal(2, tree.Count);
         }
     }
 }

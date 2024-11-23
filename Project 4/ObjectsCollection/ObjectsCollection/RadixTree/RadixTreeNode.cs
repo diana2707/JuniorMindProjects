@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ObjectsCollection
+﻿namespace ObjectsCollection
 {
     internal class RadixTreeNode<T>
     {
@@ -18,7 +16,7 @@ namespace ObjectsCollection
 
         internal void AddLeaf(List<T> segment)
         {
-            RadixTreeNode<T> node = new ();
+            RadixTreeNode<T> node = new();
             node.Segment = segment;
             node.IsEnd = true;
 
@@ -27,7 +25,7 @@ namespace ObjectsCollection
 
         internal void Split(int splitIndex)
         {
-            RadixTreeNode<T> newNode = new ()
+            RadixTreeNode<T> newNode = new()
             {
                 Segment = Segment.GetRange(splitIndex, Segment.Count - splitIndex),
                 Children = Children.ToList(),

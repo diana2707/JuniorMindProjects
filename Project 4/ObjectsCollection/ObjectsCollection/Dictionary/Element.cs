@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ObjectsCollection
+﻿namespace ObjectsCollection
 {
     public class Element<TKey, TValue>
     {

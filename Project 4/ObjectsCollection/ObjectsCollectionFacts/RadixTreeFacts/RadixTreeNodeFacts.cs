@@ -5,36 +5,36 @@
         [Fact]
         public void RadixTreeNodeClassExists()
         {
-            RadixTreeNode<string> node = new ();
+            RadixTreeNode<string> node = new();
             Assert.IsType<RadixTreeNode<string>>(node);
         }
 
         [Fact]
         public void PrefixIsEmptyWhenTreeIsEmpty()
         {
-            RadixTreeNode<string> node = new ();
+            RadixTreeNode<string> node = new();
             Assert.Empty(node.Segment);
         }
 
         [Fact]
         public void ChildrenIsEmptyWhenTreeIsEmpty()
         {
-            RadixTreeNode<string> node = new ();
+            RadixTreeNode<string> node = new();
             Assert.Empty(node.Children);
         }
 
         [Fact]
         public void IsWordIsFalseWhenTreeIsEmpty()
         {
-            RadixTreeNode<string> node = new ();
+            RadixTreeNode<string> node = new();
             Assert.False(node.IsEnd);
         }
 
         [Fact]
         public void AddLeafAddsNodeToParent()
         {
-            RadixTreeNode<char> parent = new ();
-            List<char> segment = new () { 'a' };
+            RadixTreeNode<char> parent = new();
+            List<char> segment = new() { 'a' };
 
             parent.AddLeaf(segment);
             RadixTreeNode<char> leaf = parent.Children[0];
@@ -47,7 +47,7 @@
         [Fact]
         public void SplitCreates2Nodes()
         {
-            RadixTreeNode<char> node = new ();
+            RadixTreeNode<char> node = new();
             node.Segment = ['a', 'b'];
             node.IsEnd = true;
             node.Children.Add(new RadixTreeNode<char>());
@@ -69,8 +69,8 @@
         [Fact]
         public void RemoveChildNodeFromParent()
         {
-            RadixTreeNode<char> parent = new ();
-            RadixTreeNode<char> child = new ();
+            RadixTreeNode<char> parent = new();
+            RadixTreeNode<char> child = new();
 
             parent.Children.Add(child);
 

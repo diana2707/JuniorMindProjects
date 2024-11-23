@@ -7,17 +7,35 @@
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+
   </PropertyGroup>
 
 	<PropertyGroup>
 		<CodeAnalysisRuleSet>juniormind.ruleset</CodeAnalysisRuleSet>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+	<!--<PropertyGroup>
+		<RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+		<RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
+	</PropertyGroup>-->
+
+	<!--<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <WarningsAsErrors />
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <WarningsAsErrors />
+	</PropertyGroup>
+
 	<ItemGroup>
 	  <Compile Remove="ObjectsCollectionFacts\EncryptorProviderFacts.cs" />
 	  <Compile Remove="ObjectsCollectionFacts\ObjectArrayEnumFacts.cs" />
 	  <Compile Remove="ObjectsCollection\ObjectArrayEnum.cs" />
-	</ItemGroup>
+	</ItemGroup>-->
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0">

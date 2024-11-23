@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ObjectsCollection
+﻿namespace ObjectsCollection
 {
     internal class IntArray
     {

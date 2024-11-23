@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace ObjectsCollection
+﻿namespace ObjectsCollection
 {
     public class ReadOnlyListFacts
     {

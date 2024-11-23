@@ -444,7 +444,7 @@
         public void AddAfterThrowsInvalidOperationExceptionWhenNodeIsNotFound()
         {
             var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
-            LinkedListNode<int> node = new (1);
+            LinkedListNode<int> node = new(1);
 
             Assert.Throws<InvalidOperationException>(() => list.AddAfter(node, 4));
         }
@@ -453,7 +453,7 @@
         public void AddAfterThrowsArgumentNullExceptionWhenNodeIsNullWhenPassedNode()
         {
             var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
-            LinkedListNode<int> node = new (2);
+            LinkedListNode<int> node = new(2);
 
             Assert.Throws<ArgumentNullException>(() => list.AddAfter(null, node));
         }
@@ -471,8 +471,8 @@
         public void AddAfterThrowsInvalidOperationExceptionWhenNodeIsNotInCurrentList()
         {
             var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
-            LinkedListNode<int> node = new (1);
-            LinkedListNode<int> newNode = new (5);
+            LinkedListNode<int> node = new(1);
+            LinkedListNode<int> newNode = new(5);
 
             Assert.Throws<InvalidOperationException>(() => list.AddAfter(node, newNode));
         }
@@ -484,7 +484,7 @@
             var list2 = new LinkedList<int>();
 
             LinkedListNode<int> node = list1.Find(2);
-            LinkedListNode<int> newNode = new (5);
+            LinkedListNode<int> newNode = new(5);
             list2.AddFirst(newNode);
 
             Assert.Throws<InvalidOperationException>(() => list1.AddAfter(node, newNode));
@@ -502,7 +502,7 @@
         public void AddBeforeThrowsInvalidOperationExceptionWhenNodeIsNotFound()
         {
             var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
-            LinkedListNode<int> node = new (2);
+            LinkedListNode<int> node = new(2);
 
             Assert.Throws<InvalidOperationException>(() => list.AddBefore(node, 4));
         }
@@ -511,7 +511,7 @@
         public void AddBeforeThrowsArgumentNullExceptionWhenNodeIsNullWhenPassedNode()
         {
             var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
-            LinkedListNode<int> node = new (2);
+            LinkedListNode<int> node = new(2);
 
             Assert.Throws<ArgumentNullException>(() => list.AddBefore(null, node));
         }
@@ -529,8 +529,8 @@
         public void AddBeforeThrowsInvalidOperationExceptionWhenNodeIsNotInCurrentList()
         {
             var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
-            LinkedListNode<int> node = new (1);
-            LinkedListNode<int> newNode = new (5);
+            LinkedListNode<int> node = new(1);
+            LinkedListNode<int> newNode = new(5);
 
             Assert.Throws<InvalidOperationException>(() => list.AddBefore(node, newNode));
         }
@@ -542,7 +542,7 @@
             var list2 = new LinkedList<int>();
 
             LinkedListNode<int> node = list1.Find(2);
-            LinkedListNode<int> newNode = new (5);
+            LinkedListNode<int> newNode = new(5);
             list2.AddFirst(newNode);
 
             Assert.Throws<InvalidOperationException>(() => list1.AddBefore(node, newNode));
@@ -562,7 +562,7 @@
             var list1 = new LinkedList<int>() { 1, 2, 3, 2, 4 };
             var list2 = new LinkedList<int>();
 
-            LinkedListNode<int> node = new (5);
+            LinkedListNode<int> node = new(5);
             list2.AddFirst(node);
 
             Assert.Throws<InvalidOperationException>(() => list1.AddFirst(node));
@@ -582,7 +582,7 @@
             var list1 = new LinkedList<int>() { 1, 2, 3, 2, 4 };
             var list2 = new LinkedList<int>();
 
-            LinkedListNode<int> node = new (5);
+            LinkedListNode<int> node = new(5);
             list2.AddFirst(node);
 
             Assert.Throws<InvalidOperationException>(() => list1.AddLast(node));
@@ -600,7 +600,7 @@
         public void RemoveThrowsInvalidOperationExceptionWhenNodeIsNotInCurrentList()
         {
             var list = new LinkedList<int>() { 1, 2, 3, 2, 4 };
-            LinkedListNode<int> node = new (1);
+            LinkedListNode<int> node = new(1);
 
             Assert.Throws<InvalidOperationException>(() => list.Remove(node));
         }

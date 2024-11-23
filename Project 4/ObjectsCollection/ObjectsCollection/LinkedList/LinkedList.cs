@@ -29,7 +29,7 @@ namespace ObjectsCollection
 
         public LinkedListNode<T> AddFirst(T item)
         {
-            LinkedListNode<T> newNode = new (item);
+            LinkedListNode<T> newNode = new(item);
             AddFirst(newNode);
 
             return newNode;
@@ -42,7 +42,7 @@ namespace ObjectsCollection
 
         public LinkedListNode<T> AddLast(T item)
         {
-            LinkedListNode<T> newNode = new (item);
+            LinkedListNode<T> newNode = new(item);
             AddLast(newNode);
 
             return newNode;
@@ -55,7 +55,7 @@ namespace ObjectsCollection
 
         public LinkedListNode<T> AddAfter(LinkedListNode<T> listNode, T item)
         {
-            LinkedListNode<T> newNode = new (item);
+            LinkedListNode<T> newNode = new(item);
             AddAfter(listNode, newNode);
 
             return newNode;
@@ -78,7 +78,7 @@ namespace ObjectsCollection
 
         public LinkedListNode<T> AddBefore(LinkedListNode<T> listNode, T item)
         {
-            LinkedListNode<T> newNode = new (item);
+            LinkedListNode<T> newNode = new(item);
             AddBefore(listNode, newNode);
 
             return newNode;
@@ -190,7 +190,7 @@ namespace ObjectsCollection
 
         public IEnumerator<T> GetEnumerator()
         {
-            for (LinkedListNode<T> current = sentinel.Next;  current != sentinel; current = current.Next)
+            for (LinkedListNode<T> current = sentinel.Next; current != sentinel; current = current.Next)
             {
                 yield return current.Value;
             }
