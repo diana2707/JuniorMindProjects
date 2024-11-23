@@ -5,7 +5,7 @@ namespace ObjectsCollection
     public class AVLTree<T>
         where T : IComparable<T>
     {
-        readonly AVLTreeNode<T> root = new ();
+        private AVLTreeNode<T> root;
 
         public AVLTree()
         {
@@ -16,22 +16,33 @@ namespace ObjectsCollection
 
         public void Add(T item)
         {
-            if (Count == 0)
-            {
-                root.Data = item;
-            }
-            else if (item.CompareTo(root.Data) < 0)
-            {
-                root.LeftChild = new ();
-                root.LeftChild.Data = item;
-            }
-            else
-            {
-                root.RightChild = new ();
-                root.RightChild.Data = item;
-            }
+            root = InsertInternally(root, item);
 
             Count++;
+        }
+
+        private AVLTreeNode<T> InsertInternally(AVLTreeNode<T> currentNode, T item)
+        {
+            if (currentNode == null)
+            {
+                currentNode = new ();
+                currentNode.Data = item;
+                return currentNode;
+            }
+
+            if (currentNode.Data.CompareTo(item) > 0)
+            {
+                currentNode.LeftChild = InsertInternally(currentNode.LeftChild, item);
+                return currentNode;
+            }
+
+            if (currentNode.Data.CompareTo(item) < 0)
+            {
+                currentNode.RightChild = InsertInternally(currentNode.RightChild, item);
+                return currentNode;
+            }
+
+            throw new ArgumentException("Item already inserted");
         }
     }
 }

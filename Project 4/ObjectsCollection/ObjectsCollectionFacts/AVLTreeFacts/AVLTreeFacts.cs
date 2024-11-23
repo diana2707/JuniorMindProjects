@@ -46,5 +46,17 @@ namespace ObjectsCollection
 
             Assert.Equal(2, tree.Count);
         }
+
+        [Fact]
+        public void AddShouldTraverseAndInsertDataInFirstAvailableChild()
+        {
+            var tree = new AVLTree<int>();
+            tree.Add(10);
+            tree.Add(15);
+            tree.Add(5);
+            tree.Add(3);
+
+            Assert.Equal(4, tree.Count);
+        }
     }
 }
