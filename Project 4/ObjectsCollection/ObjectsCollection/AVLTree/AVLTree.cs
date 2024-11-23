@@ -25,6 +25,11 @@ namespace ObjectsCollection
                 root.LeftChild = new ();
                 root.LeftChild.Data = item;
             }
+            else
+            {
+                root.RightChild = new ();
+                root.RightChild.Data = item;
+            }
 
             Count++;
         }

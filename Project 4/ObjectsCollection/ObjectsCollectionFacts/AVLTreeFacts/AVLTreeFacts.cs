@@ -36,5 +36,15 @@ namespace ObjectsCollection
 
             Assert.Equal(2, tree.Count);
         }
+
+        [Fact]
+        public void AddShouldInsertDataInRightChildWhenLarger()
+        {
+            var tree = new AVLTree<int>();
+            tree.Add(10);
+            tree.Add(15);
+
+            Assert.Equal(2, tree.Count);
+        }
     }
 }
