@@ -22,6 +22,52 @@ namespace ObjectsCollection
             Count++;
         }
 
+        public bool Contains(T item)
+        {
+            AVLTreeNode<T> currentNode = root;
+
+            return Contains(item, currentNode);
+        }
+
+        private static bool Contains(T item, AVLTreeNode<T> currentNode)
+        {
+            while (currentNode != null)
+            {
+                if (item.Equals(currentNode.Data))
+                {
+                    return true;
+                }
+                else if (item.CompareTo(currentNode.Data) < 0)
+                {
+                    currentNode = currentNode.LeftChild;
+                }
+                else if (item.CompareTo(currentNode.Data) > 0)
+                {
+                    currentNode = currentNode.RightChild;
+                }
+            }
+
+            return false;
+
+            //if (currentNode == null)
+            //{
+            //    return false;
+            //}
+            //else if (item.Equals(currentNode.Data))
+            //{
+            //    return true;
+            //}
+
+            //if (item.CompareTo(currentNode.Data) < 0)
+            //{
+            //    Contains(item, currentNode.LeftChild);
+            //}
+            //else if (item.CompareTo(currentNode.Data) > 0)
+            //{
+            //    Contains(item, currentNode.RightChild);
+            //}
+        }
+
         private AVLTreeNode<T> InsertInternally(AVLTreeNode<T> currentNode, T item)
         {
             if (currentNode == null)

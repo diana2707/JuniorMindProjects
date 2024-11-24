@@ -25,7 +25,8 @@ namespace ObjectsCollection
             var tree = new AVLTree<int>();
             tree.Add(10);
 
-            Assert.Equal(1, tree.Count);
+            Assert.Contains(10, tree);
+            Assert.Single(tree);
         }
 
         [Fact]
@@ -35,6 +36,8 @@ namespace ObjectsCollection
             tree.Add(10);
             tree.Add(5);
 
+            Assert.Contains(5, tree);
+            Assert.Contains(10, tree);
             Assert.Equal(2, tree.Count);
         }
 
@@ -45,6 +48,8 @@ namespace ObjectsCollection
             tree.Add(10);
             tree.Add(15);
 
+            Assert.Contains(10, tree);
+            Assert.Contains(15, tree);
             Assert.Equal(2, tree.Count);
         }
 
@@ -57,6 +62,10 @@ namespace ObjectsCollection
             tree.Add(5);
             tree.Add(3);
 
+            Assert.Contains(3, tree);
+            Assert.Contains(5, tree);
+            Assert.Contains(10, tree);
+            Assert.Contains(15, tree);
             Assert.Equal(4, tree.Count);
         }
 
@@ -79,6 +88,27 @@ namespace ObjectsCollection
             }
 
             Assert.Equal(4, index);
+        }
+
+        [Fact]
+        public void ContainsShouldReturnTrueIfItemExists()
+        {
+            var tree = new AVLTree<int>() { 10, 15, 3, 5 };
+
+            Assert.True(tree.Contains(10));
+            Assert.True(tree.Contains(15));
+            Assert.True(tree.Contains(3));
+            Assert.True(tree.Contains(5));
+
+            Assert.False(tree.Contains(7));
+        }
+
+        [Fact]
+        public void ContainsShouldReturnFalseIfItemDoNotExists()
+        {
+            var tree = new AVLTree<int>() { 10, 15, 3, 5 };
+
+            Assert.False(tree.Contains(7));
         }
     }
 }
