@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NuGet.Frameworks;
+using System;
 
 namespace ObjectsCollection
 {
@@ -57,6 +58,27 @@ namespace ObjectsCollection
             tree.Add(3);
 
             Assert.Equal(4, tree.Count);
+        }
+
+        [Fact]
+        public void EnumeratorShouldReturnAllItems()
+        {
+            var tree = new AVLTree<int>();
+            tree.Add(10);
+            tree.Add(15);
+            tree.Add(5);
+            tree.Add(3);
+
+            int[] array = { 3, 5, 10, 15 };
+            int index = 0;
+
+            foreach (var item in tree)
+            {
+                Assert.Equal(item, array[index]);
+                index++;
+            }
+
+            Assert.Equal(4, index);
         }
     }
 }
