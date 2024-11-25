@@ -15,6 +15,25 @@ namespace ObjectsCollection
 
         public int Count { get; private set; }
 
+        public int Height
+        {
+            get => GetHeight(root);
+        }
+
+        private static int GetHeight(AVLTreeNode<T> node, int height = 1)
+        {
+            if (node == null)
+            {
+                return height - 1;
+            }
+
+            int leftHeight = GetHeight(node.LeftChild, height + 1);
+
+            int rightHeight = GetHeight(node.RightChild, height + 1);
+
+            return int.Max(leftHeight, rightHeight);
+        }
+
         public void Add(T item)
         {
             root = InsertInternally(root, item);

@@ -1,5 +1,4 @@
-﻿using NuGet.Frameworks;
-using System;
+﻿using System;
 
 namespace ObjectsCollection
 {
@@ -109,6 +108,22 @@ namespace ObjectsCollection
             var tree = new AVLTree<int>() { 10, 15, 3, 5 };
 
             Assert.False(tree.Contains(7));
+        }
+
+        [Fact]
+        public void HeightShouldReturnCurrentHeightOfTree()
+        {
+            var tree = new AVLTree<int>() { 10, 15, 3, 5 };
+
+            Assert.Equal(3, tree.Height);
+        }
+
+        [Fact]
+        public void HeightShouldReturnCurrentHeightOfTreeInComplexTree()
+        {
+            var tree = new AVLTree<int>() { 16, 14, 31, 3, 29, 7, 5, 32, 40, 39 };
+
+            Assert.Equal(5, tree.Height);
         }
     }
 }
