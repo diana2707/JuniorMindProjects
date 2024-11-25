@@ -115,7 +115,7 @@ namespace ObjectsCollection
         {
             var tree = new AVLTree<int>() { 10, 15, 3, 5 };
 
-            Assert.Equal(3, tree.Height);
+            Assert.Equal(2, tree.Height);
         }
 
         [Fact]
@@ -123,7 +123,7 @@ namespace ObjectsCollection
         {
             var tree = new AVLTree<int>() { 16, 14, 31, 3, 29, 7, 5, 32, 40, 39 };
 
-            Assert.Equal(5, tree.Height);
+            Assert.Equal(4, tree.Height);
         }
     }
 }

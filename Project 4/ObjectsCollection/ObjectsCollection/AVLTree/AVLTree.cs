@@ -20,20 +20,6 @@ namespace ObjectsCollection
             get => GetHeight(root);
         }
 
-        private static int GetHeight(AVLTreeNode<T> node, int height = 1)
-        {
-            if (node == null)
-            {
-                return height - 1;
-            }
-
-            int leftHeight = GetHeight(node.LeftChild, height + 1);
-
-            int rightHeight = GetHeight(node.RightChild, height + 1);
-
-            return int.Max(leftHeight, rightHeight);
-        }
-
         public void Add(T item)
         {
             root = InsertInternally(root, item);
@@ -99,16 +85,34 @@ namespace ObjectsCollection
             if (currentNode.Data.CompareTo(item) > 0)
             {
                 currentNode.LeftChild = InsertInternally(currentNode.LeftChild, item);
+                currentNode.Height = currentNode.Height == currentNode.LeftChild.Height ? currentNode.Height + 1 : currentNode.Height;
+
                 return currentNode;
             }
 
             if (currentNode.Data.CompareTo(item) < 0)
             {
                 currentNode.RightChild = InsertInternally(currentNode.RightChild, item);
+                currentNode.Height = currentNode.Height == currentNode.RightChild.Height ? currentNode.Height + 1 : currentNode.Height;
+
                 return currentNode;
             }
 
             throw new ArgumentException("Item already inserted");
+        }
+
+        private static int GetHeight(AVLTreeNode<T> node, int height = 0)
+        {
+            if (node == null)
+            {
+                return height - 1;
+            }
+
+            int leftHeight = GetHeight(node.LeftChild, height + 1);
+
+            int rightHeight = GetHeight(node.RightChild, height + 1);
+
+            return int.Max(leftHeight, rightHeight);
         }
 
         public IEnumerator<T> GetEnumerator()

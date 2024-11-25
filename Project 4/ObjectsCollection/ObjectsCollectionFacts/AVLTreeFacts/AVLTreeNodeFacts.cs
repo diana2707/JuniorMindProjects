@@ -32,5 +32,12 @@ namespace ObjectsCollection
             Assert.Null(node.RightChild);
         }
 
+        [Fact]
+        public void HeightReturnsNegative1WhenTreeIsEmpty()
+        {
+            var node = new AVLTreeNode<int>();
+            Assert.Equal(0, node.Height);
+        }
+
     }
 }

@@ -7,6 +7,7 @@ namespace ObjectsCollection
         internal AVLTreeNode()
         {
             Data = default;
+            Height = 0;
         }
 
         internal T Data { get; set; }
@@ -14,5 +15,7 @@ namespace ObjectsCollection
         internal AVLTreeNode<T> LeftChild { get; set; }
 
         internal AVLTreeNode<T> RightChild { get; set; }
+
+        internal int Height { get; set; }
     }
 }
