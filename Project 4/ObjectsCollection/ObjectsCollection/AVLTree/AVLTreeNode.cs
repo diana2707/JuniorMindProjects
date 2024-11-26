@@ -17,5 +17,10 @@ namespace ObjectsCollection
         internal AVLTreeNode<T> RightChild { get; set; }
 
         internal int Height { get; set; }
+
+        internal int GetBalanceFactor()
+        {
+            return (LeftChild?.Height ?? -1) - (RightChild?.Height ?? -1);
+        }
     }
 }

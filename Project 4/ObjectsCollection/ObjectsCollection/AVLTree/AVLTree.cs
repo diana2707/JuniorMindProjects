@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Xml.Linq;
 
 namespace ObjectsCollection
 {
@@ -85,7 +86,13 @@ namespace ObjectsCollection
             if (currentNode.Data.CompareTo(item) > 0)
             {
                 currentNode.LeftChild = InsertInternally(currentNode.LeftChild, item);
+
+                
+
+                //if (Math.Abs(balanceFactor) > 1 )
+
                 currentNode.Height = currentNode.Height == currentNode.LeftChild.Height ? currentNode.Height + 1 : currentNode.Height;
+
 
                 return currentNode;
             }
@@ -93,6 +100,7 @@ namespace ObjectsCollection
             if (currentNode.Data.CompareTo(item) < 0)
             {
                 currentNode.RightChild = InsertInternally(currentNode.RightChild, item);
+                //fa pe nod o metoda de UpdateHight
                 currentNode.Height = currentNode.Height == currentNode.RightChild.Height ? currentNode.Height + 1 : currentNode.Height;
 
                 return currentNode;
