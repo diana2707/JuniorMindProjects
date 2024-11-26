@@ -123,7 +123,7 @@ namespace ObjectsCollection
         {
             var tree = new AVLTree<int>() { 16, 14, 31, 3, 29, 7, 5, 32, 40, 39 };
 
-            Assert.Equal(4, tree.Height);
+            Assert.Equal(3, tree.Height);
         }
 
         [Fact]
@@ -146,6 +146,14 @@ namespace ObjectsCollection
         public void AddShouldInsertItemAndBalanceTreeInLeftRightCase()
         {
             var tree = new AVLTree<int>() { 16, 14, 15 };
+
+            Assert.Equal(1, tree.Height);
+        }
+
+        [Fact]
+        public void AddShouldInsertItemAndBalanceTreeInRightLeftCase()
+        {
+            var tree = new AVLTree<int>() { 14, 16, 15 };
 
             Assert.Equal(1, tree.Height);
         }

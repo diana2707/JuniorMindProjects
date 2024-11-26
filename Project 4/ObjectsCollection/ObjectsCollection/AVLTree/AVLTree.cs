@@ -138,7 +138,14 @@ namespace ObjectsCollection
 
             //if (node.GetBalanceFactor() < -1)
             //{
+            if (item.CompareTo(node.RightChild.Data) > 0)
+            {
+                return RotateLeft(node);
+            }
+
+            node.RightChild = RotateRight(node.RightChild);
             return RotateLeft(node);
+
             //}
         }
 
