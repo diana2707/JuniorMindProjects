@@ -18,7 +18,7 @@ namespace ObjectsCollection
 
         public int Height
         {
-            get => GetHeight(root);
+            get => root.Height;
         }
 
         public void Add(T item)
@@ -100,6 +100,12 @@ namespace ObjectsCollection
             if (currentNode.Data.CompareTo(item) < 0)
             {
                 currentNode.RightChild = InsertInternally(currentNode.RightChild, item);
+
+                if (!currentNode.IsBalanced())
+                {
+                    currentNode = Balance(currentNode, item);
+                }
+
                 //fa pe nod o metoda de UpdateHight
                 currentNode.Height = currentNode.Height == currentNode.RightChild.Height ? currentNode.Height + 1 : currentNode.Height;
 
@@ -119,9 +125,18 @@ namespace ObjectsCollection
             //    }
             //}
 
-            return RotateRight(node);
+            if (node.GetBalanceFactor() > 1)
+            {
+                return RotateRight(node);
+            }
+
+            //if (node.GetBalanceFactor() < -1)
+            //{
+            return RotateLeft(node);
+            //}
         }
 
+        //incearca sa le pui pe nod
         private static AVLTreeNode<T> RotateRight(AVLTreeNode<T> node)
         {
             AVLTreeNode<T> subtreeRoot = node.LeftChild;
@@ -133,19 +148,30 @@ namespace ObjectsCollection
             return subtreeRoot;
         }
 
-        private static int GetHeight(AVLTreeNode<T> node, int height = 0)
+        private static AVLTreeNode<T> RotateLeft(AVLTreeNode<T> node)
         {
-            if (node == null)
-            {
-                return height - 1;
-            }
+            AVLTreeNode<T> subtreeRoot = node.RightChild;
+            node.RightChild = subtreeRoot.LeftChild;
+            subtreeRoot.LeftChild = node;
 
-            int leftHeight = GetHeight(node.LeftChild, height + 1);
+            node.Height = subtreeRoot.Height - 1;
 
-            int rightHeight = GetHeight(node.RightChild, height + 1);
-
-            return int.Max(leftHeight, rightHeight);
+            return subtreeRoot;
         }
+
+        //private static int GetHeight(AVLTreeNode<T> node, int height = 0)
+        //{
+        //    if (node == null)
+        //    {
+        //        return height - 1;
+        //    }
+
+        //    int leftHeight = GetHeight(node.LeftChild, height + 1);
+
+        //    int rightHeight = GetHeight(node.RightChild, height + 1);
+
+        //    return int.Max(leftHeight, rightHeight);
+        //}
 
         public IEnumerator<T> GetEnumerator()
         {

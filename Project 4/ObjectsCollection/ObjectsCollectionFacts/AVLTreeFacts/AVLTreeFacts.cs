@@ -133,5 +133,13 @@ namespace ObjectsCollection
 
             Assert.Equal(1, tree.Height);
         }
+
+        [Fact]
+        public void AddShouldInsertItemAndBalanceTreeInRightRightCase()
+        {
+            var tree = new AVLTree<int>() { 7, 14, 16 };
+
+            Assert.Equal(1, tree.Height);
+        }
     }
 }
