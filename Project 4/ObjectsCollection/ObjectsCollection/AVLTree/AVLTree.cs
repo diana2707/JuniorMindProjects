@@ -87,12 +87,12 @@ namespace ObjectsCollection
             {
                 currentNode.LeftChild = InsertInternally(currentNode.LeftChild, item);
 
-                
-
-                //if ()
+                if (!currentNode.IsBalanced())
+                {
+                    currentNode = Balance(currentNode, item);
+                }
 
                 currentNode.Height = currentNode.Height == currentNode.LeftChild.Height ? currentNode.Height + 1 : currentNode.Height;
-
 
                 return currentNode;
             }
@@ -107,6 +107,30 @@ namespace ObjectsCollection
             }
 
             throw new ArgumentException("Item already inserted");
+        }
+
+        private AVLTreeNode<T> Balance(AVLTreeNode<T> node, T item)
+        {
+            //if (node.GetBalanceFactor() > 1)
+            //{
+            //    if (item.CompareTo(node.LeftChild.Data) < 0)
+            //    {
+            //        return RotateRight(node);
+            //    }
+            //}
+
+            return RotateRight(node);
+        }
+
+        private static AVLTreeNode<T> RotateRight(AVLTreeNode<T> node)
+        {
+            AVLTreeNode<T> subtreeRoot = node.LeftChild;
+            node.LeftChild = subtreeRoot.RightChild;
+            subtreeRoot.RightChild = node;
+
+            node.Height = subtreeRoot.Height - 1;
+
+            return subtreeRoot;
         }
 
         private static int GetHeight(AVLTreeNode<T> node, int height = 0)
