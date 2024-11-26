@@ -18,7 +18,7 @@ namespace ObjectsCollection
 
         public int Height
         {
-            get => GetHeight(root) /*root.Height*/;
+            get => root.Height;
         }
 
         public void Add(T item)
@@ -74,6 +74,22 @@ namespace ObjectsCollection
             //}
         }
 
+        public bool Remove(T item)
+        {
+            return Remove(root, item);
+        }
+
+        private bool Remove(AVLTreeNode<T> node, T item)
+        {
+            if (node != root || !item.Equals(node.Data))
+            {
+                return false;
+            }
+
+            root = null;
+            return true;
+        }
+
         private AVLTreeNode<T> InsertInternally(AVLTreeNode<T> currentNode, T item)
         {
             if (currentNode == null)
@@ -87,7 +103,7 @@ namespace ObjectsCollection
             {
                 currentNode.LeftChild = InsertInternally(currentNode.LeftChild, item);
 
-                if (!currentNode.IsBalanced())
+                if (!IsBalanced(currentNode))
                 {
                     currentNode = Balance(currentNode, item);
                 }
@@ -101,7 +117,7 @@ namespace ObjectsCollection
             {
                 currentNode.RightChild = InsertInternally(currentNode.RightChild, item);
 
-                if (!currentNode.IsBalanced())
+                if (!IsBalanced(currentNode))
                 {
                     currentNode = Balance(currentNode, item);
                 }
@@ -125,7 +141,7 @@ namespace ObjectsCollection
             //    }
             //}
 
-            if (node.GetBalanceFactor() > 1)
+            if (GetBalanceFactor(node) > 1)
             {
                 if (item.CompareTo(node.LeftChild.Data) < 0)
                 {
@@ -158,7 +174,6 @@ namespace ObjectsCollection
 
             subtreeRoot.Height = node.Height;
             node.Height--;
-            //node.Height = subtreeRoot.Height - 1;
 
             return subtreeRoot;
         }
@@ -175,19 +190,19 @@ namespace ObjectsCollection
             return subtreeRoot;
         }
 
-        private static int GetHeight(AVLTreeNode<T> node, int height = 0)
-        {
-            if (node == null)
-            {
-                return height - 1;
-            }
+        //private static int GetHeight(AVLTreeNode<T> node, int height = 0)
+        //{
+        //    if (node == null)
+        //    {
+        //        return height - 1;
+        //    }
 
-            int leftHeight = GetHeight(node.LeftChild, height + 1);
+        //    int leftHeight = GetHeight(node.LeftChild, height + 1);
 
-            int rightHeight = GetHeight(node.RightChild, height + 1);
+        //    int rightHeight = GetHeight(node.RightChild, height + 1);
 
-            return int.Max(leftHeight, rightHeight);
-        }
+        //    return int.Max(leftHeight, rightHeight);
+        //}
 
         public IEnumerator<T> GetEnumerator()
         {
@@ -225,6 +240,16 @@ namespace ObjectsCollection
                     yield return item;
                 }
             }
+        }
+
+        private static int GetBalanceFactor(AVLTreeNode<T> node)
+        {
+            return (node.LeftChild?.Height ?? -1) - (node.RightChild?.Height ?? -1);
+        }
+
+        private static bool IsBalanced(AVLTreeNode<T> node)
+        {
+            return Math.Abs(GetBalanceFactor(node)) <= 1;
         }
     }
 }

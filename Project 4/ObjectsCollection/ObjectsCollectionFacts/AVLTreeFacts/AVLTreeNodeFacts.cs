@@ -38,40 +38,5 @@ namespace ObjectsCollection
             var node = new AVLTreeNode<int>();
             Assert.Equal(0, node.Height);
         }
-
-        [Fact]
-        public void GetBalanceFactorReturnsCorrectBalanceFactor()
-        {
-            var node = new AVLTreeNode<int>();
-            node.Height = 1;
-            node.RightChild = new AVLTreeNode<int>();
-            node.RightChild.Height = 0;
-
-            Assert.Equal(-1, node.GetBalanceFactor());
-        }
-
-        [Fact]
-        public void IsBalancedReturnsTrueIfNodeIsBalanced()
-        {
-            var node = new AVLTreeNode<int>();
-            node.Height = 1;
-            node.RightChild = new AVLTreeNode<int>();
-            node.RightChild.Height = 0;
-
-            Assert.True(node.IsBalanced());
-        }
-
-        [Fact]
-        public void IsBalancedReturnsFalseIfNodeIsNotBalanced()
-        {
-            var node = new AVLTreeNode<int>();
-            node.Height = 2;
-            node.RightChild = new AVLTreeNode<int>();
-            node.RightChild.Height = 1;
-            node.RightChild.RightChild = new AVLTreeNode<int>();
-            node.RightChild.RightChild.Height = 0;
-
-            Assert.False(node.IsBalanced());
-        }
     }
 }

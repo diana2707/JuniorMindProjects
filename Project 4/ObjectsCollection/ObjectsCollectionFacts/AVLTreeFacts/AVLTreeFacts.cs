@@ -157,5 +157,13 @@ namespace ObjectsCollection
 
             Assert.Equal(1, tree.Height);
         }
+
+        [Fact]
+        public void RemoveShouldRemoveLeafNode()
+        {
+            var tree = new AVLTree<int>() { 16 };
+
+            Assert.True(tree.Remove(16));
+        }
     }
 }
