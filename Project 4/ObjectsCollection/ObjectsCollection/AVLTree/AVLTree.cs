@@ -18,7 +18,7 @@ namespace ObjectsCollection
 
         public int Height
         {
-            get => root.Height;
+            get => GetHeight(root) /*root.Height*/;
         }
 
         public void Add(T item)
@@ -127,6 +127,12 @@ namespace ObjectsCollection
 
             if (node.GetBalanceFactor() > 1)
             {
+                if (item.CompareTo(node.LeftChild.Data) < 0)
+                {
+                    return RotateRight(node);
+                }
+
+                node.LeftChild = RotateLeft(node.LeftChild);
                 return RotateRight(node);
             }
 
@@ -143,7 +149,9 @@ namespace ObjectsCollection
             node.LeftChild = subtreeRoot.RightChild;
             subtreeRoot.RightChild = node;
 
-            node.Height = subtreeRoot.Height - 1;
+            subtreeRoot.Height = node.Height;
+            node.Height--;
+            //node.Height = subtreeRoot.Height - 1;
 
             return subtreeRoot;
         }
@@ -154,24 +162,25 @@ namespace ObjectsCollection
             node.RightChild = subtreeRoot.LeftChild;
             subtreeRoot.LeftChild = node;
 
-            node.Height = subtreeRoot.Height - 1;
+            subtreeRoot.Height = node.Height;
+            node.Height--;
 
             return subtreeRoot;
         }
 
-        //private static int GetHeight(AVLTreeNode<T> node, int height = 0)
-        //{
-        //    if (node == null)
-        //    {
-        //        return height - 1;
-        //    }
+        private static int GetHeight(AVLTreeNode<T> node, int height = 0)
+        {
+            if (node == null)
+            {
+                return height - 1;
+            }
 
-        //    int leftHeight = GetHeight(node.LeftChild, height + 1);
+            int leftHeight = GetHeight(node.LeftChild, height + 1);
 
-        //    int rightHeight = GetHeight(node.RightChild, height + 1);
+            int rightHeight = GetHeight(node.RightChild, height + 1);
 
-        //    return int.Max(leftHeight, rightHeight);
-        //}
+            return int.Max(leftHeight, rightHeight);
+        }
 
         public IEnumerator<T> GetEnumerator()
         {
