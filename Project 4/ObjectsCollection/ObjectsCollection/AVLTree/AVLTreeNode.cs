@@ -22,5 +22,10 @@ namespace ObjectsCollection
         {
             return (LeftChild?.Height ?? -1) - (RightChild?.Height ?? -1);
         }
+
+        internal bool IsBalanced()
+        {
+            return Math.Abs(GetBalanceFactor()) <= 1;
+        }
     }
 }

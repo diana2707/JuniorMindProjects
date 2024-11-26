@@ -89,7 +89,7 @@ namespace ObjectsCollection
 
                 
 
-                //if (Math.Abs(balanceFactor) > 1 )
+                //if ()
 
                 currentNode.Height = currentNode.Height == currentNode.LeftChild.Height ? currentNode.Height + 1 : currentNode.Height;
 
