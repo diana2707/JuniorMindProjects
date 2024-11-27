@@ -159,11 +159,37 @@ namespace ObjectsCollection
         }
 
         [Fact]
-        public void RemoveShouldRemoveLeafNode()
+        public void RemoveShouldSetRootNullIfTreeIsSingleton()
         {
             var tree = new AVLTree<int>() { 16 };
 
             Assert.True(tree.Remove(16));
+            Assert.Empty(tree);
+        }
+
+        [Fact]
+        public void RemoveShouldremoveLeafNode()
+        {
+            var tree = new AVLTree<int>() { 16, 14 };
+
+            Assert.True(tree.Remove(14));
+            Assert.DoesNotContain(14, tree);
+            Assert.Contains(16, tree);
+        }
+
+        [Fact]
+        public void RemoveShouldRemoveLeafNodeInTreeWithMultipleLevels()
+        {
+            var tree = new AVLTree<int>() { 16, 10, 20, 9, 11, 19, 21 };
+
+            Assert.True(tree.Remove(9));
+            Assert.DoesNotContain(9, tree);
+            Assert.Contains(16, tree);
+            Assert.Contains(10, tree);
+            Assert.Contains(20, tree);
+            Assert.Contains(11, tree);
+            Assert.Contains(19, tree);
+            Assert.Contains(21, tree);
         }
     }
 }

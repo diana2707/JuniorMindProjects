@@ -76,18 +76,36 @@ namespace ObjectsCollection
 
         public bool Remove(T item)
         {
-            return Remove(root, item);
+            (root, bool isRemoved) = RemoveInternally(root, item);
+            return isRemoved;
         }
 
-        private bool Remove(AVLTreeNode<T> node, T item)
+        private (AVLTreeNode<T> root, bool isRemoved) RemoveInternally(AVLTreeNode<T> currentNode, T item)
         {
-            if (node != root || !item.Equals(node.Data))
+            bool isRemoved = false;
+
+            if (currentNode == null)
             {
-                return false;
+                return (currentNode, false);
             }
 
-            root = null;
-            return true;
+            if (currentNode.Data.CompareTo(item) > 0)
+            {
+                (currentNode.LeftChild, isRemoved) = RemoveInternally(currentNode.LeftChild, item);
+            }
+
+            if (currentNode.Data.CompareTo(item) < 0)
+            {
+                (currentNode.RightChild, isRemoved) = RemoveInternally(currentNode.RightChild, item);
+            }
+
+            if (currentNode.Data.CompareTo(item) == 0)
+            {
+                currentNode = null;
+                isRemoved = true;
+            }
+
+            return (currentNode, isRemoved);
         }
 
         private AVLTreeNode<T> InsertInternally(AVLTreeNode<T> currentNode, T item)
@@ -206,6 +224,11 @@ namespace ObjectsCollection
 
         public IEnumerator<T> GetEnumerator()
         {
+            if (root == null)
+            {
+                return Enumerable.Empty<T>().GetEnumerator();
+            }
+
             return Traverse(root).GetEnumerator();
         }
 
@@ -216,6 +239,7 @@ namespace ObjectsCollection
 
         private static IEnumerable<T> Traverse(AVLTreeNode<T> currentNode)
         {
+
             //de scris teoria pentru cele 3 variante
             //asta e inorder
             //la preorder curentnode sta la inceputul metodei
