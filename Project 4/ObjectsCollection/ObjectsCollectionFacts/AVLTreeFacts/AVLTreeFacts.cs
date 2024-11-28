@@ -205,5 +205,20 @@ namespace ObjectsCollection
             Assert.Contains(19, tree);
             Assert.Contains(21, tree);
         }
+
+        [Fact]
+        public void RemoveShouldRemoveNodeWith2Children()
+        {
+            var tree = new AVLTree<int>() { 16, 10, 20, 9, 11, 19, 21 };
+
+            Assert.True(tree.Remove(10));
+            Assert.DoesNotContain(10, tree);
+            Assert.Contains(16, tree);
+            Assert.Contains(9, tree);
+            Assert.Contains(20, tree);
+            Assert.Contains(11, tree);
+            Assert.Contains(19, tree);
+            Assert.Contains(21, tree);
+        }
     }
 }

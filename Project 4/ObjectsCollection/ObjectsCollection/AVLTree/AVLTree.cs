@@ -105,20 +105,36 @@ namespace ObjectsCollection
                 {
                     currentNode = null;
                 }
-                else if (currentNode.LeftChild != null)
+                else if (currentNode.RightChild == null)
                 {
                     currentNode = currentNode.LeftChild;
                 }
-                else if (currentNode.RightChild != null)
+                else if (currentNode.LeftChild == null)
                 {
                     currentNode = currentNode.RightChild;
                 }
+                else
+                {
+                    AVLTreeNode<T> next = GetNextInOrder(currentNode);
+                    currentNode.Data = next.Data;
+                    (currentNode.RightChild, isRemoved) = RemoveInternally(currentNode.RightChild, currentNode.Data);
+                }
 
-                //currentNode = null;
                 isRemoved = true;
             }
 
             return (currentNode, isRemoved);
+        }
+
+        private AVLTreeNode<T> GetNextInOrder(AVLTreeNode<T> node)
+        {
+            node = node.RightChild;
+            while (node.LeftChild != null)
+            {
+                node = node.LeftChild;
+            }
+
+            return node;
         }
 
         private AVLTreeNode<T> InsertInternally(AVLTreeNode<T> currentNode, T item)
