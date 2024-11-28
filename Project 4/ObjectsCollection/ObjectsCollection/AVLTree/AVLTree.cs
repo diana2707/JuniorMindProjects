@@ -101,7 +101,20 @@ namespace ObjectsCollection
 
             if (currentNode.Data.CompareTo(item) == 0)
             {
-                currentNode = null;
+                if (currentNode.LeftChild == null && currentNode.RightChild == null)
+                {
+                    currentNode = null;
+                }
+                else if (currentNode.LeftChild != null)
+                {
+                    currentNode = currentNode.LeftChild;
+                }
+                else if (currentNode.RightChild != null)
+                {
+                    currentNode = currentNode.RightChild;
+                }
+
+                //currentNode = null;
                 isRemoved = true;
             }
 
