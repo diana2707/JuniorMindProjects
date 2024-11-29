@@ -294,5 +294,43 @@ namespace ObjectsCollection
             tree.Clear();
             Assert.Empty(tree);
         }
+
+        [Fact]
+        public void CopyToShouldCopyElementsInArray()
+        {
+            var tree = new AVLTree<int>() { 16, 10, 20 };
+
+            int[] array = new int[3];
+            int count = 0;
+
+            tree.CopyTo(array, 0);
+
+            foreach (int n in tree)
+            {
+                Assert.Contains(n, array);
+                count++;
+            }
+
+            Assert.Equal(3, count);
+        }
+
+        [Fact]
+        public void CopyToShouldCopyElementsInArrayWhenIndexIsLargerThan0()
+        {
+            var tree = new AVLTree<int>() { 16, 10, 20 };
+
+            int[] array = new int[5];
+            int count = 0;
+
+            tree.CopyTo(array, 2);
+
+            foreach (int n in tree)
+            {
+                Assert.Contains(n, array);
+                count++;
+            }
+
+            Assert.Equal(3, count);
+        }
     }
 }

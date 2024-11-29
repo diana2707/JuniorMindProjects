@@ -79,6 +79,15 @@ namespace ObjectsCollection
             Count = 0;
         }
 
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            foreach (var element in this)
+            {
+                array[arrayIndex] = element;
+                arrayIndex++;
+            }
+        }
+
         public bool Remove(T item)
         {
             (root, bool isRemoved) = RemoveInternally(root, item);
