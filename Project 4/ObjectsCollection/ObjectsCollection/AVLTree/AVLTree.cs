@@ -98,7 +98,15 @@ namespace ObjectsCollection
                     currentNode = BalanceForRemove(currentNode);
                 }
 
-                currentNode.Height = currentNode.Height > currentNode.LeftChild.Height + 1 ? currentNode.Height - 1 : currentNode.Height;
+                //update height
+                if (currentNode.LeftChild != null)
+                {
+                    currentNode.Height = currentNode.Height > currentNode.LeftChild.Height + 1 ? currentNode.Height - 1 : currentNode.Height;
+                }
+                else
+                {
+                    currentNode.Height--;
+                }
             }
 
             if (currentNode.Data.CompareTo(item) < 0)
@@ -110,8 +118,16 @@ namespace ObjectsCollection
                     currentNode = BalanceForRemove(currentNode);
                 }
 
-                currentNode.Height = currentNode.Height > currentNode.RightChild.Height + 1 ? currentNode.Height - 1 : currentNode.Height;
-                //currentNode.Height = currentNode.Height == currentNode.RightChild.Height ? currentNode.Height + 1 : currentNode.Height;
+                //update height
+                if (currentNode.RightChild != null)
+                {
+                    currentNode.Height = currentNode.Height > currentNode.RightChild.Height + 1 ? currentNode.Height - 1 : currentNode.Height;
+                    //currentNode.Height = currentNode.Height == currentNode.RightChild.Height ? currentNode.Height + 1 : currentNode.Height;
+                }
+                else
+                {
+                    currentNode.Height--;
+                }
             }
 
             if (currentNode.Data.CompareTo(item) == 0)
@@ -229,16 +245,28 @@ namespace ObjectsCollection
 
         private AVLTreeNode<T> BalanceForRemove(AVLTreeNode<T> node)
         {
-            //if (node.LeftChild.Height > node.RightChild.Height)
+            //left
+
+            if (node.RightChild == null || (node.LeftChild != null && node.LeftChild.Height > node.RightChild.Height))
+            {
+                if (node.LeftChild.RightChild == null || (node.LeftChild.LeftChild != null && node.LeftChild.LeftChild.Height > node.LeftChild.RightChild.Height))
+                {
+                    return RotateRight(node, false);
+                }
+            }
+
+            return RotateLeft(node, false);
+
+            //if (node.LeftChild != null && node.LeftChild.Height > node.RightChild.Height)
             //{
             //    //left left
             //    if (node.LeftChild.LeftChild.Height > node.LeftChild.RightChild.Height)
             //    {
-            //        return RotateRight(node);
+            //        return RotateRight(node, false);
             //    }
             //}
 
-            return RotateRight(node, false);
+            //return RotateLeft(node, false);
         }
 
         //incearca sa le pui pe nod
