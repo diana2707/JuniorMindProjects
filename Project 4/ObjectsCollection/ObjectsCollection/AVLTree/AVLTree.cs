@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace ObjectsCollection
 {
-    public class AVLTree<T> : IEnumerable<T>
+    public class AVLTree<T> : ICollection<T>
         where T : IComparable<T>
     {
         private AVLTreeNode<T> root;
@@ -14,6 +14,8 @@ namespace ObjectsCollection
         }
 
         public int Count { get; private set; }
+
+        public bool IsReadOnly { get; }
 
         public int Height
         {

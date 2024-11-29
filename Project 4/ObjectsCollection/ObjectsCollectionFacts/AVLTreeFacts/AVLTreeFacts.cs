@@ -332,5 +332,13 @@ namespace ObjectsCollection
 
             Assert.Equal(3, count);
         }
+
+        [Fact]
+        public void IsResdOnlyReturnsTrue()
+        {
+            var tree = new AVLTree<int>() { 16, 10, 20 };
+
+            Assert.False(tree.IsReadOnly);
+        }
     }
 }
