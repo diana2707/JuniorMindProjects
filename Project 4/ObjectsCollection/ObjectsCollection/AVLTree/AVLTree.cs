@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Xml.Linq;
 
 namespace ObjectsCollection
 {
@@ -72,6 +71,12 @@ namespace ObjectsCollection
             //{
             //    Contains(item, currentNode.RightChild);
             //}
+        }
+
+        public void Clear()
+        {
+            root = null;
+            Count = 0;
         }
 
         public bool Remove(T item)

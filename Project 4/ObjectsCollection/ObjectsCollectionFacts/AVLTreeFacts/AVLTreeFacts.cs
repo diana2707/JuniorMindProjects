@@ -285,5 +285,14 @@ namespace ObjectsCollection
             Assert.Contains(22, tree);
             Assert.Contains(21, tree);
         }
+
+        [Fact]
+        public void ClearShouldClearTree()
+        {
+            var tree = new AVLTree<int>() { 16, 10, 20 };
+
+            tree.Clear();
+            Assert.Empty(tree);
+        }
     }
 }
