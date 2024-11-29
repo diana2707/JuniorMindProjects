@@ -245,8 +245,6 @@ namespace ObjectsCollection
 
         private AVLTreeNode<T> BalanceForRemove(AVLTreeNode<T> node)
         {
-            //left
-
             if (node.RightChild == null || (node.LeftChild != null && node.LeftChild.Height > node.RightChild.Height))
             {
                 if (node.LeftChild.RightChild == null || (node.LeftChild.LeftChild != null && node.LeftChild.LeftChild.Height > node.LeftChild.RightChild.Height))
@@ -258,18 +256,13 @@ namespace ObjectsCollection
                 return RotateRight(node, false);
             }
 
+            if (node.RightChild.LeftChild == null || (node.RightChild.RightChild != null && node.RightChild.RightChild.Height > node.RightChild.LeftChild.Height))
+            {
+                return RotateLeft(node, false);
+            }
+
+            node.RightChild = RotateRight(node.RightChild, false);
             return RotateLeft(node, false);
-
-            //if (node.LeftChild != null && node.LeftChild.Height > node.RightChild.Height)
-            //{
-            //    //left left
-            //    if (node.LeftChild.LeftChild.Height > node.LeftChild.RightChild.Height)
-            //    {
-            //        return RotateRight(node, false);
-            //    }
-            //}
-
-            //return RotateLeft(node, false);
         }
 
         //incearca sa le pui pe nod
