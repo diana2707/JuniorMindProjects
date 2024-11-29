@@ -24,6 +24,8 @@ namespace ObjectsCollection
 
         public void Add(T item)
         {
+            ValidateArgumentIsNotNull(item);
+
             root = InsertInternally(root, item);
 
             Count++;
@@ -386,6 +388,11 @@ namespace ObjectsCollection
         private static bool IsBalanced(AVLTreeNode<T> node)
         {
             return Math.Abs(GetBalanceFactor(node)) <= 1;
+        }
+
+        private static void ValidateArgumentIsNotNull(T item)
+        {
+            ArgumentNullException.ThrowIfNull(item);
         }
     }
 }

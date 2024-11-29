@@ -340,5 +340,13 @@ namespace ObjectsCollection
 
             Assert.False(tree.IsReadOnly);
         }
+
+        [Fact]
+        public void AddThrowsArgumentNullExceptionWhenArgumentisNull()
+        {
+            var tree = new AVLTree<string>();
+
+            Assert.Throws<ArgumentNullException>(() => tree.Add(null));
+        }
     }
 }
