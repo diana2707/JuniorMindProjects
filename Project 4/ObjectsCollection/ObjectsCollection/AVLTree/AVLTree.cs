@@ -92,11 +92,26 @@ namespace ObjectsCollection
             if (currentNode.Data.CompareTo(item) > 0)
             {
                 (currentNode.LeftChild, isRemoved) = RemoveInternally(currentNode.LeftChild, item);
+
+                if (!IsBalanced(currentNode))
+                {
+                    currentNode = BalanceForRemove(currentNode);
+                }
+
+                currentNode.Height = currentNode.Height > currentNode.LeftChild.Height + 1 ? currentNode.Height - 1 : currentNode.Height;
             }
 
             if (currentNode.Data.CompareTo(item) < 0)
             {
                 (currentNode.RightChild, isRemoved) = RemoveInternally(currentNode.RightChild, item);
+
+                if (!IsBalanced(currentNode))
+                {
+                    currentNode = BalanceForRemove(currentNode);
+                }
+
+                currentNode.Height = currentNode.Height > currentNode.RightChild.Height + 1 ? currentNode.Height - 1 : currentNode.Height;
+                //currentNode.Height = currentNode.Height == currentNode.RightChild.Height ? currentNode.Height + 1 : currentNode.Height;
             }
 
             if (currentNode.Data.CompareTo(item) == 0)
@@ -152,7 +167,7 @@ namespace ObjectsCollection
 
                 if (!IsBalanced(currentNode))
                 {
-                    currentNode = Balance(currentNode, item);
+                    currentNode = BalanceForInsertion(currentNode, item);
                 }
 
                 currentNode.Height = currentNode.Height == currentNode.LeftChild.Height ? currentNode.Height + 1 : currentNode.Height;
@@ -166,7 +181,7 @@ namespace ObjectsCollection
 
                 if (!IsBalanced(currentNode))
                 {
-                    currentNode = Balance(currentNode, item);
+                    currentNode = BalanceForInsertion(currentNode, item);
                 }
 
                 //fa pe nod o metoda de UpdateHight
@@ -178,7 +193,7 @@ namespace ObjectsCollection
             throw new ArgumentException("Item already inserted");
         }
 
-        private AVLTreeNode<T> Balance(AVLTreeNode<T> node, T item)
+        private AVLTreeNode<T> BalanceForInsertion(AVLTreeNode<T> node, T item)
         {
             //if (node.GetBalanceFactor() > 1)
             //{
@@ -192,47 +207,75 @@ namespace ObjectsCollection
             {
                 if (item.CompareTo(node.LeftChild.Data) < 0)
                 {
-                    return RotateRight(node);
+                    return RotateRight(node, true);
                 }
 
-                node.LeftChild = RotateLeft(node.LeftChild);
-                return RotateRight(node);
+                node.LeftChild = RotateLeft(node.LeftChild, true);
+                return RotateRight(node, true);
             }
 
             //if (node.GetBalanceFactor() < -1)
             //{
             if (item.CompareTo(node.RightChild.Data) > 0)
             {
-                return RotateLeft(node);
+                return RotateLeft(node, true);
             }
 
-            node.RightChild = RotateRight(node.RightChild);
-            return RotateLeft(node);
+            node.RightChild = RotateRight(node.RightChild, true);
+            return RotateLeft(node, true);
 
             //}
         }
 
+        private AVLTreeNode<T> BalanceForRemove(AVLTreeNode<T> node)
+        {
+            //if (node.LeftChild.Height > node.RightChild.Height)
+            //{
+            //    //left left
+            //    if (node.LeftChild.LeftChild.Height > node.LeftChild.RightChild.Height)
+            //    {
+            //        return RotateRight(node);
+            //    }
+            //}
+
+            return RotateRight(node, false);
+        }
+
         //incearca sa le pui pe nod
-        private static AVLTreeNode<T> RotateRight(AVLTreeNode<T> node)
+        private static AVLTreeNode<T> RotateRight(AVLTreeNode<T> node, bool isInsertion)
         {
             AVLTreeNode<T> subtreeRoot = node.LeftChild;
             node.LeftChild = subtreeRoot.RightChild;
             subtreeRoot.RightChild = node;
 
-            subtreeRoot.Height = node.Height;
-            node.Height--;
+            if (isInsertion)
+            {
+                subtreeRoot.Height = node.Height;
+                node.Height--;
+            }
+            else
+            {
+                node.Height -= 2;
+            }
 
             return subtreeRoot;
         }
 
-        private static AVLTreeNode<T> RotateLeft(AVLTreeNode<T> node)
+        private static AVLTreeNode<T> RotateLeft(AVLTreeNode<T> node, bool isInsertion)
         {
             AVLTreeNode<T> subtreeRoot = node.RightChild;
             node.RightChild = subtreeRoot.LeftChild;
             subtreeRoot.LeftChild = node;
 
-            subtreeRoot.Height = node.Height;
-            node.Height--;
+            if (!isInsertion)
+            {
+                subtreeRoot.Height = node.Height;
+                node.Height--;
+            }
+            else
+            {
+                node.Height -= 2;
+            }
 
             return subtreeRoot;
         }
