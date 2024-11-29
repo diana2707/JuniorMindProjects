@@ -253,5 +253,21 @@ namespace ObjectsCollection
             Assert.Contains(22, tree);
             Assert.Contains(21, tree);
         }
+
+        [Fact]
+        public void RemoveShouldRemoveNodeAndBalanceTreeInLeftRightCase()
+        {
+            var tree = new AVLTree<int>() { 16, 10, 20, 8, 11, 19, 21, 9 };
+
+            Assert.True(tree.Remove(11));
+            Assert.DoesNotContain(11, tree);
+            Assert.Contains(10, tree);
+            Assert.Contains(8, tree);
+            Assert.Contains(9, tree);
+            Assert.Contains(16, tree);
+            Assert.Contains(20, tree);
+            Assert.Contains(19, tree);
+            Assert.Contains(21, tree);
+        }
     }
 }

@@ -253,6 +253,9 @@ namespace ObjectsCollection
                 {
                     return RotateRight(node, false);
                 }
+
+                node.LeftChild = RotateLeft(node.LeftChild, false);
+                return RotateRight(node, false);
             }
 
             return RotateLeft(node, false);
