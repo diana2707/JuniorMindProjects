@@ -19,7 +19,7 @@ namespace ObjectsCollection
 
         public int Height
         {
-            get => root.Height;
+            get => root?.Height ?? -1;
         }
 
         public void Add(T item)
@@ -111,41 +111,55 @@ namespace ObjectsCollection
             {
                 (currentNode.LeftChild, isRemoved) = RemoveInternally(currentNode.LeftChild, item);
 
+                //update height
+                int largerHeight = Math.Max(currentNode.LeftChild?.Height ?? -1, currentNode.RightChild?.Height ?? -1);
+                if (currentNode.Height > largerHeight + 1)
+                {
+                    currentNode.Height--;
+                }
+
                 if (!IsBalanced(currentNode))
                 {
                     currentNode = BalanceForRemove(currentNode);
                 }
 
                 //update height
-                if (currentNode.LeftChild != null)
-                {
-                    currentNode.Height = currentNode.Height > currentNode.LeftChild.Height + 1 ? currentNode.Height - 1 : currentNode.Height;
-                }
-                else
-                {
-                    currentNode.Height--;
-                }
+                //if (currentNode.LeftChild != null)
+                //{
+                //    currentNode.Height = currentNode.Height > currentNode.LeftChild.Height + 1 ? currentNode.Height - 1 : currentNode.Height;
+                //}
+                //else
+                //{
+                //    currentNode.Height--;
+                //}
             }
 
             if (currentNode.Data.CompareTo(item) < 0)
             {
                 (currentNode.RightChild, isRemoved) = RemoveInternally(currentNode.RightChild, item);
 
+                //update height
+                int largerHeight = Math.Max(currentNode.LeftChild?.Height ?? -1, currentNode.RightChild?.Height ?? -1);
+                if (currentNode.Height > largerHeight + 1)
+                {
+                    currentNode.Height--;
+                }
+
                 if (!IsBalanced(currentNode))
                 {
                     currentNode = BalanceForRemove(currentNode);
                 }
 
-                //update height
-                if (currentNode.RightChild != null)
-                {
-                    currentNode.Height = currentNode.Height > currentNode.RightChild.Height + 1 ? currentNode.Height - 1 : currentNode.Height;
-                    //currentNode.Height = currentNode.Height == currentNode.RightChild.Height ? currentNode.Height + 1 : currentNode.Height;
-                }
-                else
-                {
-                    currentNode.Height--;
-                }
+                ////update height
+                //if (currentNode.RightChild != null)
+                //{
+                //    currentNode.Height = currentNode.Height > currentNode.RightChild.Height + 1 ? currentNode.Height - 1 : currentNode.Height;
+                //    //currentNode.Height = currentNode.Height == currentNode.RightChild.Height ? currentNode.Height + 1 : currentNode.Height;
+                //}
+                //else
+                //{
+                //    currentNode.Height--;
+                //}
             }
 
             if (currentNode.Data.CompareTo(item) == 0)
@@ -204,7 +218,14 @@ namespace ObjectsCollection
                     currentNode = BalanceForInsertion(currentNode, item);
                 }
 
-                currentNode.Height = currentNode.Height == currentNode.LeftChild.Height ? currentNode.Height + 1 : currentNode.Height;
+                //currentNode.Height = currentNode.Height == currentNode.LeftChild.Height ? currentNode.Height + 1 : currentNode.Height;
+
+                //update height
+                int largerHeight = Math.Max(currentNode.LeftChild?.Height ?? -1, currentNode.RightChild?.Height ?? -1);
+                if (currentNode.Height < largerHeight + 1)
+                {
+                    currentNode.Height++;
+                }
 
                 return currentNode;
             }
@@ -218,8 +239,14 @@ namespace ObjectsCollection
                     currentNode = BalanceForInsertion(currentNode, item);
                 }
 
-                //fa pe nod o metoda de UpdateHight
-                currentNode.Height = currentNode.Height == currentNode.RightChild.Height ? currentNode.Height + 1 : currentNode.Height;
+                //update height
+                int largerHeight = Math.Max(currentNode.LeftChild?.Height ?? -1, currentNode.RightChild?.Height ?? -1);
+                if (currentNode.Height < largerHeight + 1)
+                {
+                    currentNode.Height++;
+                }
+
+                //currentNode.Height = currentNode.Height == currentNode.RightChild.Height ? currentNode.Height + 1 : currentNode.Height;
 
                 return currentNode;
             }
@@ -270,7 +297,7 @@ namespace ObjectsCollection
                     return RotateRight(node, false);
                 }
 
-                node.LeftChild = RotateLeft(node.LeftChild, false);
+                node.LeftChild = RotateLeft(node.LeftChild, true);
                 return RotateRight(node, false);
             }
 
@@ -279,7 +306,7 @@ namespace ObjectsCollection
                 return RotateLeft(node, false);
             }
 
-            node.RightChild = RotateRight(node.RightChild, false);
+            node.RightChild = RotateRight(node.RightChild, true);
             return RotateLeft(node, false);
         }
 
@@ -292,6 +319,7 @@ namespace ObjectsCollection
 
             if (isInsertion)
             {
+                //aici intra si remove
                 subtreeRoot.Height = node.Height;
                 node.Height--;
             }
@@ -309,8 +337,9 @@ namespace ObjectsCollection
             node.RightChild = subtreeRoot.LeftChild;
             subtreeRoot.LeftChild = node;
 
-            if (!isInsertion)
+            if (isInsertion)
             {
+                //aici intra si Remove in situatia de Right Left si Left Right --> clarifica
                 subtreeRoot.Height = node.Height;
                 node.Height--;
             }
