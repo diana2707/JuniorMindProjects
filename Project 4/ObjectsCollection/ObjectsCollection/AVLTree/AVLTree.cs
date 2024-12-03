@@ -192,14 +192,6 @@ namespace ObjectsCollection
 
         private AVLTreeNode<T> BalanceForInsertion(AVLTreeNode<T> node, T item)
         {
-            //if (node.GetBalanceFactor() > 1)
-            //{
-            //    if (item.CompareTo(node.LeftChild.Data) < 0)
-            //    {
-            //        return RotateRight(node);
-            //    }
-            //}
-
             if (GetBalanceFactor(node) > 1)
             {
                 if (item.CompareTo(node.LeftChild.Data) < 0)
@@ -211,8 +203,6 @@ namespace ObjectsCollection
                 return RotateRight(node, false);
             }
 
-            //if (node.GetBalanceFactor() < -1)
-            //{
             if (item.CompareTo(node.RightChild.Data) > 0)
             {
                 return RotateLeft(node, false);
@@ -220,15 +210,13 @@ namespace ObjectsCollection
 
             node.RightChild = RotateRight(node.RightChild, true);
             return RotateLeft(node, false);
-
-            //}
         }
 
         private AVLTreeNode<T> BalanceForRemove(AVLTreeNode<T> node)
         {
-            if (node.RightChild == null || (node.LeftChild != null && node.LeftChild.Height > node.RightChild.Height))
+            if ((node.LeftChild?.Height ?? -1) > (node.RightChild?.Height ?? -1))
             {
-                if (node.LeftChild.RightChild == null || (node.LeftChild.LeftChild != null && node.LeftChild.LeftChild.Height > node.LeftChild.RightChild.Height))
+                if ((node.LeftChild.LeftChild?.Height ?? -1) > (node.LeftChild.RightChild?.Height ?? -1))
                 {
                     return RotateRight(node, false);
                 }
@@ -237,7 +225,7 @@ namespace ObjectsCollection
                 return RotateRight(node, false);
             }
 
-            if (node.RightChild.LeftChild == null || (node.RightChild.RightChild != null && node.RightChild.RightChild.Height > node.RightChild.LeftChild.Height))
+            if ((node.RightChild.RightChild?.Height ?? -1) > (node.RightChild.LeftChild?.Height ?? -1))
             {
                 return RotateLeft(node, false);
             }
@@ -246,7 +234,6 @@ namespace ObjectsCollection
             return RotateLeft(node, false);
         }
 
-        //incearca sa le pui pe nod
         private static AVLTreeNode<T> RotateRight(AVLTreeNode<T> node, bool isPartial)
         {
             AVLTreeNode<T> subtreeRoot = node.LeftChild;
