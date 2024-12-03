@@ -107,50 +107,9 @@ namespace ObjectsCollection
                 return (currentNode, false);
             }
 
-            if (currentNode.Data.CompareTo(item) > 0)
-            {
-                (currentNode.LeftChild, isRemoved) = RemoveInternally(currentNode.LeftChild, item);
-
-                UpdateHeight(currentNode);
-                //update height
-                //int largerHeight = Math.Max(currentNode.LeftChild?.Height ?? -1, currentNode.RightChild?.Height ?? -1);
-                //if (currentNode.Height > largerHeight + 1)
-                //{
-                //    currentNode.Height--;
-                //}
-
-                if (!IsBalanced(currentNode))
-                {
-                    currentNode = BalanceForRemove(currentNode);
-                }
-            }
-
-            if (currentNode.Data.CompareTo(item) < 0)
-            {
-                (currentNode.RightChild, isRemoved) = RemoveInternally(currentNode.RightChild, item);
-
-                UpdateHeight(currentNode);
-
-                //update height
-                //int largerHeight = Math.Max(currentNode.LeftChild?.Height ?? -1, currentNode.RightChild?.Height ?? -1);
-                //if (currentNode.Height > largerHeight + 1)
-                //{
-                //    currentNode.Height--;
-                //}
-
-                if (!IsBalanced(currentNode))
-                {
-                    currentNode = BalanceForRemove(currentNode);
-                }
-            }
-
             if (currentNode.Data.CompareTo(item) == 0)
             {
-                if (currentNode.LeftChild == null && currentNode.RightChild == null)
-                {
-                    currentNode = null;
-                }
-                else if (currentNode.RightChild == null)
+                if (currentNode.RightChild == null)
                 {
                     currentNode = currentNode.LeftChild;
                 }
@@ -165,7 +124,24 @@ namespace ObjectsCollection
                     (currentNode.RightChild, isRemoved) = RemoveInternally(currentNode.RightChild, currentNode.Data);
                 }
 
-                isRemoved = true;
+                return (currentNode, true);
+            }
+
+            if (currentNode.Data.CompareTo(item) > 0)
+            {
+                (currentNode.LeftChild, isRemoved) = RemoveInternally(currentNode.LeftChild, item);
+            }
+
+            if (currentNode.Data.CompareTo(item) < 0)
+            {
+                (currentNode.RightChild, isRemoved) = RemoveInternally(currentNode.RightChild, item);
+            }
+
+            UpdateHeight(currentNode);
+
+            if (!IsBalanced(currentNode))
+            {
+                currentNode = BalanceForRemove(currentNode);
             }
 
             return (currentNode, isRemoved);
