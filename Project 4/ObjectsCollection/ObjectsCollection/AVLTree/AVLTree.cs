@@ -40,41 +40,21 @@ namespace ObjectsCollection
 
         private static bool Contains(T item, AVLTreeNode<T> currentNode)
         {
-            while (currentNode != null)
+            if (currentNode == null)
             {
-                if (item.Equals(currentNode.Data))
-                {
-                    return true;
-                }
-                else if (item.CompareTo(currentNode.Data) < 0)
-                {
-                    currentNode = currentNode.LeftChild;
-                }
-                else if (item.CompareTo(currentNode.Data) > 0)
-                {
-                    currentNode = currentNode.RightChild;
-                }
+                return false;
             }
 
-            return false;
+            if (item.CompareTo(currentNode.Data) < 0)
+            {
+                return Contains(item, currentNode.LeftChild);
+            }
+            else if (item.CompareTo(currentNode.Data) > 0)
+            {
+                return Contains(item, currentNode.RightChild);
+            }
 
-            //if (currentNode == null)
-            //{
-            //    return false;
-            //}
-            //else if (item.Equals(currentNode.Data))
-            //{
-            //    return true;
-            //}
-
-            //if (item.CompareTo(currentNode.Data) < 0)
-            //{
-            //    Contains(item, currentNode.LeftChild);
-            //}
-            //else if (item.CompareTo(currentNode.Data) > 0)
-            //{
-            //    Contains(item, currentNode.RightChild);
-            //}
+            return true;
         }
 
         public void Clear()
@@ -122,6 +102,13 @@ namespace ObjectsCollection
                     AVLTreeNode<T> next = GetNextInOrder(currentNode);
                     currentNode.Data = next.Data;
                     (currentNode.RightChild, isRemoved) = RemoveInternally(currentNode.RightChild, currentNode.Data);
+
+                    UpdateHeight(currentNode);
+
+                    if (!IsBalanced(currentNode))
+                    {
+                        currentNode = BalanceForRemove(currentNode);
+                    }
                 }
 
                 return (currentNode, true);
@@ -335,10 +322,6 @@ namespace ObjectsCollection
         {
             int maxHeight = Math.Max(node.LeftChild?.Height ?? -1, node.RightChild?.Height ?? -1);
             node.Height = maxHeight + 1;
-            //if (currentNode.Height < largerHeight + 1)
-            //{
-            //    currentNode.Height++;
-            //}
         }
     }
 }

@@ -103,8 +103,6 @@ namespace ObjectsCollection
             Assert.True(tree.Contains(15));
             Assert.True(tree.Contains(3));
             Assert.True(tree.Contains(5));
-
-            Assert.False(tree.Contains(7));
         }
 
         [Fact]
@@ -113,6 +111,16 @@ namespace ObjectsCollection
             var tree = new AVLTree<int>() { 10, 15, 3, 5 };
 
             Assert.False(tree.Contains(7));
+        }
+
+        [Fact]
+        public void ContainsShouldReturnFalseIfNodeWasRemoved()
+        {
+            var tree = new AVLTree<int>() { 10, 15, 3, 5 };
+            tree.Remove(10);
+
+            Assert.False(tree.Contains(10));
+            Assert.Equal(1, tree.Height);
         }
 
         [Fact]
