@@ -190,87 +190,70 @@ namespace ObjectsCollection
             return currentNode;
         }
 
-        private AVLTreeNode<T> BalanceForInsertion(AVLTreeNode<T> node, T item)
+        private static AVLTreeNode<T> BalanceForInsertion(AVLTreeNode<T> node, T item)
         {
             if (GetBalanceFactor(node) > 1)
             {
                 if (item.CompareTo(node.LeftChild.Data) < 0)
                 {
-                    return RotateRight(node, false);
+                    return RotateRight(node);
                 }
 
-                node.LeftChild = RotateLeft(node.LeftChild, true);
-                return RotateRight(node, false);
+                node.LeftChild = RotateLeft(node.LeftChild);
+                return RotateRight(node);
             }
 
             if (item.CompareTo(node.RightChild.Data) > 0)
             {
-                return RotateLeft(node, false);
+                return RotateLeft(node);
             }
 
-            node.RightChild = RotateRight(node.RightChild, true);
-            return RotateLeft(node, false);
+            node.RightChild = RotateRight(node.RightChild);
+            return RotateLeft(node);
         }
 
-        private AVLTreeNode<T> BalanceForRemove(AVLTreeNode<T> node)
+        private static AVLTreeNode<T> BalanceForRemove(AVLTreeNode<T> node)
         {
             if ((node.LeftChild?.Height ?? -1) > (node.RightChild?.Height ?? -1))
             {
                 if ((node.LeftChild.LeftChild?.Height ?? -1) > (node.LeftChild.RightChild?.Height ?? -1))
                 {
-                    return RotateRight(node, false);
+                    return RotateRight(node);
                 }
 
-                node.LeftChild = RotateLeft(node.LeftChild, true);
-                return RotateRight(node, false);
+                node.LeftChild = RotateLeft(node.LeftChild);
+                return RotateRight(node);
             }
 
             if ((node.RightChild.RightChild?.Height ?? -1) > (node.RightChild.LeftChild?.Height ?? -1))
             {
-                return RotateLeft(node, false);
+                return RotateLeft(node);
             }
 
-            node.RightChild = RotateRight(node.RightChild, true);
-            return RotateLeft(node, false);
+            node.RightChild = RotateRight(node.RightChild);
+            return RotateLeft(node);
         }
 
-        private static AVLTreeNode<T> RotateRight(AVLTreeNode<T> node, bool isPartial)
+        private static AVLTreeNode<T> RotateRight(AVLTreeNode<T> node)
         {
             AVLTreeNode<T> subtreeRoot = node.LeftChild;
             node.LeftChild = subtreeRoot.RightChild;
             subtreeRoot.RightChild = node;
 
-            if (isPartial)
-            {
-                //aici intra si remove
-                //subtreeRoot.Height = node.Height;
-                subtreeRoot.Height++;
-                node.Height--;
-            }
-            else
-            {
-                node.Height -= 2;
-            }
+            UpdateHeight(node);
+            UpdateHeight(subtreeRoot);
 
             return subtreeRoot;
         }
 
-        private static AVLTreeNode<T> RotateLeft(AVLTreeNode<T> node, bool isPartial)
+        private static AVLTreeNode<T> RotateLeft(AVLTreeNode<T> node)
         {
             AVLTreeNode<T> subtreeRoot = node.RightChild;
             node.RightChild = subtreeRoot.LeftChild;
             subtreeRoot.LeftChild = node;
 
-            if (isPartial)
-            {
-                //aici intra si Remove in situatia de Right Left si Left Right --> clarifica
-                subtreeRoot.Height++;
-                node.Height--;
-            }
-            else
-            {
-                node.Height -= 2;
-            }
+            UpdateHeight(node);
+            UpdateHeight(subtreeRoot);
 
             return subtreeRoot;
         }
