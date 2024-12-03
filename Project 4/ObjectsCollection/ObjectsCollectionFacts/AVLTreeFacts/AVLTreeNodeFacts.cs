@@ -7,35 +7,35 @@ namespace ObjectsCollection
         [Fact]
         public void AVLTreeNodeClassIsEmpty()
         {
-            var node = new AVLTreeNode<int>();
+            var node = new AVLTreeNode<int>(5);
             Assert.IsType<AVLTreeNode<int>>(node);
         }
 
         [Fact]
-        public void DataIsDefaultWhenTreeIsEmpty()
+        public void DataTakesTheParameterValue()
         {
-            var node = new AVLTreeNode<int>();
-            Assert.Equal(0, node.Data);
+            var node = new AVLTreeNode<int>(5);
+            Assert.Equal(5, node.Data);
         }
 
         [Fact]
-        public void LeftChildIsNullWhenTreeIsEmpty()
+        public void LeftChildIsNullAsDefault()
         {
-            var node = new AVLTreeNode<int>();
+            var node = new AVLTreeNode<int>(5);
             Assert.Null(node.LeftChild);
         }
 
         [Fact]
-        public void RightChildIsNullWhenTreeIsEmpty()
+        public void RightChildIsNullAsDefault()
         {
-            var node = new AVLTreeNode<int>();
+            var node = new AVLTreeNode<int>(5);
             Assert.Null(node.RightChild);
         }
 
         [Fact]
-        public void HeightReturnsNegative1WhenTreeIsEmpty()
+        public void HeightReturns0AsDefault()
         {
-            var node = new AVLTreeNode<int>();
+            var node = new AVLTreeNode<int>(5);
             Assert.Equal(0, node.Height);
         }
     }

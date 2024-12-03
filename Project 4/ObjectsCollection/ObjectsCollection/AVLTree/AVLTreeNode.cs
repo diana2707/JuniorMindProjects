@@ -4,9 +4,9 @@ namespace ObjectsCollection
 {
     internal class AVLTreeNode<T>
     {
-        internal AVLTreeNode()
+        internal AVLTreeNode(T data)
         {
-            Data = default;
+            Data = data;
             Height = 0;
         }
 

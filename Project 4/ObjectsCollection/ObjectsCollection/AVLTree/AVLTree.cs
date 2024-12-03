@@ -162,9 +162,7 @@ namespace ObjectsCollection
         {
             if (currentNode == null)
             {
-                currentNode = new ();
-                currentNode.Data = item;
-                return currentNode;
+                return new AVLTreeNode<T>(item);
             }
 
             if (currentNode.Data.CompareTo(item) == 0)
