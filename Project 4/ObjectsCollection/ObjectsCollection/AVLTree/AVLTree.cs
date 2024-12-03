@@ -111,55 +111,37 @@ namespace ObjectsCollection
             {
                 (currentNode.LeftChild, isRemoved) = RemoveInternally(currentNode.LeftChild, item);
 
+                UpdateHeight(currentNode);
                 //update height
-                int largerHeight = Math.Max(currentNode.LeftChild?.Height ?? -1, currentNode.RightChild?.Height ?? -1);
-                if (currentNode.Height > largerHeight + 1)
-                {
-                    currentNode.Height--;
-                }
+                //int largerHeight = Math.Max(currentNode.LeftChild?.Height ?? -1, currentNode.RightChild?.Height ?? -1);
+                //if (currentNode.Height > largerHeight + 1)
+                //{
+                //    currentNode.Height--;
+                //}
 
                 if (!IsBalanced(currentNode))
                 {
                     currentNode = BalanceForRemove(currentNode);
                 }
-
-                //update height
-                //if (currentNode.LeftChild != null)
-                //{
-                //    currentNode.Height = currentNode.Height > currentNode.LeftChild.Height + 1 ? currentNode.Height - 1 : currentNode.Height;
-                //}
-                //else
-                //{
-                //    currentNode.Height--;
-                //}
             }
 
             if (currentNode.Data.CompareTo(item) < 0)
             {
                 (currentNode.RightChild, isRemoved) = RemoveInternally(currentNode.RightChild, item);
 
+                UpdateHeight(currentNode);
+
                 //update height
-                int largerHeight = Math.Max(currentNode.LeftChild?.Height ?? -1, currentNode.RightChild?.Height ?? -1);
-                if (currentNode.Height > largerHeight + 1)
-                {
-                    currentNode.Height--;
-                }
+                //int largerHeight = Math.Max(currentNode.LeftChild?.Height ?? -1, currentNode.RightChild?.Height ?? -1);
+                //if (currentNode.Height > largerHeight + 1)
+                //{
+                //    currentNode.Height--;
+                //}
 
                 if (!IsBalanced(currentNode))
                 {
                     currentNode = BalanceForRemove(currentNode);
                 }
-
-                ////update height
-                //if (currentNode.RightChild != null)
-                //{
-                //    currentNode.Height = currentNode.Height > currentNode.RightChild.Height + 1 ? currentNode.Height - 1 : currentNode.Height;
-                //    //currentNode.Height = currentNode.Height == currentNode.RightChild.Height ? currentNode.Height + 1 : currentNode.Height;
-                //}
-                //else
-                //{
-                //    currentNode.Height--;
-                //}
             }
 
             if (currentNode.Data.CompareTo(item) == 0)
@@ -218,14 +200,16 @@ namespace ObjectsCollection
                     currentNode = BalanceForInsertion(currentNode, item);
                 }
 
+                UpdateHeight(currentNode);
+
                 //currentNode.Height = currentNode.Height == currentNode.LeftChild.Height ? currentNode.Height + 1 : currentNode.Height;
 
                 //update height
-                int largerHeight = Math.Max(currentNode.LeftChild?.Height ?? -1, currentNode.RightChild?.Height ?? -1);
-                if (currentNode.Height < largerHeight + 1)
-                {
-                    currentNode.Height++;
-                }
+                //int largerHeight = Math.Max(currentNode.LeftChild?.Height ?? -1, currentNode.RightChild?.Height ?? -1);
+                //if (currentNode.Height < largerHeight + 1)
+                //{
+                //    currentNode.Height++;
+                //}
 
                 return currentNode;
             }
@@ -239,12 +223,14 @@ namespace ObjectsCollection
                     currentNode = BalanceForInsertion(currentNode, item);
                 }
 
+                UpdateHeight(currentNode);
+
                 //update height
-                int largerHeight = Math.Max(currentNode.LeftChild?.Height ?? -1, currentNode.RightChild?.Height ?? -1);
-                if (currentNode.Height < largerHeight + 1)
-                {
-                    currentNode.Height++;
-                }
+                //int largerHeight = Math.Max(currentNode.LeftChild?.Height ?? -1, currentNode.RightChild?.Height ?? -1);
+                //if (currentNode.Height < largerHeight + 1)
+                //{
+                //    currentNode.Height++;
+                //}
 
                 //currentNode.Height = currentNode.Height == currentNode.RightChild.Height ? currentNode.Height + 1 : currentNode.Height;
 
@@ -422,6 +408,16 @@ namespace ObjectsCollection
         private static void ValidateArgumentIsNotNull(T item)
         {
             ArgumentNullException.ThrowIfNull(item);
+        }
+
+        private static void UpdateHeight(AVLTreeNode<T> node)
+        {
+            int maxHeight = Math.Max(node.LeftChild?.Height ?? -1, node.RightChild?.Height ?? -1);
+            node.Height = maxHeight + 1;
+            //if (currentNode.Height < largerHeight + 1)
+            //{
+            //    currentNode.Height++;
+            //}
         }
     }
 }
