@@ -128,6 +128,8 @@ namespace ObjectsCollection
         {
             var tree = new AVLTree<int>() { 16, 14, 31, 3, 29, 7, 5, 32, 40, 39 };
 
+            tree.Add(10);
+
             Assert.Equal(3, tree.Height);
         }
 
