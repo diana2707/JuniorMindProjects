@@ -33,12 +33,10 @@ namespace ObjectsCollection
 
         public bool Contains(T item)
         {
-            AVLTreeNode<T> currentNode = root;
-
-            return Contains(item, currentNode);
+            return Contains(root, item);
         }
 
-        private static bool Contains(T item, AVLTreeNode<T> currentNode)
+        private static bool Contains(AVLTreeNode<T> currentNode, T item)
         {
             if (currentNode == null)
             {
@@ -47,11 +45,11 @@ namespace ObjectsCollection
 
             if (item.CompareTo(currentNode.Data) < 0)
             {
-                return Contains(item, currentNode.LeftChild);
+                return Contains(currentNode.Left, item);
             }
             else if (item.CompareTo(currentNode.Data) > 0)
             {
-                return Contains(item, currentNode.RightChild);
+                return Contains(currentNode.Right, item);
             }
 
             return true;
@@ -87,41 +85,32 @@ namespace ObjectsCollection
                 return (currentNode, false);
             }
 
+            if (currentNode.Data.CompareTo(item) > 0)
+            {
+                (currentNode.Left, isRemoved) = RemoveInternally(currentNode.Left, item);
+            }
+
+            if (currentNode.Data.CompareTo(item) < 0)
+            {
+                (currentNode.Right, isRemoved) = RemoveInternally(currentNode.Right, item);
+            }
+
             if (currentNode.Data.CompareTo(item) == 0)
             {
-                if (currentNode.RightChild == null)
+                if (currentNode.Right == null)
                 {
-                    currentNode = currentNode.LeftChild;
+                    return (currentNode.Left, true);
                 }
-                else if (currentNode.LeftChild == null)
+                else if (currentNode.Left == null)
                 {
-                    currentNode = currentNode.RightChild;
+                    return (currentNode.Right, true);
                 }
                 else
                 {
                     AVLTreeNode<T> next = GetNextInOrder(currentNode);
                     currentNode.Data = next.Data;
-                    (currentNode.RightChild, isRemoved) = RemoveInternally(currentNode.RightChild, currentNode.Data);
-
-                    UpdateHeight(currentNode);
-
-                    if (!IsBalanced(currentNode))
-                    {
-                        currentNode = BalanceForRemove(currentNode);
-                    }
+                    (currentNode.Right, isRemoved) = RemoveInternally(currentNode.Right, currentNode.Data);
                 }
-
-                return (currentNode, true);
-            }
-
-            if (currentNode.Data.CompareTo(item) > 0)
-            {
-                (currentNode.LeftChild, isRemoved) = RemoveInternally(currentNode.LeftChild, item);
-            }
-
-            if (currentNode.Data.CompareTo(item) < 0)
-            {
-                (currentNode.RightChild, isRemoved) = RemoveInternally(currentNode.RightChild, item);
             }
 
             UpdateHeight(currentNode);
@@ -136,10 +125,10 @@ namespace ObjectsCollection
 
         private AVLTreeNode<T> GetNextInOrder(AVLTreeNode<T> node)
         {
-            node = node.RightChild;
-            while (node.LeftChild != null)
+            node = node.Right;
+            while (node.Left != null)
             {
-                node = node.LeftChild;
+                node = node.Left;
             }
 
             return node;
@@ -159,12 +148,12 @@ namespace ObjectsCollection
 
             if (currentNode.Data.CompareTo(item) > 0)
             {
-                currentNode.LeftChild = InsertInternally(currentNode.LeftChild, item);
+                currentNode.Left = InsertInternally(currentNode.Left, item);
             }
 
             if (currentNode.Data.CompareTo(item) < 0)
             {
-                currentNode.RightChild = InsertInternally(currentNode.RightChild, item);
+                currentNode.Right = InsertInternally(currentNode.Right, item);
             }
 
             UpdateHeight(currentNode);
@@ -181,51 +170,51 @@ namespace ObjectsCollection
         {
             if (GetBalanceFactor(node) > 1)
             {
-                if (item.CompareTo(node.LeftChild.Data) < 0)
+                if (item.CompareTo(node.Left.Data) < 0)
                 {
                     return RotateRight(node);
                 }
 
-                node.LeftChild = RotateLeft(node.LeftChild);
+                node.Left = RotateLeft(node.Left);
                 return RotateRight(node);
             }
 
-            if (item.CompareTo(node.RightChild.Data) > 0)
+            if (item.CompareTo(node.Right.Data) > 0)
             {
                 return RotateLeft(node);
             }
 
-            node.RightChild = RotateRight(node.RightChild);
+            node.Right = RotateRight(node.Right);
             return RotateLeft(node);
         }
 
         private static AVLTreeNode<T> BalanceForRemove(AVLTreeNode<T> node)
         {
-            if ((node.LeftChild?.Height ?? -1) > (node.RightChild?.Height ?? -1))
+            if ((node.Left?.Height ?? -1) > (node.Right?.Height ?? -1))
             {
-                if ((node.LeftChild.LeftChild?.Height ?? -1) > (node.LeftChild.RightChild?.Height ?? -1))
+                if ((node.Left.Left?.Height ?? -1) > (node.Left.Right?.Height ?? -1))
                 {
                     return RotateRight(node);
                 }
 
-                node.LeftChild = RotateLeft(node.LeftChild);
+                node.Left = RotateLeft(node.Left);
                 return RotateRight(node);
             }
 
-            if ((node.RightChild.RightChild?.Height ?? -1) > (node.RightChild.LeftChild?.Height ?? -1))
+            if ((node.Right.Right?.Height ?? -1) > (node.Right.Left?.Height ?? -1))
             {
                 return RotateLeft(node);
             }
 
-            node.RightChild = RotateRight(node.RightChild);
+            node.Right = RotateRight(node.Right);
             return RotateLeft(node);
         }
 
         private static AVLTreeNode<T> RotateRight(AVLTreeNode<T> node)
         {
-            AVLTreeNode<T> subtreeRoot = node.LeftChild;
-            node.LeftChild = subtreeRoot.RightChild;
-            subtreeRoot.RightChild = node;
+            AVLTreeNode<T> subtreeRoot = node.Left;
+            node.Left = subtreeRoot.Right;
+            subtreeRoot.Right = node;
 
             UpdateHeight(node);
             UpdateHeight(subtreeRoot);
@@ -235,9 +224,9 @@ namespace ObjectsCollection
 
         private static AVLTreeNode<T> RotateLeft(AVLTreeNode<T> node)
         {
-            AVLTreeNode<T> subtreeRoot = node.RightChild;
-            node.RightChild = subtreeRoot.LeftChild;
-            subtreeRoot.LeftChild = node;
+            AVLTreeNode<T> subtreeRoot = node.Right;
+            node.Right = subtreeRoot.Left;
+            subtreeRoot.Left = node;
 
             UpdateHeight(node);
             UpdateHeight(subtreeRoot);
@@ -281,9 +270,9 @@ namespace ObjectsCollection
             //asta e inorder
             //la preorder curentnode sta la inceputul metodei
             //la postorder inversez left cu right child if
-            if (currentNode.LeftChild != null)
+            if (currentNode.Left != null)
             {
-                foreach (var item in Traverse(currentNode.LeftChild))
+                foreach (var item in Traverse(currentNode.Left))
                 {
                     yield return item;
                 }
@@ -294,9 +283,9 @@ namespace ObjectsCollection
             yield return currentNode.Data;
             //}
 
-            if (currentNode.RightChild != null)
+            if (currentNode.Right != null)
             {
-                foreach (var item in Traverse(currentNode.RightChild))
+                foreach (var item in Traverse(currentNode.Right))
                 {
                     yield return item;
                 }
@@ -305,11 +294,18 @@ namespace ObjectsCollection
 
         private static int GetBalanceFactor(AVLTreeNode<T> node)
         {
-            return (node.LeftChild?.Height ?? -1) - (node.RightChild?.Height ?? -1);
+            return (node.Left?.Height ?? -1) - (node.Right?.Height ?? -1);
         }
+
+        //de ce nu acc null
 
         private static bool IsBalanced(AVLTreeNode<T> node)
         {
+            if (node == null)
+            {
+                return true;
+            }
+
             return Math.Abs(GetBalanceFactor(node)) <= 1;
         }
 
@@ -320,7 +316,12 @@ namespace ObjectsCollection
 
         private static void UpdateHeight(AVLTreeNode<T> node)
         {
-            int maxHeight = Math.Max(node.LeftChild?.Height ?? -1, node.RightChild?.Height ?? -1);
+            if (node == null)
+            {
+                return;
+            }
+
+            int maxHeight = Math.Max(node.Left?.Height ?? -1, node.Right?.Height ?? -1);
             node.Height = maxHeight + 1;
         }
     }

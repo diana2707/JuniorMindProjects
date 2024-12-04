@@ -22,14 +22,14 @@ namespace ObjectsCollection
         public void LeftChildIsNullAsDefault()
         {
             var node = new AVLTreeNode<int>(5);
-            Assert.Null(node.LeftChild);
+            Assert.Null(node.Left);
         }
 
         [Fact]
         public void RightChildIsNullAsDefault()
         {
             var node = new AVLTreeNode<int>(5);
-            Assert.Null(node.RightChild);
+            Assert.Null(node.Right);
         }
 
         [Fact]

@@ -12,9 +12,9 @@ namespace ObjectsCollection
 
         internal T Data { get; set; }
 
-        internal AVLTreeNode<T> LeftChild { get; set; }
+        internal AVLTreeNode<T> Left { get; set; }
 
-        internal AVLTreeNode<T> RightChild { get; set; }
+        internal AVLTreeNode<T> Right { get; set; }
 
         internal int Height { get; set; }
     }

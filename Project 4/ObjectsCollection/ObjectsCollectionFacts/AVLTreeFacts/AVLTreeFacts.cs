@@ -184,6 +184,14 @@ namespace ObjectsCollection
         }
 
         [Fact]
+        public void RemoveShouldReturnFalseIfItemDoNotExist()
+        {
+            var tree = new AVLTree<int>() { 16 };
+
+            Assert.False(tree.Remove(15));
+        }
+
+        [Fact]
         public void RemoveShouldRemoveLeafNode()
         {
             var tree = new AVLTree<int>() { 16, 14 };
