@@ -33,6 +33,8 @@ namespace ObjectsCollection
 
         public bool Contains(T item)
         {
+            ValidateArgumentIsNotNull(item);
+
             return Contains(root, item);
         }
 

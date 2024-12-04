@@ -395,6 +395,14 @@ namespace ObjectsCollection
         }
 
         [Fact]
+        public void ContainsThrowsArgumentNullExceptionWhenArgumentisNull()
+        {
+            var tree = new AVLTree<string>();
+
+            Assert.Throws<ArgumentNullException>(() => tree.Contains(null));
+        }
+
+        [Fact]
         public void AAAaaaaa()
         {
             var tree = new AVLTree<int>() { 5, 8, 42, 100, 77, 95, 12, 37, 83, 73, 29, 36, 31, 19, 89 };
