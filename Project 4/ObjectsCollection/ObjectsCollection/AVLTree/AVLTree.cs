@@ -85,17 +85,17 @@ namespace ObjectsCollection
                 return (currentNode, false);
             }
 
-            if (currentNode.Data.CompareTo(item) > 0)
+            if (IsLessThan(item, currentNode.Data))
             {
                 (currentNode.Left, isRemoved) = RemoveInternally(currentNode.Left, item);
             }
 
-            if (currentNode.Data.CompareTo(item) < 0)
+            if (IsGreaterThan(item, currentNode.Data))
             {
                 (currentNode.Right, isRemoved) = RemoveInternally(currentNode.Right, item);
             }
 
-            if (currentNode.Data.CompareTo(item) == 0)
+            if (AreEqual(currentNode.Data, item))
             {
                 if (currentNode.Right == null)
                 {
@@ -115,10 +115,7 @@ namespace ObjectsCollection
 
             UpdateHeight(currentNode);
 
-            if (!IsBalanced(currentNode))
-            {
-                currentNode = BalanceForRemove(currentNode);
-            }
+            currentNode = BalanceForRemove(currentNode);
 
             return (currentNode, isRemoved);
         }
@@ -141,36 +138,38 @@ namespace ObjectsCollection
                 return new AVLTreeNode<T>(item);
             }
 
-            if (currentNode.Data.CompareTo(item) == 0)
+            if (AreEqual(item, currentNode.Data))
             {
                 throw new ArgumentException("Item already inserted");
             }
 
-            if (currentNode.Data.CompareTo(item) > 0)
+            if (IsLessThan(item, currentNode.Data))
             {
                 currentNode.Left = InsertInternally(currentNode.Left, item);
             }
 
-            if (currentNode.Data.CompareTo(item) < 0)
+            if (IsGreaterThan(item, currentNode.Data))
             {
                 currentNode.Right = InsertInternally(currentNode.Right, item);
             }
 
             UpdateHeight(currentNode);
 
-            if (!IsBalanced(currentNode))
-            {
-                currentNode = BalanceForInsertion(currentNode, item);
-            }
+            currentNode = BalanceForInsertion(currentNode, item);
 
             return currentNode;
         }
 
         private static AVLTreeNode<T> BalanceForInsertion(AVLTreeNode<T> node, T item)
         {
+            if (IsBalanced(node))
+            {
+                return node;
+            }
+
             if (GetBalanceFactor(node) > 1)
             {
-                if (item.CompareTo(node.Left.Data) < 0)
+                if (IsLessThan(item, node.Left.Data)) //item.CompareTo(node.Left.Data) < 0)
                 {
                     return RotateRight(node);
                 }
@@ -179,7 +178,7 @@ namespace ObjectsCollection
                 return RotateRight(node);
             }
 
-            if (item.CompareTo(node.Right.Data) > 0)
+            if (IsGreaterThan(item, node.Right.Data)) //item.CompareTo(node.Right.Data) > 0)
             {
                 return RotateLeft(node);
             }
@@ -190,6 +189,11 @@ namespace ObjectsCollection
 
         private static AVLTreeNode<T> BalanceForRemove(AVLTreeNode<T> node)
         {
+            if (IsBalanced(node))
+            {
+                return node;
+            }
+
             if ((node.Left?.Height ?? -1) > (node.Right?.Height ?? -1))
             {
                 if ((node.Left.Left?.Height ?? -1) > (node.Left.Right?.Height ?? -1))
@@ -234,20 +238,6 @@ namespace ObjectsCollection
             return subtreeRoot;
         }
 
-        //private static int GetHeight(AVLTreeNode<T> node, int height = 0)
-        //{
-        //    if (node == null)
-        //    {
-        //        return height - 1;
-        //    }
-
-        //    int leftHeight = GetHeight(node.LeftChild, height + 1);
-
-        //    int rightHeight = GetHeight(node.RightChild, height + 1);
-
-        //    return int.Max(leftHeight, rightHeight);
-        //}
-
         public IEnumerator<T> GetEnumerator()
         {
             if (root == null)
@@ -265,11 +255,6 @@ namespace ObjectsCollection
 
         private static IEnumerable<T> Traverse(AVLTreeNode<T> currentNode)
         {
-
-            //de scris teoria pentru cele 3 variante
-            //asta e inorder
-            //la preorder curentnode sta la inceputul metodei
-            //la postorder inversez left cu right child if
             if (currentNode.Left != null)
             {
                 foreach (var item in Traverse(currentNode.Left))
@@ -278,10 +263,7 @@ namespace ObjectsCollection
                 }
             }
 
-            //if (currentNode != null)
-            //{
             yield return currentNode.Data;
-            //}
 
             if (currentNode.Right != null)
             {
@@ -297,15 +279,8 @@ namespace ObjectsCollection
             return (node.Left?.Height ?? -1) - (node.Right?.Height ?? -1);
         }
 
-        //de ce nu acc null
-
         private static bool IsBalanced(AVLTreeNode<T> node)
         {
-            if (node == null)
-            {
-                return true;
-            }
-
             return Math.Abs(GetBalanceFactor(node)) <= 1;
         }
 
@@ -316,13 +291,23 @@ namespace ObjectsCollection
 
         private static void UpdateHeight(AVLTreeNode<T> node)
         {
-            if (node == null)
-            {
-                return;
-            }
-
             int maxHeight = Math.Max(node.Left?.Height ?? -1, node.Right?.Height ?? -1);
             node.Height = maxHeight + 1;
+        }
+
+        private static bool AreEqual(T first, T second)
+        {
+            return first.CompareTo(second) == 0;
+        }
+
+        private static bool IsLessThan(T first, T second)
+        {
+            return first.CompareTo(second) < 0;
+        }
+
+        private static bool IsGreaterThan(T first, T second)
+        {
+            return first.CompareTo(second) > 0;
         }
     }
 }
