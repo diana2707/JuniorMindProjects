@@ -74,7 +74,10 @@ namespace ObjectsCollection
 
         public bool Remove(T item)
         {
+            ValidateArgumentIsNotNull(item);
+
             (root, bool isRemoved) = RemoveInternally(root, item);
+
             return isRemoved;
         }
 
