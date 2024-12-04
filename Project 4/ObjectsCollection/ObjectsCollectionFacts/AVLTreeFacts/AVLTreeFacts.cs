@@ -136,9 +136,8 @@ namespace ObjectsCollection
         {
             var tree = new AVLTree<int>() { 16, 14, 31, 3, 29, 7, 5, 32, 40, 39 };
 
-            tree.Add(10);
-
             Assert.Equal(3, tree.Height);
+            Assert.Equal(10, tree.Count);
         }
 
         [Fact]
@@ -147,6 +146,7 @@ namespace ObjectsCollection
             var tree = new AVLTree<int>() { 16, 14, 7 };
 
             Assert.Equal(1, tree.Height);
+            Assert.Equal(3, tree.Count);
         }
 
         [Fact]
@@ -155,6 +155,7 @@ namespace ObjectsCollection
             var tree = new AVLTree<int>() { 7, 14, 16 };
 
             Assert.Equal(1, tree.Height);
+            Assert.Equal(3, tree.Count);
         }
 
         [Fact]
@@ -163,6 +164,7 @@ namespace ObjectsCollection
             var tree = new AVLTree<int>() { 16, 14, 15 };
 
             Assert.Equal(1, tree.Height);
+            Assert.Equal(3, tree.Count);
         }
 
         [Fact]
@@ -181,6 +183,7 @@ namespace ObjectsCollection
             Assert.True(tree.Remove(16));
             Assert.Empty(tree);
             Assert.Equal(-1, tree.Height);
+            Assert.Equal(0, tree.Count);
         }
 
         [Fact]
@@ -189,6 +192,7 @@ namespace ObjectsCollection
             var tree = new AVLTree<int>() { 16 };
 
             Assert.False(tree.Remove(15));
+            Assert.Equal(1, tree.Count);
         }
 
         [Fact]
@@ -200,6 +204,7 @@ namespace ObjectsCollection
             Assert.DoesNotContain(14, tree);
             Assert.Contains(16, tree);
             Assert.Equal(0, tree.Height);
+            Assert.Equal(1, tree.Count);
         }
 
         [Fact]
@@ -217,6 +222,7 @@ namespace ObjectsCollection
             Assert.Contains(21, tree);
 
             Assert.Equal(2, tree.Height);
+            Assert.Equal(6, tree.Count);
         }
 
         [Fact]
@@ -233,6 +239,7 @@ namespace ObjectsCollection
             Assert.Contains(21, tree);
 
             Assert.Equal(2, tree.Height);
+            Assert.Equal(5, tree.Count);
         }
 
         [Fact]
@@ -250,6 +257,7 @@ namespace ObjectsCollection
             Assert.Contains(21, tree);
 
             Assert.Equal(2, tree.Height);
+            Assert.Equal(6, tree.Count);
         }
 
         [Fact]
@@ -268,6 +276,7 @@ namespace ObjectsCollection
             Assert.Contains(8, tree);
 
             Assert.Equal(2, tree.Height);
+            Assert.Equal(7, tree.Count);
         }
 
         [Fact]
@@ -285,6 +294,7 @@ namespace ObjectsCollection
             Assert.Contains(21, tree);
 
             Assert.Equal(2, tree.Height);
+            Assert.Equal(7, tree.Count);
         }
 
         [Fact]
@@ -303,6 +313,7 @@ namespace ObjectsCollection
             Assert.Contains(21, tree);
 
             Assert.Equal(2, tree.Height);
+            Assert.Equal(7, tree.Count);
         }
 
         [Fact]
@@ -321,6 +332,7 @@ namespace ObjectsCollection
             Assert.Contains(21, tree);
 
             Assert.Equal(2, tree.Height);
+            Assert.Equal(7, tree.Count);
         }
 
         [Fact]
@@ -434,25 +446,6 @@ namespace ObjectsCollection
             int[] array = new int[3];
 
             Assert.Throws<ArgumentException>(() => tree.CopyTo(array, 1));
-        }
-
-        [Fact]
-        public void AAAaaaaa()
-        {
-            var tree = new AVLTree<int>() { 5, 8, 42, 100, 77, 95, 12, 37, 83, 73, 29, 36, 31, 19, 89 };
-            tree.Add(10);
-
-            Assert.Equal(4, tree.Height);
-        }
-
-        [Fact]
-        public void AAAaaaaaasd()
-        {
-            var tree = new AVLTree<int>() { 5, 8, 42, 100, 77, 95, 12, 37, 83, 73, 29, 36, 31, 19, 89 };
-            tree.Remove(5);
-            tree.Remove(73);
-
-            Assert.Equal(3, tree.Height);
         }
     }
 }
