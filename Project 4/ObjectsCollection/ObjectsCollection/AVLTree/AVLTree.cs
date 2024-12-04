@@ -169,7 +169,7 @@ namespace ObjectsCollection
 
             if (GetBalanceFactor(node) > 1)
             {
-                if (IsLessThan(item, node.Left.Data)) //item.CompareTo(node.Left.Data) < 0)
+                if (IsLessThan(item, node.Left.Data))
                 {
                     return RotateRight(node);
                 }
@@ -178,7 +178,7 @@ namespace ObjectsCollection
                 return RotateRight(node);
             }
 
-            if (IsGreaterThan(item, node.Right.Data)) //item.CompareTo(node.Right.Data) > 0)
+            if (IsGreaterThan(item, node.Right.Data))
             {
                 return RotateLeft(node);
             }

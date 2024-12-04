@@ -387,6 +387,14 @@ namespace ObjectsCollection
         }
 
         [Fact]
+        public void AddThrowsArgumentExceptionWhenItemExists()
+        {
+            var tree = new AVLTree<int>() { 10, 5, 15 };
+
+            Assert.Throws<ArgumentException>(() => tree.Add(5));
+        }
+
+        [Fact]
         public void AAAaaaaa()
         {
             var tree = new AVLTree<int>() { 5, 8, 42, 100, 77, 95, 12, 37, 83, 73, 29, 36, 31, 19, 89 };
