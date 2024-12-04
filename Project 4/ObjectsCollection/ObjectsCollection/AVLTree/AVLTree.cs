@@ -65,6 +65,8 @@ namespace ObjectsCollection
 
         public void CopyTo(T[] array, int arrayIndex)
         {
+            ValidateArray(array, arrayIndex);
+
             foreach (var element in this)
             {
                 array[arrayIndex] = element;
@@ -313,6 +315,19 @@ namespace ObjectsCollection
         private static bool IsGreaterThan(T first, T second)
         {
             return first.CompareTo(second) > 0;
+        }
+
+        private void ValidateArray(T[] array, int index)
+        {
+            ArgumentNullException.ThrowIfNull(array);
+            ArgumentOutOfRangeException.ThrowIfLessThan(index, 0);
+
+            if (array.Length - index >= Count)
+            {
+                return;
+            }
+
+            throw new ArgumentException("The number of items in tree is greater than the space from index to end of array.");
         }
     }
 }

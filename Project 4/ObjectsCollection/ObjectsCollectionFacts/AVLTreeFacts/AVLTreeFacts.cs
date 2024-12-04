@@ -411,6 +411,32 @@ namespace ObjectsCollection
         }
 
         [Fact]
+        public void CopyToShouldThrowArgumentNullExceptionWhenArrayIsNull()
+        {
+            var tree = new AVLTree<int>() { 20, 15, 25 };
+
+            Assert.Throws<ArgumentNullException>(() => tree.CopyTo(null, 0));
+        }
+
+        [Fact]
+        public void CopyToShouldThrowArgumentOutOfRangeExceptionWhenIndexIsLessThan0()
+        {
+            var tree = new AVLTree<int>() { 20, 15, 25 };
+            int[] array = new int[3];
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => tree.CopyTo(array, -1));
+        }
+
+        [Fact]
+        public void CopyToShouldThrowArgumentExceptionWhenNumberOfItemsInTreeIsGreaterThanSpaceFromIndexToArrayEnd()
+        {
+            var tree = new AVLTree<int>() { 20, 15, 25 };
+            int[] array = new int[3];
+
+            Assert.Throws<ArgumentException>(() => tree.CopyTo(array, 1));
+        }
+
+        [Fact]
         public void AAAaaaaa()
         {
             var tree = new AVLTree<int>() { 5, 8, 42, 100, 77, 95, 12, 37, 83, 73, 29, 36, 31, 19, 89 };
