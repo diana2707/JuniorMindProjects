@@ -135,11 +135,11 @@ namespace ObjectsCollection
                 return false;
             }
 
-            if (item.CompareTo(currentNode.Data) < 0)
+            if (IsLessThan(item, currentNode.Data))
             {
                 return Contains(currentNode.Left, item);
             }
-            else if (item.CompareTo(currentNode.Data) > 0)
+            else if (IsGreaterThan(item, currentNode.Data))
             {
                 return Contains(currentNode.Right, item);
             }
