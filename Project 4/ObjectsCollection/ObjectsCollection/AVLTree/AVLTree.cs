@@ -118,7 +118,7 @@ namespace ObjectsCollection
                 currentNode.Left = Add(currentNode.Left, item);
             }
 
-            if (IsGreaterThan(item, currentNode.Data))
+            if (item.CompareTo(currentNode.Data) > 0)
             {
                 currentNode.Right = Add(currentNode.Right, item);
             }
@@ -141,7 +141,7 @@ namespace ObjectsCollection
             {
                 return Contains(currentNode.Left, item);
             }
-            else if (IsGreaterThan(item, currentNode.Data))
+            else if (item.CompareTo(currentNode.Data) > 0)
             {
                 return Contains(currentNode.Right, item);
             }
@@ -163,7 +163,7 @@ namespace ObjectsCollection
                 (currentNode.Left, isRemoved) = Remove(currentNode.Left, item);
             }
 
-            if (IsGreaterThan(item, currentNode.Data))
+            if (item.CompareTo(currentNode.Data) > 0)
             {
                 (currentNode.Right, isRemoved) = Remove(currentNode.Right, item);
             }
@@ -224,7 +224,7 @@ namespace ObjectsCollection
                 return RotateRight(node);
             }
 
-            if (IsGreaterThan(item, node.Right.Data))
+            if (item.CompareTo(node.Right.Data) > 0)
             {
                 return RotateLeft(node);
             }
@@ -307,11 +307,6 @@ namespace ObjectsCollection
         {
             int maxHeight = Math.Max(node.Left?.Height ?? -1, node.Right?.Height ?? -1);
             node.Height = maxHeight + 1;
-        }
-
-        private static bool IsGreaterThan(T first, T second)
-        {
-            return first.CompareTo(second) > 0;
         }
 
         private static void ValidateArgumentIsNotNull(T item)
