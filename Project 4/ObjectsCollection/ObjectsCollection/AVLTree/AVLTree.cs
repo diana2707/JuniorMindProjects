@@ -113,7 +113,7 @@ namespace ObjectsCollection
                 throw new ArgumentException("Item already inserted");
             }
 
-            if (IsLessThan(item, currentNode.Data))
+            if (item.CompareTo(currentNode.Data) < 0)
             {
                 currentNode.Left = Add(currentNode.Left, item);
             }
@@ -137,7 +137,7 @@ namespace ObjectsCollection
                 return false;
             }
 
-            if (IsLessThan(item, currentNode.Data))
+            if (item.CompareTo(currentNode.Data) < 0)
             {
                 return Contains(currentNode.Left, item);
             }
@@ -158,7 +158,7 @@ namespace ObjectsCollection
                 return (currentNode, false);
             }
 
-            if (IsLessThan(item, currentNode.Data))
+            if (item.CompareTo(currentNode.Data) < 0)
             {
                 (currentNode.Left, isRemoved) = Remove(currentNode.Left, item);
             }
@@ -215,7 +215,7 @@ namespace ObjectsCollection
 
             if (GetBalanceFactor(node) > 1)
             {
-                if (IsLessThan(item, node.Left.Data))
+                if (item.CompareTo(node.Data) < 0)
                 {
                     return RotateRight(node);
                 }
@@ -307,11 +307,6 @@ namespace ObjectsCollection
         {
             int maxHeight = Math.Max(node.Left?.Height ?? -1, node.Right?.Height ?? -1);
             node.Height = maxHeight + 1;
-        }
-
-        private static bool IsLessThan(T first, T second)
-        {
-            return first.CompareTo(second) < 0;
         }
 
         private static bool IsGreaterThan(T first, T second)
