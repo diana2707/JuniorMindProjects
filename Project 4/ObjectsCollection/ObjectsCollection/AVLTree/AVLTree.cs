@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Xml.Linq;
-using Xunit;
 
 namespace ObjectsCollection
 {
@@ -124,7 +121,7 @@ namespace ObjectsCollection
                 currentNode.Right = Add(currentNode.Right, item);
             }
 
-            UpdateHeight(currentNode);
+            currentNode.UpdateHeight();
 
             currentNode = BalanceForInsertion(currentNode, item);
 
@@ -183,18 +180,18 @@ namespace ObjectsCollection
                 }
                 else
                 {
-                    AVLTreeNode<T> next = currentNode.Right;
-                    while (next.Left != null)
+                    AVLTreeNode<T> nextInOrder = currentNode.Right;
+                    while (nextInOrder.Left != null)
                     {
-                        next = next.Left;
+                        nextInOrder = nextInOrder.Left;
                     }
 
-                    currentNode.Data = next.Data;
-                    (currentNode.Right, isRemoved) = Remove(currentNode.Right, next.Data);
+                    currentNode.Data = nextInOrder.Data;
+                    (currentNode.Right, isRemoved) = Remove(currentNode.Right, nextInOrder.Data);
                 }
             }
 
-            UpdateHeight(currentNode);
+            currentNode.UpdateHeight();
 
             currentNode = BalanceForRemove(currentNode);
 
@@ -270,8 +267,8 @@ namespace ObjectsCollection
             node.Left = subtreeRoot.Right;
             subtreeRoot.Right = node;
 
-            UpdateHeight(node);
-            UpdateHeight(subtreeRoot);
+            node.UpdateHeight();
+            subtreeRoot.UpdateHeight();
 
             return subtreeRoot;
         }
@@ -282,8 +279,8 @@ namespace ObjectsCollection
             node.Right = subtreeRoot.Left;
             subtreeRoot.Left = node;
 
-            UpdateHeight(node);
-            UpdateHeight(subtreeRoot);
+            node.UpdateHeight();
+            subtreeRoot.UpdateHeight();
 
             return subtreeRoot;
         }
@@ -296,12 +293,6 @@ namespace ObjectsCollection
         private static bool IsBalanced(AVLTreeNode<T> node)
         {
             return Math.Abs(GetBalanceFactor(node)) <= 1;
-        }
-
-        private static void UpdateHeight(AVLTreeNode<T> node)
-        {
-            int maxHeight = Math.Max(node.Left?.Height ?? -1, node.Right?.Height ?? -1);
-            node.Height = maxHeight + 1;
         }
 
         private static void ValidateArgumentIsNotNull(T item)

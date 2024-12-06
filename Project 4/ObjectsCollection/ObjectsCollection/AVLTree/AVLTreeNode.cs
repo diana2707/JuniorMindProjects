@@ -17,5 +17,11 @@ namespace ObjectsCollection
         internal AVLTreeNode<T> Right { get; set; }
 
         internal int Height { get; set; }
+
+        internal void UpdateHeight()
+        {
+            int maxHeight = Math.Max(Left?.Height ?? -1, Right?.Height ?? -1);
+            Height = maxHeight + 1;
+        }
     }
 }

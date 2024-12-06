@@ -38,5 +38,22 @@ namespace ObjectsCollection
             var node = new AVLTreeNode<int>(5);
             Assert.Equal(0, node.Height);
         }
+
+        [Fact]
+        public void UpdateHeightShouldCalculateCurrentHeight()
+        {
+            var left = new AVLTreeNode<int>(1);
+            left.Height = 1;
+            var right = new AVLTreeNode<int>(10);
+            right.Height = 0;
+
+            var node = new AVLTreeNode<int>(5);
+            node.Left = left;
+            node.Right = right;
+
+            node.UpdateHeight();
+
+            Assert.Equal(2, node.Height);
+        }
     }
 }
