@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using Xunit;
 
 namespace ObjectsCollection
 {
@@ -106,7 +108,7 @@ namespace ObjectsCollection
                 return new AVLTreeNode<T>(item);
             }
 
-            if (AreEqual(item, currentNode.Data))
+            if (item.CompareTo(currentNode.Data) == 0)
             {
                 throw new ArgumentException("Item already inserted");
             }
@@ -166,7 +168,7 @@ namespace ObjectsCollection
                 (currentNode.Right, isRemoved) = Remove(currentNode.Right, item);
             }
 
-            if (AreEqual(currentNode.Data, item))
+            if (item.CompareTo(currentNode.Data) == 0)
             {
                 if (currentNode.Right == null)
                 {
@@ -305,11 +307,6 @@ namespace ObjectsCollection
         {
             int maxHeight = Math.Max(node.Left?.Height ?? -1, node.Right?.Height ?? -1);
             node.Height = maxHeight + 1;
-        }
-
-        private static bool AreEqual(T first, T second)
-        {
-            return first.CompareTo(second) == 0;
         }
 
         private static bool IsLessThan(T first, T second)
