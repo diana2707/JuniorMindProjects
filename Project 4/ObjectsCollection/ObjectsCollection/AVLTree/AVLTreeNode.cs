@@ -23,5 +23,10 @@ namespace ObjectsCollection
             int maxHeight = Math.Max(Left?.Height ?? -1, Right?.Height ?? -1);
             Height = maxHeight + 1;
         }
+
+        internal int GetBalanceFactor()
+        {
+            return (Left?.Height ?? -1) - (Right?.Height ?? -1);
+        }
     }
 }

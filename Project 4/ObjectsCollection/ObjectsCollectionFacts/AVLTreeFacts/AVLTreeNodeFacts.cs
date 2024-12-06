@@ -55,5 +55,20 @@ namespace ObjectsCollection
 
             Assert.Equal(2, node.Height);
         }
+
+        [Fact]
+        public void GetBalanceFactorShouldReturnBalanceFactor()
+        {
+            var left = new AVLTreeNode<int>(1);
+            left.Height = 1;
+            var right = new AVLTreeNode<int>(10);
+            right.Height = 0;
+
+            var node = new AVLTreeNode<int>(5);
+            node.Left = left;
+            node.Right = right;
+
+            Assert.Equal(1, node.GetBalanceFactor());
+        }
     }
 }

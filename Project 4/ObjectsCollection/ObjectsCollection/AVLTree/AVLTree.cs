@@ -205,7 +205,7 @@ namespace ObjectsCollection
                 return node;
             }
 
-            if (GetBalanceFactor(node) > 1)
+            if (node.GetBalanceFactor() > 1)
             {
                 if (item.CompareTo(node.Left.Data) < 0)
                 {
@@ -285,14 +285,9 @@ namespace ObjectsCollection
             return subtreeRoot;
         }
 
-        private static int GetBalanceFactor(AVLTreeNode<T> node)
-        {
-            return (node.Left?.Height ?? -1) - (node.Right?.Height ?? -1);
-        }
-
         private static bool IsBalanced(AVLTreeNode<T> node)
         {
-            return Math.Abs(GetBalanceFactor(node)) <= 1;
+            return Math.Abs(node.GetBalanceFactor()) <= 1;
         }
 
         private static void ValidateArgumentIsNotNull(T item)
