@@ -200,7 +200,7 @@ namespace ObjectsCollection
 
         private static AVLTreeNode<T> BalanceForInsertion(AVLTreeNode<T> node, T item)
         {
-            if (IsBalanced(node))
+            if (node.IsBalanced())
             {
                 return node;
             }
@@ -227,7 +227,7 @@ namespace ObjectsCollection
 
         private static AVLTreeNode<T> BalanceForRemove(AVLTreeNode<T> node)
         {
-            if (IsBalanced(node))
+            if (node.IsBalanced())
             {
                 return node;
             }
@@ -283,11 +283,6 @@ namespace ObjectsCollection
             subtreeRoot.UpdateHeight();
 
             return subtreeRoot;
-        }
-
-        private static bool IsBalanced(AVLTreeNode<T> node)
-        {
-            return Math.Abs(node.GetBalanceFactor()) <= 1;
         }
 
         private static void ValidateArgumentIsNotNull(T item)

@@ -70,5 +70,35 @@ namespace ObjectsCollection
 
             Assert.Equal(1, node.GetBalanceFactor());
         }
+
+        [Fact]
+        public void IsBalancedFactorShouldReturnTrueWhenIsBalanced()
+        {
+            var left = new AVLTreeNode<int>(1);
+            left.Height = 1;
+            var right = new AVLTreeNode<int>(10);
+            right.Height = 0;
+
+            var node = new AVLTreeNode<int>(5);
+            node.Left = left;
+            node.Right = right;
+
+            Assert.True(node.IsBalanced());
+        }
+
+        [Fact]
+        public void IsBalancedFactorShouldReturnFalseWhenIsNotBalanced()
+        {
+            var left = new AVLTreeNode<int>(1);
+            left.Height = 2;
+            var right = new AVLTreeNode<int>(10);
+            right.Height = 0;
+
+            var node = new AVLTreeNode<int>(5);
+            node.Left = left;
+            node.Right = right;
+
+            Assert.False(node.IsBalanced());
+        }
     }
 }
