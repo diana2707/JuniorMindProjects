@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using Xunit;
 
 namespace ObjectsCollection
@@ -182,9 +183,14 @@ namespace ObjectsCollection
                 }
                 else
                 {
-                    AVLTreeNode<T> next = GetNextInOrder(currentNode);
+                    AVLTreeNode<T> next = currentNode.Right;
+                    while (next.Left != null)
+                    {
+                        next = next.Left;
+                    }
+
                     currentNode.Data = next.Data;
-                    (currentNode.Right, isRemoved) = Remove(currentNode.Right, currentNode.Data);
+                    (currentNode.Right, isRemoved) = Remove(currentNode.Right, next.Data);
                 }
             }
 
@@ -193,17 +199,6 @@ namespace ObjectsCollection
             currentNode = BalanceForRemove(currentNode);
 
             return (currentNode, isRemoved);
-        }
-
-        private static AVLTreeNode<T> GetNextInOrder(AVLTreeNode<T> node)
-        {
-            node = node.Right;
-            while (node.Left != null)
-            {
-                node = node.Left;
-            }
-
-            return node;
         }
 
         private static AVLTreeNode<T> BalanceForInsertion(AVLTreeNode<T> node, T item)
