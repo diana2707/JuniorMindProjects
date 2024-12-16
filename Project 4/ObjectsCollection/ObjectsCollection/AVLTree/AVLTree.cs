@@ -106,17 +106,17 @@ namespace ObjectsCollection
                 return new AVLTreeNode<T>(item);
             }
 
-            if (item.CompareTo(currentNode.Data) == 0)
+            if (AreEqual(item, currentNode.Data))
             {
                 throw new ArgumentException("Item already inserted");
             }
 
-            if (item.CompareTo(currentNode.Data) < 0)
+            if (IsLessThan(item, currentNode.Data))
             {
                 currentNode.Left = Add(currentNode.Left, item);
             }
 
-            if (item.CompareTo(currentNode.Data) > 0)
+            if (IsLargerThan(item, currentNode.Data))
             {
                 currentNode.Right = Add(currentNode.Right, item);
             }
@@ -135,11 +135,11 @@ namespace ObjectsCollection
                 return false;
             }
 
-            if (item.CompareTo(currentNode.Data) < 0)
+            if (IsLessThan(item, currentNode.Data))
             {
                 return Contains(currentNode.Left, item);
             }
-            else if (item.CompareTo(currentNode.Data) > 0)
+            else if (IsLargerThan(item, currentNode.Data))
             {
                 return Contains(currentNode.Right, item);
             }
@@ -156,17 +156,17 @@ namespace ObjectsCollection
                 return (currentNode, false);
             }
 
-            if (item.CompareTo(currentNode.Data) < 0)
+            if (IsLessThan(item, currentNode.Data))
             {
                 (currentNode.Left, isRemoved) = Remove(currentNode.Left, item);
             }
 
-            if (item.CompareTo(currentNode.Data) > 0)
+            if (IsLargerThan(item, currentNode.Data))
             {
                 (currentNode.Right, isRemoved) = Remove(currentNode.Right, item);
             }
 
-            if (item.CompareTo(currentNode.Data) == 0)
+            if (AreEqual(item, currentNode.Data))
             {
                 if (currentNode.Right == null)
                 {
@@ -207,7 +207,7 @@ namespace ObjectsCollection
 
             if (node.GetBalanceFactor() > 1)
             {
-                if (item.CompareTo(node.Left.Data) < 0)
+                if (IsLessThan(item, node.Left.Data))
                 {
                     return RotateRight(node);
                 }
@@ -216,7 +216,7 @@ namespace ObjectsCollection
                 return RotateRight(node);
             }
 
-            if (item.CompareTo(node.Right.Data) > 0)
+            if (IsLargerThan(item, node.Right.Data))
             {
                 return RotateLeft(node);
             }
@@ -283,6 +283,21 @@ namespace ObjectsCollection
             subtreeRoot.UpdateHeight();
 
             return subtreeRoot;
+        }
+
+        private static bool AreEqual(T first, T second)
+        {
+            return first.CompareTo(second) == 0;
+        }
+
+        private static bool IsLessThan(T first, T second)
+        {
+            return first.CompareTo(second) < 0;
+        }
+
+        private static bool IsLargerThan(T first, T second)
+        {
+            return first.CompareTo(second) > 0;
         }
 
         private static void ValidateArgumentIsNotNull(T item)
