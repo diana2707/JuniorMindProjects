@@ -125,5 +125,30 @@ namespace ObjectsCollection
             Assert.Equal(3, newRoot.Left.Data);
             Assert.Equal(4, newRoot.Left.Right.Data);
         }
+
+        [Fact]
+        public void RotateRightShouldReturnLeftNodeAsNewRoot()
+        {
+            var node = new AVLTreeNode<int>(7);
+            node.Height = 2;
+
+            node.Left = new AVLTreeNode<int>(5);
+            node.Left.Height = 1;
+
+            node.Left.Left = new AVLTreeNode<int>(3);
+            node.Left.Left.Height = 0;
+
+            node.Left.Right = new AVLTreeNode<int>(6);
+            node.Left.Right.Height = 0;
+
+            node.Right = new AVLTreeNode<int>(8);
+            node.Right.Height = 0;
+
+            var newRoot = node.RotateRight();
+
+            Assert.Equal(5, newRoot.Data);
+            Assert.Equal(7, newRoot.Right.Data);
+            Assert.Equal(6, newRoot.Right.Left.Data);
+        }
     }
 }

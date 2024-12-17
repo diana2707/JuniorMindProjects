@@ -209,11 +209,11 @@ namespace ObjectsCollection
             {
                 if (IsLessThan(item, node.Left.Data))
                 {
-                    return RotateRight(node);
+                    return node.RotateRight();
                 }
 
                 node.Left = node.Left.RotateLeft();
-                return RotateRight(node);
+                return node.RotateRight();
             }
 
             if (IsLargerThan(item, node.Right.Data))
@@ -221,7 +221,7 @@ namespace ObjectsCollection
                 return node.RotateLeft();
             }
 
-            node.Right = RotateRight(node.Right);
+            node.Right = node.Right.RotateRight();
             return node.RotateLeft();
         }
 
@@ -242,11 +242,11 @@ namespace ObjectsCollection
 
                 if (leftLeftHeight > leftRightHeight)
                 {
-                    return RotateRight(node);
+                    return node.RotateRight();
                 }
 
                 node.Left = node.Left.RotateLeft();
-                return RotateRight(node);
+                return node.RotateRight();
             }
 
             int rightRightHeight = node.Right.Right?.Height ?? -1;
@@ -257,20 +257,8 @@ namespace ObjectsCollection
                 return node.RotateLeft();
             }
 
-            node.Right = RotateRight(node.Right);
+            node.Right = node.Right.RotateRight();
             return node.RotateLeft();
-        }
-
-        private static AVLTreeNode<T> RotateRight(AVLTreeNode<T> node)
-        {
-            AVLTreeNode<T> subtreeRoot = node.Left;
-            node.Left = subtreeRoot.Right;
-            subtreeRoot.Right = node;
-
-            node.UpdateHeight();
-            subtreeRoot.UpdateHeight();
-
-            return subtreeRoot;
         }
 
         private static bool AreEqual(T first, T second)

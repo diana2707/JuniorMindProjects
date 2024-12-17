@@ -45,5 +45,17 @@ namespace ObjectsCollection
 
             return newRoot;
         }
+
+        internal AVLTreeNode<T> RotateRight()
+        {
+            AVLTreeNode<T> newRoot = Left;
+            Left = newRoot.Right;
+            newRoot.Right = this;
+
+            UpdateHeight();
+            newRoot.UpdateHeight();
+
+            return newRoot;
+        }
     }
 }
