@@ -212,17 +212,17 @@ namespace ObjectsCollection
                     return RotateRight(node);
                 }
 
-                node.Left = RotateLeft(node.Left);
+                node.Left = node.Left.RotateLeft();
                 return RotateRight(node);
             }
 
             if (IsLargerThan(item, node.Right.Data))
             {
-                return RotateLeft(node);
+                return node.RotateLeft();
             }
 
             node.Right = RotateRight(node.Right);
-            return RotateLeft(node);
+            return node.RotateLeft();
         }
 
         private static AVLTreeNode<T> BalanceForRemove(AVLTreeNode<T> node)
@@ -245,7 +245,7 @@ namespace ObjectsCollection
                     return RotateRight(node);
                 }
 
-                node.Left = RotateLeft(node.Left);
+                node.Left = node.Left.RotateLeft();
                 return RotateRight(node);
             }
 
@@ -254,11 +254,11 @@ namespace ObjectsCollection
 
             if (rightRightHeight > rightLeftHeight)
             {
-                return RotateLeft(node);
+                return node.RotateLeft();
             }
 
             node.Right = RotateRight(node.Right);
-            return RotateLeft(node);
+            return node.RotateLeft();
         }
 
         private static AVLTreeNode<T> RotateRight(AVLTreeNode<T> node)
@@ -266,18 +266,6 @@ namespace ObjectsCollection
             AVLTreeNode<T> subtreeRoot = node.Left;
             node.Left = subtreeRoot.Right;
             subtreeRoot.Right = node;
-
-            node.UpdateHeight();
-            subtreeRoot.UpdateHeight();
-
-            return subtreeRoot;
-        }
-
-        private static AVLTreeNode<T> RotateLeft(AVLTreeNode<T> node)
-        {
-            AVLTreeNode<T> subtreeRoot = node.Right;
-            node.Right = subtreeRoot.Left;
-            subtreeRoot.Left = node;
 
             node.UpdateHeight();
             subtreeRoot.UpdateHeight();

@@ -100,5 +100,30 @@ namespace ObjectsCollection
 
             Assert.False(node.IsBalanced());
         }
+
+        [Fact]
+        public void RotateLeftShouldReturnRightNodeAsNewRoot()
+        {
+            var node = new AVLTreeNode<int>(3);
+            node.Height = 2;
+
+            node.Left = new AVLTreeNode<int>(2);
+            node.Left.Height = 0;
+
+            node.Right = new AVLTreeNode<int>(5);
+            node.Right.Height = 1;
+
+            node.Right.Left = new AVLTreeNode<int>(4);
+            node.Right.Left.Height = 0;
+
+            node.Right.Right = new AVLTreeNode<int>(7);
+            node.Right.Right.Height = 0;
+
+            var newRoot = node.RotateLeft();
+
+            Assert.Equal(5, newRoot.Data);
+            Assert.Equal(3, newRoot.Left.Data);
+            Assert.Equal(4, newRoot.Left.Right.Data);
+        }
     }
 }

@@ -33,5 +33,17 @@ namespace ObjectsCollection
             int maxHeight = Math.Max(Left?.Height ?? -1, Right?.Height ?? -1);
             Height = maxHeight + 1;
         }
+
+        internal AVLTreeNode<T> RotateLeft()
+        {
+            AVLTreeNode<T> newRoot = Right;
+            Right = newRoot.Left;
+            newRoot.Left = this;
+
+            UpdateHeight();
+            newRoot.UpdateHeight();
+
+            return newRoot;
+        }
     }
 }
