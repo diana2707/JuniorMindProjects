@@ -17,5 +17,19 @@ namespace Extension_methods
             IEnumerable<string> values = ["red", "purple", "orange"];
             Assert.False(IEnumerableExtensions.All(values, e => e.Length > 5));
         }
+
+        [Fact]
+        public void AnyMethodShouldReturnFalseWhenNoElementMatchPredicate()
+        {
+            IEnumerable<int> values = [2, 9, 12, 18];
+            Assert.True(IEnumerableExtensions.Any(values, e => e % 3 == 0));
+        }
+
+        [Fact]
+        public void AnyMethodShouldReturnTrueWhenNotAtLeastOneElementsMatchPredicate()
+        {
+            IEnumerable<int> values = [5, 7, 13, 14];
+            Assert.False(IEnumerableExtensions.Any(values, e => e % 3 == 0));
+        }
     }
 }
