@@ -27,5 +27,18 @@
 
             return false;
         }
+
+        public static TSource First<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        {
+            foreach (var item in source)
+            {
+                if (predicate(item))
+                {
+                    return item;
+                }
+            }
+
+            throw new InvalidOperationException("No element that matches the predicate was found.");
+        }
     }
 }

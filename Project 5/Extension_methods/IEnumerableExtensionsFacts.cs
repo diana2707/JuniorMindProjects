@@ -19,17 +19,32 @@ namespace Extension_methods
         }
 
         [Fact]
-        public void AnyMethodShouldReturnFalseWhenNoElementMatchPredicate()
+        public void AnyMethodShouldReturnFalseWhenNoElementMatchesPredicate()
         {
             IEnumerable<int> values = [2, 9, 12, 18];
             Assert.True(IEnumerableExtensions.Any(values, e => e % 3 == 0));
         }
 
         [Fact]
-        public void AnyMethodShouldReturnTrueWhenNotAtLeastOneElementsMatchPredicate()
+        public void AnyMethodShouldReturnTrueWhenNotAtLeastOneElementsMatchesPredicate()
         {
             IEnumerable<int> values = [5, 7, 13, 14];
             Assert.False(IEnumerableExtensions.Any(values, e => e % 3 == 0));
+        }
+
+        [Fact]
+        public void FirstMethodShouldReturnFirstElementThatMatchesPredicate()
+        {
+            IEnumerable<int> values = [7, 9, 10, 11, 15];
+            Assert.Equal(10, IEnumerableExtensions.First(values, e => 30 % e == 0));
+        }
+
+        [Fact]
+        public void FirstMethodShouldThrowIvalidOperationExceptionWhenNoElementMatchesPredicate()
+        {
+            IEnumerable<int> values = [7, 9, 11, 13, 17];
+
+            Assert.Throws<InvalidOperationException>(() => IEnumerableExtensions.First(values, e => 30 % e == 0));
         }
     }
 }
