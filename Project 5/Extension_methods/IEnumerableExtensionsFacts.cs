@@ -46,5 +46,18 @@ namespace Extension_methods
 
             Assert.Throws<InvalidOperationException>(() => IEnumerableExtensions.First(values, e => 30 % e == 0));
         }
+
+        [Fact]
+        public void SelectMethodShouldReturnElementsInFormThatMatchesPredicate()
+        {
+            IEnumerable<string> values = [ "apple", "grape", "orange", "banana"];
+            List<char> expected = ['a', 'g', 'o', 'b'];
+            IEnumerable<char> result = IEnumerableExtensions.Select(values, e => e[0]);
+
+            foreach (var item in expected)
+            {
+                Assert.Contains(item, result);
+            }
+        }
     }
 }
