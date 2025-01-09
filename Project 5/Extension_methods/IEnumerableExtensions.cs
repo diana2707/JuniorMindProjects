@@ -1,0 +1,18 @@
+﻿namespace Extension_methods
+{
+    public static class IEnumerableExtensions
+    {
+        public static bool All<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        {
+            foreach (var item in source)
+            {
+                if (!predicate(item))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    }
+}
