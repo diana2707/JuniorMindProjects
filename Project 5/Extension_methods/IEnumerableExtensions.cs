@@ -63,5 +63,19 @@
 
             return selection;
         }
+
+        public static IEnumerable<TSource> Where<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        {
+            List<TSource> result = [];
+            foreach (var item in source)
+            {
+                if (predicate(item))
+                {
+                    result.Add(item);
+                }
+            }
+
+            return result;
+        }
     }
 }

@@ -61,16 +61,30 @@ namespace Extension_methods
         }
 
         [Fact]
-        public void SelectMethodShouldReturnElementsInFormThatMatchesPredicateX()
+        public void SelectManyMethodShouldReturnElementsInNestedColectionInFlattenedCollectionAndFormToMatchPredicate()
         {
             List<List<int>> lists = [[1, 2], [3, 4], [5]];
 
             List<int> expected = [1, 2, 3, 4, 5];
-            var orders = lists.SelectMany(list => list);
+            var result = lists.SelectMany(list => list);
 
-            foreach (var order in orders)
+            foreach (var item in result)
             {
-                Assert.Contains(order, expected);
+                Assert.Contains(item, expected);
+            }
+        }
+
+        [Fact]
+        public void WhereMethodShouldReturnAllElementsThatMatchPredicate()
+        {
+            List<int> list = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+            List<int> expected = [5, 10];
+            var result = list.Where(e => e % 5 == 0);
+
+            foreach (var item in result)
+            {
+                Assert.Contains(item, expected);
             }
         }
     }
