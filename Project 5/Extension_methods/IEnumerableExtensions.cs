@@ -77,5 +77,20 @@
 
             return result;
         }
+
+        public static Dictionary<TKey, TElement> ToDictionary<TSource, TKey, TElement>(
+            this IEnumerable<TSource> source,
+            Func<TSource, TKey> keySelector,
+            Func<TSource, TElement> elementSelector)
+        {
+            Dictionary<TKey, TElement> result = [];
+
+            foreach (var item in source)
+            {
+                result.Add(keySelector(item), elementSelector(item));
+            }
+
+            return result;
+        }
     }
 }

@@ -87,5 +87,27 @@ namespace Extension_methods
                 Assert.Contains(item, expected);
             }
         }
+
+        [Fact]
+        public void ToDictionaryMethodShouldReturnElementsThatMatchPredicateAsDictionary()
+        {
+            List<string> list = ["Ana", "Maria", "Elena", "Daniela"];
+
+            Dictionary<char, string> expected = new Dictionary<char, string>
+            {
+                { 'A', "Ana" },
+                { 'M', "Maria" },
+                { 'E', "Elena" },
+                { 'D', "Daniela" }
+            };
+
+            var result = list.ToDictionary(e => e[0], e => e);
+
+            foreach (var item in result)
+            {
+                Assert.True(expected.ContainsKey(item.Key));
+                Assert.True(expected.ContainsValue(item.Value));
+            }
+        }
     }
 }
