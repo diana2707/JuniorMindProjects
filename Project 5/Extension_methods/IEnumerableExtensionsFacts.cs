@@ -109,5 +109,22 @@ namespace Extension_methods
                 Assert.True(expected.ContainsValue(item.Value));
             }
         }
+
+        [Fact]
+        public void ZipMethodShouldReturnCombinedCollectionFrom2Enumerations()
+        {
+            List<string> names = ["Ana", "Maria", "Elena", "Daniela"];
+            List<int> ages = [45, 23, 33, 67];
+
+            IEnumerable<(string Name, int Age)> expected = [("Ana", 45), ("Maria", 23), ("Elena", 33), ("Daniela", 67)];
+
+            IEnumerable<(string Name, int Age)> result = names.Zip(ages, (name, age) => (name, age));
+
+            foreach (var item in result)
+            {
+                Assert.Contains(item, expected);
+            }
+        }
+
     }
 }
