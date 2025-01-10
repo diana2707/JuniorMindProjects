@@ -110,5 +110,19 @@
 
             return result;
         }
+
+        public static TAccumulate Aggregate<TSource, TAccumulate>(
+            this IEnumerable<TSource> source,
+            TAccumulate seed,
+            Func<TAccumulate, TSource, TAccumulate> func)
+        {
+            TAccumulate result = seed;
+            foreach (var item in source)
+            {
+                result = func(result, item);
+            }
+
+            return result;
+        }
     }
 }

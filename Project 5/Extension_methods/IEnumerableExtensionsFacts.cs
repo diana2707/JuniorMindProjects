@@ -126,5 +126,14 @@ namespace Extension_methods
             }
         }
 
+        [Fact]
+        public void AggregateMethodShouldReturnResultOfAllProcessedElementsThroughPredicate()
+        {
+            int[] numbers = { 1, 2, 3 };
+
+            int result = numbers.Aggregate(0, (num, seed) => num + seed);
+
+            Assert.Equal(6, result);
+        }
     }
 }
