@@ -59,5 +59,19 @@ namespace Extension_methods
                 Assert.Contains(item, result);
             }
         }
+
+        [Fact]
+        public void SelectMethodShouldReturnElementsInFormThatMatchesPredicateX()
+        {
+            List<List<int>> lists = [[1, 2], [3, 4], [5]];
+
+            List<int> expected = [1, 2, 3, 4, 5];
+            var orders = lists.SelectMany(list => list);
+
+            foreach (var order in orders)
+            {
+                Assert.Contains(order, expected);
+            }
+        }
     }
 }

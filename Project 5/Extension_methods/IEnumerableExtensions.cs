@@ -51,5 +51,17 @@
 
             return selection;
         }
+
+        public static IEnumerable<TResult> SelectMany<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, IEnumerable<TResult>> selector)
+        {
+            List<TResult> selection = [];
+
+            foreach (var item in source)
+            {
+                selection.AddRange(selector(item));
+            }
+
+            return selection;
+        }
     }
 }
