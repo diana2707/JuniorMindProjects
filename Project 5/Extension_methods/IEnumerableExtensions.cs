@@ -175,23 +175,30 @@ namespace Extension_methods
             IEnumerable<TSource> second,
             IEqualityComparer<TSource> comparer)
         {
-            HashSet<TSource> evaluated = new HashSet<TSource>(comparer);
+            IEnumerable<TSource> result = first.Concat(second);
 
-            foreach (var item in first)
+            return result.Distinct(comparer);
+        }
+
+        public static IEnumerable<TSource> Intersect<TSource>(
+            this IEnumerable<TSource> first,
+            IEnumerable<TSource> second,
+            IEqualityComparer<TSource> comparer)
+        {
+            HashSet<TSource> result = new ();
+
+            foreach (var itemFirst in first)
             {
-                if (evaluated.Add(item))
+                foreach (var itemSecond in second)
                 {
-                    yield return item;
+                    if (comparer.Equals(itemFirst, itemSecond))
+                    {
+                        result.Add(itemFirst);
+                    }
                 }
             }
 
-            foreach (var item in second)
-            {
-                if (evaluated.Add(item))
-                {
-                    yield return item;
-                }
-            }
+            return result;
         }
     }
 }

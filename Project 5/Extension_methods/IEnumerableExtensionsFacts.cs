@@ -210,13 +210,13 @@ namespace Extension_methods
         }
 
         [Fact]
-        public void UnionMethodShouldReturnCollectionOfDistinctElementsFromOther2Collections()
+        public void UnionMethodShouldReturnCollectionOfUnifiedDistinctElementsFromOther2Collections()
         {
-            int[] first = { 1, 2, 3, 2, 5, 5, 1, 7, 9 };
+            int[] first = { 1, 2, 3, 2, 5, 5, 1, 11, 9, 11};
 
-            int[] second = { 1, 2, 3, 5, 9, 7, 9, 3 };
+            int[] second = { 1, 2, 3, 5, 9, 7, 9, 3, 10, 10 };
 
-            IEnumerable<int> expected = [1, 2, 3, 5, 7, 9];
+            IEnumerable<int> expected = [1, 2, 3, 5, 7, 9, 10, 11];
 
             IEnumerable<int> result = first.Union(second, EqualityComparer<int>.Default);
 
@@ -227,7 +227,28 @@ namespace Extension_methods
                 count++;
             }
 
-            Assert.Equal(6, count);
+            Assert.Equal(8, count);
+        }
+
+        [Fact]
+        public void IntersectMethodShouldReturnCollectionOfIntersectedDistinctElementsFromOther2Collections()
+        {
+            int[] first = { 1, 2, 3, 2, 5, 5, 1, 11, 9, 11 };
+
+            int[] second = { 1, 2, 3, 5, 9, 7, 9, 3, 10, 10 };
+
+            IEnumerable<int> expected = [1, 2, 3, 5, 9];
+
+            IEnumerable<int> result = first.Intersect(second, EqualityComparer<int>.Default);
+
+            int count = 0;
+            foreach (var item in result)
+            {
+                Assert.Contains(item, expected);
+                count++;
+            }
+
+            Assert.Equal(5, count);
         }
     }
 }
