@@ -187,5 +187,20 @@ namespace Extension_methods
 
             public int Amount { get; set; }
         }
+
+        [Fact]
+        public void DistinctMethodShouldReturnCollectionOfDistinctElements()
+        {
+            int[] source = { 1, 2, 3, 2, 5, 5, 1, 7, 9 };
+
+            int[] expected = { 1, 2, 3, 5, 7, 9 };
+
+            IEnumerable<int> result = source.Distinct(EqualityComparer<int>.Default);
+
+            foreach (var item in result)
+            {
+                Assert.Contains(item, expected);
+            }
+        }
     }
 }

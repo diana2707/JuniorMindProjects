@@ -153,5 +153,32 @@ namespace Extension_methods
 
             return result;
         }
+
+        public static IEnumerable<TSource> Distinct<TSource>(
+            this IEnumerable<TSource> source,
+            IEqualityComparer<TSource> comparer)
+        {
+            List<TSource> result = [];
+            bool isDuplicate = false;
+
+            foreach (var item in source)
+            {
+                foreach (var item2 in result)
+                {
+                    if (comparer.Equals(item, item2))
+                    {
+                        isDuplicate = true;
+                        break;
+                    }
+                }
+
+                if (!isDuplicate)
+                {
+                    result.Add(item);
+                }
+            }
+
+            return result;
+        }
     }
 }
