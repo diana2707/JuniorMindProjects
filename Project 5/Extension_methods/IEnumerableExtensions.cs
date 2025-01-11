@@ -1,4 +1,7 @@
-﻿namespace Extension_methods
+﻿using System.Collections.Generic;
+using Xunit;
+
+namespace Extension_methods
 {
     public static class IEnumerableExtensions
     {
@@ -120,6 +123,32 @@
             foreach (var item in source)
             {
                 result = func(result, item);
+            }
+
+            return result;
+        }
+
+        public static IEnumerable<TResult> Join<TOuter, TInner, TKey, TResult>(
+            this IEnumerable<TOuter> outer,
+            IEnumerable<TInner> inner,
+            Func<TOuter, TKey> outerKeySelector,
+            Func<TInner, TKey> innerKeySelector,
+            Func<TOuter, TInner, TResult> resultSelector)
+        {
+            List<TResult> result = [];
+
+            foreach (var outerItem in outer)
+            {
+                TKey outerKey = outerKeySelector(outerItem);
+                foreach (var innerItem in inner)
+                {
+                    TKey innerKey = innerKeySelector(innerItem);
+
+                    if (outerKey.Equals(innerKey))
+                    {
+                        result.Add(resultSelector(outerItem, innerItem));
+                    }
+                }
             }
 
             return result;
