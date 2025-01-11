@@ -197,10 +197,37 @@ namespace Extension_methods
 
             IEnumerable<int> result = source.Distinct(EqualityComparer<int>.Default);
 
+            int count = 0;
+
             foreach (var item in result)
             {
                 Assert.Contains(item, expected);
+                count++;
             }
+
+            Assert.Equal(6, count);
+
+        }
+
+        [Fact]
+        public void UnionMethodShouldReturnCollectionOfDistinctElementsFromOther2Collections()
+        {
+            int[] first = { 1, 2, 3, 2, 5, 5, 1, 7, 9 };
+
+            int[] second = { 1, 2, 3, 5, 9, 7, 9, 3 };
+
+            IEnumerable<int> expected = [1, 2, 3, 5, 7, 9];
+
+            IEnumerable<int> result = first.Union(second, EqualityComparer<int>.Default);
+
+            int count = 0;
+            foreach (var item in result)
+            {
+                Assert.Contains(item, expected);
+                count++;
+            }
+
+            Assert.Equal(6, count);
         }
     }
 }

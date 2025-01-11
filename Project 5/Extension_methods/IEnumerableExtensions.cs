@@ -5,6 +5,7 @@ namespace Extension_methods
 {
     public static class IEnumerableExtensions
     {
+        //see if you can use more yield return
         public static bool All<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
             foreach (var item in source)
@@ -158,27 +159,39 @@ namespace Extension_methods
             this IEnumerable<TSource> source,
             IEqualityComparer<TSource> comparer)
         {
-            List<TSource> result = [];
-            bool isDuplicate = false;
+            HashSet<TSource> evaluated = new HashSet<TSource>(comparer);
 
             foreach (var item in source)
             {
-                foreach (var item2 in result)
+                if (evaluated.Add(item))
                 {
-                    if (comparer.Equals(item, item2))
-                    {
-                        isDuplicate = true;
-                        break;
-                    }
+                    yield return item;
                 }
+            }
+        }
 
-                if (!isDuplicate)
+        public static IEnumerable<TSource> Union<TSource>(
+            this IEnumerable<TSource> first,
+            IEnumerable<TSource> second,
+            IEqualityComparer<TSource> comparer)
+        {
+            HashSet<TSource> evaluated = new HashSet<TSource>(comparer);
+
+            foreach (var item in first)
+            {
+                if (evaluated.Add(item))
                 {
-                    result.Add(item);
+                    yield return item;
                 }
             }
 
-            return result;
+            foreach (var item in second)
+            {
+                if (evaluated.Add(item))
+                {
+                    yield return item;
+                }
+            }
         }
     }
 }
