@@ -250,5 +250,26 @@ namespace Extension_methods
 
             Assert.Equal(5, count);
         }
+
+        [Fact]
+        public void ExceptMethodShouldReturnElementsFromFirstCollectionThatDoNotExistInSecond()
+        {
+            int[] first = { 1, 2, 3, 2, 5, 5, 1, 11, 9, 11 };
+
+            int[] second = { 1, 2, 3, 5, 9, 7, 9, 3, 10, 10 };
+
+            IEnumerable<int> expected = [11];
+
+            IEnumerable<int> result = first.Except(second, EqualityComparer<int>.Default);
+
+            int count = 0;
+            foreach (var item in result)
+            {
+                Assert.Contains(item, expected);
+                count++;
+            }
+
+            Assert.Equal(1, count);
+        }
     }
 }

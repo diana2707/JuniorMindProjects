@@ -200,5 +200,23 @@ namespace Extension_methods
 
             return result;
         }
+
+        public static IEnumerable<TSource> Except<TSource>(
+            this IEnumerable<TSource> first,
+            IEnumerable<TSource> second,
+            IEqualityComparer<TSource> comparer)
+        {
+            HashSet<TSource> result = new HashSet<TSource>();
+
+            foreach (var item in first)
+            {
+                if (!second.Contains(item))
+                {
+                    result.Add(item);
+                }
+            }
+
+            return result;
+        }
     }
 }
