@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Extension_methods
@@ -201,6 +202,7 @@ namespace Extension_methods
             return result;
         }
 
+        //nu e bine, nu foloseste comparer
         public static IEnumerable<TSource> Except<TSource>(
             this IEnumerable<TSource> first,
             IEnumerable<TSource> second,
@@ -214,6 +216,37 @@ namespace Extension_methods
                 {
                     result.Add(item);
                 }
+            }
+
+            return result;
+        }
+
+        public static IEnumerable<TResult> GroupBy<TSource, TKey, TElement, TResult>(
+            this IEnumerable<TSource> source,
+            Func<TSource, TKey> keySelector,
+            Func<TSource, TElement> elementSelector,
+            Func<TKey, IEnumerable<TElement>, TResult> resultSelector,
+            IEqualityComparer<TKey> comparer)
+        {
+            List<TResult> result = new ();
+            Dictionary<TKey, List<TElement>> groups = new (comparer);
+
+            foreach (var item in source)
+            {
+                TKey key = keySelector(item);
+                if (groups.TryGetValue(key, out List<TElement> elementsList))
+                {
+                    elementsList.Add(elementSelector(item));
+                }
+                else
+                {
+                    groups.Add(key, [elementSelector(item)]);
+                }
+            }
+
+            foreach (var group in groups)
+            {
+                result.Add(resultSelector(group.Key, group.Value));
             }
 
             return result;
