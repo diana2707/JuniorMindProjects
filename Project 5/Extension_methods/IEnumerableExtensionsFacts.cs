@@ -52,7 +52,7 @@ namespace Extension_methods
         [Fact]
         public void SelectMethodShouldReturnElementsInFormThatMatchesPredicate()
         {
-            IEnumerable<string> values = [ "apple", "grape", "orange", "banana"];
+            IEnumerable<string> values = ["apple", "grape", "orange", "banana"];
             List<char> expected = ['a', 'g', 'o', 'b'];
             IEnumerable<char> result = IEnumerableExtensions.Select(values, e => e[0]);
 
@@ -79,7 +79,7 @@ namespace Extension_methods
         [Fact]
         public void WhereMethodShouldReturnAllElementsThatMatchPredicate()
         {
-            List<int> list = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            List<int> list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
             List<int> expected = [5, 10];
             var result = list.Where(e => e % 5 == 0);
@@ -214,7 +214,7 @@ namespace Extension_methods
         [Fact]
         public void UnionMethodShouldReturnCollectionOfUnifiedDistinctElementsFromOther2Collections()
         {
-            int[] first = { 1, 2, 3, 2, 5, 5, 1, 11, 9, 11};
+            int[] first = { 1, 2, 3, 2, 5, 5, 1, 11, 9, 11 };
 
             int[] second = { 1, 2, 3, 5, 9, 7, 9, 3, 10, 10 };
 
@@ -318,6 +318,40 @@ namespace Extension_methods
             public string Grade { get; }
 
             public List<string> Names { get; }
+        }
+
+        [Fact]
+        public void OrderByMethodReturnsCollectionorderedByKey()
+        {
+            List<(string Name, int Age)> persons = new()
+            {
+                ("Ana", 34),
+                ("John", 22),
+                ("Steve", 54),
+                ("Maria", 22),
+                ("Elene", 50),
+            };
+
+            List<(string Name, int Age)> expected = new()
+            {
+                ("John", 22),
+                ("Maria", 22),
+                ("Ana", 34),
+                ("Elene", 50),
+                ("Steve", 54),
+            };
+
+            IOrderedEnumerable<(string Name, int Age)> result = persons.OrderBy(person => person.Age);
+
+            int count = 0;
+
+            foreach (var person in result)
+            {
+                Assert.Equal(expected[count].Name, person.Name);
+                Assert.Equal(expected[count].Age, person.Age);
+
+                count++;
+            }
         }
     }
 }

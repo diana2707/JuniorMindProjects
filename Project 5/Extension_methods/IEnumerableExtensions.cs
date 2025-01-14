@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using Xunit;
 
 namespace Extension_methods
 {
     public static class IEnumerableExtensions
     {
-        //see if you can use more yield return
+        //see if you can use more yield return (lazy evaluation)
         public static bool All<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
             foreach (var item in source)
@@ -202,13 +203,12 @@ namespace Extension_methods
             return result;
         }
 
-        //nu e bine, nu foloseste comparer
         public static IEnumerable<TSource> Except<TSource>(
             this IEnumerable<TSource> first,
             IEnumerable<TSource> second,
             IEqualityComparer<TSource> comparer)
         {
-            HashSet<TSource> result = new HashSet<TSource>();
+            HashSet<TSource> result = new HashSet<TSource>(comparer);
 
             foreach (var item in first)
             {
@@ -228,7 +228,7 @@ namespace Extension_methods
             Func<TKey, IEnumerable<TElement>, TResult> resultSelector,
             IEqualityComparer<TKey> comparer)
         {
-            List<TResult> result = new ();
+            List<TResult> result = [];
             Dictionary<TKey, List<TElement>> groups = new (comparer);
 
             foreach (var item in source)
@@ -250,6 +250,108 @@ namespace Extension_methods
             }
 
             return result;
+        }
+
+        public static IOrderedEnumerable<TSource> OrderBy<TSource, TKey>(
+            this IEnumerable<TSource> source,
+            Func<TSource, TKey> keySelector,
+            IComparer<TKey> comparer)
+        {
+            return new OrderedEnumerable<TKey, TSource>(source, keySelector, comparer);
+        }
+
+        private class OrderedEnumerable<TKey, TSource> : IOrderedEnumerable<TSource>
+        {
+            private OrderedEnumerable<TKey, TSource> parent;
+            private IEnumerable<TSource> source;
+            private Func<TSource, TKey> keySelector;
+            private IComparer<TKey> comparer;
+
+            public OrderedEnumerable(
+                IEnumerable<TSource> source,
+                Func<TSource, TKey> keySelector,
+                IComparer<TKey> comparer)
+            {
+                this.source = source;
+                this.keySelector = keySelector;
+                this.comparer = comparer;
+            }
+
+            public IOrderedEnumerable<TSource> CreateOrderedEnumerable<TKey>(
+                Func<TSource, TKey> keySelector,
+                IComparer<TKey> comparer,
+                bool descending = false)
+            {
+                return this;
+            }
+
+            public IEnumerator<TSource> GetEnumerator()
+            {
+                List<TSource> list = source.ToList();
+                MergeSort(list, keySelector, comparer);
+                return list.GetEnumerator();
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return GetEnumerator();
+            }
+        }
+
+        private static void MergeSort<TKey, TSource>(
+            List<TSource> source,
+            Func<TSource, TKey> keySelector,
+            IComparer<TKey> comparer)
+        {
+            List<TSource> list = source.ToList();
+            if (source.Count <= 1)
+            {
+                return;
+            }
+
+            int mid = (int)Math.Floor((double)source.Count / 2);
+
+            List<TSource> left = list[..mid];
+            List<TSource> right = list[mid..];
+
+            MergeSort(left, keySelector, comparer);
+            MergeSort(right, keySelector, comparer);
+
+            Merge(source, left, right, keySelector, comparer);
+        }
+
+        private static void Merge<TKey, TSource>(
+            List<TSource> source,
+            List<TSource> left,
+            List<TSource> right,
+            Func<TSource, TKey> keySelector,
+            IComparer<TKey> comparer)
+        {
+            int leftIndex = 0;
+            int rightIndex = 0;
+            int sourceIndex = 0;
+
+            while (leftIndex < left.Count && rightIndex < right.Count)
+            {
+                if (comparer.Compare(keySelector(left[leftIndex]), keySelector(right[rightIndex])) > 0)
+                {
+                    source[sourceIndex++] = left[leftIndex++];
+                }
+                else
+                {
+                    source[sourceIndex++] = right[rightIndex++];
+                }
+            }
+
+            while (leftIndex < left.Count)
+            {
+                source[sourceIndex++] = left[leftIndex++];
+            }
+
+            while (rightIndex < right.Count)
+            {
+                source[sourceIndex++] = right[rightIndex++];
+            }
         }
     }
 }
