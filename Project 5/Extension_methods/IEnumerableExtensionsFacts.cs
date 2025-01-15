@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 
 namespace Extension_methods
 {
@@ -9,14 +8,14 @@ namespace Extension_methods
         public void AllMethodShouldReturnTrueWhenAllElementsMatchPredicate()
         {
             IEnumerable<int> values = [11, 13, 15];
-            Assert.True(IEnumerableExtensions.All(values, e => e > 10));
+            Assert.True(values.All(e => e > 10));
         }
 
         [Fact]
         public void AllMethodShouldReturnFalseWhenNotAllElementsMatchPredicate()
         {
             IEnumerable<string> values = ["red", "purple", "orange"];
-            Assert.False(IEnumerableExtensions.All(values, e => e.Length > 5));
+            Assert.False(values.All(e => e.Length > 5));
         }
 
         [Fact]
@@ -282,7 +281,7 @@ namespace Extension_methods
                 new { Name = "Bob", Grade = "B" },
                 new { Name = "Charlie", Grade = "A" },
                 new { Name = "David", Grade = "B" },
-                new { Name = "Eve", Grade = "A" }
+                new { Name = "Eve", Grade = "A" },
             };
 
             List<Ranking> expected = [new Ranking("A", new List<string> { "Alice", "Charlie", "Eve" }),
@@ -322,7 +321,7 @@ namespace Extension_methods
         [Fact]
         public void OrderByMethodReturnsCollectionorderedByKey()
         {
-            List<(string Name, int Age)> persons = new()
+            List<(string Name, int Age)> persons = new ()
             {
                 ("Maria", 22),
                 ("Ana", 34),
@@ -331,7 +330,7 @@ namespace Extension_methods
                 ("Elene", 50),
             };
 
-            List<(string Name, int Age)> expected = new()
+            List<(string Name, int Age)> expected = new ()
             {
                 ("Maria", 22),
                 ("John", 22),
@@ -340,7 +339,8 @@ namespace Extension_methods
                 ("Steve", 54),
             };
 
-            IOrderedEnumerable<(string Name, int Age)> result = persons.CustomOrderBy(person => person.Age, Comparer<int>.Default);
+            IOrderedEnumerable<(string Name, int Age)> result = persons
+                .OrderBy(person => person.Age, Comparer<int>.Default);
 
             int count = 0;
 
@@ -356,7 +356,7 @@ namespace Extension_methods
         [Fact]
         public void ThenByMethodReturnsCollectionOrderedWithOrderByAndApplyAnotherLayerOfOrdering()
         {
-            List<(string Name, int Age)> persons = new()
+            List<(string Name, int Age)> persons = new ()
             {
                 ("Ana", 34),
                 ("Zoe", 50),
@@ -367,7 +367,7 @@ namespace Extension_methods
                 ("Alice", 22),
             };
 
-            List<(string Name, int Age)> expected = new()
+            List<(string Name, int Age)> expected = new ()
             {
                 ("Alice", 22),
                 ("John", 22),
@@ -379,8 +379,8 @@ namespace Extension_methods
             };
 
             IOrderedEnumerable<(string Name, int Age)> result = persons
-                .CustomOrderBy(person => person.Age, Comparer<int>.Default)
-                .CustomThenBy(person => person.Name, Comparer<string>.Default);
+                .OrderBy(person => person.Age, Comparer<int>.Default)
+                .ThenBy(person => person.Name, Comparer<string>.Default);
 
             int count = 0;
 

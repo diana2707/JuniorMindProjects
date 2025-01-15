@@ -1,12 +1,12 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 
 namespace Extension_methods
 {
     public static class IEnumerableExtensions
     {
-        //see if you can use more yield return (lazy evaluation)
-        public static bool All<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        public static bool All<TSource>(
+            this IEnumerable<TSource> source,
+            Func<TSource, bool> predicate)
         {
             foreach (var item in source)
             {
@@ -19,7 +19,9 @@ namespace Extension_methods
             return true;
         }
 
-        public static bool Any<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        public static bool Any<TSource>(
+            this IEnumerable<TSource> source,
+            Func<TSource, bool> predicate)
         {
             foreach (var item in source)
             {
@@ -32,7 +34,9 @@ namespace Extension_methods
             return false;
         }
 
-        public static TSource First<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        public static TSource First<TSource>(
+            this IEnumerable<TSource> source,
+            Func<TSource, bool> predicate)
         {
             foreach (var item in source)
             {
@@ -42,10 +46,12 @@ namespace Extension_methods
                 }
             }
 
-            throw new InvalidOperationException("No element that matches the predicate was found.");
+            throw new InvalidOperationException("No element to match the predicate was found.");
         }
 
-        public static IEnumerable<TResult> Select<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector)
+        public static IEnumerable<TResult> Select<TSource, TResult>(
+            this IEnumerable<TSource> source,
+            Func<TSource, TResult> selector)
         {
             List<TResult> selection = [];
             foreach (var item in source)
@@ -56,7 +62,9 @@ namespace Extension_methods
             return selection;
         }
 
-        public static IEnumerable<TResult> SelectMany<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, IEnumerable<TResult>> selector)
+        public static IEnumerable<TResult> SelectMany<TSource, TResult>(
+            this IEnumerable<TSource> source,
+            Func<TSource, IEnumerable<TResult>> selector)
         {
             List<TResult> selection = [];
 
@@ -68,7 +76,9 @@ namespace Extension_methods
             return selection;
         }
 
-        public static IEnumerable<TSource> Where<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        public static IEnumerable<TSource> Where<TSource>(
+            this IEnumerable<TSource> source,
+            Func<TSource, bool> predicate)
         {
             List<TSource> result = [];
             foreach (var item in source)
@@ -159,7 +169,7 @@ namespace Extension_methods
             this IEnumerable<TSource> source,
             IEqualityComparer<TSource> comparer)
         {
-            HashSet<TSource> evaluated = new HashSet<TSource>(comparer);
+            HashSet<TSource> evaluated = new (comparer);
 
             foreach (var item in source)
             {
@@ -206,7 +216,7 @@ namespace Extension_methods
             IEnumerable<TSource> second,
             IEqualityComparer<TSource> comparer)
         {
-            HashSet<TSource> result = new HashSet<TSource>(comparer);
+            HashSet<TSource> result = new (comparer);
 
             foreach (var item in first)
             {
@@ -250,91 +260,40 @@ namespace Extension_methods
             return result;
         }
 
-        public static IOrderedEnumerable<TSource> CustomOrderBy<TSource, TKey>(
+        public static IOrderedEnumerable<TSource> OrderBy<TSource, TKey>(
             this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector,
             IComparer<TKey> comparer)
         {
-            return new OrderedEnumerable<TSource, TKey>(source, keySelector, comparer);
+            Func<TSource, object> generalKeySelector = x => keySelector(x);
+            IComparer<object> generalComparer = Comparer<object>.Create((x, y) => comparer.Compare((TKey)x, (TKey)y));
+
+            return new OrderedEnumerable<TSource>(
+                source,
+                generalKeySelector,
+                generalComparer);
         }
 
-        public static IOrderedEnumerable<TSource> CustomThenBy<TSource, TKey>(
+        public static IOrderedEnumerable<TSource> ThenBy<TSource, TKey>(
             this IOrderedEnumerable<TSource> source,
             Func<TSource, TKey> keySelector,
             IComparer<TKey> comparer)
         {
-            OrderedEnumerable<TSource, TKey> orderedSource = (OrderedEnumerable<TSource, TKey>)source;
-            return orderedSource.CreateOrderedEnumerable(keySelector, comparer, false);
+            return source.CreateOrderedEnumerable(keySelector, comparer, false);
         }
 
-        //private class OrderedEnumerable<TSource, TKey> : IOrderedEnumerable<TSource>
-        //{
-        //    private Queue<OrderedEnumerable<TSource, TKey>> sortLayers;
-        //    private IEnumerable<TSource> source;
-        //    private Func<TSource, TKey> keySelector;
-        //    private IComparer<TKey> comparer;
-
-        //    public OrderedEnumerable(
-        //        IEnumerable<TSource> source,
-        //        Func<TSource, TKey> keySelector,
-        //        IComparer<TKey> comparer,
-        //        Queue<OrderedEnumerable<TSource, TKey>> sortLayers)
-        //    {
-        //        this.source = source;
-        //        this.keySelector = keySelector;
-        //        this.comparer = comparer;
-        //        this.sortLayers = sortLayers;
-        //    }
-
-        //    public IOrderedEnumerable<TSource> CreateOrderedEnumerable<TNewKey>(
-        //        Func<TSource, TNewKey> newKeySelector,
-        //        IComparer<TNewKey> newComparer,
-        //        bool descending)
-        //    {
-        //        sortLayers.Enqueue(this);
-        //        return new OrderedEnumerable<TSource, TNewKey>(source, newKeySelector, newComparer, sortLayers);
-        //    }
-
-        //    public IEnumerator<TSource> GetEnumerator()
-        //    {
-        //        List<TSource> list = this.source.ToList();
-        //        MergeSort(list, this.keySelector, this.comparer);
-        //        return list.GetEnumerator();
-        //    }
-
-        //    IEnumerator IEnumerable.GetEnumerator()
-        //    {
-        //        return GetEnumerator();
-        //    }
-        //}
-
-        private abstract class OrderedEnumerableBase<TSource> : IOrderedEnumerable<TSource>
-        {
-            public abstract IOrderedEnumerable<TSource> CreateOrderedEnumerable<TKey>(
-                Func<TSource, TKey> keySelector,
-                IComparer<TKey> comparer,
-                bool descending);
-
-            public abstract IEnumerator<TSource> GetEnumerator();
-
-            IEnumerator IEnumerable.GetEnumerator()
-            {
-                return GetEnumerator();
-            }
-        }
-
-        private class OrderedEnumerable<TSource, TKey> : OrderedEnumerableBase<TSource>
+        private class OrderedEnumerable<TSource> : IOrderedEnumerable<TSource>
         {
             private readonly IEnumerable<TSource> source;
-            private readonly Func<TSource, TKey> keySelector;
-            private readonly IComparer<TKey> comparer;
-            private OrderedEnumerableBase<TSource> parent;
+            private readonly Func<TSource, object> keySelector;
+            private readonly IComparer<object> comparer;
+            private OrderedEnumerable<TSource> parent;
 
             public OrderedEnumerable(
                 IEnumerable<TSource> source,
-                Func<TSource, TKey> keySelector,
-                IComparer<TKey> comparer,
-                OrderedEnumerableBase<TSource> parent = null)
+                Func<TSource, object> keySelector,
+                IComparer<object> comparer,
+                OrderedEnumerable<TSource> parent = null)
             {
                 this.source = source;
                 this.keySelector = keySelector;
@@ -342,33 +301,37 @@ namespace Extension_methods
                 this.parent = parent;
             }
 
-            //incearca tot cubase class dar cu queue in loc de parent reference
-            public override IOrderedEnumerable<TSource> CreateOrderedEnumerable<TNewKey>(
-                Func<TSource, TNewKey> keySelector,
-                IComparer<TNewKey> comparer,
+            public IOrderedEnumerable<TSource> CreateOrderedEnumerable<TKey>(
+                Func<TSource, TKey> keySelector,
+                IComparer<TKey> comparer,
                 bool descending)
             {
-                return new OrderedEnumerable<TSource, TNewKey>(
+                return new OrderedEnumerable<TSource>(
                     this.source,
-                    keySelector,
-                    comparer,
+                    x => keySelector(x),
+                    Comparer<object>.Create((x, y) => comparer.Compare((TKey)x, (TKey)y)),
                     this);
             }
 
-            public override IEnumerator<TSource> GetEnumerator()
+            public IEnumerator<TSource> GetEnumerator()
             {
                 List<TSource> list = this.source.ToList();
-                Stack<(Func<TSource, TKey> keySelector, IComparer<TKey> comparer)> sortLayers = new ();
-                OrderedEnumerable<TSource, TKey> current = this;
+                Stack<(Func<TSource, object> keySelector, IComparer<object> comparer)> sortLayers = new ();
+                OrderedEnumerable<TSource> current = this;
 
                 while (current != null)
                 {
                     sortLayers.Push((current.keySelector, current.comparer));
-                    current = (OrderedEnumerable<TSource, TKey>)current.parent;
+                    current = current.parent;
                 }
 
                 MergeSort(list, sortLayers);
                 return list.GetEnumerator();
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return GetEnumerator();
             }
         }
 
