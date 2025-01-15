@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Xml.Linq;
 
 namespace Extension_methods
 {
@@ -325,23 +324,63 @@ namespace Extension_methods
         {
             List<(string Name, int Age)> persons = new()
             {
+                ("Maria", 22),
                 ("Ana", 34),
                 ("John", 22),
                 ("Steve", 54),
-                ("Maria", 22),
                 ("Elene", 50),
             };
 
             List<(string Name, int Age)> expected = new()
             {
-                ("John", 22),
                 ("Maria", 22),
+                ("John", 22),
                 ("Ana", 34),
                 ("Elene", 50),
                 ("Steve", 54),
             };
 
-            IOrderedEnumerable<(string Name, int Age)> result = persons.OrderBy(person => person.Age);
+            IOrderedEnumerable<(string Name, int Age)> result = persons.CustomOrderBy(person => person.Age, Comparer<int>.Default);
+
+            int count = 0;
+
+            foreach (var person in result)
+            {
+                Assert.Equal(expected[count].Name, person.Name);
+                Assert.Equal(expected[count].Age, person.Age);
+
+                count++;
+            }
+        }
+
+        [Fact]
+        public void ThenByMethodReturnsCollectionOrderedWithOrderByAndApplyAnotherLayerOfOrdering()
+        {
+            List<(string Name, int Age)> persons = new()
+            {
+                ("Ana", 34),
+                ("Zoe", 50),
+                ("Steve", 54),
+                ("Maria", 22),
+                ("Elene", 50),
+                ("John", 22),
+                ("Alice", 22),
+            };
+
+            List<(string Name, int Age)> expected = new()
+            {
+                ("Alice", 22),
+                ("John", 22),
+                ("Maria", 22),
+                ("Ana", 34),
+                ("Elene", 50),
+                ("Zoe", 50),
+                ("Steve", 54),
+            };
+
+            IOrderedEnumerable<(string Name, int Age)> result = persons
+                .CustomOrderBy(person => person.Age, Comparer<int>.Default)
+                .CustomThenBy(person => person.Name, Comparer<string>.Default);
 
             int count = 0;
 
