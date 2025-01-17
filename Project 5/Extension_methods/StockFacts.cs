@@ -8,5 +8,12 @@
             var stock = new Stock("Jacket", 100);
             Assert.IsType<Stock>(stock);
         }
+
+        [Fact]
+        public void QuantityReturnsStockQuantity()
+        {
+            var stock = new Stock("Jacket", 100);
+            Assert.Equal(100, stock.Quantity);
+        }
     }
 }
