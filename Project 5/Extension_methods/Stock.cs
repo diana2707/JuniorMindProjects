@@ -16,6 +16,6 @@ namespace Extension_methods
 
         public void DecreaseQuantity(int units) => Quantity -= units;
 
-        public void IncreaseQuantoty(int units) => Quantity += units;
+        public void IncreaseQuantity(int units) => Quantity += units;
     }
 }

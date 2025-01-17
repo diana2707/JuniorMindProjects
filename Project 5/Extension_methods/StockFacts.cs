@@ -23,5 +23,13 @@
             stock.DecreaseQuantity(25);
             Assert.Equal(75, stock.Quantity);
         }
+
+        [Fact]
+        public void IncreaseQuantityShouldReturnIncresedQuantity()
+        {
+            var stock = new Stock("Jacket", 100);
+            stock.IncreaseQuantity(25);
+            Assert.Equal(125, stock.Quantity);
+        }
     }
 }
