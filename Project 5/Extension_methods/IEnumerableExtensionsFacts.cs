@@ -22,21 +22,21 @@ namespace Extension_methods
         public void AnyMethodShouldReturnFalseWhenNoElementMatchesPredicate()
         {
             IEnumerable<int> values = [2, 9, 12, 18];
-            Assert.True(IEnumerableExtensions.Any(values, e => e % 3 == 0));
+            Assert.True(values.Any(e => e % 3 == 0));
         }
 
         [Fact]
-        public void AnyMethodShouldReturnTrueWhenNotAtLeastOneElementsMatchesPredicate()
+        public void AnyMethodShouldReturnTrueWhenNotAtLeastOneElementMatchesPredicate()
         {
             IEnumerable<int> values = [5, 7, 13, 14];
-            Assert.False(IEnumerableExtensions.Any(values, e => e % 3 == 0));
+            Assert.False(values.Any(e => e % 3 == 0));
         }
 
         [Fact]
         public void FirstMethodShouldReturnFirstElementThatMatchesPredicate()
         {
             IEnumerable<int> values = [7, 9, 10, 11, 15];
-            Assert.Equal(10, IEnumerableExtensions.First(values, e => 30 % e == 0));
+            Assert.Equal(10, values.First(e => 30 % e == 0));
         }
 
         [Fact]
@@ -44,7 +44,7 @@ namespace Extension_methods
         {
             IEnumerable<int> values = [7, 9, 11, 13, 17];
 
-            Assert.Throws<InvalidOperationException>(() => IEnumerableExtensions.First(values, e => 30 % e == 0));
+            Assert.Throws<InvalidOperationException>(() => values.First(e => 30 % e == 0));
         }
 
         [Fact]
@@ -52,7 +52,7 @@ namespace Extension_methods
         {
             IEnumerable<string> values = ["apple", "grape", "orange", "banana"];
             List<char> expected = ['a', 'g', 'o', 'b'];
-            IEnumerable<char> result = IEnumerableExtensions.Select(values, e => e[0]);
+            IEnumerable<char> result = values.Select(e => e[0]);
 
             foreach (var item in expected)
             {

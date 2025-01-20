@@ -53,13 +53,10 @@ namespace Extension_methods
             this IEnumerable<TSource> source,
             Func<TSource, TResult> selector)
         {
-            List<TResult> selection = [];
             foreach (var item in source)
             {
-                selection.Add(selector(item));
+                yield return selector(item);
             }
-
-            return selection;
         }
 
         public static IEnumerable<TResult> SelectMany<TSource, TResult>(
