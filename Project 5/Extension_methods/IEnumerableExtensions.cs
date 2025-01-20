@@ -55,7 +55,8 @@ namespace Extension_methods
                 }
             }
 
-            throw new InvalidOperationException("No element to match the predicate was found.");
+            throw new InvalidOperationException(
+                "No element to match the predicate was found.");
         }
 
         public static IEnumerable<TResult> Select<TSource, TResult>(

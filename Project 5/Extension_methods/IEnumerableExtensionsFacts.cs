@@ -90,6 +90,14 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void FirstMethodShouldThrowIvalidOperationExceptionWhenSourceIsEmpty()
+        {
+            IEnumerable<int> values = [];
+
+            Assert.Throws<InvalidOperationException>(() => values.First(e => 30 % e == 0));
+        }
+
+        [Fact]
         public void FirstMethodShouldThrowArgumentNullExceptionWhenSourceIsNull()
         {
             IEnumerable<int> values = null;
