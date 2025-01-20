@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Data;
 
 namespace Extension_methods
 {
@@ -29,6 +28,8 @@ namespace Extension_methods
             this IEnumerable<TSource> source,
             Func<TSource, bool> predicate)
         {
+            ArgumentNullException.ThrowIfNull(source);
+
             foreach (var item in source)
             {
                 if (predicate(item))

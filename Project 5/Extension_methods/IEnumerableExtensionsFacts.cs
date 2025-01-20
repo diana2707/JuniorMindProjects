@@ -12,6 +12,13 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void AllMethodShouldReturnTrueWhenSourceIsEmpty()
+        {
+            IEnumerable<string> values = [];
+            Assert.True(values.All(e => e.Length > 5));
+        }
+
+        [Fact]
         public void AllMethodShouldReturnArgumentNullExceptionWhenSourceIsNull()
         {
             IEnumerable<int> values = null;
@@ -33,10 +40,24 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void AllMethodShouldReturnFalseWhenElementIsNull()
+        {
+            IEnumerable<string> values = ["red", "purple", "orange", null];
+            Assert.False(values.All(e => e.Length > 5));
+        }
+
+        [Fact]
         public void AnyMethodShouldReturnFalseWhenNoElementMatchesPredicate()
         {
             IEnumerable<int> values = [2, 9, 12, 18];
             Assert.True(values.Any(e => e % 3 == 0));
+        }
+
+        [Fact]
+        public void AnyMethodShouldReturnFalseWhenCollectionIsEmpty()
+        {
+            IEnumerable<int> values = [];
+            Assert.False(values.Any(e => e % 3 == 0));
         }
 
         [Fact]
