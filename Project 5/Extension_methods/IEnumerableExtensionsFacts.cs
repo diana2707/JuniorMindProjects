@@ -68,6 +68,13 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void AnyMethodShouldIgnoreNullElementAsLongAsPredicateHandlesItCorrectly()
+        {
+            IEnumerable<string> values = [null, "red", "purple", "orange"];
+            Assert.True(values.Any(e => (e?.Length ?? 0) > 5));
+        }
+
+        [Fact]
         public void FirstMethodShouldReturnFirstElementThatMatchesPredicate()
         {
             IEnumerable<int> values = [7, 9, 10, 11, 15];
@@ -80,6 +87,14 @@ namespace Extension_methods
             IEnumerable<int> values = [7, 9, 11, 13, 17];
 
             Assert.Throws<InvalidOperationException>(() => values.First(e => 30 % e == 0));
+        }
+
+        [Fact]
+        public void FirstMethodShouldThrowArgumentNullExceptionWhenSourceIsNull()
+        {
+            IEnumerable<int> values = null;
+
+            Assert.Throws<ArgumentNullException>(() => values.First(e => 30 % e == 0));
         }
 
         [Fact]
