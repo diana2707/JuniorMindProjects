@@ -12,6 +12,20 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void AllMethodShouldReturnArgumentNullExceptionWhenSourceIsNull()
+        {
+            IEnumerable<int> values = null;
+            Assert.Throws<ArgumentNullException>(() => values.All(e => e > 10));
+        }
+
+        [Fact]
+        public void AllMethodShouldReturnArgumentNullExceptionWhenPredicateIsNull()
+        {
+            IEnumerable<int> values = [11, 13, 15];
+            Assert.Throws<ArgumentNullException>(() => values.All(null));
+        }
+
+        [Fact]
         public void AllMethodShouldReturnFalseWhenNotAllElementsMatchPredicate()
         {
             IEnumerable<string> values = ["red", "purple", "orange"];

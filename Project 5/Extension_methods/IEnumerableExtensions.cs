@@ -1,13 +1,19 @@
 ﻿using System.Collections;
+using System.Data;
 
 namespace Extension_methods
 {
     public static class IEnumerableExtensions
     {
+        //empty collection, null element in collection, null selector function,
+        //Changes to the source collection after the Select call but before enumeration should be reflected.
         public static bool All<TSource>(
             this IEnumerable<TSource> source,
             Func<TSource, bool> predicate)
         {
+            ArgumentNullException.ThrowIfNull(predicate);
+            ArgumentNullException.ThrowIfNull(source);
+
             foreach (var item in source)
             {
                 if (!predicate(item))
