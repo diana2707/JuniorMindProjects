@@ -76,14 +76,13 @@ namespace Extension_methods
             this IEnumerable<TSource> source,
             Func<TSource, IEnumerable<TResult>> selector)
         {
-            List<TResult> selection = [];
-
             foreach (var item in source)
             {
-                selection.AddRange(selector(item));
+                foreach (var subItem in selector(item))
+                {
+                    yield return subItem;
+                }
             }
-
-            return selection;
         }
 
         public static IEnumerable<TSource> Where<TSource>(

@@ -126,20 +126,6 @@ namespace Extension_methods
         }
 
         [Fact]
-        public void SelectManyMethodShouldReturnElementsFromNestedColectionInFlattenedCollectionAndFormToMatchPredicate()
-        {
-            List<List<int>> lists = [[1, 2], [3, 4], [5]];
-
-            List<int> expected = [1, 2, 3, 4, 5];
-            var result = lists.SelectMany(list => list);
-
-            foreach (var item in result)
-            {
-                Assert.Contains(item, expected);
-            }
-        }
-
-        [Fact]
         public void SelectMethodShouldThrowArgumentNullExceptionWhenSourceIsNull()
         {
             IEnumerable<string> values = null;
@@ -176,6 +162,34 @@ namespace Extension_methods
             foreach (var item in expected)
             {
                 Assert.Contains(item, result);
+            }
+        }
+
+        [Fact]
+        public void SelectManyMethodShouldReturnElementsFromNestedColectionInFlattenedCollectionAndFormToMatchPredicate()
+        {
+            List<List<int>> lists = [[1, 2], [3, 4], [5]];
+
+            List<int> expected = [1, 2, 3, 4, 5];
+            var result = lists.SelectMany(list => list);
+
+            foreach (var item in result)
+            {
+                Assert.Contains(item, expected);
+            }
+        }
+
+        [Fact]
+        public void SelectManyMethodShouldReturnElementsFromFlatCollection()
+        {
+            List<int> list = [1, 2, 3, 4, 5];
+
+            List<int> expected = [1, 2, 3, 4, 5];
+            var result = list.SelectMany(e => new List<int> { e });
+
+            foreach (var item in result)
+            {
+                Assert.Contains(item, expected);
             }
         }
 
@@ -233,7 +247,6 @@ namespace Extension_methods
             result.AddRange(list.Where(e => e % 5 == 0));
 
             Assert.Empty(result);
-          
         }
 
         [Fact]
