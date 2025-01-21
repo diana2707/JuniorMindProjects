@@ -232,6 +232,24 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void SelectManyMethodShouldIgnoreNullElementAsLongAsSelectorHandlesIt()
+        {
+            List<List<string>> values = [null, ["grape", "orange"], ["banana"]];
+            List<string> expected = [string.Empty, "grape", "banana"];
+            IEnumerable<string> result = values.Select(e => e?[0] ?? string.Empty);
+
+            int count = 0;
+
+            foreach (var item in expected)
+            {
+                Assert.Contains(item, result);
+                count++;
+            }
+
+            Assert.Equal(3, count);
+        }
+
+        [Fact]
         public void WhereMethodShouldReturnAllElementsThatMatchPredicate()
         {
             List<int> list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
