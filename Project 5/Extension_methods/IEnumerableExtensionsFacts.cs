@@ -480,6 +480,30 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void ZipMethodShouldReturnEmptyCollectionIfFirstIsEmpty()
+        {
+            List<string> names = [];
+            List<int> ages = [45, 23, 33, 67];
+
+            List<(string Name, int Age)> result = [];
+            result.AddRange(names.Zip(ages, (name, age) => (name, age)));
+
+            Assert.Empty(result);
+        }
+
+        [Fact]
+        public void ZipMethodShouldReturnEmptyCollectionIfSecondIsEmpty()
+        {
+            List<string> names = ["Ana", "Maria", "Elena", "Daniela"];
+            List<int> ages = [];
+
+            List<(string Name, int Age)> result = [];
+            result.AddRange(names.Zip(ages, (name, age) => (name, age)));
+
+            Assert.Empty(result);
+        }
+
+        [Fact]
         public void AggregateMethodShouldReturnResultOfAllProcessedElementsThroughPredicate()
         {
             int[] numbers = { 1, 2, 3 };
