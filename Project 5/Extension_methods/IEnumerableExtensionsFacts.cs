@@ -230,13 +230,29 @@ namespace Extension_methods
             List<int> list = [];
             List<int> result = [];
 
-            foreach (var item in list.Where(e => e % 5 == 0))
-            {
-                result.Add(item);
-            }
+            result.AddRange(list.Where(e => e % 5 == 0));
 
             Assert.Empty(result);
           
+        }
+
+        [Fact]
+        public void WhereMethodShouldReturnIgnoreNullElementAsLongAsPredicateHandlesIt()
+        {
+            List<string> values = [null, "apple", "grape", "orange", "banana"];
+            List<string> expected = ["apple"];
+
+            var result = values.Where(e => (e?[0] ?? '\0') == 'a');
+
+            int count = 0;
+
+            foreach (var value in result)
+            {
+                Assert.Contains(value, expected);
+                count++;
+            }
+
+            Assert.Equal(1, count);
         }
 
         [Fact]
