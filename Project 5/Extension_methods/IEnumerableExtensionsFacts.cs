@@ -209,6 +209,22 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void WhereMethodShouldThrowArgumentNullExceptionWhenPredicateIsNull()
+        {
+            List<int> list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            Func<int, bool> predicate = null;
+
+            var result = list.Where(predicate);
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                foreach (var item in result)
+                {
+                }
+            });
+        }
+
+        [Fact]
         public void ToDictionaryMethodShouldReturnElementsThatMatchPredicateAsDictionary()
         {
             List<string> list = ["Ana", "Maria", "Elena", "Daniela"];

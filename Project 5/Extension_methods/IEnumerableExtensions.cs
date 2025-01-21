@@ -91,6 +91,7 @@ namespace Extension_methods
             Func<TSource, bool> predicate)
         {
             ArgumentNullException.ThrowIfNull(source);
+            ArgumentNullException.ThrowIfNull(predicate);
 
             foreach (var item in source)
             {
