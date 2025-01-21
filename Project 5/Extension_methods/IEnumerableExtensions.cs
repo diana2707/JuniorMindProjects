@@ -64,6 +64,7 @@ namespace Extension_methods
             Func<TSource, TResult> selector)
         {
             ArgumentNullException.ThrowIfNull(source);
+            ArgumentNullException.ThrowIfNull(selector);
 
             foreach (var item in source)
             {

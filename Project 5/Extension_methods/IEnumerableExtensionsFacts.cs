@@ -144,7 +144,23 @@ namespace Extension_methods
         {
             IEnumerable<string> values = null;
 
-            var result = values.CustomSelect(e => e[0]);
+            var result = values.Select(e => e[0]);
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                foreach (var item in result)
+                {
+                }
+            });
+        }
+
+        [Fact]
+        public void SelectMethodShouldThrowArgumentNullExceptionWhenPredicateIsNull()
+        {
+            IEnumerable<int> values = [3, 5, 6, 7, 2];
+            Func<int, int> selector = null;
+
+            var result = values.Select(selector);
 
             Assert.Throws<ArgumentNullException>(() =>
             {
