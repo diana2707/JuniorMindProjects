@@ -557,6 +557,17 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void AggregateMethodShouldReturnResultWhenElementIsNull()
+        {
+            string[] numbers = { "Ana", "Maria", null, "Daniela" };
+            string expected = ", Ana, Maria, , Daniela";
+
+            string result = numbers.Aggregate("", (seed, value) => seed + ", " + (value ?? ""));
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
         public void JoinMethodShouldReturnElementsFrom2CollectionsJoinedByMatchingKeys()
         {
             var customers = new List<Customer>
