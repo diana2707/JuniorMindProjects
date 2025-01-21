@@ -193,20 +193,20 @@ namespace Extension_methods
             }
         }
 
-        //[Fact]
-        //public void WhereMethodShouldThrowArgumentNullExceptionWhenSourceIsNull()
-        //{
-        //    List<int> list = null;
+        [Fact]
+        public void WhereMethodShouldThrowArgumentNullExceptionWhenSourceIsNull()
+        {
+            List<int> list = null;
 
-        //    var result = list.Where(e => e % 5 == 0);
+            var result = list.Where(e => e % 5 == 0);
 
-        //    Assert.Throws<ArgumentNullException>(() =>
-        //    {
-        //        foreach (var item in result)
-        //        {
-        //        }
-        //    });
-        //}
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                foreach (var item in result)
+                {
+                }
+            });
+        }
 
         [Fact]
         public void ToDictionaryMethodShouldReturnElementsThatMatchPredicateAsDictionary()

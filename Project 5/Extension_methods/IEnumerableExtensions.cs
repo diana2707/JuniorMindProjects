@@ -90,9 +90,8 @@ namespace Extension_methods
             this IEnumerable<TSource> source,
             Func<TSource, bool> predicate)
         {
-            //ArgumentNullException.ThrowIfNull(source);
+            ArgumentNullException.ThrowIfNull(source);
 
-            //List<TSource> result = [];
             foreach (var item in source)
             {
                 if (predicate(item))
