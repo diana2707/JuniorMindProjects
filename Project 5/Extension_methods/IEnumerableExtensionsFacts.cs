@@ -221,6 +221,17 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void SelectManyMethodShouldReturnEmptyCollectionWhenSourceIsEmpty()
+        {
+            List<int> list = [];
+
+            List<int> result = [];
+            result.AddRange(list.SelectMany(e => new List<int> { e }));
+
+            Assert.Empty(result);
+        }
+
+        [Fact]
         public void WhereMethodShouldReturnAllElementsThatMatchPredicate()
         {
             List<int> list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
