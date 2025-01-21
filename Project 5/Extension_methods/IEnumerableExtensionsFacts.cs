@@ -392,6 +392,29 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void ToDictionaryMethodShouldLetKeySelectorHandleNullElements()
+        {
+            List<string> list = [null, "Ana", "Maria", "Elena", "Daniela"];
+
+            Dictionary<char, string> expected = new Dictionary<char, string>
+            {
+                { '\0', null },
+                { 'A', "Ana" },
+                { 'M', "Maria" },
+                { 'E', "Elena" },
+                { 'D', "Daniela" }
+            };
+
+            var result = list.ToDictionary(e => e?[0] ?? '\0', e => e);
+
+            foreach (var item in result)
+            {
+                Assert.True(expected.ContainsKey(item.Key));
+                Assert.True(expected.ContainsValue(item.Value));
+            }
+        }
+
+        [Fact]
         public void ZipMethodShouldReturnCombinedCollectionFrom2Enumerations()
         {
             List<string> names = ["Ana", "Maria", "Elena", "Daniela"];
