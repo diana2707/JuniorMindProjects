@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Linq;
 
 namespace Extension_methods
 {
@@ -361,6 +362,15 @@ namespace Extension_methods
             Func<string, char> keySelector = null;
 
             Assert.Throws<ArgumentNullException>(() => list.ToDictionary(keySelector, e => e));
+        }
+
+        [Fact]
+        public void ToDictionaryMethodShouldThrowArgumentNullExceptionIfElementSelectorIsNull()
+        {
+            List<string> list = ["Ana", "Maria", "Elena", "Daniela"];
+            Func<string, string> elementSelector = null;
+
+            Assert.Throws<ArgumentNullException>(() => list.ToDictionary(e => e[0], elementSelector));
         }
 
         [Fact]
