@@ -110,6 +110,7 @@ namespace Extension_methods
             Func<TSource, TElement> elementSelector)
         {
             ArgumentNullException.ThrowIfNull(source);
+            ArgumentNullException.ThrowIfNull(keySelector);
             Dictionary<TKey, TElement> result = [];
 
             foreach (var item in source)

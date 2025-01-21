@@ -355,6 +355,15 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void ToDictionaryMethodShouldThrowArgumentNullExceptionIfKeySelectorIsNull()
+        {
+            List<string> list = ["Ana", "Maria", "Elena", "Daniela"];
+            Func<string, char> keySelector = null;
+
+            Assert.Throws<ArgumentNullException>(() => list.ToDictionary(keySelector, e => e));
+        }
+
+        [Fact]
         public void ZipMethodShouldReturnCombinedCollectionFrom2Enumerations()
         {
             List<string> names = ["Ana", "Maria", "Elena", "Daniela"];
