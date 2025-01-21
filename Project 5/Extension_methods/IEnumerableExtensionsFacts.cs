@@ -194,6 +194,19 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void SelectManyMethodShouldThrowArgumentNullExceptionWhenSourceIsNull()
+        {
+            List<List<int>> list = null;
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                foreach (var item in list.SelectMany(list => list))
+                {
+                }
+            });
+        }
+
+        [Fact]
         public void WhereMethodShouldReturnAllElementsThatMatchPredicate()
         {
             List<int> list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];

@@ -76,6 +76,8 @@ namespace Extension_methods
             this IEnumerable<TSource> source,
             Func<TSource, IEnumerable<TResult>> selector)
         {
+
+             ArgumentNullException.ThrowIfNull(source);
             foreach (var item in source)
             {
                 foreach (var subItem in selector(item))
