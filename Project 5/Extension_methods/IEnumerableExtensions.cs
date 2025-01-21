@@ -172,7 +172,6 @@ namespace Extension_methods
             Func<TInner, TKey> innerKeySelector,
             Func<TOuter, TInner, TResult> resultSelector)
         {
-            List<TResult> result = [];
 
             foreach (var outerItem in outer)
             {
@@ -183,12 +182,10 @@ namespace Extension_methods
 
                     if (outerKey.Equals(innerKey))
                     {
-                        result.Add(resultSelector(outerItem, innerItem));
+                        yield return resultSelector(outerItem, innerItem);
                     }
                 }
             }
-
-            return result;
         }
 
         public static IEnumerable<TSource> Distinct<TSource>(
