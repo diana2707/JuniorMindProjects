@@ -382,6 +382,16 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void ToDictionaryMethodShouldReturnEmptyDctionaryIfSourceIsEmpty()
+        {
+            List<string> list = [];
+
+            var result = list.ToDictionary(e => e[0], e => e);
+
+            Assert.Empty(result);
+        }
+
+        [Fact]
         public void ZipMethodShouldReturnCombinedCollectionFrom2Enumerations()
         {
             List<string> names = ["Ana", "Maria", "Elena", "Daniela"];
