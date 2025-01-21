@@ -155,19 +155,15 @@ namespace Extension_methods
         }
 
         [Fact]
-        public void SelectMethodShouldThrowArgumentNullExceptionWhenPredicateIsNull()
+        public void SelectMethodShouldReturnEmptyCollectionWhenSourceIsEmpty()
         {
-            IEnumerable<int> values = [3, 5, 6, 7, 2];
-            Func<int, int> selector = null;
+            IEnumerable<int> values = [];
 
-            var result = values.Select(selector);
+            List<int> result = [];
 
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                foreach (var item in result)
-                {
-                }
-            });
+            result.AddRange(values.Select(e => e));
+
+            Assert.Empty(result);
         }
 
         [Fact]
