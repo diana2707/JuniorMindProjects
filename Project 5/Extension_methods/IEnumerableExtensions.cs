@@ -153,6 +153,8 @@ namespace Extension_methods
             TAccumulate seed,
             Func<TAccumulate, TSource, TAccumulate> func)
         {
+            ArgumentNullException.ThrowIfNull(source);
+
             TAccumulate result = seed;
             foreach (var item in source)
             {
