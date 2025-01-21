@@ -225,6 +225,21 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void WhereMethodShouldReturnEmptyCollectionWhenSourceIsEmpty()
+        {
+            List<int> list = [];
+            List<int> result = [];
+
+            foreach (var item in list.Where(e => e % 5 == 0))
+            {
+                result.Add(item);
+            }
+
+            Assert.Empty(result);
+          
+        }
+
+        [Fact]
         public void ToDictionaryMethodShouldReturnElementsThatMatchPredicateAsDictionary()
         {
             List<string> list = ["Ana", "Maria", "Elena", "Daniela"];
