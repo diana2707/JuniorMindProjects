@@ -431,6 +431,38 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void ZipMethodShouldThrowArgumentNullExceptionWhenFirstCollectionIsNull()
+        {
+            List<string> names = null;
+            List<int> ages = [45, 23, 33, 67];
+
+            IEnumerable<(string Name, int Age)> result = names.Zip(ages, (name, age) => (name, age));
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                foreach (var item in result)
+                {
+                }
+            });
+        }
+
+        [Fact]
+        public void ZipMethodShouldThrowArgumentNullExceptionWhenSecondCollectionIsNull()
+        {
+            List<string> names = ["Ana", "Maria", "Elena", "Daniela"];
+            List<int> ages = null;
+
+            IEnumerable<(string Name, int Age)> result = names.Zip(ages, (name, age) => (name, age));
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                foreach (var item in result)
+                {
+                }
+            });
+        }
+
+        [Fact]
         public void AggregateMethodShouldReturnResultOfAllProcessedElementsThroughPredicate()
         {
             int[] numbers = { 1, 2, 3 };

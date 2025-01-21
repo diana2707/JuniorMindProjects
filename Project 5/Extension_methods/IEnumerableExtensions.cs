@@ -135,6 +135,9 @@ namespace Extension_methods
             IEnumerable<TSecond> second,
             Func<TFirst, TSecond, TResult> resultSelector)
         {
+            ArgumentNullException.ThrowIfNull(first);
+            ArgumentNullException.ThrowIfNull(second);
+
             IEnumerator<TFirst> firstEnumerator = first.GetEnumerator();
             IEnumerator<TSecond> secondEnumerator = second.GetEnumerator();
 
