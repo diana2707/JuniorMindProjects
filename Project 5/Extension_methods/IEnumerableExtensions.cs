@@ -59,10 +59,12 @@ namespace Extension_methods
                 "No element to match the predicate was found.");
         }
 
-        public static IEnumerable<TResult> Select<TSource, TResult>(
+        public static IEnumerable<TResult> CustomSelect<TSource, TResult>(
             this IEnumerable<TSource> source,
             Func<TSource, TResult> selector)
         {
+            ArgumentNullException.ThrowIfNull(source);
+
             foreach (var item in source)
             {
                 yield return selector(item);

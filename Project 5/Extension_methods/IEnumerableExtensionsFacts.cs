@@ -106,6 +106,13 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void FirstMethodShouldIgnoreNullElementAsLongAsPredicateHandlesItCorrectly()
+        {
+            IEnumerable<string> values = [null, "red", "purple", "orange"];
+            Assert.Equal("purple", values.First(e => (e?.Length ?? 0) > 5));
+        }
+
+        [Fact]
         public void SelectMethodShouldReturnElementsInFormThatMatchesPredicate()
         {
             IEnumerable<string> values = ["apple", "grape", "orange", "banana"];
@@ -119,7 +126,7 @@ namespace Extension_methods
         }
 
         [Fact]
-        public void SelectManyMethodShouldReturnElementsInNestedColectionInFlattenedCollectionAndFormToMatchPredicate()
+        public void SelectManyMethodShouldReturnElementsFromNestedColectionInFlattenedCollectionAndFormToMatchPredicate()
         {
             List<List<int>> lists = [[1, 2], [3, 4], [5]];
 
@@ -130,6 +137,21 @@ namespace Extension_methods
             {
                 Assert.Contains(item, expected);
             }
+        }
+
+        [Fact]
+        public void SelectMethodShouldThrowArgumentNullExceptionWhenSourceIsNull()
+        {
+            IEnumerable<string> values = null;
+
+            var result = values.CustomSelect(e => e[0]);
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                foreach (var item in result)
+                {
+                }
+            });
         }
 
         [Fact]
