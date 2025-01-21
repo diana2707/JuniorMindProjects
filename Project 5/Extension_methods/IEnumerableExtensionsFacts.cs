@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Diagnostics.Metrics;
 using System.Xml.Linq;
 
@@ -403,7 +404,7 @@ namespace Extension_methods
                 { 'A', "Ana" },
                 { 'M', "Maria" },
                 { 'E', "Elena" },
-                { 'D', "Daniela" }
+                { 'D', "Daniela" },
             };
 
             var result = list.ToDictionary(e => e?[0] ?? '\0', e => e);
@@ -441,9 +442,7 @@ namespace Extension_methods
 
             Assert.Throws<ArgumentNullException>(() =>
             {
-                foreach (var item in result)
-                {
-                }
+                foreach (var item in result) {}
             });
         }
 
@@ -457,9 +456,7 @@ namespace Extension_methods
 
             Assert.Throws<ArgumentNullException>(() =>
             {
-                foreach (var item in result)
-                {
-                }
+                foreach (var item in result) {}
             });
         }
 
@@ -474,9 +471,7 @@ namespace Extension_methods
 
             Assert.Throws<ArgumentNullException>(() =>
             {
-                foreach (var item in result)
-                {
-                }
+                foreach (var item in result){}
             });
         }
 
@@ -655,8 +650,58 @@ namespace Extension_methods
 
             Assert.Throws<ArgumentNullException>(() =>
             {
-                foreach (var item in result) {}
+                foreach (var item in result) { }
             });
+        }
+
+        [Fact]
+        public void JoinMethodShouldReturnEmptyCollectionWhenOuterIsEmpty()
+        {
+            IEnumerable<Customer> customers = [];
+
+            IEnumerable<Order> orders = new List<Order>
+            {
+                new Order { Id = 101, CustomerId = 1, Amount = 250 },
+                new Order { Id = 102, CustomerId = 2, Amount = 100 },
+                new Order { Id = 103, CustomerId = 3, Amount = 300 },
+            };
+
+            Func<Customer, int> outerKeySelector = null;
+
+            IEnumerable<(string CustomerName, int OrderId, int Amount)> values = customers.Join(
+                orders,
+                customer => customer.Id,
+                order => order.CustomerId,
+                (customer, order) => (customer.Name, order.Id, order.Amount));
+
+            List<(string CustomerName, int OrderId, int Amount)> result = [];
+            result.AddRange(values);
+            Assert.Empty(result);
+        }
+
+        [Fact]
+        public void JoinMethodShouldReturnEmptyCollectionWhenInnerIsEmpty()
+        {
+            IEnumerable<Customer> customers = new List<Customer>
+            {
+                new Customer { Id = 1, Name = "Alice" },
+                new Customer { Id = 2, Name = "Bob" },
+                new Customer { Id = 3, Name = "Charlie" },
+            }; ;
+
+            IEnumerable<Order> orders = [];
+
+            Func<Customer, int> outerKeySelector = null;
+
+            IEnumerable<(string CustomerName, int OrderId, int Amount)> values = customers.Join(
+                orders,
+                customer => customer.Id,
+                order => order.CustomerId,
+                (customer, order) => (customer.Name, order.Id, order.Amount));
+
+            List<(string CustomerName, int OrderId, int Amount)> result = [];
+            result.AddRange(values);
+            Assert.Empty(result);
         }
 
         class Customer
