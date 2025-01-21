@@ -374,6 +374,14 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void ToDictionaryMethodShouldThrowArgumentExceptionIfKeySelectorCretesDuplicateKey()
+        {
+            List<string> list = ["Ana", "Anca", "Maria", "Elena", "Daniela"];
+
+            Assert.Throws<ArgumentException>(() => list.ToDictionary(e => e[0], e => e));
+        }
+
+        [Fact]
         public void ZipMethodShouldReturnCombinedCollectionFrom2Enumerations()
         {
             List<string> names = ["Ana", "Maria", "Elena", "Daniela"];

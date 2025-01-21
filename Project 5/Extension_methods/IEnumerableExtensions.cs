@@ -117,6 +117,13 @@ namespace Extension_methods
 
             foreach (var item in source)
             {
+                TKey key = keySelector(item);
+
+                if (result.ContainsKey(key))
+                {
+                    throw new ArgumentException("Key selector generated duplicate key.");
+                }
+
                 result.Add(keySelector(item), elementSelector(item));
             }
 
