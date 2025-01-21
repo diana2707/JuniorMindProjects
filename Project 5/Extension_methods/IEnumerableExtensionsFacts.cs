@@ -504,6 +504,22 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void ZipMethodShouldIncludeNullElementInResult()
+        {
+            List<string> names = ["Ana", "Maria", null, "Daniela"];
+            List<int> ages = [45, 23, 33, 67];
+
+            IEnumerable<(string Name, int Age)> expected = [("Ana", 45), ("Maria", 23), (null, 33), ("Daniela", 67)];
+
+            IEnumerable<(string Name, int Age)> result = names.Zip(ages, (name, age) => (name, age));
+
+            foreach (var item in result)
+            {
+                Assert.Contains(item, expected);
+            }
+        }
+
+        [Fact]
         public void AggregateMethodShouldReturnResultOfAllProcessedElementsThroughPredicate()
         {
             int[] numbers = { 1, 2, 3 };
