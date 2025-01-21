@@ -135,17 +135,13 @@ namespace Extension_methods
             IEnumerable<TSecond> second,
             Func<TFirst, TSecond, TResult> resultSelector)
         {
-            List<TResult> result = [];
-
             IEnumerator<TFirst> firstEnumerator = first.GetEnumerator();
             IEnumerator<TSecond> secondEnumerator = second.GetEnumerator();
 
             while (firstEnumerator.MoveNext() && secondEnumerator.MoveNext())
             {
-                result.Add(resultSelector(firstEnumerator.Current, secondEnumerator.Current));
+                yield return resultSelector(firstEnumerator.Current, secondEnumerator.Current);
             }
-
-            return result;
         }
 
         public static TAccumulate Aggregate<TSource, TAccumulate>(
