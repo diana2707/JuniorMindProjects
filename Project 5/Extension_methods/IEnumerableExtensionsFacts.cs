@@ -545,6 +545,17 @@ namespace Extension_methods
             Assert.Throws<ArgumentNullException>(() => numbers.Aggregate(0, null));
         }
 
+        //[Fact]
+        //public void AggregateMethodShouldReturnResultEqualWithSeedWhenCollectionIsEmpty()
+        //{
+        //    int[] numbers = { 1, 2, 3 };
+        //    int seed = 0;
+
+        //    int result = numbers.Aggregate(seed, (num, seed) => num + seed);
+
+        //    Assert.Equal(seed, result);
+        //}
+
         [Fact]
         public void JoinMethodShouldReturnElementsFrom2CollectionsJoinedByMatchingKeys()
         {
