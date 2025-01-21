@@ -347,6 +347,14 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void ToDictionaryMethodShouldRetuThrowArgumentNullExceptionIfSourceIsNull()
+        {
+            List<string> list = null;
+
+            Assert.Throws<ArgumentNullException>(() => list.ToDictionary(e => e[0], e => e));
+        }
+
+        [Fact]
         public void ZipMethodShouldReturnCombinedCollectionFrom2Enumerations()
         {
             List<string> names = ["Ana", "Maria", "Elena", "Daniela"];
