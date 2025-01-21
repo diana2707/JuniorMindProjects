@@ -538,6 +538,14 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void AggregateMethodShouldThrowArgumentNullExceptionWhenFunctIsNull()
+        {
+            int[] numbers = { 1, 2, 3 };
+
+            Assert.Throws<ArgumentNullException>(() => numbers.Aggregate(0, null));
+        }
+
+        [Fact]
         public void JoinMethodShouldReturnElementsFrom2CollectionsJoinedByMatchingKeys()
         {
             var customers = new List<Customer>
