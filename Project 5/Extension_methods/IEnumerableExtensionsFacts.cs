@@ -167,6 +167,19 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void SelectMethodShouldIgnoreNullElementsAsLongAsSelectorHandlesThem()
+        {
+            IEnumerable<string> values = [null, "apple", "grape", "orange", "banana"];
+            List<char> expected = ['\0', 'a', 'g', 'o', 'b'];
+            IEnumerable<char> result = values.Select(e => e?[0] ?? '\0');
+
+            foreach (var item in expected)
+            {
+                Assert.Contains(item, result);
+            }
+        }
+
+        [Fact]
         public void WhereMethodShouldReturnAllElementsThatMatchPredicate()
         {
             List<int> list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -179,6 +192,21 @@ namespace Extension_methods
                 Assert.Contains(item, expected);
             }
         }
+
+        //[Fact]
+        //public void WhereMethodShouldThrowArgumentNullExceptionWhenSourceIsNull()
+        //{
+        //    List<int> list = null;
+
+        //    var result = list.Where(e => e % 5 == 0);
+
+        //    Assert.Throws<ArgumentNullException>(() =>
+        //    {
+        //        foreach (var item in result)
+        //        {
+        //        }
+        //    });
+        //}
 
         [Fact]
         public void ToDictionaryMethodShouldReturnElementsThatMatchPredicateAsDictionary()

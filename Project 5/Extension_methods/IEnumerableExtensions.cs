@@ -59,7 +59,7 @@ namespace Extension_methods
                 "No element to match the predicate was found.");
         }
 
-        public static IEnumerable<TResult> CustomSelect<TSource, TResult>(
+        public static IEnumerable<TResult> Select<TSource, TResult>(
             this IEnumerable<TSource> source,
             Func<TSource, TResult> selector)
         {
@@ -90,16 +90,16 @@ namespace Extension_methods
             this IEnumerable<TSource> source,
             Func<TSource, bool> predicate)
         {
-            List<TSource> result = [];
+            //ArgumentNullException.ThrowIfNull(source);
+
+            //List<TSource> result = [];
             foreach (var item in source)
             {
                 if (predicate(item))
                 {
-                    result.Add(item);
+                    yield return item;
                 }
             }
-
-            return result;
         }
 
         public static Dictionary<TKey, TElement> ToDictionary<TSource, TKey, TElement>(
