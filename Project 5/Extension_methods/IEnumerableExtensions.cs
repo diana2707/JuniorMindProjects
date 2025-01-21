@@ -137,6 +137,7 @@ namespace Extension_methods
         {
             ArgumentNullException.ThrowIfNull(first);
             ArgumentNullException.ThrowIfNull(second);
+            ArgumentNullException.ThrowIfNull(resultSelector);
 
             IEnumerator<TFirst> firstEnumerator = first.GetEnumerator();
             IEnumerator<TSecond> secondEnumerator = second.GetEnumerator();
