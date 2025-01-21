@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Metrics;
 using System.Xml.Linq;
 
 namespace Extension_methods
@@ -601,6 +602,61 @@ namespace Extension_methods
             {
                 Assert.Contains(item, expected);
             }
+        }
+
+        [Fact]
+        public void JoinMethodShouldThrowArgumentNullExceptionWhenOuterIsNull()
+        {
+            IEnumerable<Customer> customers = null;
+
+            var orders = new List<Order>
+            {
+                new Order { Id = 101, CustomerId = 1, Amount = 250 },
+                new Order { Id = 102, CustomerId = 2, Amount = 100 },
+                new Order { Id = 103, CustomerId = 3, Amount = 300 },
+            };
+
+            IEnumerable<(string CustomerName, int OrderId, int Amount)> result = customers.Join(
+                orders,
+                customer => customer.Id,
+                order => order.CustomerId,
+                (customer, order) => (customer.Name, order.Id, order.Amount));
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                foreach (var item in result) {}
+            });
+        }
+
+        [Fact]
+        public void JoinMethodShouldThrowArgumentNullExceptionWhenInnerIsNull()
+        {
+            IEnumerable<Customer> customers = new List<Customer>
+            {
+                new Customer { Id = 1, Name = "Alice" },
+                new Customer { Id = 2, Name = "Bob" },
+                new Customer { Id = 3, Name = "Charlie" },
+            };
+
+            IEnumerable<Order> orders = new List<Order>
+            {
+                new Order { Id = 101, CustomerId = 1, Amount = 250 },
+                new Order { Id = 102, CustomerId = 2, Amount = 100 },
+                new Order { Id = 103, CustomerId = 3, Amount = 300 },
+            };
+
+            Func<Customer, int> outerKeySelector = null;
+
+            IEnumerable<(string CustomerName, int OrderId, int Amount)> result = customers.Join(
+                orders,
+                outerKeySelector,
+                order => order.CustomerId,
+                (customer, order) => (customer.Name, order.Id, order.Amount));
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                foreach (var item in result) {}
+            });
         }
 
         class Customer

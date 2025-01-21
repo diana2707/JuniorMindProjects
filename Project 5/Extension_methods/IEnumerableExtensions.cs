@@ -172,6 +172,11 @@ namespace Extension_methods
             Func<TInner, TKey> innerKeySelector,
             Func<TOuter, TInner, TResult> resultSelector)
         {
+            ArgumentNullException.ThrowIfNull(outer);
+            ArgumentNullException.ThrowIfNull(inner);
+            ArgumentNullException.ThrowIfNull(outerKeySelector);
+            ArgumentNullException.ThrowIfNull(innerKeySelector);
+            ArgumentNullException.ThrowIfNull(resultSelector);
 
             foreach (var outerItem in outer)
             {
