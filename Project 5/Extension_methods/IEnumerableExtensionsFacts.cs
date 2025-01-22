@@ -791,6 +791,20 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void DistinctMethodShouldReturnEmptyCollectionWhenSourceisEmpty()
+        {
+            int[] source = [];
+
+            List<int> result = [];
+
+            IEnumerable<int> values = source.Distinct(EqualityComparer<int>.Default);
+
+            result.AddRange(values);
+
+            Assert.Empty(result);
+        }
+
+        [Fact]
         public void UnionMethodShouldReturnCollectionOfUnifiedDistinctElementsFromOther2Collections()
         {
             int[] first = { 1, 2, 3, 2, 5, 5, 1, 11, 9, 11 };
