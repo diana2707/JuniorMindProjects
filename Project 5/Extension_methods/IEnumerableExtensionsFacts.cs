@@ -844,6 +844,26 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void UnionMethodShouldThrowArgumentNullExceptionIfFirstIsNull()
+        {
+            int[] first = null;
+
+            int[] second = { 1, 2, 3, 5, 9, 7, 9, 3, 10, 10 };
+
+            Assert.Throws<ArgumentNullException>(() => first.Union(second, EqualityComparer<int>.Default));
+        }
+
+        [Fact]
+        public void UnionMethodShouldThrowArgumentNullExceptionIfSecondIsNull()
+        {
+            int[] first = { 1, 2, 3, 2, 5, 5, 1, 11, 9, 11 };
+
+            int[] second = null;
+
+            Assert.Throws<ArgumentNullException>(() => first.Union(second, EqualityComparer<int>.Default));
+        }
+
+        [Fact]
         public void IntersectMethodShouldReturnCollectionOfIntersectedDistinctElementsFromOther2Collections()
         {
             int[] first = { 1, 2, 3, 2, 5, 5, 1, 11, 9, 11 };
