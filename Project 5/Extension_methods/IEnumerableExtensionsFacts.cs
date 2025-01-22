@@ -704,10 +704,8 @@ namespace Extension_methods
             Assert.Empty(result);
         }
 
-        //check join for null element?
-
         [Fact]
-        public void JoinMethodShould()
+        public void JoinMethodShouldHaveKeySelectorHandleTheNullElement()
         {
             var customers = new List<Customer>
             {
@@ -802,6 +800,26 @@ namespace Extension_methods
             result.AddRange(values);
 
             Assert.Empty(result);
+        }
+
+        [Fact]
+        public void DistinctMethodShouldIncludeNullElementOnce()
+        {
+            string[] source = [null, "Ana", "Maria", null, "Elena", "Ana", "Maria", null, "Daniela"];
+
+            string[] expected = [null, "Ana", "Maria", "Elena", "Daniela"];
+
+            IEnumerable<string> result = source.Distinct(EqualityComparer<string>.Default);
+
+            int count = 0;
+
+            foreach (var item in result)
+            {
+                Assert.Contains(item, expected);
+                count++;
+            }
+
+            Assert.Equal(5, count);
         }
 
         [Fact]
