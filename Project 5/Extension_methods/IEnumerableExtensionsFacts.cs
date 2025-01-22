@@ -1158,6 +1158,64 @@ namespace Extension_methods
             }
         }
 
+        [Fact]
+        public void GroupByMethodShouldThrowArgumentNullExceptionWhenSourceIsNull()
+        {
+            Student[] students = null;
+
+            var groupedResult = students.GroupBy(
+                student => student.Grade,
+                student => student.Name,
+                (grade, names) => new Ranking(grade, names.ToList()),
+                EqualityComparer<string>.Default
+            );
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                foreach (var group in groupedResult) { }
+            });
+        }
+
+        //[Fact]
+        //public void GroupByMethodShouldReturnCollectionOfGroupedElementsBasedOnAKey()
+        //{
+        //    var students = new[]
+        //    {
+        //        new { Name = "Alice", Grade = "A" },
+        //        new { Name = "Bob", Grade = "B" },
+        //        new { Name = "Charlie", Grade = "A" },
+        //        new { Name = "David", Grade = "B" },
+        //        new { Name = "Eve", Grade = "A" },
+        //    };
+
+        //    List<Ranking> expected = [new Ranking("A", new List<string> { "Alice", "Charlie", "Eve" }),
+        //        new Ranking("B", new List<string> { "Bob", "David" })];
+
+        //    var groupedResult = students.GroupBy(
+        //        student => student.Grade,
+        //        student => student.Name,
+        //        (grade, names) => new Ranking(grade, names.ToList()),
+        //        EqualityComparer<string>.Default
+        //    );
+
+        //    int count = 0;
+
+        //    foreach (var group in groupedResult)
+        //    {
+        //        Assert.Equal(group.Grade, expected[count].Grade);
+        //        Assert.True(group.Names.SequenceEqual(expected[count].Names));
+
+        //        count++;
+        //    }
+        //}
+
+        public class Student
+        {
+            public string Name { get; set; }
+
+            public string Grade { get; set; }
+        }
+
         public class Ranking
         {
             public Ranking(string grade, List<string> names)

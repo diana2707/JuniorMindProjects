@@ -272,6 +272,8 @@ namespace Extension_methods
             Func<TKey, IEnumerable<TElement>, TResult> resultSelector,
             IEqualityComparer<TKey> comparer)
         {
+            ArgumentNullException.ThrowIfNull(source);
+
             Dictionary<TKey, List<TElement>> groups = new (comparer);
 
             foreach (var item in source)
