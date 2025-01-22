@@ -197,6 +197,8 @@ namespace Extension_methods
             this IEnumerable<TSource> source,
             IEqualityComparer<TSource> comparer)
         {
+            ArgumentNullException.ThrowIfNull(source);
+
             HashSet<TSource> evaluated = new (comparer);
 
             foreach (var item in source)

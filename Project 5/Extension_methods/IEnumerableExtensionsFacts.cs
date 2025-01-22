@@ -775,7 +775,19 @@ namespace Extension_methods
             }
 
             Assert.Equal(6, count);
+        }
 
+        [Fact]
+        public void DistinctMethodShouldThrowArgumentNullExceptionWhenSourceIsNull()
+        {
+            int[] source = null;
+
+            IEnumerable<int> result = source.Distinct(EqualityComparer<int>.Default);
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                foreach (var item in result) {}
+            });
         }
 
         [Fact]
