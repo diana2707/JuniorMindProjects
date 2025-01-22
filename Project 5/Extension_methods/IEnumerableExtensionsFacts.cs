@@ -1255,6 +1255,27 @@ namespace Extension_methods
             });
         }
 
+        [Fact]
+        public void GroupByMethodShouldReturnEmptyCollectionWhenSourceIsEmpty()
+        {
+            Student[] students = [];
+
+            List<Ranking> expected = [new Ranking("A", new List<string> { "Alice", "Charlie", "Eve" }),
+                new Ranking("B", new List<string> { "Bob", "David" })];
+
+            var groupedResult = students.GroupBy(
+                student => student.Grade,
+                student => student.Name,
+                (grade, names) => new Ranking(grade, names.ToList()),
+                EqualityComparer<string>.Default
+            );
+
+            List<Ranking> result = [];
+            result.AddRange(groupedResult);
+
+            Assert.Empty(result);
+        }
+
         //[Fact]
         //public void GroupByMethodShouldReturnCollectionOfGroupedElementsBasedOnAKey()
         //{
