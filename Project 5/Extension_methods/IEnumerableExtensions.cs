@@ -227,7 +227,8 @@ namespace Extension_methods
             IEnumerable<TSource> second,
             IEqualityComparer<TSource> comparer)
         {
-            HashSet<TSource> result = new ();
+            first = first.Distinct(comparer);
+            second = second.Distinct(comparer);
 
             foreach (var itemFirst in first)
             {
@@ -235,12 +236,10 @@ namespace Extension_methods
                 {
                     if (comparer.Equals(itemFirst, itemSecond))
                     {
-                        result.Add(itemFirst);
+                        yield return itemFirst;
                     }
                 }
             }
-
-            return result;
         }
 
         public static IEnumerable<TSource> Except<TSource>(
