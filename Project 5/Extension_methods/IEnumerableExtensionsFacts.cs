@@ -927,6 +927,36 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void IntersectMethodShouldThrowArgumentNullExceptionWhenFirstIsNull()
+        {
+            int[] first = null;
+
+            int[] second = { 1, 2, 3, 5, 9, 7, 9, 3, 10, 10 };
+
+            IEnumerable<int> result = first.Intersect(second, EqualityComparer<int>.Default);
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                foreach (var item in result) { }
+            });
+        }
+
+        [Fact]
+        public void IntersectMethodShouldThrowArgumentNullExceptionWhenSecondIsNull()
+        {
+            int[] first = { 1, 2, 3, 2, 5, 5, 1, 11, 9, 11 };
+
+            int[] second = null;
+
+            IEnumerable<int> result = first.Intersect(second, EqualityComparer<int>.Default);
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                foreach (var item in result) { }
+            });
+        }
+
+        [Fact]
         public void ExceptMethodShouldReturnElementsFromFirstCollectionThatDoNotExistInSecond()
         {
             int[] first = { 1, 2, 3, 2, 5, 5, 1, 11, 9, 11 };

@@ -227,6 +227,9 @@ namespace Extension_methods
             IEnumerable<TSource> second,
             IEqualityComparer<TSource> comparer)
         {
+            ArgumentNullException.ThrowIfNull(first);
+            ArgumentNullException.ThrowIfNull(second);
+
             first = first.Distinct(comparer);
             second = second.Distinct(comparer);
 
