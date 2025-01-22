@@ -273,6 +273,7 @@ namespace Extension_methods
             IEqualityComparer<TKey> comparer)
         {
             ArgumentNullException.ThrowIfNull(source);
+            ArgumentNullException.ThrowIfNull(keySelector);
 
             Dictionary<TKey, List<TElement>> groups = new (comparer);
 
