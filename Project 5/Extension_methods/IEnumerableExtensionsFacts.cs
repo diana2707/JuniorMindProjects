@@ -704,6 +704,43 @@ namespace Extension_methods
             Assert.Empty(result);
         }
 
+        //check join for null element?
+
+        [Fact]
+        public void JoinMethodShould()
+        {
+            var customers = new List<Customer>
+            {
+                new Customer { Id = 1, Name = "Alice" },
+                new Customer { Id = 2, Name = "Bob" },
+                new Customer { Id = 3, Name = "Charlie" },
+            };
+
+            var orders = new List<Order>
+            {
+                null,
+                new Order { Id = 102, CustomerId = 2, Amount = 100 },
+                new Order { Id = 103, CustomerId = 3, Amount = 300 },
+            };
+
+            IEnumerable<(string CustomerName, int OrderId, int Amount)> result = customers.Join(
+                orders,
+                customer => customer.Id,
+                order => order?.CustomerId ?? 0,
+                (customer, order) => (customer.Name, order.Id, order.Amount));
+
+            IEnumerable<(string CustomerName, int OrderId, int intAmount)> expected =
+                [
+                    ("Bob", 102, 100),
+                    ("Charlie", 103, 300),
+                ];
+
+            foreach (var item in result)
+            {
+                Assert.Contains(item, expected);
+            }
+        }
+
         class Customer
         {
             public int Id { get; set; }
