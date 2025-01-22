@@ -885,6 +885,27 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void UnionMethodShouldncludeInResultNullElement()
+        {
+            string[] first = [null, "Ana", "Maria", null, "Elena", "Ana", "Maria", null, "Daniela"];
+
+            string[] second = ["Sonia", "Maria", null, "Elena", "Maria", "Alina"];
+
+            IEnumerable<string> expected = [null, "Ana", "Maria", "Elena", "Daniela", "Sonia", "Alina"];
+
+            IEnumerable<string> result = first.Union(second, EqualityComparer<string>.Default);
+
+            int count = 0;
+            foreach (var item in result)
+            {
+                Assert.Contains(item, expected);
+                count++;
+            }
+
+            Assert.Equal(7, count);
+        }
+
+        [Fact]
         public void IntersectMethodShouldReturnCollectionOfIntersectedDistinctElementsFromOther2Collections()
         {
             int[] first = { 1, 2, 3, 2, 5, 5, 1, 11, 9, 11 };
