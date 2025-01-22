@@ -973,6 +973,27 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void IntersectMethodShouldIncludeInResultNullElementIfExistsInBothCllections()
+        {
+            string[] first = { "1", "2", null, "3", "2", "5", "5", "1", "11", "9", "11" };
+
+            string[] second = { "1", "2", "3", "5", "9", "7", "9", null, "3", "10", "10" };
+
+            IEnumerable<string> expected = ["1", "2", null, "3", "5", "9"];
+
+            IEnumerable<string> result = first.Intersect(second, EqualityComparer<string>.Default);
+
+            int count = 0;
+            foreach (var item in result)
+            {
+                Assert.Contains(item, expected);
+                count++;
+            }
+
+            Assert.Equal(6, count);
+        }
+
+        [Fact]
         public void ExceptMethodShouldReturnElementsFromFirstCollectionThatDoNotExistInSecond()
         {
             int[] first = { 1, 2, 3, 2, 5, 5, 1, 11, 9, 11 };
