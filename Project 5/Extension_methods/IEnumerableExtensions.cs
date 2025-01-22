@@ -250,17 +250,16 @@ namespace Extension_methods
             IEnumerable<TSource> second,
             IEqualityComparer<TSource> comparer)
         {
-            HashSet<TSource> result = new (comparer);
+            first = first.Distinct(comparer);
+            second = second.Distinct(comparer);
 
             foreach (var item in first)
             {
                 if (!second.Contains(item))
                 {
-                    result.Add(item);
+                    yield return item;
                 }
             }
-
-            return result;
         }
 
         public static IEnumerable<TResult> GroupBy<TSource, TKey, TElement, TResult>(
