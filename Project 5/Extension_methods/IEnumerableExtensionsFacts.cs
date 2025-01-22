@@ -957,6 +957,22 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void IntersectMethodShouldReturnEmptyCollectionWhenOneOfTheSourcesIsEmpty()
+        {
+            int[] first = [];
+
+            int[] second = { 1, 2, 3, 5, 9, 7, 9, 3, 10, 10 };
+
+            List<int> result = [];
+
+            IEnumerable<int> values = first.Intersect(second, EqualityComparer<int>.Default);
+
+            result.AddRange(values);
+
+            Assert.Empty(result);
+        }
+
+        [Fact]
         public void ExceptMethodShouldReturnElementsFromFirstCollectionThatDoNotExistInSecond()
         {
             int[] first = { 1, 2, 3, 2, 5, 5, 1, 11, 9, 11 };
