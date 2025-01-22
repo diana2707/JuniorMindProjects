@@ -272,7 +272,6 @@ namespace Extension_methods
             Func<TKey, IEnumerable<TElement>, TResult> resultSelector,
             IEqualityComparer<TKey> comparer)
         {
-            List<TResult> result = [];
             Dictionary<TKey, List<TElement>> groups = new (comparer);
 
             foreach (var item in source)
@@ -290,10 +289,8 @@ namespace Extension_methods
 
             foreach (var group in groups)
             {
-                result.Add(resultSelector(group.Key, group.Value));
+                yield return resultSelector(group.Key, group.Value);
             }
-
-            return result;
         }
 
         public static IOrderedEnumerable<TSource> OrderBy<TSource, TKey>(
