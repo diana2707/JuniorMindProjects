@@ -864,6 +864,27 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void UnionMethodShouldReturnSecondWithDistinctElementsWhenFirstIsEmpty()
+        {
+            int[] first = [];
+
+            int[] second = { 1, 2, 3, 5, 9, 7, 9, 3, 10, 10 };
+
+            IEnumerable<int> expected = [1, 2, 3, 5, 7, 9, 10 ];
+
+            IEnumerable<int> result = first.Union(second, EqualityComparer<int>.Default);
+
+            int count = 0;
+            foreach (var item in result)
+            {
+                Assert.Contains(item, expected);
+                count++;
+            }
+
+            Assert.Equal(7, count);
+        }
+
+        [Fact]
         public void IntersectMethodShouldReturnCollectionOfIntersectedDistinctElementsFromOther2Collections()
         {
             int[] first = { 1, 2, 3, 2, 5, 5, 1, 11, 9, 11 };
