@@ -1228,6 +1228,33 @@ namespace Extension_methods
             });
         }
 
+        [Fact]
+        public void GroupByMethodShouldThrowArgumentNullExceptionWhenResultSelectorIsNull()
+        {
+            List<Student> students = new List<Student>()
+            {
+                new() { Name = "Alice", Grade = "A" },
+                new() { Name = "Bob", Grade = "B" },
+                new() { Name = "Charlie", Grade = "A" },
+                new() { Name = "David", Grade = "B" },
+                new() { Name = "Eve", Grade = "A" },
+            };
+
+            Func<string, IEnumerable<string>, Ranking> resultSelector = null;
+
+            var groupedResult = students.GroupBy(
+                student => student.Grade,
+                student => student.Name,
+                resultSelector,
+                EqualityComparer<string>.Default
+            );
+
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                foreach (var group in groupedResult) { }
+            });
+        }
+
         //[Fact]
         //public void GroupByMethodShouldReturnCollectionOfGroupedElementsBasedOnAKey()
         //{

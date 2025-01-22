@@ -275,6 +275,7 @@ namespace Extension_methods
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(keySelector);
             ArgumentNullException.ThrowIfNull(elementSelector);
+            ArgumentNullException.ThrowIfNull(resultSelector);
 
             Dictionary<TKey, List<TElement>> groups = new (comparer);
 
