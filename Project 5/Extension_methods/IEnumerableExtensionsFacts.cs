@@ -1276,38 +1276,39 @@ namespace Extension_methods
             Assert.Empty(result);
         }
 
-        //[Fact]
-        //public void GroupByMethodShouldReturnCollectionOfGroupedElementsBasedOnAKey()
-        //{
-        //    var students = new[]
-        //    {
-        //        new { Name = "Alice", Grade = "A" },
-        //        new { Name = "Bob", Grade = "B" },
-        //        new { Name = "Charlie", Grade = "A" },
-        //        new { Name = "David", Grade = "B" },
-        //        new { Name = "Eve", Grade = "A" },
-        //    };
+        [Fact]
+        public void GroupByMethodShouldIncludeNullElementsAsTheyAreHandledBySelectors()
+        {
+            List<Student> students = new List<Student>()
+            {
+                new() { Name = "Alice", Grade = "A" },
+                new() { Name = "Bob", Grade = "B" },
+                null,
+                new() { Name = "Charlie", Grade = "A" },
+                new() { Name = "David", Grade = "B" },
+                new() { Name = "Eve", Grade = "A" },
+            };
 
-        //    List<Ranking> expected = [new Ranking("A", new List<string> { "Alice", "Charlie", "Eve" }),
-        //        new Ranking("B", new List<string> { "Bob", "David" })];
+            List<Ranking> expected = [new Ranking("A", new List<string> { "Alice", "Charlie", "Eve" }),
+                new Ranking("B", new List<string> { "Bob", "David" }), new Ranking("N/A", new List<string> { "default" })];
 
-        //    var groupedResult = students.GroupBy(
-        //        student => student.Grade,
-        //        student => student.Name,
-        //        (grade, names) => new Ranking(grade, names.ToList()),
-        //        EqualityComparer<string>.Default
-        //    );
+            var groupedResult = students.GroupBy(
+                student => student?.Grade ?? "N/A",
+                student => student?.Name ?? "default",
+                (grade, names) => new Ranking(grade, names.ToList()),
+                EqualityComparer<string>.Default
+            );
 
-        //    int count = 0;
+            int count = 0;
 
-        //    foreach (var group in groupedResult)
-        //    {
-        //        Assert.Equal(group.Grade, expected[count].Grade);
-        //        Assert.True(group.Names.SequenceEqual(expected[count].Names));
+            foreach (var group in groupedResult)
+            {
+                Assert.Equal(group.Grade, expected[count].Grade);
+                Assert.True(group.Names.SequenceEqual(expected[count].Names));
 
-        //        count++;
-        //    }
-        //}
+                count++;
+            }
+        }
 
         public class Student
         {
