@@ -1502,5 +1502,14 @@ namespace Extension_methods
                 count++;
             }
         }
+
+        [Fact]
+        public void ThenByMethodThrowsArgumentNullExceptionWhenSourceisNull()
+        {
+            IOrderedEnumerable<(string Name, int Age)> collection = null;
+
+            Assert.Throws<ArgumentNullException>(() => collection.
+                ThenBy(person => person.Name, Comparer<string>.Default));
+        }
     }
 }

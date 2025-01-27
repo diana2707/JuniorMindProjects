@@ -348,6 +348,8 @@ namespace Extension_methods
             Func<TSource, TKey> keySelector,
             IComparer<TKey> comparer)
         {
+            ArgumentNullException.ThrowIfNull(source);
+
             return source.CreateOrderedEnumerable(keySelector, comparer, false);
         }
 
