@@ -1427,6 +1427,43 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void OrderByMethodIncludesNullElementsWhenTheyAreHandledByKeySelectorAndComparer()
+        {
+            List<(string Name, int Age)?> persons = new()
+            {
+                ("Maria", 22),
+                ("Ana", 34),
+                null,
+                ("John", 22),
+                ("Steve", 54),
+                ("Elene", 50),
+            };
+
+            List<(string Name, int Age)?> expected = new()
+            {
+                null,
+                ("Maria", 22),
+                ("John", 22),
+                ("Ana", 34),
+                ("Elene", 50),
+                ("Steve", 54),
+            };
+
+            IOrderedEnumerable<(string Name, int Age)?> result = persons
+                .OrderBy(person => person?.Age ?? 0, Comparer<int>.Default);
+
+            int count = 0;
+
+            foreach (var person in result)
+            {
+                Assert.Equal(expected[count]?.Name, person?.Name);
+                Assert.Equal(expected[count]?.Age, person?.Age);
+
+                count++;
+            }
+        }
+
+        [Fact]
         public void ThenByMethodReturnsCollectionOrderedWithOrderByAndApplyAnotherLayerOfOrdering()
         {
             List<(string Name, int Age)> persons = new ()
