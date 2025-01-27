@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 
 namespace Extension_methods
 {
@@ -76,10 +77,10 @@ namespace Extension_methods
             this IEnumerable<TSource> source,
             Func<TSource, IEnumerable<TResult>> selector)
         {
-             ArgumentNullException.ThrowIfNull(source);
-             ArgumentNullException.ThrowIfNull(selector);
+            ArgumentNullException.ThrowIfNull(source);
+            ArgumentNullException.ThrowIfNull(selector);
 
-             foreach (var item in source)
+            foreach (var item in source)
             {
                 foreach (var subItem in selector(item))
                 {
@@ -199,7 +200,7 @@ namespace Extension_methods
         {
             ArgumentNullException.ThrowIfNull(source);
 
-            HashSet<TSource> evaluated = new (comparer);
+            HashSet<TSource> evaluated = new(comparer);
 
             foreach (var item in source)
             {
@@ -277,7 +278,7 @@ namespace Extension_methods
             ArgumentNullException.ThrowIfNull(elementSelector);
             ArgumentNullException.ThrowIfNull(resultSelector);
 
-            Dictionary<TKey, List<TElement>> groups = new (comparer);
+            Dictionary<TKey, List<TElement>> groups = new(comparer);
 
             foreach (var item in source)
             {
@@ -298,21 +299,47 @@ namespace Extension_methods
             }
         }
 
-        public static IOrderedEnumerable<TSource> OrderBy<TSource, TKey>(
+        //-------------------------------------------------------------------------------------------------------------
+
+        //pastreaza Order si Then la fel
+        //partreaza OrederedEnumerable<TSource> ca si clasa abstracta
+        //pastreaza OrderedEnumerable<TSource, TKey> ca implementare contreta, dar parent se stocheaza ca base class
+        //cand este apelat ORderBy apoi ThenBy, in var result se stocheza ultimul obiect OrderedEnumerable creat de ThenBy,
+                //deci cel mai lowest level
+
+        //enumeratorul (cand este apelat) intra in ultimul obiect OrderedEnumerable (lowest level)
+        //este apelat GetEnumerableSorter(tot in OrderedEnumerable) care primeste el insusi un sorter ca parametru
+                //la prima apelare parametrul sorter este null (pentru ca se creaza in lowest level, nu exista un sorter mai low decat asta)
+        //GetEnumerableSorter este recursiv. 
+        //creaza sorterul pentru levelul curent (lowest) cu parametrul sorter pe null(sorterul trimis ca parametru este deja null)
+        //returneaza un apel catre parent.GetEnumerableSorter si foloseste ca parametru sorterul din acest level
+        //deci recursiv creaza si linkuieste sorterele pana cand parentul este null si atunci returneaza sorterul curent
+        //astfel a creat tot lantul de sortere buttom-up apoi s-a intors si a returnat sorterul din lowes level 
+
+        //GetEnumerator va folosi acum sorterul ca sa sorteze
+        //metoda Sort din sorter intoarce un arei de indecsi sortati care reprezinta ordinea elementelor
+        //deci este apelat sorter.Sorter(SourceColection) care primete ca parametru colectia sursa 
+
+        //EnumerableSorter<TSource, TKey> class are la randul sau o base class EunumerableSorter<TSource> care este tipul fieldului Next (referitor la sorter) 
+
+
+
+
+
+
+        public static IOrderedEnumerable<TSource> CustomOrderBy<TSource, TKey>(
             this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector,
             IComparer<TKey> comparer)
         {
-            Func<TSource, object> generalKeySelector = x => keySelector(x);
-            IComparer<object> generalComparer = Comparer<object>.Create((x, y) => comparer.Compare((TKey)x, (TKey)y));
-
-            return new OrderedEnumerable<TSource>(
+            return new OrderedEnumerable<TSource, TKey>(
                 source,
-                generalKeySelector,
-                generalComparer);
+                keySelector,
+                comparer,
+                null);
         }
 
-        public static IOrderedEnumerable<TSource> ThenBy<TSource, TKey>(
+        public static IOrderedEnumerable<TSource> CustomThenBy<TSource, TKey>(
             this IOrderedEnumerable<TSource> source,
             Func<TSource, TKey> keySelector,
             IComparer<TKey> comparer)
@@ -320,52 +347,21 @@ namespace Extension_methods
             return source.CreateOrderedEnumerable(keySelector, comparer, false);
         }
 
-        private class OrderedEnumerable<TSource> : IOrderedEnumerable<TSource>
+        public abstract class OrderedEnumerable<TSource> : IOrderedEnumerable<TSource>
         {
-            private readonly IEnumerable<TSource> source;
-            private readonly Func<TSource, object> keySelector;
-            private readonly IComparer<object> comparer;
-            private OrderedEnumerable<TSource> parent;
+            internal abstract OrderedEnumerable<TSource> Parent { get; set; }
 
-            public OrderedEnumerable(
-                IEnumerable<TSource> source,
-                Func<TSource, object> keySelector,
-                IComparer<object> comparer,
-                OrderedEnumerable<TSource> parent = null)
-            {
-                this.source = source;
-                this.keySelector = keySelector;
-                this.comparer = comparer;
-                this.parent = parent;
-            }
+            internal abstract int CompareKeys(
+                TSource leftElement,
+                TSource rightElement,
+                OrderedEnumerable<TSource> nextLayer);
 
-            public IOrderedEnumerable<TSource> CreateOrderedEnumerable<TKey>(
+            public abstract IOrderedEnumerable<TSource> CreateOrderedEnumerable<TKey>(
                 Func<TSource, TKey> keySelector,
                 IComparer<TKey> comparer,
-                bool descending)
-            {
-                return new OrderedEnumerable<TSource>(
-                    this.source,
-                    x => keySelector(x),
-                    Comparer<object>.Create((x, y) => comparer.Compare((TKey)x, (TKey)y)),
-                    this);
-            }
+                bool descending);
 
-            public IEnumerator<TSource> GetEnumerator()
-            {
-                List<TSource> list = this.source.ToList();
-                Stack<(Func<TSource, object> keySelector, IComparer<object> comparer)> sortLayers = new ();
-                OrderedEnumerable<TSource> current = this;
-
-                while (current != null)
-                {
-                    sortLayers.Push((current.keySelector, current.comparer));
-                    current = current.parent;
-                }
-
-                MergeSort(list, sortLayers);
-                return list.GetEnumerator();
-            }
+            public abstract IEnumerator<TSource> GetEnumerator();
 
             IEnumerator IEnumerable.GetEnumerator()
             {
@@ -373,74 +369,129 @@ namespace Extension_methods
             }
         }
 
-        private static void MergeSort<TSource, TKey>(
-            List<TSource> source,
-            Stack<(Func<TSource, TKey> keySelector, IComparer<TKey> comparer)> sortLayers)
+        public class OrderedEnumerable<TSource, TKey> : OrderedEnumerable<TSource>
         {
-            if (source.Count <= 1)
+            readonly IEnumerable<TSource> source;
+            readonly Func<TSource, TKey> keySelector;
+            readonly IComparer<TKey> comparer;
+            readonly OrderedEnumerable<TSource> parent;
+
+            public OrderedEnumerable(
+                IEnumerable<TSource> source,
+                Func<TSource, TKey> keySelector,
+                IComparer<TKey> comparer,
+                OrderedEnumerable<TSource> parent = null
+                )
             {
-                return;
+                this.source = source;
+                this.keySelector = keySelector;
+                this.comparer = comparer;
+                Parent = parent;
             }
 
-            int mid = (int)Math.Floor((double)source.Count / 2);
+            internal override OrderedEnumerable<TSource> Parent { get; set; }
 
-            List<TSource> left = source[..mid];
-            List<TSource> right = source[mid..];
-
-            MergeSort(left, sortLayers);
-            MergeSort(right, sortLayers);
-
-            Merge(source, left, right, sortLayers);
-        }
-
-        private static void Merge<TSource, TKey>(
-            List<TSource> source,
-            List<TSource> left,
-            List<TSource> right,
-            Stack<(Func<TSource, TKey> keySelector, IComparer<TKey> comparer)> sortLayers)
-        {
-            int leftIndex = 0;
-            int rightIndex = 0;
-            int sourceIndex = 0;
-
-            while (leftIndex < left.Count && rightIndex < right.Count)
+            public override IOrderedEnumerable<TSource> CreateOrderedEnumerable<TNewKey>(
+                Func<TSource, TNewKey> keySelector,
+                IComparer<TNewKey> comparer,
+                bool descending = false)
             {
-                bool areEqual = true;
+                return new OrderedEnumerable<TSource, TNewKey>(
+                    source,
+                    keySelector,
+                    comparer,
+                    this);
+            }
 
-                foreach (var (keySelector, comparer) in sortLayers)
+            public override IEnumerator<TSource> GetEnumerator()
+            {
+                List<TSource> sourceList = source.ToList();
+                MergeSort(sourceList);
+
+                foreach (var item in sourceList)
                 {
-                    int comparison = comparer.Compare(keySelector(left[leftIndex]), keySelector(right[rightIndex]));
+                    yield return item;
+                }
+            }
+
+            private void MergeSort(
+                List<TSource> source)
+            {
+                if (source.Count <= 1)
+                {
+                    return;
+                }
+
+                int mid = (int)Math.Floor((double)source.Count / 2);
+
+                List<TSource> left = source[..mid];
+                List<TSource> right = source[mid..];
+
+                MergeSort(left);
+                MergeSort(right);
+
+                Merge(source, left, right);
+            }
+
+            private void Merge(
+                List<TSource> source,
+                List<TSource> left,
+                List<TSource> right)
+            {
+                int leftIndex = 0;
+                int rightIndex = 0;
+                int sourceIndex = 0;
+
+                while (leftIndex < left.Count && rightIndex < right.Count)
+                {
+                    int comparison = CompareKeys(left[leftIndex], right[rightIndex], this);
 
                     if (comparison < 0)
                     {
                         source[sourceIndex++] = left[leftIndex++];
-                        areEqual = false;
-                        break;
                     }
 
                     if (comparison > 0)
                     {
                         source[sourceIndex++] = right[rightIndex++];
-                        areEqual = false;
-                        break;
+                    }
+
+                    if (comparison == 0)
+                    {
+                        source[sourceIndex++] = left[leftIndex++];
+                        source[sourceIndex++] = right[rightIndex++];
                     }
                 }
 
-                if (areEqual)
+                while (leftIndex < left.Count)
                 {
                     source[sourceIndex++] = left[leftIndex++];
+                }
+
+                while (rightIndex < right.Count)
+                {
                     source[sourceIndex++] = right[rightIndex++];
                 }
             }
 
-            while (leftIndex < left.Count)
+            internal override int CompareKeys(
+                TSource leftElement,
+                TSource rightElement,
+                OrderedEnumerable<TSource> currentLayer)
             {
-                source[sourceIndex++] = left[leftIndex++];
-            }
+                int comparison = 0;
 
-            while (rightIndex < right.Count)
-            {
-                source[sourceIndex++] = right[rightIndex++];
+                if (currentLayer != null)
+                {
+                    comparison = currentLayer.CompareKeys(leftElement, rightElement, currentLayer.Parent);
+                }
+
+                if (comparison == 0)
+                {
+                    comparison = comparer.Compare(keySelector(leftElement), keySelector(rightElement));
+                }
+
+                return comparison;
             }
         }
     }

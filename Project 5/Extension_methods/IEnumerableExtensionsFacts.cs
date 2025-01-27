@@ -1352,7 +1352,7 @@ namespace Extension_methods
             };
 
             IOrderedEnumerable<(string Name, int Age)> result = persons
-                .OrderBy(person => person.Age, Comparer<int>.Default);
+                .CustomOrderBy(person => person.Age, Comparer<int>.Default);
 
             int count = 0;
 
@@ -1391,8 +1391,8 @@ namespace Extension_methods
             };
 
             IOrderedEnumerable<(string Name, int Age)> result = persons
-                .OrderBy(person => person.Age, Comparer<int>.Default)
-                .ThenBy(person => person.Name, Comparer<string>.Default);
+                .CustomOrderBy(person => person.Age, Comparer<int>.Default)
+                .CustomThenBy(person => person.Name, Comparer<string>.Default);
 
             int count = 0;
 
