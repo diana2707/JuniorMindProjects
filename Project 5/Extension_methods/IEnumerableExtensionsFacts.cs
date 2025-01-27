@@ -1514,5 +1514,21 @@ namespace Extension_methods
                 .OrderBy(person => person.Age, Comparer<int>.Default)
                 .ThenBy(keySelector, Comparer<string>.Default));
         }
+
+        [Fact]
+        public void ThenByMethodReturnsCollectionEmptyWhenSourceIsEmpty()
+        {
+            List<(string Name, int Age)> persons = [];
+
+            List<(string Name, int Age)> result = [];
+
+            IOrderedEnumerable<(string Name, int Age)> values = persons
+                .OrderBy(person => person.Age, Comparer<int>.Default)
+                .ThenBy(person => person.Name, Comparer<string>.Default);
+
+            result.AddRange(values);
+
+            Assert.Empty(result);
+        }
     }
 }
