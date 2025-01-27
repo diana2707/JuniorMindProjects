@@ -1370,17 +1370,26 @@ namespace Extension_methods
         {
             List<(string Name, int Age)> persons = null;
 
-            List<(string Name, int Age)> expected = new()
-            {
-                ("Maria", 22),
-                ("John", 22),
-                ("Ana", 34),
-                ("Elene", 50),
-                ("Steve", 54),
-            };
-
             Assert.Throws<ArgumentNullException>(() => persons
             .CustomOrderBy(person => person.Age, Comparer<int>.Default));
+        }
+
+        [Fact]
+        public void OrderByMethodThrowsArgumentNullExceptionWhenKeySelectorIsNull()
+        {
+            List<(string Name, int Age)> persons = new()
+            {
+                ("Maria", 22),
+                ("Ana", 34),
+                ("John", 22),
+                ("Steve", 54),
+                ("Elene", 50),
+            };
+
+            Func<(string, int), int> keySelector = null;
+
+            Assert.Throws<ArgumentNullException>(() => persons
+                .OrderBy(keySelector, Comparer<int>.Default));
         }
 
         [Fact]

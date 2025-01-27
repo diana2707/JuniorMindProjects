@@ -333,6 +333,7 @@ namespace Extension_methods
             IComparer<TKey> comparer)
         {
             ArgumentNullException.ThrowIfNull(source);
+            ArgumentNullException.ThrowIfNull(keySelector);
 
             return new OrderedEnumerable<TSource, TKey>(
                 source,
