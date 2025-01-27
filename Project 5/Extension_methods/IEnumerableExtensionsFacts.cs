@@ -1411,6 +1411,22 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void OrderByMethodReturnsEmptyCollectionWhenSourceIsEmpty()
+        {
+            List<(string Name, int Age)> persons = [];
+
+            List<(string Name, int Age)> result = new();
+
+
+            IOrderedEnumerable<(string Name, int Age)> values = persons
+                .OrderBy(person => person.Age, Comparer<int>.Default);
+
+            result.AddRange(values);
+
+            Assert.Empty(result);
+        }
+
+        [Fact]
         public void ThenByMethodReturnsCollectionOrderedWithOrderByAndApplyAnotherLayerOfOrdering()
         {
             List<(string Name, int Age)> persons = new ()
