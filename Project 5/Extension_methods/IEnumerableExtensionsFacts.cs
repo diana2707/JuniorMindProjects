@@ -1371,7 +1371,7 @@ namespace Extension_methods
             List<(string Name, int Age)> persons = null;
 
             Assert.Throws<ArgumentNullException>(() => persons
-            .CustomOrderBy(person => person.Age, Comparer<int>.Default));
+            .OrderBy(person => person.Age, Comparer<int>.Default));
         }
 
         [Fact]
@@ -1390,6 +1390,24 @@ namespace Extension_methods
 
             Assert.Throws<ArgumentNullException>(() => persons
                 .OrderBy(keySelector, Comparer<int>.Default));
+        }
+
+        [Fact]
+        public void OrderByMethodThrowsArgumentNullExceptionWhenComparerIsNull()
+        {
+            List<(string Name, int Age)> persons = new()
+            {
+                ("Maria", 22),
+                ("Ana", 34),
+                ("John", 22),
+                ("Steve", 54),
+                ("Elene", 50),
+            };
+
+            IComparer<int> comparer = null;
+
+            Assert.Throws<ArgumentNullException>(() => persons
+                .OrderBy(person => person.Age, comparer));
         }
 
         [Fact]

@@ -327,13 +327,14 @@ namespace Extension_methods
 
 
 
-        public static IOrderedEnumerable<TSource> CustomOrderBy<TSource, TKey>(
+        public static IOrderedEnumerable<TSource> OrderBy<TSource, TKey>(
             this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector,
             IComparer<TKey> comparer)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(keySelector);
+            ArgumentNullException.ThrowIfNull(comparer);
 
             return new OrderedEnumerable<TSource, TKey>(
                 source,
