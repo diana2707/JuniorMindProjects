@@ -1530,5 +1530,48 @@ namespace Extension_methods
 
             Assert.Empty(result);
         }
+
+        [Fact]
+        public void ThenByMethodIncludesNullElementsWhenAreHandledByKeySelectorAndComparer()
+        {
+
+            List<(string Name, int Age)?> persons = new()
+            {
+                ("Ana", 34),
+                ("Zoe", 50),
+                null,
+                ("Steve", 54),
+                ("Maria", 22),
+                ("Elene", 50),
+                ("John", 22),
+                ("Alice", 22),
+            };
+
+            List<(string Name, int Age)?> expected = new()
+            {
+                null,
+                ("Alice", 22),
+                ("John", 22),
+                ("Maria", 22),
+                ("Ana", 34),
+                ("Elene", 50),
+                ("Zoe", 50),
+                ("Steve", 54),
+            };
+
+            IOrderedEnumerable<(string Name, int Age)?> result = persons
+                .OrderBy(person => person?.Age ?? 0, Comparer<int>.Default)
+                .ThenBy(person => person?.Name ?? string.Empty, Comparer<string>.Default);
+
+            int count = 0;
+
+            foreach (var person in result)
+            {
+                Assert.Equal(expected[count]?.Name, person?.Name);
+                Assert.Equal(expected[count]?.Age, person?.Age);
+
+                count++;
+            }
+        }
     }
 }
