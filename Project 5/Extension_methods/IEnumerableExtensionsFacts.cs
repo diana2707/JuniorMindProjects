@@ -1393,24 +1393,6 @@ namespace Extension_methods
         }
 
         [Fact]
-        public void OrderByMethodThrowsArgumentNullExceptionWhenComparerIsNull()
-        {
-            List<(string Name, int Age)> persons = new()
-            {
-                ("Maria", 22),
-                ("Ana", 34),
-                ("John", 22),
-                ("Steve", 54),
-                ("Elene", 50),
-            };
-
-            IComparer<int> comparer = null;
-
-            Assert.Throws<ArgumentNullException>(() => persons
-                .OrderBy(person => person.Age, comparer));
-        }
-
-        [Fact]
         public void OrderByMethodReturnsEmptyCollectionWhenSourceIsEmpty()
         {
             List<(string Name, int Age)> persons = [];
@@ -1506,10 +1488,31 @@ namespace Extension_methods
         [Fact]
         public void ThenByMethodThrowsArgumentNullExceptionWhenSourceisNull()
         {
-            IOrderedEnumerable<(string Name, int Age)> collection = null;
+            IOrderedEnumerable<(string Name, int Age)> persons = null;
 
-            Assert.Throws<ArgumentNullException>(() => collection.
+            Assert.Throws<ArgumentNullException>(() => persons.
                 ThenBy(person => person.Name, Comparer<string>.Default));
+        }
+
+        [Fact]
+        public void ThenByMethodThrowsArgumentNullExceptionWhenKeySelectorIsNull()
+        {
+            List<(string Name, int Age)> persons = new()
+            {
+                ("Ana", 34),
+                ("Zoe", 50),
+                ("Steve", 54),
+                ("Maria", 22),
+                ("Elene", 50),
+                ("John", 22),
+                ("Alice", 22),
+            };
+
+            Func<(string Name, int Age), string> keySelector = null;
+
+            Assert.Throws<ArgumentNullException>(() => persons
+                .OrderBy(person => person.Age, Comparer<int>.Default)
+                .ThenBy(keySelector, Comparer<string>.Default));
         }
     }
 }

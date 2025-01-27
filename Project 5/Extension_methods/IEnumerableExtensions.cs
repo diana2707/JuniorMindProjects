@@ -334,7 +334,6 @@ namespace Extension_methods
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(keySelector);
-            ArgumentNullException.ThrowIfNull(comparer);
 
             return new OrderedEnumerable<TSource, TKey>(
                 source,
@@ -349,6 +348,7 @@ namespace Extension_methods
             IComparer<TKey> comparer)
         {
             ArgumentNullException.ThrowIfNull(source);
+            ArgumentNullException.ThrowIfNull(keySelector);
 
             return source.CreateOrderedEnumerable(keySelector, comparer, false);
         }
