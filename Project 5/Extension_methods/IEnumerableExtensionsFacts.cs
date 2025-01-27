@@ -1352,7 +1352,7 @@ namespace Extension_methods
             };
 
             IOrderedEnumerable<(string Name, int Age)> result = persons
-                .CustomOrderBy(person => person.Age, Comparer<int>.Default);
+                .OrderBy(person => person.Age, Comparer<int>.Default);
 
             int count = 0;
 
@@ -1363,6 +1363,24 @@ namespace Extension_methods
 
                 count++;
             }
+        }
+
+        [Fact]
+        public void OrderByMethodThrowsArgumentNullExceptionWhenSourceIsNull()
+        {
+            List<(string Name, int Age)> persons = null;
+
+            List<(string Name, int Age)> expected = new()
+            {
+                ("Maria", 22),
+                ("John", 22),
+                ("Ana", 34),
+                ("Elene", 50),
+                ("Steve", 54),
+            };
+
+            Assert.Throws<ArgumentNullException>(() => persons
+            .CustomOrderBy(person => person.Age, Comparer<int>.Default));
         }
 
         [Fact]
@@ -1391,8 +1409,8 @@ namespace Extension_methods
             };
 
             IOrderedEnumerable<(string Name, int Age)> result = persons
-                .CustomOrderBy(person => person.Age, Comparer<int>.Default)
-                .CustomThenBy(person => person.Name, Comparer<string>.Default);
+                .OrderBy(person => person.Age, Comparer<int>.Default)
+                .ThenBy(person => person.Name, Comparer<string>.Default);
 
             int count = 0;
 

@@ -332,6 +332,8 @@ namespace Extension_methods
             Func<TSource, TKey> keySelector,
             IComparer<TKey> comparer)
         {
+            ArgumentNullException.ThrowIfNull(source);
+
             return new OrderedEnumerable<TSource, TKey>(
                 source,
                 keySelector,
@@ -339,7 +341,7 @@ namespace Extension_methods
                 null);
         }
 
-        public static IOrderedEnumerable<TSource> CustomThenBy<TSource, TKey>(
+        public static IOrderedEnumerable<TSource> ThenBy<TSource, TKey>(
             this IOrderedEnumerable<TSource> source,
             Func<TSource, TKey> keySelector,
             IComparer<TKey> comparer)
