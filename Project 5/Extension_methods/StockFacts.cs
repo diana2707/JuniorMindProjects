@@ -5,10 +5,12 @@
         [Fact]
         public void StockClassExtists()
         {
+            string notification = string.Empty;
+
             var stock = new Stock(
                 "Jacket",
                 100,
-                (string product, int quantity) =>
+                (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
 
             Assert.IsType<Stock>(stock);
@@ -17,10 +19,12 @@
         [Fact]
         public void QuantityReturnsStockQuantity()
         {
+            string notification = string.Empty;
+
             var stock = new Stock(
                 "Jacket",
                 100,
-                (string product, int quantity) =>
+                (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
             Assert.Equal(100, stock.Quantity);
         }
@@ -28,10 +32,12 @@
         [Fact]
         public void DecreaseQuantityShouldReturnDecresedQuantity()
         {
+            string notification = string.Empty;
+
             var stock = new Stock(
                 "Jacket",
                 100,
-                (string product, int quantity) =>
+                (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
             stock.DecreaseQuantity(25);
             Assert.Equal(75, stock.Quantity);
@@ -40,10 +46,12 @@
         [Fact]
         public void IncreaseQuantityShouldReturnIncresedQuantity()
         {
+            string notification = string.Empty;
+
             var stock = new Stock(
                 "Jacket",
                 100,
-                (string product, int quantity) =>
+                (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
             stock.IncreaseQuantity(25);
             Assert.Equal(125, stock.Quantity);

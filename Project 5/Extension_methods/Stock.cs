@@ -4,32 +4,33 @@ namespace Extension_methods
 {
     public class Stock
     {
-        private static class Trashold
+        private readonly Dictionary<string, int> tresholds = new ()
         {
-            public const int Moderate = 10;
-            public const int Low = 5;
-            public const int Critical = 2;
-        }
+            { "Critical", 2 },
+            { "Low", 5 },
+            { "Moderate", 10 },
+        };
 
+        private readonly List<int> notifiedTresholds = new ();
         private readonly Func<string, int, string> notifyLowStock;
         private readonly string product;
         private int quantity;
-        private List<int> notified = new List<int>();
 
-        public Stock(string product, int quantity, Func<string, int, string> lowStockNotification)
+        public Stock(string product, int quantity, Func<string, int, string> notifyLowStock)
         {
             this.product = product;
             this.quantity = quantity;
-            this.notifyLowStock = lowStockNotification;
+            this.notifyLowStock = notifyLowStock;
         }
 
         public int Quantity
         {
-            get => this.quantity;
+            get => quantity;
             private set
             {
-                this.quantity = value;
-                CheckTrasholds();
+                quantity = value;
+                ResetNotifiedTresholds();
+                CheckThresholds();
             }
         }
 
@@ -37,42 +38,27 @@ namespace Extension_methods
 
         public void IncreaseQuantity(int units) => Quantity += units;
 
-        private void CheckTrasholds()
+        private void ResetNotifiedTresholds()
         {
-            if (quantity >= Trashold.Low && notified.Contains(Trashold.Low))
+            foreach (var treshold in tresholds)
             {
-                notified.Remove(Trashold.Low);
+                if (quantity >= treshold.Value && notifiedTresholds.Contains(treshold.Value))
+                {
+                    notifiedTresholds.Remove(treshold.Value);
+                }
             }
+        }
 
-            if (quantity >= Trashold.Moderate && notified.Contains(Trashold.Moderate))
+        private void CheckThresholds()
+        {
+            foreach (var treshold in tresholds)
             {
-                notified.Remove(Trashold.Moderate);
-            }
-
-            if (quantity >= Trashold.Critical && notified.Contains(Trashold.Critical))
-            {
-                notified.Remove(Trashold.Critical);
-            }
-
-            if (quantity < Trashold.Critical && !notified.Contains(Trashold.Critical))
-            {
-                notifyLowStock.Invoke(product, quantity);
-                notified.Add(Trashold.Critical);
-                return;
-            }
-
-            if (quantity < Trashold.Low && !notified.Contains(Trashold.Low))
-            {
-                notifyLowStock.Invoke(product, quantity);
-                notified.Add(Trashold.Low);
-                return;
-            }
-
-            if (quantity < Trashold.Moderate && !notified.Contains(Trashold.Moderate))
-            {
-                notifyLowStock.Invoke(product, quantity);
-                notified.Add(Trashold.Moderate);
-                return;
+                if (quantity < treshold.Value && !notifiedTresholds.Contains(treshold.Value))
+                {
+                    notifyLowStock.Invoke(product, quantity);
+                    notifiedTresholds.Add(treshold.Value);
+                    break;
+                }
             }
         }
     }
