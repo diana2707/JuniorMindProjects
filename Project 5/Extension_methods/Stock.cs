@@ -1,20 +1,20 @@
-﻿using System.Net.Http.Headers;
+﻿using System;
 
 namespace Extension_methods
 {
     public class Stock
     {
-        public static class Trashold
+        private static class Trashold
         {
             public const int Moderate = 10;
             public const int Low = 5;
             public const int Critical = 2;
         }
 
-        readonly string product;
+        private readonly Func<string, int, string> notifyLowStock;
+        private readonly string product;
         private int quantity;
-
-        private Func<string, int, string> notifyLowStock;
+        private List<int> notified = new List<int>();
 
         public Stock(string product, int quantity, Func<string, int, string> lowStockNotification)
         {
@@ -28,7 +28,7 @@ namespace Extension_methods
             get => this.quantity;
             private set
             {
-                quantity = value;
+                this.quantity = value;
                 CheckTrasholds();
             }
         }
@@ -39,9 +39,10 @@ namespace Extension_methods
 
         private void CheckTrasholds()
         {
-            if (quantity <= Trashold.Moderate)
+            if (quantity < Trashold.Moderate && !notified.Contains(Trashold.Moderate))
             {
                 notifyLowStock.Invoke(product, quantity);
+                notified.Add(Trashold.Moderate);
             }
         }
     }
