@@ -112,7 +112,7 @@
         }
 
         [Fact]
-        public void IncreaseQuantityShouldSetQuantityAndResetThresholdIfQuantityIncresesAboveThrashold()
+        public void IncreaseQuantityShouldSetQuantityAndResetModerateThresholdIfQuantityIncresesAboveThrashold()
         {
             string notification = string.Empty;
 
@@ -129,6 +129,26 @@
             stock.DecreaseQuantity(5);
 
             Assert.Equal("There are only 6 units of Jacket in stock.", notification);
+        }
+
+        [Fact]
+        public void IncreaseQuantityShouldSetQuantityAndResetLowThresholdIfQuantityIncresesAboveThrashold()
+        {
+            string notification = string.Empty;
+
+            var stock = new Stock(
+                "Jacket",
+                20,
+                (string product, int quantity) => notification =
+                    $"There are only {quantity} units of {product} in stock.");
+            stock.DecreaseQuantity(16);
+
+            Assert.Equal("There are only 4 units of Jacket in stock.", notification);
+
+            stock.IncreaseQuantity(2);
+            stock.DecreaseQuantity(3);
+
+            Assert.Equal("There are only 3 units of Jacket in stock.", notification);
         }
     }
 }

@@ -61,6 +61,11 @@ namespace Extension_methods
             {
                 notified.Remove(Trashold.Moderate);
             }
+
+            if (quantity >= Trashold.Low && notified.Contains(Trashold.Low))
+            {
+                notified.Remove(Trashold.Low);
+            }
         }
     }
 }
