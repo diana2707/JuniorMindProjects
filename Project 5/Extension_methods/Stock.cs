@@ -4,18 +4,45 @@ namespace Extension_methods
 {
     public class Stock
     {
-        readonly string product;
-
-        public Stock(string product, int quantity)
+        public static class Trashold
         {
-            this.product = product;
-            this.Quantity = quantity;
+            public const int Moderate = 10;
+            public const int Low = 5;
+            public const int Critical = 2;
         }
 
-        public int Quantity { get; private set; }
+        readonly string product;
+        private int quantity;
+
+        private Func<string, int, string> notifyLowStock;
+
+        public Stock(string product, int quantity, Func<string, int, string> lowStockNotification)
+        {
+            this.product = product;
+            this.quantity = quantity;
+            this.notifyLowStock = lowStockNotification;
+        }
+
+        public int Quantity
+        {
+            get => this.quantity;
+            private set
+            {
+                quantity = value;
+                CheckTrasholds();
+            }
+        }
 
         public void DecreaseQuantity(int units) => Quantity -= units;
 
         public void IncreaseQuantity(int units) => Quantity += units;
+
+        private void CheckTrasholds()
+        {
+            if (quantity <= Trashold.Moderate)
+            {
+                notifyLowStock.Invoke(product, quantity);
+            }
+        }
     }
 }
