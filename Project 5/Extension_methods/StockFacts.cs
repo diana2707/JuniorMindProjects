@@ -170,5 +170,24 @@
 
             Assert.Equal("There are only 0 units of Jacket in stock.", notification);
         }
+
+        [Fact]
+        public void NotificationShouldBeSentWhenIncreasingQuantityAboveATrasholdButStillBelowAnother()
+        {
+            string notification = string.Empty;
+
+            var stock = new Stock(
+                "Jacket",
+                20,
+                (string product, int quantity) => notification =
+                    $"There are only {quantity} units of {product} in stock.");
+            stock.DecreaseQuantity(19);
+
+            Assert.Equal("There are only 1 units of Jacket in stock.", notification);
+
+            stock.IncreaseQuantity(2);
+
+            Assert.Equal("There are only 3 units of Jacket in stock.", notification);
+        }
     }
 }

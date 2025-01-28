@@ -39,22 +39,9 @@ namespace Extension_methods
 
         private void CheckTrasholds()
         {
-            if (quantity < Trashold.Moderate && !notified.Contains(Trashold.Moderate))
+            if (quantity >= Trashold.Low && notified.Contains(Trashold.Low))
             {
-                notifyLowStock.Invoke(product, quantity);
-                notified.Add(Trashold.Moderate);
-            }
-
-            if (quantity < Trashold.Low && !notified.Contains(Trashold.Low))
-            {
-                notifyLowStock.Invoke(product, quantity);
-                notified.Add(Trashold.Low);
-            }
-
-            if (quantity < Trashold.Critical && !notified.Contains(Trashold.Critical))
-            {
-                notifyLowStock.Invoke(product, quantity);
-                notified.Add(Trashold.Critical);
+                notified.Remove(Trashold.Low);
             }
 
             if (quantity >= Trashold.Moderate && notified.Contains(Trashold.Moderate))
@@ -62,14 +49,30 @@ namespace Extension_methods
                 notified.Remove(Trashold.Moderate);
             }
 
-            if (quantity >= Trashold.Low && notified.Contains(Trashold.Low))
-            {
-                notified.Remove(Trashold.Low);
-            }
-
             if (quantity >= Trashold.Critical && notified.Contains(Trashold.Critical))
             {
                 notified.Remove(Trashold.Critical);
+            }
+
+            if (quantity < Trashold.Critical && !notified.Contains(Trashold.Critical))
+            {
+                notifyLowStock.Invoke(product, quantity);
+                notified.Add(Trashold.Critical);
+                return;
+            }
+
+            if (quantity < Trashold.Low && !notified.Contains(Trashold.Low))
+            {
+                notifyLowStock.Invoke(product, quantity);
+                notified.Add(Trashold.Low);
+                return;
+            }
+
+            if (quantity < Trashold.Moderate && !notified.Contains(Trashold.Moderate))
+            {
+                notifyLowStock.Invoke(product, quantity);
+                notified.Add(Trashold.Moderate);
+                return;
             }
         }
     }
