@@ -44,6 +44,12 @@ namespace Extension_methods
                 notifyLowStock.Invoke(product, quantity);
                 notified.Add(Trashold.Moderate);
             }
+
+            if (quantity < Trashold.Low && !notified.Contains(Trashold.Low))
+            {
+                notifyLowStock.Invoke(product, quantity);
+                notified.Add(Trashold.Low);
+            }
         }
     }
 }
