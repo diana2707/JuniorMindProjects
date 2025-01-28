@@ -50,6 +50,12 @@ namespace Extension_methods
                 notifyLowStock.Invoke(product, quantity);
                 notified.Add(Trashold.Low);
             }
+
+            if (quantity < Trashold.Critical && !notified.Contains(Trashold.Critical))
+            {
+                notifyLowStock.Invoke(product, quantity);
+                notified.Add(Trashold.Critical);
+            }
         }
     }
 }

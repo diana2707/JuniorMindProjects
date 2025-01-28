@@ -93,5 +93,22 @@
 
             Assert.Equal("There are only 4 units of Jacket in stock.", notification);
         }
+
+        [Fact]
+        public void DecreaseQuantityShouldSetNewQuantityAndInvokeNotificationWhenIsBellow2()
+        {
+            string notification = string.Empty;
+
+            var stock = new Stock(
+                "Jacket",
+                20,
+                (string product, int quantity) => notification =
+                    $"There are only {quantity} units of {product} in stock.");
+            stock.DecreaseQuantity(11);
+            stock.DecreaseQuantity(5);
+            stock.DecreaseQuantity(3);
+
+            Assert.Equal("There are only 1 units of Jacket in stock.", notification);
+        }
     }
 }
