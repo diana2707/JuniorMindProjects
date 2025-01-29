@@ -45,5 +45,12 @@ namespace Extension_methods
             string source = "521";
             Assert.Equal(521, source.ConvertToInt());
         }
+
+        [Fact]
+        public void ConvertToIntReturnsNegativeIntFromString()
+        {
+            string source = "-5";
+            Assert.Equal(-5, source.ConvertToInt());
+        }
     }
 }

@@ -23,16 +23,25 @@ namespace Extension_methods
         public static int ConvertToInt(this string source)
         {
             int result = 0;
-            int orders = source.Length;
+            int sign = 1;
+            int index = 0;
 
-            foreach (char c in source)
+            if (source[0] == '-')
             {
-                int digit = c - '0';
+                sign = -1;
+                index++;
+            }
+
+            int orders = source.Length - index;
+
+            for (int i = index; i < source.Length; i++)
+            {
+                int digit = source[i] - '0';
                 double order = Math.Pow(10, --orders);
                 result += digit * (int)order;
             }
 
-            return result;
+            return result * sign;
 
             //int index = 0;
             //int sign = 1;
