@@ -36,6 +36,14 @@ namespace Extension_methods
                 index++;
             }
 
+            for (int i = index; i < source.Length; i++)
+            {
+                if (!char.IsDigit(source[i]))
+                {
+                    throw new ArgumentException("The string is not integer");
+                }
+            }
+
             int orders = source.Length - index;
 
             for (int i = index; i < source.Length; i++)
@@ -46,19 +54,6 @@ namespace Extension_methods
             }
 
             return result * sign;
-
-            //int index = 0;
-            //int sign = 1;
-
-            
-
-            //foreach (char c in source)
-            //{
-            //    if (!char.IsDigit(c))
-            //    {
-            //        throw new ArgumentException("The string is not integer");
-            //    }
-            //}
         }
     }
 }
