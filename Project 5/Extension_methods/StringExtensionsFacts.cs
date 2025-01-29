@@ -52,5 +52,12 @@ namespace Extension_methods
             string source = "-5";
             Assert.Equal(-5, source.ConvertToInt());
         }
+
+        [Fact]
+        public void ConvertToIntReturnsIntFromStringWhenStringStartsWithPlusSign()
+        {
+            string source = "+5";
+            Assert.Equal(5, source.ConvertToInt());
+        }
     }
 }

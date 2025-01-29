@@ -26,9 +26,13 @@ namespace Extension_methods
             int sign = 1;
             int index = 0;
 
-            if (source[0] == '-')
+            if (source[0] == '-' || source[0] == '+')
             {
-                sign = -1;
+                if (source[0] == '-')
+                {
+                    sign = -1;
+                }
+
                 index++;
             }
 
@@ -46,15 +50,7 @@ namespace Extension_methods
             //int index = 0;
             //int sign = 1;
 
-            //if (source[0] == '-' || source[0] == '+')
-            //{
-            //    if (source[0] == '-')
-            //    {
-            //        sign = -1;
-            //    }
-
-            //    index++;
-            //}
+            
 
             //foreach (char c in source)
             //{
