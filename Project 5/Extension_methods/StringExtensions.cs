@@ -37,5 +37,24 @@ namespace Extension_methods
 
             return result * sign;
         }
+
+        public static char MostFrequentChar(this string source)
+        {
+            int max = 0;
+            char maxChar = '\0';
+
+            foreach (char c in source)
+            {
+                int count = source.Count(e => e == c);
+
+                if (count > max)
+                {
+                    max = count;
+                    maxChar = c;
+                }
+            }
+
+            return maxChar;
+        }
     }
 }

@@ -73,5 +73,12 @@ namespace Extension_methods
             string source = "--5";
             Assert.Throws<ArgumentException>(() => source.ConvertToInt());
         }
+
+        [Fact]
+        public void MostFrequentCharReturnsTheCharThatAppearsTheMostFrequent()
+        {
+            string source = "cababad";
+            Assert.Equal('a', source.MostFrequentChar());
+        }
     }
 }
