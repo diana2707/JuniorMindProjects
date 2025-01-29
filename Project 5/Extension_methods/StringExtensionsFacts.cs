@@ -17,5 +17,12 @@ namespace Extension_methods
             string source = "Alexandra";
             Assert.Equal(5, source.CountConsonants());
         }
+
+        [Fact]
+        public void FirstUniqueReturnsFirstUniqueCharInString()
+        {
+            string source = "ababacd";
+            Assert.Equal('c', source.FirstUnique());
+        }
     }
 }
