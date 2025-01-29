@@ -23,9 +23,13 @@ namespace Extension_methods
         public static int ConvertToInt(this string source)
         {
             int result = 0;
+            int orders = source.Length;
+
             foreach (char c in source)
             {
-                result = c - '0';
+                int digit = c - '0';
+                double order = Math.Pow(10, --orders);
+                result += digit * (int)order;
             }
 
             return result;

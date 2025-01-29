@@ -31,5 +31,19 @@ namespace Extension_methods
             string source = "5";
             Assert.Equal(5, source.ConvertToInt());
         }
+
+        [Fact]
+        public void ConvertToIntReturnsIntFromStringFor2DigitNumbers()
+        {
+            string source = "52";
+            Assert.Equal(52, source.ConvertToInt());
+        }
+
+        [Fact]
+        public void ConvertToIntReturnsIntFromStringFor3DigitNumbers()
+        {
+            string source = "521";
+            Assert.Equal(521, source.ConvertToInt());
+        }
     }
 }
