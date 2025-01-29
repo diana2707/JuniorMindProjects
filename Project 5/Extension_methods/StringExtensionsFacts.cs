@@ -66,5 +66,12 @@ namespace Extension_methods
             string source = "+5a";
             Assert.Throws<ArgumentException>(() => source.ConvertToInt());
         }
+
+        [Fact]
+        public void ConvertToIntThrowsArgumentExeptionIfSourceContainsMultipleOptionalSigns()
+        {
+            string source = "--5";
+            Assert.Throws<ArgumentException>(() => source.ConvertToInt());
+        }
     }
 }
