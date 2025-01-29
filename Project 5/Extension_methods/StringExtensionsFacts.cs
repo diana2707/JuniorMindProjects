@@ -1,0 +1,14 @@
+﻿using System;
+
+namespace Extension_methods
+{
+    public class StringExtensionsFacts
+    {
+        [Fact]
+        public void CountVowelsReturnsNumberOfVowelsInString()
+        {
+            string source = "Alexandra";
+            Assert.Equal(4, source.CountVowels());
+        }
+    }
+}
