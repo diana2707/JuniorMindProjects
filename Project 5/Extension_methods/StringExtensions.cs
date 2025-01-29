@@ -10,5 +10,10 @@ namespace Extension_methods
             return source.Where(e => vowels.Contains(e))
                          .Count();
         }
+
+        public static int CountConsonants(this string source)
+        {
+            return source.Length - source.CountVowels();
+        }
     }
 }

@@ -10,5 +10,12 @@ namespace Extension_methods
             string source = "Alexandra";
             Assert.Equal(4, source.CountVowels());
         }
+
+        [Fact]
+        public void CountConsonantsReturnsNumberOfVowelsInString()
+        {
+            string source = "Alexandra";
+            Assert.Equal(5, source.CountConsonants());
+        }
     }
 }
