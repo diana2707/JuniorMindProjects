@@ -24,5 +24,12 @@ namespace Extension_methods
             string source = "ababacd";
             Assert.Equal('c', source.FirstUnique());
         }
+
+        [Fact]
+        public void ConvertToIntReturnsIntFromStringForUnits()
+        {
+            string source = "5";
+            Assert.Equal(5, source.ConvertToInt());
+        }
     }
 }
