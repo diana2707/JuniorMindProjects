@@ -40,21 +40,9 @@ namespace Extension_methods
 
         public static char MostFrequentChar(this string source)
         {
-            int max = 0;
-            char maxChar = '\0';
-
-            foreach (char c in source)
-            {
-                int count = source.Count(e => e == c);
-
-                if (count > max)
-                {
-                    max = count;
-                    maxChar = c;
-                }
-            }
-
-            return maxChar;
+            return source.GroupBy(c => c)
+                .MaxBy(e => e.Count())
+                .Key;
         }
 
         public static List<IEnumerable<char>> GetAllPalindroms(this string source)
