@@ -80,5 +80,23 @@ namespace Extension_methods
             string source = "cababad";
             Assert.Equal('a', source.MostFrequentChar());
         }
+
+        [Fact]
+        public void GetAllPalidromsReturnsAllPartitionOfStringThatArePalindroms()
+        {
+            string source = "aabaac";
+            IEnumerable<string> expected = ["a", "a", "b", "a", "a", "c", "aa", "aa", "aba", "aabaa"];
+
+            var result = source.GetAllPalindroms();
+            int count = 0;
+
+            foreach (var item in result)
+            {
+                Assert.Contains(item, result);
+                count++;
+            }
+
+            Assert.Equal(10, count);
+        }
     }
 }

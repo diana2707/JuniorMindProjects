@@ -56,5 +56,19 @@ namespace Extension_methods
 
             return maxChar;
         }
+
+        public static List<IEnumerable<char>> GetAllPalindroms(this string source)
+        {
+            return Enumerable.Range(0, source.Length)
+                .SelectMany(i => Enumerable.Range(1, source.Length - i)
+                                  .Select(j => source.Skip(i).Take(j)))
+                .Where(e => IsPalindrom(e))
+                .ToList();
+        }
+
+        private static bool IsPalindrom(IEnumerable<char> source)
+        {
+            return source.SequenceEqual(source.Reverse());
+        }
     }
 }
