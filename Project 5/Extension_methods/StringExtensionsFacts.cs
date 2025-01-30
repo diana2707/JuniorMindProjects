@@ -98,5 +98,24 @@ namespace Extension_methods
 
             Assert.Equal(10, count);
         }
+
+        [Fact]
+        public void GetSubarraysReturnsAllSubarraysOfArrayWithElementsThatAddToLessOrEqualWithK()
+        {
+            List<int> source = [ 1, 2, 3, 4, 5 ];
+
+            List<List<int>> expected = [[1], [1, 2], [1, 2, 3], [1, 2, 3, 4],
+                                        [2], [2, 3], [2, 3, 4],
+                                        [3], [3, 4],
+                                        [4], [4, 5],
+                                        [5]];
+
+            var result = source.GetSubarrays(10);
+
+            for (int i = 0; i < result.Count; i++)
+            {
+                Assert.True(result[i].SequenceEqual(expected[i]));
+            }
+        }
     }
 }

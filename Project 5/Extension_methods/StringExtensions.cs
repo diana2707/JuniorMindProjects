@@ -58,5 +58,15 @@ namespace Extension_methods
         {
             return source.SequenceEqual(source.Reverse());
         }
+
+        public static List<List<int>> GetSubarrays(this List<int> source, int maxSum)
+        {
+            return Enumerable.Range(0, source.Count)
+                .SelectMany(i => Enumerable.Range(1, source.Count - i)
+                                .Select(j => source.Skip(i).Take(j)))
+                .Where(e => e.Aggregate(0, (sum, e) => sum + e) <= maxSum)
+                .Select(e => e.ToList())
+                .ToList();
+        }
     }
 }
