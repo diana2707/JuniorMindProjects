@@ -79,5 +79,17 @@ namespace Extension_methods
                            .Aggregate((combination, elm) => combination += elm))
                 .ToList();
         }
+
+        public static List<List<int>> GetPythagoreanTriplets(List<int> source)
+        {
+            source = source.Order().ToList();
+
+            return Enumerable.Range(0, source.Count - 2)
+                .SelectMany(i => Enumerable.Range(i + 1, source.Count - i - 1)
+                    .SelectMany(j => Enumerable.Range(j + 1, source.Count - j - 1)
+                        .Select(k => new List<int> { source[i], source[j], source[k] })))
+                .Where(comb => (int)Math.Pow(comb[0], 2) + (int)Math.Pow(comb[1], 2) == (int)Math.Pow(comb[2], 2))
+                .ToList();
+        }
     }
 }

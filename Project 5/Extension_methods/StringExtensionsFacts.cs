@@ -134,5 +134,20 @@ namespace Extension_methods
 
             Assert.Equal(8, count);
         }
+
+        [Fact]
+        public void GetPythagoreanTripletsReturnsAllTripletsFromIntegerArrayThatArePitagoreanTriplets()
+        {
+            List<int> source = [ 3, 4, 5, 6, 8, 10, 9, 12, 15, 16, 20, 25 ];
+
+            List<List<int>> expected = [[3, 4, 5], [6, 8, 10], [9, 12, 15], [12, 16, 20], [15, 20, 25]];
+
+            List<List<int>> result = StringExtensions.GetPythagoreanTriplets(source);
+
+            for (int i = 0; i < result.Count; i++)
+            {
+                Assert.True(result[i].SequenceEqual(expected[i]));
+            }
+        }
     }
 }
