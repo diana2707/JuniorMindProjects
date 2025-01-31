@@ -4,6 +4,7 @@ namespace Extension_methods
 {
     public static class StringExtensions
     {
+        //refa metodele sa nu fie extensii de string
         public static int CountVowels(this string source)
         {
             const string vowels = "aeiouAEIOU";
@@ -63,9 +64,19 @@ namespace Extension_methods
         {
             return Enumerable.Range(0, source.Count)
                 .SelectMany(i => Enumerable.Range(1, source.Count - i)
-                                .Select(j => source.Skip(i).Take(j)))
+                           .Select(j => source.Skip(i).Take(j)))
                 .Where(e => e.Aggregate(0, (sum, e) => sum + e) <= maxSum)
                 .Select(e => e.ToList())
+                .ToList();
+        }
+
+        public static List<string> GetSignCombinations(int num)
+        {
+            return Enumerable.Range(0, (int)Math.Pow(2, num))
+                .Select(e => Convert.ToString(e, 2).PadLeft(num))
+                .Select(e => Enumerable.Range(1, num + 1)
+                       .Zip(e, (n, k) => k == '0' ? $"-{n}" : $"+{n}")
+                           .Aggregate((combination, elm) => combination += elm))
                 .ToList();
         }
     }

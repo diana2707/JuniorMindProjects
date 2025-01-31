@@ -117,5 +117,22 @@ namespace Extension_methods
                 Assert.True(result[i].SequenceEqual(expected[i]));
             }
         }
+
+        [Fact]
+        public void GetSignCombinationsReturnsAllSignCombinations()
+        {
+            List<string> expected = ["-1-2-3", "-1-2+3", "-1+2-3", "-1+2+3", "+1-2-3", "+1-2+3", "+1+2-3", "+1+2+3"];
+
+            var result = StringExtensions.GetSignCombinations(3);
+
+            int count = 0;
+            foreach (string s in result)
+            {
+                Assert.Contains(s, expected);
+                count++;
+            }
+
+            Assert.Equal(8, count);
+        }
     }
 }
