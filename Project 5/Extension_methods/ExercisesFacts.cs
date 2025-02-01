@@ -40,6 +40,13 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void CountConsonantsReturns0WhenStringHasNoConsonants()
+        {
+            string source = "aaaaaaa";
+            Assert.Equal(0, source.CountConsonants());
+        }
+
+        [Fact]
         public void FirstUniqueReturnsFirstUniqueCharInString()
         {
             string source = "ababacd";
