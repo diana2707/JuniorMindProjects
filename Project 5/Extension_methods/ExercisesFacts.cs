@@ -249,6 +249,16 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void GetSubarraysReturnsEmptyCollectionWhenCollectionIsEmpty()
+        {
+            List<int> source = [];
+
+            List<List<int>> result = source.GetSubarrays(5);
+
+            Assert.Empty(source);
+        }
+
+        [Fact]
         public void GetSignCombinationsReturnsAllSignCombinations()
         {
             List<string> expected = ["-1-2-3", "-1-2+3", "-1+2-3", "-1+2+3", "+1-2-3", "+1-2+3", "+1+2-3", "+1+2+3"];
