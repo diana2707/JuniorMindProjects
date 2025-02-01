@@ -22,7 +22,14 @@ namespace Extension_methods
 
         public static char FirstUnique(this string source)
         {
-            return source.Where(e => source.Count(x => x == e) == 1).First();
+            IEnumerable<char> unique = source.Where(e => source.Count(x => x == e) == 1);
+
+            if (!unique.Any())
+            {
+                throw new ArgumentException("String has no unique characters.");
+            }
+
+            return unique.First();
         }
 
         public static int ConvertToInt(this string source)

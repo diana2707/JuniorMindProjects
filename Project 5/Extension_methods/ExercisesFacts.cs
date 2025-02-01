@@ -68,6 +68,13 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void FirstUniqueThrowsArgumentExceptionWhenNoUniqueElementExists()
+        {
+            string source = "ababa";
+            Assert.Throws<ArgumentException>(() => source.FirstUnique());
+        }
+
+        [Fact]
         public void ConvertToIntReturnsIntFromStringForUnits()
         {
             string source = "5";
