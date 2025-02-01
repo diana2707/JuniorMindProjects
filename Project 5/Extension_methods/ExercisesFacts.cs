@@ -307,5 +307,13 @@ namespace Extension_methods
                 Assert.True(result[i].SequenceEqual(expected[i]));
             }
         }
+
+        [Fact]
+        public void GetPythagoreanTripletsThrowsArgumentNullExceptionWhenSourceIsNull()
+        {
+            List<int> source = null;
+
+            Assert.Throws<ArgumentNullException>(() => Exercises.GetPythagoreanTriplets(source));
+        }
     }
 }

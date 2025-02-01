@@ -109,6 +109,8 @@ namespace Extension_methods
 
         public static List<List<int>> GetPythagoreanTriplets(List<int> source)
         {
+            ArgumentNullException.ThrowIfNull(source);
+
             source = source.Order().ToList();
 
             return Enumerable.Range(0, source.Count - 2)
