@@ -138,6 +138,13 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void ConvertToIntThrowsArgumentExeptionIfSourceIsEmpty()
+        {
+            string source = string.Empty;
+            Assert.Throws<ArgumentException>(() => source.ConvertToInt());
+        }
+
+        [Fact]
         public void ConvertToIntThrowsArgumentNullExeptionIfSourceIsNull()
         {
             string source = null;

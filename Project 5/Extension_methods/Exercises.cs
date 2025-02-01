@@ -36,7 +36,7 @@ namespace Extension_methods
 
         public static int ConvertToInt(this string source)
         {
-            ArgumentNullException.ThrowIfNull(source);
+            ArgumentException.ThrowIfNullOrEmpty(source);
 
             int result = 0;
             int sign = source[0] == '-' ? -1 : 1;
