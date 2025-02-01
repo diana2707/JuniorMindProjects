@@ -10,6 +10,7 @@ namespace Extension_methods
             ArgumentNullException.ThrowIfNull(source);
 
             const string vowels = "aeiouAEIOU";
+
             return source.Count(e => vowels.Contains(e));
         }
 
@@ -56,6 +57,8 @@ namespace Extension_methods
 
         public static char MostFrequentChar(this string source)
         {
+            ArgumentException.ThrowIfNullOrEmpty(source);
+
             return source.GroupBy(c => c)
                 .MaxBy(e => e.Count())
                 .Key;

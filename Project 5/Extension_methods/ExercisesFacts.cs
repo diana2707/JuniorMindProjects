@@ -159,6 +159,20 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void MostFrequentCharReturnsFirstMostFrequentCharWhenMultipleCharsAreMostFrequent()
+        {
+            string source = "cdbaba";
+            Assert.Equal('b', source.MostFrequentChar());
+        }
+
+        [Fact]
+        public void MostFrequentCharThrowsArgumentNullExceptionWhenSourceIsNull()
+        {
+            string source = null;
+            Assert.Throws<ArgumentNullException>(() => source.MostFrequentChar());
+        }
+
+        [Fact]
         public void GetAllPalidromsReturnsAllPartitionOfStringThatArePalindroms()
         {
             string source = "aabaac";
