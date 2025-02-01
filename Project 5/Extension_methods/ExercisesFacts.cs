@@ -54,6 +54,13 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void CountConsonantsThrowArgumentNullExceptionWhenSourceIsNull()
+        {
+            string source = null;
+            Assert.Throws<ArgumentNullException>(() => source.CountConsonants());
+        }
+
+        [Fact]
         public void FirstUniqueReturnsFirstUniqueCharInString()
         {
             string source = "ababacd";

@@ -15,6 +15,8 @@ namespace Extension_methods
 
         public static int CountConsonants(this string source)
         {
+            ArgumentNullException.ThrowIfNull(source);
+
             return source.Length - source.CountVowels();
         }
 
