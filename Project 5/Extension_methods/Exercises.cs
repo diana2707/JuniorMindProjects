@@ -94,11 +94,16 @@ namespace Extension_methods
 
         public static List<string> GetSignCombinations(int num)
         {
+            if (num == 0)
+            {
+                return [];
+            }
+
             return Enumerable.Range(0, (int)Math.Pow(2, num))
                 .Select(e => Convert.ToString(e, 2).PadLeft(num))
-                .Select(e => Enumerable.Range(1, num + 1)
+                .Select(e => Enumerable.Range(1, num)
                        .Zip(e, (n, k) => k == '0' ? $"-{n}" : $"+{n}")
-                           .Aggregate((combination, elm) => combination += elm))
+                           .Aggregate(string.Empty, (combination, elm) => combination += elm))
                 .ToList();
         }
 

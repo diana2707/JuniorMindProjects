@@ -286,6 +286,14 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void GetSignCombinationsReturnsEmptyCollectionWhenArgumentIs0()
+        {
+            var result = Exercises.GetSignCombinations(0);
+
+            Assert.Empty(result);
+        }
+
+        [Fact]
         public void GetPythagoreanTripletsReturnsAllTripletsFromIntegerArrayThatArePitagoreanTriplets()
         {
             List<int> source = [ 3, 4, 5, 6, 8, 10, 9, 12, 15, 16, 20, 25 ];
