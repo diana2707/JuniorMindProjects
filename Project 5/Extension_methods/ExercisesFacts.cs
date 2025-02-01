@@ -138,6 +138,13 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void ConvertToIntThrowsArgumentNullExeptionIfSourceIsNull()
+        {
+            string source = null;
+            Assert.Throws<ArgumentNullException>(() => source.ConvertToInt());
+        }
+
+        [Fact]
         public void MostFrequentCharReturnsTheCharThatAppearsTheMostFrequent()
         {
             string source = "cababad";
