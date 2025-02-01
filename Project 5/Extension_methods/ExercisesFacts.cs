@@ -75,6 +75,13 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void FirstUniqueThrowsArgumentExceptionWhenNSourceIsEmpty()
+        {
+            string source = string.Empty;
+            Assert.Throws<ArgumentException>(() => source.FirstUnique());
+        }
+
+        [Fact]
         public void FirstUniqueThrowsArgumentNullExceptionWhenSourceIsNull()
         {
             string source = null;
