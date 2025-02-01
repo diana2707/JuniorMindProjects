@@ -241,6 +241,14 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void GetSubarraysThrowsArgumentNullExceptionWhenSourceIsNull()
+        {
+            List<int> source = null;
+
+            Assert.Throws<ArgumentNullException>(() => source.GetSubarrays(5));
+        }
+
+        [Fact]
         public void GetSignCombinationsReturnsAllSignCombinations()
         {
             List<string> expected = ["-1-2-3", "-1-2+3", "-1+2-3", "-1+2+3", "+1-2-3", "+1-2+3", "+1+2-3", "+1+2+3"];
