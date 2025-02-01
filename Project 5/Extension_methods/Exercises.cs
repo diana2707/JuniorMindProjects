@@ -111,6 +111,11 @@ namespace Extension_methods
         {
             ArgumentNullException.ThrowIfNull(source);
 
+            if (!source.Any())
+            {
+                return [];
+            }
+
             source = source.Order().ToList();
 
             return Enumerable.Range(0, source.Count - 2)

@@ -315,5 +315,15 @@ namespace Extension_methods
 
             Assert.Throws<ArgumentNullException>(() => Exercises.GetPythagoreanTriplets(source));
         }
+
+        [Fact]
+        public void GetPythagoreanTripletsReturnsEmptyCollectionWhenSourceIsEmpty()
+        {
+            List<int> source = [];
+
+            List<List<int>> result = Exercises.GetPythagoreanTriplets(source);
+
+            Assert.Empty(result);
+        }
     }
 }
