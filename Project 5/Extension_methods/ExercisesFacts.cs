@@ -206,6 +206,22 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void GetAllPalidromsReturnsEmptyCollectionWhenSourceIsEmpty()
+        {
+            string source = string.Empty;
+            IEnumerable<string> expected = [];
+
+            var result = source.GetAllPalindroms();
+            int count = 0;
+
+            foreach (var item in result)
+            {
+                Assert.Contains(item, result);
+                count++;
+            }
+        }
+
+        [Fact]
         public void GetSubarraysReturnsAllSubarraysOfArrayWithElementsThatAddToLessOrEqualWithK()
         {
             List<int> source = [ 1, 2, 3, 4, 5 ];
