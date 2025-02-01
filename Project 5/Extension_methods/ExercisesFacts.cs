@@ -173,6 +173,13 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void MostFrequentCharThrowsArgumentExceptionWhenSourceIsEmpty()
+        {
+            string source = string.Empty;
+            Assert.Throws<ArgumentException>(() => source.MostFrequentChar());
+        }
+
+        [Fact]
         public void GetAllPalidromsReturnsAllPartitionOfStringThatArePalindroms()
         {
             string source = "aabaac";
