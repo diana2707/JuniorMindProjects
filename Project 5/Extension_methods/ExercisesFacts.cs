@@ -75,6 +75,13 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void FirstUniqueThrowsArgumentNullExceptionWhenSourceIsNull()
+        {
+            string source = null;
+            Assert.Throws<ArgumentNullException>(() => source.FirstUnique());
+        }
+
+        [Fact]
         public void ConvertToIntReturnsIntFromStringForUnits()
         {
             string source = "5";

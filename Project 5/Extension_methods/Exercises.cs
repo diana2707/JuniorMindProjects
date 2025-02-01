@@ -22,6 +22,8 @@ namespace Extension_methods
 
         public static char FirstUnique(this string source)
         {
+            ArgumentNullException.ThrowIfNull(source);
+
             IEnumerable<char> unique = source.Where(e => source.Count(x => x == e) == 1);
 
             if (!unique.Any())
