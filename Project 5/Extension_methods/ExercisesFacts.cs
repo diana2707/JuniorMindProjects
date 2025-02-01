@@ -2,13 +2,20 @@
 
 namespace Extension_methods
 {
-    public class StringExtensionsFacts
+    public class ExercisesFacts
     {
         [Fact]
         public void CountVowelsReturnsNumberOfVowelsInString()
         {
             string source = "Alexandra";
             Assert.Equal(4, source.CountVowels());
+        }
+
+        [Fact]
+        public void CountVowelThrowsArgumentNullExceptionWhenSourceIsNull()
+        {
+            string source = null;
+            Assert.Throws<ArgumentNullException>(() => source.CountVowels());
         }
 
         [Fact]
@@ -123,7 +130,7 @@ namespace Extension_methods
         {
             List<string> expected = ["-1-2-3", "-1-2+3", "-1+2-3", "-1+2+3", "+1-2-3", "+1-2+3", "+1+2-3", "+1+2+3"];
 
-            var result = StringExtensions.GetSignCombinations(3);
+            var result = Exercises.GetSignCombinations(3);
 
             int count = 0;
             foreach (string s in result)
@@ -142,7 +149,7 @@ namespace Extension_methods
 
             List<List<int>> expected = [[3, 4, 5], [6, 8, 10], [9, 12, 15], [12, 16, 20], [15, 20, 25]];
 
-            List<List<int>> result = StringExtensions.GetPythagoreanTriplets(source);
+            List<List<int>> result = Exercises.GetPythagoreanTriplets(source);
 
             for (int i = 0; i < result.Count; i++)
             {
