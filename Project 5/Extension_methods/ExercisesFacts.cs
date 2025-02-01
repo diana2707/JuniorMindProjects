@@ -26,6 +26,13 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void CountVowelReturns0WhenStringHasNoVowels()
+        {
+            string source = "mmmmmmmmm";
+            Assert.Equal(0, source.CountVowels());
+        }
+
+        [Fact]
         public void CountConsonantsReturnsNumberOfVowelsInString()
         {
             string source = "Alexandra";
