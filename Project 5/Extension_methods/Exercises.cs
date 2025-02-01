@@ -66,6 +66,8 @@ namespace Extension_methods
 
         public static List<IEnumerable<char>> GetAllPalindroms(this string source)
         {
+            ArgumentNullException.ThrowIfNullOrEmpty(source);
+
             return Enumerable.Range(0, source.Length)
                 .SelectMany(i => Enumerable.Range(1, source.Length - i)
                                   .Select(j => source.Skip(i).Take(j)))

@@ -198,6 +198,14 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void GetAllPalidromsThrowsArgumentNullExceptionIfSourceIsNull()
+        {
+            string source = null;
+
+            Assert.Throws<ArgumentNullException>(() => source.GetAllPalindroms());
+        }
+
+        [Fact]
         public void GetSubarraysReturnsAllSubarraysOfArrayWithElementsThatAddToLessOrEqualWithK()
         {
             List<int> source = [ 1, 2, 3, 4, 5 ];
