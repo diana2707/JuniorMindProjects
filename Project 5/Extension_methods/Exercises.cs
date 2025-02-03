@@ -41,15 +41,16 @@ namespace Extension_methods
             int result = 0;
             int sign = source[0] == '-' ? -1 : 1;
 
-            IEnumerable<char> number = source[0] == '-' || source[0] == '+' ? source.Skip(1) : source;
-            int position = number.Count();
+            var number = source.SkipWhile((e, i) => i == 0 && (e == '-' || e == '+'));
 
             if (number.Any(e => !char.IsDigit(e)))
             {
                 throw new ArgumentException("The string is not integer");
             }
 
-            result = number.Aggregate(0, (result, e) => result + ((e - '0') * (int)Math.Pow(10, --position)));
+            int placeValue = number.Count();
+
+            result = number.Aggregate(0, (result, e) => result + ((e - '0') * (int)Math.Pow(10, --placeValue)));
 
             return result * sign;
         }
@@ -57,6 +58,8 @@ namespace Extension_methods
         public static char MostFrequentChar(this string source)
         {
             ArgumentException.ThrowIfNullOrEmpty(source);
+
+            //source.MaxBy(e => source.Select)
 
             return source.GroupBy(c => c)
                 .MaxBy(e => e.Count())
