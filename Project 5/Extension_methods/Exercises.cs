@@ -118,13 +118,14 @@ namespace Extension_methods
                 return [];
             }
 
-            source = source.Order().ToList();
-
             return Enumerable.Range(0, source.Count - 2)
                 .SelectMany(i => Enumerable.Range(i + 1, source.Count - i - 1)
                     .SelectMany(j => Enumerable.Range(j + 1, source.Count - j - 1)
-                        .Select(k => new List<int> { source[i], source[j], source[k] })))
-                .Where(comb => (int)Math.Pow(comb[0], 2) + (int)Math.Pow(comb[1], 2) == (int)Math.Pow(comb[2], 2))
+                        .Select(k => new List<int> { source[i], source[j], source[k] }.Order())))
+                .Where(comb => (int)Math.Pow(comb.ElementAt(0), 2)
+                                + (int)Math.Pow(comb.ElementAt(1), 2)
+                                == (int)Math.Pow(comb.ElementAt(2), 2))
+                .Select(e => e.ToList())
                 .ToList();
         }
     }
