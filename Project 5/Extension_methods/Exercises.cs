@@ -88,24 +88,24 @@ namespace Extension_methods
 
             return Enumerable.Range(0, source.Count)
                 .SelectMany(i => Enumerable.Range(1, source.Count - i)
-                           .Select(j => source.Skip(i).Take(j)))
-                .Where(e => e.Aggregate(0, (sum, e) => sum + e) <= maxSum)
-                .Select(e => e.ToList())
+                     .Select(j => source.Skip(i).Take(j)))
+                .Where(subarray => subarray.Aggregate(0, (sum, number) => sum + number) <= maxSum)
+                .Select(subarray => subarray.ToList())
                 .ToList();
         }
 
-        public static List<string> GetSignCombinations(int num)
+        public static List<string> GetSignCombinations(int count)
         {
-            if (num == 0)
+            if (count == 0)
             {
                 return [];
             }
 
-            return Enumerable.Range(0, (int)Math.Pow(2, num))
-                .Select(e => Convert.ToString(e, 2).PadLeft(num))
-                .Select(e => Enumerable.Range(1, num)
-                       .Zip(e, (n, k) => k == '0' ? $"-{n}" : $"+{n}")
-                           .Aggregate(string.Empty, (combination, elm) => combination += elm))
+            return Enumerable.Range(0, (int)Math.Pow(2, count))
+                .Select(intNumber => Convert.ToString(intNumber, 2).PadLeft(count))
+                .Select(binaryNumber => Enumerable.Range(1, count)
+                       .Zip(binaryNumber, (number, bit) => bit == '0' ? $"-{number}" : $"+{number}")
+                           .Aggregate(string.Empty, (combination, signedNumber) => combination += signedNumber))
                 .ToList();
         }
 
@@ -122,9 +122,9 @@ namespace Extension_methods
                 .SelectMany(i => Enumerable.Range(i + 1, source.Count - i - 1)
                     .SelectMany(j => Enumerable.Range(j + 1, source.Count - j - 1)
                         .Select(k => new List<int> { source[i], source[j], source[k] }.Order())))
-                .Where(comb => (int)Math.Pow(comb.ElementAt(0), 2)
-                                + (int)Math.Pow(comb.ElementAt(1), 2)
-                                == (int)Math.Pow(comb.ElementAt(2), 2))
+                .Where(triplet => (int)Math.Pow(triplet.ElementAt(0), 2)
+                                + (int)Math.Pow(triplet.ElementAt(1), 2)
+                                == (int)Math.Pow(triplet.ElementAt(2), 2))
                 .Select(e => e.ToList())
                 .ToList();
         }
