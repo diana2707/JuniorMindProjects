@@ -4,14 +4,14 @@ namespace Extension_methods
 {
     public class Stock
     {
-        private readonly Dictionary<string, int> tresholds = new ()
+        private readonly Dictionary<string, int> thresholds = new ()
         {
             { "Critical", 2 },
             { "Low", 5 },
             { "Moderate", 10 },
         };
 
-        private readonly List<int> notifiedTresholds = new ();
+        private readonly List<int> notifiedThresholds = new ();
         private readonly Func<string, int, string> notifyLowStock;
         private readonly string product;
         private int quantity;
@@ -29,7 +29,7 @@ namespace Extension_methods
             private set
             {
                 quantity = value;
-                ResetNotifiedTresholds();
+                ResetNotifiedThresholds();
                 CheckThresholds();
             }
         }
@@ -38,25 +38,19 @@ namespace Extension_methods
 
         public void IncreaseQuantity(int units) => Quantity += units;
 
-        private void ResetNotifiedTresholds()
+        private void ResetNotifiedThresholds()
         {
-            foreach (var treshold in tresholds)
-            {
-                if (quantity >= treshold.Value && notifiedTresholds.Contains(treshold.Value))
-                {
-                    notifiedTresholds.Remove(treshold.Value);
-                }
-            }
+            notifiedThresholds.RemoveAll(threshold => threshold < quantity);
         }
 
         private void CheckThresholds()
         {
-            foreach (var treshold in tresholds)
+            foreach (var threshold in thresholds)
             {
-                if (quantity < treshold.Value && !notifiedTresholds.Contains(treshold.Value))
+                if (quantity < threshold.Value && !notifiedThresholds.Contains(threshold.Value))
                 {
                     notifyLowStock.Invoke(product, quantity);
-                    notifiedTresholds.Add(treshold.Value);
+                    notifiedThresholds.Add(threshold.Value);
                     break;
                 }
             }

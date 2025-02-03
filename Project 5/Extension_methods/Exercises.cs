@@ -4,7 +4,6 @@ namespace Extension_methods
 {
     public static class Exercises
     {
-        //refa metodele sa nu fie extensii de string
         public static int CountVowels(this string source)
         {
             ArgumentNullException.ThrowIfNull(source);
