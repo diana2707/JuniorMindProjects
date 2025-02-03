@@ -72,14 +72,9 @@ namespace Extension_methods
 
             return Enumerable.Range(0, source.Length)
                 .SelectMany(i => Enumerable.Range(1, source.Length - i)
-                                  .Select(j => source.Skip(i).Take(j)))
-                .Where(e => IsPalindrom(e))
+                     .Select(j => source.Skip(i).Take(j)))
+                .Where(segment => segment.SequenceEqual(segment.Reverse()))
                 .ToList();
-        }
-
-        private static bool IsPalindrom(IEnumerable<char> source)
-        {
-            return source.SequenceEqual(source.Reverse());
         }
 
         public static List<List<int>> GetSubarrays(this List<int> source, int maxSum)
