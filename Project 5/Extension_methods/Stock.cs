@@ -45,14 +45,14 @@ namespace Extension_methods
 
         private void CheckThresholds()
         {
-            foreach (var threshold in thresholds)
+            var threshold = thresholds
+                .Where(threshold => quantity < threshold.Value && !notifiedThresholds.Contains(threshold.Value))
+                .FirstOrDefault();
+
+            if (threshold.Value != 0)
             {
-                if (quantity < threshold.Value && !notifiedThresholds.Contains(threshold.Value))
-                {
-                    notifyLowStock.Invoke(product, quantity);
-                    notifiedThresholds.Add(threshold.Value);
-                    break;
-                }
+                notifyLowStock.Invoke(product, quantity);
+                notifiedThresholds.Add(threshold.Value);
             }
         }
     }
