@@ -59,10 +59,8 @@ namespace Extension_methods
         {
             ArgumentException.ThrowIfNullOrEmpty(source);
 
-            //source.MaxBy(e => source.Select)
-
-            return source.GroupBy(c => c)
-                .MaxBy(e => e.Count())
+            return source.GroupBy(character => character)
+                .MaxBy(charGroup => charGroup.Count())
                 .Key;
         }
 
