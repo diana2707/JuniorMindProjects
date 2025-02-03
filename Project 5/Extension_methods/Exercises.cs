@@ -17,7 +17,7 @@ namespace Extension_methods
         {
             ArgumentNullException.ThrowIfNull(source);
 
-            return source.Length - source.CountVowels();
+            return source.Count(e => char.IsLetter(e)) - source.CountVowels();
         }
 
         public static char FirstUnique(this string source)

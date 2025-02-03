@@ -7,7 +7,7 @@ namespace Extension_methods
         [Fact]
         public void CountVowelsReturnsNumberOfVowelsInString()
         {
-            string source = "Alexandra";
+            string source = " m34AeicvoNb;";
             Assert.Equal(4, source.CountVowels());
         }
 
@@ -28,21 +28,21 @@ namespace Extension_methods
         [Fact]
         public void CountVowelReturns0WhenStringHasNoVowels()
         {
-            string source = "mmmmmmmmm";
+            string source = " mmmmmmmmm,";
             Assert.Equal(0, source.CountVowels());
         }
 
         [Fact]
         public void CountConsonantsReturnsNumberOfVowelsInString()
         {
-            string source = "Alexandra";
+            string source = " m34AeicvoNb;";
             Assert.Equal(5, source.CountConsonants());
         }
 
         [Fact]
         public void CountConsonantsReturns0WhenStringHasNoConsonants()
         {
-            string source = "aaaaaaa";
+            string source = " aaaaaaa;";
             Assert.Equal(0, source.CountConsonants());
         }
 
