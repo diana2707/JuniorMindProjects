@@ -2,6 +2,25 @@
 
 namespace Extension_methods
 {
+    public class CustomComparer<TSource, TKey>
+    {
+        Func<TSource, TKey> keySelector;
+        IComparer<TKey> comparer;
+
+        public CustomComparer(
+            Func<TSource, TKey> keySelector,
+            IComparer<TKey> comparer)
+        {
+            this.keySelector = keySelector;
+            this.comparer = comparer;
+        }
+
+        public int Compare(TSource leftElement, TSource rightElement)
+        {
+            return comparer.Compare(keySelector(leftElement), keySelector(rightElement));
+        }
+    }
+
     public abstract class OrderedEnumerable<TSource> : IOrderedEnumerable<TSource>
     {
         internal abstract OrderedEnumerable<TSource> Parent { get; set; }
