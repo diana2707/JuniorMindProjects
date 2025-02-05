@@ -4,15 +4,15 @@ namespace Extension_methods
 {
     public interface ICustomComparer<TSource>
     {
-        public ICustomComparer<TSource> Parent { get; set; }
+        public ICustomComparer<TSource> Parent { get; }
 
-        public int Compare(TSource x, TSource y);
+        public int Compare(TSource first, TSource second);
     }
 
     public class CustomComparer<TSource, TKey> : ICustomComparer<TSource>
     {
-        Func<TSource, TKey> keySelector;
-        IComparer<TKey> comparer;
+        private readonly Func<TSource, TKey> keySelector;
+        private readonly IComparer<TKey> comparer;
 
         public CustomComparer(
             Func<TSource, TKey> keySelector,
@@ -21,43 +21,21 @@ namespace Extension_methods
         {
             this.keySelector = keySelector;
             this.comparer = comparer;
-            Parent = parent;
+            this.Parent = parent;
         }
 
-        public ICustomComparer<TSource> Parent { get; set; }
+        public ICustomComparer<TSource> Parent { get; }
 
-        public int Compare(TSource leftElement, TSource rightElement)
+        public int Compare(TSource first, TSource second)
         {
-            return comparer.Compare(keySelector(leftElement), keySelector(rightElement));
+            return comparer.Compare(keySelector(first), keySelector(second));
         }
     }
 
-    //public abstract class OrderedEnumerable<TSource> : IOrderedEnumerable<TSource>
-    //{
-    //    internal abstract OrderedEnumerable<TSource> Parent { get; set; }
-
-    //    internal abstract int CompareKeys(
-    //        TSource leftElement,
-    //        TSource rightElement,
-    //        OrderedEnumerable<TSource> nextLayer);
-
-    //    public abstract IOrderedEnumerable<TSource> CreateOrderedEnumerable<TKey>(
-    //        Func<TSource, TKey> keySelector,
-    //        IComparer<TKey> comparer,
-    //        bool descending);
-
-    //    public abstract IEnumerator<TSource> GetEnumerator();
-
-    //    IEnumerator IEnumerable.GetEnumerator()
-    //    {
-    //        return GetEnumerator();
-    //    }
-    //}
-
     public class OrderedEnumerable<TSource, TKey> : IOrderedEnumerable<TSource>
     {
-        readonly IEnumerable<TSource> source;
-        readonly ICustomComparer<TSource> customComparer;
+        private readonly IEnumerable<TSource> source;
+        private readonly ICustomComparer<TSource> customComparer;
 
         public OrderedEnumerable(
             IEnumerable<TSource> source,
@@ -75,7 +53,7 @@ namespace Extension_methods
             bool descending = false)
         {
             return new OrderedEnumerable<TSource, TNewKey>(
-                source,
+                this.source,
                 keySelector,
                 comparer,
                 this.customComparer);
@@ -157,7 +135,7 @@ namespace Extension_methods
             }
         }
 
-        internal int CompareKeys(
+        private static int CompareKeys(
             TSource leftElement,
             TSource rightElement,
             ICustomComparer<TSource> currentComparer)
