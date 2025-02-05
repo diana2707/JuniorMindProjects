@@ -2,6 +2,13 @@
 
 namespace Extension_methods
 {
+    public interface ICustomComparer<TSource>
+    {
+        public ICustomComparer<TSource> Parent { get; set; }
+
+        public int Compare(TSource x, TSource y);
+    }
+
     public class CustomComparer<TSource, TKey>
     {
         Func<TSource, TKey> keySelector;
