@@ -9,18 +9,22 @@ namespace Extension_methods
         public int Compare(TSource x, TSource y);
     }
 
-    public class CustomComparer<TSource, TKey>
+    public class CustomComparer<TSource, TKey> : ICustomComparer<TSource>
     {
         Func<TSource, TKey> keySelector;
         IComparer<TKey> comparer;
 
         public CustomComparer(
             Func<TSource, TKey> keySelector,
-            IComparer<TKey> comparer)
+            IComparer<TKey> comparer,
+            ICustomComparer<TSource> parent)
         {
             this.keySelector = keySelector;
             this.comparer = comparer;
+            Parent = parent;
         }
+
+        public ICustomComparer<TSource> Parent { get; set; }
 
         public int Compare(TSource leftElement, TSource rightElement)
         {
