@@ -32,51 +32,44 @@ namespace Extension_methods
         }
     }
 
-    public abstract class OrderedEnumerable<TSource> : IOrderedEnumerable<TSource>
-    {
-        internal abstract OrderedEnumerable<TSource> Parent { get; set; }
+    //public abstract class OrderedEnumerable<TSource> : IOrderedEnumerable<TSource>
+    //{
+    //    internal abstract OrderedEnumerable<TSource> Parent { get; set; }
 
-        internal abstract int CompareKeys(
-            TSource leftElement,
-            TSource rightElement,
-            OrderedEnumerable<TSource> nextLayer);
+    //    internal abstract int CompareKeys(
+    //        TSource leftElement,
+    //        TSource rightElement,
+    //        OrderedEnumerable<TSource> nextLayer);
 
-        public abstract IOrderedEnumerable<TSource> CreateOrderedEnumerable<TKey>(
-            Func<TSource, TKey> keySelector,
-            IComparer<TKey> comparer,
-            bool descending);
+    //    public abstract IOrderedEnumerable<TSource> CreateOrderedEnumerable<TKey>(
+    //        Func<TSource, TKey> keySelector,
+    //        IComparer<TKey> comparer,
+    //        bool descending);
 
-        public abstract IEnumerator<TSource> GetEnumerator();
+    //    public abstract IEnumerator<TSource> GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-    }
+    //    IEnumerator IEnumerable.GetEnumerator()
+    //    {
+    //        return GetEnumerator();
+    //    }
+    //}
 
-    public class OrderedEnumerable<TSource, TKey> : OrderedEnumerable<TSource>
+    public class OrderedEnumerable<TSource, TKey> : IOrderedEnumerable<TSource>
     {
         readonly IEnumerable<TSource> source;
-        readonly Func<TSource, TKey> keySelector;
-        readonly IComparer<TKey> comparer;
-        readonly OrderedEnumerable<TSource> parent;
+        readonly ICustomComparer<TSource> customComparer;
 
         public OrderedEnumerable(
             IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector,
             IComparer<TKey> comparer,
-            OrderedEnumerable<TSource> parent = null
-            )
+            ICustomComparer<TSource> previousComparer)
         {
             this.source = source;
-            this.keySelector = keySelector;
-            this.comparer = comparer;
-            Parent = parent;
+            customComparer = new CustomComparer<TSource, TKey>(keySelector, comparer, previousComparer);
         }
 
-        internal override OrderedEnumerable<TSource> Parent { get; set; }
-
-        public override IOrderedEnumerable<TSource> CreateOrderedEnumerable<TNewKey>(
+        public IOrderedEnumerable<TSource> CreateOrderedEnumerable<TNewKey>(
             Func<TSource, TNewKey> keySelector,
             IComparer<TNewKey> comparer,
             bool descending = false)
@@ -85,10 +78,10 @@ namespace Extension_methods
                 source,
                 keySelector,
                 comparer,
-                this);
+                this.customComparer);
         }
 
-        public override IEnumerator<TSource> GetEnumerator()
+        public IEnumerator<TSource> GetEnumerator()
         {
             List<TSource> sourceList = source.ToList();
             MergeSort(sourceList);
@@ -97,6 +90,11 @@ namespace Extension_methods
             {
                 yield return item;
             }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
 
         private void MergeSort(
@@ -129,7 +127,7 @@ namespace Extension_methods
 
             while (leftIndex < left.Count && rightIndex < right.Count)
             {
-                int comparison = CompareKeys(left[leftIndex], right[rightIndex], this);
+                int comparison = CompareKeys(left[leftIndex], right[rightIndex], customComparer);
 
                 if (comparison < 0)
                 {
@@ -159,21 +157,21 @@ namespace Extension_methods
             }
         }
 
-        internal override int CompareKeys(
+        internal int CompareKeys(
             TSource leftElement,
             TSource rightElement,
-            OrderedEnumerable<TSource> currentLayer)
+            ICustomComparer<TSource> currentComparer)
         {
-            int comparison = 0;
-
-            if (currentLayer != null)
+            if (currentComparer == null)
             {
-                comparison = currentLayer.CompareKeys(leftElement, rightElement, currentLayer.Parent);
+                return 0;
             }
+
+            int comparison = CompareKeys(leftElement, rightElement, currentComparer.Parent);
 
             if (comparison == 0)
             {
-                comparison = comparer.Compare(keySelector(leftElement), keySelector(rightElement));
+                comparison = currentComparer.Compare(leftElement, rightElement);
             }
 
             return comparison;
