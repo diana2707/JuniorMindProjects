@@ -2,49 +2,44 @@
 
 namespace Extension_methods
 {
-    public interface ICustomComparer<TSource>
+    public class CustomComparer<TSource> : IComparer<TSource>
     {
-        public ICustomComparer<TSource> Parent { get; }
-
-        public int Compare(TSource first, TSource second);
-    }
-
-    public class CustomComparer<TSource, TKey> : ICustomComparer<TSource>
-    {
-        private readonly Func<TSource, TKey> keySelector;
-        private readonly IComparer<TKey> comparer;
+        private readonly IComparer<TSource> comparer;
 
         public CustomComparer(
-            Func<TSource, TKey> keySelector,
-            IComparer<TKey> comparer,
-            ICustomComparer<TSource> parent)
+            IComparer<TSource> comparer,
+            CustomComparer<TSource> parent)
         {
-            this.keySelector = keySelector;
             this.comparer = comparer;
             this.Parent = parent;
         }
 
-        public ICustomComparer<TSource> Parent { get; }
+        public CustomComparer<TSource> Parent { get; }
+
+        public IComparer Comparer { get; }
 
         public int Compare(TSource first, TSource second)
         {
-            return comparer.Compare(keySelector(first), keySelector(second));
+            return comparer.Compare(first, second);
         }
     }
 
     public class OrderedEnumerable<TSource, TKey> : IOrderedEnumerable<TSource>
     {
         private readonly IEnumerable<TSource> source;
-        private readonly ICustomComparer<TSource> customComparer;
+        private readonly CustomComparer<TSource> customComparer;
 
         public OrderedEnumerable(
             IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector,
             IComparer<TKey> comparer,
-            ICustomComparer<TSource> previousComparer)
+            CustomComparer<TSource> previousComparer)
         {
             this.source = source;
-            customComparer = new CustomComparer<TSource, TKey>(keySelector, comparer, previousComparer);
+            customComparer = new CustomComparer<TSource>(
+                Comparer<TSource>.Create((x, y) => comparer.Compare(keySelector(x), keySelector(y))),
+                previousComparer);
+
         }
 
         public IOrderedEnumerable<TSource> CreateOrderedEnumerable<TNewKey>(
@@ -138,7 +133,7 @@ namespace Extension_methods
         private static int CompareKeys(
             TSource leftElement,
             TSource rightElement,
-            ICustomComparer<TSource> currentComparer)
+            CustomComparer<TSource> currentComparer)
         {
             if (currentComparer == null)
             {
