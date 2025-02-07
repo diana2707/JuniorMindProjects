@@ -304,11 +304,12 @@ namespace Extension_methods
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(keySelector);
 
-            return new OrderedEnumerable<TSource, TKey>(
+            IComparer<TSource> newComparer = Comparer<TSource>.Create((first, second) =>
+                comparer.Compare(keySelector(first), keySelector(second)));
+
+            return new OrderedEnumerable<TSource>(
                 source,
-                keySelector,
-                comparer,
-                null);
+                new CustomComparer<TSource>(newComparer, null));
         }
 
         public static IOrderedEnumerable<TSource> ThenBy<TSource, TKey>(

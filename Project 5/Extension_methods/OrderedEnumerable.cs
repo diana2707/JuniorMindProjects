@@ -2,56 +2,63 @@
 
 namespace Extension_methods
 {
+    //vezi daca poti evita sa repeti construirea comparerului
+
     public class CustomComparer<TSource> : IComparer<TSource>
     {
-        private readonly IComparer<TSource> comparer;
+        private readonly IComparer<TSource> currentComparer;
+        private readonly IComparer<TSource> compositeComparer;
 
         public CustomComparer(
-            IComparer<TSource> comparer,
-            CustomComparer<TSource> parent)
+            IComparer<TSource> currentComparer,
+            IComparer<TSource> compositeComparer)
         {
-            this.comparer = comparer;
-            this.Parent = parent;
+            this.currentComparer = currentComparer;
+            this.compositeComparer = compositeComparer;
         }
 
-        public CustomComparer<TSource> Parent { get; }
-
-        public IComparer Comparer { get; }
-
-        public int Compare(TSource first, TSource second)
+        public int Compare(TSource x, TSource y)
         {
-            return comparer.Compare(first, second);
+            int comparison = 0;
+
+            if (compositeComparer != null)
+            {
+                comparison = compositeComparer.Compare(x, y);
+            }
+
+            if (comparison == 0)
+            {
+                comparison = currentComparer.Compare(x, y);
+            }
+
+            return comparison;
         }
     }
 
-    public class OrderedEnumerable<TSource, TKey> : IOrderedEnumerable<TSource>
+    public class OrderedEnumerable<TSource> : IOrderedEnumerable<TSource>
     {
         private readonly IEnumerable<TSource> source;
-        private readonly CustomComparer<TSource> customComparer;
+        private readonly IComparer<TSource> compositeComparer;
 
         public OrderedEnumerable(
             IEnumerable<TSource> source,
-            Func<TSource, TKey> keySelector,
-            IComparer<TKey> comparer,
-            CustomComparer<TSource> previousComparer)
+            IComparer<TSource> compositeComparer)
         {
             this.source = source;
-            customComparer = new CustomComparer<TSource>(
-                Comparer<TSource>.Create((x, y) => comparer.Compare(keySelector(x), keySelector(y))),
-                previousComparer);
-
+            this.compositeComparer = compositeComparer;
         }
 
-        public IOrderedEnumerable<TSource> CreateOrderedEnumerable<TNewKey>(
-            Func<TSource, TNewKey> keySelector,
-            IComparer<TNewKey> comparer,
+        public IOrderedEnumerable<TSource> CreateOrderedEnumerable<TKey>(
+            Func<TSource, TKey> keySelector,
+            IComparer<TKey> comparer,
             bool descending = false)
         {
-            return new OrderedEnumerable<TSource, TNewKey>(
-                this.source,
-                keySelector,
-                comparer,
-                this.customComparer);
+            IComparer<TSource> newComparer = Comparer<TSource>.Create((first, second) =>
+                comparer.Compare(keySelector(first), keySelector(second)));
+
+            return new OrderedEnumerable<TSource>(
+                source,
+                new CustomComparer<TSource>(newComparer, compositeComparer));
         }
 
         public IEnumerator<TSource> GetEnumerator()
@@ -100,7 +107,7 @@ namespace Extension_methods
 
             while (leftIndex < left.Count && rightIndex < right.Count)
             {
-                int comparison = CompareKeys(left[leftIndex], right[rightIndex], customComparer);
+                int comparison = compositeComparer.Compare(left[leftIndex], right[rightIndex]);
 
                 if (comparison < 0)
                 {
@@ -128,26 +135,6 @@ namespace Extension_methods
             {
                 source[sourceIndex++] = right[rightIndex++];
             }
-        }
-
-        private static int CompareKeys(
-            TSource leftElement,
-            TSource rightElement,
-            CustomComparer<TSource> currentComparer)
-        {
-            if (currentComparer == null)
-            {
-                return 0;
-            }
-
-            int comparison = CompareKeys(leftElement, rightElement, currentComparer.Parent);
-
-            if (comparison == 0)
-            {
-                comparison = currentComparer.Compare(leftElement, rightElement);
-            }
-
-            return comparison;
         }
     }
 }
