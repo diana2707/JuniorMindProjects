@@ -1483,6 +1483,50 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void ThenByMethodReturnsCollectionOrderedWith3OrderingLayers()
+        {
+            List<(string Name, int Age, char Grade)> persons = new()
+            {
+                ("Ana", 34, 'A'),
+                ("Zoe", 50, 'B'),
+                ("Steve", 54, 'B'),
+                ("Maria", 22, 'A'),
+                ("Elene", 50, 'A'),
+                ("Alice", 22, 'B'),
+                ("John", 22, 'A'),
+                ("Alice", 22, 'A'),
+            };
+
+            List<(string Name, int Age, char Grade)> expected = new()
+            {
+                ("Alice", 22, 'A'),
+                ("Alice", 22, 'B'),
+                ("John", 22, 'A'),
+                ("Maria", 22, 'A'),
+                ("Ana", 34, 'A'),
+                ("Elene", 50, 'A'),
+                ("Zoe", 50, 'B'),
+                ("Steve", 54, 'B'),
+            };
+
+            IOrderedEnumerable<(string Name, int Age, char Grade)> result = persons
+                .OrderBy(person => person.Age, Comparer<int>.Default)
+                .ThenBy(person => person.Name, Comparer<string>.Default)
+                .ThenBy(person => person.Grade, Comparer<char>.Default);
+
+            int count = 0;
+
+            foreach (var person in result)
+            {
+                Assert.Equal(expected[count].Name, person.Name);
+                Assert.Equal(expected[count].Age, person.Age);
+                Assert.Equal(expected[count].Grade, person.Grade);
+
+                count++;
+            }
+        }
+
+        [Fact]
         public void ThenByMethodThrowsArgumentNullExceptionWhenSourceisNull()
         {
             IOrderedEnumerable<(string Name, int Age)> persons = null;

@@ -2,37 +2,6 @@
 
 namespace Extension_methods
 {
-    public class CustomComparer<TSource> : IComparer<TSource>
-    {
-        private readonly IComparer<TSource> currentComparer;
-        private readonly IComparer<TSource> compositeComparer;
-
-        public CustomComparer(
-            IComparer<TSource> currentComparer,
-            IComparer<TSource> compositeComparer)
-        {
-            this.currentComparer = currentComparer;
-            this.compositeComparer = compositeComparer;
-        }
-
-        public int Compare(TSource x, TSource y)
-        {
-            int comparison = 0;
-
-            if (compositeComparer != null)
-            {
-                comparison = compositeComparer.Compare(x, y);
-            }
-
-            if (comparison == 0)
-            {
-                comparison = currentComparer.Compare(x, y);
-            }
-
-            return comparison;
-        }
-    }
-
     public class OrderedEnumerable<TSource> : IOrderedEnumerable<TSource>
     {
         private readonly IEnumerable<TSource> source;
@@ -54,9 +23,26 @@ namespace Extension_methods
             IComparer<TSource> newComparer = Comparer<TSource>.Create((first, second) =>
                 comparer.Compare(keySelector(first), keySelector(second)));
 
+            IComparer<TSource> compositeComparer = Comparer<TSource>.Create((x, y) =>
+            {
+                int comparison = 0;
+
+                if (this.compositeComparer != null)
+                {
+                    comparison = this.compositeComparer.Compare(x, y);
+                }
+
+                if (comparison == 0)
+                {
+                    comparison = newComparer.Compare(x, y);
+                }
+
+                return comparison;
+            });
+
             return new OrderedEnumerable<TSource>(
                 source,
-                new CustomComparer<TSource>(newComparer, compositeComparer));
+                compositeComparer);
         }
 
         public IEnumerator<TSource> GetEnumerator()
