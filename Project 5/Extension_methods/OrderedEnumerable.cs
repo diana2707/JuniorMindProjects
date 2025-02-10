@@ -2,8 +2,6 @@
 
 namespace Extension_methods
 {
-    //vezi daca poti evita sa repeti construirea comparerului
-
     public class CustomComparer<TSource> : IComparer<TSource>
     {
         private readonly IComparer<TSource> currentComparer;
