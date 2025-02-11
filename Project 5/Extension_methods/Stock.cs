@@ -14,47 +14,46 @@ namespace Extension_methods
         //private readonly List<int> notifiedThresholds = new ();
         //private readonly Func<string, int, string> notifyLowStock;
         private readonly Product product;
-        private int quantity;
+        //private int quantity;
 
-        public Stock(Product product, int quantity, Action<string, int> notifyLowStock)
+        public Stock(Product product, Action<string, int> notifyLowStock)
         {
             this.product = product;
-            this.quantity = quantity;
             this.NotifyLowStock = notifyLowStock;
         }
 
         public Action<string, int> NotifyLowStock { get; private set; }
 
-        public int Quantity
+        //public int Quantity
+        //{
+        //    get => this.quantity;
+        //    private set => this.quantity = value;
+        //        //ResetNotifiedThresholds();
+        //        //CheckThresholds();
+        //}
+
+        public void DecreaseQuantity(Product product, int units)
         {
-            get => this.quantity;
-            private set => this.quantity = value;
-                //ResetNotifiedThresholds();
-                //CheckThresholds();
+            product.Quantity -= units;
+            this.CheckThresholds(product);
         }
 
-        public void DecreaseQuantity(int units)
-        {
-            this.Quantity -= units;
-            this.CheckThresholds();
-        }
-
-        public void IncreaseQuantity(int units) => Quantity += units;
+        public void IncreaseQuantity(Product product, int units) => product.Quantity += units;
 
         //private void ResetNotifiedThresholds()
         //{
         //    notifiedThresholds.RemoveAll(threshold => threshold < quantity);
         //}
 
-        private void CheckThresholds()
+        private void CheckThresholds(Product product)
         {
             var threshold = this.thresholds
-                .Where(threshold => this.quantity < threshold.Value /*&& !notifiedThresholds.Contains(threshold.Value)*/)
+                .Where(threshold => product.Quantity < threshold.Value /*&& !notifiedThresholds.Contains(threshold.Value)*/)
                 .FirstOrDefault();
 
             if (threshold.Value != 0)
             {
-                this.NotifyLowStock.Invoke(this.product.Name, this.quantity);
+                this.NotifyLowStock.Invoke(this.product.Name, product.Quantity);
                 //notifiedThresholds.Add(threshold.Value);
             }
         }
