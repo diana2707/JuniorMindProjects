@@ -8,7 +8,7 @@
             string notification = string.Empty;
 
             var stock = new Stock(
-                "Jacket",
+                new Product("Jacket", 100),
                 100,
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
@@ -22,7 +22,7 @@
             string notification = string.Empty;
 
             var stock = new Stock(
-                "Jacket",
+                new Product("Jacket", 100),
                 100,
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
@@ -35,7 +35,7 @@
             string notification = string.Empty;
 
             var stock = new Stock(
-                "Jacket",
+                new Product("Jacket", 100),
                 100,
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
@@ -49,7 +49,7 @@
             string notification = string.Empty;
 
             var stock = new Stock(
-                "Jacket",
+                new Product("Jacket", 100),
                 100,
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
@@ -63,7 +63,7 @@
             string notification = string.Empty;
 
             var stock = new Stock(
-                "Jacket",
+                new Product("Jacket", 100),
                 20,
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
@@ -92,7 +92,7 @@
             string notification = string.Empty;
 
             var stock = new Stock(
-                "Jacket",
+                new Product("Jacket", 20),
                 20,
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
@@ -108,7 +108,7 @@
             string notification = string.Empty;
 
             var stock = new Stock(
-                "Jacket",
+                new Product("Jacket", 20),
                 20,
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
@@ -125,7 +125,7 @@
             string notification = string.Empty;
 
             var stock = new Stock(
-                "Jacket",
+                new Product("Jacket", 20),
                 20,
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
@@ -145,7 +145,7 @@
             string notification = string.Empty;
 
             var stock = new Stock(
-                "Jacket",
+                new Product("Jacket", 20),
                 20,
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
@@ -165,7 +165,7 @@
             string notification = string.Empty;
 
             var stock = new Stock(
-                "Jacket",
+                new Product("Jacket", 20),
                 20,
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
@@ -201,8 +201,16 @@
         [Fact]
         public void ProductClassExists()
         {
-            var product = new Product();
-            Assert.IsType<Product>( product );
+            var product = new Product("Jacket", 5);
+            Assert.IsType<Product>(product);
+        }
+
+        [Fact]
+        public void ProductClassGetsPropertiesNameAndQuantity()
+        {
+            var product = new Product("Jacket", 5);
+            Assert.Equal("Jacket", product.Name);
+            Assert.Equal(5, product.Quantity);
         }
     }
 }

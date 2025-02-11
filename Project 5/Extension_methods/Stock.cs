@@ -13,10 +13,10 @@ namespace Extension_methods
 
         //private readonly List<int> notifiedThresholds = new ();
         //private readonly Func<string, int, string> notifyLowStock;
-        private readonly string product;
+        private readonly Product product;
         private int quantity;
 
-        public Stock(string product, int quantity, Action<string, int> notifyLowStock)
+        public Stock(Product product, int quantity, Action<string, int> notifyLowStock)
         {
             this.product = product;
             this.quantity = quantity;
@@ -54,7 +54,7 @@ namespace Extension_methods
 
             if (threshold.Value != 0)
             {
-                this.NotifyLowStock.Invoke(this.product, this.quantity);
+                this.NotifyLowStock.Invoke(this.product.Name, this.quantity);
                 //notifiedThresholds.Add(threshold.Value);
             }
         }
@@ -62,6 +62,14 @@ namespace Extension_methods
 
     public class Product
     {
+        public Product(string name, int quantity)
+        {
+            this.Name = name;
+            this.Quantity = quantity;
+        }
+
         public string Name { get; set; }
+
+        public int Quantity { get; set; }
     }
 }
