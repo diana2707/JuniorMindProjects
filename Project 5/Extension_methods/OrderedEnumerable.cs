@@ -12,7 +12,7 @@ namespace Extension_methods
             IComparer<TSource> compositeComparer)
         {
             this.source = source;
-            this.compositeComparer = compositeComparer;
+            this.compositeComparer = compositeComparer ?? Comparer<TSource>.Create((x, y) => 0);
         }
 
         public IOrderedEnumerable<TSource> CreateOrderedEnumerable<TKey>(
@@ -25,12 +25,7 @@ namespace Extension_methods
 
             IComparer<TSource> compositeComparer = Comparer<TSource>.Create((x, y) =>
             {
-                int comparison = 0;
-
-                if (this.compositeComparer != null)
-                {
-                    comparison = this.compositeComparer.Compare(x, y);
-                }
+                int comparison = this.compositeComparer.Compare(x, y);
 
                 if (comparison == 0)
                 {
