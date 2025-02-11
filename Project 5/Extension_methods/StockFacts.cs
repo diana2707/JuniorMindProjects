@@ -8,24 +8,11 @@
             string notification = string.Empty;
 
             var stock = new Stock(
-                new Product("Jacket", 100),
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
 
             Assert.IsType<Stock>(stock);
         }
-
-        //[Fact]
-        //public void QuantityReturnsStockQuantity()
-        //{
-        //    string notification = string.Empty;
-
-        //    var stock = new Stock(
-        //        new Product("Jacket", 100),
-        //        (string product, int quantity) => notification =
-        //            $"There are only {quantity} units of {product} in stock.");
-        //    Assert.Equal(100, stock.Quantity);
-        //}
 
         [Fact]
         public void DecreaseQuantityShouldReturnDecresedQuantity()
@@ -34,10 +21,11 @@
             Product product = new Product("Jacket", 100);
 
             var stock = new Stock(
-                product,
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
+            stock.Add(product);
             stock.DecreaseQuantity(product, 25);
+
             Assert.Equal(75, product.Quantity);
         }
 
@@ -48,10 +36,11 @@
             Product product = new Product("Jacket", 100);
 
             var stock = new Stock(
-                product,
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
+            stock.Add(product);
             stock.IncreaseQuantity(product, 25);
+
             Assert.Equal(125, product.Quantity);
         }
 
@@ -62,10 +51,11 @@
             Product product = new Product("Jacket", 20);
 
             var stock = new Stock(
-                product,
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
+            stock.Add(product);
             stock.DecreaseQuantity(product, 11);
+
             Assert.Equal("There are only 9 units of Jacket in stock.", notification);
         }
 
@@ -73,14 +63,14 @@
         //public void DecreaseQuantityShouldSetNewQuantityAndInvokeNotificationOnceWhenIsBellow10()
         //{
         //    string notification = string.Empty;
+        //    Product product = new Product("Jacket", 20);
 
         //    var stock = new Stock(
-        //        "Jacket",
-        //        20,
+        //        product,
         //        (string product, int quantity) => notification =
         //            $"There are only {quantity} units of {product} in stock.");
-        //    stock.DecreaseQuantity(11);
-        //    stock.DecreaseQuantity(2);
+        //    stock.DecreaseQuantity(product, 11);
+        //    stock.DecreaseQuantity(product, 2);
         //    Assert.Equal("There are only 9 units of Jacket in stock.", notification);
         //}
 
@@ -91,9 +81,9 @@
             Product product = new Product("Jacket", 20);
 
             var stock = new Stock(
-                product,
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
+            stock.Add(product);
             stock.DecreaseQuantity(product, 11);
             stock.DecreaseQuantity(product, 5);
 
@@ -107,9 +97,9 @@
             Product product = new Product("Jacket", 20);
 
             var stock = new Stock(
-                product,
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
+            stock.Add(product);
             stock.DecreaseQuantity(product, 11);
             stock.DecreaseQuantity(product, 5);
             stock.DecreaseQuantity(product, 3);
@@ -124,9 +114,9 @@
             Product product = new Product("Jacket", 20);
 
             var stock = new Stock(
-                product,
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
+            stock.Add(product);
             stock.DecreaseQuantity(product, 11);
 
             Assert.Equal("There are only 9 units of Jacket in stock.", notification);
@@ -144,9 +134,9 @@
             Product product = new Product("Jacket", 20);
 
             var stock = new Stock(
-                product,
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
+            stock.Add(product);
             stock.DecreaseQuantity(product, 16);
 
             Assert.Equal("There are only 4 units of Jacket in stock.", notification);
@@ -164,9 +154,9 @@
             Product product = new Product("Jacket", 20);
 
             var stock = new Stock(
-                product,
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
+            stock.Add(product);
             stock.DecreaseQuantity(product, 19);
 
             Assert.Equal("There are only 1 units of Jacket in stock.", notification);
@@ -181,17 +171,17 @@
         //public void NotificationShouldBeSentWhenIncreasingQuantityAboveATrasholdButStillBelowAnother()
         //{
         //    string notification = string.Empty;
+        //    Product product = new Product("Jacket", 20);
 
         //    var stock = new Stock(
-        //        "Jacket",
-        //        20,
+        //        product,
         //        (string product, int quantity) => notification =
         //            $"There are only {quantity} units of {product} in stock.");
-        //    stock.DecreaseQuantity(19);
+        //    stock.DecreaseQuantity(product, 19);
 
         //    Assert.Equal("There are only 1 units of Jacket in stock.", notification);
 
-        //    stock.IncreaseQuantity(2);
+        //    stock.IncreaseQuantity(product, 2);
 
         //    Assert.Equal("There are only 3 units of Jacket in stock.", notification);
         //}
