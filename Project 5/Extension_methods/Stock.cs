@@ -27,16 +27,17 @@ namespace Extension_methods
 
         public int Quantity
         {
-            get => quantity;
-            private set
-            {
-                quantity = value;
+            get => this.quantity;
+            private set => this.quantity = value;
                 //ResetNotifiedThresholds();
-                CheckThresholds();
-            }
+                //CheckThresholds();
         }
 
-        public void DecreaseQuantity(int units) => Quantity -= units;
+        public void DecreaseQuantity(int units)
+        {
+            this.Quantity -= units;
+            this.CheckThresholds();
+        }
 
         public void IncreaseQuantity(int units) => Quantity += units;
 
@@ -47,13 +48,13 @@ namespace Extension_methods
 
         private void CheckThresholds()
         {
-            var threshold = thresholds
-                .Where(threshold => quantity < threshold.Value /*&& !notifiedThresholds.Contains(threshold.Value)*/)
+            var threshold = this.thresholds
+                .Where(threshold => this.quantity < threshold.Value /*&& !notifiedThresholds.Contains(threshold.Value)*/)
                 .FirstOrDefault();
 
             if (threshold.Value != 0)
             {
-                NotifyLowStock.Invoke(product, quantity);
+                this.NotifyLowStock.Invoke(this.product, this.quantity);
                 //notifiedThresholds.Add(threshold.Value);
             }
         }
