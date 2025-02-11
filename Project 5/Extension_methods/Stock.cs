@@ -11,17 +11,19 @@ namespace Extension_methods
             { "Moderate", 10 },
         };
 
-        private readonly List<int> notifiedThresholds = new ();
-        private readonly Func<string, int, string> notifyLowStock;
+        //private readonly List<int> notifiedThresholds = new ();
+        //private readonly Func<string, int, string> notifyLowStock;
         private readonly string product;
         private int quantity;
 
-        public Stock(string product, int quantity, Func<string, int, string> notifyLowStock)
+        public Stock(string product, int quantity, Action<string, int> notifyLowStock)
         {
             this.product = product;
             this.quantity = quantity;
-            this.notifyLowStock = notifyLowStock;
+            this.NotifyLowStock = notifyLowStock;
         }
+
+        public Action<string, int> NotifyLowStock { get; private set; }
 
         public int Quantity
         {
@@ -29,7 +31,7 @@ namespace Extension_methods
             private set
             {
                 quantity = value;
-                ResetNotifiedThresholds();
+                //ResetNotifiedThresholds();
                 CheckThresholds();
             }
         }
@@ -38,21 +40,21 @@ namespace Extension_methods
 
         public void IncreaseQuantity(int units) => Quantity += units;
 
-        private void ResetNotifiedThresholds()
-        {
-            notifiedThresholds.RemoveAll(threshold => threshold < quantity);
-        }
+        //private void ResetNotifiedThresholds()
+        //{
+        //    notifiedThresholds.RemoveAll(threshold => threshold < quantity);
+        //}
 
         private void CheckThresholds()
         {
             var threshold = thresholds
-                .Where(threshold => quantity < threshold.Value && !notifiedThresholds.Contains(threshold.Value))
+                .Where(threshold => quantity < threshold.Value /*&& !notifiedThresholds.Contains(threshold.Value)*/)
                 .FirstOrDefault();
 
             if (threshold.Value != 0)
             {
-                notifyLowStock.Invoke(product, quantity);
-                notifiedThresholds.Add(threshold.Value);
+                NotifyLowStock.Invoke(product, quantity);
+                //notifiedThresholds.Add(threshold.Value);
             }
         }
     }
