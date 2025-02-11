@@ -197,5 +197,12 @@
 
         //    Assert.Equal("There are only 3 units of Jacket in stock.", notification);
         //}
+
+        [Fact]
+        public void ProductClassExists()
+        {
+            var product = new Product();
+            Assert.IsType<Product>( product );
+        }
     }
 }

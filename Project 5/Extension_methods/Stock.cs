@@ -59,4 +59,9 @@ namespace Extension_methods
             }
         }
     }
+
+    public class Product
+    {
+        public string Name { get; set; }
+    }
 }
