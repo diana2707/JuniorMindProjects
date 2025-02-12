@@ -4,7 +4,7 @@ namespace Extension_methods
 {
     public class Stock
     {
-        private readonly Dictionary<int, bool> thresholds = new()
+        private Dictionary<int, bool> thresholds = new()
         {
             { 2, false },
             { 5, false },
@@ -35,8 +35,9 @@ namespace Extension_methods
             var threshold = thresholds
                 .FirstOrDefault(threshold => product.Quantity < threshold.Key);
 
-            if (threshold.Key != 0)
+            if (threshold.Key != 0 && !thresholds[threshold.Key])
             {
+                thresholds[threshold.Key] = true;
                 NotifyLowStock.Invoke(product.Name, product.Quantity);
             }
         }

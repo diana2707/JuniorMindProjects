@@ -59,7 +59,7 @@
         }
 
         [Fact]
-        public void DecreaseQuantityShouldSetNewQuantityAndInvokeNotificationAtEveryChangeWhenIsBellow10()
+        public void DecreaseQuantityShouldSetNewQuantityAndInvokeNotificationAtOnceWhenIsBellow10()
         {
             string notification = string.Empty;
             Product product = new Product("Jacket", 20);
@@ -71,7 +71,7 @@
             stock.DecreaseQuantity(product, 11);
             stock.DecreaseQuantity(product, 2);
 
-            Assert.Equal("There are only 7 units of Jacket in stock.", notification);
+            Assert.Equal("There are only 9 units of Jacket in stock.", notification);
         }
 
         [Fact]
