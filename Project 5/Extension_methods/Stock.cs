@@ -18,7 +18,7 @@ namespace Extension_methods
             NotifyLowStock = notifyLowStock;
         }
 
-        public Action<string, int> NotifyLowStock { get; private set; }
+        public Action<string, int> NotifyLowStock { get; }
 
         public void Add(Product product) => products.Add(product);
 
