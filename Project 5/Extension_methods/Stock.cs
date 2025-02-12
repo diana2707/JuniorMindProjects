@@ -20,28 +20,24 @@ namespace Extension_methods
 
         public Action<string, int> NotifyLowStock { get; private set; }
 
-        public void Add(Product product)
-        {
-            products.Add(product);
-        }
+        public void Add(Product product) => products.Add(product);
 
         public void DecreaseQuantity(Product product, int units)
         {
             product.Quantity -= units;
-            this.CheckThresholds(product);
+            CheckThresholds(product);
         }
 
         public void IncreaseQuantity(Product product, int units) => product.Quantity += units;
 
         private void CheckThresholds(Product product)
         {
-            var threshold = this.thresholds
-                .Where(threshold => product.Quantity < threshold.Value)
-                .FirstOrDefault();
+            var threshold = thresholds
+                .FirstOrDefault(threshold => product.Quantity < threshold.Value);
 
             if (threshold.Value != 0)
             {
-                this.NotifyLowStock.Invoke(product.Name, product.Quantity);
+                NotifyLowStock.Invoke(product.Name, product.Quantity);
             }
         }
     }
@@ -54,8 +50,8 @@ namespace Extension_methods
             this.Quantity = quantity;
         }
 
-        public string Name { get; set; }
+        public string Name { get; private set; }
 
-        public int Quantity { get; set; }
+        public int Quantity { get; internal set; }
     }
 }
