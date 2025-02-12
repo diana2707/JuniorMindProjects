@@ -39,7 +39,7 @@ namespace Extension_methods
             var threshold = thresholds
                 .FirstOrDefault(threshold => product.Quantity < threshold.Key);
 
-            if (threshold.Key != 0 && !thresholds[threshold.Key])
+            if (threshold.Key != 0 && !threshold.Value)
             {
                 thresholds[threshold.Key] = true;
                 NotifyLowStock.Invoke(product.Name, product.Quantity);
