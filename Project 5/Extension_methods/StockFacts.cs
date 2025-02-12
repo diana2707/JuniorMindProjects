@@ -108,6 +108,67 @@
         }
 
         [Fact]
+        public void IncreaseQuantityShouldSetQuantityAndReset10ThresholdIfQuantityIncresesAboveThrashold()
+        {
+            string notification = string.Empty;
+            Product product = new Product("Jacket", 20);
+
+            var stock = new Stock(
+                (string product, int quantity) => notification =
+                    $"There are only {quantity} units of {product} in stock.");
+
+            stock.Add(product);
+            stock.DecreaseQuantity(product, 11);
+
+            Assert.Equal("There are only 9 units of Jacket in stock.", notification);
+
+            stock.IncreaseQuantity(product, 2);
+            stock.DecreaseQuantity(product, 5);
+
+            Assert.Equal("There are only 6 units of Jacket in stock.", notification);
+        }
+
+        [Fact]
+        public void IncreaseQuantityShouldSetQuantityAndReset5ThresholdIfQuantityIncresesAboveThrashold()
+        {
+            string notification = string.Empty;
+            Product product = new Product("Jacket", 20);
+            var stock = new Stock(
+                (string product, int quantity) => notification =
+                    $"There are only {quantity} units of {product} in stock.");
+
+            stock.Add(product);
+            stock.DecreaseQuantity(product, 16);
+
+            Assert.Equal("There are only 4 units of Jacket in stock.", notification);
+
+            stock.IncreaseQuantity(product, 2);
+            stock.DecreaseQuantity(product, 3);
+
+            Assert.Equal("There are only 3 units of Jacket in stock.", notification);
+        }
+
+        [Fact]
+        public void IncreaseQuantityShouldSetQuantityAndReset2ThresholdIfQuantityIncresesAboveThrashold()
+        {
+            string notification = string.Empty;
+            Product product = new Product("Jacket", 20);
+            var stock = new Stock(
+                (string product, int quantity) => notification =
+                    $"There are only {quantity} units of {product} in stock.");
+
+            stock.Add(product);
+            stock.DecreaseQuantity(product, 19);
+
+            Assert.Equal("There are only 1 units of Jacket in stock.", notification);
+
+            stock.IncreaseQuantity(product, 2);
+            stock.DecreaseQuantity(product, 3);
+
+            Assert.Equal("There are only 0 units of Jacket in stock.", notification);
+        }
+
+        [Fact]
         public void ProductClassExists()
         {
             var product = new Product("Jacket", 5);

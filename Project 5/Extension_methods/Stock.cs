@@ -28,7 +28,11 @@ namespace Extension_methods
             CheckThresholds(product);
         }
 
-        public void IncreaseQuantity(Product product, int units) => product.Quantity += units;
+        public void IncreaseQuantity(Product product, int units)
+        {
+            product.Quantity += units;
+            ResetThresholds(product);
+        }
 
         private void CheckThresholds(Product product)
         {
@@ -39,6 +43,14 @@ namespace Extension_methods
             {
                 thresholds[threshold.Key] = true;
                 NotifyLowStock.Invoke(product.Name, product.Quantity);
+            }
+        }
+
+        private void ResetThresholds(Product product)
+        {
+            foreach (var threshold in thresholds.Where(threshold => product.Quantity > threshold.Key))
+            {
+              thresholds[threshold.Key] = false;
             }
         }
     }
