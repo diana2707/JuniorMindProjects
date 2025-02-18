@@ -13,6 +13,8 @@ namespace Extension_methods
         public string Name { get; set; }
 
         public int Quantity { get; set; }
+
+        public ICollection<Feature> Features { get; set; }
     }
 
     public class Feature
