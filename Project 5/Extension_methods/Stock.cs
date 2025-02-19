@@ -22,37 +22,38 @@ namespace Extension_methods
 
         public void Add(Product product) => products.Add(product);
 
+        //conditie sa faca un check aici?
         public void DecreaseQuantity(Product product, int units)
         {
             product.Quantity -= units;
-            CheckThresholds(product);
+            CheckThresholds(product, units);
         }
 
         public void IncreaseQuantity(Product product, int units)
         {
             product.Quantity += units;
-            ResetThresholds(product);
+            //ResetThresholds(product);
         }
 
-        private void CheckThresholds(Product product)
+        private void CheckThresholds(Product product, int units)
         {
             var threshold = thresholds
                 .FirstOrDefault(threshold => product.Quantity < threshold.Key);
 
-            if (threshold.Key != 0 && !threshold.Value)
+            if (threshold.Key != 0 && product.Quantity + units > threshold.Key /*!threshold.Value*/)
             {
-                thresholds[threshold.Key] = true;
+                //thresholds[threshold.Key] = true;
                 NotifyLowStock.Invoke(product.Name, product.Quantity);
             }
         }
 
-        private void ResetThresholds(Product product)
-        {
-            foreach (var threshold in thresholds.Where(threshold => product.Quantity > threshold.Key))
-            {
-              thresholds[threshold.Key] = false;
-            }
-        }
+        //private void ResetThresholds(Product product)
+        //{
+        //    foreach (var threshold in thresholds.Where(threshold => product.Quantity > threshold.Key))
+        //    {
+        //      thresholds[threshold.Key] = false;
+        //    }
+        //}
     }
 
     public class Product
