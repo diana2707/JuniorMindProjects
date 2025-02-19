@@ -19,8 +19,10 @@ namespace Extension_methods
 
         public void DecreaseQuantity(Product product, int units)
         {
+            int oldQuantity = product.Quantity;
             product.Quantity -= units;
-            CheckThresholds(product, units);
+
+            CheckThresholds(product, oldQuantity);
         }
 
         public void IncreaseQuantity(Product product, int units)
@@ -28,12 +30,12 @@ namespace Extension_methods
             product.Quantity += units;
         }
 
-        private void CheckThresholds(Product product, int units)
+        private void CheckThresholds(Product product, int oldQuantity)
         {
             int threshold = thresholds
                 .FirstOrDefault(threshold => product.Quantity < threshold);
 
-            if (threshold != 0 && product.Quantity + units > threshold)
+            if (threshold != 0 && oldQuantity > threshold)
             {
                 NotifyLowStock.Invoke(product.Name, product.Quantity);
             }
