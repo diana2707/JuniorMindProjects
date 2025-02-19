@@ -4,12 +4,7 @@ namespace Extension_methods
 {
     public class Stock
     {
-        private Dictionary<int, bool> thresholds = new()
-        {
-            { 2, false },
-            { 5, false },
-            { 10, false },
-        };
+        private List<int> thresholds = [2, 5, 10];
 
         private List<Product> products = [];
 
@@ -22,7 +17,6 @@ namespace Extension_methods
 
         public void Add(Product product) => products.Add(product);
 
-        //conditie sa faca un check aici?
         public void DecreaseQuantity(Product product, int units)
         {
             product.Quantity -= units;
@@ -32,28 +26,18 @@ namespace Extension_methods
         public void IncreaseQuantity(Product product, int units)
         {
             product.Quantity += units;
-            //ResetThresholds(product);
         }
 
         private void CheckThresholds(Product product, int units)
         {
-            var threshold = thresholds
-                .FirstOrDefault(threshold => product.Quantity < threshold.Key);
+            int threshold = thresholds
+                .FirstOrDefault(threshold => product.Quantity < threshold);
 
-            if (threshold.Key != 0 && product.Quantity + units > threshold.Key /*!threshold.Value*/)
+            if (threshold != 0 && product.Quantity + units > threshold)
             {
-                //thresholds[threshold.Key] = true;
                 NotifyLowStock.Invoke(product.Name, product.Quantity);
             }
         }
-
-        //private void ResetThresholds(Product product)
-        //{
-        //    foreach (var threshold in thresholds.Where(threshold => product.Quantity > threshold.Key))
-        //    {
-        //      thresholds[threshold.Key] = false;
-        //    }
-        //}
     }
 
     public class Product
