@@ -7,14 +7,22 @@ namespace Extension_methods
         [Fact]
         public void ProductClassExists()
         {
-            var product = new Product("Jacket", 5);
+            Product product = new Product
+            {
+                Name = "Jacket",
+                Quantity = 5
+            };
             Assert.IsType<Product>(product);
         }
 
         [Fact]
         public void ProductClassGetsPropertiesNameAndQuantity()
         {
-            var product = new Product("Jacket", 5);
+            Product product = new Product
+            {
+                Name = "Jacket",
+                Quantity = 5
+            };
             Assert.Equal("Jacket", product.Name);
             Assert.Equal(5, product.Quantity);
         }
@@ -22,7 +30,11 @@ namespace Extension_methods
         [Fact]
         public void FeaturesPropertySetsCollectionOfFeatures()
         {
-            var product = new Product("Jacket", 5);
+            Product product = new Product
+            {
+                Name = "Jacket",
+                Quantity = 5
+            };
 
             var first = new Feature();
             first.Id = 1;

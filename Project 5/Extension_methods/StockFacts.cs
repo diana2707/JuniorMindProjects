@@ -17,7 +17,11 @@
         public void DecreaseQuantityShouldReturnDecresedQuantity()
         {
             string notification = string.Empty;
-            Product product = new Product("Jacket", 100);
+            Product product = new Product
+            {
+                Name = "Jacket",
+                Quantity = 100
+            };
             var stock = new Stock(
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
@@ -32,7 +36,11 @@
         public void IncreaseQuantityShouldReturnIncresedQuantity()
         {
             string notification = string.Empty;
-            Product product = new Product("Jacket", 100);
+            Product product = new Product
+            {
+                Name = "Jacket",
+                Quantity = 100
+            };
             var stock = new Stock(
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
@@ -47,7 +55,11 @@
         public void DecreaseQuantityShouldSetNewQuantityAndInvokeNotificationWhenQuantityIsBellow10()
         {
             string notification = string.Empty;
-            Product product = new Product("Jacket", 20);
+            Product product = new Product
+            {
+                Name = "Jacket",
+                Quantity = 20
+            };
             var stock = new Stock(
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
@@ -62,7 +74,11 @@
         public void DecreaseQuantityShouldSetNewQuantityAndInvokeNotificationAtOnceWhenIsBellow10()
         {
             string notification = string.Empty;
-            Product product = new Product("Jacket", 20);
+            Product product = new Product
+            {
+                Name = "Jacket",
+                Quantity = 20
+            };
             var stock = new Stock(
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
@@ -78,7 +94,11 @@
         public void DecreaseQuantityShouldSetNewQuantityAndInvokeNotificationWhenIsBellow5()
         {
             string notification = string.Empty;
-            Product product = new Product("Jacket", 20);
+            Product product = new Product
+            {
+                Name = "Jacket",
+                Quantity = 20
+            };
             var stock = new Stock(
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
@@ -94,7 +114,11 @@
         public void DecreaseQuantityShouldSetNewQuantityAndInvokeNotificationWhenIsBellow2()
         {
             string notification = string.Empty;
-            Product product = new Product("Jacket", 20);
+            Product product = new Product
+            {
+                Name = "Jacket",
+                Quantity = 20
+            };
             var stock = new Stock(
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
@@ -111,7 +135,11 @@
         public void IncreaseQuantityShouldSetQuantityAndReset10ThresholdIfQuantityIncresesAboveThrashold()
         {
             string notification = string.Empty;
-            Product product = new Product("Jacket", 20);
+            Product product = new Product
+            {
+                Name = "Jacket",
+                Quantity = 20
+            };
 
             var stock = new Stock(
                 (string product, int quantity) => notification =
@@ -132,7 +160,11 @@
         public void IncreaseQuantityShouldSetQuantityAndReset5ThresholdIfQuantityIncresesAboveThrashold()
         {
             string notification = string.Empty;
-            Product product = new Product("Jacket", 20);
+            Product product = new Product
+            {
+                Name = "Jacket",
+                Quantity = 20
+            };
             var stock = new Stock(
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
@@ -152,7 +184,11 @@
         public void IncreaseQuantityShouldSetQuantityAndReset2ThresholdIfQuantityIncresesAboveThrashold()
         {
             string notification = string.Empty;
-            Product product = new Product("Jacket", 20);
+            Product product = new Product
+            {
+                Name = "Jacket",
+                Quantity = 20
+            };
             var stock = new Stock(
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
@@ -171,14 +207,22 @@
         [Fact]
         public void ProductClassExists()
         {
-            var product = new Product("Jacket", 5);
+            Product product = new Product
+            {
+                Name = "Jacket",
+                Quantity = 20
+            };
             Assert.IsType<Product>(product);
         }
 
         [Fact]
         public void ProductClassGetsPropertiesNameAndQuantity()
         {
-            var product = new Product("Jacket", 5);
+            Product product = new Product
+            {
+                Name = "Jacket",
+                Quantity = 5
+            };
             Assert.Equal("Jacket", product.Name);
             Assert.Equal(5, product.Quantity);
         }
@@ -187,9 +231,21 @@
         public void StockClassUpdatesQuantityOnSpecificProductWhenMoreProductsAreStored()
         {
             string notification = string.Empty;
-            Product jacket = new Product("Jacket", 20);
-            Product coat = new Product("Coat", 20);
-            Product shirt = new Product("Shirt", 20);
+            Product jacket = new Product
+            {
+                Name = "Jacket",
+                Quantity = 20
+            };
+            Product coat = new Product
+            {
+                Name = "Jacket",
+                Quantity = 20
+            };
+            Product shirt = new Product
+            {
+                Name = "Jacket",
+                Quantity = 20
+            };
             var stock = new Stock(
                 (string product, int quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
