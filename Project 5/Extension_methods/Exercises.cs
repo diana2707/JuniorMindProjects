@@ -122,7 +122,7 @@ namespace Extension_methods
                 .ToList();
         }
 
-        public static List<Product> FilterForAnyFeatures(List<Product> products, List<Feature> features)
+        public static List<Product> FilterByAnyFeatures(List<Product> products, List<Feature> features)
         {
             return products.Where(product => product.Features
                                 .Any(prodFeature => features.Select(feature => feature.Id)
@@ -130,13 +130,23 @@ namespace Extension_methods
                            .ToList();
         }
 
-        public static List<Product> FilterForAllFeatures(List<Product> products, List<Feature> features)
+        public static List<Product> FilterByAllFeatures(List<Product> products, List<Feature> features)
         {
             return products.Where(product => features
                                     .All(feature => product.Features
                                         .Select(prodFeature => prodFeature.Id)
                                              .Any(id => id == feature.Id)))
                                   .ToList();
+        }
+
+        public static List<Product> FilterByExcludedFeatures(List<Product> products, List<Feature> features)
+        {
+            return products.Where(product => features
+                                .All(feature => product.Features
+                                    .Select(prodFeature => prodFeature.Id)
+                                        .Any(id => id != feature.Id)))
+                           .ToList();
+
         }
     }
 }
