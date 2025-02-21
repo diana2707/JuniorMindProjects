@@ -122,12 +122,21 @@ namespace Extension_methods
                 .ToList();
         }
 
-        public static List<Product> FilterProducts(List<Product> products, List<Feature> features)
+        public static List<Product> FilterForAnyFeatures(List<Product> products, List<Feature> features)
         {
-
             return products.Where(product => product.Features
-                                .Any(feature => features.Contains(feature)))
+                                .Any(prodFeature => features.Select(feature => feature.Id)
+                                        .Any(id => prodFeature.Id == id)))
                            .ToList();
+        }
+
+        public static List<Product> FilterForAllFeatures(List<Product> products, List<Feature> features)
+        {
+            return products.Where(product => features
+                                    .All(feature => product.Features
+                                        .Select(prodFeature => prodFeature.Id)
+                                             .Any(id => id == feature.Id)))
+                                  .ToList();
         }
     }
 }

@@ -327,7 +327,7 @@ namespace Extension_methods
         }
 
         [Fact]
-        public void Test()
+        public void FilterForAnyFeaturesReturnAllProductsWithAtListOneFeatureFromAListOfFeatures()
         {
             var jacket = new Product()
             {
@@ -385,14 +385,91 @@ namespace Extension_methods
                 new Feature() { Id = 5 },
             };
 
-            List<Product> filteredProducts = Exercises.FilterProducts(products, features);
+            List<Product> filteredProducts = Exercises.FilterForAnyFeatures(products, features);
 
             var expected = new List<Product> { jacket, coat, pants };
 
+            int count = 0;
             for (var i = 0; i < filteredProducts.Count; i++)
             {
                 Assert.Equal(expected[i], filteredProducts[i]);
+                count++;
             }
+
+            Assert.Equal(3, count);
+        }
+
+        [Fact]
+        public void FilterForAllFeaturesReturnsProductsThatHaveAllFeaturesFromAListOfFeatures()
+        {
+            var jacket = new Product()
+            {
+                Name = "Jacket",
+                Quantity = 20,
+                Features = new List<Feature>
+                    {
+                        new Feature() { Id = 1 },
+                        new Feature() { Id = 2 },
+                        new Feature() { Id = 3 },
+                    },
+            };
+
+            var coat = new Product()
+            {
+                Name = "Coat",
+                Quantity = 15,
+                Features = new List<Feature>
+                    {
+                        new Feature() { Id = 1 },
+                        new Feature() { Id = 4 },
+                        new Feature() { Id = 5 },
+                    },
+            };
+
+            var shirt = new Product()
+            {
+                Name = "Shirt",
+                Quantity = 25,
+                Features = new List<Feature>
+                {
+                    new Feature() { Id = 2 },
+                    new Feature() { Id = 3 },
+                    new Feature() { Id = 4 },
+                },
+            };
+
+            var pants = new Product()
+            {
+                Name = "Pants",
+                Quantity = 25,
+                Features = new List<Feature>
+                {
+                    new Feature() { Id = 5 },
+                    new Feature() { Id = 6 },
+                    new Feature() { Id = 7 },
+                },
+            };
+
+            List<Product> products = new List<Product>() { jacket, coat, shirt, pants };
+
+            List<Feature> features = new List<Feature>()
+            {
+                new Feature() { Id = 1 },
+                new Feature() { Id = 5 },
+            };
+
+            List<Product> filteredProducts = Exercises.FilterForAllFeatures(products, features);
+
+            var expected = new List<Product> { coat };
+
+            int count = 0;
+            for (var i = 0; i < filteredProducts.Count; i++)
+            {
+                Assert.Equal(expected[i], filteredProducts[i]);
+                count++;
+            }
+
+            Assert.Equal(1, count);
         }
     }
 }
