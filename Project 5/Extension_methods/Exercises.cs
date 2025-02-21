@@ -149,14 +149,14 @@ namespace Extension_methods
             .ToList();
         }
 
-        public static List<Product> SumProductQuantity(IEnumerable<Product> outer, IEnumerable<Product> inner)
+        public static List<Product> SumProductQuantity(IEnumerable<Product> first, IEnumerable<Product> second)
         {
-            return outer.Join(
-                inner,
-                outerElm => outerElm.Name,
-                innerElm => innerElm.Name,
-                (outerElm, innerElm) => new Product()
-                    { Name = outerElm.Name, Quantity = outerElm.Quantity + innerElm.Quantity })
+            return first.Concat(second)
+                .GroupBy(product => product.Name)
+                .Select(group => new Product(){
+                    Name = group.Key,
+                    Quantity = group.Sum(product => product.Quantity),
+                })
                 .ToList();
         }
     }

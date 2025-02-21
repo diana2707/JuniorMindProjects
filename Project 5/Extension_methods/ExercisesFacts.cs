@@ -548,31 +548,33 @@ namespace Extension_methods
         [Fact]
         public void SumProductQuantitysReturnOneCollectionFrom2CollectionsAndQuantityReflectTotalAmount()
         {
-            List<Product> outer =
+            List<Product> first =
             [
                new Product() { Name = "Jacket", Quantity = 5 },
                 new Product() { Name = "Coat", Quantity = 10 },
                 new Product() { Name = "Shirt", Quantity = 3 },
                 new Product() { Name = "Pants", Quantity = 5 },
+                new Product() { Name = "Shirt", Quantity = 15 },
             ];
 
-            List<Product> inner =
+            List<Product> second =
             [
                 new Product() { Name = "Jacket", Quantity = 20 },
                 new Product() { Name = "Coat", Quantity = 15 },
                 new Product() { Name = "Shirt", Quantity = 10 },
-                new Product() { Name = "Pants", Quantity = 5 }
+                new Product() { Name = "Pants", Quantity = 5 },
+                new Product() { Name = "Coat", Quantity = 4 },
             ];
 
             List<Product> expected =
             [
                 new Product() { Name = "Jacket", Quantity = 25 },
-                new Product() { Name = "Coat", Quantity = 25 },
-                new Product() { Name = "Shirt", Quantity = 13 },
+                new Product() { Name = "Coat", Quantity = 29 },
+                new Product() { Name = "Shirt", Quantity = 28 },
                 new Product() { Name = "Pants", Quantity = 10 },
             ];
 
-            List<Product> result = Exercises.SumProductQuantity(outer, inner);
+            List<Product> result = Exercises.SumProductQuantity(first, second);
 
             int count = 0;
             for (var i = 0; i < result.Count; i++)
