@@ -544,5 +544,45 @@ namespace Extension_methods
 
             Assert.Equal(1, count);
         }
+
+        [Fact]
+        public void SumProductQuantitysReturnOneCollectionFrom2CollectionsAndQuantityReflectTotalAmount()
+        {
+            List<Product> outer =
+            [
+               new Product() { Name = "Jacket", Quantity = 5 },
+                new Product() { Name = "Coat", Quantity = 10 },
+                new Product() { Name = "Shirt", Quantity = 3 },
+                new Product() { Name = "Pants", Quantity = 5 },
+            ];
+
+            List<Product> inner =
+            [
+                new Product() { Name = "Jacket", Quantity = 20 },
+                new Product() { Name = "Coat", Quantity = 15 },
+                new Product() { Name = "Shirt", Quantity = 10 },
+                new Product() { Name = "Pants", Quantity = 5 }
+            ];
+
+            List<Product> expected =
+            [
+                new Product() { Name = "Jacket", Quantity = 25 },
+                new Product() { Name = "Coat", Quantity = 25 },
+                new Product() { Name = "Shirt", Quantity = 13 },
+                new Product() { Name = "Pants", Quantity = 10 },
+            ];
+
+            List<Product> result = Exercises.SumProductQuantity(outer, inner);
+
+            int count = 0;
+            for (var i = 0; i < result.Count; i++)
+            {
+                Assert.Equal(expected[i].Name, result[i].Name);
+                Assert.Equal(expected[i].Quantity, result[i].Quantity);
+                count++;
+            }
+
+            Assert.Equal(4, count);
+        }
     }
 }

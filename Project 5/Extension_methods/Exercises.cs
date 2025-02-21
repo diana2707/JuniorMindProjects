@@ -1,4 +1,5 @@
 ﻿using System;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Extension_methods
 {
@@ -145,8 +146,18 @@ namespace Extension_methods
                                 .All(feature => product.Features
                                     .Select(prodFeature => prodFeature.Id)
                                         .Any(id => id != feature.Id)))
-                           .ToList();
+            .ToList();
+        }
 
+        public static List<Product> SumProductQuantity(IEnumerable<Product> outer, IEnumerable<Product> inner)
+        {
+            return outer.Join(
+                inner,
+                outerElm => outerElm.Name,
+                innerElm => innerElm.Name,
+                (outerElm, innerElm) => new Product()
+                    { Name = outerElm.Name, Quantity = outerElm.Quantity + innerElm.Quantity })
+                .ToList();
         }
     }
 }
