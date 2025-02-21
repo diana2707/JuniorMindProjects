@@ -325,5 +325,74 @@ namespace Extension_methods
 
             Assert.Empty(result);
         }
+
+        [Fact]
+        public void Test()
+        {
+            var jacket = new Product()
+            {
+                Name = "Jacket",
+                Quantity = 20,
+                Features = new List<Feature>
+                    {
+                        new Feature() { Id = 1 },
+                        new Feature() { Id = 2 },
+                        new Feature() { Id = 3 },
+                    },
+            };
+
+            var coat = new Product()
+            {
+                Name = "Coat",
+                Quantity = 15,
+                Features = new List<Feature>
+                    {
+                        new Feature() { Id = 1 },
+                        new Feature() { Id = 4 },
+                        new Feature() { Id = 5 },
+                    },
+            };
+
+            var shirt = new Product()
+            {
+                Name = "Shirt",
+                Quantity = 25,
+                Features = new List<Feature>
+                {
+                    new Feature() { Id = 2 },
+                    new Feature() { Id = 3 },
+                    new Feature() { Id = 4 },
+                },
+            };
+
+            var pants = new Product()
+            {
+                Name = "Pants",
+                Quantity = 25,
+                Features = new List<Feature>
+                {
+                    new Feature() { Id = 5 },
+                    new Feature() { Id = 6 },
+                    new Feature() { Id = 7 },
+                },
+            };
+
+            List<Product> products = new List<Product>() { jacket, coat, shirt, pants };
+
+            List<Feature> features = new List<Feature>()
+            {
+                new Feature() { Id = 1 },
+                new Feature() { Id = 5 },
+            };
+
+            List<Product> filteredProducts = Exercises.FilterProducts(products, features);
+
+            var expected = new List<Product> { jacket, coat, pants };
+
+            for (var i = 0; i < filteredProducts.Count; i++)
+            {
+                Assert.Equal(expected[i], filteredProducts[i]);
+            }
+        }
     }
 }

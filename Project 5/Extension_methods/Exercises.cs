@@ -121,5 +121,13 @@ namespace Extension_methods
                 .Select(e => e.ToList())
                 .ToList();
         }
+
+        public static List<Product> FilterProducts(List<Product> products, List<Feature> features)
+        {
+
+            return products.Where(product => product.Features
+                                .Any(feature => features.Contains(feature)))
+                           .ToList();
+        }
     }
 }
