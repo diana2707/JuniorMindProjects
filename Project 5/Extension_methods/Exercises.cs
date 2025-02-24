@@ -153,11 +153,19 @@ namespace Extension_methods
         {
             return first.Concat(second)
                 .GroupBy(product => product.Name)
-                .Select(group => new Product(){
+                .Select(group => new Product()
+                {
                     Name = group.Key,
                     Quantity = group.Sum(product => product.Quantity),
                 })
                 .ToList();
+        }
+
+        public static List<TestResults> GetMaxResultsByFamily(IEnumerable<TestResults> results)
+        {
+            return results.GroupBy(result => result.FamilyId)
+                          .Select(group => group.MaxBy(result => result.Score))
+                          .ToList();
         }
     }
 }

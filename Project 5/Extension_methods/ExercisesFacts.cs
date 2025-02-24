@@ -586,5 +586,37 @@ namespace Extension_methods
 
             Assert.Equal(4, count);
         }
+
+        [Fact]
+        public void TestResultsReturnTheResultWithLargestScoreForEachFamily()
+        {
+            var results = new List<TestResults>()
+            {
+                new TestResults() { Id = "01", FamilyId = "A", Score = 10 },
+                new TestResults() { Id = "01", FamilyId = "B", Score = 70 },
+                new TestResults() { Id = "02", FamilyId = "A", Score = 80 },
+                new TestResults() { Id = "02", FamilyId = "B", Score = 50 },
+                new TestResults() { Id = "01", FamilyId = "B", Score = 70 },
+            };
+
+            var expected = new List<TestResults>()
+            {
+                new TestResults() { Id = "02", FamilyId = "A", Score = 80 },
+                new TestResults() { Id = "01", FamilyId = "B", Score = 70 },
+            };
+
+            List<TestResults> maxResults = Exercises.GetMaxResultsByFamily(results);
+
+            int count = 0;
+            for (int i = 0; i < maxResults.Count; i++)
+            {
+                Assert.Equal(expected[i].Id, maxResults[i].Id);
+                Assert.Equal(expected[i].FamilyId, maxResults[i].FamilyId);
+                Assert.Equal(expected[i].Score, maxResults[i].Score);
+                count++;
+            }
+
+            Assert.Equal(2, count);
+        }
     }
 }
