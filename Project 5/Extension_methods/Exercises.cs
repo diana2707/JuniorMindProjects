@@ -167,5 +167,19 @@ namespace Extension_methods
                           .Select(group => group.MaxBy(result => result.Score))
                           .ToList();
         }
+
+        public static List<string> MostFrequentWords(string input)
+        {
+            List<string> words = input.Split([' ', '.', ',', '?', '!', ';'], StringSplitOptions.RemoveEmptyEntries)
+                                      .Select(word => word.ToLower())
+                                      .ToList();
+
+            return words.OrderByDescending(word => Enumerable.Range(0, words.Count)
+                                                    .Count(i => words[i] == word))
+                        .Distinct()
+                        .Take(5)
+                        .ToList();
+        }
+
     }
 }

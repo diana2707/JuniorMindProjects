@@ -607,16 +607,40 @@ namespace Extension_methods
 
             List<TestResults> maxResults = Exercises.GetMaxResultsByFamily(results);
 
-            int count = 0;
             for (int i = 0; i < maxResults.Count; i++)
             {
                 Assert.Equal(expected[i].Id, maxResults[i].Id);
                 Assert.Equal(expected[i].FamilyId, maxResults[i].FamilyId);
                 Assert.Equal(expected[i].Score, maxResults[i].Score);
-                count++;
             }
+        }
 
-            Assert.Equal(2, count);
+        [Fact]
+        public void MostFrequentWordsReturnsTheTop5MostFrequentWordsInAText()
+        {
+            //string input = "Aaa aaa mmm gg aaa gg gg tt gg mmm gg mmm mmm aaa ss ss.";
+
+            //List<string> expected = ["gg", "mmm", "aaa",  "ss", "tt"];
+
+            string input = "The surface salinity of the Marmara averages about 22 " +
+                "parts per thousand, which is slightly more than that of the Black Sea," +
+                " but only about two-thirds that of most oceans. The water is much more" +
+                " saline at the bottom of the sea, averaging a salinity of around 38" +
+                " parts per thousand, similar to that of the Mediterranean Sea. This " +
+                "high-density saline water does not migrate to the surface as is also " +
+                "the case with the Black Sea water. Water from the Susurluk, Biga Granicus," +
+                " and Gönen Rivers also reduces the salinity of the sea, though with less " +
+                "effect than that on the Black Sea. With little land in Thrace draining southward, " +
+                "almost all of these rivers flow from Anatolia.";
+
+            List<string> expected = ["the", "of", "sea", "that", "water" ];
+
+            List<string> result = Exercises.MostFrequentWords(input);
+
+            for (int i = 0; i < result.Count; i++)
+            {
+                Assert.Equal(expected[i], result[i]);
+            }
         }
     }
 }
