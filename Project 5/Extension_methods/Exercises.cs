@@ -181,5 +181,22 @@ namespace Extension_methods
                         .ToList();
         }
 
+        public static bool IsValidSudoku(IEnumerable<int> input)
+        {
+            bool areValidRows = input.Select((value, index) => new { value, index })
+                                     .GroupBy(item => item.index / 9)
+                                     .All(group => group.Select(item => item.value).Distinct().Count() == 9);
+
+            bool areValidColumns = input.Select((value, index) => new { value, index })
+                                        .GroupBy(item => item.index % 9)
+                                        .All(group => group.Select(item => item.value).Distinct().Count() == 9);
+
+            bool areValidSubgrids = input.Select((value, index) => new { value, index })
+                                         .GroupBy(item => (item.index / 9 / 3) * 3 + ((item.index % 9) / 3))
+                                         .All(group => group.Select(item => item.value).Distinct().Count() == 9);
+
+            return areValidRows && areValidColumns && areValidSubgrids;
+        }
+
     }
 }
