@@ -674,5 +674,13 @@ namespace Extension_methods
 
             Assert.False(Exercises.IsValidSudoku(input));
         }
+
+        [Fact]
+        public void CalculateRPNReturnsCorrectResult()
+        {
+            string input = "34+5*";
+
+            Assert.Equal(35, Exercises.CalculateRPN(input));
+        }
     }
 }

@@ -198,5 +198,33 @@ namespace Extension_methods
             return areValidRows && areValidColumns && areValidSubgrids;
         }
 
+        public static int CalculateRPN(string input)
+        {
+            Stack<int> operands = new Stack<int>();
+
+            Dictionary<char, Func<int, int, int>> operations = new()
+            {
+                { '+', (a, b) => a + b },
+                { '-', (a, b) => a - b },
+                { '*', (a, b) => a * b },
+                { '/', (a, b) => a / b },
+            };
+
+            return input.Aggregate(operands, (operands, character) =>
+            {
+                if (int.TryParse(character.ToString(), out int value ))
+                {
+                    operands.Push(value);
+                }
+                else
+                {
+                    int a = operands.Pop();
+                    int b = operands.Pop();
+                    operands.Push(operations[character](a, b));
+                }
+
+                return operands;
+            }).Pop();
+        }
     }
 }
