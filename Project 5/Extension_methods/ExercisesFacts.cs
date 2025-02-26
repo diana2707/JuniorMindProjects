@@ -692,6 +692,14 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void IsValidSudokuThrowsArgumentNullExceptionWhenArgumentIsNUll()
+        {
+            List<int> input = null;
+
+            Assert.Throws<ArgumentNullException>(() => Exercises.IsValidSudoku(input));
+        }
+
+        [Fact]
         public void CalculateRPNReturnsCorrectResult()
         {
             string input = "3 4 + 5 *";

@@ -183,6 +183,8 @@ namespace Extension_methods
 
         public static bool IsValidSudoku(IEnumerable<int> input)
         {
+            ArgumentNullException.ThrowIfNull(input);
+
             if (input.Any(e => e < 1 || e > 9))
             {
                 throw new ArgumentException("The grid contains invalid numbers.");
@@ -203,7 +205,6 @@ namespace Extension_methods
             return areValidRows && areValidColumns && areValidSubgrids;
         }
 
-        //cum diferentiezi digits de numbers?
         public static int CalculateRPN(string input)
         {
             ArgumentException.ThrowIfNullOrEmpty(input);
