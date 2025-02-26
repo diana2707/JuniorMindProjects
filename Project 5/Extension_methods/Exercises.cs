@@ -170,6 +170,8 @@ namespace Extension_methods
 
         public static List<string> MostFrequentWords(string input)
         {
+            ArgumentNullException.ThrowIfNull(input);
+
             List<string> words = input.Split([' ', '.', ',', '?', '!', ';'], StringSplitOptions.RemoveEmptyEntries)
                                       .Select(word => word.ToLower())
                                       .ToList();

@@ -618,10 +618,6 @@ namespace Extension_methods
         [Fact]
         public void MostFrequentWordsReturnsTheTop5MostFrequentWordsInAText()
         {
-            //string input = "Aaa aaa mmm gg aaa gg gg tt gg mmm gg mmm mmm aaa ss ss.";
-
-            //List<string> expected = ["gg", "mmm", "aaa",  "ss", "tt"];
-
             string input = "The surface salinity of the Marmara averages about 22 " +
                 "parts per thousand, which is slightly more than that of the Black Sea," +
                 " but only about two-thirds that of most oceans. The water is much more" +
@@ -641,6 +637,14 @@ namespace Extension_methods
             {
                 Assert.Equal(expected[i], result[i]);
             }
+        }
+
+        [Fact]
+        public void MostFrequentWordsThrowsArgumentNullExceptionWhenArgumentIsNull()
+        {
+            string input = null;
+
+            Assert.Throws<ArgumentNullException>(() => Exercises.MostFrequentChar(input));
         }
 
         [Fact]
