@@ -151,11 +151,10 @@ namespace Extension_methods
             ArgumentNullException.ThrowIfNull(products);
             ArgumentNullException.ThrowIfNull(features);
 
-            return products.Where(product => features
-                                .All(feature => product.Features
-                                    .Select(prodFeature => prodFeature.Id)
-                                        .Any(id => id != feature.Id)))
-            .ToList();
+            return products.Where(product => product.Features
+                                     .All(prodFeature => features
+                                           .All(feature => feature.Id != prodFeature.Id)))
+                           .ToList();
         }
 
         public static List<Product> SumProductQuantity(IEnumerable<Product> first, IEnumerable<Product> second)

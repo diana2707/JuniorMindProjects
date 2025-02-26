@@ -458,14 +458,6 @@ namespace Extension_methods
             List<Product> products = new () { jacket, coat, shirt, pants };
             List<Feature> features = new () { new () { Id = 1 }, new () { Id = 7 } };
 
-            //List<Product> products = new List<Product>() { shirt };
-
-            //List<Feature> features = new List<Feature>()
-            //{
-            //    new Feature() { Id = 1 },
-            //    new Feature() { Id = 7 },
-            //};
-
             List<Product> filteredProducts = Exercises.FilterByExcludedFeatures(products, features);
 
             var expected = new List<Product> { shirt };
