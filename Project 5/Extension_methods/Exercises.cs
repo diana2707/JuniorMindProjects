@@ -183,6 +183,11 @@ namespace Extension_methods
 
         public static bool IsValidSudoku(IEnumerable<int> input)
         {
+            if (input.Any(e => e < 1 || e > 9))
+            {
+                throw new ArgumentException("The grid contains invalid numbers.");
+            }
+
             bool areValidRows = input.Select((value, index) => new { value, index })
                                      .GroupBy(item => item.index / 9)
                                      .All(group => group.Select(item => item.value).Distinct().Count() == 9);
@@ -192,12 +197,13 @@ namespace Extension_methods
                                         .All(group => group.Select(item => item.value).Distinct().Count() == 9);
 
             bool areValidSubgrids = input.Select((value, index) => new { value, index })
-                                         .GroupBy(item => (item.index / 9 / 3) * 3 + ((item.index % 9) / 3))
+                                         .GroupBy(item => ((item.index / 9 / 3) * 3) + ((item.index % 9) / 3))
                                          .All(group => group.Select(item => item.value).Distinct().Count() == 9);
 
             return areValidRows && areValidColumns && areValidSubgrids;
         }
 
+        //cum diferentiezi digits de numbers?
         public static int CalculateRPN(string input)
         {
             Stack<int> operands = new Stack<int>();
@@ -216,11 +222,15 @@ namespace Extension_methods
                 {
                     operands.Push(value);
                 }
-                else
+                else if (operations.ContainsKey(character))
                 {
                     int a = operands.Pop();
                     int b = operands.Pop();
                     operands.Push(operations[character](a, b));
+                }
+                else
+                {
+                    throw new ArgumentException("The argument contains invalid characters.");
                 }
 
                 return operands;
