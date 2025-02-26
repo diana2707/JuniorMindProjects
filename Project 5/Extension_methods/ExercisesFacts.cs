@@ -440,6 +440,46 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void FilterByAllFeaturesReturnsEmptyCollectionWhenProductsArgumentIsEmpty()
+        {
+            List<Feature> features = new List<Feature>() { new () { Id = 1 }, new () { Id = 5 } };
+
+            Assert.Empty(Exercises.FilterByAllFeatures([], features));
+        }
+
+        [Fact]
+        public void FilterByAllFeaturesReturnsAllProductsWhenFeatureArgumentIsEmpty()
+        {
+            var jacket = new Product() { Name = "Jacket", Quantity = 20,
+                Features = [new () { Id = 1 }, new () { Id = 2 }, new () { Id = 3 }], };
+
+            var coat = new Product() { Name = "Coat", Quantity = 15,
+                Features = [new () { Id = 1 }, new () { Id = 4 }, new () { Id = 5 }], };
+
+            var shirt = new Product() { Name = "Shirt", Quantity = 25,
+                Features = [new () { Id = 2 }, new () { Id = 3 }, new () { Id = 4 }], };
+
+            var pants = new Product() { Name = "Pants", Quantity = 25,
+                Features = [new () { Id = 5 }, new () { Id = 6 }, new () { Id = 7 }], };
+
+
+            List<Product> products = new List<Product>() { jacket, coat, shirt, pants };
+
+            List<Product> filteredProducts = Exercises.FilterByAllFeatures(products, []);
+
+            var expected = new List<Product> { jacket, coat, shirt, pants };
+
+            int count = 0;
+            for (var i = 0; i < filteredProducts.Count; i++)
+            {
+                Assert.Equal(expected[i], filteredProducts[i]);
+                count++;
+            }
+
+            Assert.Equal(4, count);
+        }
+
+        [Fact]
         public void FilterByExcludedFeaturesReturnsProductsThatHaveAllFeaturesFromAListOfFeatures()
         {
             var jacket = new Product() { Name = "Jacket", Quantity = 20,
