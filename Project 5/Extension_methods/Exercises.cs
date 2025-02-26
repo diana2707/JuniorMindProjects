@@ -185,7 +185,7 @@ namespace Extension_methods
         {
             ArgumentNullException.ThrowIfNull(input);
 
-            if (input.Any(e => e < 1 || e > 9))
+            if (input.Count() != 81 || input.Any(e => e < 1 || e > 9))
             {
                 throw new ArgumentException("The grid contains invalid numbers.");
             }
