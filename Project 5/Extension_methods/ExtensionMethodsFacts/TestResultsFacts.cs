@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Extension_methods.Extension_methods;
+using System;
 
-namespace Extension_methods
+namespace Extension_methods.ExtensionMethodsFacts
 {
     public class TestResultsFacts
     {

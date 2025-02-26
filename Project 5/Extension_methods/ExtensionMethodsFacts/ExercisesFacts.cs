@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Extension_methods.Extension_methods;
+using System;
 
-namespace Extension_methods
+namespace Extension_methods.ExtensionMethodsFacts
 {
     public class ExercisesFacts
     {
@@ -224,7 +225,7 @@ namespace Extension_methods
         [Fact]
         public void GetSubarraysReturnsAllSubarraysOfArrayWithElementsThatAddToLessOrEqualWithArgument()
         {
-            List<int> source = [ 1, 2, 3, 4, 5 ];
+            List<int> source = [1, 2, 3, 4, 5];
 
             List<List<int>> expected = [[1], [1, 2], [1, 2, 3], [1, 2, 3, 4],
                                         [2], [2, 3], [2, 3, 4],
@@ -296,7 +297,7 @@ namespace Extension_methods
         [Fact]
         public void GetPythagoreanTripletsReturnsAllTripletsFromIntegerArrayThatArePitagoreanTriplets()
         {
-            List<int> source = [ 3, 4, 5, 6, 8, 10, 9, 12, 15, 16, 20, 25 ];
+            List<int> source = [3, 4, 5, 6, 8, 10, 9, 12, 15, 16, 20, 25];
 
             List<List<int>> expected = [[3, 4, 5], [6, 8, 10], [9, 12, 15], [12, 16, 20], [15, 20, 25]];
 
@@ -329,20 +330,36 @@ namespace Extension_methods
         [Fact]
         public void FilterByAnyFeaturesReturnsAllProductsWithAtLeastOneFeatureFromAListOfFeatures()
         {
-            var jacket = new Product() { Name = "Jacket", Quantity = 20,
-                Features = [new () { Id = 1 }, new () { Id = 2 }, new () { Id = 3 }], };
+            var jacket = new Product()
+            {
+                Name = "Jacket",
+                Quantity = 20,
+                Features = [new() { Id = 1 }, new() { Id = 2 }, new() { Id = 3 }],
+            };
 
-            var coat = new Product() { Name = "Coat", Quantity = 15,
-                Features = [new () { Id = 1 }, new () { Id = 4 }, new () { Id = 5 }], };
+            var coat = new Product()
+            {
+                Name = "Coat",
+                Quantity = 15,
+                Features = [new() { Id = 1 }, new() { Id = 4 }, new() { Id = 5 }],
+            };
 
-            var shirt = new Product() { Name = "Shirt", Quantity = 25,
-                Features = [new () { Id = 2 }, new () { Id = 3 }, new () { Id = 4 }], };
+            var shirt = new Product()
+            {
+                Name = "Shirt",
+                Quantity = 25,
+                Features = [new() { Id = 2 }, new() { Id = 3 }, new() { Id = 4 }],
+            };
 
-            var pants = new Product() { Name = "Pants", Quantity = 25,
-                Features = [new () { Id = 5 }, new () { Id = 6 }, new () { Id = 7 }], };
+            var pants = new Product()
+            {
+                Name = "Pants",
+                Quantity = 25,
+                Features = [new() { Id = 5 }, new() { Id = 6 }, new() { Id = 7 }],
+            };
 
-            List<Product> products = new () { jacket, coat, shirt, pants };
-            List<Feature> features = new () { new () { Id = 1 }, new () { Id = 5 } };
+            List<Product> products = new() { jacket, coat, shirt, pants };
+            List<Feature> features = new() { new() { Id = 1 }, new() { Id = 5 } };
 
             List<Product> filteredProducts = Exercises.FilterByAnyFeatures(products, features);
 
@@ -361,49 +378,81 @@ namespace Extension_methods
         [Fact]
         public void FilterByAnyFeaturesThrowsArgumentNullExceptionWhenArgumentIsNull()
         {
-             var jacket = new Product() { Name = "Jacket", Quantity = 20,
-                Features = [new () { Id = 1 }, new () { Id = 2 }, new () { Id = 3 }], };
+            var jacket = new Product()
+            {
+                Name = "Jacket",
+                Quantity = 20,
+                Features = [new() { Id = 1 }, new() { Id = 2 }, new() { Id = 3 }],
+            };
 
-             var coat = new Product() { Name = "Coat", Quantity = 15,
-                Features = [new () { Id = 1 }, new () { Id = 4 }, new () { Id = 5 }], };
+            var coat = new Product()
+            {
+                Name = "Coat",
+                Quantity = 15,
+                Features = [new() { Id = 1 }, new() { Id = 4 }, new() { Id = 5 }],
+            };
 
-             var shirt = new Product() { Name = "Shirt", Quantity = 25,
-                Features = [new () { Id = 2 }, new () { Id = 3 }, new () { Id = 4 }], };
+            var shirt = new Product()
+            {
+                Name = "Shirt",
+                Quantity = 25,
+                Features = [new() { Id = 2 }, new() { Id = 3 }, new() { Id = 4 }],
+            };
 
-             var pants = new Product() { Name = "Pants", Quantity = 25,
-                Features = [new () { Id = 5 }, new () { Id = 6 }, new () { Id = 7 }], };
+            var pants = new Product()
+            {
+                Name = "Pants",
+                Quantity = 25,
+                Features = [new() { Id = 5 }, new() { Id = 6 }, new() { Id = 7 }],
+            };
 
-             List<Product> products = new () { jacket, coat, shirt, pants };
-             List<Feature> features = new () { new () { Id = 1 }, new () { Id = 5 } };
+            List<Product> products = new() { jacket, coat, shirt, pants };
+            List<Feature> features = new() { new() { Id = 1 }, new() { Id = 5 } };
 
-             Assert.Throws<ArgumentNullException>(() => Exercises.FilterByAnyFeatures(null, features));
-             Assert.Throws<ArgumentNullException>(() => Exercises.FilterByAnyFeatures(products, null));
+            Assert.Throws<ArgumentNullException>(() => Exercises.FilterByAnyFeatures(null, features));
+            Assert.Throws<ArgumentNullException>(() => Exercises.FilterByAnyFeatures(products, null));
         }
 
         [Fact]
         public void FilterByAnyFeaturesReturnsEmptyCollectionWhenProducstArgumentIsEmpty()
         {
-             List<Feature> features = new () { new () { Id = 1 }, new () { Id = 5 } };
+            List<Feature> features = new() { new() { Id = 1 }, new() { Id = 5 } };
 
-             Assert.Empty(Exercises.FilterByAllFeatures([], features));
+            Assert.Empty(Exercises.FilterByAllFeatures([], features));
         }
 
         [Fact]
         public void FilterByAnyFeaturesReturnsEmptyCollectionsWhenFeaturesCollectionIsEmpty()
         {
-            var jacket = new Product() { Name = "Jacket", Quantity = 20,
-                Features = [new () { Id = 1 }, new () { Id = 2 }, new () { Id = 3 }], };
+            var jacket = new Product()
+            {
+                Name = "Jacket",
+                Quantity = 20,
+                Features = [new() { Id = 1 }, new() { Id = 2 }, new() { Id = 3 }],
+            };
 
-            var coat = new Product() { Name = "Coat", Quantity = 15,
-                Features = [new () { Id = 1 }, new () { Id = 4 }, new () { Id = 5 }], };
+            var coat = new Product()
+            {
+                Name = "Coat",
+                Quantity = 15,
+                Features = [new() { Id = 1 }, new() { Id = 4 }, new() { Id = 5 }],
+            };
 
-            var shirt = new Product() { Name = "Shirt", Quantity = 25,
-                Features = [new () { Id = 2 }, new () { Id = 3 }, new () { Id = 4 }], };
+            var shirt = new Product()
+            {
+                Name = "Shirt",
+                Quantity = 25,
+                Features = [new() { Id = 2 }, new() { Id = 3 }, new() { Id = 4 }],
+            };
 
-            var pants = new Product() { Name = "Pants", Quantity = 25,
-                Features = [new () { Id = 5 }, new () { Id = 6 }, new () { Id = 7 }], };
+            var pants = new Product()
+            {
+                Name = "Pants",
+                Quantity = 25,
+                Features = [new() { Id = 5 }, new() { Id = 6 }, new() { Id = 7 }],
+            };
 
-            List<Product> products = new () { jacket, coat, shirt, pants };
+            List<Product> products = new() { jacket, coat, shirt, pants };
 
             Assert.Empty(Exercises.FilterByAnyFeatures(products, []));
         }
@@ -411,20 +460,36 @@ namespace Extension_methods
         [Fact]
         public void FilterByAllFeaturesReturnsProductsThatHaveAllFeaturesFromAListOfFeatures()
         {
-            var jacket = new Product() { Name = "Jacket", Quantity = 20,
-                Features = [new () { Id = 1 }, new () { Id = 2 }, new () { Id = 3 }], };
+            var jacket = new Product()
+            {
+                Name = "Jacket",
+                Quantity = 20,
+                Features = [new() { Id = 1 }, new() { Id = 2 }, new() { Id = 3 }],
+            };
 
-            var coat = new Product() { Name = "Coat", Quantity = 15,
-                Features = [new () { Id = 1 }, new () { Id = 4 }, new () { Id = 5 }], };
+            var coat = new Product()
+            {
+                Name = "Coat",
+                Quantity = 15,
+                Features = [new() { Id = 1 }, new() { Id = 4 }, new() { Id = 5 }],
+            };
 
-            var shirt = new Product() { Name = "Shirt", Quantity = 25,
-                Features = [new () { Id = 2 }, new () { Id = 3 }, new () { Id = 4 }], };
+            var shirt = new Product()
+            {
+                Name = "Shirt",
+                Quantity = 25,
+                Features = [new() { Id = 2 }, new() { Id = 3 }, new() { Id = 4 }],
+            };
 
-            var pants = new Product() { Name = "Pants", Quantity = 25,
-                Features = [new () { Id = 5 }, new () { Id = 6 }, new () { Id = 7 }], };
+            var pants = new Product()
+            {
+                Name = "Pants",
+                Quantity = 25,
+                Features = [new() { Id = 5 }, new() { Id = 6 }, new() { Id = 7 }],
+            };
 
             List<Product> products = new List<Product>() { jacket, coat, shirt, pants };
-            List<Feature> features = new List<Feature>() { new () { Id = 1 }, new () { Id = 5 } };
+            List<Feature> features = new List<Feature>() { new() { Id = 1 }, new() { Id = 5 } };
 
             List<Product> filteredProducts = Exercises.FilterByAllFeatures(products, features);
 
@@ -443,20 +508,36 @@ namespace Extension_methods
         [Fact]
         public void FilterByAllFeaturesThrowsArgumentNullExceptionWhenArgumentIsNull()
         {
-            var jacket = new Product() { Name = "Jacket", Quantity = 20,
-                Features = [new () { Id = 1 }, new () { Id = 2 }, new () { Id = 3 }], };
+            var jacket = new Product()
+            {
+                Name = "Jacket",
+                Quantity = 20,
+                Features = [new() { Id = 1 }, new() { Id = 2 }, new() { Id = 3 }],
+            };
 
-            var coat = new Product() { Name = "Coat", Quantity = 15,
-                Features = [new () { Id = 1 }, new () { Id = 4 }, new () { Id = 5 }], };
+            var coat = new Product()
+            {
+                Name = "Coat",
+                Quantity = 15,
+                Features = [new() { Id = 1 }, new() { Id = 4 }, new() { Id = 5 }],
+            };
 
-            var shirt = new Product() { Name = "Shirt", Quantity = 25,
-                Features = [new () { Id = 2 }, new () { Id = 3 }, new () { Id = 4 }], };
+            var shirt = new Product()
+            {
+                Name = "Shirt",
+                Quantity = 25,
+                Features = [new() { Id = 2 }, new() { Id = 3 }, new() { Id = 4 }],
+            };
 
-            var pants = new Product() { Name = "Pants", Quantity = 25,
-                Features = [new () { Id = 5 }, new () { Id = 6 }, new () { Id = 7 }], };
+            var pants = new Product()
+            {
+                Name = "Pants",
+                Quantity = 25,
+                Features = [new() { Id = 5 }, new() { Id = 6 }, new() { Id = 7 }],
+            };
 
-            List<Product> products = new () { jacket, coat, shirt, pants };
-            List<Feature> features = new () { new () { Id = 1 }, new () { Id = 5 } };
+            List<Product> products = new() { jacket, coat, shirt, pants };
+            List<Feature> features = new() { new() { Id = 1 }, new() { Id = 5 } };
 
             Assert.Throws<ArgumentNullException>(() => Exercises.FilterByAllFeatures(null, features));
             Assert.Throws<ArgumentNullException>(() => Exercises.FilterByAllFeatures(products, null));
@@ -465,7 +546,7 @@ namespace Extension_methods
         [Fact]
         public void FilterByAllFeaturesReturnsEmptyCollectionWhenProductsArgumentIsEmpty()
         {
-            List<Feature> features = new List<Feature>() { new () { Id = 1 }, new () { Id = 5 } };
+            List<Feature> features = new List<Feature>() { new() { Id = 1 }, new() { Id = 5 } };
 
             Assert.Empty(Exercises.FilterByAllFeatures([], features));
         }
@@ -473,17 +554,33 @@ namespace Extension_methods
         [Fact]
         public void FilterByAllFeaturesReturnsAllProductsWhenFeatureArgumentIsEmpty()
         {
-            var jacket = new Product() { Name = "Jacket", Quantity = 20,
-                Features = [new () { Id = 1 }, new () { Id = 2 }, new () { Id = 3 }], };
+            var jacket = new Product()
+            {
+                Name = "Jacket",
+                Quantity = 20,
+                Features = [new() { Id = 1 }, new() { Id = 2 }, new() { Id = 3 }],
+            };
 
-            var coat = new Product() { Name = "Coat", Quantity = 15,
-                Features = [new () { Id = 1 }, new () { Id = 4 }, new () { Id = 5 }], };
+            var coat = new Product()
+            {
+                Name = "Coat",
+                Quantity = 15,
+                Features = [new() { Id = 1 }, new() { Id = 4 }, new() { Id = 5 }],
+            };
 
-            var shirt = new Product() { Name = "Shirt", Quantity = 25,
-                Features = [new () { Id = 2 }, new () { Id = 3 }, new () { Id = 4 }], };
+            var shirt = new Product()
+            {
+                Name = "Shirt",
+                Quantity = 25,
+                Features = [new() { Id = 2 }, new() { Id = 3 }, new() { Id = 4 }],
+            };
 
-            var pants = new Product() { Name = "Pants", Quantity = 25,
-                Features = [new () { Id = 5 }, new () { Id = 6 }, new () { Id = 7 }], };
+            var pants = new Product()
+            {
+                Name = "Pants",
+                Quantity = 25,
+                Features = [new() { Id = 5 }, new() { Id = 6 }, new() { Id = 7 }],
+            };
 
             List<Product> products = new List<Product>() { jacket, coat, shirt, pants };
 
@@ -504,20 +601,36 @@ namespace Extension_methods
         [Fact]
         public void FilterByExcludedFeaturesReturnsProductsThatHaveAllFeaturesFromAListOfFeatures()
         {
-            var jacket = new Product() { Name = "Jacket", Quantity = 20,
-                Features = [new () { Id = 1 }, new () { Id = 2 }, new () { Id = 3 }], };
+            var jacket = new Product()
+            {
+                Name = "Jacket",
+                Quantity = 20,
+                Features = [new() { Id = 1 }, new() { Id = 2 }, new() { Id = 3 }],
+            };
 
-            var coat = new Product() { Name = "Coat", Quantity = 15,
-                Features = [new () { Id = 1 }, new () { Id = 4 }, new () { Id = 5 }], };
+            var coat = new Product()
+            {
+                Name = "Coat",
+                Quantity = 15,
+                Features = [new() { Id = 1 }, new() { Id = 4 }, new() { Id = 5 }],
+            };
 
-            var shirt = new Product() { Name = "Shirt", Quantity = 25,
-                Features = [new () { Id = 2 }, new () { Id = 3 }, new () { Id = 4 }], };
+            var shirt = new Product()
+            {
+                Name = "Shirt",
+                Quantity = 25,
+                Features = [new() { Id = 2 }, new() { Id = 3 }, new() { Id = 4 }],
+            };
 
-            var pants = new Product() { Name = "Pants", Quantity = 25,
-                Features = [new () { Id = 5 }, new () { Id = 6 }, new () { Id = 7 }], };
+            var pants = new Product()
+            {
+                Name = "Pants",
+                Quantity = 25,
+                Features = [new() { Id = 5 }, new() { Id = 6 }, new() { Id = 7 }],
+            };
 
-            List<Product> products = new () { jacket, coat, shirt, pants };
-            List<Feature> features = new () { new () { Id = 1 }, new () { Id = 7 } };
+            List<Product> products = new() { jacket, coat, shirt, pants };
+            List<Feature> features = new() { new() { Id = 1 }, new() { Id = 7 } };
 
             List<Product> filteredProducts = Exercises.FilterByExcludedFeatures(products, features);
 
@@ -536,61 +649,93 @@ namespace Extension_methods
         [Fact]
         public void FilterByExcludedFeaturesThrowsArgumentNullExceptionWhenArgumentIsNull()
         {
-             var jacket = new Product() { Name = "Jacket", Quantity = 20,
-                Features = [new () { Id = 1 }, new () { Id = 2 }, new () { Id = 3 }], };
+            var jacket = new Product()
+            {
+                Name = "Jacket",
+                Quantity = 20,
+                Features = [new() { Id = 1 }, new() { Id = 2 }, new() { Id = 3 }],
+            };
 
-             var coat = new Product() { Name = "Coat", Quantity = 15,
-                Features = [new () { Id = 1 }, new () { Id = 4 }, new () { Id = 5 }], };
+            var coat = new Product()
+            {
+                Name = "Coat",
+                Quantity = 15,
+                Features = [new() { Id = 1 }, new() { Id = 4 }, new() { Id = 5 }],
+            };
 
-             var shirt = new Product() { Name = "Shirt", Quantity = 25,
-                Features = [new () { Id = 2 }, new () { Id = 3 }, new () { Id = 4 }], };
+            var shirt = new Product()
+            {
+                Name = "Shirt",
+                Quantity = 25,
+                Features = [new() { Id = 2 }, new() { Id = 3 }, new() { Id = 4 }],
+            };
 
-             var pants = new Product() { Name = "Pants", Quantity = 25,
-                Features = [new () { Id = 5 }, new () { Id = 6 }, new () { Id = 7 }], };
+            var pants = new Product()
+            {
+                Name = "Pants",
+                Quantity = 25,
+                Features = [new() { Id = 5 }, new() { Id = 6 }, new() { Id = 7 }],
+            };
 
-             List<Product> products = new () { jacket, coat, shirt, pants };
-             List<Feature> features = new () { new () { Id = 1 }, new () { Id = 7 } };
+            List<Product> products = new() { jacket, coat, shirt, pants };
+            List<Feature> features = new() { new() { Id = 1 }, new() { Id = 7 } };
 
-             Assert.Throws<ArgumentNullException>(() => Exercises.FilterByExcludedFeatures(null, features));
-             Assert.Throws<ArgumentNullException>(() => Exercises.FilterByExcludedFeatures(products, null));
+            Assert.Throws<ArgumentNullException>(() => Exercises.FilterByExcludedFeatures(null, features));
+            Assert.Throws<ArgumentNullException>(() => Exercises.FilterByExcludedFeatures(products, null));
         }
 
         [Fact]
         public void FilterByExcludedFeaturesReturnsEmptyCollectionWhenProductArgumentIsEmpty()
         {
-             List<Feature> features = new () { new () { Id = 1 }, new () { Id = 7 } };
+            List<Feature> features = new() { new() { Id = 1 }, new() { Id = 7 } };
 
-             Assert.Empty(Exercises.FilterByExcludedFeatures([], features));
+            Assert.Empty(Exercises.FilterByExcludedFeatures([], features));
         }
 
         public void FilterByExcludedFeaturesReturnsAllProductsWhenFeatureArgumentIsEmpty()
         {
-             var jacket = new Product() { Name = "Jacket", Quantity = 20,
-                Features = [new () { Id = 1 }, new () { Id = 2 }, new () { Id = 3 }], };
+            var jacket = new Product()
+            {
+                Name = "Jacket",
+                Quantity = 20,
+                Features = [new() { Id = 1 }, new() { Id = 2 }, new() { Id = 3 }],
+            };
 
-             var coat = new Product() { Name = "Coat", Quantity = 15,
-                Features = [new () { Id = 1 }, new () { Id = 4 }, new () { Id = 5 }], };
+            var coat = new Product()
+            {
+                Name = "Coat",
+                Quantity = 15,
+                Features = [new() { Id = 1 }, new() { Id = 4 }, new() { Id = 5 }],
+            };
 
-             var shirt = new Product() { Name = "Shirt", Quantity = 25,
-                Features = [new () { Id = 2 }, new () { Id = 3 }, new () { Id = 4 }], };
+            var shirt = new Product()
+            {
+                Name = "Shirt",
+                Quantity = 25,
+                Features = [new() { Id = 2 }, new() { Id = 3 }, new() { Id = 4 }],
+            };
 
-             var pants = new Product() { Name = "Pants", Quantity = 25,
-                Features = [new () { Id = 5 }, new () { Id = 6 }, new () { Id = 7 }], };
+            var pants = new Product()
+            {
+                Name = "Pants",
+                Quantity = 25,
+                Features = [new() { Id = 5 }, new() { Id = 6 }, new() { Id = 7 }],
+            };
 
-             List<Product> products = new () { jacket, coat, shirt, pants };
+            List<Product> products = new() { jacket, coat, shirt, pants };
 
-             var expected = new List<Product> { jacket, coat, shirt, pants };
+            var expected = new List<Product> { jacket, coat, shirt, pants };
 
-             List<Product> filteredProducts = Exercises.FilterByExcludedFeatures(products, []);
+            List<Product> filteredProducts = Exercises.FilterByExcludedFeatures(products, []);
 
-             int count = 0;
-             for (var i = 0; i < filteredProducts.Count; i++)
-             {
+            int count = 0;
+            for (var i = 0; i < filteredProducts.Count; i++)
+            {
                 Assert.Equal(expected[i], filteredProducts[i]);
                 count++;
-             }
+            }
 
-             Assert.Equal(4, count);
+            Assert.Equal(4, count);
         }
 
         [Fact]
@@ -720,7 +865,7 @@ namespace Extension_methods
                 "effect than that on the Black Sea. With little land in Thrace draining southward, " +
                 "almost all of these rivers flow from Anatolia.";
 
-            List<string> expected = ["the", "of", "sea", "that", "water" ];
+            List<string> expected = ["the", "of", "sea", "that", "water"];
 
             List<string> result = Exercises.MostFrequentWords(input);
 
@@ -735,7 +880,7 @@ namespace Extension_methods
         {
             string input = null;
 
-            Assert.Throws<ArgumentNullException>(() => Exercises.MostFrequentChar(input));
+            Assert.Throws<ArgumentNullException>(() => input.MostFrequentChar());
         }
 
         [Fact]
@@ -815,7 +960,7 @@ namespace Extension_methods
         [Fact]
         public void IsValidSudokuThrowsArgumentNullExceptionWhenArgumentHasLessThan81Elements()
         {
-            List<int> input = [1, 2, 3 ];
+            List<int> input = [1, 2, 3];
 
             Assert.Throws<ArgumentException>(() => Exercises.IsValidSudoku(input));
         }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Extension_methods
+namespace Extension_methods.Extension_methods
 {
     public class Stock
     {

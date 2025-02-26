@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Extension_methods.Extension_methods;
+using System;
 
-namespace Extension_methods
+namespace Extension_methods.ExtensionMethodsFacts
 {
     public class IEnumerableExtensionsFacts
     {
@@ -439,7 +440,7 @@ namespace Extension_methods
 
             Assert.Throws<ArgumentNullException>(() =>
             {
-                foreach (var item in result) {}
+                foreach (var item in result) { }
             });
         }
 
@@ -453,7 +454,7 @@ namespace Extension_methods
 
             Assert.Throws<ArgumentNullException>(() =>
             {
-                foreach (var item in result) {}
+                foreach (var item in result) { }
             });
         }
 
@@ -468,7 +469,7 @@ namespace Extension_methods
 
             Assert.Throws<ArgumentNullException>(() =>
             {
-                foreach (var item in result){}
+                foreach (var item in result) { }
             });
         }
 
@@ -616,7 +617,7 @@ namespace Extension_methods
 
             Assert.Throws<ArgumentNullException>(() =>
             {
-                foreach (var item in result) {}
+                foreach (var item in result) { }
             });
         }
 
@@ -781,7 +782,7 @@ namespace Extension_methods
 
             Assert.Throws<ArgumentNullException>(() =>
             {
-                foreach (var item in result) {}
+                foreach (var item in result) { }
             });
         }
 
@@ -867,7 +868,7 @@ namespace Extension_methods
 
             int[] second = { 1, 2, 3, 5, 9, 7, 9, 3, 10, 10 };
 
-            IEnumerable<int> expected = [1, 2, 3, 5, 7, 9, 10 ];
+            IEnumerable<int> expected = [1, 2, 3, 5, 7, 9, 10];
 
             IEnumerable<int> result = first.Union(second, EqualityComparer<int>.Default);
 
@@ -1330,7 +1331,7 @@ namespace Extension_methods
         [Fact]
         public void OrderByMethodReturnsCollectionorderedByKey()
         {
-            List<(string Name, int Age)> persons = new ()
+            List<(string Name, int Age)> persons = new()
             {
                 ("Maria", 22),
                 ("Ana", 34),
@@ -1339,7 +1340,7 @@ namespace Extension_methods
                 ("Elene", 50),
             };
 
-            List<(string Name, int Age)> expected = new ()
+            List<(string Name, int Age)> expected = new()
             {
                 ("Maria", 22),
                 ("John", 22),
@@ -1445,7 +1446,7 @@ namespace Extension_methods
         [Fact]
         public void ThenByMethodReturnsCollectionOrderedWithOrderByAndApplyAnotherLayerOfOrdering()
         {
-            List<(string Name, int Age)> persons = new ()
+            List<(string Name, int Age)> persons = new()
             {
                 ("Ana", 34),
                 ("Zoe", 50),
@@ -1456,7 +1457,7 @@ namespace Extension_methods
                 ("Alice", 22),
             };
 
-            List<(string Name, int Age)> expected = new ()
+            List<(string Name, int Age)> expected = new()
             {
                 ("Alice", 22),
                 ("John", 22),

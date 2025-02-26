@@ -1,4 +1,6 @@
-﻿namespace Extension_methods
+﻿using Extension_methods.Extension_methods;
+
+namespace Extension_methods.ExtensionMethodsFacts
 {
     public class StockFacts
     {
@@ -7,7 +9,7 @@
         {
             string notification = string.Empty;
             var stock = new Stock(
-                (string product, int quantity) => notification =
+                (product, quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
 
             Assert.IsType<Stock>(stock);
@@ -23,7 +25,7 @@
                 Quantity = 100
             };
             var stock = new Stock(
-                (string product, int quantity) => notification =
+                (product, quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
 
             stock.Add(product);
@@ -42,7 +44,7 @@
                 Quantity = 100
             };
             var stock = new Stock(
-                (string product, int quantity) => notification =
+                (product, quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
 
             stock.Add(product);
@@ -61,7 +63,7 @@
                 Quantity = 20
             };
             var stock = new Stock(
-                (string product, int quantity) => notification =
+                (product, quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
 
             stock.Add(product);
@@ -80,7 +82,7 @@
                 Quantity = 20
             };
             var stock = new Stock(
-                (string product, int quantity) => notification =
+                (product, quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
 
             stock.Add(product);
@@ -100,7 +102,7 @@
                 Quantity = 20
             };
             var stock = new Stock(
-                (string product, int quantity) => notification =
+                (product, quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
 
             stock.Add(product);
@@ -120,7 +122,7 @@
                 Quantity = 20
             };
             var stock = new Stock(
-                (string product, int quantity) => notification =
+                (product, quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
 
             stock.Add(product);
@@ -142,7 +144,7 @@
             };
 
             var stock = new Stock(
-                (string product, int quantity) => notification =
+                (product, quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
 
             stock.Add(product);
@@ -166,7 +168,7 @@
                 Quantity = 20
             };
             var stock = new Stock(
-                (string product, int quantity) => notification =
+                (product, quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
 
             stock.Add(product);
@@ -190,7 +192,7 @@
                 Quantity = 20
             };
             var stock = new Stock(
-                (string product, int quantity) => notification =
+                (product, quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
 
             stock.Add(product);
@@ -247,7 +249,7 @@
                 Quantity = 20
             };
             var stock = new Stock(
-                (string product, int quantity) => notification =
+                (product, quantity) => notification =
                     $"There are only {quantity} units of {product} in stock.");
 
             stock.Add(jacket);

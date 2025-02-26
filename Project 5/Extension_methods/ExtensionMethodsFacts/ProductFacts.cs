@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Extension_methods.Extension_methods;
+using System;
 
-namespace Extension_methods
+namespace Extension_methods.ExtensionMethodsFacts
 {
     public class ProductFacts
     {
@@ -51,22 +52,6 @@ namespace Extension_methods
             {
                 Assert.Equal(expected[count++], feature.Id);
             }
-        }
-
-        [Fact]
-        public void FeatureClassExists()
-        {
-            var feature = new Feature();
-            Assert.IsType<Feature>(feature);
-        }
-
-        [Fact]
-        public void SetIdForFeature()
-        {
-            var feature = new Feature();
-            feature.Id = 1;
-
-            Assert.Equal(1, feature.Id);
         }
     }
 }

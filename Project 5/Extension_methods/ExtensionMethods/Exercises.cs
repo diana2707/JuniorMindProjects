@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Extension_methods.Extension_methods;
+using System;
 
-namespace Extension_methods
+namespace Extension_methods.Extension_methods
 {
     public static class Exercises
     {
@@ -50,7 +51,7 @@ namespace Extension_methods
 
             int placeValue = number.Count();
 
-            result = number.Aggregate(0, (result, e) => result + ((e - '0') * (int)Math.Pow(10, --placeValue)));
+            result = number.Aggregate(0, (result, e) => result + (e - '0') * (int)Math.Pow(10, --placeValue));
 
             return result * sign;
         }
@@ -124,8 +125,8 @@ namespace Extension_methods
 
         public static List<Product> FilterByAnyFeatures(List<Product> products, List<Feature> features)
         {
-            ArgumentNullException.ThrowIfNull (products);
-            ArgumentNullException.ThrowIfNull (features);
+            ArgumentNullException.ThrowIfNull(products);
+            ArgumentNullException.ThrowIfNull(features);
 
             return products.Where(product => product.Features
                                 .Any(prodFeature => features.Select(feature => feature.Id)
@@ -213,7 +214,7 @@ namespace Extension_methods
                                         .All(group => group.Select(item => item.value).Distinct().Count() == 9);
 
             bool areValidSubgrids = input.Select((value, index) => new { value, index })
-                                         .GroupBy(item => ((item.index / 9 / 3) * 3) + ((item.index % 9) / 3))
+                                         .GroupBy(item => item.index / 9 / 3 * 3 + item.index % 9 / 3)
                                          .All(group => group.Select(item => item.value).Distinct().Count() == 9);
 
             return areValidRows && areValidColumns && areValidSubgrids;
