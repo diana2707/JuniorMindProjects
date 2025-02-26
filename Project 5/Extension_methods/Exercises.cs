@@ -206,6 +206,8 @@ namespace Extension_methods
         //cum diferentiezi digits de numbers?
         public static int CalculateRPN(string input)
         {
+            ArgumentNullException.ThrowIfNull(input);
+
             string[] expression = input.Split(' ');
 
             Stack<int> operands = new Stack<int>();

@@ -708,11 +708,27 @@ namespace Extension_methods
         }
 
         [Fact]
-        public void CalculateRPNThrowsArgumentExeptionWhenArgumentContainsInvalidCharacters()
+        public void CalculateRPNThrowsArgumentExeptionWhenArgumentContainsInvalidElement()
         {
             string input = "3 4 + a 5 *";
 
             Assert.Throws<ArgumentException>(() => Exercises.CalculateRPN(input));
+        }
+
+        [Fact]
+        public void CalculateRPNThrowsArgumentExeptionWhenArgumentContainsElementWithInvalidCharacter()
+        {
+            string input = "3 4 + a5 *";
+
+            Assert.Throws<ArgumentException>(() => Exercises.CalculateRPN(input));
+        }
+
+        [Fact]
+        public void CalculateRPNThrowsArgumentExeptionWhenArgumentIsNull()
+        {
+            string input = null;
+
+            Assert.Throws<ArgumentNullException>(() => Exercises.CalculateRPN(input));
         }
     }
 }
