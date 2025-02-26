@@ -496,6 +496,45 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void FilterByExcludedFeaturesReturnsEmptyCollectionWhenProductArgumentIsEmpty()
+        {
+             List<Feature> features = new () { new () { Id = 1 }, new () { Id = 7 } };
+
+             Assert.Empty(Exercises.FilterByExcludedFeatures([], features));
+        }
+
+        public void FilterByExcludedFeaturesReturnsAllProductsWhenFeatureArgumentIsEmpty()
+        {
+             var jacket = new Product() { Name = "Jacket", Quantity = 20,
+                Features = [new () { Id = 1 }, new () { Id = 2 }, new () { Id = 3 }], };
+
+             var coat = new Product() { Name = "Coat", Quantity = 15,
+                Features = [new () { Id = 1 }, new () { Id = 4 }, new () { Id = 5 }], };
+
+             var shirt = new Product() { Name = "Shirt", Quantity = 25,
+                Features = [new () { Id = 2 }, new () { Id = 3 }, new () { Id = 4 }], };
+
+             var pants = new Product() { Name = "Pants", Quantity = 25,
+                Features = [new () { Id = 5 }, new () { Id = 6 }, new () { Id = 7 }], };
+
+
+             List<Product> products = new () { jacket, coat, shirt, pants };
+
+             var expected = new List<Product> { jacket, coat, shirt, pants };
+
+             List<Product> filteredProducts = Exercises.FilterByExcludedFeatures(products, []);
+
+             int count = 0;
+             for (var i = 0; i < filteredProducts.Count; i++)
+             {
+                Assert.Equal(expected[i], filteredProducts[i]);
+                count++;
+             }
+
+             Assert.Equal(4, count);
+        }
+
+        [Fact]
         public void SumProductQuantitysReturnOneCollectionFrom2CollectionsAndQuantityReflectTotalAmount()
         {
             List<Product> first =
