@@ -730,5 +730,13 @@ namespace Extension_methods
 
             Assert.Throws<ArgumentNullException>(() => Exercises.CalculateRPN(input));
         }
+
+        [Fact]
+        public void CalculateRPNThrowsArgumentExeptionWhenArgumentIsEmpty()
+        {
+            string input = string.Empty;
+
+            Assert.Throws<ArgumentException>(() => Exercises.CalculateRPN(input));
+        }
     }
 }
