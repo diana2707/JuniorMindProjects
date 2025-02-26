@@ -341,7 +341,6 @@ namespace Extension_methods
             var pants = new Product() { Name = "Pants", Quantity = 25,
                 Features = [new () { Id = 5 }, new () { Id = 6 }, new () { Id = 7 }], };
 
-
             List<Product> products = new () { jacket, coat, shirt, pants };
             List<Feature> features = new () { new () { Id = 1 }, new () { Id = 5 } };
 
@@ -374,7 +373,6 @@ namespace Extension_methods
              var pants = new Product() { Name = "Pants", Quantity = 25,
                 Features = [new () { Id = 5 }, new () { Id = 6 }, new () { Id = 7 }], };
 
-
              List<Product> products = new () { jacket, coat, shirt, pants };
              List<Feature> features = new () { new () { Id = 1 }, new () { Id = 5 } };
 
@@ -405,7 +403,6 @@ namespace Extension_methods
             var pants = new Product() { Name = "Pants", Quantity = 25,
                 Features = [new () { Id = 5 }, new () { Id = 6 }, new () { Id = 7 }], };
 
-
             List<Product> products = new () { jacket, coat, shirt, pants };
 
             Assert.Empty(Exercises.FilterByAnyFeatures(products, []));
@@ -426,9 +423,7 @@ namespace Extension_methods
             var pants = new Product() { Name = "Pants", Quantity = 25,
                 Features = [new () { Id = 5 }, new () { Id = 6 }, new () { Id = 7 }], };
 
-
             List<Product> products = new List<Product>() { jacket, coat, shirt, pants };
-
             List<Feature> features = new List<Feature>() { new () { Id = 1 }, new () { Id = 5 } };
 
             List<Product> filteredProducts = Exercises.FilterByAllFeatures(products, features);
@@ -460,7 +455,6 @@ namespace Extension_methods
             var pants = new Product() { Name = "Pants", Quantity = 25,
                 Features = [new () { Id = 5 }, new () { Id = 6 }, new () { Id = 7 }], };
 
-
             List<Product> products = new () { jacket, coat, shirt, pants };
             List<Feature> features = new () { new () { Id = 1 }, new () { Id = 5 } };
 
@@ -490,7 +484,6 @@ namespace Extension_methods
 
             var pants = new Product() { Name = "Pants", Quantity = 25,
                 Features = [new () { Id = 5 }, new () { Id = 6 }, new () { Id = 7 }], };
-
 
             List<Product> products = new List<Product>() { jacket, coat, shirt, pants };
 
@@ -522,7 +515,6 @@ namespace Extension_methods
 
             var pants = new Product() { Name = "Pants", Quantity = 25,
                 Features = [new () { Id = 5 }, new () { Id = 6 }, new () { Id = 7 }], };
-
 
             List<Product> products = new () { jacket, coat, shirt, pants };
             List<Feature> features = new () { new () { Id = 1 }, new () { Id = 7 } };
@@ -556,7 +548,6 @@ namespace Extension_methods
              var pants = new Product() { Name = "Pants", Quantity = 25,
                 Features = [new () { Id = 5 }, new () { Id = 6 }, new () { Id = 7 }], };
 
-
              List<Product> products = new () { jacket, coat, shirt, pants };
              List<Feature> features = new () { new () { Id = 1 }, new () { Id = 7 } };
 
@@ -585,7 +576,6 @@ namespace Extension_methods
 
              var pants = new Product() { Name = "Pants", Quantity = 25,
                 Features = [new () { Id = 5 }, new () { Id = 6 }, new () { Id = 7 }], };
-
 
              List<Product> products = new () { jacket, coat, shirt, pants };
 
