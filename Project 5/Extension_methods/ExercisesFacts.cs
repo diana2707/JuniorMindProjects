@@ -648,6 +648,16 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void MostFrequentWordsReturnsEmptyCollectionWhenArgumentIsEmpty()
+        {
+            string input = string.Empty;
+
+            var result = Exercises.MostFrequentWords(input);
+
+            Assert.Empty(result);
+        }
+
+        [Fact]
         public void IsValidSudokuReturnsTrueWhenTheSudokuIsValid()
         {
             List<int> input = [5, 3, 4, 6, 7, 8, 9, 1, 2,
