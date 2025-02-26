@@ -383,63 +383,24 @@ namespace Extension_methods
         }
 
         [Fact]
-        public void FilterForAllFeaturesReturnsProductsThatHaveAllFeaturesFromAListOfFeatures()
+        public void FilterByAllFeaturesReturnsProductsThatHaveAllFeaturesFromAListOfFeatures()
         {
-            var jacket = new Product()
-            {
-                Name = "Jacket",
-                Quantity = 20,
-                Features = new List<Feature>
-                    {
-                        new Feature() { Id = 1 },
-                        new Feature() { Id = 2 },
-                        new Feature() { Id = 3 },
-                    },
-            };
+            var jacket = new Product() { Name = "Jacket", Quantity = 20,
+                Features = [new () { Id = 1 }, new () { Id = 2 }, new () { Id = 3 }], };
 
-            var coat = new Product()
-            {
-                Name = "Coat",
-                Quantity = 15,
-                Features = new List<Feature>
-                    {
-                        new Feature() { Id = 1 },
-                        new Feature() { Id = 4 },
-                        new Feature() { Id = 5 },
-                    },
-            };
+            var coat = new Product() { Name = "Coat", Quantity = 15,
+                Features = [new () { Id = 1 }, new () { Id = 4 }, new () { Id = 5 }], };
 
-            var shirt = new Product()
-            {
-                Name = "Shirt",
-                Quantity = 25,
-                Features = new List<Feature>
-                {
-                    new Feature() { Id = 2 },
-                    new Feature() { Id = 3 },
-                    new Feature() { Id = 4 },
-                },
-            };
+            var shirt = new Product() { Name = "Shirt", Quantity = 25,
+                Features = [new () { Id = 2 }, new () { Id = 3 }, new () { Id = 4 }], };
 
-            var pants = new Product()
-            {
-                Name = "Pants",
-                Quantity = 25,
-                Features = new List<Feature>
-                {
-                    new Feature() { Id = 5 },
-                    new Feature() { Id = 6 },
-                    new Feature() { Id = 7 },
-                },
-            };
+            var pants = new Product() { Name = "Pants", Quantity = 25,
+                Features = [new () { Id = 5 }, new () { Id = 6 }, new () { Id = 7 }], };
+
 
             List<Product> products = new List<Product>() { jacket, coat, shirt, pants };
 
-            List<Feature> features = new List<Feature>()
-            {
-                new Feature() { Id = 1 },
-                new Feature() { Id = 5 },
-            };
+            List<Feature> features = new List<Feature>() { new () { Id = 1 }, new () { Id = 5 } };
 
             List<Product> filteredProducts = Exercises.FilterByAllFeatures(products, features);
 
@@ -453,6 +414,29 @@ namespace Extension_methods
             }
 
             Assert.Equal(1, count);
+        }
+
+        [Fact]
+        public void FilterByAllFeaturesThrowsArgumentNullExceptionWhenArgumentIsNull()
+        {
+             var jacket = new Product() { Name = "Jacket", Quantity = 20,
+                Features = [new () { Id = 1 }, new () { Id = 2 }, new () { Id = 3 }], };
+
+             var coat = new Product() { Name = "Coat", Quantity = 15,
+                Features = [new () { Id = 1 }, new () { Id = 4 }, new () { Id = 5 }], };
+
+             var shirt = new Product() { Name = "Shirt", Quantity = 25,
+                Features = [new () { Id = 2 }, new () { Id = 3 }, new () { Id = 4 }], };
+
+             var pants = new Product() { Name = "Pants", Quantity = 25,
+                Features = [new () { Id = 5 }, new () { Id = 6 }, new () { Id = 7 }], };
+
+
+             List<Product> products = new () { jacket, coat, shirt, pants };
+             List<Feature> features = new () { new () { Id = 1 }, new () { Id = 5 } };
+
+             Assert.Throws<ArgumentNullException>(() => Exercises.FilterByAllFeatures(null, features));
+             Assert.Throws<ArgumentNullException>(() => Exercises.FilterByAllFeatures(products, null));
         }
 
         [Fact]

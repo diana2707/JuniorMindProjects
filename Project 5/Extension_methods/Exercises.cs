@@ -136,6 +136,9 @@ namespace Extension_methods
 
         public static List<Product> FilterByAllFeatures(List<Product> products, List<Feature> features)
         {
+            ArgumentNullException.ThrowIfNull(products);
+            ArgumentNullException.ThrowIfNull(features);
+
             return products.Where(product => features
                                     .All(feature => product.Features
                                         .Select(prodFeature => prodFeature.Id)
