@@ -383,6 +383,35 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void FilterByAnyFeaturesReturnsEmptyCollectionWhenProducstArgumentIsEmpty()
+        {
+             List<Feature> features = new () { new () { Id = 1 }, new () { Id = 5 } };
+
+             Assert.Empty(Exercises.FilterByAllFeatures([], features));
+        }
+
+        [Fact]
+        public void FilterByAnyFeaturesReturnsEmptyCollectionsWhenFeaturesCollectionIsEmpty()
+        {
+            var jacket = new Product() { Name = "Jacket", Quantity = 20,
+                Features = [new () { Id = 1 }, new () { Id = 2 }, new () { Id = 3 }], };
+
+            var coat = new Product() { Name = "Coat", Quantity = 15,
+                Features = [new () { Id = 1 }, new () { Id = 4 }, new () { Id = 5 }], };
+
+            var shirt = new Product() { Name = "Shirt", Quantity = 25,
+                Features = [new () { Id = 2 }, new () { Id = 3 }, new () { Id = 4 }], };
+
+            var pants = new Product() { Name = "Pants", Quantity = 25,
+                Features = [new () { Id = 5 }, new () { Id = 6 }, new () { Id = 7 }], };
+
+
+            List<Product> products = new () { jacket, coat, shirt, pants };
+
+            Assert.Empty(Exercises.FilterByAnyFeatures(products, []));
+        }
+
+        [Fact]
         public void FilterByAllFeaturesReturnsProductsThatHaveAllFeaturesFromAListOfFeatures()
         {
             var jacket = new Product() { Name = "Jacket", Quantity = 20,
