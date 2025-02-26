@@ -550,7 +550,7 @@ namespace Extension_methods
         {
             List<Product> first =
             [
-               new Product() { Name = "Jacket", Quantity = 5 },
+                new Product() { Name = "Jacket", Quantity = 5 },
                 new Product() { Name = "Coat", Quantity = 10 },
                 new Product() { Name = "Shirt", Quantity = 3 },
                 new Product() { Name = "Pants", Quantity = 5 },
@@ -585,6 +585,31 @@ namespace Extension_methods
             }
 
             Assert.Equal(4, count);
+        }
+
+        [Fact]
+        public void SumProductQuantityThrowsArgumentNullExceptionIfOneOrBothArgumentsAreNull()
+        {
+            List<Product> first =
+            [
+                new Product() { Name = "Jacket", Quantity = 5 },
+                new Product() { Name = "Coat", Quantity = 10 },
+                new Product() { Name = "Shirt", Quantity = 3 },
+                new Product() { Name = "Pants", Quantity = 5 },
+                new Product() { Name = "Shirt", Quantity = 15 },
+            ];
+
+            List<Product> second =
+            [
+                new Product() { Name = "Jacket", Quantity = 20 },
+                new Product() { Name = "Coat", Quantity = 15 },
+                new Product() { Name = "Shirt", Quantity = 10 },
+                new Product() { Name = "Pants", Quantity = 5 },
+                new Product() { Name = "Coat", Quantity = 4 },
+            ];
+
+            Assert.Throws<ArgumentNullException>(() => Exercises.SumProductQuantity(first, null));
+            Assert.Throws<ArgumentNullException>(() => Exercises.SumProductQuantity(null, second));
         }
 
         [Fact]

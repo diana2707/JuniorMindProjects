@@ -151,6 +151,9 @@ namespace Extension_methods
 
         public static List<Product> SumProductQuantity(IEnumerable<Product> first, IEnumerable<Product> second)
         {
+            ArgumentNullException.ThrowIfNull(first);
+            ArgumentNullException.ThrowIfNull(second);
+
             return first.Concat(second)
                 .GroupBy(product => product.Name)
                 .Select(group => new Product()
