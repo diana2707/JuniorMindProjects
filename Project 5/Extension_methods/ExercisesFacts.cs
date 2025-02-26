@@ -622,6 +622,12 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void GetMaxResultByFamilyReturnsEmptyCollectionWhenArguentIsEmpty()
+        {
+            Assert.Empty(Exercises.GetMaxResultsByFamily([]));
+        }
+
+        [Fact]
         public void MostFrequentWordsReturnsTheTop5MostFrequentWordsInAText()
         {
             string input = "The surface salinity of the Marmara averages about 22 " +
