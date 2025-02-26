@@ -588,7 +588,7 @@ namespace Extension_methods
         }
 
         [Fact]
-        public void TestResultsReturnTheResultWithLargestScoreForEachFamily()
+        public void GetMaxResultByFamilyReturnTheResultWithLargestScoreForEachFamily()
         {
             var results = new List<TestResults>()
             {
@@ -613,6 +613,12 @@ namespace Extension_methods
                 Assert.Equal(expected[i].FamilyId, maxResults[i].FamilyId);
                 Assert.Equal(expected[i].Score, maxResults[i].Score);
             }
+        }
+
+        [Fact]
+        public void GetMaxResultByFamilyThrowsArgumentNullExceptionWhenArgumentIsNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => Exercises.GetMaxResultsByFamily(null));
         }
 
         [Fact]

@@ -163,6 +163,8 @@ namespace Extension_methods
 
         public static List<TestResults> GetMaxResultsByFamily(IEnumerable<TestResults> results)
         {
+            ArgumentNullException.ThrowIfNull(results);
+
             return results.GroupBy(result => result.FamilyId)
                           .Select(group => group.MaxBy(result => result.Score))
                           .ToList();
