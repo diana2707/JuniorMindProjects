@@ -242,11 +242,16 @@ namespace Extension_methods
                 {
                     operands.Push(value);
                 }
-                else if (operations.ContainsKey(element))
+                else if (operations.TryGetValue(element, out Func<int, int, int> operation))
                 {
-                    int a = operands.Pop();
+                    if (operands.Count() < 2)
+                    {
+                        throw new ArgumentException("Expression is invalid.");
+                    }
+
                     int b = operands.Pop();
-                    operands.Push(operations[element](a, b));
+                    int a = operands.Pop();
+                    operands.Push(operation(a, b));
                 }
                 else
                 {

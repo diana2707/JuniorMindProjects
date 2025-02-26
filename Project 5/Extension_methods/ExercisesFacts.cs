@@ -871,6 +871,14 @@ namespace Extension_methods
         }
 
         [Fact]
+        public void CalculateRPNThrowsArgumentExeptionWhenArgumentContainsOnly1Operand()
+        {
+            string input = "3 + a 5 *";
+
+            Assert.Throws<ArgumentException>(() => Exercises.CalculateRPN(input));
+        }
+
+        [Fact]
         public void CalculateRPNThrowsArgumentExeptionWhenArgumentContainsElementWithInvalidCharacter()
         {
             string input = "3 4 + a5 *";
