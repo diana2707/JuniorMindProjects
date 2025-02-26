@@ -694,15 +694,23 @@ namespace Extension_methods
         [Fact]
         public void CalculateRPNReturnsCorrectResult()
         {
-            string input = "34+5*";
+            string input = "3 4 + 5 *";
 
             Assert.Equal(35, Exercises.CalculateRPN(input));
         }
 
         [Fact]
+        public void CalculateRPNReturnsCorrectResultForMultipleDigitNumber()
+        {
+            string input = "3 40 + 5 *";
+
+            Assert.Equal(215, Exercises.CalculateRPN(input));
+        }
+
+        [Fact]
         public void CalculateRPNThrowsArgumentExeptionWhenArgumentContainsInvalidCharacters()
         {
-            string input = "34+a5*";
+            string input = "3 4 + a 5 *";
 
             Assert.Throws<ArgumentException>(() => Exercises.CalculateRPN(input));
         }

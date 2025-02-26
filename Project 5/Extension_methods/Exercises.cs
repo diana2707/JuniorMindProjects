@@ -206,27 +206,29 @@ namespace Extension_methods
         //cum diferentiezi digits de numbers?
         public static int CalculateRPN(string input)
         {
+            string[] expression = input.Split(' ');
+
             Stack<int> operands = new Stack<int>();
 
-            Dictionary<char, Func<int, int, int>> operations = new()
+            Dictionary<string, Func<int, int, int>> operations = new()
             {
-                { '+', (a, b) => a + b },
-                { '-', (a, b) => a - b },
-                { '*', (a, b) => a * b },
-                { '/', (a, b) => a / b },
+                { "+", (a, b) => a + b },
+                { "-", (a, b) => a - b },
+                { "*", (a, b) => a * b },
+                { "/", (a, b) => a / b },
             };
 
-            return input.Aggregate(operands, (operands, character) =>
+            return expression.Aggregate(operands, (operands, element) =>
             {
-                if (int.TryParse(character.ToString(), out int value ))
+                if (int.TryParse(element, out int value))
                 {
                     operands.Push(value);
                 }
-                else if (operations.ContainsKey(character))
+                else if (operations.ContainsKey(element))
                 {
                     int a = operands.Pop();
                     int b = operands.Pop();
-                    operands.Push(operations[character](a, b));
+                    operands.Push(operations[element](a, b));
                 }
                 else
                 {
