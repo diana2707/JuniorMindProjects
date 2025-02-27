@@ -67,13 +67,13 @@ namespace Extension_methods.Extension_methods
                 .Key;
         }
 
-        public static List<IEnumerable<char>> GetAllPalindroms(this string source)
+        public static List<string> GetAllPalindroms(this string source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
             return Enumerable.Range(0, source.Length)
                 .SelectMany(i => Enumerable.Range(1, source.Length - i)
-                     .Select(j => source.Skip(i).Take(j)))
+                     .Select(j => source[i..(i + j)]))
                 .Where(segment => segment.SequenceEqual(segment.Reverse()))
                 .ToList();
         }
