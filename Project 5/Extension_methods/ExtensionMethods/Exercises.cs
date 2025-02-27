@@ -5,20 +5,23 @@ namespace Extension_methods.Extension_methods
 {
     public static class Exercises
     {
-        public static int CountVowels(this string source)
+        public static (int vowels, int consonants) CountVowelsAndConsonants(this string source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
             const string vowels = "aeiouAEIOU";
 
-            return source.Count(e => vowels.Contains(e));
-        }
+            return source.Aggregate((vowels: 0, consonants: 0), (acc, c) =>
+            {
+                if (!char.IsLetter(c))
+                {
+                    return acc;
+                }
 
-        public static int CountConsonants(this string source)
-        {
-            ArgumentNullException.ThrowIfNull(source);
-
-            return source.Count(e => char.IsLetter(e)) - source.CountVowels();
+                return vowels.Contains(c)
+                    ? (acc.vowels + 1, acc.consonants)
+                    : (acc.vowels, acc.consonants + 1);
+            });
         }
 
         public static char FirstUnique(this string source)

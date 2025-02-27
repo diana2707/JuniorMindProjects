@@ -9,77 +9,77 @@ namespace Extension_methods.ExtensionMethodsFacts
         public void AllMethodShouldReturnTrueWhenAllElementsMatchPredicate()
         {
             IEnumerable<int> values = [11, 13, 15];
-            Assert.True(values.All(e => e > 10));
+            Assert.True(values.CustomAll(e => e > 10));
         }
 
         [Fact]
         public void AllMethodShouldReturnTrueWhenSourceIsEmpty()
         {
             IEnumerable<string> values = [];
-            Assert.True(values.All(e => e.Length > 5));
+            Assert.True(values.CustomAll(e => e.Length > 5));
         }
 
         [Fact]
         public void AllMethodShouldReturnArgumentNullExceptionWhenSourceIsNull()
         {
             IEnumerable<int> values = null;
-            Assert.Throws<ArgumentNullException>(() => values.All(e => e > 10));
+            Assert.Throws<ArgumentNullException>(() => values.CustomAll(e => e > 10));
         }
 
         [Fact]
         public void AllMethodShouldReturnArgumentNullExceptionWhenPredicateIsNull()
         {
             IEnumerable<int> values = [11, 13, 15];
-            Assert.Throws<ArgumentNullException>(() => values.All(null));
+            Assert.Throws<ArgumentNullException>(() => values.CustomAll(null));
         }
 
         [Fact]
         public void AllMethodShouldReturnFalseWhenNotAllElementsMatchPredicate()
         {
             IEnumerable<string> values = ["red", "purple", "orange"];
-            Assert.False(values.All(e => e.Length > 5));
+            Assert.False(values.CustomAll(e => e.Length > 5));
         }
 
         [Fact]
         public void AllMethodShouldReturnFalseWhenElementIsNull()
         {
             IEnumerable<string> values = ["red", "purple", "orange", null];
-            Assert.False(values.All(e => e.Length > 5));
+            Assert.False(values.CustomAll(e => e.Length > 5));
         }
 
         [Fact]
         public void AnyMethodShouldReturnFalseWhenNoElementMatchesPredicate()
         {
             IEnumerable<int> values = [2, 9, 12, 18];
-            Assert.True(values.Any(e => e % 3 == 0));
+            Assert.True(values.CustomAny(e => e % 3 == 0));
         }
 
         [Fact]
         public void AnyMethodShouldReturnFalseWhenCollectionIsEmpty()
         {
             IEnumerable<int> values = [];
-            Assert.False(values.Any(e => e % 3 == 0));
+            Assert.False(values.CustomAny(e => e % 3 == 0));
         }
 
         [Fact]
         public void AnyMethodShouldReturnTrueWhenNotAtLeastOneElementMatchesPredicate()
         {
             IEnumerable<int> values = [5, 7, 13, 14];
-            Assert.False(values.Any(e => e % 3 == 0));
+            Assert.False(values.CustomAny(e => e % 3 == 0));
         }
 
         [Fact]
         public void AnyMethodShouldIgnoreNullElementAsLongAsPredicateHandlesItCorrectly()
         {
             IEnumerable<string> values = [null, "red", "purple", "orange"];
-            Assert.True(values.Any(e => (e?.Length ?? 0) > 5));
+            Assert.True(values.CustomAny(e => (e?.Length ?? 0) > 5));
         }
 
         [Fact]
         public void FirstMethodShouldReturnFirstElementThatMatchesPredicate()
         {
             IEnumerable<int> values = [7, 9, 10, 11, 15];
-            Assert.Equal(10, values.First(e => 30 % e == 0));
+            Assert.Equal(10, values.CustomFirst(e => 30 % e == 0));
         }
 
         [Fact]
@@ -87,7 +87,7 @@ namespace Extension_methods.ExtensionMethodsFacts
         {
             IEnumerable<int> values = [7, 9, 11, 13, 17];
 
-            Assert.Throws<InvalidOperationException>(() => values.First(e => 30 % e == 0));
+            Assert.Throws<InvalidOperationException>(() => values.CustomFirst(e => 30 % e == 0));
         }
 
         [Fact]
@@ -95,7 +95,7 @@ namespace Extension_methods.ExtensionMethodsFacts
         {
             IEnumerable<int> values = [];
 
-            Assert.Throws<InvalidOperationException>(() => values.First(e => 30 % e == 0));
+            Assert.Throws<InvalidOperationException>(() => values.CustomFirst(e => 30 % e == 0));
         }
 
         [Fact]
@@ -103,14 +103,14 @@ namespace Extension_methods.ExtensionMethodsFacts
         {
             IEnumerable<int> values = null;
 
-            Assert.Throws<ArgumentNullException>(() => values.First(e => 30 % e == 0));
+            Assert.Throws<ArgumentNullException>(() => values.CustomFirst(e => 30 % e == 0));
         }
 
         [Fact]
         public void FirstMethodShouldIgnoreNullElementAsLongAsPredicateHandlesItCorrectly()
         {
             IEnumerable<string> values = [null, "red", "purple", "orange"];
-            Assert.Equal("purple", values.First(e => (e?.Length ?? 0) > 5));
+            Assert.Equal("purple", values.CustomFirst(e => (e?.Length ?? 0) > 5));
         }
 
         [Fact]
@@ -118,7 +118,7 @@ namespace Extension_methods.ExtensionMethodsFacts
         {
             IEnumerable<string> values = ["apple", "grape", "orange", "banana"];
             List<char> expected = ['a', 'g', 'o', 'b'];
-            IEnumerable<char> result = values.Select(e => e[0]);
+            IEnumerable<char> result = values.CustomSelect(e => e[0]);
 
             foreach (var item in expected)
             {
@@ -131,7 +131,7 @@ namespace Extension_methods.ExtensionMethodsFacts
         {
             IEnumerable<string> values = null;
 
-            var result = values.Select(e => e[0]);
+            var result = values.CustomSelect(e => e[0]);
 
             Assert.Throws<ArgumentNullException>(() =>
             {
@@ -148,7 +148,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             List<int> result = [];
 
-            result.AddRange(values.Select(e => e));
+            result.AddRange(values.CustomSelect(e => e));
 
             Assert.Empty(result);
         }
@@ -158,7 +158,8 @@ namespace Extension_methods.ExtensionMethodsFacts
         {
             IEnumerable<string> values = [null, "apple", "grape", "orange", "banana"];
             List<char> expected = ['\0', 'a', 'g', 'o', 'b'];
-            IEnumerable<char> result = values.Select(e => e?[0] ?? '\0');
+
+            IEnumerable<char> result = values.CustomSelect(e => e?[0] ?? '\0');
 
             foreach (var item in expected)
             {
@@ -172,7 +173,8 @@ namespace Extension_methods.ExtensionMethodsFacts
             List<List<int>> lists = [[1, 2], [3, 4], [5]];
 
             List<int> expected = [1, 2, 3, 4, 5];
-            var result = lists.SelectMany(list => list);
+
+            var result = lists.CustomSelectMany(list => list);
 
             foreach (var item in result)
             {
@@ -186,7 +188,8 @@ namespace Extension_methods.ExtensionMethodsFacts
             List<int> list = [1, 2, 3, 4, 5];
 
             List<int> expected = [1, 2, 3, 4, 5];
-            var result = list.SelectMany(e => new List<int> { e });
+
+            var result = list.CustomSelectMany(e => new List<int> { e });
 
             foreach (var item in result)
             {
@@ -201,7 +204,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             Assert.Throws<ArgumentNullException>(() =>
             {
-                foreach (var item in list.SelectMany(list => list))
+                foreach (var item in list.CustomSelectMany(list => list))
                 {
                 }
             });
@@ -215,7 +218,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             Assert.Throws<ArgumentNullException>(() =>
             {
-                foreach (var item in list.SelectMany(selector))
+                foreach (var item in list.CustomSelectMany(selector))
                 {
                 }
             });
@@ -227,7 +230,7 @@ namespace Extension_methods.ExtensionMethodsFacts
             List<int> list = [];
 
             List<int> result = [];
-            result.AddRange(list.SelectMany(e => new List<int> { e }));
+            result.AddRange(list.CustomSelectMany(e => new List<int> { e }));
 
             Assert.Empty(result);
         }
@@ -237,7 +240,7 @@ namespace Extension_methods.ExtensionMethodsFacts
         {
             List<List<string>> values = [null, ["grape", "orange"], ["banana"]];
             List<string> expected = [string.Empty, "grape", "banana"];
-            IEnumerable<string> result = values.Select(e => e?[0] ?? string.Empty);
+            IEnumerable<string> result = values.CustomSelect(e => e?[0] ?? string.Empty);
 
             int count = 0;
 
@@ -256,7 +259,7 @@ namespace Extension_methods.ExtensionMethodsFacts
             List<int> list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
             List<int> expected = [5, 10];
-            var result = list.Where(e => e % 5 == 0);
+            var result = list.CustomWhere(e => e % 5 == 0);
 
             foreach (var item in result)
             {
@@ -269,7 +272,7 @@ namespace Extension_methods.ExtensionMethodsFacts
         {
             List<int> list = null;
 
-            var result = list.Where(e => e % 5 == 0);
+            var result = list.CustomWhere(e => e % 5 == 0);
 
             Assert.Throws<ArgumentNullException>(() =>
             {
@@ -285,7 +288,7 @@ namespace Extension_methods.ExtensionMethodsFacts
             List<int> list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
             Func<int, bool> predicate = null;
 
-            var result = list.Where(predicate);
+            var result = list.CustomWhere(predicate);
 
             Assert.Throws<ArgumentNullException>(() =>
             {
@@ -301,7 +304,7 @@ namespace Extension_methods.ExtensionMethodsFacts
             List<int> list = [];
             List<int> result = [];
 
-            result.AddRange(list.Where(e => e % 5 == 0));
+            result.AddRange(list.CustomWhere(e => e % 5 == 0));
 
             Assert.Empty(result);
         }
@@ -312,7 +315,7 @@ namespace Extension_methods.ExtensionMethodsFacts
             List<string> values = [null, "apple", "grape", "orange", "banana"];
             List<string> expected = ["apple"];
 
-            var result = values.Where(e => (e?[0] ?? '\0') == 'a');
+            var result = values.CustomWhere(e => (e?[0] ?? '\0') == 'a');
 
             int count = 0;
 
@@ -338,7 +341,7 @@ namespace Extension_methods.ExtensionMethodsFacts
                 { 'D', "Daniela" }
             };
 
-            var result = list.ToDictionary(e => e[0], e => e);
+            var result = list.CustomToDictionary(e => e[0], e => e);
 
             foreach (var item in result)
             {
@@ -352,7 +355,7 @@ namespace Extension_methods.ExtensionMethodsFacts
         {
             List<string> list = null;
 
-            Assert.Throws<ArgumentNullException>(() => list.ToDictionary(e => e[0], e => e));
+            Assert.Throws<ArgumentNullException>(() => list.CustomToDictionary(e => e[0], e => e));
         }
 
         [Fact]
@@ -361,7 +364,7 @@ namespace Extension_methods.ExtensionMethodsFacts
             List<string> list = ["Ana", "Maria", "Elena", "Daniela"];
             Func<string, char> keySelector = null;
 
-            Assert.Throws<ArgumentNullException>(() => list.ToDictionary(keySelector, e => e));
+            Assert.Throws<ArgumentNullException>(() => list.CustomToDictionary(keySelector, e => e));
         }
 
         [Fact]
@@ -370,7 +373,7 @@ namespace Extension_methods.ExtensionMethodsFacts
             List<string> list = ["Ana", "Maria", "Elena", "Daniela"];
             Func<string, string> elementSelector = null;
 
-            Assert.Throws<ArgumentNullException>(() => list.ToDictionary(e => e[0], elementSelector));
+            Assert.Throws<ArgumentNullException>(() => list.CustomToDictionary(e => e[0], elementSelector));
         }
 
         [Fact]
@@ -378,7 +381,7 @@ namespace Extension_methods.ExtensionMethodsFacts
         {
             List<string> list = ["Ana", "Anca", "Maria", "Elena", "Daniela"];
 
-            Assert.Throws<ArgumentException>(() => list.ToDictionary(e => e[0], e => e));
+            Assert.Throws<ArgumentException>(() => list.CustomToDictionary(e => e[0], e => e));
         }
 
         [Fact]
@@ -386,7 +389,7 @@ namespace Extension_methods.ExtensionMethodsFacts
         {
             List<string> list = [];
 
-            var result = list.ToDictionary(e => e[0], e => e);
+            var result = list.CustomToDictionary(e => e[0], e => e);
 
             Assert.Empty(result);
         }
@@ -405,7 +408,7 @@ namespace Extension_methods.ExtensionMethodsFacts
                 { 'D', "Daniela" },
             };
 
-            var result = list.ToDictionary(e => e?[0] ?? '\0', e => e);
+            var result = list.CustomToDictionary(e => e?[0] ?? '\0', e => e);
 
             foreach (var item in result)
             {
@@ -422,7 +425,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             IEnumerable<(string Name, int Age)> expected = [("Ana", 45), ("Maria", 23), ("Elena", 33), ("Daniela", 67)];
 
-            IEnumerable<(string Name, int Age)> result = names.Zip(ages, (name, age) => (name, age));
+            IEnumerable<(string Name, int Age)> result = names.CustomZip(ages, (name, age) => (name, age));
 
             foreach (var item in result)
             {
@@ -436,7 +439,7 @@ namespace Extension_methods.ExtensionMethodsFacts
             List<string> names = null;
             List<int> ages = [45, 23, 33, 67];
 
-            IEnumerable<(string Name, int Age)> result = names.Zip(ages, (name, age) => (name, age));
+            IEnumerable<(string Name, int Age)> result = names.CustomZip(ages, (name, age) => (name, age));
 
             Assert.Throws<ArgumentNullException>(() =>
             {
@@ -450,7 +453,7 @@ namespace Extension_methods.ExtensionMethodsFacts
             List<string> names = ["Ana", "Maria", "Elena", "Daniela"];
             List<int> ages = null;
 
-            IEnumerable<(string Name, int Age)> result = names.Zip(ages, (name, age) => (name, age));
+            IEnumerable<(string Name, int Age)> result = names.CustomZip(ages, (name, age) => (name, age));
 
             Assert.Throws<ArgumentNullException>(() =>
             {
@@ -465,7 +468,7 @@ namespace Extension_methods.ExtensionMethodsFacts
             List<int> ages = [45, 23, 33, 67];
             Func<string, int, (string, int)> resultSelector = null;
 
-            IEnumerable<(string Name, int Age)> result = names.Zip(ages, resultSelector);
+            IEnumerable<(string Name, int Age)> result = names.CustomZip(ages, resultSelector);
 
             Assert.Throws<ArgumentNullException>(() =>
             {
@@ -480,7 +483,7 @@ namespace Extension_methods.ExtensionMethodsFacts
             List<int> ages = [45, 23, 33, 67];
 
             List<(string Name, int Age)> result = [];
-            result.AddRange(names.Zip(ages, (name, age) => (name, age)));
+            result.AddRange(names.CustomZip(ages, (name, age) => (name, age)));
 
             Assert.Empty(result);
         }
@@ -492,7 +495,7 @@ namespace Extension_methods.ExtensionMethodsFacts
             List<int> ages = [];
 
             List<(string Name, int Age)> result = [];
-            result.AddRange(names.Zip(ages, (name, age) => (name, age)));
+            result.AddRange(names.CustomZip(ages, (name, age) => (name, age)));
 
             Assert.Empty(result);
         }
@@ -505,7 +508,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             IEnumerable<(string Name, int Age)> expected = [("Ana", 45), ("Maria", 23), (null, 33), ("Daniela", 67)];
 
-            IEnumerable<(string Name, int Age)> result = names.Zip(ages, (name, age) => (name, age));
+            IEnumerable<(string Name, int Age)> result = names.CustomZip(ages, (name, age) => (name, age));
 
             foreach (var item in result)
             {
@@ -518,7 +521,7 @@ namespace Extension_methods.ExtensionMethodsFacts
         {
             int[] numbers = { 1, 2, 3 };
 
-            int result = numbers.Aggregate(0, (num, seed) => num + seed);
+            int result = numbers.CustomAggregate(0, (num, seed) => num + seed);
 
             Assert.Equal(6, result);
         }
@@ -528,7 +531,7 @@ namespace Extension_methods.ExtensionMethodsFacts
         {
             int[] numbers = null;
 
-            Assert.Throws<ArgumentNullException>(() => numbers.Aggregate(0, (num, seed) => num + seed));
+            Assert.Throws<ArgumentNullException>(() => numbers.CustomAggregate(0, (num, seed) => num + seed));
         }
 
         [Fact]
@@ -536,7 +539,7 @@ namespace Extension_methods.ExtensionMethodsFacts
         {
             int[] numbers = { 1, 2, 3 };
 
-            Assert.Throws<ArgumentNullException>(() => numbers.Aggregate(0, null));
+            Assert.Throws<ArgumentNullException>(() => numbers.CustomAggregate(0, null));
         }
 
         [Fact]
@@ -545,7 +548,7 @@ namespace Extension_methods.ExtensionMethodsFacts
             int[] numbers = [];
             int seed = 0;
 
-            int result = numbers.Aggregate(seed, (num, seed) => num + seed);
+            int result = numbers.CustomAggregate(seed, (num, seed) => num + seed);
 
             Assert.Equal(seed, result);
         }
@@ -556,7 +559,7 @@ namespace Extension_methods.ExtensionMethodsFacts
             string[] numbers = { "Ana", "Maria", null, "Daniela" };
             string expected = ", Ana, Maria, , Daniela";
 
-            string result = numbers.Aggregate("", (seed, value) => seed + ", " + (value ?? ""));
+            string result = numbers.CustomAggregate("", (seed, value) => seed + ", " + (value ?? ""));
 
             Assert.Equal(expected, result);
         }
@@ -578,7 +581,7 @@ namespace Extension_methods.ExtensionMethodsFacts
                 new Order { Id = 103, CustomerId = 3, Amount = 300 },
             };
 
-            IEnumerable<(string CustomerName, int OrderId, int Amount)> result = customers.Join(
+            IEnumerable<(string CustomerName, int OrderId, int Amount)> result = customers.CustomJoin(
                 orders,
                 customer => customer.Id,
                 order => order.CustomerId,
@@ -609,7 +612,7 @@ namespace Extension_methods.ExtensionMethodsFacts
                 new Order { Id = 103, CustomerId = 3, Amount = 300 },
             };
 
-            IEnumerable<(string CustomerName, int OrderId, int Amount)> result = customers.Join(
+            IEnumerable<(string CustomerName, int OrderId, int Amount)> result = customers.CustomJoin(
                 orders,
                 customer => customer.Id,
                 order => order.CustomerId,
@@ -640,7 +643,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             Func<Customer, int> outerKeySelector = null;
 
-            IEnumerable<(string CustomerName, int OrderId, int Amount)> result = customers.Join(
+            IEnumerable<(string CustomerName, int OrderId, int Amount)> result = customers.CustomJoin(
                 orders,
                 outerKeySelector,
                 order => order.CustomerId,
@@ -666,7 +669,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             Func<Customer, int> outerKeySelector = null;
 
-            IEnumerable<(string CustomerName, int OrderId, int Amount)> values = customers.Join(
+            IEnumerable<(string CustomerName, int OrderId, int Amount)> values = customers.CustomJoin(
                 orders,
                 customer => customer.Id,
                 order => order.CustomerId,
@@ -691,7 +694,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             Func<Customer, int> outerKeySelector = null;
 
-            IEnumerable<(string CustomerName, int OrderId, int Amount)> values = customers.Join(
+            IEnumerable<(string CustomerName, int OrderId, int Amount)> values = customers.CustomJoin(
                 orders,
                 customer => customer.Id,
                 order => order.CustomerId,
@@ -719,7 +722,7 @@ namespace Extension_methods.ExtensionMethodsFacts
                 new Order { Id = 103, CustomerId = 3, Amount = 300 },
             };
 
-            IEnumerable<(string CustomerName, int OrderId, int Amount)> result = customers.Join(
+            IEnumerable<(string CustomerName, int OrderId, int Amount)> result = customers.CustomJoin(
                 orders,
                 customer => customer.Id,
                 order => order?.CustomerId ?? 0,
@@ -760,7 +763,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             int[] expected = { 1, 2, 3, 5, 7, 9 };
 
-            IEnumerable<int> result = source.Distinct(EqualityComparer<int>.Default);
+            IEnumerable<int> result = source.CustomDistinct(EqualityComparer<int>.Default);
 
             int count = 0;
 
@@ -778,7 +781,7 @@ namespace Extension_methods.ExtensionMethodsFacts
         {
             int[] source = null;
 
-            IEnumerable<int> result = source.Distinct(EqualityComparer<int>.Default);
+            IEnumerable<int> result = source.CustomDistinct(EqualityComparer<int>.Default);
 
             Assert.Throws<ArgumentNullException>(() =>
             {
@@ -793,7 +796,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             List<int> result = [];
 
-            IEnumerable<int> values = source.Distinct(EqualityComparer<int>.Default);
+            IEnumerable<int> values = source.CustomDistinct(EqualityComparer<int>.Default);
 
             result.AddRange(values);
 
@@ -807,7 +810,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             string[] expected = [null, "Ana", "Maria", "Elena", "Daniela"];
 
-            IEnumerable<string> result = source.Distinct(EqualityComparer<string>.Default);
+            IEnumerable<string> result = source.CustomDistinct(EqualityComparer<string>.Default);
 
             int count = 0;
 
@@ -829,7 +832,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             IEnumerable<int> expected = [1, 2, 3, 5, 7, 9, 10, 11];
 
-            IEnumerable<int> result = first.Union(second, EqualityComparer<int>.Default);
+            IEnumerable<int> result = first.CustomUnion(second, EqualityComparer<int>.Default);
 
             int count = 0;
             foreach (var item in result)
@@ -848,7 +851,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             int[] second = { 1, 2, 3, 5, 9, 7, 9, 3, 10, 10 };
 
-            Assert.Throws<ArgumentNullException>(() => first.Union(second, EqualityComparer<int>.Default));
+            Assert.Throws<ArgumentNullException>(() => first.CustomUnion(second, EqualityComparer<int>.Default));
         }
 
         [Fact]
@@ -858,7 +861,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             int[] second = null;
 
-            Assert.Throws<ArgumentNullException>(() => first.Union(second, EqualityComparer<int>.Default));
+            Assert.Throws<ArgumentNullException>(() => first.CustomUnion(second, EqualityComparer<int>.Default));
         }
 
         [Fact]
@@ -870,7 +873,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             IEnumerable<int> expected = [1, 2, 3, 5, 7, 9, 10];
 
-            IEnumerable<int> result = first.Union(second, EqualityComparer<int>.Default);
+            IEnumerable<int> result = first.CustomUnion(second, EqualityComparer<int>.Default);
 
             int count = 0;
             foreach (var item in result)
@@ -891,7 +894,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             IEnumerable<string> expected = [null, "Ana", "Maria", "Elena", "Daniela", "Sonia", "Alina"];
 
-            IEnumerable<string> result = first.Union(second, EqualityComparer<string>.Default);
+            IEnumerable<string> result = first.CustomUnion(second, EqualityComparer<string>.Default);
 
             int count = 0;
             foreach (var item in result)
@@ -912,7 +915,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             IEnumerable<int> expected = [1, 2, 3, 5, 9];
 
-            IEnumerable<int> result = first.Intersect(second, EqualityComparer<int>.Default);
+            IEnumerable<int> result = first.CustomIntersect(second, EqualityComparer<int>.Default);
 
             int count = 0;
             foreach (var item in result)
@@ -931,7 +934,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             int[] second = { 1, 2, 3, 5, 9, 7, 9, 3, 10, 10 };
 
-            IEnumerable<int> result = first.Intersect(second, EqualityComparer<int>.Default);
+            IEnumerable<int> result = first.CustomIntersect(second, EqualityComparer<int>.Default);
 
             Assert.Throws<ArgumentNullException>(() =>
             {
@@ -946,7 +949,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             int[] second = null;
 
-            IEnumerable<int> result = first.Intersect(second, EqualityComparer<int>.Default);
+            IEnumerable<int> result = first.CustomIntersect(second, EqualityComparer<int>.Default);
 
             Assert.Throws<ArgumentNullException>(() =>
             {
@@ -963,7 +966,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             List<int> result = [];
 
-            IEnumerable<int> values = first.Intersect(second, EqualityComparer<int>.Default);
+            IEnumerable<int> values = first.CustomIntersect(second, EqualityComparer<int>.Default);
 
             result.AddRange(values);
 
@@ -979,7 +982,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             IEnumerable<string> expected = ["1", "2", null, "3", "5", "9"];
 
-            IEnumerable<string> result = first.Intersect(second, EqualityComparer<string>.Default);
+            IEnumerable<string> result = first.CustomIntersect(second, EqualityComparer<string>.Default);
 
             int count = 0;
             foreach (var item in result)
@@ -1000,7 +1003,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             IEnumerable<int> expected = [11];
 
-            IEnumerable<int> result = first.Except(second, EqualityComparer<int>.Default);
+            IEnumerable<int> result = first.CustomExcept(second, EqualityComparer<int>.Default);
 
             int count = 0;
             foreach (var item in result)
@@ -1019,7 +1022,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             int[] second = { 1, 2, 3, 5, 9, 7, 9, 3, 10, 10 };
 
-            IEnumerable<int> result = first.Except(second, EqualityComparer<int>.Default);
+            IEnumerable<int> result = first.CustomExcept(second, EqualityComparer<int>.Default);
 
             Assert.Throws<ArgumentNullException>(() =>
             {
@@ -1036,7 +1039,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             IEnumerable<int> expected = [11];
 
-            IEnumerable<int> result = first.Except(second, EqualityComparer<int>.Default);
+            IEnumerable<int> result = first.CustomExcept(second, EqualityComparer<int>.Default);
 
             Assert.Throws<ArgumentNullException>(() =>
             {
@@ -1053,7 +1056,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             List<int> result = [];
 
-            IEnumerable<int> values = first.Except(second, EqualityComparer<int>.Default);
+            IEnumerable<int> values = first.CustomExcept(second, EqualityComparer<int>.Default);
 
             result.AddRange(values);
 
@@ -1069,7 +1072,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             IEnumerable<int> expected = [1, 2, 3, 5, 11, 9];
 
-            IEnumerable<int> result = first.Except(second, EqualityComparer<int>.Default);
+            IEnumerable<int> result = first.CustomExcept(second, EqualityComparer<int>.Default);
 
             int count = 0;
             foreach (var item in result)
@@ -1090,7 +1093,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             IEnumerable<string> expected = [null, "11"];
 
-            IEnumerable<string> result = first.Except(second, EqualityComparer<string>.Default);
+            IEnumerable<string> result = first.CustomExcept(second, EqualityComparer<string>.Default);
 
             int count = 0;
             foreach (var item in result)
@@ -1111,7 +1114,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             IEnumerable<string> expected = ["11"];
 
-            IEnumerable<string> result = first.Except(second, EqualityComparer<string>.Default);
+            IEnumerable<string> result = first.CustomExcept(second, EqualityComparer<string>.Default);
 
             int count = 0;
             foreach (var item in result)
@@ -1138,7 +1141,7 @@ namespace Extension_methods.ExtensionMethodsFacts
             List<Ranking> expected = [new Ranking("A", new List<string> { "Alice", "Charlie", "Eve" }),
                 new Ranking("B", new List<string> { "Bob", "David" })];
 
-            var groupedResult = students.GroupBy(
+            var groupedResult = students.CustomGroupBy(
                 student => student.Grade,
                 student => student.Name,
                 (grade, names) => new Ranking(grade, names.ToList()),
@@ -1161,7 +1164,7 @@ namespace Extension_methods.ExtensionMethodsFacts
         {
             Student[] students = null;
 
-            var groupedResult = students.GroupBy(
+            var groupedResult = students.CustomGroupBy(
                 student => student.Grade,
                 student => student.Name,
                 (grade, names) => new Ranking(grade, names.ToList()),
@@ -1186,7 +1189,7 @@ namespace Extension_methods.ExtensionMethodsFacts
                 new { Name = "Eve", Grade = "A" },
             };
 
-            var groupedResult = students.GroupBy(
+            var groupedResult = students.CustomGroupBy(
                 null,
                 student => student.Name,
                 (grade, names) => new Ranking(grade, names.ToList()),
@@ -1213,7 +1216,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             Func<Student, string> elementSelector = null;
 
-            var groupedResult = students.GroupBy(
+            var groupedResult = students.CustomGroupBy(
                 student => student.Grade,
                 elementSelector,
                 (grade, names) => new Ranking(grade, names.ToList()),
@@ -1240,7 +1243,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             Func<string, IEnumerable<string>, Ranking> resultSelector = null;
 
-            var groupedResult = students.GroupBy(
+            var groupedResult = students.CustomGroupBy(
                 student => student.Grade,
                 student => student.Name,
                 resultSelector,
@@ -1261,7 +1264,7 @@ namespace Extension_methods.ExtensionMethodsFacts
             List<Ranking> expected = [new Ranking("A", new List<string> { "Alice", "Charlie", "Eve" }),
                 new Ranking("B", new List<string> { "Bob", "David" })];
 
-            var groupedResult = students.GroupBy(
+            var groupedResult = students.CustomGroupBy(
                 student => student.Grade,
                 student => student.Name,
                 (grade, names) => new Ranking(grade, names.ToList()),
@@ -1290,7 +1293,7 @@ namespace Extension_methods.ExtensionMethodsFacts
             List<Ranking> expected = [new Ranking("A", new List<string> { "Alice", "Charlie", "Eve" }),
                 new Ranking("B", new List<string> { "Bob", "David" }), new Ranking("N/A", new List<string> { "default" })];
 
-            var groupedResult = students.GroupBy(
+            var groupedResult = students.CustomGroupBy(
                 student => student?.Grade ?? "N/A",
                 student => student?.Name ?? "default",
                 (grade, names) => new Ranking(grade, names.ToList()),
@@ -1350,7 +1353,7 @@ namespace Extension_methods.ExtensionMethodsFacts
             };
 
             IOrderedEnumerable<(string Name, int Age)> result = persons
-                .OrderBy(person => person.Age, Comparer<int>.Default);
+                .CustomOrderBy(person => person.Age, Comparer<int>.Default);
 
             int count = 0;
 
@@ -1369,7 +1372,7 @@ namespace Extension_methods.ExtensionMethodsFacts
             List<(string Name, int Age)> persons = null;
 
             Assert.Throws<ArgumentNullException>(() => persons
-            .OrderBy(person => person.Age, Comparer<int>.Default));
+            .CustomOrderBy(person => person.Age, Comparer<int>.Default));
         }
 
         [Fact]
@@ -1387,7 +1390,7 @@ namespace Extension_methods.ExtensionMethodsFacts
             Func<(string, int), int> keySelector = null;
 
             Assert.Throws<ArgumentNullException>(() => persons
-                .OrderBy(keySelector, Comparer<int>.Default));
+                .CustomOrderBy(keySelector, Comparer<int>.Default));
         }
 
         [Fact]
@@ -1399,7 +1402,7 @@ namespace Extension_methods.ExtensionMethodsFacts
 
 
             IOrderedEnumerable<(string Name, int Age)> values = persons
-                .OrderBy(person => person.Age, Comparer<int>.Default);
+                .CustomOrderBy(person => person.Age, Comparer<int>.Default);
 
             result.AddRange(values);
 
@@ -1430,7 +1433,7 @@ namespace Extension_methods.ExtensionMethodsFacts
             };
 
             IOrderedEnumerable<(string Name, int Age)?> result = persons
-                .OrderBy(person => person?.Age ?? 0, Comparer<int>.Default);
+                .CustomOrderBy(person => person?.Age ?? 0, Comparer<int>.Default);
 
             int count = 0;
 
@@ -1469,8 +1472,8 @@ namespace Extension_methods.ExtensionMethodsFacts
             };
 
             IOrderedEnumerable<(string Name, int Age)> result = persons
-                .OrderBy(person => person.Age, Comparer<int>.Default)
-                .ThenBy(person => person.Name, Comparer<string>.Default);
+                .CustomOrderBy(person => person.Age, Comparer<int>.Default)
+                .CustomThenBy(person => person.Name, Comparer<string>.Default);
 
             int count = 0;
 
@@ -1511,9 +1514,9 @@ namespace Extension_methods.ExtensionMethodsFacts
             };
 
             IOrderedEnumerable<(string Name, int Age, char Grade)> result = persons
-                .OrderBy(person => person.Age, Comparer<int>.Default)
-                .ThenBy(person => person.Name, Comparer<string>.Default)
-                .ThenBy(person => person.Grade, Comparer<char>.Default);
+                .CustomOrderBy(person => person.Age, Comparer<int>.Default)
+                .CustomThenBy(person => person.Name, Comparer<string>.Default)
+                .CustomThenBy(person => person.Grade, Comparer<char>.Default);
 
             int count = 0;
 
@@ -1533,7 +1536,7 @@ namespace Extension_methods.ExtensionMethodsFacts
             IOrderedEnumerable<(string Name, int Age)> persons = null;
 
             Assert.Throws<ArgumentNullException>(() => persons.
-                ThenBy(person => person.Name, Comparer<string>.Default));
+                CustomThenBy(person => person.Name, Comparer<string>.Default));
         }
 
         [Fact]
@@ -1553,8 +1556,8 @@ namespace Extension_methods.ExtensionMethodsFacts
             Func<(string Name, int Age), string> keySelector = null;
 
             Assert.Throws<ArgumentNullException>(() => persons
-                .OrderBy(person => person.Age, Comparer<int>.Default)
-                .ThenBy(keySelector, Comparer<string>.Default));
+                .CustomOrderBy(person => person.Age, Comparer<int>.Default)
+                .CustomThenBy(keySelector, Comparer<string>.Default));
         }
 
         [Fact]
@@ -1565,8 +1568,8 @@ namespace Extension_methods.ExtensionMethodsFacts
             List<(string Name, int Age)> result = [];
 
             IOrderedEnumerable<(string Name, int Age)> values = persons
-                .OrderBy(person => person.Age, Comparer<int>.Default)
-                .ThenBy(person => person.Name, Comparer<string>.Default);
+                .CustomOrderBy(person => person.Age, Comparer<int>.Default)
+                .CustomThenBy(person => person.Name, Comparer<string>.Default);
 
             result.AddRange(values);
 
@@ -1602,8 +1605,8 @@ namespace Extension_methods.ExtensionMethodsFacts
             };
 
             IOrderedEnumerable<(string Name, int Age)?> result = persons
-                .OrderBy(person => person?.Age ?? 0, Comparer<int>.Default)
-                .ThenBy(person => person?.Name ?? string.Empty, Comparer<string>.Default);
+                .CustomOrderBy(person => person?.Age ?? 0, Comparer<int>.Default)
+                .CustomThenBy(person => person?.Name ?? string.Empty, Comparer<string>.Default);
 
             int count = 0;
 

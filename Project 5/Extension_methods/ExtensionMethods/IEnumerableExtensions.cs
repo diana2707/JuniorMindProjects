@@ -4,7 +4,7 @@ namespace Extension_methods.Extension_methods
 {
     public static class IEnumerableExtensions
     {
-        public static bool All<TSource>(
+        public static bool CustomAll<TSource>(
             this IEnumerable<TSource> source,
             Func<TSource, bool> predicate)
         {
@@ -22,7 +22,7 @@ namespace Extension_methods.Extension_methods
             return true;
         }
 
-        public static bool Any<TSource>(
+        public static bool CustomAny<TSource>(
             this IEnumerable<TSource> source,
             Func<TSource, bool> predicate)
         {
@@ -39,7 +39,7 @@ namespace Extension_methods.Extension_methods
             return false;
         }
 
-        public static TSource First<TSource>(
+        public static TSource CustomFirst<TSource>(
             this IEnumerable<TSource> source,
             Func<TSource, bool> predicate)
         {
@@ -57,7 +57,7 @@ namespace Extension_methods.Extension_methods
                 "No element to match the predicate was found.");
         }
 
-        public static IEnumerable<TResult> Select<TSource, TResult>(
+        public static IEnumerable<TResult> CustomSelect<TSource, TResult>(
             this IEnumerable<TSource> source,
             Func<TSource, TResult> selector)
         {
@@ -70,7 +70,7 @@ namespace Extension_methods.Extension_methods
             }
         }
 
-        public static IEnumerable<TResult> SelectMany<TSource, TResult>(
+        public static IEnumerable<TResult> CustomSelectMany<TSource, TResult>(
             this IEnumerable<TSource> source,
             Func<TSource, IEnumerable<TResult>> selector)
         {
@@ -86,7 +86,7 @@ namespace Extension_methods.Extension_methods
             }
         }
 
-        public static IEnumerable<TSource> Where<TSource>(
+        public static IEnumerable<TSource> CustomWhere<TSource>(
             this IEnumerable<TSource> source,
             Func<TSource, bool> predicate)
         {
@@ -102,7 +102,7 @@ namespace Extension_methods.Extension_methods
             }
         }
 
-        public static Dictionary<TKey, TElement> ToDictionary<TSource, TKey, TElement>(
+        public static Dictionary<TKey, TElement> CustomToDictionary<TSource, TKey, TElement>(
             this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector,
             Func<TSource, TElement> elementSelector)
@@ -128,7 +128,7 @@ namespace Extension_methods.Extension_methods
             return result;
         }
 
-        public static IEnumerable<TResult> Zip<TFirst, TSecond, TResult>(
+        public static IEnumerable<TResult> CustomZip<TFirst, TSecond, TResult>(
             this IEnumerable<TFirst> first,
             IEnumerable<TSecond> second,
             Func<TFirst, TSecond, TResult> resultSelector)
@@ -146,7 +146,7 @@ namespace Extension_methods.Extension_methods
             }
         }
 
-        public static TAccumulate Aggregate<TSource, TAccumulate>(
+        public static TAccumulate CustomAggregate<TSource, TAccumulate>(
             this IEnumerable<TSource> source,
             TAccumulate seed,
             Func<TAccumulate, TSource, TAccumulate> func)
@@ -163,7 +163,7 @@ namespace Extension_methods.Extension_methods
             return result;
         }
 
-        public static IEnumerable<TResult> Join<TOuter, TInner, TKey, TResult>(
+        public static IEnumerable<TResult> CustomJoin<TOuter, TInner, TKey, TResult>(
             this IEnumerable<TOuter> outer,
             IEnumerable<TInner> inner,
             Func<TOuter, TKey> outerKeySelector,
@@ -191,7 +191,7 @@ namespace Extension_methods.Extension_methods
             }
         }
 
-        public static IEnumerable<TSource> Distinct<TSource>(
+        public static IEnumerable<TSource> CustomDistinct<TSource>(
             this IEnumerable<TSource> source,
             IEqualityComparer<TSource> comparer)
         {
@@ -208,7 +208,7 @@ namespace Extension_methods.Extension_methods
             }
         }
 
-        public static IEnumerable<TSource> Union<TSource>(
+        public static IEnumerable<TSource> CustomUnion<TSource>(
             this IEnumerable<TSource> first,
             IEnumerable<TSource> second,
             IEqualityComparer<TSource> comparer)
@@ -217,10 +217,10 @@ namespace Extension_methods.Extension_methods
 
             IEnumerable<TSource> result = first.Concat(second);
 
-            return result.Distinct(comparer);
+            return result.CustomDistinct(comparer);
         }
 
-        public static IEnumerable<TSource> Intersect<TSource>(
+        public static IEnumerable<TSource> CustomIntersect<TSource>(
             this IEnumerable<TSource> first,
             IEnumerable<TSource> second,
             IEqualityComparer<TSource> comparer)
@@ -228,8 +228,8 @@ namespace Extension_methods.Extension_methods
             ArgumentNullException.ThrowIfNull(first);
             ArgumentNullException.ThrowIfNull(second);
 
-            first = first.Distinct(comparer);
-            second = second.Distinct(comparer);
+            first = first.CustomDistinct(comparer);
+            second = second.CustomDistinct(comparer);
 
             foreach (var itemFirst in first)
             {
@@ -243,7 +243,7 @@ namespace Extension_methods.Extension_methods
             }
         }
 
-        public static IEnumerable<TSource> Except<TSource>(
+        public static IEnumerable<TSource> CustomExcept<TSource>(
             this IEnumerable<TSource> first,
             IEnumerable<TSource> second,
             IEqualityComparer<TSource> comparer)
@@ -251,8 +251,8 @@ namespace Extension_methods.Extension_methods
             ArgumentNullException.ThrowIfNull(first);
             ArgumentNullException.ThrowIfNull(second);
 
-            first = first.Distinct(comparer);
-            second = second.Distinct(comparer);
+            first = first.CustomDistinct(comparer);
+            second = second.CustomDistinct(comparer);
 
             foreach (var item in first)
             {
@@ -263,7 +263,7 @@ namespace Extension_methods.Extension_methods
             }
         }
 
-        public static IEnumerable<TResult> GroupBy<TSource, TKey, TElement, TResult>(
+        public static IEnumerable<TResult> CustomGroupBy<TSource, TKey, TElement, TResult>(
             this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector,
             Func<TSource, TElement> elementSelector,
@@ -296,7 +296,7 @@ namespace Extension_methods.Extension_methods
             }
         }
 
-        public static IOrderedEnumerable<TSource> OrderBy<TSource, TKey>(
+        public static IOrderedEnumerable<TSource> CustomOrderBy<TSource, TKey>(
             this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector,
             IComparer<TKey> comparer)
@@ -308,7 +308,7 @@ namespace Extension_methods.Extension_methods
             return orderedEnumerable.CreateOrderedEnumerable(keySelector, comparer, false);
         }
 
-        public static IOrderedEnumerable<TSource> ThenBy<TSource, TKey>(
+        public static IOrderedEnumerable<TSource> CustomThenBy<TSource, TKey>(
             this IOrderedEnumerable<TSource> source,
             Func<TSource, TKey> keySelector,
             IComparer<TKey> comparer)

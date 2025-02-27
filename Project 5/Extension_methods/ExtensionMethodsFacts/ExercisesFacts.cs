@@ -6,60 +6,60 @@ namespace Extension_methods.ExtensionMethodsFacts
     public class ExercisesFacts
     {
         [Fact]
-        public void CountVowelsReturnsNumberOfVowelsInString()
+        public void CountVowelsAndConsonantsReturnsNumberOfVowelsAndConsonantsInAString()
         {
             string source = " m34AeicvoNb;";
-            Assert.Equal(4, source.CountVowels());
+            Assert.Equal((4, 5), source.CountVowelsAndConsonants());
         }
 
         [Fact]
-        public void CountVowelThrowsArgumentNullExceptionWhenSourceIsNull()
+        public void CountVowelsAndConsonantsThrowsArgumentNullExceptionWhenSourceIsNull()
         {
             string source = null;
-            Assert.Throws<ArgumentNullException>(() => source.CountVowels());
+            Assert.Throws<ArgumentNullException>(() => source.CountVowelsAndConsonants());
         }
 
         [Fact]
-        public void CountVowelReturns0WhenSourceIsEmpty()
+        public void CountVowelsAndConsonantsReturns0WhenSourceIsEmpty()
         {
             string source = string.Empty;
-            Assert.Equal(0, source.CountVowels());
+            Assert.Equal((0, 0), source.CountVowelsAndConsonants());
         }
 
         [Fact]
-        public void CountVowelReturns0WhenStringHasNoVowels()
+        public void CountVowelsAndConsoanntsReturns0ForVowelsWhenStringHasNoVowels()
         {
             string source = " mmmmmmmmm,";
-            Assert.Equal(0, source.CountVowels());
+            Assert.Equal((0, 9), source.CountVowelsAndConsonants());
         }
 
-        [Fact]
-        public void CountConsonantsReturnsNumberOfVowelsInString()
-        {
-            string source = " m34AeicvoNb;";
-            Assert.Equal(5, source.CountConsonants());
-        }
+        //[Fact]
+        //public void CountConsonantsReturnsNumberOfVowelsInString()
+        //{
+        //    string source = " m34AeicvoNb;";
+        //    Assert.Equal(5, source.CountConsonants());
+        //}
 
         [Fact]
-        public void CountConsonantsReturns0WhenStringHasNoConsonants()
+        public void CountVowelsAndConsonantsReturns0ForConsonantsWhenStringHasNoConsonants()
         {
             string source = " aaaaaaa;";
-            Assert.Equal(0, source.CountConsonants());
+            Assert.Equal((7, 0), source.CountVowelsAndConsonants());
         }
 
-        [Fact]
-        public void CountConsonantsReturns0WhenStringIsEmpty()
-        {
-            string source = string.Empty;
-            Assert.Equal(0, source.CountConsonants());
-        }
+        //[Fact]
+        //public void CountConsonantsReturns0WhenStringIsEmpty()
+        //{
+        //    string source = string.Empty;
+        //    Assert.Equal(0, source.CountConsonants());
+        //}
 
-        [Fact]
-        public void CountConsonantsThrowArgumentNullExceptionWhenSourceIsNull()
-        {
-            string source = null;
-            Assert.Throws<ArgumentNullException>(() => source.CountConsonants());
-        }
+        //[Fact]
+        //public void CountConsonantsThrowArgumentNullExceptionWhenSourceIsNull()
+        //{
+        //    string source = null;
+        //    Assert.Throws<ArgumentNullException>(() => source.CountConsonants());
+        //}
 
         [Fact]
         public void FirstUniqueReturnsFirstUniqueCharInString()
