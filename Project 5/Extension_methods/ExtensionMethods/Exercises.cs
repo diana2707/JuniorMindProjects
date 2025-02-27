@@ -28,7 +28,9 @@ namespace Extension_methods.Extension_methods
         {
             ArgumentNullException.ThrowIfNull(source);
 
-            IEnumerable<char> unique = source.Where(e => source.Count(x => x == e) == 1);
+            IEnumerable<char> unique = source.GroupBy(e => e)
+                                             .Where(group => group.Count() == 1)
+                                             .Select(group => group.Key);
 
             if (!unique.Any())
             {
