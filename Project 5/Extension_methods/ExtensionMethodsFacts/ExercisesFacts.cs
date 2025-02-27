@@ -33,33 +33,12 @@ namespace Extension_methods.ExtensionMethodsFacts
             Assert.Equal((0, 9), source.CountVowelsAndConsonants());
         }
 
-        //[Fact]
-        //public void CountConsonantsReturnsNumberOfVowelsInString()
-        //{
-        //    string source = " m34AeicvoNb;";
-        //    Assert.Equal(5, source.CountConsonants());
-        //}
-
         [Fact]
         public void CountVowelsAndConsonantsReturns0ForConsonantsWhenStringHasNoConsonants()
         {
             string source = " aaaaaaa;";
             Assert.Equal((7, 0), source.CountVowelsAndConsonants());
         }
-
-        //[Fact]
-        //public void CountConsonantsReturns0WhenStringIsEmpty()
-        //{
-        //    string source = string.Empty;
-        //    Assert.Equal(0, source.CountConsonants());
-        //}
-
-        //[Fact]
-        //public void CountConsonantsThrowArgumentNullExceptionWhenSourceIsNull()
-        //{
-        //    string source = null;
-        //    Assert.Throws<ArgumentNullException>(() => source.CountConsonants());
-        //}
 
         [Fact]
         public void FirstUniqueReturnsFirstUniqueCharInString()

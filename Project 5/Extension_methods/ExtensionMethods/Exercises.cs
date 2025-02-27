@@ -47,7 +47,7 @@ namespace Extension_methods.Extension_methods
             int result = 0;
             int sign = source[0] == '-' ? -1 : 1;
 
-            var number = source.SkipWhile((e, i) => i == 0 && (e == '-' || e == '+'));
+            var number = (source[0] == '-' || source[0] == '+') ? source.Skip(1) : source;
 
             if (number.Any(e => !char.IsDigit(e)))
             {
