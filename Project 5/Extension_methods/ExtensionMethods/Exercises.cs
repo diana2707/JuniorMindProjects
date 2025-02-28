@@ -160,7 +160,7 @@ namespace Extension_methods.Extension_methods
                                            .All(feature => feature.Id != prodFeature.Id)));
         }
 
-        public static List<Product> SumProductQuantity(IEnumerable<Product> first, IEnumerable<Product> second)
+        public static IEnumerable<Product> SumProductQuantity(IEnumerable<Product> first, IEnumerable<Product> second)
         {
             ArgumentNullException.ThrowIfNull(first);
             ArgumentNullException.ThrowIfNull(second);
@@ -171,8 +171,7 @@ namespace Extension_methods.Extension_methods
                 {
                     Name = group.Key,
                     Quantity = group.Sum(product => product.Quantity),
-                })
-                .ToList();
+                });
         }
 
         public static List<TestResults> GetMaxResultsByFamily(IEnumerable<TestResults> results)

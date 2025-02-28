@@ -746,13 +746,13 @@ namespace Extension_methods.ExtensionMethodsFacts
                 new Product() { Name = "Pants", Quantity = 10 },
             ];
 
-            List<Product> result = Exercises.SumProductQuantity(first, second);
+            var result = Exercises.SumProductQuantity(first, second);
 
             int count = 0;
-            for (var i = 0; i < result.Count; i++)
+            foreach (var item in result)
             {
-                Assert.Equal(expected[i].Name, result[i].Name);
-                Assert.Equal(expected[i].Quantity, result[i].Quantity);
+                Assert.Equal(expected[count].Name, item.Name);
+                Assert.Equal(expected[count].Quantity, item.Quantity);
                 count++;
             }
 
