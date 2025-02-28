@@ -252,9 +252,11 @@ namespace Extension_methods.ExtensionMethodsFacts
         [Fact]
         public void GetSignCombinationsReturnsAllSignCombinations()
         {
-            List<string> expected = ["-1-2-3", "-1-2+3", "-1+2-3", "-1+2+3", "+1-2-3", "+1-2+3", "+1+2-3", "+1+2+3"];
+            //List<string> expected = ["-1-2-3", "-1-2+3", "-1+2-3", "-1+2+3", "+1-2-3", "+1-2+3", "+1+2-3", "+1+2+3"];
 
-            var result = Exercises.GetSignCombinations(3);
+            List<string> expected = ["+1-2+3"];
+
+            var result = Exercises.GetSignCombinations(3, 2);
 
             int count = 0;
             foreach (string s in result)
@@ -263,13 +265,13 @@ namespace Extension_methods.ExtensionMethodsFacts
                 count++;
             }
 
-            Assert.Equal(8, count);
+            Assert.Equal(1, count);
         }
 
         [Fact]
         public void GetSignCombinationsReturnsEmptyCollectionWhenArgumentIs0()
         {
-            var result = Exercises.GetSignCombinations(0);
+            var result = Exercises.GetSignCombinations(0, 0);
 
             Assert.Empty(result);
         }

@@ -1,5 +1,6 @@
 ﻿using Extension_methods.Extension_methods;
 using System;
+using System.Linq.Expressions;
 
 namespace Extension_methods.Extension_methods
 {
@@ -88,19 +89,23 @@ namespace Extension_methods.Extension_methods
                 .Select(subarray => subarray);
         }
 
-        public static List<string> GetSignCombinations(int count)
+        public static IEnumerable<string> GetSignCombinations(int count, int totalValue)
         {
             if (count == 0)
             {
                 return [];
             }
 
-            return Enumerable.Range(0, (int)Math.Pow(2, count))
-                .Select(intNumber => Convert.ToString(intNumber, 2).PadLeft(count))
-                .Select(binaryNumber => Enumerable.Range(1, count)
-                       .Zip(binaryNumber, (number, bit) => bit == '0' ? $"-{number}" : $"+{number}")
-                           .Aggregate(string.Empty, (combination, signedNumber) => combination += signedNumber))
-                .ToList();
+            return Enumerable.Range(1, count)
+                    .Select(n => new[] { (n, "+" + n.ToString()), (n * (-1), "-" + n.ToString()) })
+                    .Aggregate((accCombinations, nextNewElements) => accCombinations
+                            .SelectMany(
+                                combination => nextNewElements,
+                                (combination, newElement) => (combination.Item1 + newElement.Item1,
+                                                                combination.Item2 + newElement.Item2))
+                            .ToArray())
+                    .Where(element => element.Item1 == totalValue)
+                    .Select(element => element.Item2);
         }
 
         public static List<List<int>> GetPythagoreanTriplets(List<int> source)
