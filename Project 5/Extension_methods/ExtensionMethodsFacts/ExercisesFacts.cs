@@ -848,11 +848,12 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             List<string> expected = ["the", "of", "sea", "that", "water"];
 
-            List<string> result = Exercises.MostFrequentWords(input);
+            var result = Exercises.MostFrequentWords(input);
 
-            for (int i = 0; i < result.Count; i++)
+            int count = 0;
+            foreach (var item in result)
             {
-                Assert.Equal(expected[i], result[i]);
+                Assert.Equal(expected[count++], item);
             }
         }
 

@@ -182,19 +182,18 @@ namespace Extension_methods.Extension_methods
                           .Select(group => group.MaxBy(result => result.Score));
         }
 
-        public static List<string> MostFrequentWords(string input)
+        public static IEnumerable<string> MostFrequentWords(string input)
         {
             ArgumentNullException.ThrowIfNull(input);
 
-            List<string> words = input.Split([' ', '.', ',', '?', '!', ';'], StringSplitOptions.RemoveEmptyEntries)
+            string[] words = input.Split([' ', '.', ',', '?', '!', ';'], StringSplitOptions.RemoveEmptyEntries)
                                       .Select(word => word.ToLower())
-                                      .ToList();
+                                      .ToArray();
 
-            return words.OrderByDescending(word => Enumerable.Range(0, words.Count)
+            return words.OrderByDescending(word => Enumerable.Range(0, words.Length)
                                                     .Count(i => words[i] == word))
                         .Distinct()
-                        .Take(5)
-                        .ToList();
+                        .Take(5);
         }
 
         public static bool IsValidSudoku(IEnumerable<int> input)
