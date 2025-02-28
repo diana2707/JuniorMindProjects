@@ -174,13 +174,12 @@ namespace Extension_methods.Extension_methods
                 });
         }
 
-        public static List<TestResults> GetMaxResultsByFamily(IEnumerable<TestResults> results)
+        public static IEnumerable<TestResults> GetMaxResultsByFamily(IEnumerable<TestResults> results)
         {
             ArgumentNullException.ThrowIfNull(results);
 
             return results.GroupBy(result => result.FamilyId)
-                          .Select(group => group.MaxBy(result => result.Score))
-                          .ToList();
+                          .Select(group => group.MaxBy(result => result.Score));
         }
 
         public static List<string> MostFrequentWords(string input)

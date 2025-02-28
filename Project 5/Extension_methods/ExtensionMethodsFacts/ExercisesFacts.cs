@@ -808,13 +808,15 @@ namespace Extension_methods.ExtensionMethodsFacts
                 new TestResults() { Id = "01", FamilyId = "B", Score = 70 },
             };
 
-            List<TestResults> maxResults = Exercises.GetMaxResultsByFamily(results);
+            var maxResults = Exercises.GetMaxResultsByFamily(results);
 
-            for (int i = 0; i < maxResults.Count; i++)
+            int count = 0;
+            foreach (var item in maxResults)
             {
-                Assert.Equal(expected[i].Id, maxResults[i].Id);
-                Assert.Equal(expected[i].FamilyId, maxResults[i].FamilyId);
-                Assert.Equal(expected[i].Score, maxResults[i].Score);
+                Assert.Equal(expected[count].Id, item.Id);
+                Assert.Equal(expected[count].FamilyId, item.FamilyId);
+                Assert.Equal(expected[count].Score, item.Score);
+                count++;
             }
         }
 
