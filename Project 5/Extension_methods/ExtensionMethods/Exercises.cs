@@ -45,8 +45,6 @@ namespace Extension_methods.Extension_methods
 
             var number = (source[0] == '-' || source[0] == '+') ? source.Skip(1) : source;
 
-            int placeValue = number.Count();
-
             result = number.Aggregate(0, (result, e) => char.IsDigit(e)
                                 ? (result * 10) + (e - '0')
                                 : throw new ArgumentException("The string is not integer"));
