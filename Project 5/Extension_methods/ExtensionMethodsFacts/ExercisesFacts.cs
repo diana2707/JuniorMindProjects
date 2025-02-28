@@ -1,5 +1,4 @@
 ﻿using Extension_methods.Extension_methods;
-using System;
 
 namespace Extension_methods.ExtensionMethodsFacts
 {

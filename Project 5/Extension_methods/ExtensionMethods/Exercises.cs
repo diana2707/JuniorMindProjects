@@ -1,7 +1,4 @@
-﻿using Extension_methods.Extension_methods;
-using System;
-using System.Linq.Expressions;
-
+﻿
 namespace Extension_methods.Extension_methods
 {
     public static class Exercises
@@ -29,16 +26,14 @@ namespace Extension_methods.Extension_methods
         {
             ArgumentNullException.ThrowIfNull(source);
 
-            IEnumerable<char> unique = source.GroupBy(e => e)
-                                             .Where(group => group.Count() == 1)
-                                             .Select(group => group.Key);
+            char firstUnique = source.GroupBy(e => e)
+                                     .Where(group => group.Count() == 1)
+                                     .Select(group => group.Key)
+                                     .FirstOrDefault();
 
-            if (!unique.Any())
-            {
-                throw new ArgumentException("String has no unique characters.");
-            }
-
-            return unique.First();
+            return firstUnique != '\0'
+                    ? firstUnique
+                    : throw new ArgumentException("String has no unique characters.");
         }
 
         public static int ConvertToInt(this string source)
