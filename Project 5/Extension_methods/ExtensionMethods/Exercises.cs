@@ -78,12 +78,12 @@ namespace Extension_methods.Extension_methods
                 .Where(segment => segment.SequenceEqual(segment.Reverse()));
         }
 
-        public static IEnumerable<IEnumerable<int>> GetSubarrays(this List<int> source, int maxSum)
+        public static IEnumerable<IEnumerable<int>> GetSubarrays(this IEnumerable<int> source, int maxSum)
         {
             ArgumentNullException.ThrowIfNull(source);
 
-            return Enumerable.Range(0, source.Count)
-                .SelectMany(i => Enumerable.Range(1, source.Count - i)
+            return Enumerable.Range(0, source.Count())
+                .SelectMany(i => Enumerable.Range(1, source.Count() - i)
                      .Select(j => source.Skip(i).Take(j)))
                 .Where(subarray => subarray.Sum() <= maxSum)
                 .Select(subarray => subarray);
@@ -112,18 +112,21 @@ namespace Extension_methods.Extension_methods
         {
             ArgumentNullException.ThrowIfNull(source);
 
-            if (!source.Any())
+            IEnumerable<int> orderedSource = source.Order();
+            int count = orderedSource.Count();
+
+            if (count < 3)
             {
                 return [];
             }
 
-            return Enumerable.Range(0, source.Count - 2)
-                .SelectMany(i => Enumerable.Range(i + 1, source.Count - i - 1)
-                    .SelectMany(j => Enumerable.Range(j + 1, source.Count - j - 1)
-                        .Select(k => new List<int> { source[i], source[j], source[k] }.Order())))
-                .Where(triplet => (int)Math.Pow(triplet.ElementAt(0), 2)
-                                + (int)Math.Pow(triplet.ElementAt(1), 2)
-                                == (int)Math.Pow(triplet.ElementAt(2), 2));
+            return Enumerable.Range(0, count - 2)
+                .SelectMany(i => Enumerable.Range(i + 1, count - i - 1)
+                    .SelectMany(j => Enumerable.Range(j + 1, count - j - 1)
+                        .Select(k => new List<int> { source[i], source[j], source[k] }.ToArray())))
+                .Where(triplet => (int)Math.Pow(triplet[0], 2)
+                                + (int)Math.Pow(triplet[1], 2)
+                                == (int)Math.Pow(triplet[2], 2));
         }
 
         public static List<Product> FilterByAnyFeatures(List<Product> products, List<Feature> features)
