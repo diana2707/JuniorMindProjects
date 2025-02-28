@@ -40,16 +40,13 @@ namespace Extension_methods.Extension_methods
         {
             ArgumentException.ThrowIfNullOrEmpty(source);
 
-            int result = 0;
             int sign = source[0] == '-' ? -1 : 1;
 
             var number = (source[0] == '-' || source[0] == '+') ? source.Skip(1) : source;
 
-            result = number.Aggregate(0, (result, e) => char.IsDigit(e)
+            return sign * number.Aggregate(0, (result, e) => char.IsDigit(e)
                                 ? (result * 10) + (e - '0')
                                 : throw new ArgumentException("The string is not integer"));
-
-            return result * sign;
         }
 
         public static char MostFrequentChar(this string source)
@@ -101,22 +98,21 @@ namespace Extension_methods.Extension_methods
                     .Select(element => element.Item2);
         }
 
-        public static IEnumerable<IEnumerable<int>> GetPythagoreanTriplets(List<int> source)
+        public static IEnumerable<IEnumerable<int>> GetPythagoreanTriplets(IEnumerable<int> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
-            IEnumerable<int> orderedSource = source.Order();
-            int count = orderedSource.Count();
+            int[] orderedSource = source.Order().ToArray();
 
-            if (count < 3)
+            if (orderedSource.Length < 3)
             {
                 return [];
             }
 
-            return Enumerable.Range(0, count - 2)
-                .SelectMany(i => Enumerable.Range(i + 1, count - i - 1)
-                    .SelectMany(j => Enumerable.Range(j + 1, count - j - 1)
-                        .Select(k => new List<int> { source[i], source[j], source[k] }.ToArray())))
+            return Enumerable.Range(0, orderedSource.Length - 2)
+                .SelectMany(i => Enumerable.Range(i + 1, orderedSource.Length - i - 1)
+                    .SelectMany(j => Enumerable.Range(j + 1, orderedSource.Length - j - 1)
+                        .Select(k => new[] { orderedSource[i], orderedSource[j], orderedSource[k] })))
                 .Where(triplet => (int)Math.Pow(triplet[0], 2)
                                 + (int)Math.Pow(triplet[1], 2)
                                 == (int)Math.Pow(triplet[2], 2));
