@@ -473,15 +473,14 @@ namespace Extension_methods.ExtensionMethodsFacts
             List<Product> products = new List<Product>() { jacket, coat, shirt, pants };
             List<Feature> features = new List<Feature>() { new() { Id = 1 }, new() { Id = 5 } };
 
-            List<Product> filteredProducts = Exercises.FilterByAllFeatures(products, features);
+            var filteredProducts = Exercises.FilterByAllFeatures(products, features);
 
             var expected = new List<Product> { coat };
 
             int count = 0;
-            for (var i = 0; i < filteredProducts.Count; i++)
+            foreach (var item in filteredProducts)
             {
-                Assert.Equal(expected[i], filteredProducts[i]);
-                count++;
+                Assert.Equal(expected[count++], item);
             }
 
             Assert.Equal(1, count);
@@ -566,14 +565,14 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             List<Product> products = new List<Product>() { jacket, coat, shirt, pants };
 
-            List<Product> filteredProducts = Exercises.FilterByAllFeatures(products, []);
+            var filteredProducts = Exercises.FilterByAllFeatures(products, []);
 
             var expected = new List<Product> { jacket, coat, shirt, pants };
 
             int count = 0;
-            for (var i = 0; i < filteredProducts.Count; i++)
+            foreach (var item in filteredProducts)
             {
-                Assert.Equal(expected[i], filteredProducts[i]);
+                Assert.Equal(expected[count], item);
                 count++;
             }
 

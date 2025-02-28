@@ -139,7 +139,7 @@ namespace Extension_methods.Extension_methods
                                         .Any(id => prodFeature.Id == id)));
         }
 
-        public static List<Product> FilterByAllFeatures(List<Product> products, List<Feature> features)
+        public static IEnumerable<Product> FilterByAllFeatures(IEnumerable<Product> products, IEnumerable<Feature> features)
         {
             ArgumentNullException.ThrowIfNull(products);
             ArgumentNullException.ThrowIfNull(features);
@@ -147,8 +147,7 @@ namespace Extension_methods.Extension_methods
             return products.Where(product => features
                                     .All(feature => product.Features
                                         .Select(prodFeature => prodFeature.Id)
-                                             .Any(id => id == feature.Id)))
-                                  .ToList();
+                                             .Any(id => id == feature.Id)));
         }
 
         public static List<Product> FilterByExcludedFeatures(List<Product> products, List<Feature> features)
