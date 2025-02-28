@@ -344,15 +344,14 @@ namespace Extension_methods.ExtensionMethodsFacts
             List<Product> products = new() { jacket, coat, shirt, pants };
             List<Feature> features = new() { new() { Id = 1 }, new() { Id = 5 } };
 
-            List<Product> filteredProducts = Exercises.FilterByAnyFeatures(products, features);
+            var filteredProducts = Exercises.FilterByAnyFeatures(products, features);
 
             var expected = new List<Product> { jacket, coat, pants };
 
             int count = 0;
-            for (var i = 0; i < filteredProducts.Count; i++)
+            foreach (var item in filteredProducts)
             {
-                Assert.Equal(expected[i], filteredProducts[i]);
-                count++;
+                Assert.Equal(expected[count++], item);
             }
 
             Assert.Equal(3, count);

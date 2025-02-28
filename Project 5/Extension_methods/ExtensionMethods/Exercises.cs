@@ -129,15 +129,14 @@ namespace Extension_methods.Extension_methods
                                 == (int)Math.Pow(triplet[2], 2));
         }
 
-        public static List<Product> FilterByAnyFeatures(List<Product> products, List<Feature> features)
+        public static IEnumerable<Product> FilterByAnyFeatures(IEnumerable<Product> products, IEnumerable<Feature> features)
         {
             ArgumentNullException.ThrowIfNull(products);
             ArgumentNullException.ThrowIfNull(features);
 
             return products.Where(product => product.Features
                                 .Any(prodFeature => features.Select(feature => feature.Id)
-                                        .Any(id => prodFeature.Id == id)))
-                           .ToList();
+                                        .Any(id => prodFeature.Id == id)));
         }
 
         public static List<Product> FilterByAllFeatures(List<Product> products, List<Feature> features)
