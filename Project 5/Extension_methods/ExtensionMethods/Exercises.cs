@@ -67,15 +67,14 @@ namespace Extension_methods.Extension_methods
                 .Key;
         }
 
-        public static List<string> GetAllPalindroms(this string source)
+        public static IEnumerable<string> GetAllPalindroms(this string source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
             return Enumerable.Range(0, source.Length)
                 .SelectMany(i => Enumerable.Range(1, source.Length - i)
                      .Select(j => source[i..(i + j)]))
-                .Where(segment => segment.SequenceEqual(segment.Reverse()))
-                .ToList();
+                .Where(segment => segment.SequenceEqual(segment.Reverse()));
         }
 
         public static List<List<int>> GetSubarrays(this List<int> source, int maxSum)
