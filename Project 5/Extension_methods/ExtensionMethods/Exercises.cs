@@ -186,14 +186,12 @@ namespace Extension_methods.Extension_methods
         {
             ArgumentNullException.ThrowIfNull(input);
 
-            string[] words = input.Split([' ', '.', ',', '?', '!', ';'], StringSplitOptions.RemoveEmptyEntries)
-                                      .Select(word => word.ToLower())
-                                      .ToArray();
-
-            return words.OrderByDescending(word => Enumerable.Range(0, words.Length)
-                                                    .Count(i => words[i] == word))
-                        .Distinct()
-                        .Take(5);
+            return input.Split([' ', '.', ',', '?', '!', ';'], StringSplitOptions.RemoveEmptyEntries)
+                        .Select(word => word.ToLower())
+                        .GroupBy(word => word)
+                        .OrderByDescending(group => group.Count())
+                        .Take(5)
+                        .Select(group => group.Key);
         }
 
         public static bool IsValidSudoku(IEnumerable<int> input)
@@ -205,19 +203,21 @@ namespace Extension_methods.Extension_methods
                 throw new ArgumentException("The grid contains invalid numbers.");
             }
 
-            bool areValidRows = input.Select((value, index) => new { value, index })
-                                     .GroupBy(item => item.index / 9)
-                                     .All(group => group.Select(item => item.value).Distinct().Count() == 9);
+            var rows = input.Select((value, index) => new { value, index })
+                            .GroupBy(item => item.index / 9);
 
-            bool areValidColumns = input.Select((value, index) => new { value, index })
-                                        .GroupBy(item => item.index % 9)
-                                        .All(group => group.Select(item => item.value).Distinct().Count() == 9);
+            var columns = input.Select((value, index) => new { value, index })
+                               .GroupBy(item => item.index % 9);
 
-            bool areValidSubgrids = input.Select((value, index) => new { value, index })
-                                         .GroupBy(item => item.index / 9 / 3 * 3 + item.index % 9 / 3)
-                                         .All(group => group.Select(item => item.value).Distinct().Count() == 9);
+            var subgrids = input.Select((value, index) => new { value, index })
+                                .GroupBy(item => (item.index / 9 / 3 * 3) + (item.index % 9 / 3));
 
-            return areValidRows && areValidColumns && areValidSubgrids;
+            return rows.Concat(columns)
+                       .Concat(subgrids)
+                       .All(group => group
+                            .Select(item => item.value)
+                            .Distinct()
+                            .Count() == 9);
         }
 
         public static int CalculateRPN(string input)
