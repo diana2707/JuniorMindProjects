@@ -150,15 +150,14 @@ namespace Extension_methods.Extension_methods
                                              .Any(id => id == feature.Id)));
         }
 
-        public static List<Product> FilterByExcludedFeatures(List<Product> products, List<Feature> features)
+        public static IEnumerable<Product> FilterByExcludedFeatures(IEnumerable<Product> products, IEnumerable<Feature> features)
         {
             ArgumentNullException.ThrowIfNull(products);
             ArgumentNullException.ThrowIfNull(features);
 
             return products.Where(product => product.Features
                                      .All(prodFeature => features
-                                           .All(feature => feature.Id != prodFeature.Id)))
-                           .ToList();
+                                           .All(feature => feature.Id != prodFeature.Id)));
         }
 
         public static List<Product> SumProductQuantity(IEnumerable<Product> first, IEnumerable<Product> second)
