@@ -108,7 +108,7 @@ namespace Extension_methods.Extension_methods
                     .Select(element => element.Item2);
         }
 
-        public static List<List<int>> GetPythagoreanTriplets(List<int> source)
+        public static IEnumerable<IEnumerable<int>> GetPythagoreanTriplets(List<int> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -123,9 +123,7 @@ namespace Extension_methods.Extension_methods
                         .Select(k => new List<int> { source[i], source[j], source[k] }.Order())))
                 .Where(triplet => (int)Math.Pow(triplet.ElementAt(0), 2)
                                 + (int)Math.Pow(triplet.ElementAt(1), 2)
-                                == (int)Math.Pow(triplet.ElementAt(2), 2))
-                .Select(e => e.ToList())
-                .ToList();
+                                == (int)Math.Pow(triplet.ElementAt(2), 2));
         }
 
         public static List<Product> FilterByAnyFeatures(List<Product> products, List<Feature> features)

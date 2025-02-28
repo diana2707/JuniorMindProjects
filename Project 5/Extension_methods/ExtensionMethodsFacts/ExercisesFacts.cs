@@ -283,11 +283,12 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             List<List<int>> expected = [[3, 4, 5], [6, 8, 10], [9, 12, 15], [12, 16, 20], [15, 20, 25]];
 
-            List<List<int>> result = Exercises.GetPythagoreanTriplets(source);
+            var result = Exercises.GetPythagoreanTriplets(source);
 
-            for (int i = 0; i < result.Count; i++)
+            int count = 0;
+            foreach (var item in result)
             {
-                Assert.True(result[i].SequenceEqual(expected[i]));
+                Assert.True(item.SequenceEqual(expected[count++]));
             }
         }
 
@@ -304,7 +305,7 @@ namespace Extension_methods.ExtensionMethodsFacts
         {
             List<int> source = [];
 
-            List<List<int>> result = Exercises.GetPythagoreanTriplets(source);
+            var result = Exercises.GetPythagoreanTriplets(source);
 
             Assert.Empty(result);
         }
