@@ -77,16 +77,15 @@ namespace Extension_methods.Extension_methods
                 .Where(segment => segment.SequenceEqual(segment.Reverse()));
         }
 
-        public static List<List<int>> GetSubarrays(this List<int> source, int maxSum)
+        public static IEnumerable<IEnumerable<int>> GetSubarrays(this List<int> source, int maxSum)
         {
             ArgumentNullException.ThrowIfNull(source);
 
             return Enumerable.Range(0, source.Count)
                 .SelectMany(i => Enumerable.Range(1, source.Count - i)
                      .Select(j => source.Skip(i).Take(j)))
-                .Where(subarray => subarray.Aggregate(0, (sum, number) => sum + number) <= maxSum)
-                .Select(subarray => subarray.ToList())
-                .ToList();
+                .Where(subarray => subarray.Sum() <= maxSum)
+                .Select(subarray => subarray);
         }
 
         public static List<string> GetSignCombinations(int count)

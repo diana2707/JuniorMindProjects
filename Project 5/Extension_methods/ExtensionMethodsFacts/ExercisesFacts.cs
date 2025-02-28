@@ -214,9 +214,10 @@ namespace Extension_methods.ExtensionMethodsFacts
 
             var result = source.GetSubarrays(10);
 
-            for (int i = 0; i < result.Count; i++)
+            int count = 0;
+            foreach (var item in result)
             {
-                Assert.True(result[i].SequenceEqual(expected[i]));
+                Assert.True(item.SequenceEqual(expected[count++]));
             }
         }
 
@@ -243,9 +244,9 @@ namespace Extension_methods.ExtensionMethodsFacts
         {
             List<int> source = [];
 
-            List<List<int>> result = source.GetSubarrays(5);
+            var result = source.GetSubarrays(5);
 
-            Assert.Empty(source);
+            Assert.Empty(result);
         }
 
         [Fact]
