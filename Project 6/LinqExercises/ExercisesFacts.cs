@@ -11,7 +11,7 @@ namespace LinqExercises
 
             var result = Exercises.GeneratePattern(1);
 
-            List<int> expected = [1];
+            List<int> expected = [1, -1];
 
             Assert.Equal(expected, result);
         }
@@ -23,19 +23,19 @@ namespace LinqExercises
 
             var result = Exercises.GeneratePattern(n);
 
-            List<int> expected = [2, 2, 1, 1, 2, 1];
+            List<int> expected = [2, 2, 1, 1, -1, 2, 1, -1];
 
             Assert.Equal(expected, result);
         }
 
         [Fact]
-        public void GeneratePatternReturnDescendingRangesWithNumbersRepeatingAcordingWithRowIndex()
+        public void GeneratePatternReturnDescendingRangesWithNegative1AsRowSeparater()
         {
             int n = 3;
 
             var result = Exercises.GeneratePattern(n);
 
-            List<int> expected = [3, 3, 3, 2, 2, 2, 1, 1, 1, 3, 3, 2, 2, 1, 1, 3, 2, 1];
+            List<int> expected = [3, 3, 3, 2, 2, 2, 1, 1, 1, -1, 3, 3, 2, 2, 1, 1, -1, 3, 2, 1, -1];
 
             Assert.Equal(expected, result);
         }
