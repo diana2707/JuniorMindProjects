@@ -4,7 +4,21 @@ namespace LinqExercises
 {
     public static class Exercises
     {
+
         //  Exercise 1
+        //
+        //  Given a collection return the longest subarray with distinct elements
+
+        public static IEnumerable<int> GetLongestDistinctSubarray(IEnumerable<int> input)
+        {
+            return input;
+        }
+
+
+
+
+
+        //  Exercise 2
         //
         //  You are given a number n. You need to generate and print a pattern based on the given value of n.
         //  For each row, starting from the first, print numbers in descending order from n down to 1.
