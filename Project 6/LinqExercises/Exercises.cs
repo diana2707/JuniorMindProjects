@@ -11,7 +11,7 @@ namespace LinqExercises
 
         public static IEnumerable<int> GetLongestDistinctSubarray(IEnumerable<int> input)
         {
-            return input;
+            return input.Distinct();
         }
 
 

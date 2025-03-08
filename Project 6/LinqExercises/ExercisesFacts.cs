@@ -5,13 +5,25 @@ namespace LinqExercises
     public class ExercisesFacts
     {
         [Fact]
-        public void GetLongestDistinctElemSubarrayReturnSugarrayWith1Element()
+        public void GetLongestDistinctElemSubarrayReturnSubarrayWith1Element()
         {
             List<int> list = [1];
 
             var result = Exercises.GetLongestDistinctSubarray(list);
 
             List<int> expected = [1];
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void GetLongestDistinctElemSubarrayReturnSubarrayWithDistinctElementsWhenElementsRepeat()
+        {
+            List<int> list = [1, 2, 2];
+
+            var result = Exercises.GetLongestDistinctSubarray(list);
+
+            List<int> expected = [1, 2 ];
 
             Assert.Equal(expected, result);
         }
