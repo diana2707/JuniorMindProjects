@@ -16,17 +16,17 @@ namespace LinqExercises
             Assert.Equal(expected, result);
         }
 
-        //[Fact]
-        //public void GeneratePatternReturnDescendingRangesForNNumberOfRows()
-        //{
-        //    int n = 3;
+        [Fact]
+        public void GeneratePatternReturnDescendingRangesForNNumberOfRows()
+        {
+            int n = 3;
 
-        //    var result = Exercises.GeneratePattern(n);
+            var result = Exercises.GeneratePattern(n);
 
-        //    List<int> expected = [3, 2, 1, 3, 2, 1, 3, 2, 1];
+            List<int> expected = [3, 2, 1, 3, 2, 1, 3, 2, 1];
 
-        //    Assert.Equal(expected, result);
-        //}
+            Assert.Equal(expected, result);
+        }
 
         //[Fact]
         //public void GeneratePatternReturnDescendingRangesWithNumbersRepeatingAcordingWithRowIndex()

@@ -16,7 +16,9 @@ namespace LinqExercises
 
         public static IEnumerable<int> GeneratePattern(int n)
         {
-            return Enumerable.Range(1, n).OrderByDescending(e => e);
+            return Enumerable.Range(1, n)
+                .Select((_, index) => Enumerable.Range(1, n).OrderByDescending(e => e))
+                .SelectMany(e => e);
         }
     }
 }
