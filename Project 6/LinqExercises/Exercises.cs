@@ -11,12 +11,10 @@ namespace LinqExercises
 
         public static IEnumerable<int> GetLongestDistinctSubarray(IEnumerable<int> input)
         {
-            return input.Distinct();
+            return input.SelectMany((_, start) => Enumerable.Range(start, input.Count() - start).Select(end => input.Skip(start).Take(end + 1)))
+                .Where(subarray => subarray.Count() == subarray.Distinct().Count())
+                .MaxBy(subarray => subarray.Count());
         }
-
-
-
-
 
         //  Exercise 2
         //
