@@ -43,7 +43,7 @@ namespace LinqExercises
 
         public static IEnumerable<int> GetLongestNoSaleSequence(IEnumerable<int> input)
         {
-            return input;
+            return input.Where(e => e == 0);
         }
     }
 }
