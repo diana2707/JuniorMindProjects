@@ -75,5 +75,15 @@ namespace LinqExercises
 
             Assert.Equal(expected, result);
         }
+
+        [Fact]
+        public void GetLongestNoSaleSequenceReturnsSameSequenceWhenThereAreNoSales()
+        {
+            List<int> sequence = [0];
+
+            var result = Exercises.GetLongestNoSaleSequence(sequence);
+
+            Assert.Equal([0], result);
+        }
     }
 }

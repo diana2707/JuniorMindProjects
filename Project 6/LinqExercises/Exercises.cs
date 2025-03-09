@@ -34,5 +34,16 @@ namespace LinqExercises
                                                 .OrderByDescending(e => e).Concat([-1]))
                 .SelectMany(e => e);
         }
+
+        //Exercise 3
+        //
+        //  The following string contains number of sales made per day in a month:
+        //  "1,2,1,1,0,3,1,0,0,2,4,1,0,0,0,0,2,1,0,3,1,0,0,0,6,1,3,0,0,0"
+        //  How long is the longest sequence of days without a sale? (in this example it's 4)
+
+        public static IEnumerable<int> GetLongestNoSaleSequence(IEnumerable<int> input)
+        {
+            return input;
+        }
     }
 }
