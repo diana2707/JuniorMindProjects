@@ -54,14 +54,18 @@ namespace LinqExercises
 
         //  Exercise 4
         //
-        //  In poker a hand is a "full house" if it contains three cards of one value and two of another value.
+        //  In poker a hand is a "full house" if it contains three cards of one sign and two of another sign.
         //  The following string defines five poker hands, separated by a semicolon:
         //  "4? 5? 6? 7? 10?;10? Q? 10? Q? 10?;6? 6? 6? A? 6?;2? 3? 3? 2? 2?;2? 3? 4? 5? 6?".
         //  Write a LINQ expression that returns a sequence containing only the "full house" hands.
 
         public static string GetFullHouse(string input)
         {
-            return input;
+
+            return input.Split(';')
+                .Where(hand => hand.Where(c => char.IsDigit(c)).Distinct().Count() == 2)
+                .Aggregate("", (acc, fullHand) => acc + (acc.Length > 0 ? ";" : "") + fullHand);
+         
         }
     }
 }
