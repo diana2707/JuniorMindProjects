@@ -89,7 +89,7 @@ namespace LinqExercises
             IEnumerable<char> orderedInput = input.Order();
 
             return dictionary.Split(',').Where(word => word.Trim().Order().SequenceEqual(orderedInput))
-                .Aggregate("", (acc, word) => acc + word);
+                .Aggregate("", (acc, word) => acc + (acc.Length > 0 ? ", " : "") + word);
         }
     }
 }

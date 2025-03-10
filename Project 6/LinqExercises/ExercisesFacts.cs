@@ -180,5 +180,17 @@ namespace LinqExercises
             Assert.Equal("rats", result);
         }
 
+        [Fact]
+        public void SelectAnagramsOfReturnsAnagramWhenMultipleValidAnagramsAndInvalidOnesExist()
+        {
+            string input = "star";
+
+            string dictionary = "parts,traps,arts,rats,starts,tarts,rat,art,tar,tars,stars,stray";
+
+            var result = Exercises.SelectAnagramsOf(input, dictionary);
+
+            Assert.Equal("arts, rats, tars", result);
+        }
+
     }
 }
