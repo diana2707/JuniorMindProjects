@@ -77,5 +77,19 @@ namespace LinqExercises
                 .Select(n => new DateTime(startYear + n, 12, 25).DayOfWeek.ToString())
                 .Aggregate("", (acc, day) => acc + (acc.Length > 0 ? ", " : "") + day);
         }
+
+        //  Exercise 6
+        //
+        //  From the following dictionary of words,
+        //  "parts,traps,arts,rats,starts,tarts,rat,art,tar,tars,stars,stray"
+        //  return all words that are an anagram of star(no leftover letters allowed).
+
+        public static string SelectAnagramsOf(string input, string dictionary)
+        {
+            IEnumerable<char> orderedInput = input.Order();
+
+            return dictionary.Split(',').Where(word => word.Trim().Order().SequenceEqual(orderedInput))
+                .Aggregate("", (acc, word) => acc + word);
+        }
     }
 }

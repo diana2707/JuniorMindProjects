@@ -159,13 +159,25 @@ namespace LinqExercises
         }
 
         [Fact]
-        public void GetChristmasDaysReturnsTheChristmasDayForCurrentYear()
+        public void GetChristmasDaysReturnsTheChristmasDayForCurrentYearz()
         {
-            int years = 2;
+            int years = 10;
             int startYear = DateTime.Now.Year;
             var result = Exercises.GetChristmasDays(years, startYear);
 
-            Assert.Equal("Thursday, Friday", result);
+            Assert.Equal("Thursday, Friday, Saturday, Monday, Tuesday, Wednesday, Thursday, Saturday, Sunday, Monday", result);
+        }
+
+        [Fact]
+        public void SelectAnagramsOfReturnsAnagramWhenASingleOneExists()
+        {
+            string input = "star";
+
+            string dictionary = "rats";
+
+            var result = Exercises.SelectAnagramsOf(input, dictionary);
+
+            Assert.Equal("rats", result);
         }
 
     }
