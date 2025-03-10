@@ -192,5 +192,16 @@ namespace LinqExercises
             Assert.Equal("arts, rats, tars", result);
         }
 
+        [Fact]
+        public void GetAllAnagramsReturnAnagramsFor1Character()
+        {
+            string input = "a";
+
+            var result = Exercises.GetAllAnagrams(input);
+
+            Assert.Equal("a", result);
+        }
+
+
     }
 }

@@ -91,5 +91,23 @@ namespace LinqExercises
             return dictionary.Split(',').Where(word => word.Trim().Order().SequenceEqual(orderedInput))
                 .Aggregate("", (acc, word) => acc + (acc.Length > 0 ? ", " : "") + word);
         }
+
+        //  Exercise 7
+        //
+        //  Generate all anagrams of a string (Ex: star)
+
+        public static string GetAllAnagrams(string input)
+        {
+            return input;
+        }
+
+        // Exercise 7
+        //
+        //  Given an array of words arr[], the task is to groups strings that are anagrams
+        //  Input: arr[] = [“listen”, “silent”, “enlist”, “abc”, “cab”, “bac”, “rat”, “tar”, “art”]
+        //  Output: [[“abc”, “cab”, “bac”], [“listen”, “silent”, “enlist”],[“rat”, “tar”, “art”]]
+
+
+
     }
 }
