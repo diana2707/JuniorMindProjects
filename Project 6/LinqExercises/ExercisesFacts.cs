@@ -127,5 +127,15 @@ namespace LinqExercises
 
             Assert.Equal(4, result);
         }
+
+        [Fact]
+        public void GetFullHouseReturnsTheFullHouseSubstringWhenASingleFullHouseHandExists()
+        {
+            var input = "2♣ 3♣ 4♣ 5♠ 6♠";
+
+            var result = Exercises.GetFullHouse(input);
+
+            Assert.Equal("2♣ 3♣ 4♣ 5♠ 6♠", result);
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Linq;
 
 namespace LinqExercises
@@ -38,7 +39,7 @@ namespace LinqExercises
         //Exercise 3
         //
         //  The following string contains number of sales made per day in a month:
-        //  "1,2,1,1,0,3,1,0,0,2,4,1,0,0,0,0,2,1,0,3,1,0,0,0,6,1,3,0,0,0"
+        //  1,2,1,1,0,3,1,0,0,2,4,1,0,0,0,0,2,1,0,3,1,0,0,0,6,1,3,0,0,0
         //  How long is the longest sequence of days without a sale? (in this example it's 4)
 
         public static int GetLongestNoSaleStreak(IEnumerable<int> input)
@@ -49,6 +50,18 @@ namespace LinqExercises
                 .Where(subarray => subarray.Distinct().Count() == 1 && subarray.First() == 0)
                 .MaxBy(subarray => subarray.Count())
                 .Count();
+        }
+
+        //  Exercise 4
+        //
+        //  In poker a hand is a "full house" if it contains three cards of one value and two of another value.
+        //  The following string defines five poker hands, separated by a semicolon:
+        //  "4? 5? 6? 7? 10?;10? Q? 10? Q? 10?;6? 6? 6? A? 6?;2? 3? 3? 2? 2?;2? 3? 4? 5? 6?".
+        //  Write a LINQ expression that returns a sequence containing only the "full house" hands.
+
+        public static string GetFullHouse(string input)
+        {
+            return input;
         }
     }
 }
