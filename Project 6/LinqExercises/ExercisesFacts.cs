@@ -161,11 +161,11 @@ namespace LinqExercises
         [Fact]
         public void GetChristmasDaysReturnsTheChristmasDayForCurrentYear()
         {
-            int years = 1;
+            int years = 2;
             int startYear = DateTime.Now.Year;
             var result = Exercises.GetChristmasDays(years, startYear);
 
-            Assert.Equal("Thursday", result);
+            Assert.Equal("Thursday, Friday", result);
         }
 
     }

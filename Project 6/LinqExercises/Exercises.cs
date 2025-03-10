@@ -73,7 +73,9 @@ namespace LinqExercises
 
         public static string GetChristmasDays(int years, int startYear)
         {
-            return new DateTime(startYear, 12, 25).DayOfWeek.ToString();
+            return Enumerable.Range(0, years)
+                .Select(n => new DateTime(startYear + n, 12, 25).DayOfWeek.ToString())
+                .Aggregate("", (acc, day) => acc + (acc.Length > 0 ? ", " : "") + day);
         }
     }
 }
