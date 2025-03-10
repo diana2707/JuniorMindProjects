@@ -61,11 +61,19 @@ namespace LinqExercises
 
         public static string GetFullHouse(string input)
         {
-
             return input.Split(';')
                 .Where(hand => hand.Where(c => char.IsDigit(c)).Distinct().Count() == 2)
                 .Aggregate("", (acc, fullHand) => acc + (acc.Length > 0 ? ";" : "") + fullHand);
-         
+        }
+
+        //  Exercise 5
+        //
+        //What day of the week is Christmas day (25th December) on for the next 10 years (starting with 2025)?
+        //The answer should be a string (or sequence of strings)
+
+        public static string GetChristmasDays(int years, int startYear)
+        {
+            return new DateTime(startYear, 12, 25).DayOfWeek.ToString();
         }
     }
 }

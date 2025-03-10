@@ -148,5 +148,25 @@ namespace LinqExercises
             Assert.Equal("10♣ Q♥ 10♠ Q♠ 10♦", result);
         }
 
+        [Fact]
+        public void GetFullHouseReturnsTheFullHouseSubstringWhenMoreFullHouseAndADifferentHandsExists()
+        {
+            var input = "4♣ 5♦ 6♦ 7♠ 10♥;10♣ Q♥ 10♠ Q♠ 10♦;6♣ 6♥ 6♠ A♠ 6♦;2♣ 3♥ 3♠ 2♠ 2♦;2♣ 3♣ 4♣ 5♠ 6♠";
+
+            var result = Exercises.GetFullHouse(input);
+
+            Assert.Equal("10♣ Q♥ 10♠ Q♠ 10♦;2♣ 3♥ 3♠ 2♠ 2♦", result);
+        }
+
+        [Fact]
+        public void GetChristmasDaysReturnsTheChristmasDayForCurrentYear()
+        {
+            int years = 1;
+            int startYear = DateTime.Now.Year;
+            var result = Exercises.GetChristmasDays(years, startYear);
+
+            Assert.Equal("Thursday", result);
+        }
+
     }
 }
