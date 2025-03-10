@@ -11,7 +11,7 @@ namespace LinqExercises
 
         public static IEnumerable<int> GetLongestDistinctSubarray(IEnumerable<int> input)
         {
-            return input.SelectMany((_, start) => Enumerable.Range(start, input.Count() - start).Select(end => input.Skip(start).Take(end + 1)))
+            return input.SelectMany((_, start) => Enumerable.Range(start, input.Count() - start).Select(end => input.Skip(start).Take(end - start + 1)))
                 .Where(subarray => subarray.Count() == subarray.Distinct().Count())
                 .MaxBy(subarray => subarray.Count());
         }
@@ -41,9 +41,14 @@ namespace LinqExercises
         //  "1,2,1,1,0,3,1,0,0,2,4,1,0,0,0,0,2,1,0,3,1,0,0,0,6,1,3,0,0,0"
         //  How long is the longest sequence of days without a sale? (in this example it's 4)
 
-        public static IEnumerable<int> GetLongestNoSaleSequence(IEnumerable<int> input)
+        public static int GetLongestNoSaleStreak(IEnumerable<int> input)
         {
-            return input.Where(e => e == 0);
+            return Enumerable.Range(0, input.Count())
+                        .SelectMany(start => Enumerable.Range(start, input.Count() - start)
+                            .Select(end => input.Skip(start).Take(end - start + 1)))
+                .Where(subarray => subarray.Distinct().Count() == 1 && subarray.First() == 0)
+                .MaxBy(subarray => subarray.Count())
+                .Count();
         }
     }
 }

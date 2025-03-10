@@ -41,6 +41,18 @@ namespace LinqExercises
         }
 
         [Fact]
+        public void GetLongestDistinctSubarrayReturnLongestDistinctSubarrayWhenTheSubarrayIsNotAtEnd()
+        {
+            List<int> list = [1, 2, 2, 3, 4, 5, 4];
+
+            var result = Exercises.GetLongestDistinctSubarray(list);
+
+            List<int> expected = [2, 3, 4, 5];
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
         public void GeneratePatternReturnDescendingRangeFromNTo1()
         {
             int n = 1;
@@ -77,25 +89,43 @@ namespace LinqExercises
         }
 
         [Fact]
-        public void GetLongestNoSaleSequenceReturnsSameSequenceWhenThereAreNoSales()
+        public void GetLongestNoSaleStreakReturnsSameSequenceWhenThereAreNoSales()
         {
             List<int> sequence = [0];
 
-            var result = Exercises.GetLongestNoSaleSequence(sequence);
+            var result = Exercises.GetLongestNoSaleStreak(sequence);
 
-            Assert.Equal([0], result);
+            Assert.Equal(1, result);
         }
 
         [Fact]
-        public void GetLongestNoSaleSequenceReturnsSequenceWhenThereIsASingleNoSaleDay()
+        public void GetLongestNoSaleStreakReturnsSequenceWhenThereIsASingleNoSaleDay()
         {
             List<int> sequence = [0, 1];
 
-            var result = Exercises.GetLongestNoSaleSequence(sequence);
+            var result = Exercises.GetLongestNoSaleStreak(sequence);
 
-            List<int> expected = [0];
+            Assert.Equal(1, result);
+        }
 
-            Assert.Equal(expected, result);
+        [Fact]
+        public void GetLongestNoSaleStreakReturnsLongestSequenceWhenThereAreMoreThanOne()
+        {
+            List<int> sequence = [0, 1, 0, 0];
+
+            var result = Exercises.GetLongestNoSaleStreak(sequence);
+
+            Assert.Equal(2, result);
+        }
+
+        [Fact]
+        public void GetLongestNoSaleStreakReturnsLongestSequenceWhenMultimpleSequencesExist()
+        {
+            List<int> sequence = [1, 2, 1, 1, 0, 3, 1, 0, 0, 2, 4, 1, 0, 0, 0, 0, 2, 1, 0, 3, 1, 0, 0, 0, 6, 1, 3, 0, 0, 0];
+
+            var result = Exercises.GetLongestNoSaleStreak(sequence);
+
+            Assert.Equal(4, result);
         }
     }
 }
