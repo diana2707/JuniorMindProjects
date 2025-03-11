@@ -110,12 +110,28 @@ namespace LinqExercises
                 return [input, input.Substring(1, 1) + input.Substring(0, 1)];
             }
 
-            return ["a" + GetAllAnagrams(input.Substring(1, 2))[0],
-                    "a" + GetAllAnagrams(input.Substring(1, 2))[1],
-                    "b" + GetAllAnagrams(input.Substring(0, 1) + input.Substring(2, 1))[0],
-                    "b" + GetAllAnagrams(input.Substring(0, 1) + input.Substring(2, 1))[1],
-                    "c" + GetAllAnagrams(input.Substring(0, 2))[0],
-                    "c" + GetAllAnagrams(input.Substring(0, 2))[1]];
+            return [input.Substring(0, 1) + GetAllAnagrams(ConstructAnagram(input, 0))[0],
+                    input.Substring(0, 1) + GetAllAnagrams(ConstructAnagram(input, 0))[1],
+                    input.Substring(1, 1) + GetAllAnagrams(ConstructAnagram(input, 1))[0],
+                    input.Substring(1, 1) + GetAllAnagrams(ConstructAnagram(input, 1))[1],
+                    input.Substring(2, 1) + GetAllAnagrams(ConstructAnagram(input, 2))[0],
+                    input.Substring(2, 1) + GetAllAnagrams(ConstructAnagram(input, 2))[1]];
+        }
+
+        private static string ConstructAnagram(string input, int index)
+        {
+            if(index == 0)
+            {
+                return input.Substring(1, 2);
+            }
+
+            if(index == 1)
+            {
+                return input.Substring(0, 1) + input.Substring(2, 1);
+            }
+
+            return input.Substring(0, 2);
+
         }
 
         // Exercise 7
