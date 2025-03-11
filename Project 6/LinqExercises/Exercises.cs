@@ -1,5 +1,7 @@
+using Microsoft.VisualStudio.TestPlatform.CoreUtilities.Extensions;
 using System.ComponentModel;
 using System.Linq;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace LinqExercises
 {
@@ -86,6 +88,7 @@ namespace LinqExercises
 
         public static string SelectAnagramsOf(string input, string dictionary)
         {
+
             IEnumerable<char> orderedInput = input.Order();
 
             return dictionary.Split(',').Where(word => word.Trim().Order().SequenceEqual(orderedInput))
@@ -96,9 +99,9 @@ namespace LinqExercises
         //
         //  Generate all anagrams of a string (Ex: star)
 
-        public static string GetAllAnagrams(string input)
+        public static List<string> GetAllAnagrams(string input)
         {
-            return input;
+            return [];
         }
 
         // Exercise 7
