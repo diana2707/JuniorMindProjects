@@ -121,15 +121,16 @@ namespace LinqExercises
         private static string ConstructSubstring(string input, int index)
         {
             string before = input.Substring(0, index);
+            string after = input.Substring(index + 1, input.Length - (index + 1));
 
             if (index == 0)
             {
-                return input.Substring(1, 2);
+                return after;
             }
 
             if (index == 1)
             {
-                return before + input.Substring(2, 1);
+                return before + after;
             }
 
             return before;
