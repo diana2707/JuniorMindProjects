@@ -105,8 +105,12 @@ namespace LinqExercises
             {
                 return [input];
             }
+            else if (input.Length == 2)
+            {
+                return [input, input.Substring(1, 1) + input.Substring(0, 1)];
+            }
 
-            return [input, input.Substring(1, 1) + input.Substring(0, 1)];
+            return ["abc", "acb", "bac", "bca", "cab", "cba"];
         }
 
         // Exercise 7

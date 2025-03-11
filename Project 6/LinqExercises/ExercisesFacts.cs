@@ -216,5 +216,13 @@ namespace LinqExercises
             Assert.Equal(["ab", "ba"], result);
         }
 
+        [Fact]
+        public void GetAllAnagramsReturnCorrectStringsFor3CharactersInput()
+        {
+            var result = Exercises.GetAllAnagrams("abc");
+
+            Assert.Equal(["abc", "acb", "bac", "bca", "cab", "cba"], result);
+        }
+
     }
 }
