@@ -110,7 +110,12 @@ namespace LinqExercises
                 return [input, input.Substring(1, 1) + input.Substring(0, 1)];
             }
 
-            return ["abc", "acb", "bac", "bca", "cab", "cba"];
+            return ["a" + GetAllAnagrams(input.Substring(1, 2))[0],
+                    "a" + GetAllAnagrams(input.Substring(1, 2))[1],
+                    "b" + GetAllAnagrams(input.Substring(0, 1) + input.Substring(2, 1))[0],
+                    "b" + GetAllAnagrams(input.Substring(0, 1) + input.Substring(2, 1))[1],
+                    "c" + GetAllAnagrams(input.Substring(0, 2))[0],
+                    "c" + GetAllAnagrams(input.Substring(0, 2))[1]];
         }
 
         // Exercise 7
