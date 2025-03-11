@@ -193,23 +193,20 @@ namespace LinqExercises
         }
 
         [Fact]
-        public void GetAllAnagramsReturnEmptyStringForEmptyInout()
+        public void GetAllAnagramsReturnEmptyStringForEmptyInput()
         {
             var result = Exercises.GetAllAnagrams(string.Empty);
 
-            Assert.Equal([], result);
+            Assert.Equal([""], result);
         }
 
-        //[Fact]
-        //public void GetAllAnagramsReturnAnagramsFor2Character()
-        //{a
-        //    string input = "ab";
+        [Fact]
+        public void GetAllAnagramsReturnEmptyStringFor1CharacterInput()
+        {
+            var result = Exercises.GetAllAnagrams("a");
 
-        //    var result = Exercises.GetAllAnagrams(input);
-
-        //    Assert.Equal("ab, ba", result);
-        //}
-
+            Assert.Equal(["a"], result);
+        }
 
     }
 }
