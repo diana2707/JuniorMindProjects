@@ -101,13 +101,9 @@ namespace LinqExercises
 
         public static List<string> GetAllAnagrams(string input)
         {
-            if (input == "")
+            if (input.Length <= 1)
             {
-                return [""];
-            }
-            else if (input.Length == 1)
-            {
-                return ["a"];
+                return [input];
             }
 
             return ["ab", "ba"];
