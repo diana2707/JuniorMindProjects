@@ -201,11 +201,19 @@ namespace LinqExercises
         }
 
         [Fact]
-        public void GetAllAnagramsReturnEmptyStringFor1CharacterInput()
+        public void GetAllAnagramsReturnSameStringFor1CharacterInput()
         {
             var result = Exercises.GetAllAnagrams("a");
 
             Assert.Equal(["a"], result);
+        }
+
+        [Fact]
+        public void GetAllAnagramsReturnCorrectStringsFor2CharactersInput()
+        {
+            var result = Exercises.GetAllAnagrams("ab");
+
+            Assert.Equal(["ab", "ba"], result);
         }
 
     }

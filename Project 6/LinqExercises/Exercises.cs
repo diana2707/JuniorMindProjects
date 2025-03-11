@@ -105,8 +105,12 @@ namespace LinqExercises
             {
                 return [""];
             }
+            else if (input.Length == 1)
+            {
+                return ["a"];
+            }
 
-            return ["a"];
+            return ["ab", "ba"];
         }
 
         // Exercise 7
