@@ -106,7 +106,7 @@ namespace LinqExercises
                 return [input];
             }
 
-            return ["ab", "ba"];
+            return [input, input.Substring(1, 1) + input.Substring(0, 1)];
         }
 
         // Exercise 7
