@@ -229,7 +229,7 @@ namespace LinqExercises
         {
             var result = Exercises.GetAllAnagrams("abcd");
 
-            Assert.Equal(24, result.Count);
+            Assert.Equal(24, result.Count());
         }
 
     }

@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestPlatform.CoreUtilities.Extensions;
+using System;
 using System.ComponentModel;
 using System.Linq;
 using static System.Net.Mime.MediaTypeNames;
@@ -99,37 +100,15 @@ namespace LinqExercises
         //
         //  Generate all anagrams of a string
 
-        public static List<string> GetAllAnagrams(string input)
+        public static IEnumerable<string> GetAllAnagrams(string input)
         {
             if (input.Length <= 1)
             {
                 return [input];
             }
-            else if (input.Length == 2)
-            {
-                return [input, input.Substring(1, 1) + input.Substring(0, 1)];
-            }
 
-            List<string> anagrams = [];
-
-            for (int i = 0; i < input.Length; i++)
-            {
-                var anagramsofRest = GetAllAnagrams(ConstructSubstring(input, i));
-                for (int j = 0; j < anagramsofRest.Count; j++)
-                {
-                    anagrams.Add(input.Substring(i, 1) + anagramsofRest[j]);
-                }
-            }
-
-            return anagrams;
-        }
-
-        private static string ConstructSubstring(string input, int index)
-        {
-            string before = input.Substring(0, index);
-            string after = input.Substring(index + 1, input.Length - (index + 1));
-
-            return before + after;
+            return input.SelectMany((_, index) => GetAllAnagrams(input.Substring(0, index) + input.Substring(index + 1, input.Length - index - 1))
+                                                    .Select(anagram => input.Substring(index, 1) + anagram));
         }
 
         // Exercise 7
