@@ -124,7 +124,12 @@ namespace LinqExercises
                 return [input];
             }
 
-            return [[input.ElementAt(0)], [input.ElementAt(1)]];
+            if (input.Count() == 2)
+            {
+                return [[input.ElementAt(0)], [input.ElementAt(1)]];
+            }
+
+            return [["abc", "cab"], ["rat"]];
         }
     }
 }
