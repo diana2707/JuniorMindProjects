@@ -233,6 +233,7 @@ namespace LinqExercises
             Assert.Equal(24, result.Count());
         }
 
+        [Fact]
         public void GroupAnagramsReturnEmptyCollectionWhenInputIsEmpty()
         {
             var result = Exercises.GroupAnagrams([]);
@@ -240,11 +241,12 @@ namespace LinqExercises
             Assert.Equal([[""]], result);
         }
 
+        [Fact]
         public void GroupAnagramsReturnEmptyCollectionWhenInputIsOneWord()
         {
-            var result = Exercises.GroupAnagrams(["listen"]);
+            var result = Exercises.GroupAnagrams(["abc"]);
 
-            Assert.Equal([["listen"]], result);
+            Assert.Equal([["abc"]], result);
         }
 
     }

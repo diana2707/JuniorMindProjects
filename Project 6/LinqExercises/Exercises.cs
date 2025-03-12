@@ -119,13 +119,7 @@ namespace LinqExercises
 
         public static IEnumerable<IEnumerable<string>> GroupAnagrams(IEnumerable<string> input)
         {
-            if (input.Count() == 0)
-            {
-                return [[""]];
-            }
-
-            return [["listen"]];
+            return [input];
         }
-
     }
 }
