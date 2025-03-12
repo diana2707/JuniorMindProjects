@@ -1,8 +1,4 @@
-using Microsoft.VisualStudio.TestPlatform.CoreUtilities.Extensions;
 using System;
-using System.ComponentModel;
-using System.Linq;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace LinqExercises
 {
@@ -120,6 +116,15 @@ namespace LinqExercises
         public static IEnumerable<IEnumerable<string>> GroupAnagrams(IEnumerable<string> input)
         {
             return input.GroupBy(word => new string(word.Order().ToArray()));
+        }
+
+        //  Exercise 8
+        //
+        //Find substrings of a string that are anagram of each other
+
+        public static IEnumerable<IEnumerable<string>> GetSubstringAnagrams(string input)
+        {
+            return [];
         }
     }
 }

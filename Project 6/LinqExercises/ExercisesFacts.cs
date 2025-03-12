@@ -267,11 +267,19 @@ namespace LinqExercises
         }
 
         [Fact]
-        public void GroupAnagramsReturnCoorectGroupsWhenInputHasMultipleAnagrams()
+        public void GroupAnagramsReturnCorrectGroupsWhenInputHasMultipleAnagrams()
         {
             var result = Exercises.GroupAnagrams(["listen", "silent", "enlist", "abc", "cab", "bac", "rat", "tar", "art"]);
 
             Assert.Equal([["listen", "silent", "enlist"], ["abc", "cab", "bac"], ["rat", "tar", "art"]], result);
+        }
+
+        [Fact]
+        public void GetSubstringAnagramsReturnEmptyCollectionWhenInputIsEmpty()
+        {
+            var result = Exercises.GetSubstringAnagrams("");
+
+            Assert.Equal([], result);
         }
 
     }
