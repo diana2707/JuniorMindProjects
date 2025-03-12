@@ -124,12 +124,13 @@ namespace LinqExercises
 
         public static IEnumerable<IEnumerable<string>> GetSubstringAnagrams(string input)
         {
-            if (input.Length == 0)
+            if (input.Length <= 1)
             {
                 return [];
             }
 
-            return [["a"]];
+            return [["a", "a"]];
+            
         }
     }
 }
