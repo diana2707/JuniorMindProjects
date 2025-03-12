@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace LinqExercises
 {
@@ -237,6 +238,13 @@ namespace LinqExercises
             var result = Exercises.GroupAnagrams([]);
 
             Assert.Equal([[""]], result);
+        }
+
+        public void GroupAnagramsReturnEmptyCollectionWhenInputIsOneWord()
+        {
+            var result = Exercises.GroupAnagrams(["listen"]);
+
+            Assert.Equal([["listen"]], result);
         }
 
     }
