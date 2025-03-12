@@ -238,7 +238,7 @@ namespace LinqExercises
         {
             var result = Exercises.GroupAnagrams([]);
 
-            Assert.Equal([[]], result);
+            Assert.Equal([], result);
         }
 
         [Fact]
