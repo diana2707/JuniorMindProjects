@@ -124,7 +124,7 @@ namespace LinqExercises
                 return [input];
             }
 
-            return [["abc"], ["rat"]];
+            return [[input.ElementAt(0)], [input.ElementAt(1)]];
         }
     }
 }
