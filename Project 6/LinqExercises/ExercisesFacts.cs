@@ -238,15 +238,23 @@ namespace LinqExercises
         {
             var result = Exercises.GroupAnagrams([]);
 
-            Assert.Equal([[""]], result);
+            Assert.Equal([[]], result);
         }
 
         [Fact]
-        public void GroupAnagramsReturnEmptyCollectionWhenInputIsOneWord()
+        public void GroupAnagramsReturnSameWordWhenInputIsOneWord()
         {
             var result = Exercises.GroupAnagrams(["abc"]);
 
             Assert.Equal([["abc"]], result);
+        }
+
+        [Fact]
+        public void GroupAnagramsReturn2GroupsWhenInputAre2WordsNonAnagrams()
+        {
+            var result = Exercises.GroupAnagrams(["abc", "rat"]);
+
+            Assert.Equal([["abc"], ["rat"]], result);
         }
 
     }
