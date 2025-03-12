@@ -232,5 +232,12 @@ namespace LinqExercises
             Assert.Equal(24, result.Count());
         }
 
+        public void GroupAnagramsReturnEmptyCollectionWhenInputIsEmpty()
+        {
+            var result = Exercises.GroupAnagrams([]);
+
+            Assert.Equal([[""]], result);
+        }
+
     }
 }

@@ -117,7 +117,10 @@ namespace LinqExercises
         //  Input: arr[] = [“listen”, “silent”, “enlist”, “abc”, “cab”, “bac”, “rat”, “tar”, “art”]
         //  Output: [[“abc”, “cab”, “bac”], [“listen”, “silent”, “enlist”],[“rat”, “tar”, “art”]]
 
-
+        public static IEnumerable<IEnumerable<string>> GroupAnagrams(IEnumerable<string> input)
+        {
+            return [[""]];
+        }
 
     }
 }
