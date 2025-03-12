@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace LinqExercises
@@ -263,6 +264,14 @@ namespace LinqExercises
             var result = Exercises.GroupAnagrams(["abc", "rat", "cab"]);
 
             Assert.Equal([["abc", "cab"], ["rat"]], result);
+        }
+
+        [Fact]
+        public void GroupAnagramsReturnCoorectGroupsWhenInputHasMultipleAnagrams()
+        {
+            var result = Exercises.GroupAnagrams(["listen", "silent", "enlist", "abc", "cab", "bac", "rat", "tar", "art"]);
+
+            Assert.Equal([["listen", "silent", "enlist"], ["abc", "cab", "bac"], ["rat", "tar", "art"]], result);
         }
 
     }

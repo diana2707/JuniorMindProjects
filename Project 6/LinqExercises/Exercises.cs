@@ -119,33 +119,7 @@ namespace LinqExercises
 
         public static IEnumerable<IEnumerable<string>> GroupAnagrams(IEnumerable<string> input)
         {
-            //return input.GroupBy(word => new string(word.Order().ToArray()));
-
-
-            Dictionary<string, List<string>> anagramGroups = new();
-
-            foreach (var word in input)
-            {
-                var orderedWord = new string(word.Order().ToArray());
-
-                if (anagramGroups.ContainsKey(orderedWord))
-                {
-                    anagramGroups[orderedWord].Add(word);
-                }
-                else
-                {
-                    anagramGroups.Add(orderedWord, [word]);
-                }
-            }
-
-            List<List<string>> result = [];
-
-            foreach (var group in anagramGroups)
-            {
-                result.Add(group.Value);
-            }
-
-            return result;
+            return input.GroupBy(word => new string(word.Order().ToArray()));
         }
     }
 }
