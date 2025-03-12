@@ -282,5 +282,13 @@ namespace LinqExercises
             Assert.Equal([], result);
         }
 
+        [Fact]
+        public void GetSubstringAnagramsReturnSameCharacterWhenStringContains1Character()
+        {
+            var result = Exercises.GetSubstringAnagrams("a");
+
+            Assert.Equal([["a"]], result);
+        }
+
     }
 }
