@@ -129,8 +129,10 @@ namespace LinqExercises
                 return [];
             }
 
-            return [["a", "a"]];
-            
+            return input.SelectMany((e, start) => Enumerable.Range(start, input.Length - start)
+                                                        .Select(end => input[start..(end + 1)]))
+                        .GroupBy(substring => new string(substring.Order().ToArray()))
+                        .Where(group => group.Count() > 1);
         }
     }
 }
