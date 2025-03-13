@@ -379,16 +379,16 @@ namespace LinqExercises
             Assert.Equal("0:00:00-2:00:00", result);
         }
 
-        //[Fact]
-        //public void GetTimeIntervalsReturnsRemainingIntervalsWhenIntervalToRemoveIsProvided()
-        //{
-        //    string intervals = "0:00:00-0:00:05";
-        //    string end = "2:00:00";
+        [Fact]
+        public void GetTimeIntervalsReturnsRemainingIntervalsWhenIntervalToRemoveIsProvided()
+        {
+            string intervals = "0:00:00-0:00:05";
+            string end = "2:00:00";
 
-        //    var result = Exercises.GetRemainingTimeIntervals(intervals, end);
+            var result = Exercises.GetRemainingTimeIntervals(intervals, end);
 
-        //    Assert.Equal([(new TimeOnly(0, 0, 0), new TimeOnly(2, 0, 0))], result);
-        //}
+            Assert.Equal("0:00:05-2:00:00", result);
+        }
 
     }
 }

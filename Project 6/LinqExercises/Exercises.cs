@@ -169,7 +169,11 @@ namespace LinqExercises
                 return "";
             }
 
-            return $"{start}-{end}";
+            string[] intervalToRemove = intervalsToRemove.Split("-");
+
+            string newStart = intervalToRemove[0].Length != 0 && start == intervalToRemove[0] ? intervalToRemove[1] : start;
+
+            return $"{newStart}-{end}";
         }
     }
 }
