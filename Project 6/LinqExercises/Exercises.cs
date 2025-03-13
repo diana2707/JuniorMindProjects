@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Text.RegularExpressions;
 
 namespace LinqExercises
@@ -121,7 +122,7 @@ namespace LinqExercises
 
         //  Exercise 8
         //
-        //Find substrings of a string that are anagram of each other
+        //  Find substrings of a string that are anagram of each other
 
         public static IEnumerable<IEnumerable<string>> GetSubstringAnagrams(string input)
         {
@@ -136,12 +137,12 @@ namespace LinqExercises
                         .Where(group => group.Count() > 1);
         }
 
-        //Exercise 9
+        //  Exercise 9
         //
-        //From the following list of names
-        //"Santi Cazorla, Per Mertesacker, Alan Smith, Thierry Henry, Alex Song, Paul Merson,
-        //Alexis Sánchez, Robert Pires, Dennis Bergkamp, Sol Campbell"
-        //find any groups of people who share the same initials as each other.
+        //  From the following list of names
+        //  "Santi Cazorla, Per Mertesacker, Alan Smith, Thierry Henry, Alex Song, Paul Merson,
+        //  Alexis Sánchez, Robert Pires, Dennis Bergkamp, Sol Campbell"
+        //  find any groups of people who share the same initials as each other.
 
         public static IEnumerable<IEnumerable<string>> GroupInitials(string input)
         {
@@ -150,5 +151,18 @@ namespace LinqExercises
                         .Where(group => group.Count() > 1);
         }
 
+        //  Problem 10
+        //
+        //  A video is two hours long exactly, and we want to make some edits,
+        //  cutting out the following time ranges (expressed in H:MM:SS):
+        //  "0:00:00-0:00:05;0:55:12-1:05:02;1:37:47-1:37:51".
+        //  (You can assume that the input ranges are in order and contain no overlapping portions)
+        //  We would like to turn this into a sequence of time-ranges to keep.
+        //  So in this example, the output should be: "0:00:05-0:55:12;1:05:02-1:37:47;1:37:51-2:00:00"
+
+        public static IEnumerable<(TimeOnly, TimeOnly)> GetTimeIntervals(string input)
+        {
+            return [];
+        }
     }
 }

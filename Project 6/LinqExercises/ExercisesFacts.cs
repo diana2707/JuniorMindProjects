@@ -357,5 +357,15 @@ namespace LinqExercises
                         ["Alan Smith", "Alex Song", "Alexis Sánchez"]], result);
         }
 
+        [Fact]
+        public void GetTimeIntervalsReturnsEmptyCollectionWhenInputIsEmpty()
+        {
+            string input = "";
+
+            var result = Exercises.GetTimeIntervals(input);
+
+            Assert.Equal([], result);
+        }
+
     }
 }
