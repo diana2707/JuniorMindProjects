@@ -162,59 +162,36 @@ namespace LinqExercises
 
         public static string GetRemainingTimeIntervals(string toRemove)
         {
+            string result = "";
+
             TimeOnly start = new TimeOnly(0, 0, 0);
             TimeOnly end = new TimeOnly(2, 0, 0);
 
-            return $"{start:H:mm:ss}-{end:H:mm:ss}";
+            if (toRemove.Length == 0)
+            {
+                return $"{start:H:mm:ss}-{end:H:mm:ss}";
+            }
+
+            TimeOnly[][] intervalsToRemove = toRemove.Split(";").Select(interval => interval.Split("-").Select(TimeOnly.Parse).ToArray()).ToArray();
+
+            TimeOnly currentStart = start;
+
+            foreach (var intervalToRemove in intervalsToRemove)
+            {
+                if (intervalToRemove[0] > currentStart)
+                {
+                    result += $"{currentStart:H:mm:ss}-{intervalToRemove[0]:H:mm:s}" + (intervalToRemove[1].Equals(end) ? "" : ";");
+                }
+
+                currentStart = intervalToRemove[1];
+            }
+
+            if (currentStart < end)
+            {
+                result += $"{currentStart:H:mm:ss}-{end:H:mm:ss}";
+            }
+
+            return result;
         }
-
-
-
-
-            //string start = "0:00:00";
-            //string end = "2:00:00";
-
-            //string result = "";
-
-            //string newStart = "";
-            //string newEnd = "";
-
-            //if (toRemove.Length == 0)
-            //{
-            //    return $"{start}-{end}";
-            //}
-
-            //List<List<string>> intervalsToRemove = toRemove.Split(";").Select(interval => interval.Split("-").ToList()).ToList();
-
-            //if (intervalsToRemove.Count == 1)
-            //{
-            //    var intervalToRemove = intervalsToRemove[0];
-            //    newStart = intervalToRemove.Count != 0 && start == intervalToRemove[0] ? intervalToRemove[1] : start;
-            //    newEnd = intervalToRemove.Count != 0 && end == intervalToRemove[1] ? intervalToRemove[0] : end;
-
-            //    if (intervalToRemove[0] == start)
-            //    {
-            //        return $"{newStart}-{end}";
-            //    }
-
-            //    if (intervalToRemove[1] == end)
-            //    {
-            //        return $"{start}-{newEnd}";
-            //    }
-
-            //    return $"{start}-{intervalToRemove.ElementAt(0)};{intervalToRemove.ElementAt(1)}-{end}";
-            //}
-
-            //if (intervalsToRemove[0][0] != start)
-            //{
-            //    result += $"{start}-{intervalsToRemove[0][0]}";
-            //}
-            //else
-            //{
-            //    result += $"{intervalsToRemove[0][1]}-";
-            //}
-
-            
-        
     }
 }
