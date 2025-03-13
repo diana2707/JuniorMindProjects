@@ -358,36 +358,33 @@ namespace LinqExercises
         }
 
         [Fact]
-        public void GetTimeIntervalsReturnsEmptyCollectionWhenInputIsEmpty()
-        {
-            string intervals = "";
-            string end = "";
-
-            var result = Exercises.GetRemainingTimeIntervals(intervals, end);
-
-            Assert.Equal("", result);
-        }
-
-        [Fact]
         public void GetTimeIntervalsReturnsWholeIntervalWhenNoIntervalsToRemoveAreProvided()
         {
             string intervals = "";
-            string end = "2:00:00";
 
-            var result = Exercises.GetRemainingTimeIntervals(intervals, end);
+            var result = Exercises.GetRemainingTimeIntervals(intervals);
 
             Assert.Equal("0:00:00-2:00:00", result);
         }
 
         [Fact]
-        public void GetTimeIntervalsReturnsRemainingIntervalsWhenIntervalToRemoveIsProvided()
+        public void GetTimeIntervalsReturnsRemainingIntervalsWhenIntervalToRemoveIsProvidedAtStart()
         {
             string intervals = "0:00:00-0:00:05";
-            string end = "2:00:00";
 
-            var result = Exercises.GetRemainingTimeIntervals(intervals, end);
+            var result = Exercises.GetRemainingTimeIntervals(intervals);
 
             Assert.Equal("0:00:05-2:00:00", result);
+        }
+
+        [Fact]
+        public void GetTimeIntervalsReturnsRemainingIntervalsWhenIntervalToRemoveIsProvidedAtEnd()
+        {
+            string intervals = "1:59:55-2:00:00";
+
+            var result = Exercises.GetRemainingTimeIntervals(intervals);
+
+            Assert.Equal("0:00:00-1:59:55", result);
         }
 
     }
