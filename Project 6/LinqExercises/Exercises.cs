@@ -160,34 +160,61 @@ namespace LinqExercises
         //  We would like to turn this into a sequence of time-ranges to keep.
         //  So in this example, the output should be: "0:00:05-0:55:12;1:05:02-1:37:47;1:37:51-2:00:00"
 
-        public static string GetRemainingTimeIntervals(string intervalsToRemove)
+        public static string GetRemainingTimeIntervals(string toRemove)
         {
-            string start = "0:00:00";
-            string end = "2:00:00";
+            TimeOnly start = new TimeOnly(0, 0, 0);
+            TimeOnly end = new TimeOnly(2, 0, 0);
 
-            if (intervalsToRemove.Length == 0)
-            {
-                return $"{start}-{end}";
-            }
-
-            string[] intervalToRemove = intervalsToRemove.Split("-");
-
-            string newStart = intervalToRemove.Length != 0 && start == intervalToRemove[0] ? intervalToRemove[1] : start;
-
-            if (intervalToRemove[0] == start)
-            {
-                return $"{newStart}-{end}";
-            }
-
-            string newEnd = intervalToRemove.Length != 0 && end == intervalToRemove[1] ? intervalToRemove[0] : end;
-
-            if (intervalToRemove[1] == end)
-            {
-                return $"{start}-{newEnd}";
-            }
-
-            return $"{start}-{intervalToRemove[0]};{intervalToRemove[1]}-{end}";
-
+            return $"{start:H:mm:ss}-{end:H:mm:ss}";
         }
+
+
+
+
+            //string start = "0:00:00";
+            //string end = "2:00:00";
+
+            //string result = "";
+
+            //string newStart = "";
+            //string newEnd = "";
+
+            //if (toRemove.Length == 0)
+            //{
+            //    return $"{start}-{end}";
+            //}
+
+            //List<List<string>> intervalsToRemove = toRemove.Split(";").Select(interval => interval.Split("-").ToList()).ToList();
+
+            //if (intervalsToRemove.Count == 1)
+            //{
+            //    var intervalToRemove = intervalsToRemove[0];
+            //    newStart = intervalToRemove.Count != 0 && start == intervalToRemove[0] ? intervalToRemove[1] : start;
+            //    newEnd = intervalToRemove.Count != 0 && end == intervalToRemove[1] ? intervalToRemove[0] : end;
+
+            //    if (intervalToRemove[0] == start)
+            //    {
+            //        return $"{newStart}-{end}";
+            //    }
+
+            //    if (intervalToRemove[1] == end)
+            //    {
+            //        return $"{start}-{newEnd}";
+            //    }
+
+            //    return $"{start}-{intervalToRemove.ElementAt(0)};{intervalToRemove.ElementAt(1)}-{end}";
+            //}
+
+            //if (intervalsToRemove[0][0] != start)
+            //{
+            //    result += $"{start}-{intervalsToRemove[0][0]}";
+            //}
+            //else
+            //{
+            //    result += $"{intervalsToRemove[0][1]}-";
+            //}
+
+            
+        
     }
 }

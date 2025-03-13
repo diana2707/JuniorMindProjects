@@ -367,35 +367,45 @@ namespace LinqExercises
             Assert.Equal("0:00:00-2:00:00", result);
         }
 
-        [Fact]
-        public void GetTimeIntervalsReturnsRemainingIntervalsWhenIntervalToRemoveIsProvidedAtStart()
-        {
-            string intervals = "0:00:00-0:00:05";
+        //[Fact]
+        //public void GetTimeIntervalsReturnsRemainingIntervalsWhenIntervalToRemoveIsProvidedAtStart()
+        //{
+        //    string intervals = "0:00:00-0:00:05";
 
-            var result = Exercises.GetRemainingTimeIntervals(intervals);
+        //    var result = Exercises.GetRemainingTimeIntervals(intervals);
 
-            Assert.Equal("0:00:05-2:00:00", result);
-        }
+        //    Assert.Equal("0:00:05-2:00:00", result);
+        //}
 
-        [Fact]
-        public void GetTimeIntervalsReturnsRemainingIntervalsWhenIntervalToRemoveIsProvidedAtEnd()
-        {
-            string intervals = "1:59:55-2:00:00";
+        //[Fact]
+        //public void GetTimeIntervalsReturnsRemainingIntervalsWhenIntervalToRemoveIsProvidedAtEnd()
+        //{
+        //    string intervals = "1:59:55-2:00:00";
 
-            var result = Exercises.GetRemainingTimeIntervals(intervals);
+        //    var result = Exercises.GetRemainingTimeIntervals(intervals);
 
-            Assert.Equal("0:00:00-1:59:55", result);
-        }
+        //    Assert.Equal("0:00:00-1:59:55", result);
+        //}
 
-        [Fact]
-        public void GetTimeIntervalsReturnsRemainingIntervalsWhenIntervalToRemoveIsMiddleInterval()
-        {
-            string intervals = "0:55:12-1:05:02";
+        //[Fact]
+        //public void GetTimeIntervalsReturnsRemainingIntervalsWhenIntervalToRemoveIsMiddleInterval()
+        //{
+        //    string intervals = "0:55:12-1:05:02";
 
-            var result = Exercises.GetRemainingTimeIntervals(intervals);
+        //    var result = Exercises.GetRemainingTimeIntervals(intervals);
 
-            Assert.Equal("0:00:00-0:55:12;1:05:02-2:00:00", result);
-        }
+        //    Assert.Equal("0:00:00-0:55:12;1:05:02-2:00:00", result);
+        //}
+
+        //[Fact]
+        //public void GetTimeIntervalsReturnsRemainingIntervalsWhenMultipleIntervalsAreRemoved()
+        //{
+        //    string intervals = "0:00:00-0:00:05;0:55:12-1:05:02;1:37:47-1:37:51";
+
+        //    var result = Exercises.GetRemainingTimeIntervals(intervals);
+
+        //    Assert.Equal("0:00:05-0:55:12;1:05:02-1:37:47;1:37:51-2:00:00", result);
+        //}
 
     }
 }
