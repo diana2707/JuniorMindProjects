@@ -150,7 +150,9 @@ namespace LinqExercises
                 return [];
             }
 
-            return [["Santi Cazorla", "Sol Campbell"]];
+            var names = input.Split(", ");
+
+            return [[names[0], names[1]]];
 
         }
 
