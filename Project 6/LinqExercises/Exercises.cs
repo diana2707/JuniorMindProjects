@@ -160,14 +160,16 @@ namespace LinqExercises
         //  We would like to turn this into a sequence of time-ranges to keep.
         //  So in this example, the output should be: "0:00:05-0:55:12;1:05:02-1:37:47;1:37:51-2:00:00"
 
-        public static IEnumerable<(TimeOnly, TimeOnly)> GetRemainingTimeIntervals(string intervalsToRemove, string end)
+        public static string GetRemainingTimeIntervals(string intervalsToRemove, string end)
         {
+            string start = "0:00:00";
+
             if (intervalsToRemove.Length == 0 && end.Length == 0)
             {
-                return [];
+                return "";
             }
 
-            return [(new TimeOnly(0, 0, 0), new TimeOnly(2, 0, 0))];
+            return "0:00:00-2:00:00";
         }
     }
 }
