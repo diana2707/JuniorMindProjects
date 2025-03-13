@@ -152,7 +152,8 @@ namespace LinqExercises
 
             var names = input.Split(", ");
 
-            return [[names[0], names[1]]];
+            return names.GroupBy(name => name.Split(' ').Aggregate("", (acc, name) => acc + name[0]))
+                        .Where(group => group.Count() > 1);
 
         }
 
