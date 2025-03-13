@@ -169,7 +169,7 @@ namespace LinqExercises
                 return "";
             }
 
-            return "0:00:00-2:00:00";
+            return $"{start}-{end}";
         }
     }
 }
