@@ -181,7 +181,12 @@ namespace LinqExercises
 
             string newEnd = intervalToRemove.Length != 0 && end == intervalToRemove[1] ? intervalToRemove[0] : end;
 
-            return $"{start}-{newEnd}";
+            if (intervalToRemove[1] == end)
+            {
+                return $"{start}-{newEnd}";
+            }
+
+            return $"{start}-{intervalToRemove[0]};{intervalToRemove[1]}-{end}";
 
         }
     }

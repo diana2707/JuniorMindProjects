@@ -387,5 +387,15 @@ namespace LinqExercises
             Assert.Equal("0:00:00-1:59:55", result);
         }
 
+        [Fact]
+        public void GetTimeIntervalsReturnsRemainingIntervalsWhenIntervalToRemoveIsMiddleInterval()
+        {
+            string intervals = "0:55:12-1:05:02";
+
+            var result = Exercises.GetRemainingTimeIntervals(intervals);
+
+            Assert.Equal("0:00:00-0:55:12;1:05:02-2:00:00", result);
+        }
+
     }
 }
