@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 
 namespace LinqExercises
 {
@@ -134,5 +135,18 @@ namespace LinqExercises
                         .GroupBy(substring => new string(substring.Order().ToArray()))
                         .Where(group => group.Count() > 1);
         }
+
+        //Exercise 9
+        //
+        //From the following list of names
+        //"Santi Cazorla, Per Mertesacker, Alan Smith, Thierry Henry, Alex Song, Paul Merson,
+        //Alexis Sánchez, Robert Pires, Dennis Bergkamp, Sol Campbell"
+        //find any groups of people who share the same initials as each other.
+
+        public static IEnumerable<IEnumerable<string>> GroupInitials(string input)
+        {
+            return [];
+        }
+
     }
 }

@@ -314,5 +314,15 @@ namespace LinqExercises
             Assert.Equal([["a", "a"], ["ab", "ba"], ["abb", "bba"], ["b", "b"]], result);
         }
 
+        [Fact]
+        public void GroupInitialsReturnEmptyCollectionWhenInputIsEmpty()
+        {
+            string input = "";
+
+            var result = Exercises.GroupInitials(input);
+
+            Assert.Equal([], result);
+        }
+
     }
 }
