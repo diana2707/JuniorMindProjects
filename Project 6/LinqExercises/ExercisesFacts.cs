@@ -360,11 +360,23 @@ namespace LinqExercises
         [Fact]
         public void GetTimeIntervalsReturnsEmptyCollectionWhenInputIsEmpty()
         {
-            string input = "";
+            string intervals = "";
+            string end = "";
 
-            var result = Exercises.GetTimeIntervals(input);
+            var result = Exercises.GetRemainingTimeIntervals(intervals, end);
 
             Assert.Equal([], result);
+        }
+
+        [Fact]
+        public void GetTimeIntervalsReturnsEmptyCollectionWhenInputIsEmptyx()
+        {
+            string intervals = "";
+            string end = "2:00:00";
+
+            var result = Exercises.GetRemainingTimeIntervals(intervals, end);
+
+            Assert.Equal([(new TimeOnly(0, 0, 0), new TimeOnly(2, 0, 0))], result);
         }
 
     }
