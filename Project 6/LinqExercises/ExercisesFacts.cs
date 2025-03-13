@@ -344,5 +344,18 @@ namespace LinqExercises
             Assert.Equal([["Santi Cazorla", "Sol Campbell"]], result);
         }
 
+        [Fact]
+        public void GroupInitialsReturnSameInitialNamesGroupWhenMultipleGroupsExist()
+        {
+            string input = "Santi Cazorla, Per Mertesacker, Alan Smith, Thierry Henry, Alex Song," +
+                " Paul Merson, Alexis Sánchez, Robert Pires, Dennis Bergkamp, Sol Campbell";
+
+            var result = Exercises.GroupInitials(input);
+
+            Assert.Equal(
+                [["Santi Cazorla", "Sol Campbell"], ["Per Mertesacker", "Paul Merson"],
+                        ["Alan Smith", "Alex Song", "Alexis Sánchez"]], result);
+        }
+
     }
 }

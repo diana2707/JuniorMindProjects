@@ -145,16 +145,9 @@ namespace LinqExercises
 
         public static IEnumerable<IEnumerable<string>> GroupInitials(string input)
         {
-            if (input.Length == 0)
-            {
-                return [];
-            }
-
-            var names = input.Split(", ");
-
-            return names.GroupBy(name => name.Split(' ').Aggregate("", (acc, name) => acc + name[0]))
+            return input.Split(", ")
+                        .GroupBy(name => name.Split(' ').Aggregate("", (acc, name) => acc + name.FirstOrDefault()))
                         .Where(group => group.Count() > 1);
-
         }
 
     }
