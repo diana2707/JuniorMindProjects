@@ -222,7 +222,7 @@ namespace LinqExercises
 
         public static IEnumerable<IEnumerable<int>> GetQuadruplets(IEnumerable<int> input, int sum)
         {
-            return [];
+            return [input.Where(e => e == sum)];
         }
     }
 }
