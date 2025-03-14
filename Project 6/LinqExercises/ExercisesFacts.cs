@@ -454,18 +454,30 @@ namespace LinqExercises
 
             var result = Exercises.GetQuadruplets(input, 0);
 
-            Assert.Equal([[]], Exercises.GetQuadruplets(input, 0));
+            Assert.Equal([[]], result);
         }
 
         [Fact]
-        public void GetQuadrupletsReturnEmptyCollectionWhenInputContains1IntegerAndDoasNotEqualTheSum()
+        public void GetQuadrupletsReturnEmptyCollectionWhenInputContains1IntegerAndDoesNotEqualTheSum()
         {
             int[] input = [1];
 
             var result = Exercises.GetQuadruplets(input, 0);
 
-            Assert.Equal([[]], Exercises.GetQuadruplets(input, 0));
+            Assert.Equal([[]], result);
         }
+
+        [Fact]
+        public void GetQuadrupletsReturnQuadrupletWhenInputHasSingleQuadrupletThatSumsToGivenValue()
+        {
+            int[] input = [1, 2, 3, 4];
+
+            var result = Exercises.GetQuadruplets(input, 10);
+
+            Assert.Equal([[1, 2, 3, 4]], result);
+        }
+        
+
 
     }
 }
