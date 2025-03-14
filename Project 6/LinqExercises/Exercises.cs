@@ -202,7 +202,7 @@ namespace LinqExercises
 
         public static IEnumerable<int> GetMaxSumSubarray(IEnumerable<int> input)
         {
-            return input;
+            return input.Where(e => e > 0);
         }
     }
 }
