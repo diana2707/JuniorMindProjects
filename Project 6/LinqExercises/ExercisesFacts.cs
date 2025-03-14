@@ -407,5 +407,13 @@ namespace LinqExercises
             Assert.Equal("0:00:05-0:55:12;1:05:02-1:37:47;1:37:51-2:00:00", result);
         }
 
+        [Fact]
+        public void GetMaxSumSubarrayReturnEmptyCollectionWheninputIsEmpty()
+        {
+            int[] input = [];
+
+            Assert.Equal([], Exercises.GetMaxSumSubarray(input));
+        }
+
     }
 }

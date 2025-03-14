@@ -193,5 +193,16 @@ namespace LinqExercises
 
             return result;
         }
+
+        // Problem 11
+        //
+        //  Find the maximum sum subarray
+        //  Input: [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+        //  Output: [4, -1, 2, 1] with sum = 6
+
+        public static IEnumerable<int> GetMaxSumSubarray(IEnumerable<int> input)
+        {
+            return [];
+        }
     }
 }
