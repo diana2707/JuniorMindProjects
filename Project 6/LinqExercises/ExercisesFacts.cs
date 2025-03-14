@@ -447,5 +447,15 @@ namespace LinqExercises
             Assert.Equal([4, -1, 2, 1], Exercises.GetMaxSumSubarray(input));
         }
 
+        [Fact]
+        public void GetQuadrupletsReturnEmptyCollectionWhenInputIsEmpty()
+        {
+            int[] input = [];
+
+            var result = Exercises.GetQuadruplets(input, 0);
+
+            Assert.Equal([], Exercises.GetQuadruplets(input, 0));
+        }
+
     }
 }

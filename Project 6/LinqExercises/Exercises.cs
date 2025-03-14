@@ -212,5 +212,17 @@ namespace LinqExercises
                 .MaxBy(group => group?.Key) 
                 .MinBy(subarray => subarray.Count());
         }
+
+        //  Problem 12
+        //
+        //  Given a list of integers and a terget sum, find all unique quadruplets (a, b, c, d)
+        //  such that a + b + c + d = targetValue
+        //  Each number in the list can be used only once per quadruplet
+        //  The quadruplets should be unique (different order of same numbers are not counted as unique)
+
+        public static IEnumerable<IEnumerable<int>> GetQuadruplets(IEnumerable<int> input, int sum)
+        {
+            return [];
+        }
     }
 }
