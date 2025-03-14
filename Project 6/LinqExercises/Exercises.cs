@@ -220,9 +220,18 @@ namespace LinqExercises
         //  Each number in the list can be used only once per quadruplet
         //  The quadruplets should be unique (different order of same numbers are not counted as unique)
 
-        public static IEnumerable<IEnumerable<int>> GetQuadruplets(IEnumerable<int> input, int sum)
+        public static IEnumerable<IEnumerable<int>> GetQuadruplets(int[] input, int sum)
         {
-            return [input.Where( _ => input.Sum(e => e) == sum)];
+            if (input.Count() < 4)
+            {
+                return [];
+            }
+
+            return input.SelectMany( (_, i) => Enumerable.Range(i + 1, input.Count() - i - 1)
+                            .SelectMany(j => Enumerable.Range(j + 1, input.Count() - j - 1)
+                                    .SelectMany(k => Enumerable.Range(k + 1, input.Count() - k - 1)
+                                            .Select(l => new List<int> { input[i], input[j], input[k], input[l] }))))
+                        .Where(list => list.Distinct().Count() == 4 && list.Sum(e => e) == sum);
         }
     }
 }
