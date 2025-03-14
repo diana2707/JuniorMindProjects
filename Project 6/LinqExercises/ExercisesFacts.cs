@@ -415,5 +415,13 @@ namespace LinqExercises
             Assert.Equal([], Exercises.GetMaxSumSubarray(input));
         }
 
+        [Fact]
+        public void GetMaxSumSubarrayReturnEmptyCollectionWheninputIs1Integer()
+        {
+            int[] input = [1];
+
+            Assert.Equal([1], Exercises.GetMaxSumSubarray(input));
+        }
+
     }
 }
