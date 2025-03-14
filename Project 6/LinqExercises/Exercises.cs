@@ -202,7 +202,15 @@ namespace LinqExercises
 
         public static IEnumerable<int> GetMaxSumSubarray(IEnumerable<int> input)
         {
-            return input.Where(e => e > 0);
+            if (!input.Any())
+            {
+                return [];
+            }
+
+            return input.SelectMany((_, start) => Enumerable.Range(start, input.Count() - start).Select(end => input.Skip(start).Take(end - start + 1)))
+                .GroupBy(subarray => subarray.Sum(e => e))
+                .MaxBy(group => group?.Key) 
+                .MinBy(subarray => subarray.Count());
         }
     }
 }

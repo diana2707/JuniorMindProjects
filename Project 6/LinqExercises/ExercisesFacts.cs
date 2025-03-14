@@ -431,5 +431,21 @@ namespace LinqExercises
             Assert.Equal([1], Exercises.GetMaxSumSubarray(input));
         }
 
+        [Fact]
+        public void GetMaxSumSubarrayReturnCorrectCollectionWhenInputHasInterleavedPositiveAnNegstiveIntegers()
+        {
+            int[] input = [-1, 2, -1, 2];
+
+            Assert.Equal([2, -1, 2], Exercises.GetMaxSumSubarray(input));
+        }
+
+        [Fact]
+        public void GetMaxSumSubarrayReturnCorrectCollectionWhenInputHasInterleavedPositiveAnNegstiveIntegersx()
+        {
+            int[] input = [-2, 1, -3, 4, -1, 2, 1, -5, 4];
+
+            Assert.Equal([4, -1, 2, 1], Exercises.GetMaxSumSubarray(input));
+        }
+
     }
 }
