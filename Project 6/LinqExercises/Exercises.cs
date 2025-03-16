@@ -1,5 +1,3 @@
-using System;
-
 namespace LinqExercises
 {
     public static class Exercises
@@ -12,7 +10,7 @@ namespace LinqExercises
         public static IEnumerable<int> GetLongestDistinctSubarray(IEnumerable<int> input)
         {
             return input.SelectMany((_, start) => Enumerable.Range(start, input.Count() - start)
-                                                    .Select(end => input.Skip(start).Take(end - start + 1)))
+                               .Select(end => input.Skip(start).Take(end - start + 1)))
                         .Where(subarray => subarray.Count() == subarray.Distinct().Count())
                         .MaxBy(subarray => subarray.Count());
         }
@@ -30,9 +28,9 @@ namespace LinqExercises
         {
             return Enumerable.Range(1, n)
                 .Select((_, index) => Enumerable.Range(1, n)
-                                        .Select(e => Enumerable.Repeat(e, n - index))
-                                                .SelectMany(e => e)
-                                                .OrderByDescending(e => e).Concat([-1]))
+                    .Select(e => Enumerable.Repeat(e, n - index))
+                            .SelectMany(e => e)
+                            .OrderByDescending(e => e).Concat([-1]))
                 .SelectMany(e => e);
         }
 
@@ -63,7 +61,7 @@ namespace LinqExercises
         {
             return input.Split(';')
                 .Where(hand => hand.Where(c => char.IsDigit(c)).Distinct().Count() == 2)
-                .Aggregate("", (acc, fullHand) => acc + (acc.Length > 0 ? ";" : "") + fullHand);
+                .Aggregate(string.Empty, (acc, fullHand) => acc + (acc.Length > 0 ? ";" : string.Empty) + fullHand);
         }
 
         //  Exercise 5
@@ -75,7 +73,7 @@ namespace LinqExercises
         {
             return Enumerable.Range(0, years)
                 .Select(n => new DateTime(startYear + n, 12, 25).DayOfWeek.ToString())
-                .Aggregate("", (acc, day) => acc + (acc.Length > 0 ? ", " : "") + day);
+                .Aggregate("", (acc, day) => acc + (acc.Length > 0 ? ", " : string.Empty) + day);
         }
 
         //  Exercise 6
@@ -89,8 +87,11 @@ namespace LinqExercises
 
             IEnumerable<char> orderedInput = input.Order();
 
-            return dictionary.Split(',').Where(word => word.Trim().Order().SequenceEqual(orderedInput))
-                .Aggregate("", (acc, word) => acc + (acc.Length > 0 ? ", " : "") + word);
+            return dictionary.Split(',')
+                             .Where(word => word.Trim()
+                                                .Order()
+                                                .SequenceEqual(orderedInput))
+                             .Aggregate(string.Empty, (acc, word) => acc + (acc.Length > 0 ? ", " : string.Empty) + word);
         }
 
         //  Exercise 7
@@ -104,8 +105,9 @@ namespace LinqExercises
                 return [input];
             }
 
-            return input.SelectMany((_, index) => GetAllAnagrams(input.Substring(0, index) + input.Substring(index + 1, input.Length - index - 1))
-                                                    .Select(anagram => input.Substring(index, 1) + anagram));
+            return input.SelectMany((_, index) =>
+                             GetAllAnagrams(input.Substring(0, index) + input.Substring(index + 1, input.Length - index - 1))
+                                   .Select(anagram => input.Substring(index, 1) + anagram));
         }
 
         // Exercise 7
@@ -131,7 +133,7 @@ namespace LinqExercises
             }
 
             return input.SelectMany((e, start) => Enumerable.Range(start, input.Length - start)
-                                                        .Select(end => input[start..(end + 1)]))
+                                .Select(end => input[start.. (end + 1)]))
                         .GroupBy(substring => new string(substring.Order().ToArray()))
                         .Where(group => group.Count() > 1);
         }
@@ -146,7 +148,8 @@ namespace LinqExercises
         public static IEnumerable<IEnumerable<string>> GroupInitials(string input)
         {
             return input.Split(", ")
-                        .GroupBy(name => name.Split(' ').Aggregate("", (acc, name) => acc + name.FirstOrDefault()))
+                        .GroupBy(name => name.Split(' ')
+                              .Aggregate(string.Empty, (acc, name) => acc + name.FirstOrDefault()))
                         .Where(group => group.Count() > 1);
         }
 
@@ -161,10 +164,10 @@ namespace LinqExercises
 
         public static string GetRemainingTimeIntervals(string toRemove)
         {
-            string result = "";
+            string result = string.Empty;
 
-            TimeOnly start = new TimeOnly(0, 0, 0);
-            TimeOnly end = new TimeOnly(2, 0, 0);
+            TimeOnly start = new (0, 0, 0);
+            TimeOnly end = new (2, 0, 0);
 
             if (toRemove.Length == 0)
             {
@@ -172,10 +175,10 @@ namespace LinqExercises
             }
 
             (TimeOnly start, TimeOnly end)[] intervalsToRemove = toRemove.Split(";")
-                                            .Select(interval => interval.Split("-"))
-                                            .Select(intervalArray => (TimeOnly.Parse(intervalArray[0]),
-                                                                      TimeOnly.Parse(intervalArray[1])))
-                                            .ToArray();
+                                                .Select(interval => interval.Split("-"))
+                                                .Select(intervalArray => (TimeOnly.Parse(intervalArray[0]),
+                                                                          TimeOnly.Parse(intervalArray[1])))
+                                                .ToArray();
 
             TimeOnly currentStart = start;
 
@@ -184,7 +187,7 @@ namespace LinqExercises
                 if (intervalToRemove.start > currentStart)
                 {
                     result += $"{currentStart:H:mm:ss}-{intervalToRemove.start:H:mm:s}"
-                                + (intervalToRemove.end.Equals(end) ? "" : ";");
+                                + (intervalToRemove.end.Equals(end) ? string.Empty : ";");
                 }
 
                 currentStart = intervalToRemove.end;
@@ -211,10 +214,11 @@ namespace LinqExercises
                 return [];
             }
 
-            return input.SelectMany((_, start) => Enumerable.Range(start, input.Count() - start).Select(end => input.Skip(start).Take(end - start + 1)))
-                .GroupBy(subarray => subarray.Sum(e => e))
-                .MaxBy(group => group?.Key) 
-                .MinBy(subarray => subarray.Count());
+            return input.SelectMany((_, start) => Enumerable.Range(start, input.Count() - start)
+                                .Select(end => input.Skip(start).Take(end - start + 1)))
+                        .GroupBy(subarray => subarray.Sum(e => e))
+                        .MaxBy(group => group?.Key) 
+                        .MinBy(subarray => subarray.Count());
         }
 
         //  Problem 12
@@ -226,16 +230,17 @@ namespace LinqExercises
 
         public static IEnumerable<IEnumerable<int>> GetQuadruplets(int[] input, int sum)
         {
-            if (input.Count() < 4)
+            if (input.Length < 4)
             {
                 return [];
             }
 
-            return input.SelectMany( (_, i) => Enumerable.Range(i + 1, input.Count() - i - 1)
-                            .SelectMany(j => Enumerable.Range(j + 1, input.Count() - j - 1)
-                                    .SelectMany(k => Enumerable.Range(k + 1, input.Count() - k - 1)
+            return input.SelectMany( (_, i) => Enumerable.Range(i + 1, input.Length - i - 1)
+                            .SelectMany(j => Enumerable.Range(j + 1, input.Length - j - 1)
+                                    .SelectMany(k => Enumerable.Range(k + 1, input.Length - k - 1)
                                             .Select(l => new List<int> { input[i], input[j], input[k], input[l] }))))
-                        .Where(list => list.Distinct().Count() == 4 && list.Sum(e => e) == sum);
+                        .Where(list => list.Distinct()
+                                           .Count() == 4 && list.Sum(e => e) == sum);
         }
     }
 }
