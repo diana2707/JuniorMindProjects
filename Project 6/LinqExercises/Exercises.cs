@@ -1,6 +1,4 @@
 using System;
-using System.ComponentModel;
-using System.Text.RegularExpressions;
 
 namespace LinqExercises
 {
@@ -13,9 +11,10 @@ namespace LinqExercises
 
         public static IEnumerable<int> GetLongestDistinctSubarray(IEnumerable<int> input)
         {
-            return input.SelectMany((_, start) => Enumerable.Range(start, input.Count() - start).Select(end => input.Skip(start).Take(end - start + 1)))
-                .Where(subarray => subarray.Count() == subarray.Distinct().Count())
-                .MaxBy(subarray => subarray.Count());
+            return input.SelectMany((_, start) => Enumerable.Range(start, input.Count() - start)
+                                                    .Select(end => input.Skip(start).Take(end - start + 1)))
+                        .Where(subarray => subarray.Count() == subarray.Distinct().Count())
+                        .MaxBy(subarray => subarray.Count());
         }
 
         //  Exercise 2
@@ -172,18 +171,23 @@ namespace LinqExercises
                 return $"{start:H:mm:ss}-{end:H:mm:ss}";
             }
 
-            TimeOnly[][] intervalsToRemove = toRemove.Split(";").Select(interval => interval.Split("-").Select(TimeOnly.Parse).ToArray()).ToArray();
+            (TimeOnly start, TimeOnly end)[] intervalsToRemove = toRemove.Split(";")
+                                            .Select(interval => interval.Split("-"))
+                                            .Select(intervalArray => (TimeOnly.Parse(intervalArray[0]),
+                                                                      TimeOnly.Parse(intervalArray[1])))
+                                            .ToArray();
 
             TimeOnly currentStart = start;
 
             foreach (var intervalToRemove in intervalsToRemove)
             {
-                if (intervalToRemove[0] > currentStart)
+                if (intervalToRemove.start > currentStart)
                 {
-                    result += $"{currentStart:H:mm:ss}-{intervalToRemove[0]:H:mm:s}" + (intervalToRemove[1].Equals(end) ? "" : ";");
+                    result += $"{currentStart:H:mm:ss}-{intervalToRemove.start:H:mm:s}"
+                                + (intervalToRemove.end.Equals(end) ? "" : ";");
                 }
 
-                currentStart = intervalToRemove[1];
+                currentStart = intervalToRemove.end;
             }
 
             if (currentStart < end)
