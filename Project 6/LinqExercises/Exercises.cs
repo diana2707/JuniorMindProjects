@@ -1,3 +1,5 @@
+using Xunit.Sdk;
+
 namespace LinqExercises
 {
     public static class Exercises
@@ -60,12 +62,35 @@ namespace LinqExercises
 
         public static int GetLongestNoSaleStreak(IEnumerable<int> input)
         {
-            return Enumerable.Range(0, input.Count())
-                        .SelectMany(start => Enumerable.Range(start, input.Count() - start)
-                            .Select(end => input.Skip(start).Take(end - start + 1)))
-                .Where(subarray => subarray.Distinct().Count() == 1 && subarray.First() == 0)
-                .MaxBy(subarray => subarray.Count())
+            var inputArray = input.ToArray();
+            int maxLength = 0;
+
+            return inputArray.SelectMany((_, start) => Enumerable.Range(start, input.Count() - start)
+                            .Select(end => inputArray[start..(end + 1)]))
+                .Last(subarray =>
+                {
+                    if (!subarray.All(e => e == 0))
+                    {
+                        return false;
+                    }
+
+                    if (maxLength >= subarray.Length)
+                    {
+                        return false;
+                    }
+
+                    maxLength = subarray.Length;
+                    return true;
+                })
                 .Count();
+
+
+            //return Enumerable.Range(0, input.Count())
+            //            .SelectMany(start => Enumerable.Range(start, input.Count() - start)
+            //                .Select(end => input.Skip(start).Take(end - start + 1)))
+            //    .Where(subarray => subarray.Distinct().Count() == 1 && subarray.First() == 0)
+            //    .MaxBy(subarray => subarray.Count())
+            //    .Count();
         }
 
         //  Exercise 4
