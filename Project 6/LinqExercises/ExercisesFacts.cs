@@ -162,6 +162,22 @@ namespace LinqExercises
         }
 
         [Fact]
+        public void GetFullHouseThrowsArgumentNullExceptionWhenInputIsENull()
+        {
+            Assert.Throws<ArgumentNullException>(() => Exercises.GetFullHouse(null));
+        }
+
+        [Fact]
+        public void GetFullHouseReturnsEmptyStringWhenInputIsEmpty()
+        {
+            var input = string.Empty;
+
+            var result = Exercises.GetFullHouse(input);
+
+            Assert.Equal(string.Empty, result);
+        }
+
+        [Fact]
         public void GetFullHouseReturnsTheFullHouseSubstringWhenASingleFullHouseHandExists()
         {
             var input = "10♣ Q♥ 10♠ Q♠ 10♦";

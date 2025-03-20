@@ -103,6 +103,8 @@ namespace LinqExercises
 
         public static string GetFullHouse(string input)
         {
+            ArgumentNullException.ThrowIfNull(input);
+
             return input.Split(';')
                         .Where(hand =>
                         {
