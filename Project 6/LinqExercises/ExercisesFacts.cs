@@ -374,6 +374,12 @@ namespace LinqExercises
         }
 
         [Fact]
+        public void GetSubstringAnagramsThrowsArgumentNullExceptionWhenInputIsNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => Exercises.GetSubstringAnagrams(null));
+        }
+
+        [Fact]
         public void GetSubstringAnagramsReturnEmptyCollectionWhenInputIsEmpty()
         {
             var result = Exercises.GetSubstringAnagrams("");

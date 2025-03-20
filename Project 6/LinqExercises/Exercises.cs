@@ -130,7 +130,7 @@ namespace LinqExercises
                 .Aggregate("", (acc, day) => acc + (acc.Length > 0 ? ", " : string.Empty) + day);
         }
 
-        //  Exercise 6 **
+        //  Exercise 6
         //
         //  From the following dictionary of words,
         //  "parts,traps,arts,rats,starts,tarts,rat,art,tar,tars,stars,stray"
@@ -187,6 +187,8 @@ namespace LinqExercises
 
         public static IEnumerable<IEnumerable<string>> GetSubstringAnagrams(string input)
         {
+            ArgumentNullException.ThrowIfNull(input);
+
             if (input.Length <= 1)
             {
                 return [];
