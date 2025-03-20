@@ -11,6 +11,8 @@ namespace LinqExercises
 
         public static IEnumerable<int> GetLongestDistinctSubarray(IEnumerable<int> input)
         {
+            ArgumentNullException.ThrowIfNull(input);
+
             var inputArray = input.ToArray();
             int maxLength = 0;
 

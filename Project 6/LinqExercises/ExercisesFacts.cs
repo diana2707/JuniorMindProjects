@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace LinqExercises
 {
@@ -50,6 +51,12 @@ namespace LinqExercises
             List<int> expected = [2, 3, 4, 5];
 
             Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void GetLongestDistinctSubarrayThrowsArgumentNullExceptionWhenArgumentIsNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => Exercises.GetLongestDistinctSubarray(null));
         }
 
         [Fact]
