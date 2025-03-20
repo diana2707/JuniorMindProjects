@@ -328,6 +328,12 @@ namespace LinqExercises
         }
 
         [Fact]
+        public void GroupAnagramsThrowsArgumentNullExceptionWhenArgumentIsNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => Exercises.GroupAnagrams(null));
+        }
+
+        [Fact]
         public void GroupAnagramsReturnEmptyCollectionWhenInputIsEmpty()
         {
             var result = Exercises.GroupAnagrams([]);

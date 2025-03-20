@@ -176,6 +176,8 @@ namespace LinqExercises
 
         public static IEnumerable<IEnumerable<string>> GroupAnagrams(IEnumerable<string> input)
         {
+            ArgumentNullException.ThrowIfNull(input);
+
             return input.GroupBy(word => new string(word.Order().ToArray()));
         }
 
