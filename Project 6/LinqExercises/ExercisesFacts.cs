@@ -420,9 +420,15 @@ namespace LinqExercises
         }
 
         [Fact]
+        public void GroupInitialsThrowsArgumentNullExceptionWhenArgumentIsNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => Exercises.GroupInitials(null));
+        }
+
+        [Fact]
         public void GroupInitialsReturnEmptyCollectionWhenInputIsEmpty()
         {
-            string input = "";
+            string input = string.Empty;
 
             var result = Exercises.GroupInitials(input);
 

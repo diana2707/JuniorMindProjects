@@ -22,7 +22,7 @@ namespace LinqExercises
                              {
                                  int subarrayLength = subarray.Length;
 
-                                 if (subarrayLength != subarray.Distinct().Count()) //can use order or any?
+                                 if (subarrayLength != subarray.Distinct().Count())
                                  {
                                      return false;
                                  }
@@ -209,6 +209,8 @@ namespace LinqExercises
 
         public static IEnumerable<IEnumerable<string>> GroupInitials(string input)
         {
+            ArgumentNullException.ThrowIfNull(input);
+
             return input.Split(", ")
                         .GroupBy(name => name.Split(' ')
                               .Aggregate(string.Empty, (acc, name) => acc + name.FirstOrDefault()))
