@@ -228,6 +228,8 @@ namespace LinqExercises
 
         public static string GetRemainingTimeIntervals(string toRemove)
         {
+            ArgumentNullException.ThrowIfNull(toRemove);
+
             string result = string.Empty;
 
             TimeOnly start = new (0, 0, 0);

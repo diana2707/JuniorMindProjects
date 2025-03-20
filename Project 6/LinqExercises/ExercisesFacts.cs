@@ -469,9 +469,15 @@ namespace LinqExercises
         }
 
         [Fact]
+        public void GetTimeIntervalsThrowsArgumentNullExceptionWhenArgumentIsNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => Exercises.GetRemainingTimeIntervals(null));
+        }
+
+        [Fact]
         public void GetTimeIntervalsReturnsWholeIntervalWhenNoIntervalsToRemoveAreProvided()
         {
-            string intervals = "";
+            string intervals = string.Empty;
 
             var result = Exercises.GetRemainingTimeIntervals(intervals);
 
