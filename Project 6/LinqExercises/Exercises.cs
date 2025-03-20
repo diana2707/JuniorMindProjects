@@ -64,6 +64,13 @@ namespace LinqExercises
 
         public static int GetLongestNoSaleStreak(IEnumerable<int> input)
         {
+            ArgumentNullException.ThrowIfNull(input);
+
+            if (!input.Any())
+            {
+                return 0;
+            }
+
             var inputArray = input.ToArray();
             int maxLength = 0;
 

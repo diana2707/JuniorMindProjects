@@ -60,6 +60,16 @@ namespace LinqExercises
         }
 
         [Fact]
+        public void GeneratePatternReturnEmptyCollectionWhenNIs0()
+        {
+            int n = 0;
+
+            var result = Exercises.GeneratePattern(0);
+
+            Assert.Equal([], result);
+        }
+
+        [Fact]
         public void GeneratePatternReturnDescendingRangeFromNTo1()
         {
             int n = 1;
@@ -133,6 +143,22 @@ namespace LinqExercises
             var result = Exercises.GetLongestNoSaleStreak(sequence);
 
             Assert.Equal(4, result);
+        }
+
+        [Fact]
+        public void GetLongestNoSaleStreakThrowsArgumentNullExceptionWhenArgumentIsNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => Exercises.GetLongestNoSaleStreak(null));
+        }
+
+        [Fact]
+        public void GetLongestNoSaleStreakReturnsSameSequenceWhenThereAreNoSalesc()
+        {
+            List<int> sequence = [];
+
+            var result = Exercises.GetLongestNoSaleStreak(sequence);
+
+            Assert.Equal(0, result);
         }
 
         [Fact]
