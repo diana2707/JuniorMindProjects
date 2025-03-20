@@ -130,7 +130,7 @@ namespace LinqExercises
                 .Aggregate("", (acc, day) => acc + (acc.Length > 0 ? ", " : string.Empty) + day);
         }
 
-        //  Exercise 6
+        //  Exercise 6 **
         //
         //  From the following dictionary of words,
         //  "parts,traps,arts,rats,starts,tarts,rat,art,tar,tars,stars,stray"
@@ -138,6 +138,8 @@ namespace LinqExercises
 
         public static string SelectAnagramsOf(string input, string dictionary)
         {
+            ArgumentNullException.ThrowIfNull(input);
+            ArgumentNullException.ThrowIfNull(dictionary);
 
             IEnumerable<char> orderedInput = input.Order();
 

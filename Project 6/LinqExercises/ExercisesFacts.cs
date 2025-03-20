@@ -210,11 +210,51 @@ namespace LinqExercises
         [Fact]
         public void GetChristmasDaysReturnsTheChristmasDayForCurrentYearz()
         {
+            int years = 0;
+            int startYear = DateTime.Now.Year;
+            var result = Exercises.GetChristmasDays(years, startYear);
+
+            Assert.Equal(string.Empty, result);
+        }
+
+        [Fact]
+        public void GetChristmasDaysReturnsTheChristmasDayStartingWithCurrentYearAndForMultipleYers()
+        {
             int years = 10;
             int startYear = DateTime.Now.Year;
             var result = Exercises.GetChristmasDays(years, startYear);
 
             Assert.Equal("Thursday, Friday, Saturday, Monday, Tuesday, Wednesday, Thursday, Saturday, Sunday, Monday", result);
+        }
+
+        [Fact]
+        public void SelectAnagramsOfReturnsEmptyStringWhenInputIsEmpty()
+        {
+            string input = string.Empty;
+
+            string dictionary = "rats";
+
+            var result = Exercises.SelectAnagramsOf(input, dictionary);
+
+            Assert.Equal(string.Empty, result);
+        }
+
+        [Fact]
+        public void SelectAnagramsOfReturnsEmptyStringWhendictionaryIsEmpty()
+        {
+            string input = "star";
+
+            string dictionary = string.Empty;
+
+            var result = Exercises.SelectAnagramsOf(input, dictionary);
+
+            Assert.Equal(string.Empty, result);
+        }
+
+        [Fact]
+        public void SelectAnagramsOfThrowsArgumentNUllExceptionWhenArgumentsAreNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => Exercises.SelectAnagramsOf(null, null));
         }
 
         [Fact]
