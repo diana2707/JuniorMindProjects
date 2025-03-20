@@ -290,6 +290,12 @@ namespace LinqExercises
         }
 
         [Fact]
+        public void GetAllAnagramsThrowsArgumentNullExceptionWhenArgumentIsNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => Exercises.GetAllAnagrams(null));
+        }
+
+        [Fact]
         public void GetAllAnagramsReturnSameStringFor1CharacterInput()
         {
             var result = Exercises.GetAllAnagrams("a");

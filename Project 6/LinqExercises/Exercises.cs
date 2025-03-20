@@ -156,6 +156,8 @@ namespace LinqExercises
 
         public static IEnumerable<string> GetAllAnagrams(string input)
         {
+            ArgumentNullException.ThrowIfNull(input);
+
             if (input.Length <= 1)
             {
                 return [input];
