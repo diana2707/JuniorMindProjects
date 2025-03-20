@@ -1,4 +1,4 @@
-using Xunit.Sdk;
+ï»¿using Xunit.Sdk;
 
 namespace LinqExercises
 {
@@ -20,7 +20,7 @@ namespace LinqExercises
                              {
                                  int subarrayLength = subarray.Length;
 
-                                 if (subarrayLength != subarray.Distinct().Count())
+                                 if (subarrayLength != subarray.Distinct().Count()) //can use order or any?
                                  {
                                      return false;
                                  }
@@ -83,14 +83,6 @@ namespace LinqExercises
                     return true;
                 })
                 .Count();
-
-
-            //return Enumerable.Range(0, input.Count())
-            //            .SelectMany(start => Enumerable.Range(start, input.Count() - start)
-            //                .Select(end => input.Skip(start).Take(end - start + 1)))
-            //    .Where(subarray => subarray.Distinct().Count() == 1 && subarray.First() == 0)
-            //    .MaxBy(subarray => subarray.Count())
-            //    .Count();
         }
 
         //  Exercise 4
@@ -103,8 +95,16 @@ namespace LinqExercises
         public static string GetFullHouse(string input)
         {
             return input.Split(';')
-                .Where(hand => hand.Where(c => char.IsDigit(c)).Distinct().Count() == 2)
-                .Aggregate(string.Empty, (acc, fullHand) => acc + (acc.Length > 0 ? ";" : string.Empty) + fullHand);
+                        .Where(hand =>
+                        {
+                            var groups = hand.Split(['â™£', 'â™¦', 'â™¥', 'â™ '], StringSplitOptions.RemoveEmptyEntries)
+                                              .GroupBy(rank => rank.Trim());
+
+                            return groups.Count() == 2
+                                && groups.Any(group => group.Count() == 2)
+                                && groups.Any(group => group.Count() == 3);
+                        })
+                        .Aggregate(string.Empty, (acc, fullHand) => acc + (acc.Length > 0 ? ";" : string.Empty) + fullHand);
         }
 
         //  Exercise 5
@@ -156,8 +156,8 @@ namespace LinqExercises
         // Exercise 7
         //
         //  Given an array of words arr[], the task is to groups strings that are anagrams
-        //  Input: arr[] = [“listen”, “silent”, “enlist”, “abc”, “cab”, “bac”, “rat”, “tar”, “art”]
-        //  Output: [[“abc”, “cab”, “bac”], [“listen”, “silent”, “enlist”],[“rat”, “tar”, “art”]]
+        //  Input: arr[] = [â€œlistenâ€, â€œsilentâ€, â€œenlistâ€, â€œabcâ€, â€œcabâ€, â€œbacâ€, â€œratâ€, â€œtarâ€, â€œartâ€]
+        //  Output: [[â€œabcâ€, â€œcabâ€, â€œbacâ€], [â€œlistenâ€, â€œsilentâ€, â€œenlistâ€],[â€œratâ€, â€œtarâ€, â€œartâ€]]
 
         public static IEnumerable<IEnumerable<string>> GroupAnagrams(IEnumerable<string> input)
         {
@@ -185,7 +185,7 @@ namespace LinqExercises
         //
         //  From the following list of names
         //  "Santi Cazorla, Per Mertesacker, Alan Smith, Thierry Henry, Alex Song, Paul Merson,
-        //  Alexis Sánchez, Robert Pires, Dennis Bergkamp, Sol Campbell"
+        //  Alexis SÃ¡nchez, Robert Pires, Dennis Bergkamp, Sol Campbell"
         //  find any groups of people who share the same initials as each other.
 
         public static IEnumerable<IEnumerable<string>> GroupInitials(string input)

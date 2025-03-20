@@ -151,11 +151,11 @@ namespace LinqExercises
         [Fact]
         public void GetFullHouseReturnsTheFullHouseSubstringWhenMoreFullHouseAndADifferentHandsExists()
         {
-            var input = "4♣ 5♦ 6♦ 7♠ 10♥;10♣ Q♥ 10♠ Q♠ 10♦;6♣ 6♥ 6♠ A♠ 6♦;2♣ 3♥ 3♠ 2♠ 2♦;2♣ 3♣ 4♣ 5♠ 6♠";
+            var input = "4♣ 5♦ 6♦ 7♠ 10♥;9♣ Q♥ 9♠ Q♠ 9♦;6♣ 6♥ 6♠ A♠ 6♦;2♣ 3♥ 3♠ 2♠ 2♦;2♣ 3♣ 4♣ 5♠ 6♠;10♣ 8♥ 10♠ 8♠ 10♦;J♣ Q♥ J♠ Q♠ J♦";
 
             var result = Exercises.GetFullHouse(input);
 
-            Assert.Equal("10♣ Q♥ 10♠ Q♠ 10♦;2♣ 3♥ 3♠ 2♠ 2♦", result);
+            Assert.Equal("9♣ Q♥ 9♠ Q♠ 9♦;2♣ 3♥ 3♠ 2♠ 2♦;10♣ 8♥ 10♠ 8♠ 10♦;J♣ Q♥ J♠ Q♠ J♦", result);
         }
 
         [Fact]
