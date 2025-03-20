@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace LinqExercises
 {
@@ -525,6 +524,12 @@ namespace LinqExercises
         }
 
         [Fact]
+        public void GetMaxSumSubarrayThrowsArgumentNullExceptionWhenArgumentisNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => Exercises.GetMaxSumSubarray(null));
+        }
+
+        [Fact]
         public void GetMaxSumSubarrayReturnEmptyCollectionWheninputIsEmpty()
         {
             int[] input = [];
@@ -562,6 +567,12 @@ namespace LinqExercises
             int[] input = [-2, 1, -3, 4, -1, 2, 1, -5, 4];
 
             Assert.Equal([4, -1, 2, 1], Exercises.GetMaxSumSubarray(input));
+        }
+
+        [Fact]
+        public void GetQuadrupletsThrowsArgumentNullExceptionWhenArgumentIsNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => Exercises.GetQuadruplets(null, 0));
         }
 
         [Fact]

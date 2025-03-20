@@ -1,5 +1,4 @@
-﻿using Xunit.Sdk;
-
+﻿
 namespace LinqExercises
 {
     public static class Exercises
@@ -275,6 +274,8 @@ namespace LinqExercises
 
         public static IEnumerable<int> GetMaxSumSubarray(IEnumerable<int> input)
         {
+            ArgumentNullException.ThrowIfNull(input);
+
             if (!input.Any())
             {
                 return [];
@@ -298,6 +299,8 @@ namespace LinqExercises
 
         public static IEnumerable<IEnumerable<int>> GetQuadruplets(int[] input, int sum)
         {
+            ArgumentNullException.ThrowIfNull(input);
+
             if (input.Length < 4)
             {
                 return [];
