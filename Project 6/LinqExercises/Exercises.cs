@@ -257,11 +257,13 @@ namespace LinqExercises
                 return [];
             }
 
-            return input.SelectMany((_, start) => Enumerable.Range(start, input.Count() - start)
-                                .Select(end => input.Skip(start).Take(end - start + 1)))
+            var inputArray = input.ToArray();
+
+            return inputArray.SelectMany((_, start) => Enumerable.Range(start, inputArray.Length - start)
+                                .Select(end => inputArray[start.. (end + 1)]))
                         .GroupBy(subarray => subarray.Sum(e => e))
                         .MaxBy(group => group?.Key) 
-                        .MinBy(subarray => subarray.Count());
+                        .MinBy(subarray => subarray.Length);
         }
 
         //  Problem 12
@@ -278,7 +280,7 @@ namespace LinqExercises
                 return [];
             }
 
-            return input.SelectMany( (_, i) => Enumerable.Range(i + 1, input.Length - i - 1)
+            return input.SelectMany((_, i) => Enumerable.Range(i + 1, input.Length - i - 1)
                             .SelectMany(j => Enumerable.Range(j + 1, input.Length - j - 1)
                                     .SelectMany(k => Enumerable.Range(k + 1, input.Length - k - 1)
                                             .Select(l => new List<int> { input[i], input[j], input[k], input[l] }))))
