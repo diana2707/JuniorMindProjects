@@ -13,27 +13,45 @@ namespace LinqExercises
             ArgumentNullException.ThrowIfNull(input);
 
             var inputArray = input.ToArray();
-            int maxLength = 0;
+            int[] result = [];
+            HashSet<int> verified = [];
+            int start = 0;
+            int end;
 
-            return inputArray.SelectMany((_, start) => Enumerable.Range(start, input.Count() - start)
-                                    .Select(end => inputArray[start..(end + 1)]))
-                             .Last(subarray =>
-                             {
-                                 int subarrayLength = subarray.Length;
+            for (end = 0; end < inputArray.Length; end++)
+            {
+                if (verified.Contains(inputArray[end]))
+                {
+                    break;
+                }
 
-                                 if (subarrayLength != subarray.Distinct().Count())
-                                 {
-                                     return false;
-                                 }
+                verified.Add(inputArray[end]);
+            }
 
-                                 if (subarrayLength <= maxLength)
-                                 {
-                                     return false;
-                                 }
+            return inputArray[start..end];
 
-                                 maxLength = subarrayLength;
-                                 return true;
-                             });
+            //var inputArray = input.ToArray();
+            //int maxLength = 0;
+
+            //return inputArray.SelectMany((_, start) => Enumerable.Range(start, input.Count() - start)
+            //                        .Select(end => inputArray[start..(end + 1)]))
+            //                 .Last(subarray =>
+            //                 {
+            //                     int subarrayLength = subarray.Length;
+
+            //                     if (subarrayLength != subarray.Distinct().Count())
+            //                     {
+            //                         return false;
+            //                     }
+
+            //                     if (subarrayLength <= maxLength)
+            //                     {
+            //                         return false;
+            //                     }
+
+            //                     maxLength = subarrayLength;
+            //                     return true;
+            //                 });
         }
 
         //  Exercise 2
