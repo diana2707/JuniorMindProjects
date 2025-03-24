@@ -28,6 +28,18 @@ namespace LinqExercises
             Assert.Equal(expected, result);
         }
 
+        [Fact]
+        public void GetLongestDistinctElemSubarrayReturnSubarrayWithDistinctElementsWhenSequenceIsAtEnd()
+        {
+            List<int> list = [1, 1, 2];
+
+            var result = Exercises.GetLongestDistinctSubarray(list);
+
+            List<int> expected = [1, 2];
+
+            Assert.Equal(expected, result);
+        }
+
         //[Fact]
         //public void GetLongestDistinctSubarrayReturnLongestSubarrayWhenASmallerOneExists()
         //{

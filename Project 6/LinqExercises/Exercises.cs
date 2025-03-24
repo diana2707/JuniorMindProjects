@@ -14,21 +14,31 @@ namespace LinqExercises
 
             var inputArray = input.ToArray();
             int[] result = [];
-            HashSet<int> verified = [];
-            int start = 0;
-            int end;
+            int start;
+            int end = 0;
 
-            for (end = 0; end < inputArray.Length; end++)
+            for (start = 0; start < inputArray.Length; start++)
             {
-                if (verified.Contains(inputArray[end]))
+                HashSet<int> verified = [];
+                for (end = start; end < inputArray.Length; end++)
                 {
-                    break;
+                    if (verified.Contains(inputArray[end]))
+                    {
+                        break;
+                    }
+
+                    verified.Add(inputArray[end]);
                 }
 
-                verified.Add(inputArray[end]);
+                int[] subarray = inputArray[start..end];
+
+                if (result.Length < subarray.Length)
+                {
+                    result = subarray;
+                }
             }
 
-            return inputArray[start..end];
+            return result;
 
             //var inputArray = input.ToArray();
             //int maxLength = 0;
