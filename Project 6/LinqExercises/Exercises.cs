@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 namespace LinqExercises
 {
     public static class Exercises
@@ -13,28 +15,30 @@ namespace LinqExercises
             ArgumentNullException.ThrowIfNull(input);
 
             var inputArray = input.ToArray();
-            int[] result = [];
-            int start;
-            int end = 0;
+            int start = 0;
+            int[] result = [inputArray[start]];
 
-            for (start = 0; start < inputArray.Length; start++)
+            HashSet<int> verified = [];
+            verified.Add(inputArray[start]);
+
+            for (int end = 1; end < inputArray.Length; end++)
             {
-                HashSet<int> verified = [];
-                for (end = start; end < inputArray.Length; end++)
+                if (verified.Contains(inputArray[end]))
                 {
-                    if (verified.Contains(inputArray[end]))
+                    if (result.Length < end - start)
                     {
-                        break;
+                        result = inputArray[start..end];
                     }
 
-                    verified.Add(inputArray[end]);
+                    start = end;
+                    verified.Clear();
                 }
 
-                int[] subarray = inputArray[start..end];
+                verified.Add(inputArray[end]);
 
-                if (result.Length < subarray.Length)
+                if (end == inputArray.Length - 1 && result.Length < (end + 1) - start)
                 {
-                    result = subarray;
+                    result = inputArray[start..(end + 1)];
                 }
             }
 

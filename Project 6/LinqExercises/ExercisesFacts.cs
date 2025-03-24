@@ -40,29 +40,29 @@ namespace LinqExercises
             Assert.Equal(expected, result);
         }
 
-        //[Fact]
-        //public void GetLongestDistinctSubarrayReturnLongestSubarrayWhenASmallerOneExists()
-        //{
-        //    List<int> list = [ 1, 2, 2, 3, 4 ];
+        [Fact]
+        public void GetLongestDistinctSubarrayReturnLongestSubarrayWhenASmallerOneExists()
+        {
+            List<int> list = [1, 2, 2, 3, 4];
 
-        //    var result = Exercises.GetLongestDistinctSubarray(list);
+            var result = Exercises.GetLongestDistinctSubarray(list);
 
-        //    List<int> expected = [2, 3, 4];
+            List<int> expected = [2, 3, 4];
 
-        //    Assert.Equal(expected, result);
-        //}
+            Assert.Equal(expected, result);
+        }
 
-        //[Fact]
-        //public void GetLongestDistinctSubarrayReturnLongestDistinctSubarrayWhenTheSubarrayIsNotAtEnd()
-        //{
-        //    List<int> list = [1, 2, 2, 3, 4, 5, 4];
+        [Fact]
+        public void GetLongestDistinctSubarrayReturnLongestDistinctSubarrayWhenTheSubarrayIsNotAtEnd()
+        {
+            List<int> list = [1, 2, 2, 3, 4, 5, 4];
 
-        //    var result = Exercises.GetLongestDistinctSubarray(list);
+            var result = Exercises.GetLongestDistinctSubarray(list);
 
-        //    List<int> expected = [2, 3, 4, 5];
+            List<int> expected = [2, 3, 4, 5];
 
-        //    Assert.Equal(expected, result);
-        //}
+            Assert.Equal(expected, result);
+        }
 
         [Fact]
         public void GetLongestDistinctSubarrayThrowsArgumentNullExceptionWhenArgumentIsNull()
