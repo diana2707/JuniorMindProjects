@@ -65,6 +65,18 @@ namespace LinqExercises
         }
 
         [Fact]
+        public void GetLongestDistinctSubarrayReturnLongestDistinctSubarrayWhenDuplicatesAreNotConsequtive()
+        {
+            List<int> list = [1, 2, 3, 1, 2, 4, 5];
+
+            var result = Exercises.GetLongestDistinctSubarray(list);
+
+            List<int> expected = [3, 1, 2, 4, 5];
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
         public void GetLongestDistinctSubarrayThrowsArgumentNullExceptionWhenArgumentIsNull()
         {
             Assert.Throws<ArgumentNullException>(() => Exercises.GetLongestDistinctSubarray(null));
