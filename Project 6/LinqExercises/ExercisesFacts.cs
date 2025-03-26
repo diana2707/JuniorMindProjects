@@ -654,5 +654,17 @@ namespace LinqExercises
         {
             Assert.Equal([], Exercises.GetMaxSumContiguousSubarray([]));
         }
+
+        [Fact]
+        public void GetMaxSumCountiguousSubarrayReturnsCorrectSubarrayWhenInputIs2Characters()
+        {
+            Assert.Equal([1], Exercises.GetMaxSumContiguousSubarray([-1, 1]));
+        }
+
+        [Fact]
+        public void GetMaxSumCountiguousSubarrayReturnsCorrectSubarrayWhenInputIsMultipleCharacters()
+        {
+            Assert.Equal([4, -1, 5, 6], Exercises.GetMaxSumContiguousSubarray([-5, 3, -6, 4, -1, 5, 6]));
+        }
     }
 }

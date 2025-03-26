@@ -291,7 +291,7 @@ namespace LinqExercises
             var inputArray = input.ToArray();
 
             return inputArray.SelectMany((_, start) => Enumerable.Range(start, inputArray.Length - start)
-                                .Select(end => inputArray[start.. (end + 1)]))
+                                .Select(end => inputArray[start..(end + 1)]))
                         .GroupBy(subarray => subarray.Sum(e => e))
                         .MaxBy(group => group?.Key) 
                         .MinBy(subarray => subarray.Length);
@@ -328,7 +328,18 @@ namespace LinqExercises
 
         public static IEnumerable<int> GetMaxSumContiguousSubarray(IEnumerable<int> input)
         {
-            return input;
+            if (input.Count() == 0)
+            {
+                return input;
+            }
+
+            int[] inputArray = input.ToArray();
+
+            return inputArray.SelectMany((_, start) => Enumerable.Range(start, inputArray.Length - start)
+                               .Select(end => inputArray[start..(end + 1)]))
+                        .GroupBy(subarray => subarray.Sum())
+                        .MaxBy(group => group?.Key)
+                        .First();
         }
     }
 }
