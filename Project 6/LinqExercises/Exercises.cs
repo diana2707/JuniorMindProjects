@@ -320,5 +320,15 @@ namespace LinqExercises
                         .Where(list => list.Distinct()
                                            .Count() == 4 && list.Sum(e => e) == sum);
         }
+
+        //  Problema 13
+        //
+        //  Se dă un șir de numere întregi. Sarcina este să găsești un subșir contiguu
+        //  (o secvență de elemente consecutive) din acest șir care are suma elementelor cea mai mare posibilă.
+
+        public static IEnumerable<int> GetMaxSumContiguousSubarray(IEnumerable<int> input)
+        {
+            return input;
+        }
     }
 }

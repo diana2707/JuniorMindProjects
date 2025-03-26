@@ -648,5 +648,11 @@ namespace LinqExercises
 
             Assert.Equal([[1, -1, -2, 2],[1, -1, -3, 3], [-2, 2, -3, 3]], result);
         }
+
+        [Fact]
+        public void GetMaxSumCountiguousSubarrayReturnsEmptyCollectionWhenInputIsEmpty()
+        {
+            Assert.Equal([], Exercises.GetMaxSumContiguousSubarray([]));
+        }
     }
 }
