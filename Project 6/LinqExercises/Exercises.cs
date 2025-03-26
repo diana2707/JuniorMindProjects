@@ -328,6 +328,8 @@ namespace LinqExercises
 
         public static IEnumerable<int> GetMaxSumContiguousSubarray(IEnumerable<int> input)
         {
+            ArgumentNullException.ThrowIfNull(input);
+
             if (input.Count() == 0)
             {
                 return input;

@@ -666,5 +666,11 @@ namespace LinqExercises
         {
             Assert.Equal([4, -1, 5, 6], Exercises.GetMaxSumContiguousSubarray([-5, 3, -6, 4, -1, 5, 6]));
         }
+
+        [Fact]
+        public void GetMaxSumCountiguousSubarrayThrowsArgumentNullExceptionWhenArgumentIsNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => Exercises.GetMaxSumContiguousSubarray(null));
+        }
     }
 }
