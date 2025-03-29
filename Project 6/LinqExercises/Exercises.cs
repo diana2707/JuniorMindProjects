@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using System.Transactions;
 
 namespace LinqExercises
 {
@@ -330,18 +331,40 @@ namespace LinqExercises
         {
             ArgumentNullException.ThrowIfNull(input);
 
-            if (input.Count() == 0)
+            if (!input.Any())
             {
                 return input;
             }
 
             int[] inputArray = input.ToArray();
 
-            return inputArray.SelectMany((_, start) => Enumerable.Range(start, inputArray.Length - start)
-                               .Select(end => inputArray[start..(end + 1)]))
-                        .GroupBy(subarray => subarray.Sum())
-                        .MaxBy(group => group?.Key)
-                        .First();
+            int maxSum = int.MinValue;
+            int currentSum = 0;
+
+            int start = 0;
+            int tempStart = 0;
+            int end = 0;
+
+            for (int i = 0; i < inputArray.Length; i++)
+            {
+                currentSum += inputArray[i];
+                end = i;
+
+                if (currentSum > maxSum)
+                {
+                    maxSum = currentSum;
+                    start = tempStart;
+                    end = i;
+                }
+
+                if (currentSum < 0)
+                {
+                    currentSum = 0;
+                    tempStart = i + 1;
+                }
+            }
+
+            return inputArray[start..(end + 1)];
         }
     }
 }
