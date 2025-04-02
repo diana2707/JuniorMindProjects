@@ -380,23 +380,25 @@ namespace LinqExercises
                 return (-1, -1);
             }
 
-            int first = 0;
-            int second = 1;
+            int index = 0;
+            int complement = 0;
+            Dictionary<int, int> verified = [];
 
-            while (first < sourceArray.Length && second < sourceArray.Length)
+            while (index < sourceArray.Length)
             {
-                if (sourceArray[first] + sourceArray[second] == target)
+                complement = target - sourceArray[index];
+
+                if (verified.TryGetValue(complement, out int value))
                 {
-                    return (first, second);
+                    return (value, index);
                 }
 
-                second++;
-
-                if (second == sourceArray.Length)
+                if (!verified.ContainsKey(sourceArray[index]))
                 {
-                    first++;
-                    second = 0;
+                    verified.Add(sourceArray[index], index);
                 }
+
+                index++;
             }
 
             return (-1, -1);
