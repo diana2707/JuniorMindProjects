@@ -672,5 +672,11 @@ namespace LinqExercises
         {
             Assert.Throws<ArgumentNullException>(() => Exercises.GetMaxSumContiguousSubarray(null));
         }
+
+        [Fact]
+        public void FindPairWithSumReturnsTupleWithNegative1WhenSourceIsLessThan2()
+        {
+            Assert.Equal((-1, -1), Exercises.FindPairWithSum(1, [1]));
+        }
     }
 }

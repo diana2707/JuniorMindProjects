@@ -366,5 +366,14 @@ namespace LinqExercises
 
             return inputArray[start..(end + 1)];
         }
+
+        //  Problema 14
+        //  Dată o listă de numere întregi și un număr întreg target, găsiți indecsii a două
+        //  numere din listă astfel încât suma lor să fie egală cu target.
+
+        public static (int, int) FindPairWithSum(int target, IEnumerable<int> source)
+        {
+            return (-1, -1);
+        } 
     }
 }
