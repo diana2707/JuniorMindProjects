@@ -373,7 +373,26 @@ namespace LinqExercises
 
         public static (int, int) FindPairWithSum(int target, IEnumerable<int> source)
         {
-            return (-1, -1);
-        } 
+            int[] sourceArray = source.ToArray();
+
+            if (sourceArray.Length < 2)
+            {
+                return (-1, -1);
+            }
+
+            int first = 0;
+            int second = 1;
+
+            return (first, second);
+
+            //while (first < sourceArray.Length && second < sourceArray.Length)
+            //{
+            //    if (sourceArray[first] + sourceArray[second] == target)
+            //    {
+            //        return (first, second);
+            //    }
+            //}
+
+        }
     }
 }

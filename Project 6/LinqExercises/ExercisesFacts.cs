@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace LinqExercises
 {
@@ -677,6 +678,12 @@ namespace LinqExercises
         public void FindPairWithSumReturnsTupleWithNegative1WhenSourceIsLessThan2()
         {
             Assert.Equal((-1, -1), Exercises.FindPairWithSum(1, [1]));
+        }
+
+        [Fact]
+        public void FindPairWithSumReturnsIndexesWhenSourceContains2IntegersThatSumToTarget()
+        {
+            Assert.Equal((0, 1), Exercises.FindPairWithSum(3, [1, 2]));
         }
     }
 }
