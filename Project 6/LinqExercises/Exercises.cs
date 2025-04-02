@@ -391,6 +391,12 @@ namespace LinqExercises
                 }
 
                 second++;
+
+                if (second == sourceArray.Length)
+                {
+                    first++;
+                    second = 0;
+                }
             }
 
             return (-1, -1);

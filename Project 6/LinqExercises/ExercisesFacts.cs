@@ -693,9 +693,15 @@ namespace LinqExercises
         }
 
         [Fact]
-        public void FindPairWithSumReturnsIndexesWhenSourceContains3IntegersAndAnd2SumToTarget()
+        public void FindPairWithSumReturnsIndexesWhenSourceContains3IntegersAndFirstAndLast2SumToTarget()
         {
             Assert.Equal((0, 2), Exercises.FindPairWithSum(4, [1, 2, 3]));
+        }
+
+        [Fact]
+        public void FindPairWithSumReturnsIndexesWhenSourceContains3IntegersAndLast2SumToTarget()
+        {
+            Assert.Equal((1, 2), Exercises.FindPairWithSum(5, [1, 2, 3]));
         }
     }
 }
