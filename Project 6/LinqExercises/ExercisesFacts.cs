@@ -691,5 +691,11 @@ namespace LinqExercises
         {
             Assert.Equal((-1, -1), Exercises.FindPairWithSum(3, [1, 1]));
         }
+
+        [Fact]
+        public void FindPairWithSumReturnsIndexesWhenSourceContains3IntegersAndAnd2SumToTarget()
+        {
+            Assert.Equal((0, 2), Exercises.FindPairWithSum(4, [1, 2, 3]));
+        }
     }
 }

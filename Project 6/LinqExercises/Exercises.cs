@@ -383,21 +383,17 @@ namespace LinqExercises
             int first = 0;
             int second = 1;
 
-            if (sourceArray[first] + sourceArray[second] == target)
+            while (first < sourceArray.Length && second < sourceArray.Length)
             {
-                return (first, second);
+                if (sourceArray[first] + sourceArray[second] == target)
+                {
+                    return (first, second);
+                }
+
+                second++;
             }
 
             return (-1, -1);
-
-            //while (first < sourceArray.Length && second < sourceArray.Length)
-            //{
-            //    if (sourceArray[first] + sourceArray[second] == target)
-            //    {
-            //        return (first, second);
-            //    }
-            //}
-
         }
     }
 }
