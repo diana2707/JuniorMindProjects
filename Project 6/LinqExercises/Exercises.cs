@@ -393,11 +393,7 @@ namespace LinqExercises
                     return (value, index);
                 }
 
-                if (!verified.ContainsKey(sourceArray[index]))
-                {
-                    verified.Add(sourceArray[index], index);
-                }
-
+                verified.TryAdd(sourceArray[index], index);
                 index++;
             }
 
