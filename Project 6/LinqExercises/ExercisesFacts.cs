@@ -703,5 +703,11 @@ namespace LinqExercises
         {
             Assert.Equal((1, 2), Exercises.FindPairWithSum(5, [1, 2, 3]));
         }
+
+        [Fact]
+        public void GetNextGreaterElementReturnsEmptyCollectionWhenSourceisEmpty()
+        {
+            Assert.Equal([], Exercises.GetNextGreaterElement([]));
+        }
     }
 }
