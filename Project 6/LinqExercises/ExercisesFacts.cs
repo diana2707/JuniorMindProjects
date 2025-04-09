@@ -717,9 +717,15 @@ namespace LinqExercises
         }
 
         [Fact]
-        public void GetNextGreaterElementReturnsNextGreaterElementWhenSourceHas2Ints()
+        public void GetNextGreaterElementReturnsNextGreaterElementWhenSourceHasOrderedElements()
         {
             Assert.Equal([2, -1], Exercises.GetNextGreaterElement([1, 2]));
+        }
+
+        [Fact]
+        public void GetNextGreaterElementReturnsNextGreaterElementWhenSourceHasUnorderedElements()
+        {
+            Assert.Equal([3, 3, -1], Exercises.GetNextGreaterElement([2, 1, 3]));
         }
     }
 }

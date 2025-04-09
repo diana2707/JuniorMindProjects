@@ -423,7 +423,7 @@ namespace LinqExercises
                 int nextGreater = -1;
                 int index = i + 1;
 
-                while (index < sourceArray.Length || nextGreater == -1)
+                while (index < sourceArray.Length && nextGreater == -1)
                 {
                     nextGreater = sourceArray[index] > sourceArray[i] ? sourceArray[index] : -1;
                     index++;
