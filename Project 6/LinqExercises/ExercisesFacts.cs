@@ -727,5 +727,11 @@ namespace LinqExercises
         {
             Assert.Equal([3, 3, -1], Exercises.GetNextGreaterElement([2, 1, 3]));
         }
+
+        [Fact]
+        public void GetNextGreaterElementReturnsNextGreaterElementWhenSourceHasMultipleUnorderedElemets()
+        {
+            Assert.Equal([5, 5, 6, 4, 6, -1, -1], Exercises.GetNextGreaterElement([4, 1, 5, 2, 4, 6, 3]));
+        }
     }
 }
