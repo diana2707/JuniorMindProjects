@@ -709,5 +709,11 @@ namespace LinqExercises
         {
             Assert.Equal([], Exercises.GetNextGreaterElement([]));
         }
+
+        [Fact]
+        public void GetNextGreaterElementReturnsNegativeOneWhenNoGreterElementExists()
+        {
+            Assert.Equal([-1], Exercises.GetNextGreaterElement([1]));
+        }
     }
 }

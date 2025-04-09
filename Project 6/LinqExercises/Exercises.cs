@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
 using System.Transactions;
 
 namespace LinqExercises
@@ -408,7 +409,15 @@ namespace LinqExercises
 
         public static IEnumerable<int> GetNextGreaterElement(IEnumerable<int> source)
         {
-            return [];
+            int[] sourceArray = source.ToArray();
+
+            if(sourceArray.Length == 0)
+            {
+                return [];
+            }
+
+            return [-1];
         }
+
     }
 }
