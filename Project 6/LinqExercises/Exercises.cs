@@ -455,67 +455,9 @@ namespace LinqExercises
                 greater[greaterIndex] = sourceArray[i - 1];
             }
 
-            //for (int i = sourceArray.Length - 1; i > 0; i--)
-            //{
-            //    if (sourceArray[i] > sourceArray[i - 1])
-            //    {
-            //        result.Add(sourceArray[i]);
-            //        greaterIndex++;
-            //        greater[greaterIndex] = sourceArray[i];
-            //    }
-            //    else
-            //    {
-            //        if (sourceArray[i-1] < greater[greaterIndex])
-            //        {
-            //            result.Add(greater[greaterIndex]);
-            //        }
-            //        else
-            //        {
-            //            if (greater[greaterIndex] == -1)
-            //            {
-            //                result.Add(greater[greaterIndex]);
-            //            }
-            //            else
-            //            {
-            //                while (greater[greaterIndex] < sourceArray[i - 1])
-            //                {
-            //                    greaterIndex--;
-            //                }
-
-            //                result.Add(greater[greaterIndex]);
-            //                greaterIndex++;
-            //                greater[greaterIndex] = sourceArray[i - 1];
-            //            }
-            //        }
-            //    }
-            //}
-
             result.Reverse();
 
             return result;
-
-
-
-
-
-            //for (int i = 0; i < sourceArray.Length - 1; i++)
-            //{
-            //    int nextGreater = -1;
-            //    int index = i + 1;
-
-            //    while (index < sourceArray.Length && nextGreater == -1)
-            //    {
-            //        nextGreater = sourceArray[index] > sourceArray[i] ? sourceArray[index] : -1;
-            //        index++;
-            //    }
-
-            //    result.Add(nextGreater);
-            //}
-
-            //result.Add(-1);
-
-            //return result;
         }
-
     }
 }
