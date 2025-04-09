@@ -425,38 +425,70 @@ namespace LinqExercises
 
             for (int i = sourceArray.Length - 1; i > 0; i--)
             {
-                if (sourceArray[i] > sourceArray[i - 1])
+                if (sourceArray[i - 1] < sourceArray[i])
                 {
                     result.Add(sourceArray[i]);
                     greaterIndex++;
                     greater[greaterIndex] = sourceArray[i];
+                    continue;
                 }
-                else
-                {
-                    if (sourceArray[i-1] < greater[greaterIndex])
-                    {
-                        result.Add(greater[greaterIndex]);
-                    }
-                    else
-                    {
-                        if (greater[greaterIndex] == -1)
-                        {
-                            result.Add(greater[greaterIndex]);
-                        }
-                        else
-                        {
-                            while (greater[greaterIndex] < sourceArray[i - 1])
-                            {
-                                greaterIndex--;
-                            }
 
-                            result.Add(greater[greaterIndex]);
-                            greaterIndex++;
-                            greater[greaterIndex] = sourceArray[i - 1];
-                        }
-                    }
+                if (greater[greaterIndex] == -1)
+                {
+                    result.Add(greater[greaterIndex]);
+                    continue;
                 }
+
+                if (sourceArray[i - 1] < greater[greaterIndex])
+                {
+                    result.Add(greater[greaterIndex]);
+                    continue;
+                }
+
+                while (sourceArray[i - 1] > greater[greaterIndex] && greater[greaterIndex] != -1)
+                {
+                    greaterIndex--;
+                }
+
+                result.Add(greater[greaterIndex]);
+                greaterIndex++;
+                greater[greaterIndex] = sourceArray[i - 1];
             }
+
+            //for (int i = sourceArray.Length - 1; i > 0; i--)
+            //{
+            //    if (sourceArray[i] > sourceArray[i - 1])
+            //    {
+            //        result.Add(sourceArray[i]);
+            //        greaterIndex++;
+            //        greater[greaterIndex] = sourceArray[i];
+            //    }
+            //    else
+            //    {
+            //        if (sourceArray[i-1] < greater[greaterIndex])
+            //        {
+            //            result.Add(greater[greaterIndex]);
+            //        }
+            //        else
+            //        {
+            //            if (greater[greaterIndex] == -1)
+            //            {
+            //                result.Add(greater[greaterIndex]);
+            //            }
+            //            else
+            //            {
+            //                while (greater[greaterIndex] < sourceArray[i - 1])
+            //                {
+            //                    greaterIndex--;
+            //                }
+
+            //                result.Add(greater[greaterIndex]);
+            //                greaterIndex++;
+            //                greater[greaterIndex] = sourceArray[i - 1];
+            //            }
+            //        }
+            //    }
+            //}
 
             result.Reverse();
 
