@@ -411,12 +411,30 @@ namespace LinqExercises
         {
             int[] sourceArray = source.ToArray();
 
-            if(sourceArray.Length == 0)
+            if (sourceArray.Length == 0)
             {
                 return [];
             }
 
-            return [-1];
+            List<int> result = [];
+
+            for (int i = 0; i < sourceArray.Length - 1; i++)
+            {
+                int nextGreater = -1;
+                int index = i + 1;
+
+                while (index < sourceArray.Length || nextGreater == -1)
+                {
+                    nextGreater = sourceArray[index] > sourceArray[i] ? sourceArray[index] : -1;
+                    index++;
+                }
+
+                result.Add(nextGreater);
+            }
+
+            result.Add(-1);
+
+            return result;
         }
 
     }

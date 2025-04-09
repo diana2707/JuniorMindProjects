@@ -715,5 +715,11 @@ namespace LinqExercises
         {
             Assert.Equal([-1], Exercises.GetNextGreaterElement([1]));
         }
+
+        [Fact]
+        public void GetNextGreaterElementReturnsNextGreaterElementWhenSourceHas2Ints()
+        {
+            Assert.Equal([2, -1], Exercises.GetNextGreaterElement([1, 2]));
+        }
     }
 }
