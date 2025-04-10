@@ -471,17 +471,33 @@ namespace LinqExercises
                 return [];
             }
 
+            List<int> results = [];
+            //List<int> max = [int.MinValue];
             int max = int.MinValue;
+            //int maxIndex = 0;
+            int start = 0;
+            int end = 0;
+            int intervalCount = 0;
 
-            for (int i = 0; i < sourceArray.Length; i++)
+            while (end < sourceArray.Length)
             {
-                if (sourceArray[i] > max)
+                while (end < sourceArray.Length && intervalCount < size)
                 {
-                    max = sourceArray[i];
+                    if (sourceArray[end] > max)
+                    {
+                        max = sourceArray[end];
+                    }
+
+                    intervalCount++;
+                    end++;
                 }
+
+                results.Add(max);
+                intervalCount = 0;
+                start++;
             }
 
-            return [max];
+            return results;
         }
     }
 }
