@@ -776,5 +776,11 @@ namespace LinqExercises
             Assert.Equal([2, 3, 4], Exercises.GetMaximumElements([1, 2, 3, 4], 2));
         }
 
+        [Fact]
+        public void GetMaximumElementsReturnIntegerWhenSourceContains3IntervalsOfSize4zzz()
+        {
+            Assert.Equal([4, 3, 2], Exercises.GetMaximumElements([4, 3, 2, 1], 2));
+        }
+
     }
 }

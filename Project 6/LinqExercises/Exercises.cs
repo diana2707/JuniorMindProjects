@@ -489,6 +489,10 @@ namespace LinqExercises
                     max.Dequeue();
                     max.Enqueue(sourceArray[end]);
                 }
+                else if (sourceArray[end] < max.Peek())
+                {
+                    max.Enqueue(sourceArray[end]);
+                }
 
                 end++;
             }
@@ -511,6 +515,10 @@ namespace LinqExercises
                 else if (sourceArray[end] > max.Peek())
                 {
                     max.Dequeue();
+                    max.Enqueue(sourceArray[end]);
+                }
+                else if (sourceArray[end] < max.Peek())
+                {
                     max.Enqueue(sourceArray[end]);
                 }
 
