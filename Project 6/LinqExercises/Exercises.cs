@@ -507,15 +507,19 @@ namespace LinqExercises
                 if (max.Count == 0 || sourceArray[end] < max.Peek())
                 {
                     max.Enqueue(sourceArray[end]);
+                    result.Add(max.Peek());
+                    end++;
+
+                    continue;
                 }
-                else if (sourceArray[end] > max.Peek())
+
+                while (sourceArray[end] > max.Peek())
                 {
                     max.Dequeue();
                     max.Enqueue(sourceArray[end]);
                 }
 
                 result.Add(max.Peek());
-
                 end++;
             }
 
