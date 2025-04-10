@@ -471,34 +471,82 @@ namespace LinqExercises
                 return [];
             }
 
-            List<int> results = [];
-            //List<int> max = [int.MinValue];
-            int max = int.MinValue;
-            //int maxIndex = 0;
+            List<int> result = [];
+            Queue<int> max = [];
+
             int start = 0;
             int end = 0;
-            int intervalCount = 0;
+            int intervalCount = size;
+
+            while (end < size)
+            {
+                if (max.Count == 0)
+                {
+                    max.Enqueue(sourceArray[end]);
+                }
+                else if (sourceArray[end] > max.Peek())
+                {
+                    max.Dequeue();
+                    max.Enqueue(sourceArray[end]);
+                }
+
+                end++;
+            }
+
+            result.Add(max.Peek());
 
             while (end < sourceArray.Length)
             {
-                while (end < sourceArray.Length && intervalCount < size)
+                if (sourceArray[start] == max.Peek())
                 {
-                    if (sourceArray[end] > max)
-                    {
-                        max = sourceArray[end];
-                    }
-
-                    intervalCount++;
-                    end++;
+                    max.Dequeue();
                 }
 
-                results.Add(max);
-                intervalCount = 0;
-                max = int.MinValue;
                 start++;
+
+                if (max.Count == 0)
+                {
+                    max.Enqueue(sourceArray[end]);
+                }
+                else if (sourceArray[end] > max.Peek())
+                {
+                    max.Dequeue();
+                    max.Enqueue(sourceArray[end]);
+                }
+
+                result.Add(max.Peek());
+
+                end++;
             }
 
-            return results;
+            //List<int> results = [];
+            ////List<int> max = [int.MinValue];
+            //int max = int.MinValue;
+            ////int maxIndex = 0;
+            //int start = 0;
+            //int end = 0;
+            //int intervalCount = 0;
+
+            //while (end < sourceArray.Length)
+            //{
+            //    while (end < sourceArray.Length && intervalCount < size)
+            //    {
+            //        if (sourceArray[end] > max)
+            //        {
+            //            max = sourceArray[end];
+            //        }
+
+            //        intervalCount++;
+            //        end++;
+            //    }
+
+            //    results.Add(max);
+            //    intervalCount = 0;
+            //    max = int.MinValue;
+            //    start++;
+            //}
+
+            return result;
         }
     }
 }
