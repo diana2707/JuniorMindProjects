@@ -461,7 +461,7 @@ namespace LinqExercises
         }
 
         //  Given an array of integers, find the maximum element in every subarray of size k
-        
+
         public static IEnumerable<int> GetMaximumElements(IEnumerable<int> source, int size)
         {
             int[] sourceArray = source.ToArray();
@@ -471,7 +471,17 @@ namespace LinqExercises
                 return [];
             }
 
-            return [1];
+            int max = int.MinValue;
+
+            for (int i = 0; i < sourceArray.Length; i++)
+            {
+                if (sourceArray[i] > max)
+                {
+                    max = sourceArray[i];
+                }
+            }
+
+            return [max];
         }
     }
 }
