@@ -472,19 +472,19 @@ namespace LinqExercises
             }
 
             List<int> result = [];
-            Queue<int> max = [];
+            LinkedList<int> max = [];
 
             int start = 0;
             int end = 0;
 
             while (end < sourceArray.Length)
             {
-                while (max.Count != 0 && sourceArray[end] > max.Peek())
+                while (max.Count != 0 && sourceArray[end] > max.Last.Value)
                 {
-                    max.Dequeue();
+                    max.RemoveLast();
                 }
 
-                max.Enqueue(sourceArray[end]);
+                max.AddLast(sourceArray[end]);
                 end++;
 
                 if (end < size)
@@ -492,11 +492,11 @@ namespace LinqExercises
                     continue;
                 }
 
-                result.Add(max.Peek());
+                result.Add(max.First.Value);
 
-                if (sourceArray[start] == max.Peek())
+                if (sourceArray[start] == max.First.Value)
                 {
-                    max.Dequeue();
+                    max.RemoveFirst();
                 }
 
                 start++;

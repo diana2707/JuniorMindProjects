@@ -806,11 +806,17 @@ namespace LinqExercises
             Assert.Equal([4, 4, 4], Exercises.GetMaximumElements([4, 4, 4, 4, 4], 3));
         }
 
-        //[Fact]
-        //public void GetMaximumElementsReturnIntegerWhenSourceContainsRepeatingElementszzzzzz()
-        //{
-        //    Assert.Equal([10, 10, 9, 2], Exercises.GetMaximumElements([9, 10, 9, -7, -4, -8, 2, -6], 5));
-        //}
+        [Fact]
+        public void GetMaximumElementsReturnIntegerWhenSourceContains()
+        {
+            Assert.Equal([10, 10, 9, 2], Exercises.GetMaximumElements([9, 10, 9, -7, -4, -8, 2, -6], 5));
+        }
+
+        [Fact]
+        public void GetMaximumElementsReturnIntegerWhenSizeIsGreaterThansource()
+        {
+            Assert.Equal([], Exercises.GetMaximumElements([4, 2, 1], 5));
+        }
 
     }
 }
