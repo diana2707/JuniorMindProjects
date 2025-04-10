@@ -480,17 +480,13 @@ namespace LinqExercises
 
             while (end < size)
             {
-                if (max.Count == 0)
+                if (max.Count == 0 || sourceArray[end] < max.Peek())
                 {
                     max.Enqueue(sourceArray[end]);
                 }
                 else if (sourceArray[end] > max.Peek())
                 {
                     max.Dequeue();
-                    max.Enqueue(sourceArray[end]);
-                }
-                else if (sourceArray[end] < max.Peek())
-                {
                     max.Enqueue(sourceArray[end]);
                 }
 
@@ -508,17 +504,13 @@ namespace LinqExercises
 
                 start++;
 
-                if (max.Count == 0)
+                if (max.Count == 0 || sourceArray[end] < max.Peek())
                 {
                     max.Enqueue(sourceArray[end]);
                 }
                 else if (sourceArray[end] > max.Peek())
                 {
                     max.Dequeue();
-                    max.Enqueue(sourceArray[end]);
-                }
-                else if (sourceArray[end] < max.Peek())
-                {
                     max.Enqueue(sourceArray[end]);
                 }
 
