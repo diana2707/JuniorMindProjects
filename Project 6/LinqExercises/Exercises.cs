@@ -476,79 +476,31 @@ namespace LinqExercises
 
             int start = 0;
             int end = 0;
-            int intervalCount = size;
-
-            while (end < size)
-            {
-                if (max.Count == 0 || sourceArray[end] < max.Peek())
-                {
-                    max.Enqueue(sourceArray[end]);
-                }
-                else if (sourceArray[end] > max.Peek())
-                {
-                    max.Dequeue();
-                    max.Enqueue(sourceArray[end]);
-                }
-
-                end++;
-            }
-
-            result.Add(max.Peek());
 
             while (end < sourceArray.Length)
             {
+                while (max.Count != 0 && sourceArray[end] > max.Peek())
+                {
+                    max.Dequeue();
+                }
+
+                max.Enqueue(sourceArray[end]);
+                end++;
+
+                if (end < size)
+                {
+                    continue;
+                }
+
+                result.Add(max.Peek());
+
                 if (sourceArray[start] == max.Peek())
                 {
                     max.Dequeue();
                 }
 
                 start++;
-
-                if (max.Count == 0 || sourceArray[end] < max.Peek())
-                {
-                    max.Enqueue(sourceArray[end]);
-                    result.Add(max.Peek());
-                    end++;
-
-                    continue;
-                }
-
-                while (sourceArray[end] > max.Peek())
-                {
-                    max.Dequeue();
-                    max.Enqueue(sourceArray[end]);
-                }
-
-                result.Add(max.Peek());
-                end++;
             }
-
-            //List<int> results = [];
-            ////List<int> max = [int.MinValue];
-            //int max = int.MinValue;
-            ////int maxIndex = 0;
-            //int start = 0;
-            //int end = 0;
-            //int intervalCount = 0;
-
-            //while (end < sourceArray.Length)
-            //{
-            //    while (end < sourceArray.Length && intervalCount < size)
-            //    {
-            //        if (sourceArray[end] > max)
-            //        {
-            //            max = sourceArray[end];
-            //        }
-
-            //        intervalCount++;
-            //        end++;
-            //    }
-
-            //    results.Add(max);
-            //    intervalCount = 0;
-            //    max = int.MinValue;
-            //    start++;
-            //}
 
             return result;
         }

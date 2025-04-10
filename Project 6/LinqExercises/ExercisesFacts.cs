@@ -783,10 +783,34 @@ namespace LinqExercises
         }
 
         [Fact]
-        public void GetMaximumElementsReturnIntegerWhenSourceContains()
+        public void GetMaximumElementsReturnIntegerWhenSourceIsUnordered()
         {
             Assert.Equal([5, 6, 6, 6], Exercises.GetMaximumElements([2, 5, 3, 6, 2, 1], 3));
         }
+
+        [Fact]
+        public void GetMaximumElementsReturnIntegerWhenSourceContainsNegativeElements()
+        {
+            Assert.Equal([3, 3, 5, 5, 6, 7], Exercises.GetMaximumElements([1, 3, -1, -3, 5, 3, 6, 7], 3));
+        }
+
+        [Fact]
+        public void GetMaximumElementsReturnIntegerWhenMaxElementInFirstIntervalIsLast()
+        {
+            Assert.Equal([5, 6], Exercises.GetMaximumElements([3, 1, 5, 6 ], 3));
+        }
+
+        [Fact]
+        public void GetMaximumElementsReturnIntegerWhenSourceContainsRepeatingElements()
+        {
+            Assert.Equal([4, 4, 4], Exercises.GetMaximumElements([4, 4, 4, 4, 4], 3));
+        }
+
+        //[Fact]
+        //public void GetMaximumElementsReturnIntegerWhenSourceContainsRepeatingElementszzzzzz()
+        //{
+        //    Assert.Equal([10, 10, 9, 2], Exercises.GetMaximumElements([9, 10, 9, -7, -4, -8, 2, -6], 5));
+        //}
 
     }
 }
