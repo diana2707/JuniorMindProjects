@@ -494,6 +494,7 @@ namespace LinqExercises
 
                 results.Add(max);
                 intervalCount = 0;
+                max = int.MinValue;
                 start++;
             }
 

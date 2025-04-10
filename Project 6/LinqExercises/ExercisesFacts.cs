@@ -764,5 +764,11 @@ namespace LinqExercises
             Assert.Equal([1, 2], Exercises.GetMaximumElements([1, 2], 1));
         }
 
+        [Fact]
+        public void GetMaximumElementsReturnIntegerWhenSOurceElementsArUnordered()
+        {
+            Assert.Equal([2, 1], Exercises.GetMaximumElements([2, 1], 1));
+        }
+
     }
 }
