@@ -743,7 +743,14 @@ namespace LinqExercises
         [Fact]
         public void GetMaximumElementsReturnEmptyCollectionWhenSourceIsEmpty()
         {
-            Assert.Equal([], Exercises.GetMaximumElements([]));
+            Assert.Equal([], Exercises.GetMaximumElements([], 1));
         }
+
+        [Fact]
+        public void GetMaximumElementsReturnIntegerWhenSourceContains1IntegerIntervalSize1()
+        {
+            Assert.Equal([1], Exercises.GetMaximumElements([1], 1));
+        }
+
     }
 }
