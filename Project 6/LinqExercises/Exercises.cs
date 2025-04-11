@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Transactions;
 
@@ -520,11 +521,26 @@ namespace LinqExercises
                 return '\0';
             }
 
-            var group = input.GroupBy(e => e).FirstOrDefault(group => group.Count() == 1);
+            Dictionary<char, int> frequncy = [];
 
-            if (group != null)
+            for (int i = 0; i < input.Length; i++)
             {
-                return group.Key;
+                if (frequncy.ContainsKey(input[i]))
+                {
+                    frequncy[input[i]]++;
+                }
+                else
+                {
+                    frequncy.Add(input[i], 1);
+                }
+            }
+
+            foreach (var ch in input)
+            {
+                if (frequncy[ch] == 1)
+                {
+                    return ch;
+                }
             }
 
             return '\0';
