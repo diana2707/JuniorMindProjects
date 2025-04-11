@@ -818,5 +818,11 @@ namespace LinqExercises
             Assert.Equal([], Exercises.GetMaximumElements([4, 2, 1], 5));
         }
 
+        [Fact]
+        public void GetFirstUniqueCharacterReturnDefaultCharacterWhenStringIsEmpty()
+        {
+            Assert.Equal('\0', Exercises.GetFirstUniqueCharacter(string.Empty));
+        }
+
     }
 }

@@ -401,6 +401,8 @@ namespace LinqExercises
             return (-1, -1);
         }
 
+        //Problem 15
+        //
         //  Given an array of integers, the task is to find the Next Greater Element
         //  for each element of the array in order of their appearance in the array.
         //  Note: The Next Greater Element for an element x is the first greater element on
@@ -460,6 +462,8 @@ namespace LinqExercises
             return result;
         }
 
+        //  Problem 16
+        //
         //  Given an array of integers, find the maximum element in every subarray of size k
 
         public static IEnumerable<int> GetMaximumElements(IEnumerable<int> source, int size)
@@ -503,6 +507,15 @@ namespace LinqExercises
             }
 
             return result;
+        }
+
+        //  Problem 17
+        //
+        //  Find the first non-repeating character in a string
+
+        public static char GetFirstUniqueCharacter(string input)
+        {
+            return '\0';
         }
     }
 }
