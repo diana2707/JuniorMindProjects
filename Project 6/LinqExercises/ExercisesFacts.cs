@@ -824,5 +824,11 @@ namespace LinqExercises
             Assert.Equal('\0', Exercises.GetFirstUniqueCharacter(string.Empty));
         }
 
+        [Fact]
+        public void GetFirstUniqueCharacterReturnSameCharWhenInputContainsSingleChar()
+        {
+            Assert.Equal('a', Exercises.GetFirstUniqueCharacter("a"));
+        }
+
     }
 }

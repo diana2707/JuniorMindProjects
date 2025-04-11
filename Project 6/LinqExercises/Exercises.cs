@@ -515,7 +515,12 @@ namespace LinqExercises
 
         public static char GetFirstUniqueCharacter(string input)
         {
-            return '\0';
+            if(input.Length == 0)
+            {
+                return '\0';
+            }
+
+            return input[0];
         }
     }
 }
