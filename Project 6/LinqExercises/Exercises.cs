@@ -520,7 +520,14 @@ namespace LinqExercises
                 return '\0';
             }
 
-            return input.GroupBy(e => e).First(group => group.Count() == 1).Key;
+            var group = input.GroupBy(e => e).FirstOrDefault(group => group.Count() == 1);
+
+            if (group != null)
+            {
+                return group.Key;
+            }
+
+            return '\0';
         }
     }
 }

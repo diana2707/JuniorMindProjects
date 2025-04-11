@@ -842,5 +842,11 @@ namespace LinqExercises
             Assert.Equal('a', Exercises.GetFirstUniqueCharacter("bab"));
         }
 
+        [Fact]
+        public void GetFirstUniqueCharacterReturnDefaultValueWhenNoUniqueCharsExist()
+        {
+            Assert.Equal('\0', Exercises.GetFirstUniqueCharacter("baba"));
+        }
+
     }
 }
