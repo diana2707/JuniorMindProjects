@@ -830,5 +830,17 @@ namespace LinqExercises
             Assert.Equal('a', Exercises.GetFirstUniqueCharacter("a"));
         }
 
+        [Fact]
+        public void GetFirstUniqueCharacterReturnFirstCharWhenStringContains2UniqueChars()
+        {
+            Assert.Equal('a', Exercises.GetFirstUniqueCharacter("ab"));
+        }
+
+        [Fact]
+        public void GetFirstUniqueCharacterReturnFirstUniqueCharWhebInputContainsRepeatingCharacters()
+        {
+            Assert.Equal('a', Exercises.GetFirstUniqueCharacter("bab"));
+        }
+
     }
 }

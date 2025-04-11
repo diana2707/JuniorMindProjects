@@ -515,12 +515,12 @@ namespace LinqExercises
 
         public static char GetFirstUniqueCharacter(string input)
         {
-            if(input.Length == 0)
+            if (input.Length == 0)
             {
                 return '\0';
             }
 
-            return input[0];
+            return input.GroupBy(e => e).First(group => group.Count() == 1).Key;
         }
     }
 }
