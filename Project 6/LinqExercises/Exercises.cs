@@ -545,5 +545,21 @@ namespace LinqExercises
 
             return '\0';
         }
+
+        //  Problem 18
+        //
+        //  Find the maximum number of non-overlaping intervals
+        //  Example input: [(1, 2), (2, 3), (3, 4), (1, 3), (2, 5), (5, 6)]
+        //  Output: [(1, 2), (2, 3), (3, 4), (5, 6)]
+
+        //ar trebui calculata dimensiunea intervalului si ordonate dupa dimensiune
+        //cut cat intervalele sunt mai mici sansele sa nu fie overlap sunt mai mari
+        //se cauta intervalul cu cel 
+
+        public static IEnumerable<(int, int)> GetMaxNonOverlapingIntervals(IEnumerable<(int, int)> source)
+        {
+            return [];
+        }
+
     }
 }

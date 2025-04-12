@@ -848,5 +848,11 @@ namespace LinqExercises
             Assert.Equal('\0', Exercises.GetFirstUniqueCharacter("baba"));
         }
 
+        [Fact]
+        public void GetMaxNonOverlapingIntervalsReturnEmptyCollectionWhenSourceIsEmpty()
+        {
+            Assert.Equal([], Exercises.GetMaxNonOverlapingIntervals([]));
+        }
+
     }
 }
