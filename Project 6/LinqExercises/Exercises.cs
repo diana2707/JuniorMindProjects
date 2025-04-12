@@ -558,7 +558,12 @@ namespace LinqExercises
 
         public static IEnumerable<(int, int)> GetMaxNonOverlapingIntervals(IEnumerable<(int, int)> source)
         {
-            return [];
+            if (!source.Any())
+            {
+                return [];
+            }
+
+            return source;
         }
 
     }
