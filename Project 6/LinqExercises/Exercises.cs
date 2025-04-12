@@ -565,19 +565,25 @@ namespace LinqExercises
                 return source;
             }
 
-            if ((sourceList[0].start > sourceList[1].start && sourceList[0].start < sourceList[1].end)
-                || (sourceList[0].end < sourceList[1].end && sourceList[0].end > sourceList[1].start))
+            for (int i = 0; i < sourceList.Count - 1; i++)
             {
-                int firstIntervalLength = Math.Abs(sourceList[0].start - sourceList[0].end);
-                int secondIntervalLength = Math.Abs(sourceList[1].start - sourceList[1].end);
+                for (int j = i + 1; j < sourceList.Count; j++)
+                {
+                    if ((sourceList[i].start > sourceList[j].start && sourceList[j].start < sourceList[j].end)
+                        || (sourceList[i].end < sourceList[j].end && sourceList[i].end > sourceList[j].start))
+                    {
+                        int firstIntervalLength = Math.Abs(sourceList[i].start - sourceList[i].end);
+                        int secondIntervalLength = Math.Abs(sourceList[j].start - sourceList[j].end);
 
-                if (firstIntervalLength > secondIntervalLength)
-                {
-                    sourceList.Remove(sourceList[0]);
-                }
-                else
-                {
-                    sourceList.Remove(sourceList[1]);
+                        if (firstIntervalLength > secondIntervalLength)
+                        {
+                            sourceList.Remove(sourceList[i]);
+                        }
+                        else
+                        {
+                            sourceList.Remove(sourceList[j]);
+                        }
+                    }
                 }
             }
 
