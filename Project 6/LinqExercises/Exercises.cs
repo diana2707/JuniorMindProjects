@@ -558,12 +558,30 @@ namespace LinqExercises
 
         public static IEnumerable<(int, int)> GetMaxNonOverlapingIntervals(IEnumerable<(int, int)> source)
         {
-            if (!source.Any())
+            List<(int start, int end)> sourceList = source.ToList();
+
+            if (sourceList.Count < 2)
             {
-                return [];
+                return source;
             }
 
-            return source;
+            if ((sourceList[0].start > sourceList[1].start && sourceList[0].start < sourceList[1].end)
+                || (sourceList[0].end < sourceList[1].end && sourceList[0].end > sourceList[1].start))
+            {
+                int firstIntervalLength = Math.Abs(sourceList[0].start - sourceList[0].end);
+                int secondIntervalLength = Math.Abs(sourceList[1].start - sourceList[1].end);
+
+                if (firstIntervalLength > secondIntervalLength)
+                {
+                    sourceList.Remove(sourceList[0]);
+                }
+                else
+                {
+                    sourceList.Remove(sourceList[1]);
+                }
+            }
+
+            return sourceList;
         }
 
     }
