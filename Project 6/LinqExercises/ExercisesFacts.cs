@@ -920,5 +920,11 @@ namespace LinqExercises
             Assert.Equal(1, Exercises.GetMinInsertsToPalindrom("ab"));
         }
 
+        [Fact]
+        public void GetMinInsertsToPalindromReturn1WhenSourceIs3Characters()
+        {
+            Assert.Equal(2, Exercises.GetMinInsertsToPalindrom("abc"));
+        }
+
     }
 }

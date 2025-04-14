@@ -600,7 +600,7 @@ namespace LinqExercises
 
             string prefix = "a";
 
-            return prefix.Length;
+            return source.Length - prefix.Length;
         }
 
 
