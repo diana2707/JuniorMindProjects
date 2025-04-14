@@ -598,7 +598,9 @@ namespace LinqExercises
                 return 0;
             }
 
-            string prefix = "a";
+            string prefix = source.Select((_, end) => source[0..(end + 1)])
+                                  .Where(substring => substring.SequenceEqual(substring.Reverse()))
+                                  .MaxBy(palindrom => palindrom.Length);
 
             return source.Length - prefix.Length;
         }
