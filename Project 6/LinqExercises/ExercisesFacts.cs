@@ -938,5 +938,10 @@ namespace LinqExercises
             Assert.Equal(1, Exercises.GetMinInsertsToPalindrom("abb"));
         }
 
+        [Fact]
+        public void GetMinInsertsToPalindromReturn1WhenPalindromicSufixAndPrefixMatch()
+        {
+            Assert.Equal(2, Exercises.GetMinInsertsToPalindrom("abcda"));
+        }
     }
 }

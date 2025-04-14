@@ -591,29 +591,33 @@ namespace LinqExercises
 
         //  Find the minimum number of insertions required to make a string a palindrome
 
-        public static int GetMinInsertsToPalindrom(string source)
+        private static int GetMinInsertsToPalindrom(string source, int start, int end)
         {
-            if (source.Length <= 1)
+            if (start >= end)
             {
                 return 0;
             }
 
-            string prefix = source.Select((_, end) => source[0..(end + 1)])
-                                  .Where(substring => substring.SequenceEqual(substring.Reverse()))
-                                  .MaxBy(palindrom => palindrom.Length);
+            int result = 0;
 
-            string sufix = source.Select((_, start) => source[start..source.Length])
-                                  .Where(substring => substring.SequenceEqual(substring.Reverse()))
-                                  .MaxBy(palindrom => palindrom.Length);
-
-            if (prefix.Length > sufix.Length)
+            if (source[start] == source[end])
             {
-                return source.Length - prefix.Length;
+                result = GetMinInsertsToPalindrom(source, start + 1, end - 1);
+            }
+            else
+            {
+                int first = GetMinInsertsToPalindrom(source, start, end - 1) + 1;
+                int second = GetMinInsertsToPalindrom(source, start + 1, end) + 1;
+
+                result = Math.Min(first, second);
             }
 
-            return source.Length - sufix.Length;
+            return result;
         }
 
-
+        public static int GetMinInsertsToPalindrom(string source)
+        {
+            return GetMinInsertsToPalindrom(source, 0, source.Length - 1);
+        }
     }
 }
