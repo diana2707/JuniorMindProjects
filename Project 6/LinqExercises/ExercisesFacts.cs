@@ -927,9 +927,15 @@ namespace LinqExercises
         }
 
         [Fact]
-        public void GetMinInsertsToPalindromReturn1WhenPalindromicPrefixIs2Character()
+        public void GetMinInsertsToPalindromReturn1WhenPalindromicPrefixIs2Longer()
         {
             Assert.Equal(1, Exercises.GetMinInsertsToPalindrom("aab"));
+        }
+
+        [Fact]
+        public void GetMinInsertsToPalindromReturn1WhenPalindromicSufixIsLonger()
+        {
+            Assert.Equal(1, Exercises.GetMinInsertsToPalindrom("abb"));
         }
 
     }

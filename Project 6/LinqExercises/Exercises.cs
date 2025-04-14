@@ -602,7 +602,16 @@ namespace LinqExercises
                                   .Where(substring => substring.SequenceEqual(substring.Reverse()))
                                   .MaxBy(palindrom => palindrom.Length);
 
-            return source.Length - prefix.Length;
+            string sufix = source.Select((_, start) => source[start..source.Length])
+                                  .Where(substring => substring.SequenceEqual(substring.Reverse()))
+                                  .MaxBy(palindrom => palindrom.Length);
+
+            if (prefix.Length > sufix.Length)
+            {
+                return source.Length - prefix.Length;
+            }
+
+            return source.Length - sufix.Length;
         }
 
 
