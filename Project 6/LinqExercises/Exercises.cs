@@ -550,11 +550,7 @@ namespace LinqExercises
         //
         //  Find the maximum number of non-overlaping intervals
         //  Example input: [(1, 2), (2, 3), (3, 4), (1, 3), (2, 5), (5, 6)]
-        //  Output: [(1, 2), (2, 3), (3, 4), (5, 6)]
-
-        //ar trebui calculata dimensiunea intervalului si ordonate dupa dimensiune
-        //cut cat intervalele sunt mai mici sansele sa nu fie overlap sunt mai mari
-        //se cauta intervalul cu cel 
+        //  Output: [(1, 2), (2, 3), (3, 4), (5, 6)] 
 
         public static IEnumerable<(int, int)> GetMaxNonOverlapingIntervals(IEnumerable<(int, int)> source)
         {
@@ -565,7 +561,7 @@ namespace LinqExercises
                 return source;
             }
 
-            Dictionary<(int, int), List<(int, int)>> overlapingReferences = sourceList.ToDictionary(key => key, key => new List<(int, int)>());
+            Dictionary<(int, int), List<(int, int)>> result = sourceList.ToDictionary(key => key, (_) => new List<(int, int)>());
 
             for (int i = 0; i < sourceList.Count - 1; i++)
             {
@@ -576,28 +572,29 @@ namespace LinqExercises
                         continue;
                     }
 
-                    overlapingReferences[sourceList[i]].Add(sourceList[j]);
-                    overlapingReferences[sourceList[j]].Add(sourceList[i]);
+                    result[sourceList[i]].Add(sourceList[j]);
+                    result[sourceList[j]].Add(sourceList[i]);
                 }
             }
 
-            int maxOverlapsCount = int.MaxValue;
-
-            while (maxOverlapsCount != 0)
+            KeyValuePair<(int, int), List<(int, int)>> GetMaxOverlapInterval()
             {
-                var maxOverlapRef = overlapingReferences.MaxBy(e => e.Value.Count);
-
-                foreach (var reference in maxOverlapRef.Value)
-                {
-                    overlapingReferences[reference].Remove(maxOverlapRef.Key);
-                }
-
-                overlapingReferences.Remove(maxOverlapRef.Key);
-
-                maxOverlapsCount = overlapingReferences.MaxBy(e => e.Value.Count).Value.Count;
+                return result.MaxBy(e => e.Value.Count);
             }
 
-            return overlapingReferences.Keys;
+            while (GetMaxOverlapInterval().Value.Count != 0)
+            {
+                var maxOverlapInterval = GetMaxOverlapInterval();
+
+                foreach (var reference in maxOverlapInterval.Value)
+                {
+                    result[reference].Remove(maxOverlapInterval.Key);
+                }
+
+                result.Remove(maxOverlapInterval.Key);
+            }
+
+            return result.Keys;
         }
     }
 }
