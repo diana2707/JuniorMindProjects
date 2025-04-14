@@ -593,7 +593,14 @@ namespace LinqExercises
 
         public static int GetMinInsertsToPalindrom(string source)
         {
-            return 0;
+            if (source.Length <= 1)
+            {
+                return 0;
+            }
+
+            string prefix = "a";
+
+            return prefix.Length;
         }
 
 
