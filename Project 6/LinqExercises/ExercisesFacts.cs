@@ -872,5 +872,11 @@ namespace LinqExercises
             Assert.Equal([(1, 2), (2, 3), (3, 4), (5, 6)], Exercises.GetMaxNonOverlapingIntervals([(1, 2), (2, 3), (3, 4), (1, 3), (2, 5), (5, 6)]));
         }
 
+        [Fact]
+        public void GetMaxNonOverlapingIntervalsReturnSmallerIntervalsWhen1IntarvalOverlapsWholeOtherIntervals()
+        {
+            Assert.Equal([(2, 3), (4, 5), (6, 7), (8, 9)], Exercises.GetMaxNonOverlapingIntervals([(1, 10), (2, 3), (4, 5), (6, 7), (8, 9)]));
+        }
+
     }
 }

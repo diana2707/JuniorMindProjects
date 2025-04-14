@@ -569,20 +569,21 @@ namespace LinqExercises
             {
                 for (int j = i + 1; j < sourceList.Count; j++)
                 {
-                    if ((sourceList[i].start > sourceList[j].start && sourceList[j].start < sourceList[j].end)
-                        || (sourceList[i].end < sourceList[j].end && sourceList[i].end > sourceList[j].start))
+                    if (sourceList[i].end <= sourceList[j].start || sourceList[i].start >= sourceList[j].end)
                     {
-                        int firstIntervalLength = Math.Abs(sourceList[i].start - sourceList[i].end);
-                        int secondIntervalLength = Math.Abs(sourceList[j].start - sourceList[j].end);
+                        continue;
+                    }
 
-                        if (firstIntervalLength > secondIntervalLength)
-                        {
-                            sourceList.Remove(sourceList[i]);
-                        }
-                        else
-                        {
-                            sourceList.Remove(sourceList[j]);
-                        }
+                    int firstIntervalLength = Math.Abs(sourceList[i].start - sourceList[i].end);
+                    int secondIntervalLength = Math.Abs(sourceList[j].start - sourceList[j].end);
+
+                    if (firstIntervalLength > secondIntervalLength)
+                    {
+                        sourceList.Remove(sourceList[i]);
+                    }
+                    else
+                    {
+                        sourceList.Remove(sourceList[j]);
                     }
                 }
             }
@@ -592,3 +593,26 @@ namespace LinqExercises
 
     }
 }
+
+//for (int i = 0; i < sourceList.Count - 1; i++)
+//{
+//    for (int j = i + 1; j < sourceList.Count; j++)
+//    {
+//        if (sourceList[i].end <= sourceList[j].start || sourceList[i].start >= sourceList[j].end)
+//        {
+//            continue;
+//        }
+
+//        int firstIntervalLength = Math.Abs(sourceList[i].start - sourceList[i].end);
+//        int secondIntervalLength = Math.Abs(sourceList[j].start - sourceList[j].end);
+
+//        if (firstIntervalLength > secondIntervalLength)
+//        {
+//            sourceList.Remove(sourceList[i]);
+//        }
+//        else
+//        {
+//            sourceList.Remove(sourceList[j]);
+//        }
+//    }
+//}
