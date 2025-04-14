@@ -535,15 +535,7 @@ namespace LinqExercises
                 }
             }
 
-            foreach (var ch in input)
-            {
-                if (frequncy[ch] == 1)
-                {
-                    return ch;
-                }
-            }
-
-            return '\0';
+            return input.FirstOrDefault(e => frequncy[e] == 1);
         }
 
         //  Problem 18
