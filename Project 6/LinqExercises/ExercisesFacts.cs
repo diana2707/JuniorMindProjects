@@ -902,5 +902,11 @@ namespace LinqExercises
             Assert.Equal([(1, 2), (2, 3), (3, 4), (4, 5), (5, 6)], Exercises.GetMaxNonOverlapingIntervals([(1, 2), (2, 3), (3, 4), (4, 5), (5, 6)]));
         }
 
+        [Fact]
+        public void GetMinInsertsToPalindromReturn0WhenSourceIsEmpty()
+        {
+            Assert.Equal(0, Exercises.GetMinInsertsToPalindrom(string.Empty));
+        }
+
     }
 }

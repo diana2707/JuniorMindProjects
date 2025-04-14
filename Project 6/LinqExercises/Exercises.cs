@@ -588,5 +588,14 @@ namespace LinqExercises
 
             return result.Keys;
         }
+
+        //  Find the minimum number of insertions required to make a string a palindrome
+
+        public static int GetMinInsertsToPalindrom(string source)
+        {
+            return 0;
+        }
+
+
     }
 }
