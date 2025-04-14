@@ -565,6 +565,8 @@ namespace LinqExercises
                 return source;
             }
 
+            Dictionary<(int, int), List<(int, int)>> overlapingReferences = sourceList.ToDictionary(key => key, key => new List<(int, int)>());
+
             for (int i = 0; i < sourceList.Count - 1; i++)
             {
                 for (int j = i + 1; j < sourceList.Count; j++)
@@ -574,45 +576,28 @@ namespace LinqExercises
                         continue;
                     }
 
-                    int firstIntervalLength = Math.Abs(sourceList[i].start - sourceList[i].end);
-                    int secondIntervalLength = Math.Abs(sourceList[j].start - sourceList[j].end);
-
-                    if (firstIntervalLength > secondIntervalLength)
-                    {
-                        sourceList.Remove(sourceList[i]);
-                    }
-                    else
-                    {
-                        sourceList.Remove(sourceList[j]);
-                    }
+                    overlapingReferences[sourceList[i]].Add(sourceList[j]);
+                    overlapingReferences[sourceList[j]].Add(sourceList[i]);
                 }
             }
 
-            return sourceList;
-        }
+            int maxOverlapsCount = int.MaxValue;
 
+            while (maxOverlapsCount != 0)
+            {
+                var maxOverlapRef = overlapingReferences.MaxBy(e => e.Value.Count);
+
+                foreach (var reference in maxOverlapRef.Value)
+                {
+                    overlapingReferences[reference].Remove(maxOverlapRef.Key);
+                }
+
+                overlapingReferences.Remove(maxOverlapRef.Key);
+
+                maxOverlapsCount = overlapingReferences.MaxBy(e => e.Value.Count).Value.Count;
+            }
+
+            return overlapingReferences.Keys;
+        }
     }
 }
-
-//for (int i = 0; i < sourceList.Count - 1; i++)
-//{
-//    for (int j = i + 1; j < sourceList.Count; j++)
-//    {
-//        if (sourceList[i].end <= sourceList[j].start || sourceList[i].start >= sourceList[j].end)
-//        {
-//            continue;
-//        }
-
-//        int firstIntervalLength = Math.Abs(sourceList[i].start - sourceList[i].end);
-//        int secondIntervalLength = Math.Abs(sourceList[j].start - sourceList[j].end);
-
-//        if (firstIntervalLength > secondIntervalLength)
-//        {
-//            sourceList.Remove(sourceList[i]);
-//        }
-//        else
-//        {
-//            sourceList.Remove(sourceList[j]);
-//        }
-//    }
-//}

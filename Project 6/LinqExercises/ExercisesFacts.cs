@@ -861,21 +861,39 @@ namespace LinqExercises
         }
 
         [Fact]
-        public void GetMaxNonOverlapingIntervalsReturnSmallerIntervalsWhen2IntervalsOverlap()
+        public void GetMaxNonOverlapingIntervalsReturnOneIntervalsWhen2IntervalsOverlap()
         {
-            Assert.Equal([(1, 2)], Exercises.GetMaxNonOverlapingIntervals([(1, 2), (1, 3)]));
+            Assert.Equal([(1, 3)], Exercises.GetMaxNonOverlapingIntervals([(1, 2), (1, 3)]));
         }
 
         [Fact]
-        public void GetMaxNonOverlapingIntervalsReturnSmallerIntervalsWhenMultipleIntervalsOverlap()
+        public void GetMaxNonOverlapingIntervalsReturnCorrectIntervalsWhenMultipleIntervalsOverlap()
         {
             Assert.Equal([(1, 2), (2, 3), (3, 4), (5, 6)], Exercises.GetMaxNonOverlapingIntervals([(1, 2), (2, 3), (3, 4), (1, 3), (2, 5), (5, 6)]));
         }
 
         [Fact]
-        public void GetMaxNonOverlapingIntervalsReturnSmallerIntervalsWhen1IntarvalOverlapsWholeOtherIntervals()
+        public void GetMaxNonOverlapingIntervalsReturnCorrectIntervalsWhen1IntarvalOverlapsWholeOtherIntervals()
         {
             Assert.Equal([(2, 3), (4, 5), (6, 7), (8, 9)], Exercises.GetMaxNonOverlapingIntervals([(1, 10), (2, 3), (4, 5), (6, 7), (8, 9)]));
+        }
+
+        [Fact]
+        public void GetMaxNonOverlapingIntervalsReturnCorrectIntervalsWhenIntervalsAreUnordered()
+        {
+            Assert.Equal([(2, 3), (3, 4), (1, 2), (5, 6)], Exercises.GetMaxNonOverlapingIntervals([(2, 5), (2, 3), (3, 4), (1, 3), (1, 2), (5, 6)]));
+        }
+
+        [Fact]
+        public void GetMaxNonOverlapingIntervalsReturnCorrectIntervalsWhenSmallerIntervalOverlaps2LargerIntervals()
+        {
+            Assert.Equal([(1, 10), (10, 20)], Exercises.GetMaxNonOverlapingIntervals([(1, 10), (9, 11), (10, 20)]));
+        }
+
+        [Fact]
+        public void GetMaxNonOverlapingIntervalsReturnCorrectIntervalsWhenEveryIntervalOverlapsTheNext()
+        {
+            Assert.Equal([(1, 3), (4, 7), (8, 10)], Exercises.GetMaxNonOverlapingIntervals([(1, 3), (2, 5), (4, 7), (6, 9), (8, 10)]));
         }
 
     }
