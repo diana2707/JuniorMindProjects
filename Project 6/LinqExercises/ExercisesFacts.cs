@@ -997,5 +997,17 @@ namespace LinqExercises
         {
             Assert.Equal(1, Exercises.GetSumOfSumSeries(1));
         }
+
+        [Fact]
+        public void GetSumOfSumSeriesReturn4WhenNIs2()
+        {
+            Assert.Equal(4, Exercises.GetSumOfSumSeries(2));
+        }
+
+        [Fact]
+        public void GetSumOfSumSeriesReturn10WhenNIs3()
+        {
+            Assert.Equal(10, Exercises.GetSumOfSumSeries(3));
+        }
     }
 }

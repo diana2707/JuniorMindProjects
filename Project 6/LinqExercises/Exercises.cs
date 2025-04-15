@@ -682,7 +682,12 @@ namespace LinqExercises
 
         public static int GetSumOfSumSeries(int n)
         {
-            return n;
+            if (n <= 1)
+            {
+                return n;
+            }
+
+            return n + (2 * GetSumOfSumSeries(n - 1));
         }
     }
 }
