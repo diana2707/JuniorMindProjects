@@ -635,7 +635,7 @@ namespace LinqExercises
                 return [];
             }
 
-            (int start, int end) minLimits = (-1, -1);
+            int[] minSubarray = null;
             int currentSum = 0;
             int start = 0;
             int end = 0;
@@ -649,13 +649,13 @@ namespace LinqExercises
 
                 if (currentSum >= limit)
                 {
-                    if (minLimits.start != -1)
+                    if (minSubarray != null)
                     {
-                        minLimits = (minLimits.end + 1) - minLimits.start > (end + 1) - start ? (start, end) : minLimits;
+                        minSubarray = minSubarray.Length > (end + 1) - start ? sourceArray[start..(end+1)] : minSubarray;
                     }
                     else
                     {
-                        minLimits = (start, end);
+                        minSubarray = sourceArray[start..(end + 1)];
                     }
 
                     currentSum -= sourceArray[start];
@@ -668,25 +668,7 @@ namespace LinqExercises
                 }
             }
 
-            return minLimits.start == -1 ? [] : sourceArray[minLimits.start.. (minLimits.end + 1)];
-
-
-
-
-            //int[] sourceArray = source.ToArray();
-
-            //if (sourceArray.Length == 0)
-            //{
-            //    return [];
-            //}
-
-            //var subarrays = sourceArray.SelectMany((_, start) => Enumerable.Range(start, sourceArray.Length - start)
-            //                        .Select(end => sourceArray[start..(end + 1)]))
-            //                   .Where(subarray => subarray.Sum() >= limit);
-
-            //return subarrays?.MinBy(subarray => subarray.Count()) ?? [];
+            return minSubarray ?? [];
         }
-
-
     }
 }
