@@ -670,5 +670,19 @@ namespace LinqExercises
 
             return minSubarray ?? [];
         }
+
+        //  Problem 20
+        //  Given a natural number n, find the sum of the sum-series of the first N natural number.
+        //  Example:
+        //      Natural numbers         1	2	3	4	5	6
+        //      Sum of previouse       	1	3	6	10	15	21
+        //        numbers (sum-series)
+        //      Sum of sum-series      	1	4	10	20	35	56
+
+
+        public static int GetSumOfSumSeries(int n)
+        {
+            return 0;
+        }
     }
 }

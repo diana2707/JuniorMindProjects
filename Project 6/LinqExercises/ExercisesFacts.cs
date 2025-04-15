@@ -985,5 +985,11 @@ namespace LinqExercises
         {
             Assert.Equal([5, 10], Exercises.GetSmallestSubarrayWithSumAbove([5, 1, 3, 5, 10], 15));
         }
+
+        [Fact]
+        public void GetSumOfSumSeriesReturn0WhenNIs0()
+        {
+            Assert.Equal(0, Exercises.GetSumOfSumSeries(0));
+        }
     }
 }
