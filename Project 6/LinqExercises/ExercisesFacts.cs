@@ -1033,5 +1033,11 @@ namespace LinqExercises
         {
             Assert.False(Exercises.ValidateParanthesis("([{]})"));
         }
+
+        [Fact]
+        public void GetMaxRepeatingCharsReturns0WhenStringIsEmpty()
+        {
+            Assert.Equal(0, Exercises.GetMaxRepeatingChars(string.Empty, 0));
+        }
     }
 }

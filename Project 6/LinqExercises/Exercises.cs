@@ -673,6 +673,7 @@ namespace LinqExercises
         }
 
         //  Problem 20
+        //
         //  Given a natural number n, find the sum of the sum-series of the first N natural number.
         //  Example:
         //      Natural numbers         1	2	3	4	5	6
@@ -694,6 +695,8 @@ namespace LinqExercises
             return result;
         }
 
+        //  Problem 21
+        // 
         //  Given a string s, composed of different combinations of '(' , ')', '{', '}', '[', ']', verify the validity of the arrangement.
         //  An input string is valid if:
         //      1. Open brackets must be closed by the same type of brackets.
@@ -729,6 +732,21 @@ namespace LinqExercises
 
             return pair.Count == 0;
         }
+
+        //  Problem 22
+        //
+        //  Given a string s and an integer k.
+        //  You can choose any string character in one operation and change it to any other character.
+        //  You can perform this operation at most k times.
+        //  Return the length of the longest substring containing the same letter you can get after performing the above operations.
+        //  Note: s consists of only uppercase English letters.
+
+
+        public static int GetMaxRepeatingChars(string spurce, int k)
+        {
+            return 0;
+        }
+
 
 
 
