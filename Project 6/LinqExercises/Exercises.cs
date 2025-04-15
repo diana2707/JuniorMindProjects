@@ -628,7 +628,13 @@ namespace LinqExercises
 
         public static IEnumerable<int> GetSmallestSubarrayWithSumAbove(IEnumerable<int> source, int limit)
         {
-            return [];
+            if (!source.Any())
+            {
+                return [];
+            }
+
+            return source;
+            
         }
 
 
