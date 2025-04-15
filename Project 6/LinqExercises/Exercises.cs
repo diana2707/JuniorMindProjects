@@ -682,7 +682,7 @@ namespace LinqExercises
 
         public static int GetSumOfSumSeries(int n)
         {
-            return 0;
+            return n;
         }
     }
 }
