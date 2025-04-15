@@ -749,7 +749,19 @@ namespace LinqExercises
                 return 0;
             }
 
-            return source.Length;
+            if (k == 0)
+            {
+                return source.SelectMany((_, start) => Enumerable.Range(start, source.Length - start)
+                                .Select(end => source[start..(end + 1)]))
+                             .MinBy(substring => substring.Count() - substring.Distinct().Count())
+                             .Count();
+            }
+
+            return source.SelectMany((_, start) => Enumerable.Range(start, source.Length - start)
+                                .Select(end => source[start..(end + 1)]))
+                          .Where(substring => substring.Count() - substring.Distinct().Count() + 1 == k)
+                          .MaxBy(substring => substring.Count())
+                          .Count();
         }
 
 

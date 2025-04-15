@@ -1045,5 +1045,11 @@ namespace LinqExercises
         {
             Assert.Equal(1, Exercises.GetMaxRepeatingChars("a", 0));
         }
+
+        [Fact]
+        public void GetMaxRepeatingCharsReturns2WhenStringContains2DifferentCharAnd1Operation()
+        {
+            Assert.Equal(2, Exercises.GetMaxRepeatingChars("ab", 1));
+        }
     }
 }
