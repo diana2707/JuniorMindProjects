@@ -701,7 +701,33 @@ namespace LinqExercises
 
         public static bool ValidateParanthesis(string source)
         {
-            return true;
+            if (source.Length == 0)
+            {
+                return true;
+            }
+
+            Dictionary<char, char> paranthesis = new()
+            {
+                { '(', ')' },
+                { '[', ']' },
+                { '{', '}' },
+            };
+
+            Stack<char> pair = [];
+
+            foreach (var ch in source)
+            {
+                if (paranthesis.TryGetValue(ch, out char value))
+                {
+                    pair.Push(value);
+                }
+                else if (ch != pair.Pop())
+                {
+                    return false;
+                }
+            }
+
+            return pair.Count == 0;
         }
 
 

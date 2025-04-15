@@ -1015,5 +1015,23 @@ namespace LinqExercises
         {
             Assert.True(Exercises.ValidateParanthesis(string.Empty));
         }
+
+        [Fact]
+        public void ValidateParanthesisReturnFalseWhenSourceContainsSingleParanthesis()
+        {
+            Assert.False(Exercises.ValidateParanthesis("("));
+        }
+
+        [Fact]
+        public void ValidateParanthesisReturnTrueWhenSourceContainsMultipleCorrectParanthesis()
+        {
+            Assert.True(Exercises.ValidateParanthesis("[{()}]"));
+        }
+
+        [Fact]
+        public void ValidateParanthesisReturnFalseWhenSourceContainsUnorderedParanthesis()
+        {
+            Assert.False(Exercises.ValidateParanthesis("([{]})"));
+        }
     }
 }
