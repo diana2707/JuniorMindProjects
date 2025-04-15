@@ -1009,5 +1009,11 @@ namespace LinqExercises
         {
             Assert.Equal(10, Exercises.GetSumOfSumSeries(3));
         }
+
+        [Fact]
+        public void GetSumOfSumSeriesReturn10WhenNIs3bbb()
+        {
+            Assert.Equal(35, Exercises.GetSumOfSumSeries(5));
+        }
     }
 }

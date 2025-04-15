@@ -682,12 +682,25 @@ namespace LinqExercises
 
         public static int GetSumOfSumSeries(int n)
         {
+            int result = 0;
+
+            while (n > 0)
+            {
+                result += GetSumSeries(n);
+                n--;
+            }
+
+            return result;
+        }
+
+        private static int GetSumSeries(int n)
+        {
             if (n <= 1)
             {
                 return n;
             }
 
-            return n + (2 * GetSumOfSumSeries(n - 1));
+            return n + GetSumSeries(n - 1);
         }
     }
 }
