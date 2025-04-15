@@ -686,21 +686,11 @@ namespace LinqExercises
 
             while (n > 0)
             {
-                result += GetSumSeries(n);
+                result += (n + 1) * n / 2;
                 n--;
             }
 
             return result;
-        }
-
-        private static int GetSumSeries(int n)
-        {
-            if (n <= 1)
-            {
-                return n;
-            }
-
-            return n + GetSumSeries(n - 1);
         }
     }
 }
