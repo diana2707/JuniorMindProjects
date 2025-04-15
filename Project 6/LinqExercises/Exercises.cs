@@ -742,9 +742,14 @@ namespace LinqExercises
         //  Note: s consists of only uppercase English letters.
 
 
-        public static int GetMaxRepeatingChars(string spurce, int k)
+        public static int GetMaxRepeatingChars(string source, int k)
         {
-            return 0;
+            if (source.Length == 0)
+            {
+                return 0;
+            }
+
+            return source.Length;
         }
 
 
