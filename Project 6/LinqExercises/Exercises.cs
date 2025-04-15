@@ -635,11 +635,11 @@ namespace LinqExercises
                 return [];
             }
 
-            return sourceArray.SelectMany((_, start) => Enumerable.Range(start, sourceArray.Length - start)
+            var subarrays = sourceArray.SelectMany((_, start) => Enumerable.Range(start, sourceArray.Length - start)
                                     .Select(end => sourceArray[start..(end + 1)]))
-                               .Where(subarray => subarray.Sum() >= limit)
-                               .MinBy(subarray => subarray.Count());
-            
+                               .Where(subarray => subarray.Sum() >= limit);
+
+            return subarrays?.MinBy(subarray => subarray.Count()) ?? [];
         }
 
 

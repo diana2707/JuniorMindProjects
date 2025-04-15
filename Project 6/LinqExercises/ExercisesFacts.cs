@@ -951,21 +951,33 @@ namespace LinqExercises
         }
 
         [Fact]
-        public void GetSmallestSubarrayWithSumResturnEmptyCollectionWhenSourceContains1Int()
+        public void GetSmallestSubarrayWithSumResturnCorrectSubarrayWhenSourceContains1Int()
         {
             Assert.Equal([1], Exercises.GetSmallestSubarrayWithSumAbove([1], 1));
         }
 
         [Fact]
-        public void GetSmallestSubarrayWithSumResturnEmptyCollectionWhenSourceAddsToLimit()
+        public void GetSmallestSubarrayWithSumResturnCorrectSubarrayWhenSourceAddsToLimit()
         {
             Assert.Equal([1, 2], Exercises.GetSmallestSubarrayWithSumAbove([1, 2], 3));
         }
 
         [Fact]
-        public void GetSmallestSubarrayWithSumResturnEmptyCollectionWhenMultipleSubarraysAddEqualWithLimit()
+        public void GetSmallestSubarrayWithSumResturncorrectSubarrayWhenMultipleSubarraysAddEqualWithLimit()
         {
             Assert.Equal([1], Exercises.GetSmallestSubarrayWithSumAbove([0, 1], 1));
+        }
+
+        [Fact]
+        public void GetSmallestSubarrayWithSumResturnCorrectSubarrayWhenMultipleSubarraysAddAboveTheLimit()
+        {
+            Assert.Equal([3], Exercises.GetSmallestSubarrayWithSumAbove([0, 1, 1, 3], 2));
+        }
+
+        [Fact]
+        public void GetSmallestSubarrayWithSumResturnEmptyCollectionWhenNoSubarrayExist()
+        {
+            Assert.Equal([], Exercises.GetSmallestSubarrayWithSumAbove([0, 1, 1, 3], 10));
         }
     }
 }
