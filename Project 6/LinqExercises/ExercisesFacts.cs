@@ -1011,9 +1011,9 @@ namespace LinqExercises
         }
 
         [Fact]
-        public void GetSumOfSumSeriesReturn10WhenNIs3bbb()
+        public void ValidateParanthesisReturnTrueWhenSourceIsEmpty()
         {
-            Assert.Equal(35, Exercises.GetSumOfSumSeries(5));
+            Assert.True(Exercises.ValidateParanthesis(string.Empty));
         }
     }
 }

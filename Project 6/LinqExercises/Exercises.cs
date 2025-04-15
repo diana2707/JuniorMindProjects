@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
+using System.Security;
 using System.Transactions;
 
 namespace LinqExercises
@@ -692,5 +693,22 @@ namespace LinqExercises
 
             return result;
         }
+
+        //  Given a string s, composed of different combinations of '(' , ')', '{', '}', '[', ']', verify the validity of the arrangement.
+        //  An input string is valid if:
+        //      1. Open brackets must be closed by the same type of brackets.
+        //      2. Open brackets must be closed in the correct order.
+
+        public static bool ValidateParanthesis(string source)
+        {
+            return true;
+        }
+
+
+
+
+
+        //  You are given a positive integer n, you need to add all the digits of n and create a new number.
+        //  Perform this operation until the resultant number has only one digit in it.
     }
 }
