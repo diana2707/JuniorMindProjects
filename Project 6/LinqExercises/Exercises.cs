@@ -589,6 +589,8 @@ namespace LinqExercises
             return result.Keys;
         }
 
+        //  Problem 18
+        //
         //  Find the minimum number of insertions required to make a string a palindrome
 
         private static int GetMinInsertsToPalindrom(string source, int start, int end)
@@ -619,5 +621,16 @@ namespace LinqExercises
         {
             return GetMinInsertsToPalindrom(source, 0, source.Length - 1);
         }
+
+        //  Problem 19
+        //
+        //  Find the smallest subarray whose sum is greater than or equal to a target
+
+        public static IEnumerable<int> GetSmallestSubarrayWithSumAbove(IEnumerable<int> source, int limit)
+        {
+            return [];
+        }
+
+
     }
 }

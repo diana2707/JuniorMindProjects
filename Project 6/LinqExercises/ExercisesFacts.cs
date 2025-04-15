@@ -943,5 +943,11 @@ namespace LinqExercises
         {
             Assert.Equal(2, Exercises.GetMinInsertsToPalindrom("abcda"));
         }
+
+        [Fact]
+        public void GetSmallestSubarrayWithSumResturnEmptyCollectionWhenSourceisEmpty()
+        {
+            Assert.Equal([], Exercises.GetSmallestSubarrayWithSumAbove([], 0));
+        }
     }
 }
