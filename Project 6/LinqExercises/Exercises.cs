@@ -635,11 +635,56 @@ namespace LinqExercises
                 return [];
             }
 
-            var subarrays = sourceArray.SelectMany((_, start) => Enumerable.Range(start, sourceArray.Length - start)
-                                    .Select(end => sourceArray[start..(end + 1)]))
-                               .Where(subarray => subarray.Sum() >= limit);
+            (int start, int end) minLimits = (-1, -1);
+            int currentSum = 0;
+            int start = 0;
+            int end = 0;
 
-            return subarrays?.MinBy(subarray => subarray.Count()) ?? [];
+            while (start < source.ToArray().Length && end < sourceArray.Length)
+            {
+                if (currentSum < limit)
+                {
+                    currentSum += sourceArray[end];
+                }
+
+                if (currentSum >= limit)
+                {
+                    if (minLimits.start != -1)
+                    {
+                        minLimits = (minLimits.end + 1) - minLimits.start > (end + 1) - start ? (start, end) : minLimits;
+                    }
+                    else
+                    {
+                        minLimits = (start, end);
+                    }
+
+                    currentSum -= sourceArray[start];
+                    start++;
+                }
+
+                if (currentSum < limit)
+                {
+                    end++;
+                }
+            }
+
+            return minLimits.start == -1 ? [] : sourceArray[minLimits.start.. (minLimits.end + 1)];
+
+
+
+
+            //int[] sourceArray = source.ToArray();
+
+            //if (sourceArray.Length == 0)
+            //{
+            //    return [];
+            //}
+
+            //var subarrays = sourceArray.SelectMany((_, start) => Enumerable.Range(start, sourceArray.Length - start)
+            //                        .Select(end => sourceArray[start..(end + 1)]))
+            //                   .Where(subarray => subarray.Sum() >= limit);
+
+            //return subarrays?.MinBy(subarray => subarray.Count()) ?? [];
         }
 
 

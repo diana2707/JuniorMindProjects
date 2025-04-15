@@ -979,5 +979,11 @@ namespace LinqExercises
         {
             Assert.Equal([], Exercises.GetSmallestSubarrayWithSumAbove([0, 1, 1, 3], 10));
         }
+
+        [Fact]
+        public void GetSmallestSubarrayWithSumResturnEmptyCollectionWhenNoSubarrayExistaaa()
+        {
+            Assert.Equal([5, 10], Exercises.GetSmallestSubarrayWithSumAbove([5, 1, 3, 5, 10, 7, 4, 9, 2, 8], 15));
+        }
     }
 }
