@@ -955,5 +955,17 @@ namespace LinqExercises
         {
             Assert.Equal([1], Exercises.GetSmallestSubarrayWithSumAbove([1], 1));
         }
+
+        [Fact]
+        public void GetSmallestSubarrayWithSumResturnEmptyCollectionWhenSourceAddsToLimit()
+        {
+            Assert.Equal([1, 2], Exercises.GetSmallestSubarrayWithSumAbove([1, 2], 3));
+        }
+
+        [Fact]
+        public void GetSmallestSubarrayWithSumResturnEmptyCollectionWhenMultipleSubarraysAddEqualWithLimit()
+        {
+            Assert.Equal([1], Exercises.GetSmallestSubarrayWithSumAbove([0, 1], 1));
+        }
     }
 }

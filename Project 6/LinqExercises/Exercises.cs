@@ -628,12 +628,17 @@ namespace LinqExercises
 
         public static IEnumerable<int> GetSmallestSubarrayWithSumAbove(IEnumerable<int> source, int limit)
         {
-            if (!source.Any())
+            int[] sourceArray = source.ToArray();
+
+            if (sourceArray.Length == 0)
             {
                 return [];
             }
 
-            return source;
+            return sourceArray.SelectMany((_, start) => Enumerable.Range(start, sourceArray.Length - start)
+                                    .Select(end => sourceArray[start..(end + 1)]))
+                               .Where(subarray => subarray.Sum() >= limit)
+                               .MinBy(subarray => subarray.Count());
             
         }
 
