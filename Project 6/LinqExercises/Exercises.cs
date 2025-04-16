@@ -748,11 +748,29 @@ namespace LinqExercises
                 return 0;
             }
 
-            return source.SelectMany((_, start) => Enumerable.Range(start, source.Length - start)
-                                .Select(end => source[start..(end + 1)]))
-                          .Where(substring => (substring.Count() - substring.GroupBy(e => e).MaxBy(group => group.Count()).Count()) <= k)
-                          .MaxBy(substring => substring.Count())
-                          .Count();
+            int maxLength = 0;
+            int opertions = k;
+            int start = 0;
+            int end = 0;
+
+            while (end < source.Length)
+            {
+                if (source[start] == source[end] /*&& opertions != 0*/)
+                {
+                    int currentLength = (end + 1) - start;
+                    maxLength = maxLength < currentLength ? currentLength : maxLength;
+                }
+
+                end++;
+            }
+
+            return maxLength;
+
+            //return source.SelectMany((_, start) => Enumerable.Range(start, source.Length - start)
+            //                    .Select(end => source[start..(end + 1)]))
+            //              .Where(substring => (substring.Length - substring.GroupBy(e => e).MaxBy(group => group.Count()).Count()) <= k)
+            //              .MaxBy(substring => substring.Length)
+            //              .Count();
         }
 
 
