@@ -739,7 +739,6 @@ namespace LinqExercises
         //  You can choose any string character in one operation and change it to any other character.
         //  You can perform this operation at most k times.
         //  Return the length of the longest substring containing the same letter you can get after performing the above operations.
-        //  Note: s consists of only uppercase English letters.
 
 
         public static int GetMaxRepeatingChars(string source, int k)
@@ -749,17 +748,9 @@ namespace LinqExercises
                 return 0;
             }
 
-            if (k == 0)
-            {
-                return source.SelectMany((_, start) => Enumerable.Range(start, source.Length - start)
-                                .Select(end => source[start..(end + 1)]))
-                             .MinBy(substring => substring.Count() - substring.Distinct().Count())
-                             .Count();
-            }
-
             return source.SelectMany((_, start) => Enumerable.Range(start, source.Length - start)
                                 .Select(end => source[start..(end + 1)]))
-                          .Where(substring => substring.Count() - substring.Distinct().Count() + 1 == k)
+                          .Where(substring => (substring.Count() - substring.GroupBy(e => e).MaxBy(group => group.Count()).Count()) == k)
                           .MaxBy(substring => substring.Count())
                           .Count();
         }
