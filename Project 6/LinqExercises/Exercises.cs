@@ -750,7 +750,7 @@ namespace LinqExercises
 
             return source.SelectMany((_, start) => Enumerable.Range(start, source.Length - start)
                                 .Select(end => source[start..(end + 1)]))
-                          .Where(substring => (substring.Count() - substring.GroupBy(e => e).MaxBy(group => group.Count()).Count()) == k)
+                          .Where(substring => (substring.Count() - substring.GroupBy(e => e).MaxBy(group => group.Count()).Count()) <= k)
                           .MaxBy(substring => substring.Count())
                           .Count();
         }
