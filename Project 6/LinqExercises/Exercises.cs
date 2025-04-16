@@ -761,9 +761,17 @@ namespace LinqExercises
                     maxLength = maxLength < currentLength ? currentLength : maxLength;
                     end++;
                 }
+                else if (source[start] != source[end] && opertions > 0)
+                {
+                    int currentLength = (end + 1) - start;
+                    maxLength = maxLength < currentLength ? currentLength : maxLength;
+                    end++;
+                    opertions--;
+                }
                 else
                 {
                     start = end;
+                    opertions = k;
                 }
             }
 

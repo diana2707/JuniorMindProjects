@@ -1052,29 +1052,34 @@ namespace LinqExercises
             Assert.Equal(2, Exercises.GetMaxRepeatingChars("abb", 0));
         }
 
-        //[Fact]
-        //public void GetMaxRepeatingCharsReturns2WhenStringContains2DifferentCharAnd1Operation()
-        //{
-        //    Assert.Equal(2, Exercises.GetMaxRepeatingChars("ab", 1));
-        //}
+        [Fact]
+        public void GetMaxRepeatingCharsReturns2WhenStringContains2DifferentCharAnd1Operation()
+        {
+            Assert.Equal(2, Exercises.GetMaxRepeatingChars("ab", 1));
+        }
+
+        [Fact]
+        public void GetMaxRepeatingCharsReturns2WhenStringContains2ReoeatingCharAnd1Operation()
+        {
+            Assert.Equal(3, Exercises.GetMaxRepeatingChars("aab", 1));
+        }
+
+        [Fact]
+        public void GetMaxRepeatingCharsReturns2WhenStringContainsMixedElements()
+        {
+            Assert.Equal(4, Exercises.GetMaxRepeatingChars("abaabc", 1));
+        }
+
+        [Fact]
+        public void GetMaxRepeatingCharsReturnsLengthWhenOperationsExeedCharsToChange()
+        {
+            Assert.Equal(3, Exercises.GetMaxRepeatingChars("aab", 3));
+        }
 
         //[Fact]
-        //public void GetMaxRepeatingCharsReturns2WhenStringContains2ReoeatingCharAnd1Operation()
+        //public void GetMaxRepeatingCharsReturnsLengthWhenCharToBeChangedWithIsSecondPosition()
         //{
-        //    Assert.Equal(3, Exercises.GetMaxRepeatingChars("aab", 1));
-        //}
-
-        //[Fact]
-        //public void GetMaxRepeatingCharsReturns2WhenStringContainsMixedElements()
-        //{
-        //    Assert.Equal(4, Exercises.GetMaxRepeatingChars("abaabc", 1));
-        //}
-
-
-        //[Fact]
-        //public void GetMaxRepeatingCharsReturnsLengthWhenOperationsExeedCharsToChange()
-        //{
-        //    Assert.Equal(3, Exercises.GetMaxRepeatingChars("aab", 3));
-        //}
+        //    Assert.Equal(3, Exercises.GetMaxRepeatingChars("baa", 1));
+        }
     }
 }
