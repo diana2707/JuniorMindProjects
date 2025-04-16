@@ -753,15 +753,18 @@ namespace LinqExercises
             int start = 0;
             int end = 0;
 
-            while (end < source.Length)
+            while (start < source.Length && end < source.Length)
             {
                 if (source[start] == source[end] /*&& opertions != 0*/)
                 {
                     int currentLength = (end + 1) - start;
                     maxLength = maxLength < currentLength ? currentLength : maxLength;
+                    end++;
                 }
-
-                end++;
+                else
+                {
+                    start = end;
+                }
             }
 
             return maxLength;

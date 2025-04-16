@@ -1049,7 +1049,7 @@ namespace LinqExercises
         [Fact]
         public void GetMaxRepeatingCharsReturns1WhenStringContains2CharAnd0Operations()
         {
-            Assert.Equal(1, Exercises.GetMaxRepeatingChars("ab", 0));
+            Assert.Equal(2, Exercises.GetMaxRepeatingChars("abb", 0));
         }
 
         //[Fact]
