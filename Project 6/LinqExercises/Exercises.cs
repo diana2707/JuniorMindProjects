@@ -749,40 +749,164 @@ namespace LinqExercises
             }
 
             int maxLength = 0;
-            int opertions = k;
+            int operations = k;
+            Queue<char> distincts = [];
+            Dictionary<char, int> frequency = [];
+            char reference = source[0];
             int start = 0;
             int end = 0;
 
             while (start < source.Length && end < source.Length)
             {
-                if (source[start] == source[end] /*&& opertions != 0*/)
+                if (source[end] == reference/* && operations > 0*/) //mai trebuie aici o conditie pt cand se schimba referinta)
                 {
+                    //se updateaze dictionarul cu frecventa elem
+                    if (frequency.ContainsKey(source[end]))
+                    {
+                        frequency[source[end]]++;
+                    }
+                    else
+                    {
+                        frequency.Add(source[end], 1);
+
+                        //pastrez charul distinct pt ca va deveni urmatorul reference
+                        distincts.Enqueue(source[end]);
+                    }
+
+                    // se updateaza maxlength cu lungimea cea mai mare a substringului
                     int currentLength = (end + 1) - start;
                     maxLength = maxLength < currentLength ? currentLength : maxLength;
+
                     end++;
                 }
-                else if (source[start] != source[end] && opertions > 0)
+                else if (source[end] != reference && operations > 0)
                 {
+                    //se updateaze dictionarul cu frecventa elem
+                    if (frequency.ContainsKey(source[end]))
+                    {
+                        frequency[source[end]]++;
+                    }
+                    else
+                    {
+                        frequency.Add(source[end], 1);
+
+                        //pastrez charul distinct pt ca va deveni urmatorul reference
+                        distincts.Enqueue(source[end]);
+                    }
+
+                    // se updateaza maxlength cu lungimea cea mai mare a substringului
                     int currentLength = (end + 1) - start;
                     maxLength = maxLength < currentLength ? currentLength : maxLength;
+
+                    operations--;
                     end++;
-                    opertions--;
                 }
-                else
+                else if (source[end] != reference && operations == 0)
                 {
-                    start = end;
-                    opertions = k;
+                    int neededOperations = end + 1 - start - frequency[reference];
+                    while (neededOperations > k && distincts.Count > 0)
+                    {
+                        distincts.Dequeue();
+
+                        if (distincts.Count > 0)
+                        {
+                            reference = distincts.Peek();
+
+                            if (source[end] == reference)
+                            {
+                                neededOperations = end + 1 - start - frequency[reference] - 1;
+                                operations = k - neededOperations;
+                            }
+                        }
+                    }
+
+                    if (distincts.Count == 0)
+                    {
+                        //aici nu e bine, sare peste inceputul substringului care ne intereseaza
+                        //trebuie vazut cum ar trebui stris daca start++
+
+                        frequency[source[start]]--;
+                        start++;
+                        //start sau end?
+                        reference = source[start];
+
+                        if (start == end)
+                        {
+                            operations = k;
+                        }
+                        else
+                        {
+                            //calcueaza op in fct de frecventa noului reference
+                            neededOperations = end + 1 - start - frequency[reference] - 1;
+                            operations = k - neededOperations < 0 ? 0 : k - neededOperations;
+                            continue;
+                        }
+                    }
                 }
             }
 
             return maxLength;
-
-            //return source.SelectMany((_, start) => Enumerable.Range(start, source.Length - start)
-            //                    .Select(end => source[start..(end + 1)]))
-            //              .Where(substring => (substring.Length - substring.GroupBy(e => e).MaxBy(group => group.Count()).Count()) <= k)
-            //              .MaxBy(substring => substring.Length)
-            //              .Count();
         }
+
+                //if (countUniques > 0)
+                //{
+                //    int currentLength = (end + 1) - start;
+                //    maxLength = maxLength < currentLength ? currentLength : maxLength;
+                //    end++;
+                //}
+                //else
+                //{
+                //    start = end;
+                //    countUniques = k + 1;
+                //    //continue; ?
+                //}
+
+                //if (source[start] != source[end] && opertions > 0)
+                //{
+                //    int currentLength = (end + 1) - start;
+                //    maxLength = maxLength < currentLength ? currentLength : maxLength;
+                //    end++;
+                //    opertions--;
+                //}
+
+
+
+
+                //int maxLength = 0;
+                //int opertions = k;
+                //int start = 0;
+                //int end = 0;
+
+                //while (start < source.Length && end < source.Length)
+                //{
+                //    if (source[start] == source[end] /*&& opertions != 0*/)
+                //    {
+                //        int currentLength = (end + 1) - start;
+                //        maxLength = maxLength < currentLength ? currentLength : maxLength;
+                //        end++;
+                //    }
+                //    else if (source[start] != source[end] && opertions > 0)
+                //    {
+                //        int currentLength = (end + 1) - start;
+                //        maxLength = maxLength < currentLength ? currentLength : maxLength;
+                //        end++;
+                //        opertions--;
+                //    }
+                //    else
+                //    {
+                //        start = end;
+                //        opertions = k;
+                //    }
+                //}
+
+
+
+                //return source.SelectMany((_, start) => Enumerable.Range(start, source.Length - start)
+                //                    .Select(end => source[start..(end + 1)]))
+                //              .Where(substring => (substring.Length - substring.GroupBy(e => e).MaxBy(group => group.Count()).Count()) <= k)
+                //              .MaxBy(substring => substring.Length)
+                //              .Count();
+            
 
 
 
