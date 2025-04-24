@@ -800,12 +800,23 @@ namespace LinqExercises
                 return false;
             }
 
-            int[] result = source.SelectMany((_, x) => Enumerable.Range(x + 1, source.Length - x - 1)
-                                    .SelectMany(y => Enumerable.Range(y + 1, source.Length - y - 1)
-                                            .Select(z => new int[] { source[x], source[y], source[z] })))
-                .FirstOrDefault(triplet => triplet.Sum() == target);
+            HashSet<int> complements = [];
 
-            return result != null;
+            for (int i = 0; i < source.Length; i++)
+            {
+                for (int j = i + 1; j < source.Length -1 ; j++)
+                {
+                    int complement = target - (source[i] + source[j]);
+                    complements.Add(complement);
+
+                    if (complements.Contains(source[j + 1]))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
     }
 }
