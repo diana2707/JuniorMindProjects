@@ -1105,5 +1105,11 @@ namespace LinqExercises
         {
             Assert.True(Exercises.ContainsTripletEqualWith([1, 2, 3], 6));
         }
+
+        [Fact]
+        public void ContainsTripletEqualWithReturnsFalseWhenSourceContains3ElementsThatDoNotAddToTarget()
+        {
+            Assert.False(Exercises.ContainsTripletEqualWith([1, 2, 3], 5));
+        }
     }
 }

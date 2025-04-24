@@ -800,7 +800,8 @@ namespace LinqExercises
                 return false;
             }
 
-            return true;
+            int result = source.Sum();
+            return result == target;
         }
     }
 }
