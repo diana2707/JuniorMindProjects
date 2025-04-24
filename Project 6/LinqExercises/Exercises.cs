@@ -800,8 +800,12 @@ namespace LinqExercises
                 return false;
             }
 
-            int result = source.Sum();
-            return result == target;
+            int[] result = source.SelectMany((_, x) => Enumerable.Range(x + 1, source.Length - x - 1)
+                                    .SelectMany(y => Enumerable.Range(y + 1, source.Length - y - 1)
+                                            .Select(z => new int[] { source[x], source[y], source[z] })))
+                .FirstOrDefault(triplet => triplet.Sum() == target);
+
+            return result != null;
         }
     }
 }
