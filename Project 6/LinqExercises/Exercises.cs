@@ -743,177 +743,64 @@ namespace LinqExercises
 
         public static int GetMaxRepeatingChars(string source, int k)
         {
+            //refa tot folosind frecventa max dintr-un substring dat
             if (source.Length == 0)
             {
                 return 0;
             }
 
             int maxLength = 0;
-            int operations = k;
-            Queue<char> distincts = [];
+            //int operations = k;
+            //Queue<char> distincts = [];
             Dictionary<char, int> frequency = [];
-            char reference = source[0];
+            int maxFrequency = 0;
+            char maxFrequncyChar = '\0';
             int start = 0;
-            int end = 0;
+            int end = -1;
 
-            while (start < source.Length && end < source.Length)
+            int NeededOperations()
             {
-                if (source[end] == reference/* && operations > 0*/) //mai trebuie aici o conditie pt cand se schimba referinta)
+                return end + 1 - start - maxFrequency;
+            }
+
+            while (end < source.Length - 1)
+            {
+                end++;
+
+                if (frequency.ContainsKey(source[end]))
                 {
-                    //se updateaze dictionarul cu frecventa elem
-                    if (frequency.ContainsKey(source[end]))
-                    {
-                        frequency[source[end]]++;
-                    }
-                    else
-                    {
-                        frequency.Add(source[end], 1);
-
-                        //pastrez charul distinct pt ca va deveni urmatorul reference
-                        distincts.Enqueue(source[end]);
-                    }
-
-                    // se updateaza maxlength cu lungimea cea mai mare a substringului
-                    int currentLength = (end + 1) - start;
-                    maxLength = maxLength < currentLength ? currentLength : maxLength;
-
-                    end++;
+                    frequency[source[end]]++;
                 }
-                else if (source[end] != reference && operations > 0)
+                else
                 {
-                    //se updateaze dictionarul cu frecventa elem
-                    if (frequency.ContainsKey(source[end]))
-                    {
-                        frequency[source[end]]++;
-                    }
-                    else
-                    {
-                        frequency.Add(source[end], 1);
-
-                        //pastrez charul distinct pt ca va deveni urmatorul reference
-                        distincts.Enqueue(source[end]);
-                    }
-
-                    // se updateaza maxlength cu lungimea cea mai mare a substringului
-                    int currentLength = (end + 1) - start;
-                    maxLength = maxLength < currentLength ? currentLength : maxLength;
-
-                    operations--;
-                    end++;
+                    frequency.Add(source[end], 1);
                 }
-                else if (source[end] != reference && operations == 0)
+
+                if (maxFrequency < frequency[source[end]])
                 {
-                    int neededOperations = end + 1 - start - frequency[reference];
-                    while (neededOperations > k && distincts.Count > 0)
-                    {
-                        distincts.Dequeue();
-
-                        if (distincts.Count > 0)
-                        {
-                            reference = distincts.Peek();
-
-                            if (source[end] == reference)
-                            {
-                                neededOperations = end + 1 - start - frequency[reference] - 1;
-                                operations = k - neededOperations;
-                            }
-                        }
-                    }
-
-                    if (distincts.Count == 0)
-                    {
-                        //aici nu e bine, sare peste inceputul substringului care ne intereseaza
-                        //trebuie vazut cum ar trebui stris daca start++
-
-                        frequency[source[start]]--;
-                        start++;
-                        //start sau end?
-                        reference = source[start];
-
-                        if (start == end)
-                        {
-                            operations = k;
-                        }
-                        else
-                        {
-                            //calcueaza op in fct de frecventa noului reference
-                            neededOperations = end + 1 - start - frequency[reference] - 1;
-                            operations = k - neededOperations < 0 ? 0 : k - neededOperations;
-                            continue;
-                        }
-                    }
+                    maxFrequency = frequency[source[end]];
+                    maxFrequncyChar = source[end];
                 }
+
+
+                if (NeededOperations() > k)
+                {
+                    frequency[source[start]]--;
+
+                    if (maxFrequncyChar == source[start])
+                    {
+                        maxFrequency--;
+                    }
+
+                    start++;
+                    continue;
+                }
+
+                int currentLength = (end + 1) - start;
+                maxLength = maxLength < currentLength ? currentLength : maxLength;
             }
 
             return maxLength;
         }
-
-                //if (countUniques > 0)
-                //{
-                //    int currentLength = (end + 1) - start;
-                //    maxLength = maxLength < currentLength ? currentLength : maxLength;
-                //    end++;
-                //}
-                //else
-                //{
-                //    start = end;
-                //    countUniques = k + 1;
-                //    //continue; ?
-                //}
-
-                //if (source[start] != source[end] && opertions > 0)
-                //{
-                //    int currentLength = (end + 1) - start;
-                //    maxLength = maxLength < currentLength ? currentLength : maxLength;
-                //    end++;
-                //    opertions--;
-                //}
-
-
-
-
-                //int maxLength = 0;
-                //int opertions = k;
-                //int start = 0;
-                //int end = 0;
-
-                //while (start < source.Length && end < source.Length)
-                //{
-                //    if (source[start] == source[end] /*&& opertions != 0*/)
-                //    {
-                //        int currentLength = (end + 1) - start;
-                //        maxLength = maxLength < currentLength ? currentLength : maxLength;
-                //        end++;
-                //    }
-                //    else if (source[start] != source[end] && opertions > 0)
-                //    {
-                //        int currentLength = (end + 1) - start;
-                //        maxLength = maxLength < currentLength ? currentLength : maxLength;
-                //        end++;
-                //        opertions--;
-                //    }
-                //    else
-                //    {
-                //        start = end;
-                //        opertions = k;
-                //    }
-                //}
-
-
-
-                //return source.SelectMany((_, start) => Enumerable.Range(start, source.Length - start)
-                //                    .Select(end => source[start..(end + 1)]))
-                //              .Where(substring => (substring.Length - substring.GroupBy(e => e).MaxBy(group => group.Count()).Count()) <= k)
-                //              .MaxBy(substring => substring.Length)
-                //              .Count();
-            
-
-
-
-
-
-
-        //  You are given a positive integer n, you need to add all the digits of n and create a new number.
-        //  Perform this operation until the resultant number has only one digit in it.
     }
 }

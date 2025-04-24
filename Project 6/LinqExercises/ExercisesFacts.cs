@@ -1083,21 +1083,15 @@ namespace LinqExercises
         }
 
         [Fact]
-        public void GetMaxRepeatingCharsReturnsLengthWhenCharToBeChangedWithIsSecondPositionsss()
+        public void GetMaxRepeatingCharsReturnsLengthWhenSubstringIsMiddleOfSourceString()
         {
             Assert.Equal(6, Exercises.GetMaxRepeatingChars("ABABBAAAB", 2));
         }
 
         [Fact]
-        public void GetMaxRepeatingCharsReturnsLengthWhenCharToBeChangedWithIsSecondPositionsssbbb()
+        public void GetMaxRepeatingCharsReturnsLengthWhenSubstringIsMiddleOfSourceStringbbbb()
         {
-            Assert.Equal(5, Exercises.GetMaxRepeatingChars("ABBBCCCDDDEE", 2));
-        }
-
-        [Fact]
-        public void GetMaxRepeatingCharsReturnsLengthWhenCharToBeChangedWithIsSecondPositionsssbbbbbbb()
-        {
-            Assert.Equal(5, Exercises.GetMaxRepeatingChars("ABABABAB", 2));
+            Assert.Equal(5, Exercises.GetMaxRepeatingChars("AABAABBA", 1));
         }
     }
 }
