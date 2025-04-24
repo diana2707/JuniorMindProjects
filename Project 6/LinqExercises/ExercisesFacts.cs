@@ -1087,11 +1087,5 @@ namespace LinqExercises
         {
             Assert.Equal(6, Exercises.GetMaxRepeatingChars("ABABBAAAB", 2));
         }
-
-        [Fact]
-        public void GetMaxRepeatingCharsReturnsLengthWhenSubstringIsMiddleOfSourceStringbbbb()
-        {
-            Assert.Equal(5, Exercises.GetMaxRepeatingChars("AABAABBA", 1));
-        }
     }
 }

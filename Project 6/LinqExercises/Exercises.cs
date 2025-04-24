@@ -741,31 +741,19 @@ namespace LinqExercises
         //  Return the length of the longest substring containing the same letter you can get after performing the above operations.
 
 
-        public static int GetMaxRepeatingChars(string source, int k)
+        public static int GetMaxRepeatingChars(string source, int allowedChanges)
         {
-            //refa tot folosind frecventa max dintr-un substring dat
-            if (source.Length == 0)
-            {
-                return 0;
-            }
-
             int maxLength = 0;
-            //int operations = k;
-            //Queue<char> distincts = [];
             Dictionary<char, int> frequency = [];
             int maxFrequency = 0;
             char maxFrequncyChar = '\0';
             int start = 0;
             int end = -1;
 
-            int NeededOperations()
-            {
-                return end + 1 - start - maxFrequency;
-            }
-
             while (end < source.Length - 1)
             {
                 end++;
+                int currentLength = (end + 1) - start;
 
                 if (frequency.ContainsKey(source[end]))
                 {
@@ -782,21 +770,17 @@ namespace LinqExercises
                     maxFrequncyChar = source[end];
                 }
 
-
-                if (NeededOperations() > k)
+                int necessaryChanges = currentLength - maxFrequency;
+                if (necessaryChanges > allowedChanges)
                 {
                     frequency[source[start]]--;
 
-                    if (maxFrequncyChar == source[start])
-                    {
-                        maxFrequency--;
-                    }
+                    maxFrequency = maxFrequncyChar == source[start] ? maxFrequency-- : maxFrequency;
 
                     start++;
                     continue;
                 }
 
-                int currentLength = (end + 1) - start;
                 maxLength = maxLength < currentLength ? currentLength : maxLength;
             }
 
