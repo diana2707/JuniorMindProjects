@@ -1091,7 +1091,19 @@ namespace LinqExercises
         [Fact]
         public void ContainsTripletEqualWithReturnsFalseWhenSourceIsEmpty()
         {
-            Assert.False(Exercises.ContainsTripletEqualWith(string.Empty, 0));
+            Assert.False(Exercises.ContainsTripletEqualWith([], 0));
+        }
+
+        [Fact]
+        public void ContainsTripletEqualWithReturnsFalseWhenSourceContainsLessThen3Elements()
+        {
+            Assert.False(Exercises.ContainsTripletEqualWith([1, 2], 0));
+        }
+
+        [Fact]
+        public void ContainsTripletEqualWithReturnsTrueWhenSourceContains3ElementsThatAddToTarget()
+        {
+            Assert.True(Exercises.ContainsTripletEqualWith([1, 2, 3], 6));
         }
     }
 }

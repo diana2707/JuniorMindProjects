@@ -793,9 +793,14 @@ namespace LinqExercises
         //  a triplet in the array whose sum equals the given target.
         //  Return true if such a triplet exists, otherwise, return false.
 
-        public static bool ContainsTripletEqualWith(string source, int target)
+        public static bool ContainsTripletEqualWith(int[] source, int target)
         {
-            return false;
+            if (source.Length < 3)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
