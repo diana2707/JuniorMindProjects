@@ -590,7 +590,7 @@ namespace LinqExercises
             return result.Keys;
         }
 
-        //  Problem 18
+        //  Problem 19
         //
         //  Find the minimum number of insertions required to make a string a palindrome
 
@@ -623,7 +623,7 @@ namespace LinqExercises
             return GetMinInsertsToPalindrom(source, 0, source.Length - 1);
         }
 
-        //  Problem 19
+        //  Problem 20
         //
         //  Find the smallest subarray whose sum is greater than or equal to a target
 
@@ -672,7 +672,7 @@ namespace LinqExercises
             return minSubarray ?? [];
         }
 
-        //  Problem 20
+        //  Problem 21
         //
         //  Given a natural number n, find the sum of the sum-series of the first N natural number.
         //  Example:
@@ -695,7 +695,7 @@ namespace LinqExercises
             return result;
         }
 
-        //  Problem 21
+        //  Problem 22
         // 
         //  Given a string s, composed of different combinations of '(' , ')', '{', '}', '[', ']', verify the validity of the arrangement.
         //  An input string is valid if:
@@ -733,7 +733,7 @@ namespace LinqExercises
             return pair.Count == 0;
         }
 
-        //  Problem 22
+        //  Problem 23
         //
         //  Given a string s and an integer k.
         //  You can choose any string character in one operation and change it to any other character.
@@ -785,6 +785,17 @@ namespace LinqExercises
             }
 
             return maxLength;
+        }
+
+        //  Problem 24
+        //
+        //  Given an array arr[] and an integer target, determine if there exists
+        //  a triplet in the array whose sum equals the given target.
+        //  Return true if such a triplet exists, otherwise, return false.
+
+        public static bool ContainsTripletEqualWith(string source, int target)
+        {
+            return false;
         }
     }
 }

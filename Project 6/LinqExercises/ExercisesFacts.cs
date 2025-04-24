@@ -1087,5 +1087,11 @@ namespace LinqExercises
         {
             Assert.Equal(6, Exercises.GetMaxRepeatingChars("ABABBAAAB", 2));
         }
+
+        [Fact]
+        public void ContainsTripletEqualWithReturnsFalseWhenSourceIsEmpty()
+        {
+            Assert.False(Exercises.ContainsTripletEqualWith(string.Empty, 0));
+        }
     }
 }
