@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextEditor.App", "TextEditor.App\TextEditor.App.csproj", "{451BF886-D93C-41DA-997F-5FAB55C937FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextEditor.Domain", "TextEditor.Domain\TextEditor.Domain.csproj", "{2A752FA8-3CEA-48F8-ABAD-DE4A1D3D869D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextEditor.Test", "TextEditor.Test\TextEditor.Test.csproj", "{6C20C102-2248-4AF7-B91F-7C8FA1CE7011}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9139B3D2-87CA-4436-8315-560362C0F15E}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props.xml = Directory.Build.props.xml
+		juniormind.ruleset = juniormind.ruleset
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{451BF886-D93C-41DA-997F-5FAB55C937FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{451BF886-D93C-41DA-997F-5FAB55C937FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{451BF886-D93C-41DA-997F-5FAB55C937FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{451BF886-D93C-41DA-997F-5FAB55C937FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A752FA8-3CEA-48F8-ABAD-DE4A1D3D869D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A752FA8-3CEA-48F8-ABAD-DE4A1D3D869D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A752FA8-3CEA-48F8-ABAD-DE4A1D3D869D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A752FA8-3CEA-48F8-ABAD-DE4A1D3D869D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C20C102-2248-4AF7-B91F-7C8FA1CE7011}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C20C102-2248-4AF7-B91F-7C8FA1CE7011}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C20C102-2248-4AF7-B91F-7C8FA1CE7011}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C20C102-2248-4AF7-B91F-7C8FA1CE7011}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
