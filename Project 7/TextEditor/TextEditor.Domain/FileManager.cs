@@ -8,6 +8,11 @@
         {
             ArgumentNullException.ThrowIfNullOrEmpty(path);
 
+            if (!File.Exists(path))
+            {
+                throw new ArgumentException(path);
+            }
+
             this.path = path;
         }
 

@@ -25,6 +25,13 @@ namespace TextEditor.Test
         }
 
         [Fact]
+        public void ManagerObjectThrowsArgumentNullExceptionWhenPathIsInvalid()
+        {
+            var path = GetTestFilePath("short_texts.txt");
+            Assert.Throws<ArgumentException>(() => new FileManager(path));
+        }
+
+        [Fact]
         public void OpenFileReturnsTextInFileAsString()
         {
             var path = GetTestFilePath("short_text.txt");
