@@ -6,12 +6,7 @@
 
         public FileManager(string path)
         {
-            ArgumentNullException.ThrowIfNullOrEmpty(path);
-
-            if (!File.Exists(path))
-            {
-                throw new ArgumentException(path);
-            }
+            ValidatePath(path);
 
             this.path = path;
         }
@@ -19,6 +14,16 @@
         public string OpenFile()
         {
             return File.ReadAllText(path);
+        }
+
+        private static void ValidatePath(string path)
+        {
+            ArgumentNullException.ThrowIfNullOrEmpty(path);
+
+            if (!File.Exists(path))
+            {
+                throw new ArgumentException(path);
+            }
         }
     }
 }
