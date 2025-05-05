@@ -22,7 +22,7 @@
 
             if (!File.Exists(path))
             {
-                throw new ArgumentException(path);
+                throw new ArgumentException("The path is not valid.");
             }
         }
     }

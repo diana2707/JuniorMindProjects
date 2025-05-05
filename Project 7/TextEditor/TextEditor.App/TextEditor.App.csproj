@@ -7,4 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TextEditor.Domain\TextEditor.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

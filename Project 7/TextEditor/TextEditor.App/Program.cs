@@ -1,5 +1,32 @@
-﻿
-static void Main(string[] args)
+﻿using TextEditor.Domain;
+
+namespace TextEditor.App
 {
-    Console.WriteLine("test");
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("To open file insert path:");
+
+            FileManager manager = null;
+
+            while (manager == null)
+            {
+                try
+                {
+                    string path = Console.ReadLine();
+                    manager = new FileManager(path);
+                }
+                catch (Exception exception)
+                {
+
+                    Console.WriteLine("The path you inserted was not valid. Please insert a correct path.");
+                }
+            }
+
+            Console.WriteLine("\n" + manager.OpenFile());
+        }
+    }
+    
 }
+
