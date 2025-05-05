@@ -2,10 +2,12 @@
 {
     public class FileManager
     {
-        string path;
+        readonly string path;
 
         public FileManager(string path)
         {
+            ArgumentNullException.ThrowIfNullOrEmpty(path);
+
             this.path = path;
         }
 
