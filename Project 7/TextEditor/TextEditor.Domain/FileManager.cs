@@ -11,7 +11,7 @@
             this.path = path;
         }
 
-        public string OpenFile()
+        public string ReadFile()
         {
             return File.ReadAllText(path);
         }

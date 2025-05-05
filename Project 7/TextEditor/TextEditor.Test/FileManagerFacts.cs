@@ -32,11 +32,11 @@ namespace TextEditor.Test
         }
 
         [Fact]
-        public void OpenFileReturnsTextInFileAsString()
+        public void ReadFileReturnsTextInFileAsString()
         {
             var path = GetTestFilePath("sample.txt");
-            FileManager manager = new FileManager(path);
-            Assert.Equal("This is a test.", manager.OpenFile());
+            FileManager manager = new (path);
+            Assert.Equal("This is a test.", manager.ReadFile());
         }
 
         private static string GetTestFilePath(string fileName)

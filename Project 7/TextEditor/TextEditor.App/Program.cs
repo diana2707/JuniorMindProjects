@@ -6,7 +6,7 @@ namespace TextEditor.App
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("To open file insert path:");
+            Console.WriteLine("To read file insert path:");
 
             FileManager manager = null;
 
@@ -24,7 +24,8 @@ namespace TextEditor.App
                 }
             }
 
-            Console.WriteLine("\n" + manager.OpenFile());
+            Console.WriteLine();
+            Console.WriteLine(manager.ReadFile());
         }
     }
     
