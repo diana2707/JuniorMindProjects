@@ -12,14 +12,15 @@ namespace TextEditor.Test
             Assert.IsType<FileManager>(manager);
         }
 
-        //[Fact]
-        //public void OpenFileReturns()
-        //{
-        //    FileManager manager = new FileManager();
-        //    Assert.Equal("This is a test.", manager.OpenFile());
-        //}
+        [Fact]
+        public void OpenFileReturnsTextInFileAsString()
+        {
+            var path = GetTestFilePath("short_text.txt");
+            FileManager manager = new FileManager(path);
+            Assert.Equal("This is a test.", manager.OpenFile());
+        }
 
-        private string GetTestFilePath(string fileName)
+        private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);
         }

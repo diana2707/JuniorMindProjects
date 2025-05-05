@@ -8,5 +8,10 @@
         {
             this.path = path;
         }
+
+        public string OpenFile()
+        {
+            return File.ReadAllText(path);
+        }
     }
 }
