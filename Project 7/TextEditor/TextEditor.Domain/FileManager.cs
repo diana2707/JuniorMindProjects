@@ -3,17 +3,19 @@
     public class FileManager
     {
         readonly string path;
+        readonly string[] buffer;
 
         public FileManager(string path)
         {
             ValidatePath(path);
 
             this.path = path;
+            buffer = File.ReadAllLines(path);
         }
 
         public string ReadFile()
         {
-            return File.ReadAllText(path);
+            return String.Concat(buffer);
         }
 
         private static void ValidatePath(string path)

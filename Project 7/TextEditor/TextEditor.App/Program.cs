@@ -19,7 +19,6 @@ namespace TextEditor.App
                 }
                 catch (Exception exception)
                 {
-
                     Console.WriteLine("The path you inserted was not valid. Please insert a correct path.");
                 }
             }

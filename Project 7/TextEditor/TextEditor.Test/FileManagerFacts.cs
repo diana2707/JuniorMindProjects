@@ -1,4 +1,5 @@
-﻿using TextEditor.Domain;
+﻿using System.Diagnostics;
+using TextEditor.Domain;
 
 namespace TextEditor.Test
 {
@@ -7,7 +8,7 @@ namespace TextEditor.Test
         [Fact]
         public void ManagerObjectIsTypeFileManager()
         {
-            var path = GetTestFilePath("sample.txt");
+            var path = GetTestFilePath("singleRow.txt");
             FileManager manager = new FileManager(path);
             Assert.IsType<FileManager>(manager);
         }
@@ -34,9 +35,17 @@ namespace TextEditor.Test
         [Fact]
         public void ReadFileReturnsTextInFileAsString()
         {
-            var path = GetTestFilePath("sample.txt");
-            FileManager manager = new (path);
+            var path = GetTestFilePath("singleRow.txt");
+            FileManager manager = new(path);
             Assert.Equal("This is a test.", manager.ReadFile());
+        }
+
+        [Fact]
+        public void LoadFileLoadsFileInBuffer()
+        {
+            var path = GetTestFilePath("multipleRows.txt");
+            FileManager manager = new(path);
+            Assert.Equal("This is a test.This is a test.This is a test.This is a test.", manager.ReadFile());
         }
 
         private static string GetTestFilePath(string fileName)
