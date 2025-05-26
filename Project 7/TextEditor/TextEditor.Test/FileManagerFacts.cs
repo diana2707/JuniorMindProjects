@@ -48,6 +48,8 @@ namespace TextEditor.Test
             Assert.Equal("This is a test.This is a test.This is a test.This is a test.", manager.ReadFile());
         }
 
+
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);
