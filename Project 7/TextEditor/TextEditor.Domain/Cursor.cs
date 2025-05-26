@@ -4,9 +4,11 @@ namespace TextEditor.Domain
 {
     public class Cursor
     {
-        public Cursor()
-        {
+        FileManager fileManager;
 
+        public Cursor(FileManager fileManager)
+        {
+            this.fileManager = fileManager;
         }
     }
 }
