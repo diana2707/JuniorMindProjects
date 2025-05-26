@@ -15,6 +15,11 @@
 
         public int LinesCount => buffer.Length;
 
+        public int GetLineLength(int index)
+        {
+            return buffer[index].Length;
+        }
+
         public string ReadFile()
         {
             return String.Concat(buffer);

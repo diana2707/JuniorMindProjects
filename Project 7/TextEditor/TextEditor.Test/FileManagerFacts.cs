@@ -45,7 +45,7 @@ namespace TextEditor.Test
         {
             var path = GetTestFilePath("multipleRows.txt");
             FileManager manager = new(path);
-            Assert.Equal("This is a test.This is a test.This is a test.This is a test.", manager.ReadFile());
+            Assert.Equal("This is a test.This is a test.This is a test.This is the last line of test.", manager.ReadFile());
         }
 
         [Fact]
@@ -55,6 +55,16 @@ namespace TextEditor.Test
             var path = GetTestFilePath("multipleRows.txt");
             FileManager manager = new(path);
             Assert.Equal(4, manager.LinesCount);
+        }
+
+        [Fact]
+        public void GetLineLengthReturnsTheNumberOfLinesLodedInTheBuffer()
+        {
+
+            var path = GetTestFilePath("multipleRows.txt");
+            FileManager manager = new(path);
+            int linesCount = manager.LinesCount;
+            Assert.Equal(30, manager.GetLineLength(linesCount - 1));
         }
 
         private static string GetTestFilePath(string fileName)
