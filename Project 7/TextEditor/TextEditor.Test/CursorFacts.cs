@@ -14,10 +14,12 @@ namespace TextEditor.Test
         }
 
         //[Fact]
-
         //public void MoveRightMethodMovesTheCursorToRightWithOneChar()
         //{
-        //    Cursor cursor = new Cursor();
+        //    string path = GetTestFilePath("singleRow.txt");
+        //    FileManager manager = new(path);
+        //    Cursor cursor = new (manager);
+        //    Assert.
         //}
 
         private static string GetTestFilePath(string fileName)

@@ -48,7 +48,14 @@ namespace TextEditor.Test
             Assert.Equal("This is a test.This is a test.This is a test.This is a test.", manager.ReadFile());
         }
 
+        [Fact]
+        public void LineCountReturnsTheNumberOfLinesLodedInTheBuffer()
+        {
 
+            var path = GetTestFilePath("multipleRows.txt");
+            FileManager manager = new(path);
+            Assert.Equal(4, manager.LinesCount);
+        }
 
         private static string GetTestFilePath(string fileName)
         {

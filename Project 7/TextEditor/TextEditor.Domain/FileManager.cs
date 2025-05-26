@@ -13,6 +13,8 @@
             buffer = File.ReadAllLines(path);
         }
 
+        public int LinesCount => buffer.Length;
+
         public string ReadFile()
         {
             return String.Concat(buffer);
