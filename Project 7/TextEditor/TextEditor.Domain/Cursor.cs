@@ -30,7 +30,15 @@ namespace TextEditor.Domain
 
         public void MoveLeft()
         {
-            column--;
+            if(column == 0)
+            {
+                row--;
+                column = fileManager.GetLineLength(row);
+            }
+            else
+            {
+                column--;
+            }
         }
     }
 }
