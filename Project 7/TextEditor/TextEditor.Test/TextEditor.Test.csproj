@@ -23,10 +23,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="TestFiles\multipleRows.txt">
+    <None Update="TestFiles\MultipleRows.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\singleRow.txt">
+    <None Update="TestFiles\SingleCharRows.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\SingleRow.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

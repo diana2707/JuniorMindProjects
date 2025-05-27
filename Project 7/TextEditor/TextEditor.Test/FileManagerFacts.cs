@@ -8,7 +8,7 @@ namespace TextEditor.Test
         [Fact]
         public void ManagerObjectIsTypeFileManager()
         {
-            var path = GetTestFilePath("singleRow.txt");
+            var path = GetTestFilePath("SingleRow.txt");
             FileManager manager = new FileManager(path);
             Assert.IsType<FileManager>(manager);
         }
@@ -35,7 +35,7 @@ namespace TextEditor.Test
         [Fact]
         public void ReadFileReturnsTextInFileAsString()
         {
-            var path = GetTestFilePath("singleRow.txt");
+            var path = GetTestFilePath("SingleRow.txt");
             FileManager manager = new(path);
             Assert.Equal("This is a test.", manager.ReadFile());
         }
@@ -43,7 +43,7 @@ namespace TextEditor.Test
         [Fact]
         public void LoadFileLoadsFileInBuffer()
         {
-            var path = GetTestFilePath("multipleRows.txt");
+            var path = GetTestFilePath("MultipleRows.txt");
             FileManager manager = new(path);
             Assert.Equal("This is a test.This is a test.This is a test.This is the last line of test.", manager.ReadFile());
         }
@@ -52,7 +52,7 @@ namespace TextEditor.Test
         public void LineCountReturnsTheNumberOfLinesLodedInTheBuffer()
         {
 
-            var path = GetTestFilePath("multipleRows.txt");
+            var path = GetTestFilePath("MultipleRows.txt");
             FileManager manager = new(path);
             Assert.Equal(4, manager.LinesCount);
         }
@@ -61,7 +61,7 @@ namespace TextEditor.Test
         public void GetLineLengthReturnsTheNumberOfLinesLodedInTheBuffer()
         {
 
-            var path = GetTestFilePath("multipleRows.txt");
+            var path = GetTestFilePath("MultipleRows.txt");
             FileManager manager = new(path);
             int linesCount = manager.LinesCount;
             Assert.Equal(30, manager.GetLineLength(linesCount - 1));
