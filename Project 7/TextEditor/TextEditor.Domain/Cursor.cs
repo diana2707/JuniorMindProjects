@@ -26,7 +26,11 @@ namespace TextEditor.Domain
             {
                 column++;
             }
-            
+        }
+
+        public void MoveLeft()
+        {
+            column--;
         }
     }
 }

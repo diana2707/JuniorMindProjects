@@ -35,6 +35,18 @@ namespace TextEditor.Test
             Assert.Equal(0, cursor.Column);
         }
 
+        [Fact]
+        public void MoveLeftMethodMovesTheCursorToLefttWithOneChar()
+        {
+            string path = GetTestFilePath("SingleRow.txt");
+            FileManager manager = new(path);
+            Cursor cursor = new(manager);
+            cursor.MoveRight();
+            cursor.MoveLeft();
+
+            Assert.Equal(0, cursor.Column);
+        }
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);
