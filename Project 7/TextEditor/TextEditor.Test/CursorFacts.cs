@@ -37,7 +37,7 @@ namespace TextEditor.Test
 
 
         [Fact]
-        public void MoveRightMethodDoNotMovesCursorWhenIsAtEndOfLastRow()
+        public void MoveRightMethodDoNotMovesCursorWhenIsAtFileEnd()
         {
             string path = GetTestFilePath("SingleChar.txt");
             FileManager manager = new(path);
@@ -71,6 +71,17 @@ namespace TextEditor.Test
             cursor.MoveLeft();
 
             Assert.Equal(1, cursor.Column);
+        }
+
+        [Fact]
+        public void MoveLeftMethodDoNotMoveWhenCursorIsAtFileStart()
+        {
+            string path = GetTestFilePath("SingleCharRows.txt");
+            FileManager manager = new(path);
+            Cursor cursor = new(manager);
+            cursor.MoveLeft();
+
+            Assert.Equal(0, cursor.Column);
         }
 
         private static string GetTestFilePath(string fileName)

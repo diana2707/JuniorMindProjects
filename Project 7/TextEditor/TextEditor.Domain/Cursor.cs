@@ -34,7 +34,11 @@ namespace TextEditor.Domain
 
         public void MoveLeft()
         {
-            if(column == 0)
+            if (row == 0 && column == 0)
+            {
+                return;
+            }
+            else if (column == 0)
             {
                 row--;
                 column = fileManager.GetLineLength(row);
