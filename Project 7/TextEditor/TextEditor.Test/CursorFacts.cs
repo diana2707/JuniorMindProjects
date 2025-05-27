@@ -38,7 +38,9 @@ namespace TextEditor.Test
             FileManager manager = new(path);
             Cursor cursor = new(manager);
             cursor.MoveRight();
+
             Assert.Equal(1, cursor.Column);
+            Assert.Equal(0, cursor.Row);
         }
 
         [Fact]
@@ -51,6 +53,7 @@ namespace TextEditor.Test
             cursor.MoveRight();
 
             Assert.Equal(0, cursor.Column);
+            Assert.Equal(1, cursor.Row);
         }
 
 
@@ -64,6 +67,7 @@ namespace TextEditor.Test
             cursor.MoveRight();
 
             Assert.Equal(1, cursor.Column);
+            Assert.Equal(0, cursor.Row);
         }
 
         [Fact]
@@ -76,6 +80,7 @@ namespace TextEditor.Test
             cursor.MoveLeft();
 
             Assert.Equal(0, cursor.Column);
+            Assert.Equal(0, cursor.Row);
         }
 
         [Fact]
@@ -89,6 +94,7 @@ namespace TextEditor.Test
             cursor.MoveLeft();
 
             Assert.Equal(1, cursor.Column);
+            Assert.Equal(0, cursor.Row);
         }
 
         [Fact]
@@ -100,6 +106,19 @@ namespace TextEditor.Test
             cursor.MoveLeft();
 
             Assert.Equal(0, cursor.Column);
+            Assert.Equal(0, cursor.Row);
+        }
+
+        [Fact]
+        public void MoveDownMethodMovesTheCursorDowntWithOneRow()
+        {
+            string path = GetTestFilePath("MultipleRows.txt");
+            FileManager manager = new(path);
+            Cursor cursor = new(manager);
+            cursor.MoveDown();
+
+            Assert.Equal(0, cursor.Column);
+            Assert.Equal(1, cursor.Row);
         }
 
         private static string GetTestFilePath(string fileName)

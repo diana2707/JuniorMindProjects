@@ -50,5 +50,10 @@ namespace TextEditor.Domain
                 column--;
             }
         }
+
+        public void MoveDown()
+        {
+            row++;
+        }
     }
 }
