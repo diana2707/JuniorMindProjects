@@ -121,6 +121,18 @@ namespace TextEditor.Test
             Assert.Equal(1, cursor.Row);
         }
 
+        [Fact]
+        public void MoveDownMethodDoMotMovesTheCursorDownWhenIsLastRow()
+        {
+            string path = GetTestFilePath("SingleChar.txt");
+            FileManager manager = new(path);
+            Cursor cursor = new(manager);
+            cursor.MoveDown();
+
+            Assert.Equal(0, cursor.Column);
+            Assert.Equal(0, cursor.Row);
+        }
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);

@@ -53,7 +53,14 @@ namespace TextEditor.Domain
 
         public void MoveDown()
         {
-            row++;
+            if(row == fileManager.LinesCount - 1)
+            {
+                return;
+            }
+            else
+            {
+                row++;
+            }
         }
     }
 }
