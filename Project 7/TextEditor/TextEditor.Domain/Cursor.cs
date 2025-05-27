@@ -17,7 +17,11 @@ namespace TextEditor.Domain
 
         public void MoveRight()
         {
-            if(column == fileManager.GetLineLength(row))
+            if (row == fileManager.LinesCount - 1 && column == fileManager.GetLineLength(row))
+            {
+                return;
+            }
+            else if (column == fileManager.GetLineLength(row))
             {
                 column = 0;
                 row++;
