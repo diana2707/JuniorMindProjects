@@ -14,6 +14,24 @@ namespace TextEditor.Test
         }
 
         [Fact]
+        public void ColumnPropertyReturnsColumnPosition()
+        {
+            string path = GetTestFilePath("SingleRow.txt");
+            FileManager manager = new(path);
+            Cursor cursor = new(manager);
+            Assert.Equal(0, cursor.Column);
+        }
+
+        [Fact]
+        public void RowPropertyReturnsRowPosition()
+        {
+            string path = GetTestFilePath("SingleRow.txt");
+            FileManager manager = new(path);
+            Cursor cursor = new(manager);
+            Assert.Equal(0, cursor.Row);
+        }
+
+        [Fact]
         public void MoveRightMethodMovesTheCursorToRightWithOneChar()
         {
             string path = GetTestFilePath("SingleRow.txt");
