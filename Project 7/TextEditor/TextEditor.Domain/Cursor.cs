@@ -74,8 +74,16 @@ namespace TextEditor.Domain
             {
                 return;
             }
-
-            row--;
+            else if (fileManager.GetLineLength(row - 1) < column)
+            {
+                row--;
+                column = fileManager.GetLineLength(row);
+            }
+            else
+            {
+                row--;
+            }
+            
         }
     }
 }

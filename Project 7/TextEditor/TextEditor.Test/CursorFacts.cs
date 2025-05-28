@@ -176,6 +176,26 @@ namespace TextEditor.Test
             Assert.Equal(0, cursor.Row);
         }
 
+        [Fact]
+        public void MoveUpMethodMovesTheCursorUpAndSetsColumnToLastPositionIfRowIsShorter()
+        {
+            string path = GetTestFilePath("MultipleRows.txt");
+            FileManager manager = new(path);
+            Cursor cursor = new(manager);
+
+            cursor.MoveDown();
+
+            for (int i = 0; i < manager.GetLineLength(cursor.Row); i++)
+            {
+                cursor.MoveRight();
+            }
+
+            cursor.MoveUp();
+
+            Assert.Equal(15, cursor.Column);
+            Assert.Equal(0, cursor.Row);
+        }
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);
