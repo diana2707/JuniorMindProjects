@@ -70,6 +70,11 @@ namespace TextEditor.Domain
 
         public void MoveUp()
         {
+            if(row == 0)
+            {
+                return;
+            }
+
             row--;
         }
     }
