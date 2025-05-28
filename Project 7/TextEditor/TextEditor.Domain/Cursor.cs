@@ -53,19 +53,17 @@ namespace TextEditor.Domain
 
         public void MoveDown()
         {
-            if(row == fileManager.LinesCount - 1)
+            if (row == fileManager.LinesCount - 1)
             {
                 return;
             }
-            else if(fileManager.GetLineLength(row + 1) < column)
-            {
-                row++;
-                column = fileManager.GetLineLength(row);
-            }
-            else
-            {
-                row++;
-            }
+
+            int nextRowLength = fileManager.GetLineLength(row + 1);
+
+            column = nextRowLength < column ? nextRowLength : column;
+            
+            row++;
+            
         }
 
         public void MoveUp()
