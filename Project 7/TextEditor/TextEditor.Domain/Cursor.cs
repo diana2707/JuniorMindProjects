@@ -67,5 +67,10 @@ namespace TextEditor.Domain
                 row++;
             }
         }
+
+        public void MoveUp()
+        {
+            row--;
+        }
     }
 }

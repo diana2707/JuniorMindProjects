@@ -151,6 +151,19 @@ namespace TextEditor.Test
             Assert.Equal(2, cursor.Row);
         }
 
+        [Fact]
+        public void MoveUpMethodMovesTheCursorUpWithOneRowAndKeepsColumnPosition()
+        {
+            string path = GetTestFilePath("MultipleRows.txt");
+            FileManager manager = new(path);
+            Cursor cursor = new(manager);
+            cursor.MoveDown();
+            cursor.MoveUp();
+
+            Assert.Equal(0, cursor.Column);
+            Assert.Equal(0, cursor.Row);
+        }
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);
