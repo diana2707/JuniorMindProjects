@@ -36,19 +36,19 @@ namespace TextEditor.Domain
 
         public void MoveLeft()
         {
-            if (row == 0 && column == 0)
+            if (column == 0)
             {
-                return;
-            }
-            else if (column == 0)
-            {
+                if (row == 0)
+                {
+                    return;
+                }
+
                 row--;
                 column = fileManager.GetLineLength(row);
+                return;
             }
-            else
-            {
-                column--;
-            }
+
+            column--;
         }
 
         public void MoveDown()
