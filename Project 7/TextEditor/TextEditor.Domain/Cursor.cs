@@ -68,20 +68,16 @@ namespace TextEditor.Domain
 
         public void MoveUp()
         {
-            if(row == 0)
+            if (row == 0)
             {
                 return;
             }
-            else if (fileManager.GetLineLength(row - 1) < column)
-            {
-                row--;
-                column = fileManager.GetLineLength(row);
-            }
-            else
-            {
-                row--;
-            }
+
+            int previousRowLength = fileManager.GetLineLength(row - 1);
+
+            column = previousRowLength < column ? previousRowLength : column;
             
+            row--;
         }
     }
 }
