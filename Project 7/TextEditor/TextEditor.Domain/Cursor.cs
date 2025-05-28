@@ -19,19 +19,19 @@ namespace TextEditor.Domain
 
         public void MoveRight()
         {
-            if (row == fileManager.LinesCount - 1 && column == fileManager.GetLineLength(row))
+            if (column == fileManager.GetLineLength(row))
             {
-                return;
-            }
-            else if (column == fileManager.GetLineLength(row))
-            {
+                if (row == fileManager.LinesCount - 1)
+                {
+                    return;
+                }
+
                 column = 0;
                 row++;
+                return;
             }
-            else
-            {
-                column++;
-            }
+      
+            column++;
         }
 
         public void MoveLeft()
