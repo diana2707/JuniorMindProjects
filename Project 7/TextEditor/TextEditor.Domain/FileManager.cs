@@ -22,7 +22,8 @@
 
         public string ReadFile()
         {
-            return String.Concat(buffer);
+            //return String.Concat(buffer);
+            return File.ReadAllText(path);
         }
 
         private static void ValidatePath(string path)

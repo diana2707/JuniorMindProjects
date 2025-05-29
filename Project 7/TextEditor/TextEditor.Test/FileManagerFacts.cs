@@ -67,6 +67,8 @@ namespace TextEditor.Test
             Assert.Equal(30, manager.GetLineLength(linesCount - 1));
         }
 
+        []
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);

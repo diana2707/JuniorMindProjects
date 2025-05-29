@@ -25,6 +25,47 @@ namespace TextEditor.App
 
             Console.WriteLine();
             Console.WriteLine(manager.ReadFile());
+
+            Cursor cursor = new(manager);
+
+            //send it to cursor
+            //(int, int) cursorPosition = Console.GetCursorPosition();
+
+            bool isListening = true;
+
+            while (isListening)
+            {
+                ConsoleKeyInfo currentKey = Console.ReadKey();
+                switch (currentKey.Key)
+                {
+                    case ConsoleKey.RightArrow:
+                        cursor.MoveRight();
+                        Console.SetCursorPosition(cursor.Column, cursor.Row);
+                        continue;
+
+                    case ConsoleKey.LeftArrow:
+                        cursor.MoveLeft();
+                        Console.SetCursorPosition(cursor.Column, cursor.Row);
+                        continue;
+
+                    case ConsoleKey.UpArrow:
+                        cursor.MoveUp();
+                        Console.SetCursorPosition(cursor.Column, cursor.Row);
+                        continue;
+
+                    case ConsoleKey.DownArrow:
+                        cursor.MoveDown();
+                        Console.SetCursorPosition(cursor.Column, cursor.Row);
+                        continue;
+
+                    case ConsoleKey.Escape:
+                        isListening = false;
+                        return;
+
+                    default:
+                        continue;
+                }
+            }
         }
     }
     

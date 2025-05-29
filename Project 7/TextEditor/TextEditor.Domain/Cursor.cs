@@ -11,6 +11,8 @@ namespace TextEditor.Domain
         public Cursor(FileManager fileManager)
         {
             this.fileManager = fileManager;
+            row = fileManager.LinesCount;
+            column = fileManager.GetLineLength(row - 1);
         }
 
         public int Column => column;
