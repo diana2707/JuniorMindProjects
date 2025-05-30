@@ -26,10 +26,10 @@ namespace TextEditor.App
             Console.WriteLine();
             Console.WriteLine(manager.ReadFile());
 
-            Cursor cursor = new(manager);
-
             //send it to cursor
-            //(int, int) cursorPosition = Console.GetCursorPosition();
+            (int, int) cursorPosition = Console.GetCursorPosition();
+
+            Cursor cursor = new(manager, cursorPosition);
 
             bool isListening = true;
 

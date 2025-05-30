@@ -45,7 +45,7 @@ namespace TextEditor.Test
         {
             var path = GetTestFilePath("MultipleRows.txt");
             FileManager manager = new(path);
-            Assert.Equal("This is a test.This is the second test.This is another test.This is the last line of test.", manager.ReadFile());
+            Assert.Equal("This is a test.\r\nThis is the second test.\r\nThis is another test.\r\nThis is the last line of test.", manager.ReadFile());
         }
 
         [Fact]
@@ -66,8 +66,6 @@ namespace TextEditor.Test
             int linesCount = manager.LinesCount;
             Assert.Equal(30, manager.GetLineLength(linesCount - 1));
         }
-
-        []
 
         private static string GetTestFilePath(string fileName)
         {

@@ -10,7 +10,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleRow.txt");
             FileManager manager = new (path);
-            Assert.IsType<Cursor>(new Cursor(manager));
+            Assert.IsType<Cursor>(new Cursor(manager, (0, 0)));
         }
 
         [Fact]
@@ -18,8 +18,8 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleRow.txt");
             FileManager manager = new(path);
-            Cursor cursor = new(manager);
-            Assert.Equal(0, cursor.Column);
+            Cursor cursor = new(manager, (0, 0));
+            Assert.Equal(15, cursor.Column);
         }
 
         [Fact]
@@ -27,7 +27,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleRow.txt");
             FileManager manager = new(path);
-            Cursor cursor = new(manager);
+            Cursor cursor = new(manager, (0, 0));
             Assert.Equal(0, cursor.Row);
         }
 
@@ -36,10 +36,10 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleRow.txt");
             FileManager manager = new(path);
-            Cursor cursor = new(manager);
+            Cursor cursor = new(manager, (0, 0));
             cursor.MoveRight();
 
-            Assert.Equal(1, cursor.Column);
+            Assert.Equal(15, cursor.Column);
             Assert.Equal(0, cursor.Row);
         }
 
@@ -48,12 +48,12 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleCharRows.txt");
             FileManager manager = new(path);
-            Cursor cursor = new(manager);
-            cursor.MoveRight();
+            Cursor cursor = new(manager, (0, 0));
+            cursor.MoveUp();
             cursor.MoveRight();
 
             Assert.Equal(0, cursor.Column);
-            Assert.Equal(1, cursor.Row);
+            Assert.Equal(2, cursor.Row);
         }
 
 
@@ -62,8 +62,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleChar.txt");
             FileManager manager = new(path);
-            Cursor cursor = new(manager);
-            cursor.MoveRight();
+            Cursor cursor = new(manager, (0, 0));
             cursor.MoveRight();
 
             Assert.Equal(1, cursor.Column);
@@ -75,11 +74,10 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleRow.txt");
             FileManager manager = new(path);
-            Cursor cursor = new(manager);
-            cursor.MoveRight();
+            Cursor cursor = new(manager, (0, 0));
             cursor.MoveLeft();
 
-            Assert.Equal(0, cursor.Column);
+            Assert.Equal(14, cursor.Column);
             Assert.Equal(0, cursor.Row);
         }
 
@@ -88,21 +86,21 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleCharRows.txt");
             FileManager manager = new(path);
-            Cursor cursor = new(manager);
-            cursor.MoveRight();
-            cursor.MoveRight();
+            Cursor cursor = new(manager, (0, 0));
+            cursor.MoveLeft();
             cursor.MoveLeft();
 
             Assert.Equal(1, cursor.Column);
-            Assert.Equal(0, cursor.Row);
+            Assert.Equal(1, cursor.Row);
         }
 
         [Fact]
         public void MoveLeftMethodDoNotMoveWhenCursorIsAtFileStart()
         {
-            string path = GetTestFilePath("SingleCharRows.txt");
+            string path = GetTestFilePath("SingleChar.txt");
             FileManager manager = new(path);
-            Cursor cursor = new(manager);
+            Cursor cursor = new(manager, (0, 0));
+            cursor.MoveLeft();
             cursor.MoveLeft();
 
             Assert.Equal(0, cursor.Column);
@@ -112,25 +110,26 @@ namespace TextEditor.Test
         [Fact]
         public void MoveDownMethodMovesTheCursorDowntWithOneRowAndKeepsColumnPosition()
         {
-            string path = GetTestFilePath("MultipleRows.txt");
+            string path = GetTestFilePath("SingleCharRows.txt");
             FileManager manager = new(path);
-            Cursor cursor = new(manager);
+            Cursor cursor = new(manager, (0, 0));
+            cursor.MoveUp();
             cursor.MoveDown();
 
-            Assert.Equal(0, cursor.Column);
-            Assert.Equal(1, cursor.Row);
+            Assert.Equal(1, cursor.Column);
+            Assert.Equal(2, cursor.Row);
         }
 
         [Fact]
         public void MoveDownMethodDoMotMovesTheCursorDownWhenIsLastRow()
         {
-            string path = GetTestFilePath("SingleChar.txt");
+            string path = GetTestFilePath("SingleCharRows.txt");
             FileManager manager = new(path);
-            Cursor cursor = new(manager);
+            Cursor cursor = new(manager, (0, 0));
             cursor.MoveDown();
 
-            Assert.Equal(0, cursor.Column);
-            Assert.Equal(0, cursor.Row);
+            Assert.Equal(1, cursor.Column);
+            Assert.Equal(2, cursor.Row);
         }
 
         [Fact]
@@ -138,13 +137,10 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("MultipleRows.txt");
             FileManager manager = new(path);
-            Cursor cursor = new(manager);
-            cursor.MoveDown();
-            for(int i = 0; i < manager.GetLineLength(cursor.Row) - 2; i++)
-            {
-                cursor.MoveRight();
-            }
+            Cursor cursor = new(manager, (0, 0));
 
+            cursor.MoveUp();
+            cursor.MoveUp();
             cursor.MoveDown();
 
             Assert.Equal(21, cursor.Column);
@@ -156,23 +152,23 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("MultipleRows.txt");
             FileManager manager = new(path);
-            Cursor cursor = new(manager);
-            cursor.MoveDown();
+            Cursor cursor = new(manager, (0, 0));
+            cursor.MoveUp();
             cursor.MoveUp();
 
-            Assert.Equal(0, cursor.Column);
-            Assert.Equal(0, cursor.Row);
+            Assert.Equal(21, cursor.Column);
+            Assert.Equal(1, cursor.Row);
         }
 
         [Fact]
         public void MoveUpMethodDoNotMovesTheCursorUpWhenIsTheFirstRow()
         {
-            string path = GetTestFilePath("MultipleRows.txt");
+            string path = GetTestFilePath("SingleChar.txt");
             FileManager manager = new(path);
-            Cursor cursor = new(manager);
+            Cursor cursor = new(manager, (0, 0));
             cursor.MoveUp();
 
-            Assert.Equal(0, cursor.Column);
+            Assert.Equal(1, cursor.Column);
             Assert.Equal(0, cursor.Row);
         }
 
@@ -181,19 +177,12 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("MultipleRows.txt");
             FileManager manager = new(path);
-            Cursor cursor = new(manager);
-
-            cursor.MoveDown();
-
-            for (int i = 0; i < manager.GetLineLength(cursor.Row); i++)
-            {
-                cursor.MoveRight();
-            }
+            Cursor cursor = new(manager, (0, 0));
 
             cursor.MoveUp();
 
-            Assert.Equal(15, cursor.Column);
-            Assert.Equal(0, cursor.Row);
+            Assert.Equal(21, cursor.Column);
+            Assert.Equal(2, cursor.Row);
         }
 
         private static string GetTestFilePath(string fileName)

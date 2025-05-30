@@ -5,14 +5,16 @@ namespace TextEditor.Domain
     public class Cursor
     {
         FileManager fileManager;
+        (int, int) initialPosition;
         int row;
         int column;
 
-        public Cursor(FileManager fileManager)
+        public Cursor(FileManager fileManager, (int column, int row) initialPosition)
         {
             this.fileManager = fileManager;
-            row = fileManager.LinesCount;
-            column = fileManager.GetLineLength(row - 1);
+            this.initialPosition = initialPosition;
+            row = initialPosition.row + fileManager.LinesCount - 1;
+            column = initialPosition.column + fileManager.GetLineLength(row);
         }
 
         public int Column => column;
