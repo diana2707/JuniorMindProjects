@@ -18,10 +18,8 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleRow.txt");
             FileManager manager = new(path);
-            //int row = manager.LinesCount - 1;
-            //int column = manager.GetLineLength(row);
-
             Cursor cursor = new(manager, 0);
+
             Assert.Equal(15, cursor.Column);
         }
 
@@ -31,6 +29,7 @@ namespace TextEditor.Test
             string path = GetTestFilePath("SingleRow.txt");
             FileManager manager = new(path);
             Cursor cursor = new(manager, 0);
+
             Assert.Equal(0, cursor.Row);
         }
 
@@ -39,9 +38,6 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleRow.txt");
             FileManager manager = new(path);
-            //int row = manager.LinesCount - 1;
-            //int column = manager.GetLineLength(row);
-
             Cursor cursor = new(manager, 0);
             cursor.MoveRight();
 
@@ -54,9 +50,6 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleCharRows.txt");
             FileManager manager = new(path);
-            //int row = manager.LinesCount - 1;
-            //int column = manager.GetLineLength(row);
-
             Cursor cursor = new(manager, 0);
             cursor.MoveUp();
             cursor.MoveRight();
@@ -71,9 +64,6 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleChar.txt");
             FileManager manager = new(path);
-            //int row = manager.LinesCount - 1;
-            //int column = manager.GetLineLength(row);
-
             Cursor cursor = new(manager, 0);
             cursor.MoveRight();
 
@@ -86,9 +76,6 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleRow.txt");
             FileManager manager = new(path);
-            //int row = manager.LinesCount - 1;
-            //int column = manager.GetLineLength(row);
-
             Cursor cursor = new(manager, 0);
             cursor.MoveLeft();
 
@@ -101,9 +88,6 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleCharRows.txt");
             FileManager manager = new(path);
-            //int row = manager.LinesCount - 1;
-            //int column = manager.GetLineLength(row);
-
             Cursor cursor = new(manager, 0);
             cursor.MoveLeft();
             cursor.MoveLeft();
@@ -117,9 +101,6 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleChar.txt");
             FileManager manager = new(path);
-            //int row = manager.LinesCount - 1;
-            //int column = manager.GetLineLength(row);
-
             Cursor cursor = new(manager, 0);
             cursor.MoveLeft();
             cursor.MoveLeft();
@@ -133,9 +114,6 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleCharRows.txt");
             FileManager manager = new(path);
-            //int row = manager.LinesCount - 1;
-            //int column = manager.GetLineLength(row);
-
             Cursor cursor = new(manager, 0);
             cursor.MoveUp();
             cursor.MoveDown();
@@ -149,9 +127,6 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleCharRows.txt");
             FileManager manager = new(path);
-            //int row = manager.LinesCount - 1;
-            //int column = manager.GetLineLength(row);
-
             Cursor cursor = new(manager, 0);
             cursor.MoveDown();
 
@@ -164,11 +139,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("MultipleRows.txt");
             FileManager manager = new(path);
-            //int row = manager.LinesCount - 1;
-            //int column = manager.GetLineLength(row);
-
             Cursor cursor = new(manager, 0);
-
             cursor.MoveUp();
             cursor.MoveUp();
             cursor.MoveDown();
@@ -182,9 +153,6 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("MultipleRows.txt");
             FileManager manager = new(path);
-            //int row = manager.LinesCount - 1;
-            //int column = manager.GetLineLength(row);
-
             Cursor cursor = new(manager, 0);
             cursor.MoveUp();
             cursor.MoveUp();
@@ -198,9 +166,6 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleChar.txt");
             FileManager manager = new(path);
-            //int row = manager.LinesCount - 1;
-            //int column = manager.GetLineLength(row);
-
             Cursor cursor = new(manager, 0);
             cursor.MoveUp();
 
@@ -213,9 +178,6 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("MultipleRows.txt");
             FileManager manager = new(path);
-            //int row = manager.LinesCount - 1;
-            //int column = manager.GetLineLength(row);
-
             Cursor cursor = new(manager, 0);
 
             cursor.MoveUp();
