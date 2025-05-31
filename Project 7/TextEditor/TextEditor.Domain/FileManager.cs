@@ -20,10 +20,19 @@
             return buffer[index].Length;
         }
 
-        public string ReadFile()
+        //refactor the read file method to read for the windows dimentions
+        //pass the width
+        public string ReadWindowText(int width, int heigth)
         {
-            //return String.Concat(buffer);
-            return File.ReadAllText(path);
+            string result = string.Empty;
+            foreach(var line in buffer)
+            {
+                result += (line.Length > width ? line.Substring(0, width) : line) + "\r\n";
+            }
+
+            return result;
+
+            //return File.ReadAllText(path);
         }
 
         private static void ValidatePath(string path)

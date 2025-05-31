@@ -6,6 +6,9 @@ namespace TextEditor.App
     {
         static void Main(string[] args)
         {
+            int width = Console.WindowWidth; //120
+            int heigth = Console.WindowHeight; //30
+
             Console.WriteLine("To read file insert path:");
 
             FileManager manager = null;
@@ -25,8 +28,8 @@ namespace TextEditor.App
 
             Console.WriteLine();
 
-            Cursor cursor = new(manager, Console.GetCursorPosition().Top);
-            Console.WriteLine(manager.ReadFile());
+            Cursor cursor = new(manager, Console.CursorTop);
+            Console.WriteLine(manager.ReadWindowText(Console.WindowWidth, Console.WindowHeight));
 
             bool isListening = true;
 

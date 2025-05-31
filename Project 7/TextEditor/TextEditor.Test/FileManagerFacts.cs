@@ -37,7 +37,7 @@ namespace TextEditor.Test
         {
             var path = GetTestFilePath("SingleRow.txt");
             FileManager manager = new(path);
-            Assert.Equal("This is a test.", manager.ReadFile());
+            Assert.Equal("This is a test.\r\n", manager.ReadWindowText(120, 30));
         }
 
         [Fact]
@@ -45,7 +45,7 @@ namespace TextEditor.Test
         {
             var path = GetTestFilePath("MultipleRows.txt");
             FileManager manager = new(path);
-            Assert.Equal("This is a test.\r\nThis is the second test.\r\nThis is another test.\r\nThis is the last line of test.", manager.ReadFile());
+            Assert.Equal("This is a test.\r\nThis is the second test.\r\nThis is another test.\r\nThis is the last line of test.\r\n", manager.ReadWindowText(120, 30));
         }
 
         [Fact]
@@ -65,6 +65,16 @@ namespace TextEditor.Test
             FileManager manager = new(path);
             int linesCount = manager.LinesCount;
             Assert.Equal(30, manager.GetLineLength(linesCount - 1));
+        }
+
+        [Fact]
+        public void ReadWindowTextReturnsTheVisibleTextFowConsoleWhenRowsAreLongerThenWindowWidth()
+        {
+            var path = GetTestFilePath("ExceedsWindowLength.txt");
+            FileManager manager = new(path);
+
+            Assert.Equal("This is a very long line that exceeds the console width of 130 characters. " +
+                "This is a very long line that exceeds the con\r\n", manager.ReadWindowText(120, 30));
         }
 
         private static string GetTestFilePath(string fileName)
