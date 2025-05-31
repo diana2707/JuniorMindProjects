@@ -32,27 +32,26 @@ namespace TextEditor.App
 
             while (isListening)
             {
-                ConsoleKeyInfo currentKey = Console.ReadKey();
+                Console.SetCursorPosition(cursor.Column, cursor.Row);
+                ConsoleKeyInfo currentKey = Console.ReadKey(intercept: true);
+
                 switch (currentKey.Key)
                 {
                     case ConsoleKey.RightArrow:
                         cursor.MoveRight();
-                        Console.SetCursorPosition(cursor.Column, cursor.Row);
+                        
                         continue;
 
                     case ConsoleKey.LeftArrow:
                         cursor.MoveLeft();
-                        Console.SetCursorPosition(cursor.Column, cursor.Row);
                         continue;
 
                     case ConsoleKey.UpArrow:
                         cursor.MoveUp();
-                        Console.SetCursorPosition(cursor.Column, cursor.Row);
                         continue;
 
                     case ConsoleKey.DownArrow:
                         cursor.MoveDown();
-                        Console.SetCursorPosition(cursor.Column, cursor.Row);
                         continue;
 
                     case ConsoleKey.Escape:
