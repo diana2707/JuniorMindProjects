@@ -13,19 +13,20 @@
             buffer = File.ReadAllLines(path);
         }
 
-        public int LinesCount => buffer.Length;
+        public int RowsCount => buffer.Length;
 
-        public int GetLineLength(int index)
+        public int GetRowLength(int index)
         {
             return buffer[index].Length;
         }
 
         //ia in considerare pozitia initaila
-        public string ReadWindowText(int width, int heigth, int initialRowPosition)
+        //muta logica in constructor pt buffer
+        public string ReadWindowText(int width, int heigth, int startingRow)
         {
             string result = string.Empty;
 
-            heigth = LinesCount < heigth - initialRowPosition ? LinesCount : heigth - initialRowPosition;
+            heigth = RowsCount < heigth - startingRow ? RowsCount : heigth - startingRow;
 
             for(int i = 0; i < heigth; i++)
             {

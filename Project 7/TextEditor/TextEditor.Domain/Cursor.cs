@@ -13,8 +13,8 @@ namespace TextEditor.Domain
         {
             this.fileManager = fileManager;
             this.initialRowPosition = initialRowPosition;
-            row = fileManager.LinesCount - 1;
-            column = fileManager.GetLineLength(row);
+            row = fileManager.RowsCount - 1;
+            column = fileManager.GetRowLength(row);
         }
 
         public int Column => column;
@@ -23,9 +23,9 @@ namespace TextEditor.Domain
 
         public void MoveRight()
         {
-            if (column == fileManager.GetLineLength(row))
+            if (column == fileManager.GetRowLength(row))
             {
-                if (row == fileManager.LinesCount - 1)
+                if (row == fileManager.RowsCount - 1)
                 {
                     return;
                 }
@@ -48,7 +48,7 @@ namespace TextEditor.Domain
                 }
 
                 row--;
-                column = fileManager.GetLineLength(row);
+                column = fileManager.GetRowLength(row);
                 return;
             }
 
@@ -57,12 +57,12 @@ namespace TextEditor.Domain
 
         public void MoveDown()
         {
-            if (row == fileManager.LinesCount - 1)
+            if (row == fileManager.RowsCount - 1)
             {
                 return;
             }
 
-            int nextRowLength = fileManager.GetLineLength(row + 1);
+            int nextRowLength = fileManager.GetRowLength(row + 1);
 
             column = nextRowLength < column ? nextRowLength : column;
             
@@ -77,7 +77,7 @@ namespace TextEditor.Domain
                 return;
             }
 
-            int previousRowLength = fileManager.GetLineLength(row - 1);
+            int previousRowLength = fileManager.GetRowLength(row - 1);
 
             column = previousRowLength < column ? previousRowLength : column;
             
