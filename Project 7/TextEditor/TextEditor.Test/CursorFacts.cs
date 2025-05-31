@@ -10,7 +10,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleRow.txt");
             FileManager manager = new (path);
-            Assert.IsType<Cursor>(new Cursor(manager, (0, 0)));
+            Assert.IsType<Cursor>(new Cursor(manager, 0));
         }
 
         [Fact]
@@ -21,7 +21,7 @@ namespace TextEditor.Test
             //int row = manager.LinesCount - 1;
             //int column = manager.GetLineLength(row);
 
-            Cursor cursor = new(manager, (0, 0));
+            Cursor cursor = new(manager, 0);
             Assert.Equal(15, cursor.Column);
         }
 
@@ -30,7 +30,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleRow.txt");
             FileManager manager = new(path);
-            Cursor cursor = new(manager, (0, 0));
+            Cursor cursor = new(manager, 0);
             Assert.Equal(0, cursor.Row);
         }
 
@@ -42,7 +42,7 @@ namespace TextEditor.Test
             //int row = manager.LinesCount - 1;
             //int column = manager.GetLineLength(row);
 
-            Cursor cursor = new(manager, (0, 0));
+            Cursor cursor = new(manager, 0);
             cursor.MoveRight();
 
             Assert.Equal(15, cursor.Column);
@@ -57,7 +57,7 @@ namespace TextEditor.Test
             //int row = manager.LinesCount - 1;
             //int column = manager.GetLineLength(row);
 
-            Cursor cursor = new(manager, (0, 0));
+            Cursor cursor = new(manager, 0);
             cursor.MoveUp();
             cursor.MoveRight();
 
@@ -74,7 +74,7 @@ namespace TextEditor.Test
             //int row = manager.LinesCount - 1;
             //int column = manager.GetLineLength(row);
 
-            Cursor cursor = new(manager, (0, 0));
+            Cursor cursor = new(manager, 0);
             cursor.MoveRight();
 
             Assert.Equal(1, cursor.Column);
@@ -89,7 +89,7 @@ namespace TextEditor.Test
             //int row = manager.LinesCount - 1;
             //int column = manager.GetLineLength(row);
 
-            Cursor cursor = new(manager, (0, 0));
+            Cursor cursor = new(manager, 0);
             cursor.MoveLeft();
 
             Assert.Equal(14, cursor.Column);
@@ -104,7 +104,7 @@ namespace TextEditor.Test
             //int row = manager.LinesCount - 1;
             //int column = manager.GetLineLength(row);
 
-            Cursor cursor = new(manager, (0, 0));
+            Cursor cursor = new(manager, 0);
             cursor.MoveLeft();
             cursor.MoveLeft();
 
@@ -120,7 +120,7 @@ namespace TextEditor.Test
             //int row = manager.LinesCount - 1;
             //int column = manager.GetLineLength(row);
 
-            Cursor cursor = new(manager, (0, 0));
+            Cursor cursor = new(manager, 0);
             cursor.MoveLeft();
             cursor.MoveLeft();
 
@@ -136,7 +136,7 @@ namespace TextEditor.Test
             //int row = manager.LinesCount - 1;
             //int column = manager.GetLineLength(row);
 
-            Cursor cursor = new(manager, (0, 0));
+            Cursor cursor = new(manager, 0);
             cursor.MoveUp();
             cursor.MoveDown();
 
@@ -152,7 +152,7 @@ namespace TextEditor.Test
             //int row = manager.LinesCount - 1;
             //int column = manager.GetLineLength(row);
 
-            Cursor cursor = new(manager, (0, 0));
+            Cursor cursor = new(manager, 0);
             cursor.MoveDown();
 
             Assert.Equal(1, cursor.Column);
@@ -167,7 +167,7 @@ namespace TextEditor.Test
             //int row = manager.LinesCount - 1;
             //int column = manager.GetLineLength(row);
 
-            Cursor cursor = new(manager, (0, 0));
+            Cursor cursor = new(manager, 0);
 
             cursor.MoveUp();
             cursor.MoveUp();
@@ -185,7 +185,7 @@ namespace TextEditor.Test
             //int row = manager.LinesCount - 1;
             //int column = manager.GetLineLength(row);
 
-            Cursor cursor = new(manager, (0, 0));
+            Cursor cursor = new(manager, 0);
             cursor.MoveUp();
             cursor.MoveUp();
 
@@ -201,7 +201,7 @@ namespace TextEditor.Test
             //int row = manager.LinesCount - 1;
             //int column = manager.GetLineLength(row);
 
-            Cursor cursor = new(manager, (0, 0));
+            Cursor cursor = new(manager, 0);
             cursor.MoveUp();
 
             Assert.Equal(1, cursor.Column);
@@ -216,7 +216,7 @@ namespace TextEditor.Test
             //int row = manager.LinesCount - 1;
             //int column = manager.GetLineLength(row);
 
-            Cursor cursor = new(manager, (0, 0));
+            Cursor cursor = new(manager, 0);
 
             cursor.MoveUp();
 

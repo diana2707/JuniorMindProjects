@@ -25,7 +25,7 @@ namespace TextEditor.App
 
             Console.WriteLine();
 
-            Cursor cursor = new(manager, Console.GetCursorPosition());
+            Cursor cursor = new(manager, Console.GetCursorPosition().Top);
             Console.WriteLine(manager.ReadFile());
 
             bool isListening = true;

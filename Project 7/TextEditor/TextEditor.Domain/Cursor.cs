@@ -4,22 +4,22 @@ namespace TextEditor.Domain
 {
     public class Cursor
     {
-        FileManager fileManager;
-        (int column, int row) initialPosition;
+        readonly FileManager fileManager;
+        readonly int initialRowPosition;
         int row;
         int column;
 
-        public Cursor(FileManager fileManager, (int column, int row) initialPosition)
+        public Cursor(FileManager fileManager, int initialRowPosition)
         {
             this.fileManager = fileManager;
-            this.initialPosition = initialPosition;
+            this.initialRowPosition = initialRowPosition;
             row = fileManager.LinesCount - 1;
             column = fileManager.GetLineLength(row);
         }
 
         public int Column => column;
 
-        public int Row => row + initialPosition.row;
+        public int Row => row + initialRowPosition;
 
         public void MoveRight()
         {
