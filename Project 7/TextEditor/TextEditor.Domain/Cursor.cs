@@ -5,7 +5,7 @@ namespace TextEditor.Domain
     public class Cursor
     {
         FileManager fileManager;
-        (int, int) initialPosition;
+        (int column, int row) initialPosition;
         int row;
         int column;
 
@@ -13,13 +13,13 @@ namespace TextEditor.Domain
         {
             this.fileManager = fileManager;
             this.initialPosition = initialPosition;
-            row = initialPosition.row + fileManager.LinesCount - 1;
-            column = initialPosition.column + fileManager.GetLineLength(row);
+            row = fileManager.LinesCount - 1;
+            column = fileManager.GetLineLength(row);
         }
 
         public int Column => column;
 
-        public int Row => row;
+        public int Row => row + initialPosition.row;
 
         public void MoveRight()
         {
