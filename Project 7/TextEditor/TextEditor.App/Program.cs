@@ -29,10 +29,11 @@ namespace TextEditor.App
             Console.WriteLine();
 
             Cursor cursor = new(manager, Console.CursorTop);
-            Console.WriteLine(manager.ReadWindowText(Console.WindowWidth, Console.WindowHeight));
+            Console.WriteLine(manager.ReadWindowText(Console.WindowWidth, Console.WindowHeight, Console.CursorTop));
 
             bool isListening = true;
 
+            //setarea cursorul nu mai e corecta pt files unde se trunchiaza randurile pentru ca isi ia dimensioine din file care nu mai e valabil
             while (isListening)
             {
                 Console.SetCursorPosition(cursor.Column, cursor.Row);
