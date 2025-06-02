@@ -17,6 +17,8 @@ namespace TextEditor.Domain
             this.startingRow = startingRow;
         }
 
+
+
         public string FormatWithinWindow()
         {
             string result = string.Empty;
