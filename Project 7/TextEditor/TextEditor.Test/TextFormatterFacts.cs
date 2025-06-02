@@ -10,7 +10,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("singleRow.txt");
             FileManager manager = new(path);
-            Assert.IsType<TextFormatter>(new TextFormatter(manager.Text, (120, 30), 0));
+            Assert.IsType<TextFormatter>(new TextFormatter(manager.Text, 120, 30, 0));
         }
 
         [Fact]
@@ -18,7 +18,7 @@ namespace TextEditor.Test
         {
             var path = GetTestFilePath("ExceedsWindowWidth.txt");
             FileManager fileManager = new(path);
-            TextFormatter formatter = new(fileManager.Text, (120, 30), 0);
+            TextFormatter formatter = new(fileManager.Text, 120, 30, 0);
 
             Assert.Equal("This is a very long line that exceeds the console width of 130 characters. " +
                 "This is a very long line that exceeds the con\r\n", formatter.FormatWithinWindow());
@@ -29,7 +29,7 @@ namespace TextEditor.Test
         {
             var path = GetTestFilePath("ExceedsWindowHeigth.txt");
             FileManager manager = new(path);
-            TextFormatter formatter = new(manager.Text, (120, 30), 0);
+            TextFormatter formatter = new(manager.Text, 120, 30, 0);
 
             Assert.Equal("Line 1\r\nLine 2\r\nLine 3\r\nLine 4\r\nLine 5\r\nLine 6\r\nLine 7\r\nLine 8" +
                 "\r\nLine 9\r\nLine 10\r\nLine 11\r\nLine 12\r\nLine 13\r\nLine 14\r\nLine 15\r\nLine 16" +

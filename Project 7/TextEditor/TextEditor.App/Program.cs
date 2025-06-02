@@ -28,8 +28,9 @@ namespace TextEditor.App
 
             Console.WriteLine();
 
+            TextFormatter formatter = new(manager.Text, Console.WindowWidth, Console.WindowHeight, Console.CursorTop);
             Cursor cursor = new(manager, Console.CursorTop);
-            Console.WriteLine(manager.ReadWindowText(Console.WindowWidth, Console.WindowHeight, Console.CursorTop));
+            Console.WriteLine(formatter.FormatWithinWindow());
 
             bool isListening = true;
 

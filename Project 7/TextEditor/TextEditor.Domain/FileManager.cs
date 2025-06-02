@@ -22,22 +22,9 @@
             return buffer[index].Length;
         }
 
-        //mut logica de display in alta clasa?!!!!
-
-        //ia in considerare pozitia initaila
-        //muta logica in constructor pt buffer
-        public string ReadWindowText(int width, int heigth, int startingRow)
+        public string ReadFile()
         {
-            string result = string.Empty;
-
-            heigth = RowsCount < heigth - startingRow ? RowsCount : heigth - startingRow;
-
-            for(int i = 0; i < heigth; i++)
-            {
-                result += (buffer[i].Length > width ? buffer[i][..width] : buffer[i]) + "\r\n";
-            }
-
-            return result;
+            return File.ReadAllText(path);
         }
 
         private static void ValidatePath(string path)
