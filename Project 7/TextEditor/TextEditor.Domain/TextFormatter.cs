@@ -2,14 +2,19 @@
 
 namespace TextEditor.Domain
 {
-    public class TextDisplayer
+    public class TextFormatter
     {
         readonly FileManager fileManager;
         readonly (int width, int heigth) windowDimentions;
 
-        public TextDisplayer(FileManager fileManager)
+        public TextFormatter(FileManager fileManager)
         {
             this.fileManager = fileManager;
+        }
+
+        public void DisplayWithinWindow()
+        {
+
         }
     }
 }
