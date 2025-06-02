@@ -4,13 +4,13 @@ namespace TextEditor.Domain
 {
     public class TextFormatter
     {
-        readonly FileManager fileManager;
+        readonly string[] text;
         readonly (int width, int heigth) windowDimensions;
         readonly int startingRow;
 
-        public TextFormatter(FileManager fileManager, (int, int) windowDimensions, int startingRow)
+        public TextFormatter(string[] text, (int, int) windowDimensions, int startingRow)
         {
-            this.fileManager = fileManager;
+            this.text = text;
             this.windowDimensions = windowDimensions;
             this.startingRow = startingRow;
         }
@@ -19,7 +19,7 @@ namespace TextEditor.Domain
         //{
         //    string result = string.Empty;
 
-        //    if(fileManager.RowsCount > windowDimensions.heigth - startingRow)
+        //    if (fileManager.RowsCount > windowDimensions.heigth - startingRow)
         //    {
 
         //    }
