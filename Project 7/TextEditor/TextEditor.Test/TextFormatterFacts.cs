@@ -10,7 +10,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("singleRow.txt");
             FileManager manager = new(path);
-            Assert.IsType<TextFormatter>(new TextFormatter(manager));
+            Assert.IsType<TextFormatter>(new TextFormatter(manager, (120, 30), 0));
         }
 
         //[Fact]

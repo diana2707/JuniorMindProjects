@@ -5,14 +5,17 @@ namespace TextEditor.Domain
     public class TextFormatter
     {
         readonly FileManager fileManager;
-        readonly (int width, int heigth) windowDimentions;
+        readonly (int width, int heigth) windowDimensions;
+        readonly int startingRow;
 
-        public TextFormatter(FileManager fileManager)
+        public TextFormatter(FileManager fileManager, (int, int) windowDimensions, int startingRow)
         {
             this.fileManager = fileManager;
+            this.windowDimensions = windowDimensions;
+            this.startingRow = startingRow;
         }
 
-        public void DisplayWithinWindow()
+        public void FormatWithinWindow()
         {
 
         }
