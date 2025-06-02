@@ -20,6 +20,8 @@
             return buffer[index].Length;
         }
 
+        //mut logica de display in alta clasa?!!!!
+
         //ia in considerare pozitia initaila
         //muta logica in constructor pt buffer
         public string ReadWindowText(int width, int heigth, int startingRow)
