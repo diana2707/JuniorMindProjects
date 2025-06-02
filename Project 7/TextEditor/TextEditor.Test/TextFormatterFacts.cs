@@ -14,13 +14,14 @@ namespace TextEditor.Test
         }
 
         //[Fact]
-        //public void DisplayWithinWindow()
+        //public void FormatWithinWindowReturnsTextLimitedToTheWidthOfWindow()
         //{
         //    var path = GetTestFilePath("ExceedsWindowWidth.txt");
-        //    FileManager manager = new(path);
+        //    FileManager fileManager = new(path);
+        //    TextFormatter formatter = new(fileManager, (120, 30), 0);
 
         //    Assert.Equal("This is a very long line that exceeds the console width of 130 characters. " +
-        //        "This is a very long line that exceeds the con\r\n", manager.ReadWindowText(120, 30, 0));
+        //        "This is a very long line that exceeds the con\r\n", formatter.FormatWithinWindow());
         //}
 
         //[Fact]

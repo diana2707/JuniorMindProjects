@@ -15,9 +15,14 @@ namespace TextEditor.Domain
             this.startingRow = startingRow;
         }
 
-        public void FormatWithinWindow()
-        {
+        //public string FormatWithinWindow()
+        //{
+        //    string result = string.Empty;
 
-        }
+        //    if(fileManager.RowsCount > windowDimensions.heigth - startingRow)
+        //    {
+
+        //    }
+        //}
     }
 }

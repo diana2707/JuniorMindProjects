@@ -13,6 +13,8 @@
             buffer = File.ReadAllLines(path);
         }
 
+        public string[] Text => buffer;
+
         public int RowsCount => buffer.Length;
 
         public int GetRowLength(int index)

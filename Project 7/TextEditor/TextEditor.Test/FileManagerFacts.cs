@@ -68,6 +68,14 @@ namespace TextEditor.Test
             Assert.Equal(30, manager.GetRowLength(linesCount - 1));
         }
 
+        [Fact]
+        public void TextReturnTheTextLoadedInTheBuffer()
+        {
+            var path = GetTestFilePath("SingleRow.txt");
+            FileManager manager = new(path);
+            Assert.Equal(["This is a test."], manager.Text);
+        }
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);
