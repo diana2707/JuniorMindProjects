@@ -15,14 +15,18 @@ namespace TextEditor.Domain
             this.startingRow = startingRow;
         }
 
-        //public string FormatWithinWindow()
-        //{
-        //    string result = string.Empty;
+        public string FormatWithinWindow()
+        {
+            string result = string.Empty;
 
-        //    if (fileManager.RowsCount > windowDimensions.heigth - startingRow)
-        //    {
+            int textHeigth = text.Length < windowDimensions.heigth - startingRow ? text.Length : windowDimensions.heigth - startingRow;
 
-        //    }
-        //}
+            for (int i = 0; i < textHeigth; i++)
+            {
+                result += (text[i].Length > windowDimensions.width ? text[i][..windowDimensions.width] : text[i]) + "\r\n";
+            }
+
+            return result;
+        }
     }
 }
