@@ -119,6 +119,20 @@ namespace TextEditor.Test
         }
 
         [Fact]
+        public void MoveLeftMethodDoNotMoveWhenCursorIsAtFileStartWhenStartingPositionIsLargerThen0()
+        {
+            string path = GetTestFilePath("SingleChar.txt");
+            FileManager manager = new(path);
+            TextFormatter formatter = new(manager.Text, 120, 30, 5);
+            Cursor cursor = new(formatter);
+            cursor.MoveLeft();
+            cursor.MoveLeft();
+
+            Assert.Equal(0, cursor.Column);
+            Assert.Equal(5, cursor.Row);
+        }
+
+        [Fact]
         public void MoveDownMethodMovesTheCursorDowntWithOneRowAndKeepsColumnPosition()
         {
             string path = GetTestFilePath("SingleCharRows.txt");

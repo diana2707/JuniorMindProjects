@@ -41,7 +41,7 @@ namespace TextEditor.Domain
         {
             if (column == 0)
             {
-                if (row == 0)
+                if (row == textFormatter.FirstDisplayedRowPosition)
                 {
                     return;
                 }
