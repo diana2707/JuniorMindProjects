@@ -12,75 +12,75 @@ namespace TextEditor.Domain
         public Cursor(TextFormatter textFormatter)
         {
             this.textFormatter = textFormatter;
-            //row = fileManager.RowsCount - 1;
+            row = textFormatter.LastRowPosition;
             //column = fileManager.GetRowLength(row);
         }
 
         public int Column => column;
 
-        public int Row => row + initialRowPosition;
+        public int Row => textFormatter.LastRowPosition;
 
-        public void MoveRight()
-        {
-            if (column == fileManager.GetRowLength(row))
-            {
-                if (row == fileManager.RowsCount - 1)
-                {
-                    return;
-                }
+        //public void MoveRight()
+        //{
+        //    if (column == fileManager.GetRowLength(row))
+        //    {
+        //        if (row == fileManager.RowsCount - 1)
+        //        {
+        //            return;
+        //        }
 
-                column = 0;
-                row++;
-                return;
-            }
-      
-            column++;
-        }
+        //        column = 0;
+        //        row++;
+        //        return;
+        //    }
 
-        public void MoveLeft()
-        {
-            if (column == 0)
-            {
-                if (row == 0)
-                {
-                    return;
-                }
+        //    column++;
+        //}
 
-                row--;
-                column = fileManager.GetRowLength(row);
-                return;
-            }
+        //public void MoveLeft()
+        //{
+        //    if (column == 0)
+        //    {
+        //        if (row == 0)
+        //        {
+        //            return;
+        //        }
 
-            column--;
-        }
+        //        row--;
+        //        column = fileManager.GetRowLength(row);
+        //        return;
+        //    }
 
-        public void MoveDown()
-        {
-            if (row == fileManager.RowsCount - 1)
-            {
-                return;
-            }
+        //    column--;
+        //}
 
-            int nextRowLength = fileManager.GetRowLength(row + 1);
+        //public void MoveDown()
+        //{
+        //    if (row == fileManager.RowsCount - 1)
+        //    {
+        //        return;
+        //    }
 
-            column = nextRowLength < column ? nextRowLength : column;
-            
-            row++;
-            
-        }
+        //    int nextRowLength = fileManager.GetRowLength(row + 1);
 
-        public void MoveUp()
-        {
-            if (row == 0)
-            {
-                return;
-            }
+        //    column = nextRowLength < column ? nextRowLength : column;
 
-            int previousRowLength = fileManager.GetRowLength(row - 1);
+        //    row++;
 
-            column = previousRowLength < column ? previousRowLength : column;
-            
-            row--;
-        }
+        //}
+
+        //public void MoveUp()
+        //{
+        //    if (row == 0)
+        //    {
+        //        return;
+        //    }
+
+        //    int previousRowLength = fileManager.GetRowLength(row - 1);
+
+        //    column = previousRowLength < column ? previousRowLength : column;
+
+        //    row--;
+        //}
     }
 }

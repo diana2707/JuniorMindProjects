@@ -29,44 +29,44 @@ namespace TextEditor.App
             Console.WriteLine();
 
             TextFormatter formatter = new(manager.Text, Console.WindowWidth, Console.WindowHeight, Console.CursorTop);
-            Cursor cursor = new(manager, Console.CursorTop);
+            //Cursor cursor = new(manager, Console.CursorTop);
             Console.WriteLine(formatter.FormatWithinWindow());
 
             bool isListening = true;
 
             //setarea cursorul nu mai e corecta pt files unde se trunchiaza randurile pentru ca isi ia dimensioine din file care nu mai e valabil
-            while (isListening)
-            {
-                Console.SetCursorPosition(cursor.Column, cursor.Row);
-                ConsoleKeyInfo currentKey = Console.ReadKey(intercept: true);
+            //while (isListening)
+            //{
+            //    Console.SetCursorPosition(cursor.Column, cursor.Row);
+            //    ConsoleKeyInfo currentKey = Console.ReadKey(intercept: true);
 
-                switch (currentKey.Key)
-                {
-                    case ConsoleKey.RightArrow:
-                        cursor.MoveRight();
+            //    switch (currentKey.Key)
+            //    {
+            //        case ConsoleKey.RightArrow:
+            //            cursor.MoveRight();
                         
-                        continue;
+            //            continue;
 
-                    case ConsoleKey.LeftArrow:
-                        cursor.MoveLeft();
-                        continue;
+            //        case ConsoleKey.LeftArrow:
+            //            cursor.MoveLeft();
+            //            continue;
 
-                    case ConsoleKey.UpArrow:
-                        cursor.MoveUp();
-                        continue;
+            //        case ConsoleKey.UpArrow:
+            //            cursor.MoveUp();
+            //            continue;
 
-                    case ConsoleKey.DownArrow:
-                        cursor.MoveDown();
-                        continue;
+            //        case ConsoleKey.DownArrow:
+            //            cursor.MoveDown();
+            //            continue;
 
-                    case ConsoleKey.Escape:
-                        isListening = false;
-                        return;
+            //        case ConsoleKey.Escape:
+            //            isListening = false;
+            //            return;
 
-                    default:
-                        continue;
-                }
-            }
+            //        default:
+            //            continue;
+            //    }
+            //}
         }
     }
     

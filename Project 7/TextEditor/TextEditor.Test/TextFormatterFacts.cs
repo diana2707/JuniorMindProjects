@@ -25,6 +25,26 @@ namespace TextEditor.Test
         }
 
         [Fact]
+        public void LastRowPositionReturnsTheConsoleRowositionOfLastDisplayedRow()
+        {
+            var path = GetTestFilePath("SingleRow.txt");
+            FileManager fileManager = new(path);
+            TextFormatter formatter = new(fileManager.Text, 120, 30, 0);
+
+            Assert.Equal(0, formatter.LastRowPosition);
+        }
+
+        [Fact]
+        public void GetDisplayedRowLengthReturnsTheDisplayedLengthOfARow()
+        {
+            var path = GetTestFilePath("SingleRow.txt");
+            FileManager fileManager = new(path);
+            TextFormatter formatter = new(fileManager.Text, 120, 30, 0);
+
+            Assert.Equal(15, formatter.GetRowDisplayedLength(0));
+        }
+
+        [Fact]
         public void ReadWindowTextReturnsTheVisibleTextFowConsoleWhenRowsAreLongerThenWindowHeigth()
         {
             var path = GetTestFilePath("ExceedsWindowHeigth.txt");
