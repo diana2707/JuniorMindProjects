@@ -17,14 +17,17 @@ namespace TextEditor.Domain
             this.startingRow = startingRow;
         }
 
-        public int GetLastDisplayedRowPosition()
+        public int LastDisplayedRowPosition
         {
-            if (startingRow + text.Length > windowHeigth)
+            get
             {
-                return windowHeigth - startingRow - 1;
-            }
+                if (startingRow + text.Length > windowHeigth)
+                {
+                    return windowHeigth - startingRow - 1;
+                }
 
-            return startingRow + text.Length - 1;
+                return startingRow + text.Length - 1;
+            }
         }
 
         public int GetDisplayedRowLength(int rowPosition)

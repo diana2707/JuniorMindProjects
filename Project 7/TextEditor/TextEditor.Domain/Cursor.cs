@@ -5,13 +5,14 @@ namespace TextEditor.Domain
     public class Cursor
     {
         readonly TextFormatter textFormatter;
+        readonly int initialRowPosition;
         int row;
         int column;
 
         public Cursor(TextFormatter textFormatter)
         {
             this.textFormatter = textFormatter;
-            row = textFormatter.GetLastDisplayedRowPosition();
+            row = textFormatter.LastDisplayedRowPosition;
             column = textFormatter.GetDisplayedRowLength(row);
         }
 
@@ -23,7 +24,7 @@ namespace TextEditor.Domain
         {
             if (column == textFormatter.GetDisplayedRowLength(row))
             {
-                if (row == textFormatter.GetLastDisplayedRowPosition())
+                if (row == textFormatter.LastDisplayedRowPosition)
                 {
                     return;
                 }
@@ -55,7 +56,7 @@ namespace TextEditor.Domain
 
         public void MoveDown()
         {
-            if (row == textFormatter.GetLastDisplayedRowPosition())
+            if (row == textFormatter.LastDisplayedRowPosition)
             {
                 return;
             }

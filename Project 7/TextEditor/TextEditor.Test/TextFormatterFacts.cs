@@ -31,7 +31,7 @@ namespace TextEditor.Test
             FileManager fileManager = new(path);
             TextFormatter formatter = new(fileManager.Text, 120, 30, 0);
 
-            Assert.Equal(0, formatter.GetLastDisplayedRowPosition);
+            Assert.Equal(0, formatter.LastDisplayedRowPosition);
         }
 
         [Fact]
@@ -41,7 +41,7 @@ namespace TextEditor.Test
             FileManager fileManager = new(path);
             TextFormatter formatter = new(fileManager.Text, 120, 30, 5);
 
-            Assert.Equal(5, formatter.GetLastDisplayedRowPosition);
+            Assert.Equal(5, formatter.LastDisplayedRowPosition);
         }
 
         [Fact]
@@ -51,7 +51,7 @@ namespace TextEditor.Test
             FileManager fileManager = new(path);
             TextFormatter formatter = new(fileManager.Text, 120, 30, 0);
 
-            Assert.Equal(29, formatter.GetLastDisplayedRowPosition);
+            Assert.Equal(29, formatter.LastDisplayedRowPosition);
         }
 
         [Fact]
