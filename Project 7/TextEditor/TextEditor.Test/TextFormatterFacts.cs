@@ -25,13 +25,33 @@ namespace TextEditor.Test
         }
 
         [Fact]
-        public void LastRowPositionReturnsTheConsoleRowositionOfLastDisplayedRow()
+        public void LastRowPositionReturnsTheConsoleRowPositionOfLastDisplayedRow()
         {
             var path = GetTestFilePath("SingleRow.txt");
             FileManager fileManager = new(path);
             TextFormatter formatter = new(fileManager.Text, 120, 30, 0);
 
-            Assert.Equal(0, formatter.LastRowPosition);
+            Assert.Equal(0, formatter.LastDisplayedRowPosition);
+        }
+
+        [Fact]
+        public void LastRowPositionReturnsTheConsoleRowPositionOfLastDisplayedRowWhenStartingRowIsLargerThen0()
+        {
+            var path = GetTestFilePath("SingleRow.txt");
+            FileManager fileManager = new(path);
+            TextFormatter formatter = new(fileManager.Text, 120, 30, 5);
+
+            Assert.Equal(5, formatter.LastDisplayedRowPosition);
+        }
+
+        [Fact]
+        public void LastRowPositionReturnsTheConsoleRowPositionOfLastDisplayedRowWhenTextExceedsWindow()
+        {
+            var path = GetTestFilePath("ExceedsWindowHeigth.txt");
+            FileManager fileManager = new(path);
+            TextFormatter formatter = new(fileManager.Text, 120, 30, 0);
+
+            Assert.Equal(29, formatter.LastDisplayedRowPosition);
         }
 
         [Fact]
@@ -42,6 +62,16 @@ namespace TextEditor.Test
             TextFormatter formatter = new(fileManager.Text, 120, 30, 0);
 
             Assert.Equal(15, formatter.GetRowDisplayedLength(0));
+        }
+
+        [Fact]
+        public void GetDisplayedRowLengthReturnsTheDisplayedLengthOfARowWhenStartingRowIsLargerThen0()
+        {
+            var path = GetTestFilePath("SingleRow.txt");
+            FileManager fileManager = new(path);
+            TextFormatter formatter = new(fileManager.Text, 120, 30, 5);
+
+            Assert.Equal(15, formatter.GetRowDisplayedLength(5));
         }
 
         [Fact]

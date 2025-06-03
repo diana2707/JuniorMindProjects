@@ -18,7 +18,19 @@ namespace TextEditor.Domain
         }
 
         //pune limita la dimensiunea pt window
-        public int LastRowPosition => startingRow + text.Length - 1;
+        public int LastDisplayedRowPosition
+        {
+            get
+            {
+                if (startingRow + text.Length > windowHeigth)
+                {
+                    return windowHeigth - startingRow - 1;
+                }
+
+                return startingRow + text.Length - 1;
+            }
+        }
+        
 
         public int GetRowDisplayedLength(int rowPosition)
         {

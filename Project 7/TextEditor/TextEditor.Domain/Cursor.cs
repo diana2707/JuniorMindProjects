@@ -12,13 +12,13 @@ namespace TextEditor.Domain
         public Cursor(TextFormatter textFormatter)
         {
             this.textFormatter = textFormatter;
-            row = textFormatter.LastRowPosition;
+            row = textFormatter.LastDisplayedRowPosition;
             //column = fileManager.GetRowLength(row);
         }
 
         public int Column => column;
 
-        public int Row => textFormatter.LastRowPosition;
+        public int Row => textFormatter.LastDisplayedRowPosition;
 
         //public void MoveRight()
         //{
