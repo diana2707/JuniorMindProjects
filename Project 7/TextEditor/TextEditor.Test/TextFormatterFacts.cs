@@ -61,7 +61,7 @@ namespace TextEditor.Test
             FileManager fileManager = new(path);
             TextFormatter formatter = new(fileManager.Text, 120, 30, 0);
 
-            Assert.Equal(15, formatter.GetRowDisplayedLength(0));
+            Assert.Equal(15, formatter.GetDisplayedRowLength(0));
         }
 
         [Fact]
@@ -71,7 +71,17 @@ namespace TextEditor.Test
             FileManager fileManager = new(path);
             TextFormatter formatter = new(fileManager.Text, 120, 30, 5);
 
-            Assert.Equal(15, formatter.GetRowDisplayedLength(5));
+            Assert.Equal(15, formatter.GetDisplayedRowLength(5));
+        }
+
+        [Fact]
+        public void GetDisplayedRowLengthReturnsTheDisplayedLengthOfARowWhenRealLengthIsLargerThenWindowWidth()
+        {
+            var path = GetTestFilePath("ExceedsWindowWidth.txt");
+            FileManager fileManager = new(path);
+            TextFormatter formatter = new(fileManager.Text, 120, 30, 0);
+
+            Assert.Equal(120, formatter.GetDisplayedRowLength(0));
         }
 
         [Fact]

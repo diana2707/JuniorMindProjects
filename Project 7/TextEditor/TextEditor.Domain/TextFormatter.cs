@@ -17,7 +17,6 @@ namespace TextEditor.Domain
             this.startingRow = startingRow;
         }
 
-        //pune limita la dimensiunea pt window
         public int LastDisplayedRowPosition
         {
             get
@@ -30,10 +29,14 @@ namespace TextEditor.Domain
                 return startingRow + text.Length - 1;
             }
         }
-        
 
-        public int GetRowDisplayedLength(int rowPosition)
+        public int GetDisplayedRowLength(int rowPosition)
         {
+            if (text[rowPosition - startingRow].Length > windowWidth)
+            {
+                return windowWidth /*- 1*/;
+            }
+
             return text[rowPosition - startingRow].Length;
         }
 
