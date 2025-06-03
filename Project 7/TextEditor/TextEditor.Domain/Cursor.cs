@@ -13,74 +13,74 @@ namespace TextEditor.Domain
         {
             this.textFormatter = textFormatter;
             row = textFormatter.LastDisplayedRowPosition;
-            //column = fileManager.GetRowLength(row);
+            column = textFormatter.GetDisplayedRowLength(row);
         }
 
         public int Column => column;
 
-        public int Row => textFormatter.LastDisplayedRowPosition;
+        public int Row => row;
 
-        //public void MoveRight()
-        //{
-        //    if (column == fileManager.GetRowLength(row))
-        //    {
-        //        if (row == fileManager.RowsCount - 1)
-        //        {
-        //            return;
-        //        }
+        public void MoveRight()
+        {
+            if (column == textFormatter.GetDisplayedRowLength(row))
+            {
+                if (row == textFormatter.LastDisplayedRowPosition)
+                {
+                    return;
+                }
 
-        //        column = 0;
-        //        row++;
-        //        return;
-        //    }
+                column = 0;
+                row++;
+                return;
+            }
 
-        //    column++;
-        //}
+            column++;
+        }
 
-        //public void MoveLeft()
-        //{
-        //    if (column == 0)
-        //    {
-        //        if (row == 0)
-        //        {
-        //            return;
-        //        }
+        public void MoveLeft()
+        {
+            if (column == 0)
+            {
+                if (row == 0)
+                {
+                    return;
+                }
 
-        //        row--;
-        //        column = fileManager.GetRowLength(row);
-        //        return;
-        //    }
+                row--;
+                column = textFormatter.GetDisplayedRowLength(row);
+                return;
+            }
 
-        //    column--;
-        //}
+            column--;
+        }
 
-        //public void MoveDown()
-        //{
-        //    if (row == fileManager.RowsCount - 1)
-        //    {
-        //        return;
-        //    }
+        public void MoveDown()
+        {
+            if (row == textFormatter.LastDisplayedRowPosition)
+            {
+                return;
+            }
 
-        //    int nextRowLength = fileManager.GetRowLength(row + 1);
+            int nextRowLength = textFormatter.GetDisplayedRowLength(row + 1);
 
-        //    column = nextRowLength < column ? nextRowLength : column;
+            column = nextRowLength < column ? nextRowLength : column;
 
-        //    row++;
+            row++;
 
-        //}
+        }
 
-        //public void MoveUp()
-        //{
-        //    if (row == 0)
-        //    {
-        //        return;
-        //    }
+        public void MoveUp()
+        {
+            if (row == 0)
+            {
+                return;
+            }
 
-        //    int previousRowLength = fileManager.GetRowLength(row - 1);
+            int previousRowLength = textFormatter.GetDisplayedRowLength(row - 1);
 
-        //    column = previousRowLength < column ? previousRowLength : column;
+            column = previousRowLength < column ? previousRowLength : column;
 
-        //    row--;
-        //}
+            row--;
+        }
     }
 }
