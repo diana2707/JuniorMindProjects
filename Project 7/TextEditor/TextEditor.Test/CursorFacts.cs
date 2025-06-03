@@ -202,6 +202,19 @@ namespace TextEditor.Test
         }
 
         [Fact]
+        public void MoveUpMethodDoNotMovesTheCursorUpWhenIsTheFirstRowAndStartingPositionIsLArgerThen0()
+        {
+            string path = GetTestFilePath("SingleChar.txt");
+            FileManager manager = new(path);
+            TextFormatter formatter = new(manager.Text, 120, 30, 5);
+            Cursor cursor = new(formatter);
+            cursor.MoveUp();
+
+            Assert.Equal(1, cursor.Column);
+            Assert.Equal(5, cursor.Row);
+        }
+
+        [Fact]
         public void MoveUpMethodMovesTheCursorUpAndSetsColumnToLastPositionIfRowIsShorter()
         {
             string path = GetTestFilePath("MultipleRows.txt");
