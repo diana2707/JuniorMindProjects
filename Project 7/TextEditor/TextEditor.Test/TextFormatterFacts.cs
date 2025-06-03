@@ -55,6 +55,16 @@ namespace TextEditor.Test
         }
 
         [Fact]
+        public void FirstRowPositionReturnsTheStartingConsoleRowPositionOfDisplayedText()
+        {
+            var path = GetTestFilePath("SingleRow.txt");
+            FileManager fileManager = new(path);
+            TextFormatter formatter = new(fileManager.Text, 120, 30, 5);
+
+            Assert.Equal(5, formatter.FirstDisplayedRowPosition);
+        }
+
+        [Fact]
         public void GetDisplayedRowLengthReturnsTheDisplayedLengthOfARow()
         {
             var path = GetTestFilePath("SingleRow.txt");

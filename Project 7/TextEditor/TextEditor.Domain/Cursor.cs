@@ -5,7 +5,6 @@ namespace TextEditor.Domain
     public class Cursor
     {
         readonly TextFormatter textFormatter;
-        readonly int initialRowPosition;
         int row;
         int column;
 
@@ -37,6 +36,7 @@ namespace TextEditor.Domain
             column++;
         }
 
+        //set limit to the left to not go on a row
         public void MoveLeft()
         {
             if (column == 0)

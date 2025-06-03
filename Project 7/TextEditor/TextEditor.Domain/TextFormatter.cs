@@ -17,6 +17,8 @@ namespace TextEditor.Domain
             this.startingRow = startingRow;
         }
 
+        public int FirstDisplayedRowPosition => startingRow;
+
         public int LastDisplayedRowPosition
         {
             get
