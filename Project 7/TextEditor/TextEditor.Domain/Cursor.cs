@@ -12,8 +12,8 @@ namespace TextEditor.Domain
         public Cursor(TextFormatter textFormatter)
         {
             this.textFormatter = textFormatter;
-            row = textFormatter.LastDisplayedRowPosition;//nu calcueaza corect
-            column = textFormatter.GetDisplayedRowLength(row);//nu calculeaza corect
+            row = textFormatter.LastDisplayedRowPosition;
+            column = textFormatter.GetDisplayedRowLength(row);
         }
 
         public int Column => column;
@@ -22,7 +22,7 @@ namespace TextEditor.Domain
 
         public void MoveRight()
         {
-            if (column == textFormatter.GetDisplayedRowLength(row) /*- 1*/)
+            if (column == textFormatter.GetDisplayedRowLength(row))
             {
                 if (row == textFormatter.LastDisplayedRowPosition)
                 {
@@ -37,7 +37,6 @@ namespace TextEditor.Domain
             column++;
         }
 
-        //set limit to the left to not go on a row
         public void MoveLeft()
         {
             if (column == 0)
@@ -48,8 +47,7 @@ namespace TextEditor.Domain
                 }
 
                 row--;
-                //daca textul de pe column nu exista indexul pt column ar trebui sa fie tot 0
-                column = textFormatter.GetDisplayedRowLength(row)/* - 1*/;
+                column = textFormatter.GetDisplayedRowLength(row);
                 return;
             }
 
@@ -65,7 +63,7 @@ namespace TextEditor.Domain
 
             int nextRowLength = textFormatter.GetDisplayedRowLength(row + 1);
 
-            column = nextRowLength < column ? nextRowLength /*- 1*/ : column;
+            column = nextRowLength < column ? nextRowLength : column;
 
             row++;
 
@@ -80,7 +78,7 @@ namespace TextEditor.Domain
 
             int previousRowLength = textFormatter.GetDisplayedRowLength(row - 1);
 
-            column = previousRowLength < column ? previousRowLength/* - 1*/ : column;
+            column = previousRowLength < column ? previousRowLength : column;
 
             row--;
         }

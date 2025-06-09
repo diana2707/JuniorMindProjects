@@ -6,11 +6,6 @@ namespace TextEditor.App
     {
         static void Main(string[] args)
         {
-            int width = Console.WindowWidth; //120
-            int heigth = Console.WindowHeight; //30
-            int bufferWidth = Console.BufferWidth;
-            int bufferHeigth = Console.BufferHeight;
-
             Console.WriteLine("To read file insert path:");
 
             FileManager manager = null;
@@ -43,7 +38,6 @@ namespace TextEditor.App
 
             while (isListening)
             {
-                //tot apar modificarile dupa ce dau esc
                 Console.SetCursorPosition(cursor.Column, cursor.Row);
                 ConsoleKeyInfo currentKey = Console.ReadKey(intercept: true);
 

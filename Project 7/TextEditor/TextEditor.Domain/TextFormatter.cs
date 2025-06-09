@@ -9,7 +9,6 @@ namespace TextEditor.Domain
         readonly int windowHeigth;
         readonly int startingRow;
 
-        //for 120 width, the max number of characters would be 119 to reserve last position exclusively for cursor
         public TextFormatter(string[] text, int windowWidth, int windowHeigth, int startingRow)
         {
             this.text = text;
@@ -26,7 +25,7 @@ namespace TextEditor.Domain
             {
                 if (startingRow + text.Length > windowHeigth)
                 {
-                    return windowHeigth - 2;//to display cursor at the end of the last displayed row
+                    return windowHeigth - 2;
                 }
 
                 return startingRow + text.Length - 1;
