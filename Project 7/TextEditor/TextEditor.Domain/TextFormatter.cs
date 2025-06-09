@@ -26,7 +26,7 @@ namespace TextEditor.Domain
             {
                 if (startingRow + text.Length > windowHeigth)
                 {
-                    return windowHeigth - startingRow - 1;
+                    return windowHeigth - 2;//to display cursor at the end of the last displayed row
                 }
 
                 return startingRow + text.Length - 1;
@@ -43,15 +43,15 @@ namespace TextEditor.Domain
             return text[rowPosition - startingRow].Length;
         }
 
-        public string FormatWithinWindow()
+        public List<string> FormatWithinWindow()
         {
-            string result = string.Empty;
+            List<string> result = [];
 
             int textHeigth = text.Length < windowHeigth - startingRow ? text.Length : windowHeigth - startingRow - 1;
 
             for (int i = 0; i < textHeigth; i++)
             {
-                result += (text[i].Length > windowWidth - 1 ? text[i][..(windowWidth - 1)] : text[i]) + "\r\n";
+                result.Add((text[i].Length > windowWidth - 1 ? text[i][..(windowWidth - 1)] : text[i]));
             }
 
             return result;

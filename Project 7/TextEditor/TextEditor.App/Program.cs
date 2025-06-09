@@ -32,8 +32,13 @@ namespace TextEditor.App
 
             TextFormatter formatter = new(manager.Text, Console.WindowWidth, Console.WindowHeight, Console.CursorTop);
             Cursor cursor = new(formatter);
-            Console.Write(formatter.FormatWithinWindow());
 
+            List<string> formattedText = formatter.FormatWithinWindow();
+            foreach(var line in formattedText)
+            {
+                Console.WriteLine(line);
+            }
+            
             bool isListening = true;
 
             while (isListening)
