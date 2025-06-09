@@ -12,8 +12,8 @@ namespace TextEditor.Domain
         public Cursor(TextFormatter textFormatter)
         {
             this.textFormatter = textFormatter;
-            row = textFormatter.LastDisplayedRowPosition;
-            column = textFormatter.GetDisplayedRowLength(row);
+            row = textFormatter.LastDisplayedRowPosition;//nu calcueaza corect
+            column = textFormatter.GetDisplayedRowLength(row);//nu calculeaza corect
         }
 
         public int Column => column;
@@ -22,7 +22,7 @@ namespace TextEditor.Domain
 
         public void MoveRight()
         {
-            if (column == textFormatter.GetDisplayedRowLength(row))
+            if (column == textFormatter.GetDisplayedRowLength(row) /*- 1*/)
             {
                 if (row == textFormatter.LastDisplayedRowPosition)
                 {
@@ -48,7 +48,8 @@ namespace TextEditor.Domain
                 }
 
                 row--;
-                column = textFormatter.GetDisplayedRowLength(row);
+                //daca textul de pe column nu exista indexul pt column ar trebui sa fie tot 0
+                column = textFormatter.GetDisplayedRowLength(row)/* - 1*/;
                 return;
             }
 
@@ -64,7 +65,7 @@ namespace TextEditor.Domain
 
             int nextRowLength = textFormatter.GetDisplayedRowLength(row + 1);
 
-            column = nextRowLength < column ? nextRowLength : column;
+            column = nextRowLength < column ? nextRowLength /*- 1*/ : column;
 
             row++;
 
@@ -79,7 +80,7 @@ namespace TextEditor.Domain
 
             int previousRowLength = textFormatter.GetDisplayedRowLength(row - 1);
 
-            column = previousRowLength < column ? previousRowLength : column;
+            column = previousRowLength < column ? previousRowLength/* - 1*/ : column;
 
             row--;
         }

@@ -8,6 +8,8 @@ namespace TextEditor.App
         {
             int width = Console.WindowWidth; //120
             int heigth = Console.WindowHeight; //30
+            int bufferWidth = Console.BufferWidth;
+            int bufferHeigth = Console.BufferHeight;
 
             Console.WriteLine("To read file insert path:");
 
@@ -30,12 +32,13 @@ namespace TextEditor.App
 
             TextFormatter formatter = new(manager.Text, Console.WindowWidth, Console.WindowHeight, Console.CursorTop);
             Cursor cursor = new(formatter);
-            Console.WriteLine(formatter.FormatWithinWindow());
+            Console.Write(formatter.FormatWithinWindow());
 
             bool isListening = true;
 
             while (isListening)
             {
+                //tot apar modificarile dupa ce dau esc
                 Console.SetCursorPosition(cursor.Column, cursor.Row);
                 ConsoleKeyInfo currentKey = Console.ReadKey(intercept: true);
 
@@ -60,7 +63,7 @@ namespace TextEditor.App
 
                     case ConsoleKey.Escape:
                         isListening = false;
-                        return;
+                        continue;
 
                     default:
                         continue;
