@@ -228,6 +228,20 @@ namespace TextEditor.Test
             Assert.Equal(2, cursor.Row);
         }
 
+        [Fact]
+        public void SetToStartOfLastLineSetsTheCursorAtTheStartOfLastVisibleLine()
+        {
+            string path = GetTestFilePath("MultipleRows.txt");
+            FileManager manager = new(path);
+            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+            Cursor cursor = new(formatter);
+
+            cursor.SetToStartOfLastLine();
+
+            Assert.Equal(0, cursor.Column);
+            Assert.Equal(4, cursor.Row);
+        }
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);

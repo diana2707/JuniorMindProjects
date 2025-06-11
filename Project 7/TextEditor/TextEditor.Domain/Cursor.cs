@@ -82,5 +82,11 @@ namespace TextEditor.Domain
 
             row--;
         }
+
+        public void SetToStartOfLastLine()
+        {
+            column = 0;
+            row = textFormatter.LastDisplayedRowPosition + 1;
+        }
     }
 }
