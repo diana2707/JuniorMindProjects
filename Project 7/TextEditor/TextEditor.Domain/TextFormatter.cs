@@ -23,8 +23,7 @@ namespace TextEditor.Domain
         {
             get
             {
-                //daca este exact egal cu window heigth avand in vedere ca ultimul rand ar trebui sa ramana liber?
-                if (startingRow + text.Length > windowHeigth)
+                if (startingRow + text.Length >= windowHeigth)
                 {
                     return windowHeigth - 2;
                 }

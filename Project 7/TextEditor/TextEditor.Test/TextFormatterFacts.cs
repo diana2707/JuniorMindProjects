@@ -128,6 +128,16 @@ namespace TextEditor.Test
             Assert.Equal(formattedText, formatter.FormatWithinWindow());
         }
 
+        [Fact]
+        public void LastDisplayedRowPositionReturnsCorrectPositionWhenDisplayedTextHeightIsEqualWithWindowHeigth()
+        {
+            var path = GetTestFilePath("EqualsWindowHeigth.txt");
+            FileManager manager = new(path);
+            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+
+            Assert.Equal(28, formatter.LastDisplayedRowPosition);
+        }
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);
