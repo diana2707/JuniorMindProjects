@@ -63,6 +63,8 @@ namespace TextEditor.App
 
                     case ConsoleKey.Escape:
                         isListening = false;
+                        cursor.SetToStartOfLastLine();
+                        Console.SetCursorPosition(cursor.Column, cursor.Row);
                         continue;
 
                     default:
