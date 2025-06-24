@@ -250,23 +250,13 @@ namespace TextEditor.Test
             TextFormatter formatter = new(manager.Text, 120, 30, 0);
             Cursor cursor = new(formatter);
 
-            int resultRow = -1;
-            int resultColumn = -1;
+            Cursor.Direction result = 0; 
 
-            void TestObserveble(int row, int column)
-            {
-                resultRow = row;
-                resultColumn = column;
-            }
-
-            cursor.CursorExitedView += TestObserveble;
+            cursor.CursorExitedView += direction => result = direction;
 
             cursor.MoveRight();
-            //cursor.MoveRight();
 
-            Assert.Equal(0, resultRow);
-            Assert.Equal(1, resultColumn);
-
+            Assert.Equal(Cursor.Direction.Right, result);
         }
 
         [Fact]
@@ -276,24 +266,15 @@ namespace TextEditor.Test
             FileManager manager = new(path);
             TextFormatter formatter = new(manager.Text, 120, 30, 0);
             Cursor cursor = new(formatter);
+            
+            Cursor.Direction result = 0;
 
-            int resultRow = -1;
-            int resultColumn = -1;
-
-            void TestObserveble(int row, int column)
-            {
-                resultRow = row;
-                resultColumn = column;
-            }
-
-            cursor.CursorExitedView += TestObserveble;
+            cursor.CursorExitedView += direction => result = direction;
 
             cursor.MoveLeft();
             cursor.MoveLeft();
 
-            Assert.Equal(0, resultRow);
-            Assert.Equal(0, resultColumn);
-
+            Assert.Equal(Cursor.Direction.Left, result);
         }
 
         [Fact]
@@ -303,23 +284,13 @@ namespace TextEditor.Test
             FileManager manager = new(path);
             TextFormatter formatter = new(manager.Text, 120, 30, 0);
             Cursor cursor = new(formatter);
+            
+            Cursor.Direction result = 0;
 
-            int resultRow = -1;
-            int resultColumn = -1;
-
-            void TestObserveble(int row, int column)
-            {
-                resultRow = row;
-                resultColumn = column;
-            }
-
-            cursor.CursorExitedView += TestObserveble;
-
+            cursor.CursorExitedView += direction => result = direction;
             cursor.MoveDown();
 
-            Assert.Equal(0, resultRow);
-            Assert.Equal(1, resultColumn);
-
+            Assert.Equal(Cursor.Direction.Down, result);
         }
 
         [Fact]
@@ -330,22 +301,13 @@ namespace TextEditor.Test
             TextFormatter formatter = new(manager.Text, 120, 30, 0);
             Cursor cursor = new(formatter);
 
-            int resultRow = -1;
-            int resultColumn = -1;
+            Cursor.Direction result = 0;
 
-            void TestObserveble(int row, int column)
-            {
-                resultRow = row;
-                resultColumn = column;
-            }
-
-            cursor.CursorExitedView += TestObserveble;
-
+            cursor.CursorExitedView += direction => result = direction;
+            cursor.MoveDown();
             cursor.MoveUp();
 
-            Assert.Equal(0, resultRow);
-            Assert.Equal(1, resultColumn);
-
+            Assert.Equal(Cursor.Direction.Up, result);
         }
 
         private static string GetTestFilePath(string fileName)

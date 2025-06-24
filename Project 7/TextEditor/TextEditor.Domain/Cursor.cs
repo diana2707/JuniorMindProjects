@@ -8,7 +8,7 @@ namespace TextEditor.Domain
         int row;
         int column;
 
-        public enum Directions
+        public enum Direction
         {
             Right,
             Left,
@@ -24,7 +24,7 @@ namespace TextEditor.Domain
         }
 
         //public OnMove(row, column);
-        public event Action<int, int>? CursorExitedView;
+        public event Action<Direction>? CursorExitedView;
 
         public int Column => column;
 
@@ -37,7 +37,7 @@ namespace TextEditor.Domain
                 if (row == textFormatter.LastDisplayedRowPosition)
                 {
                     //aici poate fi Invoked OnMove.Invoke(row, column)
-                    CursorExitedView?.Invoke(row, column);
+                    CursorExitedView?.Invoke(Direction.Right);
                     return;
                 }
 
@@ -55,7 +55,7 @@ namespace TextEditor.Domain
             {
                 if (row == textFormatter.FirstDisplayedRowPosition)
                 {
-                    CursorExitedView?.Invoke(row, column);
+                    CursorExitedView?.Invoke(Direction.Left);
                     return;
                 }
 
@@ -71,7 +71,7 @@ namespace TextEditor.Domain
         {
             if (row == textFormatter.LastDisplayedRowPosition)
             {
-                CursorExitedView?.Invoke(row, column);
+                CursorExitedView?.Invoke(Direction.Down);
                 return;
             }
 
@@ -87,7 +87,7 @@ namespace TextEditor.Domain
         {
             if (row == textFormatter.FirstDisplayedRowPosition)
             {
-                CursorExitedView?.Invoke(row, column);
+                CursorExitedView?.Invoke(Direction.Up);
                 return;
             }
 
