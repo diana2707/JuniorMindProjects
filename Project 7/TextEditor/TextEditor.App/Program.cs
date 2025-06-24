@@ -34,6 +34,8 @@ namespace TextEditor.App
             {
                 Console.WriteLine(line);
             }
+
+            //cursor.OnMove += formatter.ScrollWhatever(row, column)
             
             bool isListening = true;
 

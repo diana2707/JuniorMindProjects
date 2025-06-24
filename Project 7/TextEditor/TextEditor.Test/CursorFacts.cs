@@ -242,6 +242,33 @@ namespace TextEditor.Test
             Assert.Equal(4, cursor.Row);
         }
 
+        [Fact]
+        public void CursorExitedViewIsRaisedByMoveRightMethodWhenCursorIsAtRightmostPosition()
+        {
+            string path = GetTestFilePath("SingleChar.txt");
+            FileManager manager = new(path);
+            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+            Cursor cursor = new(formatter);
+
+            int resultRow = -1;
+            int resultColumn = -1;
+
+            void TestObserveble(int row, int column)
+            {
+                resultRow = row;
+                resultColumn = column;
+            }
+
+            cursor.CursorExitedView += TestObserveble;
+
+            cursor.MoveRight();
+            cursor.MoveRight();
+
+            Assert.Equal(0, resultRow);
+            Assert.Equal(1, resultColumn);
+
+        }
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);

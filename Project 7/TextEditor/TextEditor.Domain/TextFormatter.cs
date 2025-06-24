@@ -42,6 +42,7 @@ namespace TextEditor.Domain
             return text[rowPosition - startingRow].Length;
         }
 
+        //Format within window 
         public List<string> FormatWithinWindow()
         {
             List<string> result = [];
@@ -55,5 +56,7 @@ namespace TextEditor.Domain
 
             return result;
         }
+
+        //
     }
 }

@@ -15,6 +15,9 @@ namespace TextEditor.Domain
             column = textFormatter.GetDisplayedRowLength(row);
         }
 
+        //public OnMove(row, column);
+        public event Action<int, int> CursorExitedView;
+
         public int Column => column;
 
         public int Row => row;
@@ -25,6 +28,8 @@ namespace TextEditor.Domain
             {
                 if (row == textFormatter.LastDisplayedRowPosition)
                 {
+                    //aici poate fi Invoked OnMove.Invoke(row, column)
+                    CursorExitedView?.Invoke(row, column);
                     return;
                 }
 
