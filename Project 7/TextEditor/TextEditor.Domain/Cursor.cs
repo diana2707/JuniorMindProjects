@@ -63,6 +63,7 @@ namespace TextEditor.Domain
         {
             if (row == textFormatter.LastDisplayedRowPosition)
             {
+                CursorExitedView?.Invoke(row, column);
                 return;
             }
 

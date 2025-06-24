@@ -270,7 +270,7 @@ namespace TextEditor.Test
         }
 
         [Fact]
-        public void CursorExitedViewIsRaisedByMoveLesfMethodWhenCursorIsAtLeftmostPosition()
+        public void CursorExitedViewIsRaisedByMoveLeftMethodWhenCursorIsAtLeftmostPosition()
         {
             string path = GetTestFilePath("SingleChar.txt");
             FileManager manager = new(path);
@@ -293,6 +293,32 @@ namespace TextEditor.Test
 
             Assert.Equal(0, resultRow);
             Assert.Equal(0, resultColumn);
+
+        }
+
+        [Fact]
+        public void CursorExitedViewIsRaisedByMoveDownMethodWhenCursorIsAtDownmostPosition()
+        {
+            string path = GetTestFilePath("SingleChar.txt");
+            FileManager manager = new(path);
+            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+            Cursor cursor = new(formatter);
+
+            int resultRow = -1;
+            int resultColumn = -1;
+
+            void TestObserveble(int row, int column)
+            {
+                resultRow = row;
+                resultColumn = column;
+            }
+
+            cursor.CursorExitedView += TestObserveble;
+
+            cursor.MoveDown();
+
+            Assert.Equal(0, resultRow);
+            Assert.Equal(1, resultColumn);
 
         }
 
