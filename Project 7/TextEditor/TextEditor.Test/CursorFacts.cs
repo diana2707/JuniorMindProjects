@@ -262,10 +262,37 @@ namespace TextEditor.Test
             cursor.CursorExitedView += TestObserveble;
 
             cursor.MoveRight();
-            cursor.MoveRight();
+            //cursor.MoveRight();
 
             Assert.Equal(0, resultRow);
             Assert.Equal(1, resultColumn);
+
+        }
+
+        [Fact]
+        public void CursorExitedViewIsRaisedByMoveLesfMethodWhenCursorIsAtLeftmostPosition()
+        {
+            string path = GetTestFilePath("SingleChar.txt");
+            FileManager manager = new(path);
+            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+            Cursor cursor = new(formatter);
+
+            int resultRow = -1;
+            int resultColumn = -1;
+
+            void TestObserveble(int row, int column)
+            {
+                resultRow = row;
+                resultColumn = column;
+            }
+
+            cursor.CursorExitedView += TestObserveble;
+
+            cursor.MoveLeft();
+            cursor.MoveLeft();
+
+            Assert.Equal(0, resultRow);
+            Assert.Equal(0, resultColumn);
 
         }
 
