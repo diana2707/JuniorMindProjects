@@ -8,6 +8,14 @@ namespace TextEditor.Domain
         int row;
         int column;
 
+        public enum Directions
+        {
+            Right,
+            Left,
+            Down,
+            Up
+        }
+
         public Cursor(TextFormatter textFormatter)
         {
             this.textFormatter = textFormatter;
@@ -16,7 +24,7 @@ namespace TextEditor.Domain
         }
 
         //public OnMove(row, column);
-        public event Action<int, int> CursorExitedView;
+        public event Action<int, int>? CursorExitedView;
 
         public int Column => column;
 
