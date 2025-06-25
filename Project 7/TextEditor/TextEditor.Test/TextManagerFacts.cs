@@ -3,14 +3,14 @@ using TextEditor.Domain;
 
 namespace TextEditor.Test
 {
-    public class TextFormatterFacts
+    public class TextManagerFacts
     {
         [Fact]
-        public void CreateValidTextDisplayerObject()
+        public void CreateValidTextManagerObject()
         {
             string path = GetTestFilePath("singleRow.txt");
-            FileManager manager = new(path);
-            Assert.IsType<TextFormatter>(new TextFormatter(manager.Text, 120, 30, 0));
+            FileManager fileManager = new(path);
+            Assert.IsType<TextManager>(new TextManager(fileManager.Text, 120, 30, 0));
         }
 
         [Fact]
@@ -18,7 +18,7 @@ namespace TextEditor.Test
         {
             var path = GetTestFilePath("ExceedsWindowWidth.txt");
             FileManager fileManager = new(path);
-            TextFormatter formatter = new(fileManager.Text, 120, 30, 0);
+            TextManager formatter = new(fileManager.Text, 120, 30, 0);
             List<string> formattedText = ["This is a very long line that exceeds the console width of 120 characters. " +
                 "This is a very long line that exceeds the co"];
 
@@ -30,7 +30,7 @@ namespace TextEditor.Test
         {
             var path = GetTestFilePath("SingleRow.txt");
             FileManager fileManager = new(path);
-            TextFormatter formatter = new(fileManager.Text, 120, 30, 0);
+            TextManager formatter = new(fileManager.Text, 120, 30, 0);
 
             Assert.Equal(0, formatter.LastDisplayedRowPosition);
         }
@@ -40,7 +40,7 @@ namespace TextEditor.Test
         {
             var path = GetTestFilePath("SingleRow.txt");
             FileManager fileManager = new(path);
-            TextFormatter formatter = new(fileManager.Text, 120, 30, 5);
+            TextManager formatter = new(fileManager.Text, 120, 30, 5);
 
             Assert.Equal(5, formatter.LastDisplayedRowPosition);
         }
@@ -50,7 +50,7 @@ namespace TextEditor.Test
         {
             var path = GetTestFilePath("ExceedsWindowHeigth.txt");
             FileManager fileManager = new(path);
-            TextFormatter formatter = new(fileManager.Text, 120, 30, 0);
+            TextManager formatter = new(fileManager.Text, 120, 30, 0);
 
             Assert.Equal(28, formatter.LastDisplayedRowPosition);
         }
@@ -60,7 +60,7 @@ namespace TextEditor.Test
         {
             var path = GetTestFilePath("SingleRow.txt");
             FileManager fileManager = new(path);
-            TextFormatter formatter = new(fileManager.Text, 120, 30, 5);
+            TextManager formatter = new(fileManager.Text, 120, 30, 5);
 
             Assert.Equal(5, formatter.FirstDisplayedRowPosition);
         }
@@ -70,7 +70,7 @@ namespace TextEditor.Test
         {
             var path = GetTestFilePath("SingleRow.txt");
             FileManager fileManager = new(path);
-            TextFormatter formatter = new(fileManager.Text, 120, 30, 0);
+            TextManager formatter = new(fileManager.Text, 120, 30, 0);
 
             Assert.Equal(15, formatter.GetDisplayedRowLength(0));
         }
@@ -80,7 +80,7 @@ namespace TextEditor.Test
         {
             var path = GetTestFilePath("SingleRow.txt");
             FileManager fileManager = new(path);
-            TextFormatter formatter = new(fileManager.Text, 120, 30, 5);
+            TextManager formatter = new(fileManager.Text, 120, 30, 5);
 
             Assert.Equal(15, formatter.GetDisplayedRowLength(5));
         }
@@ -90,7 +90,7 @@ namespace TextEditor.Test
         {
             var path = GetTestFilePath("ExceedsWindowWidth.txt");
             FileManager fileManager = new(path);
-            TextFormatter formatter = new(fileManager.Text, 120, 30, 0);
+            TextManager formatter = new(fileManager.Text, 120, 30, 0);
 
             Assert.Equal(119, formatter.GetDisplayedRowLength(0));
         }
@@ -100,7 +100,7 @@ namespace TextEditor.Test
         {
             var path = GetTestFilePath("ExceedsWindowHeigth.txt");
             FileManager manager = new(path);
-            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+            TextManager formatter = new(manager.Text, 120, 30, 0);
 
             List<string> formattedText = [];
             for (int i = 1; i <= 29; i++)
@@ -116,7 +116,7 @@ namespace TextEditor.Test
         {
             var path = GetTestFilePath("ExceedsWindowHeigthAndWidth.txt");
             FileManager manager = new(path);
-            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+            TextManager formatter = new(manager.Text, 120, 30, 0);
 
             List<string> formattedText = [];
             for (int i = 1; i <= 29; i++)
@@ -133,7 +133,7 @@ namespace TextEditor.Test
         {
             var path = GetTestFilePath("EqualsWindowHeigth.txt");
             FileManager manager = new(path);
-            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+            TextManager formatter = new(manager.Text, 120, 30, 0);
 
             Assert.Equal(28, formatter.LastDisplayedRowPosition);
         }
