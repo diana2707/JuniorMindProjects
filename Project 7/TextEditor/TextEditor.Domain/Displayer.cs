@@ -10,6 +10,11 @@ namespace TextEditor.Domain
         {
             this.output = output;
         }
+
+        public void DisplayLine(string line)
+        {
+            output.WriteLine(line);
+        }
     }
 }
 
