@@ -7,9 +7,14 @@ namespace TextEditor.App
         static void Main(string[] args)
         {
             Console.Clear();
-            Console.WriteLine("To read file insert path:");
+            //needs to be moked to be used in Display and tested
 
             FileManager manager = null;
+            Displayer displayer = new(Console.Out);
+
+            //Console.WriteLine("To read file insert path:");
+            displayer.DisplayLine("To read file insert path:");
+            
 
             while (manager == null)
             {
@@ -20,7 +25,8 @@ namespace TextEditor.App
                 }
                 catch (Exception exception)
                 {
-                    Console.WriteLine("The path you inserted was not valid. Please insert a correct path.");
+                    //Console.WriteLine("The path you inserted was not valid. Please insert a correct path.");
+                    displayer.DisplayLine("The path you inserted was not valid. Please insert a correct path.");
                 }
             }
 

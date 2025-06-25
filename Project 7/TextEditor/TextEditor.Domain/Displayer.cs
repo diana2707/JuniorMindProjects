@@ -15,6 +15,15 @@ namespace TextEditor.Domain
         {
             output.WriteLine(line);
         }
+
+        //should the parameter be array?
+        public void DisplayText(List<string> text)
+        {
+            foreach (var line in text)
+            {
+                output.WriteLine(line);
+            }
+        }
     }
 }
 
