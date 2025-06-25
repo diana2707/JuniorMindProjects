@@ -26,7 +26,7 @@ namespace TextEditor.App
 
             Console.WriteLine();
 
-            TextFormatter formatter = new(manager.Text, Console.WindowWidth, Console.WindowHeight, Console.CursorTop);
+            TextManager formatter = new(manager.Text, Console.WindowWidth, Console.WindowHeight, Console.CursorTop);
             Cursor cursor = new(formatter);
 
             List<string> formattedText = formatter.FormatWithinWindow();

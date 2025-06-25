@@ -10,7 +10,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleRow.txt");
             FileManager manager = new(path);
-            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+            TextManager formatter = new(manager.Text, 120, 30, 0);
             Assert.IsType<Cursor>(new Cursor(formatter));
         }
 
@@ -19,7 +19,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleRow.txt");
             FileManager manager = new(path);
-            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+            TextManager formatter = new(manager.Text, 120, 30, 0);
             Cursor cursor = new(formatter);
 
             Assert.Equal(15, cursor.Column);
@@ -30,7 +30,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleRow.txt");
             FileManager manager = new(path);
-            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+            TextManager formatter = new(manager.Text, 120, 30, 0);
             Cursor cursor = new(formatter);
 
             Assert.Equal(0, cursor.Row);
@@ -41,7 +41,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleRow.txt");
             FileManager manager = new(path);
-            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+            TextManager formatter = new(manager.Text, 120, 30, 0);
             Cursor cursor = new(formatter);
             cursor.MoveRight();
 
@@ -54,7 +54,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleCharRows.txt");
             FileManager manager = new(path);
-            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+            TextManager formatter = new(manager.Text, 120, 30, 0);
             Cursor cursor = new(formatter);
             cursor.MoveUp();
             cursor.MoveRight();
@@ -69,7 +69,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleChar.txt");
             FileManager manager = new(path);
-            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+            TextManager formatter = new(manager.Text, 120, 30, 0);
             Cursor cursor = new(formatter);
             cursor.MoveRight();
 
@@ -82,7 +82,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleRow.txt");
             FileManager manager = new(path);
-            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+            TextManager formatter = new(manager.Text, 120, 30, 0);
             Cursor cursor = new(formatter);
             cursor.MoveLeft();
 
@@ -95,7 +95,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleCharRows.txt");
             FileManager manager = new(path);
-            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+            TextManager formatter = new(manager.Text, 120, 30, 0);
             Cursor cursor = new(formatter);
             cursor.MoveLeft();
             cursor.MoveLeft();
@@ -109,7 +109,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleChar.txt");
             FileManager manager = new(path);
-            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+            TextManager formatter = new(manager.Text, 120, 30, 0);
             Cursor cursor = new(formatter);
             cursor.MoveLeft();
             cursor.MoveLeft();
@@ -123,7 +123,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleChar.txt");
             FileManager manager = new(path);
-            TextFormatter formatter = new(manager.Text, 120, 30, 5);
+            TextManager formatter = new(manager.Text, 120, 30, 5);
             Cursor cursor = new(formatter);
             cursor.MoveLeft();
             cursor.MoveLeft();
@@ -137,7 +137,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleCharRows.txt");
             FileManager manager = new(path);
-            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+            TextManager formatter = new(manager.Text, 120, 30, 0);
             Cursor cursor = new(formatter);
             cursor.MoveUp();
             cursor.MoveDown();
@@ -151,7 +151,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleCharRows.txt");
             FileManager manager = new(path);
-            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+            TextManager formatter = new(manager.Text, 120, 30, 0);
             Cursor cursor = new(formatter);
             cursor.MoveDown();
 
@@ -164,7 +164,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("MultipleRows.txt");
             FileManager manager = new(path);
-            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+            TextManager formatter = new(manager.Text, 120, 30, 0);
             Cursor cursor = new(formatter);
             cursor.MoveUp();
             cursor.MoveUp();
@@ -179,7 +179,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("MultipleRows.txt");
             FileManager manager = new(path);
-            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+            TextManager formatter = new(manager.Text, 120, 30, 0);
             Cursor cursor = new(formatter);
             cursor.MoveUp();
             cursor.MoveUp();
@@ -193,7 +193,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleChar.txt");
             FileManager manager = new(path);
-            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+            TextManager formatter = new(manager.Text, 120, 30, 0);
             Cursor cursor = new(formatter);
             cursor.MoveUp();
 
@@ -206,7 +206,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleChar.txt");
             FileManager manager = new(path);
-            TextFormatter formatter = new(manager.Text, 120, 30, 5);
+            TextManager formatter = new(manager.Text, 120, 30, 5);
             Cursor cursor = new(formatter);
             cursor.MoveUp();
 
@@ -219,7 +219,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("MultipleRows.txt");
             FileManager manager = new(path);
-            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+            TextManager formatter = new(manager.Text, 120, 30, 0);
             Cursor cursor = new(formatter);
 
             cursor.MoveUp();
@@ -233,7 +233,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("MultipleRows.txt");
             FileManager manager = new(path);
-            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+            TextManager formatter = new(manager.Text, 120, 30, 0);
             Cursor cursor = new(formatter);
 
             cursor.SetToStartOfLastLine();
@@ -247,7 +247,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleChar.txt");
             FileManager manager = new(path);
-            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+            TextManager formatter = new(manager.Text, 120, 30, 0);
             Cursor cursor = new(formatter);
 
             Cursor.Direction result = 0; 
@@ -264,7 +264,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleChar.txt");
             FileManager manager = new(path);
-            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+            TextManager formatter = new(manager.Text, 120, 30, 0);
             Cursor cursor = new(formatter);
             
             Cursor.Direction result = 0;
@@ -282,7 +282,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleChar.txt");
             FileManager manager = new(path);
-            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+            TextManager formatter = new(manager.Text, 120, 30, 0);
             Cursor cursor = new(formatter);
             
             Cursor.Direction result = 0;
@@ -298,7 +298,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleChar.txt");
             FileManager manager = new(path);
-            TextFormatter formatter = new(manager.Text, 120, 30, 0);
+            TextManager formatter = new(manager.Text, 120, 30, 0);
             Cursor cursor = new(formatter);
 
             Cursor.Direction result = 0;

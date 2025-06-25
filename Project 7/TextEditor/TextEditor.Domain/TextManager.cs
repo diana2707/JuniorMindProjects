@@ -2,14 +2,14 @@
 
 namespace TextEditor.Domain
 {
-    public class TextFormatter
+    public class TextManager
     {
         readonly string[] text;
         readonly int windowWidth;
         readonly int windowHeigth;
         readonly int startingRow;
 
-        public TextFormatter(string[] text, int windowWidth, int windowHeigth, int startingRow)
+        public TextManager(string[] text, int windowWidth, int windowHeigth, int startingRow)
         {
             this.text = text;
             this.windowWidth = windowWidth;
@@ -57,6 +57,6 @@ namespace TextEditor.Domain
             return result;
         }
 
-        //
+        //UpdateTextView(Cursor.Direction direction)
     }
 }

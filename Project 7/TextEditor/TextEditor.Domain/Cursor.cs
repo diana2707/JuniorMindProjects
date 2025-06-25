@@ -4,7 +4,7 @@ namespace TextEditor.Domain
 {
     public class Cursor
     {
-        readonly TextFormatter textFormatter;
+        readonly TextManager textFormatter;
         int row;
         int column;
 
@@ -16,7 +16,7 @@ namespace TextEditor.Domain
             Up
         }
 
-        public Cursor(TextFormatter textFormatter)
+        public Cursor(TextManager textFormatter)
         {
             this.textFormatter = textFormatter;
             row = textFormatter.LastDisplayedRowPosition;
