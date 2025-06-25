@@ -8,7 +8,8 @@ namespace TextEditor.Test
         [Fact]
         public void DisplayerObjectExists()
         {
-            var displayer = new Displayer();
+            StringWriter writer = new();
+            var displayer = new Displayer(writer);
             Assert.IsType<Displayer>(displayer);
         }
     }
