@@ -33,5 +33,15 @@ namespace TextEditor.Test
             displayer.DisplayText(input);
             Assert.Equal("a\r\nb\r\nc\r\n", writer.ToString());
         }
+
+        [Fact]
+        public void DisplayEmptyLineMethodWritesMultipleLinesInTextWriter()
+        {
+            StringWriter writer = new();
+            var displayer = new Displayer(writer);
+
+            displayer.DisplayEmptyLine();
+            Assert.Equal("\r\n", writer.ToString());
+        }
     }
 }

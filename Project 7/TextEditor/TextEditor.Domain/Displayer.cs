@@ -24,6 +24,11 @@ namespace TextEditor.Domain
                 output.WriteLine(line);
             }
         }
+
+        public void DisplayEmptyLine()
+        {
+            output.WriteLine();
+        }
     }
 }
 
