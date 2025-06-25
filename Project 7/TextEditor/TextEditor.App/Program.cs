@@ -36,13 +36,9 @@ namespace TextEditor.App
             Cursor cursor = new(formatter);
 
             List<string> formattedText = formatter.FormatWithinWindow();
-            foreach(var line in formattedText)
-            {
-                Console.WriteLine(line);
-            }
+            displayer.DisplayText(formattedText);
 
             //cursor.OnMove += formatter.ScrollWhatever(row, column)
-            
             bool isListening = true;
 
             while (isListening)
