@@ -16,9 +16,9 @@ namespace TextEditor.Domain
             return controller.ReadLine();
         }
 
-        public ConsoleKeyInfo ReadInputKey()
+        public ConsoleKeyInfo ReadKeyWithoutDisplay()
         {
-            return controller.ReadKey();
+            return controller.ReadKeyWithoutDisplay();
         }
     }
 }

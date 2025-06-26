@@ -9,6 +9,6 @@ namespace TextEditor.Domain
         public void Clear();
         public void SetCursorPosition(int left, int top);
         public string? ReadLine();
-        public ConsoleKeyInfo ReadKey();
+        public ConsoleKeyInfo ReadKeyWithoutDisplay();
     }
 }

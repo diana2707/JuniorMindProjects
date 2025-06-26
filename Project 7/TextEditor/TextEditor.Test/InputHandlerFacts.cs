@@ -30,11 +30,11 @@ namespace TextEditor.Test
             FakeConsoleController controller = new();
             InputHandler inputHandler = new(controller);
 
-            ConsoleKeyInfo inputKey = new ('\a', ConsoleKey.A, false, false, false);
+            ConsoleKeyInfo inputKey = new ('\u2193', ConsoleKey.DownArrow, false, false, false);
 
             controller.KeyToRead = inputKey;
 
-            Assert.Equal(inputKey, inputHandler.ReadInputKey());
+            Assert.Equal(inputKey, inputHandler.ReadKeyWithoutDisplay());
         }
     }
 }

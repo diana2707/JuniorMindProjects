@@ -18,6 +18,6 @@ namespace TextEditor.Domain
 
         public string? ReadLine() => Console.ReadLine();
 
-        public ConsoleKeyInfo ReadKey() => Console.ReadKey();
+        public ConsoleKeyInfo ReadKeyWithoutDisplay() => Console.ReadKey(intercept: true);
     }
 }

@@ -17,6 +17,6 @@ namespace TextEditor.Test
         public void Clear() => IsClearCalled = true;
         public void SetCursorPosition(int left, int top) => CursorPosition = (left, top);
         public string? ReadLine() => LineToRead;
-        public ConsoleKeyInfo ReadKey() => KeyToRead;
+        public ConsoleKeyInfo ReadKeyWithoutDisplay() => KeyToRead;
     }
 }
