@@ -8,14 +8,6 @@ namespace TextEditor.Domain
         int row;
         int column;
 
-        public enum Direction
-        {
-            Right,
-            Left,
-            Down,
-            Up
-        }
-
         public Cursor(TextManager textFormatter)
         {
             this.textFormatter = textFormatter;
