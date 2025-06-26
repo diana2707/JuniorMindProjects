@@ -4,6 +4,14 @@ namespace TextEditor.Domain
 {
     public class Cursor
     {
+        //cursorul ar trebui sa pastreze pozitia relativa fata de intregul text
+        //pentru a face asta trebuie sa aiba acces la dimensiunile textului
+        //dar fara sa contina o instanta din textManager pt ca implica un coupling prea mare
+        //CUM FAC ASTA?
+
+        //creaza o intefata cu metodele de care ai nevoie
+        //TextManager o implementeaza si ai access doar la info de care ai nevoie (numerul de randuri si o metoda care imi aduce lungimea randului)
+
         readonly TextManager textFormatter;
         int row;
         int column;
@@ -14,6 +22,9 @@ namespace TextEditor.Domain
             row = textFormatter.LastDisplayedRowPosition;
             column = textFormatter.GetDisplayedRowLength(row);
         }
+
+        //event pentru cand se misca cursorul (urmeaza sa il invoc dupa miscarile cursorului)
+        public event Action<Direction> CursorMoved;
 
         public event Action<Direction>? CursorExitedView;
 

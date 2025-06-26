@@ -36,8 +36,12 @@ namespace TextEditor.App
             List<string> formattedText = formatter.FormatWithinWindow();
             displayer.DisplayText(formattedText);
 
-            //add cursor to the arrow pressed event
-            inputHandler.ArrowKeyPressed += cursor.OnArrowKeyPressed; 
+
+            //THIS LOGIC IS FOR LATTER
+
+            //inputHandler.ArrowKeyPressed += cursor.OnArrowKeyPressed; 
+
+
 
             //keep listening logic for now
             bool isListening = true;
