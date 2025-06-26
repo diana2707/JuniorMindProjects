@@ -8,6 +8,7 @@ namespace TextEditor.App
         {
             FileManager manager = null;
             ConsoleController controller = new();
+            InputHandler inputHandler = new(controller);
             Displayer displayer = new(controller);
 
             displayer.ClearDisplay();
@@ -18,7 +19,7 @@ namespace TextEditor.App
             {
                 try
                 {
-                    string path = Console.ReadLine();
+                    string path = inputHandler.ReadInputLine();
                     manager = new FileManager(path);
                 }
                 catch (Exception exception)
