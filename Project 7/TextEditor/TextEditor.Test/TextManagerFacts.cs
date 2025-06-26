@@ -149,13 +149,23 @@ namespace TextEditor.Test
         }
 
         [Fact]
-        public void GetLineMethodReturnsTheCountOfRowsInText()
+        public void GetLineMethodReturnsLineAtIndex()
         {
             var path = GetTestFilePath("MultipleRows.txt");
             FileManager fileManager = new(path);
             TextManager textManager = new(fileManager.Text, 120, 30, 0);
 
             Assert.Equal("This is a test.", textManager.GetLine(0));
+        }
+
+        [Fact]
+        public void GetLineLengthMethodReturnsLineLengthAtIndex()
+        {
+            var path = GetTestFilePath("MultipleRows.txt");
+            FileManager fileManager = new(path);
+            TextManager textManager = new(fileManager.Text, 120, 30, 0);
+
+            Assert.Equal(15, textManager.GetLineLength(0));
         }
 
         private static string GetTestFilePath(string fileName)

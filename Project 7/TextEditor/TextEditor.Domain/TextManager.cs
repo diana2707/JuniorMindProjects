@@ -24,6 +24,8 @@ namespace TextEditor.Domain
 
         public string GetLine(int index) => text[index];
 
+        public int GetLineLength(int index) => text[index].Length;
+
 
         //ORIGINAL IMPLEMENTATION
 

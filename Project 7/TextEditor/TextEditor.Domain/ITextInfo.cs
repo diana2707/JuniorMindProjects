@@ -6,5 +6,6 @@ namespace TextEditor.Domain
     {
         public int GetLinesCount();
         public string GetLine(int index);
+        public int GetLineLength(int index);
     }
 }
