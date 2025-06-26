@@ -7,6 +7,6 @@ namespace TextEditor.Domain
         public void WriteLine();
         public void WriteLine(string message);
         public void Clear();
-        public void SetCursorPosition();
+        public void SetCursorPosition(int left, int top);
     }
 }
