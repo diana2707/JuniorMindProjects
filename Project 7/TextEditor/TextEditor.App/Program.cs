@@ -40,7 +40,7 @@ namespace TextEditor.App
 
             while (isListening)
             {
-                Console.SetCursorPosition(cursor.Column, cursor.Row);
+                displayer.DisplayCursorAt(cursor.Column, cursor.Row);
                 ConsoleKeyInfo currentKey = Console.ReadKey(intercept: true);
 
                 switch (currentKey.Key)
@@ -65,7 +65,7 @@ namespace TextEditor.App
                     case ConsoleKey.Escape:
                         isListening = false;
                         cursor.SetToStartOfLastLine();
-                        Console.SetCursorPosition(cursor.Column, cursor.Row);
+                        displayer.DisplayCursorAt(cursor.Column, cursor.Row);
                         continue;
 
                     default:
