@@ -6,13 +6,11 @@ namespace TextEditor.App
     {
         static void Main(string[] args)
         {
-            Console.Clear();
-            //needs to be moked to be used in Display and tested
-
             FileManager manager = null;
             ConsoleController controller = new();
             Displayer displayer = new(controller);
 
+            displayer.Clear();
             displayer.DisplayLine("To read file insert path:");
             
 
