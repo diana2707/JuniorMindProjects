@@ -21,7 +21,6 @@ namespace TextEditor.Domain
 
         public int Row => row;
 
-        //metoda care asculta daca s-a apsat arrow
         public void OnArrowKeyPressed(Direction direction)
         {
             switch (direction)
@@ -36,6 +35,10 @@ namespace TextEditor.Domain
 
                 case Direction.Up:
                     MoveUp();
+                    return;
+
+                case Direction.Down:
+                    MoveDown();
                     return;
             }
         }

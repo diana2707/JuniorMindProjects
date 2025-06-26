@@ -338,7 +338,7 @@ namespace TextEditor.Test
         }
 
         [Fact]
-        public void OnArrowKeyPressedMethodCallsMoveDowntMethodWhenDirectionIsDown()
+        public void OnArrowKeyPressedMethodCallsMoveUpMethodWhenDirectionIsUp()
         {
             string path = GetTestFilePath("MultipleRows.txt");
             FileManager manager = new(path);
@@ -348,6 +348,20 @@ namespace TextEditor.Test
             cursor.OnArrowKeyPressed(Direction.Up);
 
             Assert.Equal(2, cursor.Row);
+        }
+
+        [Fact]
+        public void OnArrowKeyPressedMethodCallsMoveDowntMethodWhenDirectionIsDown()
+        {
+            string path = GetTestFilePath("MultipleRows.txt");
+            FileManager manager = new(path);
+            TextManager formatter = new(manager.Text, 120, 30, 0);
+            Cursor cursor = new(formatter);
+
+            cursor.OnArrowKeyPressed(Direction.Up);
+            cursor.OnArrowKeyPressed(Direction.Down);
+
+            Assert.Equal(3, cursor.Row);
         }
 
         private static string GetTestFilePath(string fileName)
