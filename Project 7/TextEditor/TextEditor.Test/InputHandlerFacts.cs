@@ -32,7 +32,7 @@ namespace TextEditor.Test
 
             ConsoleKeyInfo inputKey = new ('\u2193', ConsoleKey.DownArrow, false, false, false);
 
-            controller.KeysToRead = [inputKey];
+            controller.KeysToRead.Add(inputKey);
 
             Assert.Equal(inputKey, inputHandler.ReadKeyWithoutDisplay());
         }
@@ -53,5 +53,25 @@ namespace TextEditor.Test
 
         //    Assert.Equal(, inputHandler.Listen());
         //}
+
+        [Fact]
+        public void ListenMethodRaisesEventArrowKeyPressedWhenAnArrowKeyIsRead()
+        {
+
+            FakeConsoleController controller = new();
+            InputHandler inputHandler = new(controller);
+
+            ConsoleKeyInfo? result = null;
+            ConsoleKeyInfo downArrow = new('\u2193', ConsoleKey.DownArrow, false, false, false);
+            ConsoleKeyInfo escape = new('\u001B', ConsoleKey.Escape, false, false, false);
+
+            controller.KeysToRead.Add(downArrow);
+            controller.KeysToRead.Add(escape);
+
+            inputHandler.ArrowKeyPressed += downArrow => result = downArrow;
+            inputHandler.Listen();
+
+            Assert.Equal(downArrow, result);
+        }
     }
 }

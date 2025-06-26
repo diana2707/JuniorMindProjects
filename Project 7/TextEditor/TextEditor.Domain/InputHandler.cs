@@ -16,6 +16,8 @@ namespace TextEditor.Domain
             return controller.ReadLine();
         }
 
+        public event Action<ConsoleKeyInfo> ArrowKeyPressed;
+
         public ConsoleKeyInfo ReadKeyWithoutDisplay()
         {
             return controller.ReadKeyWithoutDisplay();
@@ -35,18 +37,19 @@ namespace TextEditor.Domain
                     case ConsoleKey.RightArrow:
                         //cursor.MoveRight();
 
-                        continue;
+                        //continue;
 
                     case ConsoleKey.LeftArrow:
                         //cursor.MoveLeft();
-                        continue;
+                        //continue;
 
                     case ConsoleKey.UpArrow:
                         //cursor.MoveUp();
-                        continue;
+                        //continue;
 
                     case ConsoleKey.DownArrow:
                         //cursor.MoveDown();
+                        ArrowKeyPressed.Invoke(currentKey);
                         continue;
 
                     case ConsoleKey.Escape:
