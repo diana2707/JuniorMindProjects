@@ -12,7 +12,6 @@ namespace TextEditor.App
             FileManager manager = null;
             Displayer displayer = new(Console.Out);
 
-            //Console.WriteLine("To read file insert path:");
             displayer.DisplayLine("To read file insert path:");
             
 
@@ -25,12 +24,11 @@ namespace TextEditor.App
                 }
                 catch (Exception exception)
                 {
-                    //Console.WriteLine("The path you inserted was not valid. Please insert a correct path.");
                     displayer.DisplayLine("The path you inserted was not valid. Please insert a correct path.");
                 }
             }
 
-            Console.WriteLine();
+            displayer.DisplayEmptyLine();
 
             TextManager formatter = new(manager.Text, Console.WindowWidth, Console.WindowHeight, Console.CursorTop);
             Cursor cursor = new(formatter);
