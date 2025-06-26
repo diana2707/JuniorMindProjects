@@ -5,7 +5,7 @@ namespace TextEditor.Domain
     //TextManager ar trebui sa gestioneze intregul text + pozitia absoluta a cursorului in text
     
 
-    public class TextManager
+    public class TextManager /*: ITextInfo*/
     {
         readonly string[] text;
         readonly int windowWidth;
@@ -19,6 +19,12 @@ namespace TextEditor.Domain
             this.windowHeigth = windowHeigth;
             this.startingRow = startingRow;
         }
+
+        public int GetRowsCount() => text.Length;
+
+
+
+        //ORIGINAL IMPLEMENTATION
 
         public int FirstDisplayedRowPosition => startingRow;
 

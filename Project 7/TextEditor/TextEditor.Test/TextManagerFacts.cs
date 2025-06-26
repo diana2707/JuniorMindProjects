@@ -138,6 +138,16 @@ namespace TextEditor.Test
             Assert.Equal(28, formatter.LastDisplayedRowPosition);
         }
 
+        [Fact]
+        public void GetRowsCountMethodReturnsTheCountOfRowsInText()
+        {
+            var path = GetTestFilePath("MultipleRows.txt");
+            FileManager fileManager = new(path);
+            TextManager textManager = new(fileManager.Text, 120, 30, 0);
+
+            Assert.Equal(4, textManager.GetRowsCount());
+        }
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);
