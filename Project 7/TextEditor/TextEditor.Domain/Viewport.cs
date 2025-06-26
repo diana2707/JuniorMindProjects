@@ -2,6 +2,9 @@
 
 namespace TextEditor.Domain
 {
+    //Viewport ar trebui sa gestioneze partea vizibila (dimensiunile ferestrei si rerendering cand se depasesc limitele)
+    //am nevoie de limitele textului pt a calcula corect ce sa afiseaza
+
     public class Viewport
     {
         private readonly int width;
