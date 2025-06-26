@@ -43,5 +43,15 @@ namespace TextEditor.Test
             displayer.DisplayEmptyLine();
             Assert.True(controller.IsWriteEmptyLineCalled);
         }
+
+        [Fact]
+        public void ClearMethodClearTheDisplay()
+        {
+            FakeConsoleController controller = new();
+            var displayer = new Displayer(controller);
+
+            displayer.Clear();
+            Assert.True(controller.IsClearCalled);
+        }
     }
 }

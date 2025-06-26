@@ -29,6 +29,11 @@ namespace TextEditor.Domain
         {
             controller.WriteLine();
         }
+
+        public void Clear()
+        {
+            controller.Clear();
+        }
     }
 }
 
