@@ -15,12 +15,22 @@ namespace TextEditor.Domain
             column = textFormatter.GetDisplayedRowLength(row);
         }
 
-        //public OnMove(row, column);
         public event Action<Direction>? CursorExitedView;
 
         public int Column => column;
 
         public int Row => row;
+
+        //metoda care asculta daca s-a apsat arrow
+        public void OnArrowKeyPressed(Direction direction)
+        {
+            switch (direction)
+            {
+                case Direction.Left:
+                    MoveLeft();
+                    return;
+            }
+        }
 
         public void MoveRight()
         {
@@ -28,7 +38,6 @@ namespace TextEditor.Domain
             {
                 if (row == textFormatter.LastDisplayedRowPosition)
                 {
-                    //aici poate fi Invoked OnMove.Invoke(row, column)
                     CursorExitedView?.Invoke(Direction.Right);
                     return;
                 }

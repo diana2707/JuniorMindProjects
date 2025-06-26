@@ -310,6 +310,19 @@ namespace TextEditor.Test
             Assert.Equal(Direction.Up, result);
         }
 
+        [Fact]
+        public void OnArrowKeyPressedMethodCallsMoveLeftMethodWhenDirectionIsLeft()
+        {
+            string path = GetTestFilePath("SingleChar.txt");
+            FileManager manager = new(path);
+            TextManager formatter = new(manager.Text, 120, 30, 0);
+            Cursor cursor = new(formatter);
+
+            cursor.OnArrowKeyPressed(Direction.Left);
+
+            Assert.Equal(0, cursor.Column);
+        }
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);
