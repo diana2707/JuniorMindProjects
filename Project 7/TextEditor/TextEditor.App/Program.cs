@@ -36,7 +36,10 @@ namespace TextEditor.App
             List<string> formattedText = formatter.FormatWithinWindow();
             displayer.DisplayText(formattedText);
 
-            //cursor.OnMove += formatter.ScrollWhatever(row, column)
+            //add cursor to the arrow pressed event
+            inputHandler.ArrowKeyPressed += cursor.OnArrowKeyPressed; 
+
+            //keep listening logic for now
             bool isListening = true;
 
             while (isListening)
