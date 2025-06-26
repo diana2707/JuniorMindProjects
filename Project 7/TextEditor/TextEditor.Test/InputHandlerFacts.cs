@@ -8,7 +8,8 @@ namespace TextEditor.Test
         [Fact]
         public void InputHandlerClassExists()
         {
-            InputHandler inputHandler = new();
+            FakeConsoleController controller = new();
+            InputHandler inputHandler = new(controller);
             Assert.IsType<InputHandler>(inputHandler);
         }
     }
