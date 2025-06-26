@@ -8,7 +8,7 @@ namespace TextEditor.Test
         [Fact]
         public void ViewportObjectExists()
         {
-            Viewport viewport = new();
+            Viewport viewport = new(120, 30, 0);
             Assert.IsType<Viewport>(viewport);
         }
     }
