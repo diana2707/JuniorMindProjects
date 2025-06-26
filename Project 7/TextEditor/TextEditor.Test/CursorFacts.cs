@@ -250,13 +250,13 @@ namespace TextEditor.Test
             TextManager formatter = new(manager.Text, 120, 30, 0);
             Cursor cursor = new(formatter);
 
-            Cursor.Direction result = 0; 
+            Direction result = 0; 
 
             cursor.CursorExitedView += direction => result = direction;
 
             cursor.MoveRight();
 
-            Assert.Equal(Cursor.Direction.Right, result);
+            Assert.Equal(Direction.Right, result);
         }
 
         [Fact]
@@ -267,14 +267,14 @@ namespace TextEditor.Test
             TextManager formatter = new(manager.Text, 120, 30, 0);
             Cursor cursor = new(formatter);
             
-            Cursor.Direction result = 0;
+            Direction result = 0;
 
             cursor.CursorExitedView += direction => result = direction;
 
             cursor.MoveLeft();
             cursor.MoveLeft();
 
-            Assert.Equal(Cursor.Direction.Left, result);
+            Assert.Equal(Direction.Left, result);
         }
 
         [Fact]
@@ -285,12 +285,12 @@ namespace TextEditor.Test
             TextManager formatter = new(manager.Text, 120, 30, 0);
             Cursor cursor = new(formatter);
             
-            Cursor.Direction result = 0;
+            Direction result = 0;
 
             cursor.CursorExitedView += direction => result = direction;
             cursor.MoveDown();
 
-            Assert.Equal(Cursor.Direction.Down, result);
+            Assert.Equal(Direction.Down, result);
         }
 
         [Fact]
@@ -301,13 +301,13 @@ namespace TextEditor.Test
             TextManager formatter = new(manager.Text, 120, 30, 0);
             Cursor cursor = new(formatter);
 
-            Cursor.Direction result = 0;
+            Direction result = 0;
 
             cursor.CursorExitedView += direction => result = direction;
             cursor.MoveDown();
             cursor.MoveUp();
 
-            Assert.Equal(Cursor.Direction.Up, result);
+            Assert.Equal(Direction.Up, result);
         }
 
         private static string GetTestFilePath(string fileName)

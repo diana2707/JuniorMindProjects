@@ -37,23 +37,6 @@ namespace TextEditor.Test
             Assert.Equal(inputKey, inputHandler.ReadKeyWithoutDisplay());
         }
 
-        //[Fact]
-        //public void ListenMethodReadsKeysInALoop()
-        //{
-        //    FakeConsoleController controller = new();
-        //    InputHandler inputHandler = new(controller);
-
-        //    ConsoleKeyInfo downArrow = new('\u2193', ConsoleKey.DownArrow, false, false, false);
-        //    ConsoleKeyInfo upArrow = new('\u2191', ConsoleKey.UpArrow, false, false, false);
-        //    ConsoleKeyInfo leftArrow = new('\u2190', ConsoleKey.LeftArrow, false, false, false);
-        //    ConsoleKeyInfo rightArrow = new('\u2192', ConsoleKey.RightArrow, false, false, false);
-
-        //    controller.KeysToRead = [downArrow, upArrow, leftArrow, rightArrow];
-        //    inputHandler.Listen();
-
-        //    Assert.Equal(, inputHandler.Listen());
-        //}
-
         [Fact]
         public void ListenMethodRaisesEventArrowKeyPressedWhenAnArrowKeyIsRead()
         {
@@ -61,17 +44,17 @@ namespace TextEditor.Test
             FakeConsoleController controller = new();
             InputHandler inputHandler = new(controller);
 
-            ConsoleKeyInfo? result = null;
+            Direction result = 0;
             ConsoleKeyInfo downArrow = new('\u2193', ConsoleKey.DownArrow, false, false, false);
             ConsoleKeyInfo escape = new('\u001B', ConsoleKey.Escape, false, false, false);
 
             controller.KeysToRead.Add(downArrow);
             controller.KeysToRead.Add(escape);
 
-            inputHandler.ArrowKeyPressed += downArrow => result = downArrow;
+            inputHandler.ArrowKeyPressed += downArrow => result = Direction.Down;
             inputHandler.Listen();
 
-            Assert.Equal(downArrow, result);
+            Assert.Equal(Direction.Down, result);
         }
     }
 }

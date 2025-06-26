@@ -11,12 +11,12 @@ namespace TextEditor.Domain
             this.controller = controller;
         }
 
+        public event Action<Direction> ArrowKeyPressed;
+
         public string? ReadInputLine()
         {
             return controller.ReadLine();
         }
-
-        public event Action<ConsoleKeyInfo> ArrowKeyPressed;
 
         public ConsoleKeyInfo ReadKeyWithoutDisplay()
         {
@@ -36,20 +36,22 @@ namespace TextEditor.Domain
                 {
                     case ConsoleKey.RightArrow:
                         //cursor.MoveRight();
-
-                        //continue;
+                        ArrowKeyPressed.Invoke(Direction.Right);
+                        continue;
 
                     case ConsoleKey.LeftArrow:
                         //cursor.MoveLeft();
-                        //continue;
+                        ArrowKeyPressed.Invoke(Direction.Left);
+                        continue;
 
                     case ConsoleKey.UpArrow:
                         //cursor.MoveUp();
-                        //continue;
+                        ArrowKeyPressed.Invoke(Direction.Up);
+                        continue;
 
                     case ConsoleKey.DownArrow:
                         //cursor.MoveDown();
-                        ArrowKeyPressed.Invoke(currentKey);
+                        ArrowKeyPressed.Invoke(Direction.Down);
                         continue;
 
                     case ConsoleKey.Escape:
