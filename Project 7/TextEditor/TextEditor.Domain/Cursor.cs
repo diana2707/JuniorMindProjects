@@ -4,13 +4,13 @@ namespace TextEditor.Domain
 {
     public class Cursor
     {
-        //cursorul ar trebui sa pastreze pozitia relativa fata de intregul text
-        //pentru a face asta trebuie sa aiba acces la dimensiunile textului
-        //dar fara sa contina o instanta din textManager pt ca implica un coupling prea mare
+        //cursorul ar trebui sa pastreze pozitia relativa fata de viewport => acces la limitele viewportului
+        //dar sa fie aware de limitele textului => acces la limitele textului
+        //dar fara sa contina o instanta din textManager/viewport pt ca implica un coupling prea mare
         //CUM FAC ASTA?
 
         //creaza o intefata cu metodele de care ai nevoie
-        //TextManager o implementeaza si ai access doar la info de care ai nevoie (numerul de randuri si o metoda care imi aduce lungimea randului)
+        //TextManager/viewport o implementeaza si ai access doar la info de care ai nevoie (numerul de randuri si o metoda care imi aduce lungimea randului)
 
         readonly TextManager textFormatter;
         int row;

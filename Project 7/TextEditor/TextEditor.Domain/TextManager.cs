@@ -2,6 +2,9 @@
 
 namespace TextEditor.Domain
 {
+    //TextManager ar trebui sa gestioneze intregul text + pozitia absoluta a cursorului in text
+    //Viewport ar trebui sa gestioneze partea vizibila (dimensiunile ferestrei si rerendering cand se depasesc limitele)
+
     public class TextManager
     {
         readonly string[] text;
