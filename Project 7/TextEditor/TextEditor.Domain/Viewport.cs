@@ -10,12 +10,14 @@ namespace TextEditor.Domain
         private readonly int width;
         private readonly int heigth;
         private readonly int startTextPosition;
+        private readonly ITextInfo textInfo;
 
-        public Viewport(int width, int heigth, int startTextPosition)
+        public Viewport(int width, int heigth, int startTextPosition, ITextInfo textInfo)
         {
             this.width = width;
             this.heigth = heigth;
             this.startTextPosition = startTextPosition;
+            this.textInfo = textInfo;
         }
     }
 }
