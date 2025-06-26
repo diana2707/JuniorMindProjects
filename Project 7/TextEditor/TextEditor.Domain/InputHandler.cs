@@ -10,5 +10,10 @@ namespace TextEditor.Domain
         {
             this.controller = controller;
         }
+
+        public string? ReadInputLine()
+        {
+            return controller.ReadLine();
+        }
     }
 }
