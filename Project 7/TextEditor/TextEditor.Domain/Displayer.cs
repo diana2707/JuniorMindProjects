@@ -30,9 +30,14 @@ namespace TextEditor.Domain
             controller.WriteLine();
         }
 
-        public void Clear()
+        public void ClearDisplay()
         {
             controller.Clear();
+        }
+
+        public void DisplayCursorAt(int left, int top)
+        {
+            controller.SetCursorPosition(left, top);
         }
     }
 }

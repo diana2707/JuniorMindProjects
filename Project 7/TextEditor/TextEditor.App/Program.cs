@@ -10,7 +10,7 @@ namespace TextEditor.App
             ConsoleController controller = new();
             Displayer displayer = new(controller);
 
-            displayer.Clear();
+            displayer.ClearDisplay();
             displayer.DisplayLine("To read file insert path:");
             
 

@@ -45,13 +45,23 @@ namespace TextEditor.Test
         }
 
         [Fact]
-        public void ClearMethodClearTheDisplay()
+        public void ClearMethodClearsTheDisplay()
         {
             FakeConsoleController controller = new();
             var displayer = new Displayer(controller);
 
-            displayer.Clear();
+            displayer.ClearDisplay();
             Assert.True(controller.IsClearCalled);
+        }
+
+        [Fact]
+        public void DisplayCursorAtMovesTheCursorAtGivenCoordinates()
+        {
+            FakeConsoleController controller = new();
+            var displayer = new Displayer(controller);
+
+            displayer.DisplayCursorAt(5, 7);
+            Assert.Equal((5, 7), controller.CursorPosition);
         }
     }
 }
