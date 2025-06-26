@@ -8,40 +8,40 @@ namespace TextEditor.Test
         [Fact]
         public void DisplayerObjectExists()
         {
-            StringWriter writer = new();
-            var displayer = new Displayer(writer);
+            FakeConsoleController controller = new();
+            var displayer = new Displayer(controller);
             Assert.IsType<Displayer>(displayer);
         }
 
         [Fact]
         public void DisplayLineMethodWritesLineInTextWriter()
         {
-            StringWriter writer = new();
-            var displayer = new Displayer(writer);
+            FakeConsoleController controller = new();
+            var displayer = new Displayer(controller);
 
             displayer.DisplayLine("test");
-            Assert.Equal("test\r\n", writer.ToString());
+            Assert.Equal(["test\r\n"], controller.WrittenLines);
         }
 
         [Fact]
         public void DisplayTextMethodWritesMultipleLinesInTextWriter()
         {
-            StringWriter writer = new();
-            var displayer = new Displayer(writer);
+            FakeConsoleController controller = new();
+            var displayer = new Displayer(controller);
             List<string> input = ["a", "b", "c"];
 
             displayer.DisplayText(input);
-            Assert.Equal("a\r\nb\r\nc\r\n", writer.ToString());
+            Assert.Equal(["a\r\n", "b\r\n", "c\r\n"], controller.WrittenLines);
         }
 
         [Fact]
         public void DisplayEmptyLineMethodWritesMultipleLinesInTextWriter()
         {
-            StringWriter writer = new();
-            var displayer = new Displayer(writer);
+            FakeConsoleController controller = new();
+            var displayer = new Displayer(controller);
 
             displayer.DisplayEmptyLine();
-            Assert.Equal("\r\n", writer.ToString());
+            Assert.True(controller.IsWriteEmptyLineCalled);
         }
     }
 }

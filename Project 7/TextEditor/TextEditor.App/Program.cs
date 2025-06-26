@@ -10,7 +10,8 @@ namespace TextEditor.App
             //needs to be moked to be used in Display and tested
 
             FileManager manager = null;
-            Displayer displayer = new(Console.Out);
+            ConsoleController controller = new();
+            Displayer displayer = new(controller);
 
             displayer.DisplayLine("To read file insert path:");
             

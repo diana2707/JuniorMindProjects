@@ -4,16 +4,16 @@ namespace TextEditor.Domain
 {
     public class Displayer
     {
-        readonly TextWriter output;
+        readonly IConsoleController controller;
 
-        public Displayer(TextWriter output)
+        public Displayer(IConsoleController controller)
         {
-            this.output = output;
+            this.controller = controller;
         }
 
         public void DisplayLine(string line)
         {
-            output.WriteLine(line);
+            controller.WriteLine(line);
         }
 
         //should the parameter be array?
@@ -21,13 +21,13 @@ namespace TextEditor.Domain
         {
             foreach (var line in text)
             {
-                output.WriteLine(line);
+                controller.WriteLine(line);
             }
         }
 
         public void DisplayEmptyLine()
         {
-            output.WriteLine();
+            controller.WriteLine();
         }
     }
 }
