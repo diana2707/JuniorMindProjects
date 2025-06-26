@@ -42,7 +42,7 @@ namespace TextEditor.App
             while (isListening)
             {
                 displayer.DisplayCursorAt(cursor.Column, cursor.Row);
-                ConsoleKeyInfo currentKey = Console.ReadKey(intercept: true);
+                ConsoleKeyInfo currentKey = inputHandler.ReadKeyWithoutDisplay();
 
                 switch (currentKey.Key)
                 {
