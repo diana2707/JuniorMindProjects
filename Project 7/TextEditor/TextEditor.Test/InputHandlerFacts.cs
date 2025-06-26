@@ -23,5 +23,18 @@ namespace TextEditor.Test
 
             Assert.Equal("test", inputHandler.ReadInputLine());
         }
+
+        [Fact]
+        public void ReadInputKeyMethodReadsSingleKey()
+        {
+            FakeConsoleController controller = new();
+            InputHandler inputHandler = new(controller);
+
+            ConsoleKeyInfo inputKey = new ('\a', ConsoleKey.A, false, false, false);
+
+            controller.KeyToRead = inputKey;
+
+            Assert.Equal(inputKey, inputHandler.ReadInputKey());
+        }
     }
 }

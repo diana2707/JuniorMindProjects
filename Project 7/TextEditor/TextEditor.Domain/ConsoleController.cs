@@ -17,5 +17,7 @@ namespace TextEditor.Domain
         public void SetCursorPosition(int left, int top) => Console.SetCursorPosition(left, top);
 
         public string? ReadLine() => Console.ReadLine();
+
+        public ConsoleKeyInfo ReadKey() => Console.ReadKey();
     }
 }

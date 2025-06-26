@@ -15,5 +15,10 @@ namespace TextEditor.Domain
         {
             return controller.ReadLine();
         }
+
+        public ConsoleKeyInfo ReadInputKey()
+        {
+            return controller.ReadKey();
+        }
     }
 }
