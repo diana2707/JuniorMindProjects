@@ -29,6 +29,10 @@ namespace TextEditor.Domain
                 case Direction.Left:
                     MoveLeft();
                     return;
+
+                case Direction.Right:
+                    MoveRight();
+                    return;
             }
         }
 
