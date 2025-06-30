@@ -65,6 +65,57 @@ namespace TextEditor.Test
             Assert.Equal(119, viewport.GetRowLength(0));
         }
 
+        [Fact]
+        public void RenderTextReturnsTextLimitedToTheWidthOfWindow()
+        {
+            var path = GetTestFilePath("ExceedsWindowWidth.txt");
+            FileManager fileManager = new(path);
+            TextManager textManager = new(fileManager.Text, 120, 30, 0);
+            ITextInfo textInfo = textManager;
+            Viewport viewport = new(120, 30, 0, textInfo);
+            List<string> formattedText = ["This is a very long line that exceeds the console width of 120 characters. " +
+                "This is a very long line that exceeds the co"];
+
+            Assert.Equal(formattedText, viewport.RenderText());
+        }
+
+        [Fact]
+        public void RenderTextReturnsTheVisibleTextFowConsoleWhenRowsAreLongerThenWindowHeigth()
+        {
+            var path = GetTestFilePath("ExceedsWindowHeigth.txt");
+            FileManager fileManager = new(path);
+            TextManager textManager = new(fileManager.Text, 120, 30, 0);
+            ITextInfo textInfo = textManager;
+            Viewport viewport = new(120, 30, 0, textInfo);
+
+            List<string> formattedText = [];
+            for (int i = 1; i <= 29; i++)
+            {
+                formattedText.Add($"Line {i:00}");
+            }
+
+            Assert.Equal(formattedText, viewport.RenderText());
+        }
+
+        [Fact]
+        public void RenderTextReturnsTheVisibleTextFowConsoleWhenTextExeedsWindowHeigthAndWidth()
+        {
+            var path = GetTestFilePath("ExceedsWindowHeigthAndWidth.txt");
+            FileManager fileManager = new(path);
+            TextManager textManager = new(fileManager.Text, 120, 30, 0);
+            ITextInfo textInfo = textManager;
+            Viewport viewport = new(120, 30, 0, textInfo);
+            List<string> formattedText = [];
+
+            for (int i = 1; i <= 29; i++)
+            {
+                formattedText.Add($"{i:00}. This is a very long line that exceeds the console width of 120 characters. " +
+                    $"This is a very long line that exceeds th");
+            }
+
+            Assert.Equal(formattedText, viewport.RenderText());
+        }
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);

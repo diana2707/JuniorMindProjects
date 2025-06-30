@@ -13,17 +13,17 @@ namespace TextEditor.Test
             Assert.IsType<TextManager>(new TextManager(fileManager.Text, 120, 30, 0));
         }
 
-        [Fact]
-        public void FormatWithinWindowReturnsTextLimitedToTheWidthOfWindow()
-        {
-            var path = GetTestFilePath("ExceedsWindowWidth.txt");
-            FileManager fileManager = new(path);
-            TextManager formatter = new(fileManager.Text, 120, 30, 0);
-            List<string> formattedText = ["This is a very long line that exceeds the console width of 120 characters. " +
-                "This is a very long line that exceeds the co"];
+        //[Fact]
+        //public void FormatWithinWindowReturnsTextLimitedToTheWidthOfWindow()
+        //{
+        //    var path = GetTestFilePath("ExceedsWindowWidth.txt");
+        //    FileManager fileManager = new(path);
+        //    TextManager formatter = new(fileManager.Text, 120, 30, 0);
+        //    List<string> formattedText = ["This is a very long line that exceeds the console width of 120 characters. " +
+        //        "This is a very long line that exceeds the co"];
 
-            Assert.Equal(formattedText, formatter.FormatWithinWindow());
-        }
+        //    Assert.Equal(formattedText, formatter.FormatWithinWindow());
+        //}
 
         [Fact]
         public void LastRowPositionReturnsTheConsoleRowPositionOfLastDisplayedRow()
@@ -95,38 +95,38 @@ namespace TextEditor.Test
             Assert.Equal(119, formatter.GetDisplayedRowLength(0));
         }
 
-        [Fact]
-        public void ReadWindowTextReturnsTheVisibleTextFowConsoleWhenRowsAreLongerThenWindowHeigth()
-        {
-            var path = GetTestFilePath("ExceedsWindowHeigth.txt");
-            FileManager manager = new(path);
-            TextManager formatter = new(manager.Text, 120, 30, 0);
+        //[Fact]
+        //public void ReadWindowTextReturnsTheVisibleTextFowConsoleWhenRowsAreLongerThenWindowHeigth()
+        //{
+        //    var path = GetTestFilePath("ExceedsWindowHeigth.txt");
+        //    FileManager manager = new(path);
+        //    TextManager formatter = new(manager.Text, 120, 30, 0);
 
-            List<string> formattedText = [];
-            for (int i = 1; i <= 29; i++)
-            {
-                formattedText.Add($"Line {i:00}");
-            }
+        //    List<string> formattedText = [];
+        //    for (int i = 1; i <= 29; i++)
+        //    {
+        //        formattedText.Add($"Line {i:00}");
+        //    }
 
-            Assert.Equal(formattedText, formatter.FormatWithinWindow());
-        }
+        //    Assert.Equal(formattedText, formatter.FormatWithinWindow());
+        //}
 
-        [Fact]
-        public void ReadWindowTextReturnsTheVisibleTextFowConsoleWhenTextExeedsWindowHeigthAndWidth()
-        {
-            var path = GetTestFilePath("ExceedsWindowHeigthAndWidth.txt");
-            FileManager manager = new(path);
-            TextManager formatter = new(manager.Text, 120, 30, 0);
+        //[Fact]
+        //public void ReadWindowTextReturnsTheVisibleTextFowConsoleWhenTextExeedsWindowHeigthAndWidth()
+        //{
+        //    var path = GetTestFilePath("ExceedsWindowHeigthAndWidth.txt");
+        //    FileManager manager = new(path);
+        //    TextManager formatter = new(manager.Text, 120, 30, 0);
 
-            List<string> formattedText = [];
-            for (int i = 1; i <= 29; i++)
-            {
-                formattedText.Add($"{i:00}. This is a very long line that exceeds the console width of 120 characters. " +
-                    $"This is a very long line that exceeds th");
-            }
+        //    List<string> formattedText = [];
+        //    for (int i = 1; i <= 29; i++)
+        //    {
+        //        formattedText.Add($"{i:00}. This is a very long line that exceeds the console width of 120 characters. " +
+        //            $"This is a very long line that exceeds th");
+        //    }
 
-            Assert.Equal(formattedText, formatter.FormatWithinWindow());
-        }
+        //    Assert.Equal(formattedText, formatter.FormatWithinWindow());
+        //}
 
         [Fact]
         public void LastDisplayedRowPositionReturnsCorrectPositionWhenDisplayedTextHeightIsEqualWithWindowHeigth()

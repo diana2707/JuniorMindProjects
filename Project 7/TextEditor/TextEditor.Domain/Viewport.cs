@@ -44,5 +44,20 @@ namespace TextEditor.Domain
 
             return textInfo.GetLineLength(index - startTextPosition)/*text[rowPosition - startTextPosition].Length*/;
         }
+
+        //adu logica din textManager pt inceput
+        public List<string> RenderText()
+        {
+            List<string> result = [];
+
+            int textHeigth = textInfo.GetLinesCount() /*text.Length*/ < heigth /*windowHeigth*/ - startTextPosition /*startingRow*/ ? textInfo.GetLinesCount() /*text.Length*/ : heigth /*windowHeigth*/ - startTextPosition /*startingRow*/ - 1;
+
+            for (int i = 0; i < textHeigth; i++)
+            {
+                result.Add((textInfo.GetLineLength(i) /*text[i].Length*/ > heigth /*windowWidth*/ - 1 ? textInfo.GetLine(i)[..(width - 1)] /*text[i][..(windowWidth - 1)]*/ : textInfo.GetLine(i)/*text[i]*/));
+            }
+
+            return result;
+        }
     }
 }
