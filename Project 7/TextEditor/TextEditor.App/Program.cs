@@ -34,7 +34,7 @@ namespace TextEditor.App
             Viewport viewport = new(Console.WindowWidth, Console.WindowHeight, Console.CursorTop, textManager);
             Cursor cursor = new(viewport);
 
-            List<string> formattedText = textManager.FormatWithinWindow();
+            List<string> formattedText = viewport.RenderText();
             displayer.DisplayText(formattedText);
 
 
