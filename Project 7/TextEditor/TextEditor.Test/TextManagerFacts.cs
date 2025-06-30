@@ -25,75 +25,75 @@ namespace TextEditor.Test
         //    Assert.Equal(formattedText, formatter.FormatWithinWindow());
         //}
 
-        [Fact]
-        public void LastRowPositionReturnsTheConsoleRowPositionOfLastDisplayedRow()
-        {
-            var path = GetTestFilePath("SingleRow.txt");
-            FileManager fileManager = new(path);
-            TextManager formatter = new(fileManager.Text, 120, 30, 0);
+        //[Fact]
+        //public void LastRowPositionReturnsTheConsoleRowPositionOfLastDisplayedRow()
+        //{
+        //    var path = GetTestFilePath("SingleRow.txt");
+        //    FileManager fileManager = new(path);
+        //    TextManager formatter = new(fileManager.Text, 120, 30, 0);
 
-            Assert.Equal(0, formatter.LastDisplayedRowPosition);
-        }
+        //    Assert.Equal(0, formatter.LastDisplayedRowPosition);
+        //}
 
-        [Fact]
-        public void LastRowPositionReturnsTheConsoleRowPositionOfLastDisplayedRowWhenStartingRowIsLargerThen0()
-        {
-            var path = GetTestFilePath("SingleRow.txt");
-            FileManager fileManager = new(path);
-            TextManager formatter = new(fileManager.Text, 120, 30, 5);
+        //[Fact]
+        //public void LastRowPositionReturnsTheConsoleRowPositionOfLastDisplayedRowWhenStartingRowIsLargerThen0()
+        //{
+        //    var path = GetTestFilePath("SingleRow.txt");
+        //    FileManager fileManager = new(path);
+        //    TextManager formatter = new(fileManager.Text, 120, 30, 5);
 
-            Assert.Equal(5, formatter.LastDisplayedRowPosition);
-        }
+        //    Assert.Equal(5, formatter.LastDisplayedRowPosition);
+        //}
 
-        [Fact]
-        public void LastRowPositionReturnsTheConsoleRowPositionOfLastDisplayedRowWhenTextExceedsWindow()
-        {
-            var path = GetTestFilePath("ExceedsWindowHeigth.txt");
-            FileManager fileManager = new(path);
-            TextManager formatter = new(fileManager.Text, 120, 30, 0);
+        //[Fact]
+        //public void LastRowPositionReturnsTheConsoleRowPositionOfLastDisplayedRowWhenTextExceedsWindow()
+        //{
+        //    var path = GetTestFilePath("ExceedsWindowHeigth.txt");
+        //    FileManager fileManager = new(path);
+        //    TextManager formatter = new(fileManager.Text, 120, 30, 0);
 
-            Assert.Equal(28, formatter.LastDisplayedRowPosition);
-        }
+        //    Assert.Equal(28, formatter.LastDisplayedRowPosition);
+        //}
 
-        [Fact]
-        public void FirstRowPositionReturnsTheStartingConsoleRowPositionOfDisplayedText()
-        {
-            var path = GetTestFilePath("SingleRow.txt");
-            FileManager fileManager = new(path);
-            TextManager formatter = new(fileManager.Text, 120, 30, 5);
+        //[Fact]
+        //public void FirstRowPositionReturnsTheStartingConsoleRowPositionOfDisplayedText()
+        //{
+        //    var path = GetTestFilePath("SingleRow.txt");
+        //    FileManager fileManager = new(path);
+        //    TextManager formatter = new(fileManager.Text, 120, 30, 5);
 
-            Assert.Equal(5, formatter.FirstDisplayedRowPosition);
-        }
+        //    Assert.Equal(5, formatter.FirstDisplayedRowPosition);
+        //}
 
-        [Fact]
-        public void GetDisplayedRowLengthReturnsTheDisplayedLengthOfARow()
-        {
-            var path = GetTestFilePath("SingleRow.txt");
-            FileManager fileManager = new(path);
-            TextManager formatter = new(fileManager.Text, 120, 30, 0);
+        //[Fact]
+        //public void GetDisplayedRowLengthReturnsTheDisplayedLengthOfARow()
+        //{
+        //    var path = GetTestFilePath("SingleRow.txt");
+        //    FileManager fileManager = new(path);
+        //    TextManager formatter = new(fileManager.Text, 120, 30, 0);
 
-            Assert.Equal(15, formatter.GetDisplayedRowLength(0));
-        }
+        //    Assert.Equal(15, formatter.GetDisplayedRowLength(0));
+        //}
 
-        [Fact]
-        public void GetDisplayedRowLengthReturnsTheDisplayedLengthOfARowWhenStartingRowIsLargerThen0()
-        {
-            var path = GetTestFilePath("SingleRow.txt");
-            FileManager fileManager = new(path);
-            TextManager formatter = new(fileManager.Text, 120, 30, 5);
+        //[Fact]
+        //public void GetDisplayedRowLengthReturnsTheDisplayedLengthOfARowWhenStartingRowIsLargerThen0()
+        //{
+        //    var path = GetTestFilePath("SingleRow.txt");
+        //    FileManager fileManager = new(path);
+        //    TextManager formatter = new(fileManager.Text, 120, 30, 5);
 
-            Assert.Equal(15, formatter.GetDisplayedRowLength(5));
-        }
+        //    Assert.Equal(15, formatter.GetDisplayedRowLength(5));
+        //}
 
-        [Fact]
-        public void GetDisplayedRowLengthReturnsTheDisplayedLengthOfARowWhenRealLengthIsLargerThenWindowWidth()
-        {
-            var path = GetTestFilePath("ExceedsWindowWidth.txt");
-            FileManager fileManager = new(path);
-            TextManager formatter = new(fileManager.Text, 120, 30, 0);
+        //[Fact]
+        //public void GetDisplayedRowLengthReturnsTheDisplayedLengthOfARowWhenRealLengthIsLargerThenWindowWidth()
+        //{
+        //    var path = GetTestFilePath("ExceedsWindowWidth.txt");
+        //    FileManager fileManager = new(path);
+        //    TextManager formatter = new(fileManager.Text, 120, 30, 0);
 
-            Assert.Equal(119, formatter.GetDisplayedRowLength(0));
-        }
+        //    Assert.Equal(119, formatter.GetDisplayedRowLength(0));
+        //}
 
         //[Fact]
         //public void ReadWindowTextReturnsTheVisibleTextFowConsoleWhenRowsAreLongerThenWindowHeigth()
@@ -128,15 +128,15 @@ namespace TextEditor.Test
         //    Assert.Equal(formattedText, formatter.FormatWithinWindow());
         //}
 
-        [Fact]
-        public void LastDisplayedRowPositionReturnsCorrectPositionWhenDisplayedTextHeightIsEqualWithWindowHeigth()
-        {
-            var path = GetTestFilePath("EqualsWindowHeigth.txt");
-            FileManager manager = new(path);
-            TextManager formatter = new(manager.Text, 120, 30, 0);
+        //[Fact]
+        //public void LastDisplayedRowPositionReturnsCorrectPositionWhenDisplayedTextHeightIsEqualWithWindowHeigth()
+        //{
+        //    var path = GetTestFilePath("EqualsWindowHeigth.txt");
+        //    FileManager manager = new(path);
+        //    TextManager formatter = new(manager.Text, 120, 30, 0);
 
-            Assert.Equal(28, formatter.LastDisplayedRowPosition);
-        }
+        //    Assert.Equal(28, formatter.LastDisplayedRowPosition);
+        //}
 
         [Fact]
         public void GetRowsCountMethodReturnsTheCountOfRowsInText()

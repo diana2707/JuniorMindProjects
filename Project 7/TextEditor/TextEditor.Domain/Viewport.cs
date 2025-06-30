@@ -1,5 +1,4 @@
 ﻿using System;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace TextEditor.Domain
 {
@@ -7,7 +6,7 @@ namespace TextEditor.Domain
     //Viewport trebuie sa declanseze un event pt displayer de fiecare data cand apare o modificare
     //am nevoie de limitele textului pt a calcula corect ce sa afiseaza
 
-    public class Viewport /*: ITextInfo*/
+    public class Viewport : IViewportInfo
     {
         private readonly int width;
         private readonly int heigth;

@@ -69,6 +69,5 @@ namespace TextEditor.Domain
             return result;
         }
 
-        //UpdateTextView(Cursor.Direction direction)
     }
 }

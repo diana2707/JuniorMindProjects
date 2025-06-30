@@ -42,6 +42,32 @@ namespace TextEditor.Test
         }
 
         [Fact]
+        public void LastRowPositionReturnsTheConsoleRowPositionOfLastDisplayedRowWhenTextExceedsWindow()
+        {
+            var path = GetTestFilePath("ExceedsWindowHeigth.txt");
+            FileManager fileManager = new(path);
+            TextManager textManager = new(fileManager.Text, 120, 30, 0);
+            ITextInfo textInfo = textManager;
+            Viewport viewport = new(120, 30, 0, textInfo);
+
+
+            Assert.Equal(28, viewport.LastRowPosition);
+        }
+
+
+        [Fact]
+        public void LastRowPositionReturnsCorrectPositionWhenDisplayedTextHeightIsEqualWithWindowHeigth()
+        {
+            var path = GetTestFilePath("EqualsWindowHeigth.txt");
+            FileManager fileManager = new(path);
+            TextManager textManager = new(fileManager.Text, 120, 30, 0);
+            ITextInfo textInfo = textManager;
+            Viewport viewport = new(120, 30, 0, textInfo);
+
+            Assert.Equal(28, viewport.LastRowPosition);
+        }
+
+        [Fact]
         public void GetRowLengthReturnsTheRowLengthWhenRowIsSmallerThenWindowWidth()
         {
             var path = GetTestFilePath("SingleRow.txt");
@@ -51,6 +77,18 @@ namespace TextEditor.Test
             Viewport viewport = new(120, 30, 0, textInfo);
 
             Assert.Equal(15, viewport.GetRowLength(0));
+        }
+
+        [Fact]
+        public void GetRowLengthReturnsTheDisplayedLengthOfARowWhenStartingRowIsLargerThen0()
+        {
+            var path = GetTestFilePath("SingleRow.txt");
+            FileManager fileManager = new(path);
+            TextManager textManager = new(fileManager.Text, 120, 30, 0);
+            ITextInfo textInfo = textManager;
+            Viewport viewport = new(120, 30, 5, textInfo);
+
+            Assert.Equal(15, viewport.GetRowLength(5));
         }
 
         [Fact]
