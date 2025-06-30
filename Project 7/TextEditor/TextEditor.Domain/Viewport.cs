@@ -19,10 +19,5 @@ namespace TextEditor.Domain
             this.startTextPosition = startTextPosition;
             this.textInfo = textInfo;
         }
-
-        public int GetLinesCount()
-        {
-            return textInfo.GetLinesCount();
-        }
     }
 }
