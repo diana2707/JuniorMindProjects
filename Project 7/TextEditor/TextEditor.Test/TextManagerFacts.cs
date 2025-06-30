@@ -168,6 +168,16 @@ namespace TextEditor.Test
             Assert.Equal(15, textManager.GetLineLength(0));
         }
 
+        [Fact]
+        public void AbsoluteCursorPositionReturnsInitialValues()
+        {
+            var path = GetTestFilePath("MultipleRows.txt");
+            FileManager fileManager = new(path);
+            TextManager textManager = new(fileManager.Text, 120, 30, 0);
+
+            Assert.Equal((0, 0), textManager.AbsoluteCursorPosition);
+        }
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);
