@@ -4,6 +4,7 @@ using static System.Net.Mime.MediaTypeNames;
 namespace TextEditor.Domain
 {
     //Viewport ar trebui sa gestioneze partea vizibila (dimensiunile ferestrei si rerendering cand se depasesc limitele)
+    //Viewport trebuie sa declanseze un event pt displayer de fiecare data cand apare o modificare
     //am nevoie de limitele textului pt a calcula corect ce sa afiseaza
 
     public class Viewport /*: ITextInfo*/
@@ -32,6 +33,16 @@ namespace TextEditor.Domain
 
                 return startTextPosition + textInfo.GetLinesCount() - 1;
             }
+        }
+
+        public int GetRowLength(int index)
+        {
+            if (textInfo.GetLineLength(index - startTextPosition)  /*text[rowPosition - startTextPosition].Length*/ > width - 1)
+            {
+                return width - 1;
+            }
+
+            return textInfo.GetLineLength(index - startTextPosition)/*text[rowPosition - startTextPosition].Length*/;
         }
     }
 }

@@ -16,6 +16,7 @@ namespace TextEditor.Domain
         int row;
         int column;
 
+        //aici inlocuiest TextMnager cu viewport
         public Cursor(TextManager textFormatter)
         {
             this.textFormatter = textFormatter;
