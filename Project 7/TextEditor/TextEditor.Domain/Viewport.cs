@@ -5,7 +5,7 @@ namespace TextEditor.Domain
     //Viewport ar trebui sa gestioneze partea vizibila (dimensiunile ferestrei si rerendering cand se depasesc limitele)
     //am nevoie de limitele textului pt a calcula corect ce sa afiseaza
 
-    public class Viewport
+    public class Viewport /*: ITextInfo*/
     {
         private readonly int width;
         private readonly int heigth;
@@ -18,6 +18,11 @@ namespace TextEditor.Domain
             this.heigth = heigth;
             this.startTextPosition = startTextPosition;
             this.textInfo = textInfo;
+        }
+
+        public int GetLinesCount()
+        {
+            return textInfo.GetLinesCount();
         }
     }
 }
