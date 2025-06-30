@@ -1,4 +1,5 @@
 ﻿using System;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TextEditor.Domain
 {
@@ -18,6 +19,19 @@ namespace TextEditor.Domain
             this.heigth = heigth;
             this.startTextPosition = startTextPosition;
             this.textInfo = textInfo;
+        }
+
+        public int LastRowPosition
+        {
+            get
+            {
+                if (startTextPosition + textInfo.GetLinesCount() >= heigth)
+                {
+                    return heigth - 2;
+                }
+
+                return startTextPosition + textInfo.GetLinesCount() - 1;
+            }
         }
     }
 }
