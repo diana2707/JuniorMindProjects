@@ -30,10 +30,11 @@ namespace TextEditor.App
 
             displayer.DisplayEmptyLine();
 
-            TextManager formatter = new(manager.Text, Console.WindowWidth, Console.WindowHeight, Console.CursorTop);
-            Cursor cursor = new(formatter);
+            TextManager textManager = new(manager.Text, Console.WindowWidth, Console.WindowHeight, Console.CursorTop);
+            Viewport viewport = new(Console.WindowWidth, Console.WindowHeight, Console.CursorTop, textManager);
+            Cursor cursor = new(viewport);
 
-            List<string> formattedText = formatter.FormatWithinWindow();
+            List<string> formattedText = textManager.FormatWithinWindow();
             displayer.DisplayText(formattedText);
 
 

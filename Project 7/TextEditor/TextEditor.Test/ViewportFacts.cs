@@ -18,6 +18,19 @@ namespace TextEditor.Test
         }
 
         [Fact]
+        public void FirstRowPositionReturnsTheStartingConsoleRowPositionOfDisplayedText()
+        {
+            var path = GetTestFilePath("SingleRow.txt");
+            FileManager fileManager = new(path);
+            TextManager textManager = new(fileManager.Text, 120, 30, 0);
+            ITextInfo textInfo = textManager;
+            Viewport viewport = new(120, 30, 5, textInfo);
+
+            Assert.Equal(5, viewport.FirstRowPosition);
+        }
+
+
+        [Fact]
         public void LastRowPositionReturnsThePositionOfLastRowInViewport()
         {
             var path = GetTestFilePath("MultipleRows.txt");

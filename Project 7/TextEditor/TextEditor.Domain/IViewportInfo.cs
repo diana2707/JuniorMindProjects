@@ -6,6 +6,8 @@ namespace TextEditor.Domain
     {
         public int LastRowPosition { get; }
 
+        public int FirstRowPosition { get; }
+
         public int GetRowLength(int index);
     }
 }

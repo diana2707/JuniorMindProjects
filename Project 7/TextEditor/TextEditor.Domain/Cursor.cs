@@ -12,16 +12,16 @@ namespace TextEditor.Domain
         //creaza o intefata cu metodele de care ai nevoie
         //TextManager/viewport o implementeaza si ai access doar la info de care ai nevoie (numerul de randuri si o metoda care imi aduce lungimea randului)
 
-        readonly TextManager textFormatter;
+        readonly IViewportInfo viewportInfo;
         int row;
         int column;
 
         //aici inlocuiest TextMnager cu viewport
-        public Cursor(TextManager textFormatter)
+        public Cursor(IViewportInfo viewportInfo)
         {
-            this.textFormatter = textFormatter;
-            row = textFormatter.LastDisplayedRowPosition;
-            column = textFormatter.GetDisplayedRowLength(row);
+            this.viewportInfo = viewportInfo;
+            row = viewportInfo.LastRowPosition;
+            column = viewportInfo.GetRowLength(row);
         }
 
         //event pentru cand se misca cursorul (urmeaza sa il invoc dupa miscarile cursorului)
@@ -57,9 +57,9 @@ namespace TextEditor.Domain
 
         public void MoveRight()
         {
-            if (column == textFormatter.GetDisplayedRowLength(row))
+            if (column == viewportInfo.GetRowLength(row))
             {
-                if (row == textFormatter.LastDisplayedRowPosition)
+                if (row == viewportInfo.LastRowPosition)
                 {
                     CursorExitedView?.Invoke(Direction.Right);
                     return;
@@ -77,14 +77,14 @@ namespace TextEditor.Domain
         {
             if (column == 0)
             {
-                if (row == textFormatter.FirstDisplayedRowPosition)
+                if (row == viewportInfo.FirstRowPosition)
                 {
                     CursorExitedView?.Invoke(Direction.Left);
                     return;
                 }
 
                 row--;
-                column = textFormatter.GetDisplayedRowLength(row);
+                column = viewportInfo.GetRowLength(row);
                 return;
             }
 
@@ -93,13 +93,13 @@ namespace TextEditor.Domain
 
         public void MoveDown()
         {
-            if (row == textFormatter.LastDisplayedRowPosition)
+            if (row == viewportInfo.LastRowPosition)
             {
                 CursorExitedView?.Invoke(Direction.Down);
                 return;
             }
 
-            int nextRowLength = textFormatter.GetDisplayedRowLength(row + 1);
+            int nextRowLength = viewportInfo.GetRowLength(row + 1);
 
             column = nextRowLength < column ? nextRowLength : column;
 
@@ -109,13 +109,13 @@ namespace TextEditor.Domain
 
         public void MoveUp()
         {
-            if (row == textFormatter.FirstDisplayedRowPosition)
+            if (row == viewportInfo.FirstRowPosition)
             {
                 CursorExitedView?.Invoke(Direction.Up);
                 return;
             }
 
-            int previousRowLength = textFormatter.GetDisplayedRowLength(row - 1);
+            int previousRowLength = viewportInfo.GetRowLength(row - 1);
 
             column = previousRowLength < column ? previousRowLength : column;
 
@@ -125,7 +125,7 @@ namespace TextEditor.Domain
         public void SetToStartOfLastLine()
         {
             column = 0;
-            row = textFormatter.LastDisplayedRowPosition + 1;
+            row = viewportInfo.LastRowPosition + 1;
         }
     }
 }
