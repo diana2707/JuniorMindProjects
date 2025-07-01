@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using TextEditor.Domain;
 
 namespace TextEditor.Test
@@ -9,23 +10,16 @@ namespace TextEditor.Test
         public void CursorObjectExists()
         {
             string path = GetTestFilePath("SingleRow.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
+            Cursor cursor = SetupEditor(path);
 
-            Assert.IsType<Cursor>(new Cursor(viewport));
+            Assert.IsType<Cursor>(cursor);
         }
 
         [Fact]
         public void ColumnPropertyReturnsColumnPosition()
         {
             string path = GetTestFilePath("SingleRow.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
-            Cursor cursor = new(viewport);
+            Cursor cursor = SetupEditor(path);
 
             Assert.Equal(15, cursor.Column);
         }
@@ -34,11 +28,7 @@ namespace TextEditor.Test
         public void RowPropertyReturnsRowPosition()
         {
             string path = GetTestFilePath("SingleRow.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
-            Cursor cursor = new(viewport);
+            Cursor cursor = SetupEditor(path);
 
             Assert.Equal(0, cursor.Row);
         }
@@ -47,11 +37,7 @@ namespace TextEditor.Test
         public void MoveRightMethodMovesTheCursorToRightWithOneChar()
         {
             string path = GetTestFilePath("SingleRow.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
-            Cursor cursor = new(viewport);
+            Cursor cursor = SetupEditor(path);
 
             cursor.MoveRight();
 
@@ -63,11 +49,7 @@ namespace TextEditor.Test
         public void MoveRightMethodMovesTheCursorDownWhenCursorIsAtLineEnd()
         {
             string path = GetTestFilePath("SingleCharRows.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
-            Cursor cursor = new(viewport);
+            Cursor cursor = SetupEditor(path);
 
             cursor.MoveUp();
             cursor.MoveRight();
@@ -81,11 +63,7 @@ namespace TextEditor.Test
         public void MoveRightMethodDoNotMovesCursorWhenIsAtFileEnd()
         {
             string path = GetTestFilePath("SingleChar.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
-            Cursor cursor = new(viewport);
+            Cursor cursor = SetupEditor(path);
 
             cursor.MoveRight();
 
@@ -97,11 +75,7 @@ namespace TextEditor.Test
         public void MoveLeftMethodMovesTheCursorToLefttWithOneChar()
         {
             string path = GetTestFilePath("SingleRow.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
-            Cursor cursor = new(viewport);
+            Cursor cursor = SetupEditor(path);
 
             cursor.MoveLeft();
 
@@ -113,11 +87,7 @@ namespace TextEditor.Test
         public void MoveLeftMethodMovesTheCursorUpWhenCursorIsAtLineStart()
         {
             string path = GetTestFilePath("SingleCharRows.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
-            Cursor cursor = new(viewport);
+            Cursor cursor = SetupEditor(path);
 
             cursor.MoveLeft();
             cursor.MoveLeft();
@@ -130,12 +100,8 @@ namespace TextEditor.Test
         public void MoveLeftMethodDoNotMoveWhenCursorIsAtFileStart()
         {
             string path = GetTestFilePath("SingleChar.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
+            Cursor cursor = SetupEditor(path);
 
-            Cursor cursor = new(viewport);
             cursor.MoveLeft();
             cursor.MoveLeft();
 
@@ -147,12 +113,8 @@ namespace TextEditor.Test
         public void MoveLeftMethodDoNotMoveWhenCursorIsAtFileStartWhenStartingPositionIsLargerThen0()
         {
             string path = GetTestFilePath("SingleChar.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 5, textInfo);
+            Cursor cursor = SetupEditor(path, 5);
 
-            Cursor cursor = new(viewport);
             cursor.MoveLeft();
             cursor.MoveLeft();
 
@@ -164,11 +126,7 @@ namespace TextEditor.Test
         public void MoveDownMethodMovesTheCursorDowntWithOneRowAndKeepsColumnPosition()
         {
             string path = GetTestFilePath("SingleCharRows.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
-            Cursor cursor = new(viewport);
+            Cursor cursor = SetupEditor(path);
 
             cursor.MoveUp();
             cursor.MoveDown();
@@ -181,11 +139,7 @@ namespace TextEditor.Test
         public void MoveDownMethodDoMotMovesTheCursorDownWhenIsLastRow()
         {
             string path = GetTestFilePath("SingleCharRows.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
-            Cursor cursor = new(viewport);
+            Cursor cursor = SetupEditor(path);
 
             cursor.MoveDown();
 
@@ -197,11 +151,7 @@ namespace TextEditor.Test
         public void MoveDownMethodMovesTheCursorDownAndSetsColumnToLastPositionWhenLineIsShorterThenPrevious()
         {
             string path = GetTestFilePath("MultipleRows.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
-            Cursor cursor = new(viewport);
+            Cursor cursor = SetupEditor(path);
 
             cursor.MoveUp();
             cursor.MoveUp();
@@ -215,12 +165,8 @@ namespace TextEditor.Test
         public void MoveUpMethodMovesTheCursorUpWithOneRowAndKeepsColumnPosition()
         {
             string path = GetTestFilePath("MultipleRows.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
+            Cursor cursor = SetupEditor(path);
 
-            Cursor cursor = new(viewport);
             cursor.MoveUp();
             cursor.MoveUp();
 
@@ -232,11 +178,7 @@ namespace TextEditor.Test
         public void MoveUpMethodDoNotMovesTheCursorUpWhenIsTheFirstRow()
         {
             string path = GetTestFilePath("SingleChar.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
-            Cursor cursor = new(viewport);
+            Cursor cursor = SetupEditor(path);
 
             cursor.MoveUp();
 
@@ -248,11 +190,7 @@ namespace TextEditor.Test
         public void MoveUpMethodDoNotMovesTheCursorUpWhenIsTheFirstRowAndStartingPositionIsLArgerThen0()
         {
             string path = GetTestFilePath("SingleChar.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 5, textInfo);
-            Cursor cursor = new(viewport);
+            Cursor cursor = SetupEditor(path, 5);
 
             cursor.MoveUp();
 
@@ -264,11 +202,7 @@ namespace TextEditor.Test
         public void MoveUpMethodMovesTheCursorUpAndSetsColumnToLastPositionIfRowIsShorter()
         {
             string path = GetTestFilePath("MultipleRows.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
-            Cursor cursor = new(viewport);
+            Cursor cursor = SetupEditor(path);
 
             cursor.MoveUp();
 
@@ -280,11 +214,7 @@ namespace TextEditor.Test
         public void SetToStartOfLastLineSetsTheCursorAtTheStartOfLastVisibleLine()
         {
             string path = GetTestFilePath("MultipleRows.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
-            Cursor cursor = new(viewport);
+            Cursor cursor = SetupEditor(path);
 
             cursor.SetToStartOfLastLine();
 
@@ -296,11 +226,7 @@ namespace TextEditor.Test
         public void CursorExitedViewIsRaisedByMoveRightMethodWhenCursorIsAtRightmostPosition()
         {
             string path = GetTestFilePath("SingleChar.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
-            Cursor cursor = new(viewport);
+            Cursor cursor = SetupEditor(path);
 
             Direction result = 0; 
 
@@ -315,12 +241,8 @@ namespace TextEditor.Test
         public void CursorExitedViewIsRaisedByMoveLeftMethodWhenCursorIsAtLeftmostPosition()
         {
             string path = GetTestFilePath("SingleChar.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
-            Cursor cursor = new(viewport);
-            
+            Cursor cursor = SetupEditor(path);
+
             Direction result = 0;
 
             cursor.CursorExitedView += direction => result = direction;
@@ -335,12 +257,8 @@ namespace TextEditor.Test
         public void CursorExitedViewIsRaisedByMoveDownMethodWhenCursorIsAtDownmostPosition()
         {
             string path = GetTestFilePath("SingleChar.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
-            Cursor cursor = new(viewport);
-            
+            Cursor cursor = SetupEditor(path);
+
             Direction result = 0;
 
             cursor.CursorExitedView += direction => result = direction;
@@ -353,11 +271,7 @@ namespace TextEditor.Test
         public void CursorExitedViewIsRaisedByMoveUpMethodWhenCursorIsAtUpmostPosition()
         {
             string path = GetTestFilePath("SingleChar.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
-            Cursor cursor = new(viewport);
+            Cursor cursor = SetupEditor(path);
 
             Direction result = 0;
 
@@ -372,11 +286,7 @@ namespace TextEditor.Test
         public void OnArrowKeyPressedMethodCallsMoveLeftMethodWhenDirectionIsLeft()
         {
             string path = GetTestFilePath("SingleChar.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
-            Cursor cursor = new(viewport);
+            Cursor cursor = SetupEditor(path);
 
             cursor.OnArrowKeyPressed(Direction.Left);
 
@@ -387,11 +297,7 @@ namespace TextEditor.Test
         public void OnArrowKeyPressedMethodCallsMoveRightMethodWhenDirectionIsRight()
         {
             string path = GetTestFilePath("SingleChar.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
-            Cursor cursor = new(viewport);
+            Cursor cursor = SetupEditor(path);
 
             cursor.OnArrowKeyPressed(Direction.Left);
             cursor.OnArrowKeyPressed(Direction.Right);
@@ -403,11 +309,7 @@ namespace TextEditor.Test
         public void OnArrowKeyPressedMethodCallsMoveUpMethodWhenDirectionIsUp()
         {
             string path = GetTestFilePath("MultipleRows.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
-            Cursor cursor = new(viewport);
+            Cursor cursor = SetupEditor(path);
 
             cursor.OnArrowKeyPressed(Direction.Up);
 
@@ -418,11 +320,7 @@ namespace TextEditor.Test
         public void OnArrowKeyPressedMethodCallsMoveDowntMethodWhenDirectionIsDown()
         {
             string path = GetTestFilePath("MultipleRows.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
-            Cursor cursor = new(viewport);
+            Cursor cursor = SetupEditor(path);
 
             cursor.OnArrowKeyPressed(Direction.Up);
             cursor.OnArrowKeyPressed(Direction.Down);
@@ -433,11 +331,7 @@ namespace TextEditor.Test
         public void MoveRightInvokesCursorMovedEventWhenCursorMovesRight()
         {
             string path = GetTestFilePath("SingleRow.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
-            Cursor cursor = new(viewport);
+            Cursor cursor = SetupEditor(path);
 
             Direction result = 0;
             cursor.CursorMoved += direction => result = direction;
@@ -451,11 +345,7 @@ namespace TextEditor.Test
         public void MoveRightMethodInvokesCursorMovedEventWhenCursorMovedFromLineEnd()
         {
             string path = GetTestFilePath("SingleCharRows.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
-            Cursor cursor = new(viewport);
+            Cursor cursor = SetupEditor(path);
 
             Direction result = 0;
             cursor.CursorMoved += direction => result = direction;
@@ -469,6 +359,17 @@ namespace TextEditor.Test
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);
+        }
+
+        private static Cursor SetupEditor(string path, int startingRow = 0)
+        {
+            FileManager fileManager = new(path);
+            TextManager textManager = new(fileManager.Text, 120, 30, startingRow);
+            ITextInfo textInfo = textManager;
+            Viewport viewport = new(120, 30, startingRow, textInfo);
+            Cursor cursor = new(viewport);
+
+            return cursor;
         }
     }
 }
