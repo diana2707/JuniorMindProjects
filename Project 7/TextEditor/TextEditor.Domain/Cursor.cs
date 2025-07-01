@@ -89,10 +89,13 @@ namespace TextEditor.Domain
 
                 row--;
                 column = viewportInfo.GetRowLength(row);
+
+                CursorMoved?.Invoke(Direction.Left);
                 return;
             }
 
             column--;
+            CursorMoved?.Invoke(Direction.Left);
         }
 
         public void MoveDown()

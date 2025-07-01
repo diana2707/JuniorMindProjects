@@ -356,6 +356,35 @@ namespace TextEditor.Test
             Assert.Equal(Direction.Right, result);
         }
 
+        [Fact]
+        public void MoveLeftMethodInvokesCursorMovedEventWhenCursorMoveLeft()
+        {
+            string path = GetTestFilePath("SingleRow.txt");
+            Cursor cursor = SetupEditor(path);
+
+            Direction result = 0;
+            cursor.CursorMoved += direction => result = direction;
+
+            cursor.MoveLeft();
+
+            Assert.Equal(Direction.Left, result);
+        }
+
+        [Fact]
+        public void MoveLeftMethodInvokesCursorMovedEventWhenCursorMovedFromLineStart()
+        {
+            string path = GetTestFilePath("SingleCharRows.txt");
+            Cursor cursor = SetupEditor(path);
+
+            Direction result = 0;
+            cursor.CursorMoved += direction => result = direction;
+
+            cursor.MoveLeft();
+            cursor.MoveLeft();
+
+            Assert.Equal(Direction.Left, result);
+        }
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);
