@@ -128,6 +128,8 @@ namespace TextEditor.Domain
             column = previousRowLength < column ? previousRowLength : column;
 
             row--;
+
+            CursorMoved?.Invoke(Direction.Up);
         }
 
         public void SetToStartOfLastLine()
