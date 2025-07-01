@@ -12,6 +12,7 @@ namespace TextEditor.Domain
         //creaza o intefata cu metodele de care ai nevoie
         //TextManager/viewport o implementeaza si ai access doar la info de care ai nevoie (numerul de randuri si o metoda care imi aduce lungimea randului)
 
+
         readonly IViewportInfo viewportInfo;
         int row;
         int column;
@@ -67,9 +68,12 @@ namespace TextEditor.Domain
 
                 column = 0;
                 row++;
+
+                CursorMoved?.Invoke(Direction.Right);
                 return;
             }
 
+            CursorMoved?.Invoke(Direction.Right);
             column++;
         }
 

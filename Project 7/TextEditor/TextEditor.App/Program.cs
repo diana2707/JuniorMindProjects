@@ -28,14 +28,17 @@ namespace TextEditor.App
                 }
             }
 
-            displayer.DisplayEmptyLine();
-
             TextManager textManager = new(manager.Text, Console.WindowWidth, Console.WindowHeight, Console.CursorTop);
             Viewport viewport = new(Console.WindowWidth, Console.WindowHeight, Console.CursorTop, textManager);
             Cursor cursor = new(viewport);
+            List<string> renderedText = viewport.RenderText();
 
-            List<string> formattedText = viewport.RenderText();
-            displayer.DisplayText(formattedText);
+            inputHandler.ArrowKeyPressed += cursor.OnArrowKeyPressed;
+
+            displayer.DisplayEmptyLine();
+            displayer.DisplayText(renderedText);
+            inputHandler.Listen();
+
 
 
             //THIS LOGIC IS FOR LATTER
@@ -44,43 +47,43 @@ namespace TextEditor.App
 
 
 
-            //keep listening logic for now
-            bool isListening = true;
+            //ORIGINAL LOGIC
+            //bool isListening = true;
 
-            while (isListening)
-            {
-                displayer.DisplayCursorAt(cursor.Column, cursor.Row);
-                ConsoleKeyInfo currentKey = inputHandler.ReadKeyWithoutDisplay();
+            //while (isListening)
+            //{
+            //    displayer.DisplayCursorAt(cursor.Column, cursor.Row);
+            //    ConsoleKeyInfo currentKey = inputHandler.ReadKeyWithoutDisplay();
 
-                switch (currentKey.Key)
-                {
-                    case ConsoleKey.RightArrow:
-                        cursor.MoveRight();
+            //    switch (currentKey.Key)
+            //    {
+            //        case ConsoleKey.RightArrow:
+            //            cursor.MoveRight();
 
-                        continue;
+            //            continue;
 
-                    case ConsoleKey.LeftArrow:
-                        cursor.MoveLeft();
-                        continue;
+            //        case ConsoleKey.LeftArrow:
+            //            cursor.MoveLeft();
+            //            continue;
 
-                    case ConsoleKey.UpArrow:
-                        cursor.MoveUp();
-                        continue;
+            //        case ConsoleKey.UpArrow:
+            //            cursor.MoveUp();
+            //            continue;
 
-                    case ConsoleKey.DownArrow:
-                        cursor.MoveDown();
-                        continue;
+            //        case ConsoleKey.DownArrow:
+            //            cursor.MoveDown();
+            //            continue;
 
-                    case ConsoleKey.Escape:
-                        isListening = false;
-                        cursor.SetToStartOfLastLine();
-                        displayer.DisplayCursorAt(cursor.Column, cursor.Row);
-                        continue;
+            //        case ConsoleKey.Escape:
+            //            isListening = false;
+            //            cursor.SetToStartOfLastLine();
+            //            displayer.DisplayCursorAt(cursor.Column, cursor.Row);
+            //            continue;
 
-                    default:
-                        continue;
-                }
-            }
+            //        default:
+            //            continue;
+            //    }
+            //}
         }
     }
     

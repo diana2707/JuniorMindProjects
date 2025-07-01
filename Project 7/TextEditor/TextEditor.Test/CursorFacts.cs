@@ -430,6 +430,42 @@ namespace TextEditor.Test
             Assert.Equal(3, cursor.Row);
         }
 
+        public void MoveRightInvokesCursorMovedEventWhenCursorMovesRight()
+        {
+            string path = GetTestFilePath("SingleRow.txt");
+            FileManager fileManager = new(path);
+            TextManager textManager = new(fileManager.Text, 120, 30, 0);
+            ITextInfo textInfo = textManager;
+            Viewport viewport = new(120, 30, 0, textInfo);
+            Cursor cursor = new(viewport);
+
+            Direction result = 0;
+            cursor.CursorMoved += direction => result = direction;
+
+            cursor.MoveRight();
+
+            Assert.Equal(Direction.Right, result);
+        }
+
+        [Fact]
+        public void MoveRightMethodInvokesCursorMovedEventWhenCursorMovedFromLineEnd()
+        {
+            string path = GetTestFilePath("SingleCharRows.txt");
+            FileManager fileManager = new(path);
+            TextManager textManager = new(fileManager.Text, 120, 30, 0);
+            ITextInfo textInfo = textManager;
+            Viewport viewport = new(120, 30, 0, textInfo);
+            Cursor cursor = new(viewport);
+
+            Direction result = 0;
+            cursor.CursorMoved += direction => result = direction;
+
+            cursor.MoveUp();
+            cursor.MoveRight();
+
+            Assert.Equal(Direction.Right, result);
+        }
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);

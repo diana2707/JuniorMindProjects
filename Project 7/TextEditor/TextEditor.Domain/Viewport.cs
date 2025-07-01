@@ -55,7 +55,7 @@ namespace TextEditor.Domain
 
             for (int i = 0; i < textHeigth; i++)
             {
-                result.Add((textInfo.GetLineLength(i) /*text[i].Length*/ > heigth /*windowWidth*/ - 1 ? textInfo.GetLine(i)[..(width - 1)] /*text[i][..(windowWidth - 1)]*/ : textInfo.GetLine(i)/*text[i]*/));
+                result.Add((textInfo.GetLineLength(i) /*text[i].Length*/ > width /*windowWidth*/ - 1 ? textInfo.GetLine(i)[..(width - 1)] /*text[i][..(windowWidth - 1)]*/ : textInfo.GetLine(i)/*text[i]*/));
             }
 
             return result;
