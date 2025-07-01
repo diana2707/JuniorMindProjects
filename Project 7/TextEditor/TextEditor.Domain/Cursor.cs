@@ -26,7 +26,7 @@ namespace TextEditor.Domain
         }
 
         //event pentru cand se misca cursorul (urmeaza sa il invoc dupa miscarile cursorului)
-        public event Action<Direction> CursorMoved;
+        public event Action<(int row, int column)> CursorMoved;
 
         public event Action<Direction>? CursorExitedView;
 
@@ -69,11 +69,11 @@ namespace TextEditor.Domain
                 column = 0;
                 row++;
 
-                CursorMoved?.Invoke(Direction.Right);
+                CursorMoved?.Invoke((row, column));
                 return;
             }
 
-            CursorMoved?.Invoke(Direction.Right);
+            CursorMoved?.Invoke((row, column));
             column++;
         }
 
@@ -90,12 +90,12 @@ namespace TextEditor.Domain
                 row--;
                 column = viewportInfo.GetRowLength(row);
 
-                CursorMoved?.Invoke(Direction.Left);
+                CursorMoved?.Invoke((row, column));
                 return;
             }
 
             column--;
-            CursorMoved?.Invoke(Direction.Left);
+            CursorMoved?.Invoke((row, column));
         }
 
         public void MoveDown()
@@ -112,7 +112,7 @@ namespace TextEditor.Domain
 
             row++;
 
-            CursorMoved?.Invoke(Direction.Down);
+            CursorMoved?.Invoke((row, column));
         }
 
         public void MoveUp()
@@ -129,7 +129,7 @@ namespace TextEditor.Domain
 
             row--;
 
-            CursorMoved?.Invoke(Direction.Up);
+            CursorMoved?.Invoke((row, column));
         }
 
         public void SetToStartOfLastLine()

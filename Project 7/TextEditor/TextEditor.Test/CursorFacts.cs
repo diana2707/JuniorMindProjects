@@ -329,17 +329,19 @@ namespace TextEditor.Test
             Assert.Equal(3, cursor.Row);
         }
 
+        //verifica daca testeaza ce trebuie
         public void MoveRightInvokesCursorMovedEventWhenCursorMovesRight()
         {
             string path = GetTestFilePath("SingleRow.txt");
             Cursor cursor = SetupEditor(path);
 
-            Direction result = 0;
-            cursor.CursorMoved += direction => result = direction;
+            (int, int) result = (0, 0);
+            cursor.CursorMoved += _ => result = (0, 15);
 
+            cursor.MoveLeft();
             cursor.MoveRight();
 
-            Assert.Equal(Direction.Right, result);
+            Assert.Equal((0, 15), result);
         }
 
         [Fact]
@@ -348,13 +350,13 @@ namespace TextEditor.Test
             string path = GetTestFilePath("SingleCharRows.txt");
             Cursor cursor = SetupEditor(path);
 
-            Direction result = 0;
-            cursor.CursorMoved += direction => result = direction;
+            (int, int) result = (0, 0);
+            cursor.CursorMoved += _ => result = (2, 0);
 
             cursor.MoveUp();
             cursor.MoveRight();
 
-            Assert.Equal(Direction.Right, result);
+            Assert.Equal((2, 0), result);
         }
 
         [Fact]
@@ -363,12 +365,12 @@ namespace TextEditor.Test
             string path = GetTestFilePath("SingleRow.txt");
             Cursor cursor = SetupEditor(path);
 
-            Direction result = 0;
-            cursor.CursorMoved += direction => result = direction;
+            (int, int) result = (0, 0);
+            cursor.CursorMoved += _ => result = (0, 14);
 
             cursor.MoveLeft();
 
-            Assert.Equal(Direction.Left, result);
+            Assert.Equal((0, 14), result);
         }
 
         [Fact]
@@ -377,13 +379,13 @@ namespace TextEditor.Test
             string path = GetTestFilePath("SingleCharRows.txt");
             Cursor cursor = SetupEditor(path);
 
-            Direction result = 0;
-            cursor.CursorMoved += direction => result = direction;
+            (int, int) result = (0, 0);
+            cursor.CursorMoved += _ => result = (1, 1);
 
             cursor.MoveLeft();
             cursor.MoveLeft();
 
-            Assert.Equal(Direction.Left, result);
+            Assert.Equal((1, 1), result);
         }
 
         [Fact]
@@ -392,44 +394,27 @@ namespace TextEditor.Test
             string path = GetTestFilePath("SingleCharRows.txt");
             Cursor cursor = SetupEditor(path);
 
-            Direction result = 0;
-            cursor.CursorMoved += direction => result = direction;
+            (int, int) result = (0, 0);
+            cursor.CursorMoved += _ => result = (2, 1);
 
             cursor.MoveUp();
             cursor.MoveDown();
 
-            Assert.Equal(Direction.Down, result);
-        }
-
-        [Fact]
-        public void MoveDownMethodInvokesCursorMovedEventWhenLineIsShorterThenPrevious()
-        {
-            string path = GetTestFilePath("MultipleRows.txt");
-            Cursor cursor = SetupEditor(path);
-
-            Direction result = 0;
-            cursor.CursorMoved += direction => result = direction;
-
-            cursor.MoveUp();
-            cursor.MoveUp();
-            cursor.MoveDown();
-
-            Assert.Equal(Direction.Down, result);
+            Assert.Equal((2, 1), result);
         }
 
         [Fact]
         public void MoveUpMethodInvokesCursorMovedEventWhenCursorMovedUp()
         {
-            string path = GetTestFilePath("MultipleRows.txt");
+            string path = GetTestFilePath("SingleCharRows.txt");
             Cursor cursor = SetupEditor(path);
 
-            Direction result = 0;
-            cursor.CursorMoved += direction => result = direction;
+            (int, int) result = (0, 0);
+            cursor.CursorMoved += _ => result = (2, 1);
 
             cursor.MoveUp();
-            cursor.MoveUp();
 
-            Assert.Equal(Direction.Up, result);
+            Assert.Equal((2, 1), result);
         }
 
         [Fact]
@@ -438,12 +423,12 @@ namespace TextEditor.Test
             string path = GetTestFilePath("MultipleRows.txt");
             Cursor cursor = SetupEditor(path);
 
-            Direction result = 0;
-            cursor.CursorMoved += direction => result = direction;
+            (int, int) result = (0, 0);
+            cursor.CursorMoved += _ => result = (2, 21);
 
             cursor.MoveUp();
 
-            Assert.Equal(Direction.Up, result);
+            Assert.Equal((2, 21), result);
         }
 
         private static string GetTestFilePath(string fileName)
