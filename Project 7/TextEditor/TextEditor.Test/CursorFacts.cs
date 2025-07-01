@@ -430,6 +430,32 @@ namespace TextEditor.Test
             Assert.Equal((21, 2), result);
         }
 
+        [Fact]
+        public void OnEscapeKeyPressedMethodCallsSetToStartOfLastLineMethod()
+        {
+            string path = GetTestFilePath("SingleChar.txt");
+            Cursor cursor = SetupEditor(path);
+
+            cursor.OnEscapeKeyPressed();
+
+            Assert.Equal(0, cursor.Column);
+            Assert.Equal(1, cursor.Row);
+        }
+
+        [Fact]
+        public void OnEscapeKeyPressedMethodInvokesCursorMovedEvent()
+        {
+            string path = GetTestFilePath("SingleChar.txt");
+            Cursor cursor = SetupEditor(path);
+
+            (int, int) result = (0, 0);
+            cursor.CursorMoved += _ => result = (0, 1);
+
+            cursor.OnEscapeKeyPressed();
+
+            Assert.Equal((0, 1), result);
+        }
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);

@@ -55,6 +55,12 @@ namespace TextEditor.Domain
             }
         }
 
+        public void OnEscapeKeyPressed()
+        {
+            SetToStartOfLastLine();
+            CursorMoved?.Invoke((column, row));
+        }
+
         public void MoveRight()
         {
             if (column == viewportInfo.GetRowLength(row))
