@@ -17,7 +17,6 @@ namespace TextEditor.Domain
         int row;
         int column;
 
-        //aici inlocuiest TextMnager cu viewport
         public Cursor(IViewportInfo viewportInfo)
         {
             this.viewportInfo = viewportInfo;
@@ -26,7 +25,7 @@ namespace TextEditor.Domain
         }
 
         //event pentru cand se misca cursorul (urmeaza sa il invoc dupa miscarile cursorului)
-        public event Action<(int row, int column)> CursorMoved;
+        public event Action<(int column, int row)>  CursorMoved;
 
         public event Action<Direction>? CursorExitedView;
 
@@ -69,11 +68,11 @@ namespace TextEditor.Domain
                 column = 0;
                 row++;
 
-                CursorMoved?.Invoke((row, column));
+                CursorMoved?.Invoke((column, row));
                 return;
             }
 
-            CursorMoved?.Invoke((row, column));
+            CursorMoved?.Invoke((column, row));
             column++;
         }
 
@@ -90,12 +89,12 @@ namespace TextEditor.Domain
                 row--;
                 column = viewportInfo.GetRowLength(row);
 
-                CursorMoved?.Invoke((row, column));
+                CursorMoved?.Invoke((column, row));
                 return;
             }
 
             column--;
-            CursorMoved?.Invoke((row, column));
+            CursorMoved?.Invoke((column, row));
         }
 
         public void MoveDown()
@@ -112,7 +111,7 @@ namespace TextEditor.Domain
 
             row++;
 
-            CursorMoved?.Invoke((row, column));
+            CursorMoved?.Invoke((column, row));
         }
 
         public void MoveUp()
@@ -129,7 +128,7 @@ namespace TextEditor.Domain
 
             row--;
 
-            CursorMoved?.Invoke((row, column));
+            CursorMoved?.Invoke((column, row));
         }
 
         public void SetToStartOfLastLine()

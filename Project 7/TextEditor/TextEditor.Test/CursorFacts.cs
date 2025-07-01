@@ -329,19 +329,18 @@ namespace TextEditor.Test
             Assert.Equal(3, cursor.Row);
         }
 
-        //verifica daca testeaza ce trebuie
         public void MoveRightInvokesCursorMovedEventWhenCursorMovesRight()
         {
             string path = GetTestFilePath("SingleRow.txt");
             Cursor cursor = SetupEditor(path);
 
             (int, int) result = (0, 0);
-            cursor.CursorMoved += _ => result = (0, 15);
+            cursor.CursorMoved += _ => result = (15, 0);
 
             cursor.MoveLeft();
             cursor.MoveRight();
 
-            Assert.Equal((0, 15), result);
+            Assert.Equal((15, 0), result);
         }
 
         [Fact]
@@ -351,12 +350,12 @@ namespace TextEditor.Test
             Cursor cursor = SetupEditor(path);
 
             (int, int) result = (0, 0);
-            cursor.CursorMoved += _ => result = (2, 0);
+            cursor.CursorMoved += _ => result = (0, 2);
 
             cursor.MoveUp();
             cursor.MoveRight();
 
-            Assert.Equal((2, 0), result);
+            Assert.Equal((0, 2), result);
         }
 
         [Fact]
@@ -366,11 +365,11 @@ namespace TextEditor.Test
             Cursor cursor = SetupEditor(path);
 
             (int, int) result = (0, 0);
-            cursor.CursorMoved += _ => result = (0, 14);
+            cursor.CursorMoved += _ => result = (14, 0);
 
             cursor.MoveLeft();
 
-            Assert.Equal((0, 14), result);
+            Assert.Equal((14, 0), result);
         }
 
         [Fact]
@@ -395,12 +394,12 @@ namespace TextEditor.Test
             Cursor cursor = SetupEditor(path);
 
             (int, int) result = (0, 0);
-            cursor.CursorMoved += _ => result = (2, 1);
+            cursor.CursorMoved += _ => result = (1, 2);
 
             cursor.MoveUp();
             cursor.MoveDown();
 
-            Assert.Equal((2, 1), result);
+            Assert.Equal((1, 2), result);
         }
 
         [Fact]
@@ -410,11 +409,11 @@ namespace TextEditor.Test
             Cursor cursor = SetupEditor(path);
 
             (int, int) result = (0, 0);
-            cursor.CursorMoved += _ => result = (2, 1);
+            cursor.CursorMoved += _ => result = (1, 2);
 
             cursor.MoveUp();
 
-            Assert.Equal((2, 1), result);
+            Assert.Equal((1, 2), result);
         }
 
         [Fact]
@@ -424,11 +423,11 @@ namespace TextEditor.Test
             Cursor cursor = SetupEditor(path);
 
             (int, int) result = (0, 0);
-            cursor.CursorMoved += _ => result = (2, 21);
+            cursor.CursorMoved += _ => result = (21, 2);
 
             cursor.MoveUp();
 
-            Assert.Equal((2, 21), result);
+            Assert.Equal((21, 2), result);
         }
 
         private static string GetTestFilePath(string fileName)

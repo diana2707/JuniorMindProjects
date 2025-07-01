@@ -35,9 +35,9 @@ namespace TextEditor.Domain
             controller.Clear();
         }
 
-        public void DisplayCursorAt(int left, int top)
+        public void DisplayCursorAt((int left, int top) coordinate)
         {
-            controller.SetCursorPosition(left, top);
+            controller.SetCursorPosition(coordinate.left, coordinate.top);
         }
     }
 }

@@ -34,6 +34,7 @@ namespace TextEditor.App
             List<string> renderedText = viewport.RenderText();
 
             inputHandler.ArrowKeyPressed += cursor.OnArrowKeyPressed;
+            cursor.CursorMoved += displayer.DisplayCursorAt;
 
             displayer.DisplayEmptyLine();
             displayer.DisplayText(renderedText);
