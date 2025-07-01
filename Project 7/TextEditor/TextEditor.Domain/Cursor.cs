@@ -112,6 +112,7 @@ namespace TextEditor.Domain
 
             row++;
 
+            CursorMoved?.Invoke(Direction.Down);
         }
 
         public void MoveUp()

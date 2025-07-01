@@ -136,18 +136,6 @@ namespace TextEditor.Test
         }
 
         [Fact]
-        public void MoveDownMethodDoMotMovesTheCursorDownWhenIsLastRow()
-        {
-            string path = GetTestFilePath("SingleCharRows.txt");
-            Cursor cursor = SetupEditor(path);
-
-            cursor.MoveDown();
-
-            Assert.Equal(1, cursor.Column);
-            Assert.Equal(2, cursor.Row);
-        }
-
-        [Fact]
         public void MoveDownMethodMovesTheCursorDownAndSetsColumnToLastPositionWhenLineIsShorterThenPrevious()
         {
             string path = GetTestFilePath("MultipleRows.txt");
@@ -160,6 +148,19 @@ namespace TextEditor.Test
             Assert.Equal(21, cursor.Column);
             Assert.Equal(2, cursor.Row);
         }
+
+        [Fact]
+        public void MoveDownMethodDoNotMovesTheCursorDownWhenIsLastRow()
+        {
+            string path = GetTestFilePath("SingleCharRows.txt");
+            Cursor cursor = SetupEditor(path);
+
+            cursor.MoveDown();
+
+            Assert.Equal(1, cursor.Column);
+            Assert.Equal(2, cursor.Row);
+        }
+
 
         [Fact]
         public void MoveUpMethodMovesTheCursorUpWithOneRowAndKeepsColumnPosition()
@@ -383,6 +384,37 @@ namespace TextEditor.Test
             cursor.MoveLeft();
 
             Assert.Equal(Direction.Left, result);
+        }
+
+        [Fact]
+        public void MoveDownMethodInvokesCursorMovedEventWhenCursorMovedDown()
+        {
+            string path = GetTestFilePath("SingleCharRows.txt");
+            Cursor cursor = SetupEditor(path);
+
+            Direction result = 0;
+            cursor.CursorMoved += direction => result = direction;
+
+            cursor.MoveUp();
+            cursor.MoveDown();
+
+            Assert.Equal(Direction.Down, result);
+        }
+
+        [Fact]
+        public void MoveDownMethodInvokesCursorMovedEventWhenLineIsShorterThenPrevious()
+        {
+            string path = GetTestFilePath("MultipleRows.txt");
+            Cursor cursor = SetupEditor(path);
+
+            Direction result = 0;
+            cursor.CursorMoved += direction => result = direction;
+
+            cursor.MoveUp();
+            cursor.MoveUp();
+            cursor.MoveDown();
+
+            Assert.Equal(Direction.Down, result);
         }
 
         private static string GetTestFilePath(string fileName)
