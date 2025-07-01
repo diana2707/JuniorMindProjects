@@ -13,6 +13,8 @@ namespace TextEditor.Domain
 
         public event Action<Direction> ArrowKeyPressed;
 
+        public event Action EscapeKeyPressed;
+
         public string? ReadInputLine()
         {
             return controller.ReadLine();
@@ -56,6 +58,7 @@ namespace TextEditor.Domain
 
                     case ConsoleKey.Escape:
                         isListening = false;
+                        EscapeKeyPressed?.Invoke();
                         //cursor.SetToStartOfLastLine();
                         //displayer.DisplayCursorAt(cursor.Column, cursor.Row);
                         continue;

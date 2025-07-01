@@ -56,5 +56,23 @@ namespace TextEditor.Test
 
             Assert.Equal(Direction.Down, result);
         }
+
+        [Fact]
+        public void ListenMethodRaisesEventEscapeKeyPressedWhenEscapeIsRead()
+        {
+
+            FakeConsoleController controller = new();
+            InputHandler inputHandler = new(controller);
+
+            bool result = false;
+            ConsoleKeyInfo escape = new('\u001B', ConsoleKey.Escape, false, false, false);
+
+            controller.KeysToRead.Add(escape);
+
+            inputHandler.EscapeKeyPressed += () => result = true;
+            inputHandler.Listen();
+
+            Assert.True(result);
+        }
     }
 }
