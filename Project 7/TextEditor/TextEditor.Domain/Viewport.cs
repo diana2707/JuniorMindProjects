@@ -38,6 +38,8 @@ namespace TextEditor.Domain
 
         public int FirstColumnIndex { get; private set;} = 0;
 
+        public int LastColumnIndex { get; private set;} = 118;
+
         public int GetRowLength(int index)
         {
             if (textInfo.GetLineLength(index - startTextPosition)  /*text[rowPosition - startTextPosition].Length*/ > width - 1)
