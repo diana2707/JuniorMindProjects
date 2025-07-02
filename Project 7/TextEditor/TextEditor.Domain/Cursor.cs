@@ -19,6 +19,7 @@ namespace TextEditor.Domain
 
         public Cursor(IViewportInfo viewportInfo)
         {
+            //aici imi calculeaza incepand cu ultimul rand nu cu randul de dedesubt
             this.viewportInfo = viewportInfo;
             row = viewportInfo.LastRowPosition;
             column = viewportInfo.GetRowLength(row);

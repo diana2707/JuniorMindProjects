@@ -28,17 +28,20 @@ namespace TextEditor.App
                 }
             }
 
+            displayer.DisplayEmptyLine();
+
             TextManager textManager = new(manager.Text, Console.WindowWidth, Console.WindowHeight, Console.CursorTop);
             Viewport viewport = new(Console.WindowWidth, Console.WindowHeight, Console.CursorTop, textManager);
             Cursor cursor = new(viewport);
             List<string> renderedText = viewport.RenderText();
 
             inputHandler.ArrowKeyPressed += cursor.OnArrowKeyPressed;
+            inputHandler.EscapeKeyPressed += cursor.OnEscapeKeyPressed;
+
             cursor.CursorMoved += displayer.DisplayCursorAt;
 
-            displayer.DisplayEmptyLine();
             displayer.DisplayText(renderedText);
-            inputHandler.Listen();
+            //inputHandler.Listen();
 
 
 
@@ -53,7 +56,7 @@ namespace TextEditor.App
 
             //while (isListening)
             //{
-            //    displayer.DisplayCursorAt(cursor.Column, cursor.Row);
+            //    displayer.DisplayCursorAt((cursor.Column, cursor.Row));
             //    ConsoleKeyInfo currentKey = inputHandler.ReadKeyWithoutDisplay();
 
             //    switch (currentKey.Key)
@@ -78,7 +81,7 @@ namespace TextEditor.App
             //        case ConsoleKey.Escape:
             //            isListening = false;
             //            cursor.SetToStartOfLastLine();
-            //            displayer.DisplayCursorAt(cursor.Column, cursor.Row);
+            //            displayer.DisplayCursorAt((cursor.Column, cursor.Row));
             //            continue;
 
             //        default:
