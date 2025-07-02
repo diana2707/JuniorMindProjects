@@ -187,6 +187,19 @@ namespace TextEditor.Test
             Assert.Equal(29, viewport.LastRowIndex);
         }
 
+        [Fact]
+        public void MoveUpDecresesTheRowLimitsOfViewportWithOnePosition()
+        {
+            var path = GetTestFilePath("ExceedsWindowHeigth.txt");
+            Viewport viewport = SetupEditor(path);
+
+            viewport.MoveDown();
+            viewport.MoveUp();
+
+            Assert.Equal(0, viewport.FirstRowIndex);
+            Assert.Equal(28, viewport.LastRowIndex);
+        }
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);

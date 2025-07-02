@@ -92,6 +92,12 @@ namespace TextEditor.Domain
             LastRowIndex++;
         }
 
+        public void MoveUp()
+        {
+            FirstRowIndex--;
+            LastRowIndex--;
+        }
+
 
     }
 }
