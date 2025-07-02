@@ -32,7 +32,7 @@ namespace TextEditor.Domain
 
         public int Row => row;
 
-        public void Initialize()
+        public void SetInitialPosition()
         {
             row = viewportInfo.LastRowPosition;
             column = viewportInfo.GetRowLength(row);

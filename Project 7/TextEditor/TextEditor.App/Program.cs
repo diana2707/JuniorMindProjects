@@ -42,15 +42,8 @@ namespace TextEditor.App
             cursor.CursorMoved += displayer.DisplayCursorAt;
 
             displayer.DisplayText(renderedText);
-            cursor.Initialize();
+            cursor.SetInitialPosition();
             inputHandler.Listen();
-
-
-
-            //THIS LOGIC IS FOR LATTER
-
-            //inputHandler.ArrowKeyPressed += cursor.OnArrowKeyPressed; 
-
 
 
             //ORIGINAL LOGIC
