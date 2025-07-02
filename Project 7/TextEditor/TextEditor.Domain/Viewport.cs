@@ -19,9 +19,13 @@ namespace TextEditor.Domain
             this.heigth = heigth;
             this.startTextPosition = startTextPosition;
             this.textInfo = textInfo;
+
+            FirstRowIndex = startTextPosition;
+            FirstColumnIndex = 0;
+            LastColumnIndex = 118;
         }
 
-        public int FirstRowIndex => startTextPosition;
+        public int FirstRowIndex { get; private set; }
 
         public int LastRowIndex
         {
@@ -36,9 +40,9 @@ namespace TextEditor.Domain
             }
         }
 
-        public int FirstColumnIndex { get; private set;} = 0;
+        public int FirstColumnIndex { get; private set;}
 
-        public int LastColumnIndex { get; private set;} = 118;
+        public int LastColumnIndex { get; private set;}
 
         public int GetRowLength(int index)
         {
@@ -69,6 +73,12 @@ namespace TextEditor.Domain
         //{
 
         //}
+
+        public void MoveRight()
+        {
+            FirstColumnIndex++;
+            LastColumnIndex++;
+        }
 
 
     }

@@ -150,17 +150,17 @@ namespace TextEditor.Test
             Assert.Equal(118, viewport.LastColumnIndex);
         }
 
-        //[Fact]
-        //public void MoveRightIncresesTheColumnLimitsOfViewportWithOnePosition()
-        //{
-        //    var path = GetTestFilePath("ExceedsWindowWidth.txt");
-        //    Viewport viewport = SetupEditor(path);
+        [Fact]
+        public void MoveRightIncresesTheColumnLimitsOfViewportWithOnePosition()
+        {
+            var path = GetTestFilePath("ExceedsWindowWidth.txt");
+            Viewport viewport = SetupEditor(path);
 
-        //    viewport.MoveRight();
+            viewport.MoveRight();
 
-        //    Assert.Equal(1, viewport.FirstColumnIndex);
-        //    Assert.Equal(119, viewport.LastColumnIndex);
-        //}
+            Assert.Equal(1, viewport.FirstColumnIndex);
+            Assert.Equal(119, viewport.LastColumnIndex);
+        }
 
         private static string GetTestFilePath(string fileName)
         {
