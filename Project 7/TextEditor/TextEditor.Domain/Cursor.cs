@@ -21,8 +21,6 @@ namespace TextEditor.Domain
         {
             //aici imi calculeaza incepand cu ultimul rand nu cu randul de dedesubt
             this.viewportInfo = viewportInfo;
-            row = viewportInfo.LastRowPosition;
-            column = viewportInfo.GetRowLength(row);
         }
 
         //event pentru cand se misca cursorul (urmeaza sa il invoc dupa miscarile cursorului)
@@ -33,6 +31,13 @@ namespace TextEditor.Domain
         public int Column => column;
 
         public int Row => row;
+
+        public void Initialize()
+        {
+            row = viewportInfo.LastRowPosition;
+            column = viewportInfo.GetRowLength(row);
+            CursorMoved?.Invoke((column, row));
+        }
 
         public void OnArrowKeyPressed(Direction direction)
         {
