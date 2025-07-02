@@ -21,28 +21,28 @@ namespace TextEditor.Domain
             this.textInfo = textInfo;
 
             FirstRowIndex = startTextPosition;
+            LastRowIndex = InitializeLastRowIndex();
             FirstColumnIndex = 0;
             LastColumnIndex = 118;
         }
 
         public int FirstRowIndex { get; private set; }
 
-        public int LastRowIndex
-        {
-            get
-            {
-                if (startTextPosition + textInfo.GetLinesCount() >= heigth)
-                {
-                    return heigth - 2;
-                }
-
-                return startTextPosition + textInfo.GetLinesCount() - 1;
-            }
-        }
+        public int LastRowIndex { get; private set; }
 
         public int FirstColumnIndex { get; private set;}
 
         public int LastColumnIndex { get; private set;}
+
+        private int InitializeLastRowIndex()
+        {
+            if (startTextPosition + textInfo.GetLinesCount() >= heigth)
+            {
+                return heigth - 2;
+            }
+
+            return startTextPosition + textInfo.GetLinesCount() - 1;
+        }
 
         public int GetRowLength(int index)
         {
@@ -84,6 +84,12 @@ namespace TextEditor.Domain
         {
             FirstColumnIndex--;
             LastColumnIndex--;
+        }
+
+        public void MoveDown()
+        {
+            FirstRowIndex++;
+            LastRowIndex++;
         }
 
 
