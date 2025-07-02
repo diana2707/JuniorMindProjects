@@ -33,6 +33,7 @@ namespace TextEditor.App
             TextManager textManager = new(manager.Text, Console.WindowWidth, Console.WindowHeight, Console.CursorTop);
             Viewport viewport = new(Console.WindowWidth, Console.WindowHeight, Console.CursorTop, textManager);
             Cursor cursor = new(viewport);
+            
             List<string> renderedText = viewport.RenderText();
 
             inputHandler.ArrowKeyPressed += cursor.OnArrowKeyPressed;
@@ -41,7 +42,8 @@ namespace TextEditor.App
             cursor.CursorMoved += displayer.DisplayCursorAt;
 
             displayer.DisplayText(renderedText);
-            //inputHandler.Listen();
+            cursor.Initialize();
+            inputHandler.Listen();
 
 
 

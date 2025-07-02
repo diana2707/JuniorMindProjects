@@ -84,8 +84,8 @@ namespace TextEditor.Domain
                 return;
             }
 
-            CursorMoved?.Invoke((column, row));
             column++;
+            CursorMoved?.Invoke((column, row));
         }
 
         public void MoveLeft()
