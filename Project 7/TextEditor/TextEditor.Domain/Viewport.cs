@@ -36,6 +36,8 @@ namespace TextEditor.Domain
             }
         }
 
+        public int FirstColumnIndex { get; private set;} = 0;
+
         public int GetRowLength(int index)
         {
             if (textInfo.GetLineLength(index - startTextPosition)  /*text[rowPosition - startTextPosition].Length*/ > width - 1)
@@ -60,5 +62,10 @@ namespace TextEditor.Domain
 
             return result;
         }
+
+        //public void OnCursorExitedView(Direction direction)
+        //{
+
+        //}
     }
 }

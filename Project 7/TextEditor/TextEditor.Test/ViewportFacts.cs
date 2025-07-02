@@ -132,6 +132,15 @@ namespace TextEditor.Test
             Assert.Equal(formattedText, viewport.RenderText());
         }
 
+        [Fact]
+        public void FirstColumnIndexReturns0Initially()
+        {
+            var path = GetTestFilePath("ExceedsWindowWidth.txt");
+            Viewport viewport = SetupEditor(path);
+
+            Assert.Equal(0, viewport.FirstColumnIndex);
+        }
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);
