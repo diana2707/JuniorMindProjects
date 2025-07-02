@@ -20,7 +20,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("SingleRow.txt");
             Viewport viewport = SetupEditor(path, 5);
 
-            Assert.Equal(5, viewport.FirstRowPosition);
+            Assert.Equal(5, viewport.FirstRowIndex);
         }
 
 
@@ -30,7 +30,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("MultipleRows.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(3, viewport.LastRowPosition);
+            Assert.Equal(3, viewport.LastRowIndex);
         }
 
         [Fact]
@@ -39,7 +39,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("MultipleRows.txt");
             Viewport viewport = SetupEditor(path, 5);
 
-            Assert.Equal(8, viewport.LastRowPosition);
+            Assert.Equal(8, viewport.LastRowIndex);
         }
 
         [Fact]
@@ -48,7 +48,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("ExceedsWindowHeigth.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(28, viewport.LastRowPosition);
+            Assert.Equal(28, viewport.LastRowIndex);
         }
 
 
@@ -58,7 +58,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("EqualsWindowHeigth.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(28, viewport.LastRowPosition);
+            Assert.Equal(28, viewport.LastRowIndex);
         }
 
         [Fact]
@@ -149,6 +149,18 @@ namespace TextEditor.Test
 
             Assert.Equal(118, viewport.LastColumnIndex);
         }
+
+        //[Fact]
+        //public void MoveRightIncresesTheColumnLimitsOfViewportWithOnePosition()
+        //{
+        //    var path = GetTestFilePath("ExceedsWindowWidth.txt");
+        //    Viewport viewport = SetupEditor(path);
+
+        //    viewport.MoveRight();
+
+        //    Assert.Equal(1, viewport.FirstColumnIndex);
+        //    Assert.Equal(119, viewport.LastColumnIndex);
+        //}
 
         private static string GetTestFilePath(string fileName)
         {

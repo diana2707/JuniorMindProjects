@@ -21,9 +21,9 @@ namespace TextEditor.Domain
             this.textInfo = textInfo;
         }
 
-        public int FirstRowPosition => startTextPosition;
+        public int FirstRowIndex => startTextPosition;
 
-        public int LastRowPosition
+        public int LastRowIndex
         {
             get
             {
@@ -69,5 +69,7 @@ namespace TextEditor.Domain
         //{
 
         //}
+
+
     }
 }

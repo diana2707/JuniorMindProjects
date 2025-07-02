@@ -34,7 +34,7 @@ namespace TextEditor.Domain
 
         public void SetInitialPosition()
         {
-            row = viewportInfo.LastRowPosition;
+            row = viewportInfo.LastRowIndex;
             column = viewportInfo.GetRowLength(row);
             CursorMoved?.Invoke((column, row));
         }
@@ -71,7 +71,7 @@ namespace TextEditor.Domain
         {
             if (column == viewportInfo.GetRowLength(row))
             {
-                if (row == viewportInfo.LastRowPosition)
+                if (row == viewportInfo.LastRowIndex)
                 {
                     CursorExitedView?.Invoke(Direction.Right);
                     return;
@@ -92,7 +92,7 @@ namespace TextEditor.Domain
         {
             if (column == 0)
             {
-                if (row == viewportInfo.FirstRowPosition)
+                if (row == viewportInfo.FirstRowIndex)
                 {
                     CursorExitedView?.Invoke(Direction.Left);
                     return;
@@ -111,7 +111,7 @@ namespace TextEditor.Domain
 
         public void MoveDown()
         {
-            if (row == viewportInfo.LastRowPosition)
+            if (row == viewportInfo.LastRowIndex)
             {
                 CursorExitedView?.Invoke(Direction.Down);
                 return;
@@ -128,7 +128,7 @@ namespace TextEditor.Domain
 
         public void MoveUp()
         {
-            if (row == viewportInfo.FirstRowPosition)
+            if (row == viewportInfo.FirstRowIndex)
             {
                 CursorExitedView?.Invoke(Direction.Up);
                 return;
@@ -146,7 +146,7 @@ namespace TextEditor.Domain
         public void SetToStartOfLastLine()
         {
             column = 0;
-            row = viewportInfo.LastRowPosition + 1;
+            row = viewportInfo.LastRowIndex + 1;
         }
     }
 }

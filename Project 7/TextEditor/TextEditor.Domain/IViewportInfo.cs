@@ -4,9 +4,9 @@ namespace TextEditor.Domain
 {
     public interface IViewportInfo
     {
-        public int LastRowPosition { get; }
+        public int LastRowIndex { get; }
 
-        public int FirstRowPosition { get; }
+        public int FirstRowIndex { get; }
 
         public int GetRowLength(int index);
     }
