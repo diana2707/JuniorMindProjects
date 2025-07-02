@@ -512,7 +512,7 @@ namespace TextEditor.Test
         private static Cursor SetupEditor(string path, int startingRow = 0)
         {
             FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, startingRow);
+            TextManager textManager = new(fileManager.Text);
             ITextInfo textInfo = textManager;
             Viewport viewport = new(120, 30, startingRow, textInfo);
             Cursor cursor = new(viewport);

@@ -30,7 +30,7 @@ namespace TextEditor.App
 
             displayer.DisplayEmptyLine();
 
-            TextManager textManager = new(manager.Text, Console.WindowWidth, Console.WindowHeight, Console.CursorTop);
+            TextManager textManager = new(manager.Text);
             Viewport viewport = new(Console.WindowWidth, Console.WindowHeight, Console.CursorTop, textManager);
             Cursor cursor = new(viewport);
             

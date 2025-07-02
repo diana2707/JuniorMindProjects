@@ -9,10 +9,7 @@ namespace TextEditor.Test
         public void ViewportObjectExists()
         {
             var path = GetTestFilePath("MultipleRows.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
+            Viewport viewport = SetupEditor(path);
 
             Assert.IsType<Viewport>(viewport);
         }
@@ -21,10 +18,7 @@ namespace TextEditor.Test
         public void FirstRowPositionReturnsTheStartingConsoleRowPositionOfDisplayedText()
         {
             var path = GetTestFilePath("SingleRow.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 5, textInfo);
+            Viewport viewport = SetupEditor(path, 5);
 
             Assert.Equal(5, viewport.FirstRowPosition);
         }
@@ -34,10 +28,7 @@ namespace TextEditor.Test
         public void LastRowPositionReturnsThePositionOfLastRowInViewport()
         {
             var path = GetTestFilePath("MultipleRows.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
+            Viewport viewport = SetupEditor(path);
 
             Assert.Equal(3, viewport.LastRowPosition);
         }
@@ -46,10 +37,7 @@ namespace TextEditor.Test
         public void LastRowPositionReturnsThePositionOfLastRowInViewportWhenStartPositionIsGreaterThen0()
         {
             var path = GetTestFilePath("MultipleRows.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 5, textInfo);
+            Viewport viewport = SetupEditor(path, 5);
 
             Assert.Equal(8, viewport.LastRowPosition);
         }
@@ -58,11 +46,7 @@ namespace TextEditor.Test
         public void LastRowPositionReturnsTheConsoleRowPositionOfLastDisplayedRowWhenTextExceedsWindow()
         {
             var path = GetTestFilePath("ExceedsWindowHeigth.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
-
+            Viewport viewport = SetupEditor(path);
 
             Assert.Equal(28, viewport.LastRowPosition);
         }
@@ -72,10 +56,7 @@ namespace TextEditor.Test
         public void LastRowPositionReturnsCorrectPositionWhenDisplayedTextHeightIsEqualWithWindowHeigth()
         {
             var path = GetTestFilePath("EqualsWindowHeigth.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
+            Viewport viewport = SetupEditor(path);
 
             Assert.Equal(28, viewport.LastRowPosition);
         }
@@ -84,10 +65,7 @@ namespace TextEditor.Test
         public void GetRowLengthReturnsTheRowLengthWhenRowIsSmallerThenWindowWidth()
         {
             var path = GetTestFilePath("SingleRow.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
+            Viewport viewport = SetupEditor(path);
 
             Assert.Equal(15, viewport.GetRowLength(0));
         }
@@ -96,10 +74,7 @@ namespace TextEditor.Test
         public void GetRowLengthReturnsTheDisplayedLengthOfARowWhenStartingRowIsLargerThen0()
         {
             var path = GetTestFilePath("SingleRow.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 5, textInfo);
+            Viewport viewport = SetupEditor(path, 5);
 
             Assert.Equal(15, viewport.GetRowLength(5));
         }
@@ -108,10 +83,7 @@ namespace TextEditor.Test
         public void GetRowLengthReturnsTheRowLengthWhenRowIsLongerThenWindowWidth()
         {
             var path = GetTestFilePath("ExceedsWindowWidth.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
+            Viewport viewport = SetupEditor(path);
 
             Assert.Equal(119, viewport.GetRowLength(0));
         }
@@ -120,10 +92,8 @@ namespace TextEditor.Test
         public void RenderTextReturnsTextLimitedToTheWidthOfWindow()
         {
             var path = GetTestFilePath("ExceedsWindowWidth.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
+            Viewport viewport = SetupEditor(path);
+
             List<string> formattedText = ["This is a very long line that exceeds the console width of 120 characters. " +
                 "This is a very long line that exceeds the co"];
 
@@ -134,10 +104,7 @@ namespace TextEditor.Test
         public void RenderTextReturnsTheVisibleTextFowConsoleWhenRowsAreLongerThenWindowHeigth()
         {
             var path = GetTestFilePath("ExceedsWindowHeigth.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
+            Viewport viewport = SetupEditor(path);
 
             List<string> formattedText = [];
             for (int i = 1; i <= 29; i++)
@@ -152,10 +119,8 @@ namespace TextEditor.Test
         public void RenderTextReturnsTheVisibleTextFowConsoleWhenTextExeedsWindowHeigthAndWidth()
         {
             var path = GetTestFilePath("ExceedsWindowHeigthAndWidth.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
+            Viewport viewport = SetupEditor(path);
+
             List<string> formattedText = [];
 
             for (int i = 1; i <= 29; i++)
@@ -170,6 +135,16 @@ namespace TextEditor.Test
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);
+        }
+
+        private static Viewport SetupEditor(string path, int startingRow = 0)
+        {
+            FileManager fileManager = new(path);
+            TextManager textManager = new(fileManager.Text);
+            ITextInfo textInfo = textManager;
+            Viewport viewport = new(120, 30, startingRow, textInfo);
+
+            return viewport;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("singleRow.txt");
             FileManager fileManager = new(path);
-            Assert.IsType<TextManager>(new TextManager(fileManager.Text, 120, 30, 0));
+            Assert.IsType<TextManager>(new TextManager(fileManager.Text));
         }
 
         //[Fact]
@@ -143,7 +143,7 @@ namespace TextEditor.Test
         {
             var path = GetTestFilePath("MultipleRows.txt");
             FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
+            TextManager textManager = new(fileManager.Text);
 
             Assert.Equal(4, textManager.GetLinesCount());
         }
@@ -153,7 +153,7 @@ namespace TextEditor.Test
         {
             var path = GetTestFilePath("MultipleRows.txt");
             FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
+            TextManager textManager = new(fileManager.Text);
 
             Assert.Equal("This is a test.", textManager.GetLine(0));
         }
@@ -163,7 +163,7 @@ namespace TextEditor.Test
         {
             var path = GetTestFilePath("MultipleRows.txt");
             FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
+            TextManager textManager = new(fileManager.Text);
 
             Assert.Equal(15, textManager.GetLineLength(0));
         }
@@ -173,7 +173,7 @@ namespace TextEditor.Test
         {
             var path = GetTestFilePath("MultipleRows.txt");
             FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text, 120, 30, 0);
+            TextManager textManager = new(fileManager.Text);
 
             Assert.Equal((0, 0), textManager.AbsoluteCursorPosition);
         }

@@ -8,16 +8,10 @@ namespace TextEditor.Domain
     public class TextManager : ITextInfo
     {
         readonly string[] text;
-        readonly int windowWidth;
-        readonly int windowHeigth;
-        readonly int startingRow;
-
-        public TextManager(string[] text, int windowWidth, int windowHeigth, int startingRow)
+        
+        public TextManager(string[] text)
         {
             this.text = text;
-            this.windowWidth = windowWidth;
-            this.windowHeigth = windowHeigth;
-            this.startingRow = startingRow;
         }
 
         public (int row, int column) AbsoluteCursorPosition { get; private set; } = (0, 0);
