@@ -80,6 +80,12 @@ namespace TextEditor.Domain
             LastColumnIndex++;
         }
 
+        public void MoveLeft()
+        {
+            FirstColumnIndex--;
+            LastColumnIndex--;
+        }
+
 
     }
 }

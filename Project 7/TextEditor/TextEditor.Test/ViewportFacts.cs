@@ -162,6 +162,19 @@ namespace TextEditor.Test
             Assert.Equal(119, viewport.LastColumnIndex);
         }
 
+        [Fact]
+        public void MoveLeftIncresesTheColumnLimitsOfViewportWithOnePosition()
+        {
+            var path = GetTestFilePath("ExceedsWindowWidth.txt");
+            Viewport viewport = SetupEditor(path);
+
+            viewport.MoveRight();
+            viewport.MoveLeft();
+
+            Assert.Equal(0, viewport.FirstColumnIndex);
+            Assert.Equal(118, viewport.LastColumnIndex);
+        }
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);
