@@ -159,14 +159,14 @@ namespace TextEditor.Test
             Assert.Equal(3, viewport.LastRowAbsoluteIndex);
         }
 
-        //[Fact]
-        //public void FirstColumnIndexReturns0Initially()
-        //{
-        //    var path = GetTestFilePath("ExceedsWindowWidth.txt");
-        //    Viewport viewport = SetupEditor(path);
+        [Fact]
+        public void FirstColumnAbsoluteIndexReturns0Initially()
+        {
+            var path = GetTestFilePath("ExceedsWindowWidth.txt");
+            Viewport viewport = SetupEditor(path);
 
-        //    Assert.Equal(0, viewport.FirstColumnIndex);
-        //}
+            Assert.Equal(0, viewport.FirstColumnAbsoluteIndex);
+        }
 
         //[Fact]
         //public void LastColumnIndexReturns()

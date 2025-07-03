@@ -48,7 +48,7 @@ namespace TextEditor.Domain
             set => lastRowAbsoluteIndex = value;
         }
 
-        public int FirstColumnIndex { get; private set;}
+        public int FirstColumnAbsoluteIndex { get; private set; } = 0;
 
         public int LastColumnIndex { get; private set;}
 
