@@ -12,14 +12,15 @@ namespace TextEditor.Domain
         private readonly int windowHeigth;
         private readonly ITextInfo textInfo;
 
-        private readonly int firstRowIndex;
+        private int lastRowAbsoluteIndex;
 
         public Viewport(int windowWidth, int windowHeigth, int firstRowIndex, ITextInfo textInfo)
         {
             this.windowWidth = windowWidth;
             this.windowHeigth = windowHeigth;
-            this.firstRowIndex = firstRowIndex;
             this.textInfo = textInfo;
+
+            FirstRowIndex = firstRowIndex;
 
             //FirstRowIndex = startTextPosition;
             //LastRowIndex = InitializeLastRowIndex();
@@ -27,23 +28,25 @@ namespace TextEditor.Domain
             //LastColumnIndex = 118;
         }
 
-        public int FirstRowIndex => firstRowIndex;
+        public int FirstRowIndex { get; }
 
         public int LastRowIndex
         {
             get
             {
-                if (firstRowIndex + textInfo.GetLinesCount() >= windowHeigth)
-                {
-                    return windowHeigth - 2;
-                }
-
-                return firstRowIndex + textInfo.GetLinesCount() - 1;
+                int textLength = textInfo.GetLinesCount();
+                return FirstRowIndex + textLength >= windowHeigth
+                    ? windowHeigth - 2
+                    : FirstRowIndex + textLength - 1;
             }
         }
 
         public int FirstRowAbsoluteIndex { get; private set; } = 0;
-        public int LastRowAbsoluteIndex { get; private set; } = 0;
+        public int LastRowAbsoluteIndex
+        {
+            get => lastRowAbsoluteIndex = LastRowIndex - FirstRowIndex;
+            set => lastRowAbsoluteIndex = value;
+        }
 
         public int FirstColumnIndex { get; private set;}
 
@@ -51,19 +54,19 @@ namespace TextEditor.Domain
 
         public int GetRowLength(int index)
         {
-            if (textInfo.GetLineLength(index - firstRowIndex)  /*text[rowPosition - startTextPosition].Length*/ > windowWidth - 1)
+            if (textInfo.GetLineLength(index - FirstRowIndex)  /*text[rowPosition - startTextPosition].Length*/ > windowWidth - 1)
             {
                 return windowWidth - 1;
             }
 
-            return textInfo.GetLineLength(index - firstRowIndex)/*text[rowPosition - startTextPosition].Length*/;
+            return textInfo.GetLineLength(index - FirstRowIndex)/*text[rowPosition - startTextPosition].Length*/;
         }
 
         public List<string> RenderText()
         {
             List<string> result = [];
 
-            int textHeigth = textInfo.GetLinesCount() /*text.Length*/ < windowHeigth /*windowHeigth*/ - firstRowIndex /*startingRow*/ ? textInfo.GetLinesCount() /*text.Length*/ : windowHeigth /*windowHeigth*/ - firstRowIndex /*startingRow*/ - 1;
+            int textHeigth = textInfo.GetLinesCount() /*text.Length*/ < windowHeigth /*windowHeigth*/ - FirstRowIndex /*startingRow*/ ? textInfo.GetLinesCount() /*text.Length*/ : windowHeigth /*windowHeigth*/ - FirstRowIndex /*startingRow*/ - 1;
 
             for (int i = 0; i < textHeigth; i++)
             {

@@ -135,10 +135,28 @@ namespace TextEditor.Test
         [Fact]
         public void FirstRowAbsoluteIndexReturns0AsInitialValue()
         {
-            var path = GetTestFilePath("ExceedsWindowWidth.txt");
+            var path = GetTestFilePath("SingleRow.txt");
             Viewport viewport = SetupEditor(path);
 
             Assert.Equal(0, viewport.FirstRowAbsoluteIndex);
+        }
+
+        [Fact]
+        public void LastRowAbsoluteIndexReturnsAbsoluteIndexOfLastRow()
+        {
+            var path = GetTestFilePath("MultipleRows.txt");
+            Viewport viewport = SetupEditor(path);
+
+            Assert.Equal(3, viewport.LastRowAbsoluteIndex);
+        }
+
+        [Fact]
+        public void LastRowAbsoluteIndexReturnsAbsoluteIndexOfLastRowWhenFirstRowIndexIsLargerThen0()
+        {
+            var path = GetTestFilePath("MultipleRows.txt");
+            Viewport viewport = SetupEditor(path, 5);
+
+            Assert.Equal(3, viewport.LastRowAbsoluteIndex);
         }
 
         //[Fact]
