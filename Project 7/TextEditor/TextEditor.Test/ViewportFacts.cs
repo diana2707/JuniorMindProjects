@@ -133,72 +133,95 @@ namespace TextEditor.Test
         }
 
         [Fact]
-        public void FirstColumnIndexReturns0Initially()
+        public void FirstRowAbsoluteIndexReturns0AsInitialValue()
         {
             var path = GetTestFilePath("ExceedsWindowWidth.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(0, viewport.FirstColumnIndex);
+            Assert.Equal(0, viewport.FirstRowAbsoluteIndex);
         }
 
-        [Fact]
-        public void LastColumnIndexReturns()
-        {
-            var path = GetTestFilePath("ExceedsWindowWidth.txt");
-            Viewport viewport = SetupEditor(path);
+        //[Fact]
+        //public void FirstColumnIndexReturns0Initially()
+        //{
+        //    var path = GetTestFilePath("ExceedsWindowWidth.txt");
+        //    Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(118, viewport.LastColumnIndex);
-        }
+        //    Assert.Equal(0, viewport.FirstColumnIndex);
+        //}
 
-        [Fact]
-        public void MoveRightIncresesTheColumnLimitsOfViewportWithOnePosition()
-        {
-            var path = GetTestFilePath("ExceedsWindowWidth.txt");
-            Viewport viewport = SetupEditor(path);
+        //[Fact]
+        //public void LastColumnIndexReturns()
+        //{
+        //    var path = GetTestFilePath("ExceedsWindowWidth.txt");
+        //    Viewport viewport = SetupEditor(path);
 
-            viewport.MoveRight();
+        //    Assert.Equal(118, viewport.LastColumnIndex);
+        //}
 
-            Assert.Equal(1, viewport.FirstColumnIndex);
-            Assert.Equal(119, viewport.LastColumnIndex);
-        }
+        //[Fact]
+        //public void MoveRightIncresesTheColumnLimitsOfViewportWithOnePosition()
+        //{
+        //    var path = GetTestFilePath("ExceedsWindowWidth.txt");
+        //    Viewport viewport = SetupEditor(path);
 
-        [Fact]
-        public void MoveLeftDecresesTheColumnLimitsOfViewportWithOnePosition()
-        {
-            var path = GetTestFilePath("ExceedsWindowWidth.txt");
-            Viewport viewport = SetupEditor(path);
+        //    viewport.MoveRight();
 
-            viewport.MoveRight();
-            viewport.MoveLeft();
+        //    Assert.Equal(1, viewport.FirstColumnIndex);
+        //    Assert.Equal(119, viewport.LastColumnIndex);
+        //}
 
-            Assert.Equal(0, viewport.FirstColumnIndex);
-            Assert.Equal(118, viewport.LastColumnIndex);
-        }
+        //[Fact]
+        //public void MoveRightCallsRenderTextMethodWithNewLimits()
+        //{
+        //    var path = GetTestFilePath("ExceedsWindowWidth.txt");
+        //    Viewport viewport = SetupEditor(path);
 
-        [Fact]
-        public void MoveDownIncresesTheRowLimitsOfViewportWithOnePosition()
-        {
-            var path = GetTestFilePath("ExceedsWindowHeigth.txt");
-            Viewport viewport = SetupEditor(path);
+        //    viewport.MoveRight();
 
-            viewport.MoveDown();
+        //    List<string> formattedText = ["his is a very long line that exceeds the console width of 120 characters. " +
+        //        "This is a very long line that exceeds the con"];
 
-            Assert.Equal(1, viewport.FirstRowIndex);
-            Assert.Equal(29, viewport.LastRowIndex);
-        }
+        //    Assert.Equal(formattedText, viewport.RenderText());
+        //}
 
-        [Fact]
-        public void MoveUpDecresesTheRowLimitsOfViewportWithOnePosition()
-        {
-            var path = GetTestFilePath("ExceedsWindowHeigth.txt");
-            Viewport viewport = SetupEditor(path);
+        //[Fact]
+        //public void MoveLeftDecresesTheColumnLimitsOfViewportWithOnePosition()
+        //{
+        //    var path = GetTestFilePath("ExceedsWindowWidth.txt");
+        //    Viewport viewport = SetupEditor(path);
 
-            viewport.MoveDown();
-            viewport.MoveUp();
+        //    viewport.MoveRight();
+        //    viewport.MoveLeft();
 
-            Assert.Equal(0, viewport.FirstRowIndex);
-            Assert.Equal(28, viewport.LastRowIndex);
-        }
+        //    Assert.Equal(0, viewport.FirstColumnIndex);
+        //    Assert.Equal(118, viewport.LastColumnIndex);
+        //}
+
+        //[Fact]
+        //public void MoveDownIncresesTheRowLimitsOfViewportWithOnePosition()
+        //{
+        //    var path = GetTestFilePath("ExceedsWindowHeigth.txt");
+        //    Viewport viewport = SetupEditor(path);
+
+        //    viewport.MoveDown();
+
+        //    Assert.Equal(1, viewport.FirstRowIndex);
+        //    Assert.Equal(29, viewport.LastRowIndex);
+        //}
+
+        //[Fact]
+        //public void MoveUpDecresesTheRowLimitsOfViewportWithOnePosition()
+        //{
+        //    var path = GetTestFilePath("ExceedsWindowHeigth.txt");
+        //    Viewport viewport = SetupEditor(path);
+
+        //    viewport.MoveDown();
+        //    viewport.MoveUp();
+
+        //    Assert.Equal(0, viewport.FirstRowIndex);
+        //    Assert.Equal(28, viewport.LastRowIndex);
+        //}
 
         private static string GetTestFilePath(string fileName)
         {

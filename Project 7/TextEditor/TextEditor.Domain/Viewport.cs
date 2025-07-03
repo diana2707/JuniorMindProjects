@@ -8,62 +8,64 @@ namespace TextEditor.Domain
 
     public class Viewport : IViewportInfo
     {
-        private readonly int width;
-        private readonly int heigth;
+        private readonly int windowWidth;
+        private readonly int windowHeigth;
         private readonly int startTextPosition;
         private readonly ITextInfo textInfo;
 
-        public Viewport(int width, int heigth, int startTextPosition, ITextInfo textInfo)
+        public Viewport(int windowWidth, int windowHeigth, int startTextPosition, ITextInfo textInfo)
         {
-            this.width = width;
-            this.heigth = heigth;
+            this.windowWidth = windowWidth;
+            this.windowHeigth = windowHeigth;
             this.startTextPosition = startTextPosition;
             this.textInfo = textInfo;
 
-            FirstRowIndex = startTextPosition;
-            LastRowIndex = InitializeLastRowIndex();
-            FirstColumnIndex = 0;
-            LastColumnIndex = 118;
+            //FirstRowIndex = startTextPosition;
+            //LastRowIndex = InitializeLastRowIndex();
+            //FirstColumnIndex = 0;
+            //LastColumnIndex = 118;
         }
 
-        public int FirstRowIndex { get; private set; }
+        public int FirstRowIndex => startTextPosition;
 
-        public int LastRowIndex { get; private set; }
+        public int LastRowIndex
+        {
+            get
+            {
+                if (startTextPosition + textInfo.GetLinesCount() >= windowHeigth)
+                {
+                    return windowHeigth - 2;
+                }
+
+                return startTextPosition + textInfo.GetLinesCount() - 1;
+            }
+        }
+
+        public int FirstRowAbsoluteIndex { get; private set; } = 0;
 
         public int FirstColumnIndex { get; private set;}
 
         public int LastColumnIndex { get; private set;}
 
-        private int InitializeLastRowIndex()
-        {
-            if (startTextPosition + textInfo.GetLinesCount() >= heigth)
-            {
-                return heigth - 2;
-            }
-
-            return startTextPosition + textInfo.GetLinesCount() - 1;
-        }
-
         public int GetRowLength(int index)
         {
-            if (textInfo.GetLineLength(index - startTextPosition)  /*text[rowPosition - startTextPosition].Length*/ > width - 1)
+            if (textInfo.GetLineLength(index - startTextPosition)  /*text[rowPosition - startTextPosition].Length*/ > windowWidth - 1)
             {
-                return width - 1;
+                return windowWidth - 1;
             }
 
             return textInfo.GetLineLength(index - startTextPosition)/*text[rowPosition - startTextPosition].Length*/;
         }
 
-        //adu logica din textManager pt inceput
         public List<string> RenderText()
         {
             List<string> result = [];
 
-            int textHeigth = textInfo.GetLinesCount() /*text.Length*/ < heigth /*windowHeigth*/ - startTextPosition /*startingRow*/ ? textInfo.GetLinesCount() /*text.Length*/ : heigth /*windowHeigth*/ - startTextPosition /*startingRow*/ - 1;
+            int textHeigth = textInfo.GetLinesCount() /*text.Length*/ < windowHeigth /*windowHeigth*/ - startTextPosition /*startingRow*/ ? textInfo.GetLinesCount() /*text.Length*/ : windowHeigth /*windowHeigth*/ - startTextPosition /*startingRow*/ - 1;
 
             for (int i = 0; i < textHeigth; i++)
             {
-                result.Add((textInfo.GetLineLength(i) /*text[i].Length*/ > width /*windowWidth*/ - 1 ? textInfo.GetLine(i)[..(width - 1)] /*text[i][..(windowWidth - 1)]*/ : textInfo.GetLine(i)/*text[i]*/));
+                result.Add((textInfo.GetLineLength(i) /*text[i].Length*/ > windowWidth /*windowWidth*/ - 1 ? textInfo.GetLine(i)[..(windowWidth - 1)] /*text[i][..(windowWidth - 1)]*/ : textInfo.GetLine(i)/*text[i]*/));
             }
 
             return result;
@@ -74,29 +76,31 @@ namespace TextEditor.Domain
 
         //}
 
-        public void MoveRight()
-        {
-            FirstColumnIndex++;
-            LastColumnIndex++;
-        }
+        //public void MoveRight()
+        //{
+        //    FirstColumnIndex++;
+        //    LastColumnIndex++;
 
-        public void MoveLeft()
-        {
-            FirstColumnIndex--;
-            LastColumnIndex--;
-        }
+            
+        //}
 
-        public void MoveDown()
-        {
-            FirstRowIndex++;
-            LastRowIndex++;
-        }
+        //public void MoveLeft()
+        //{
+        //    FirstColumnIndex--;
+        //    LastColumnIndex--;
+        //}
 
-        public void MoveUp()
-        {
-            FirstRowIndex--;
-            LastRowIndex--;
-        }
+        //public void MoveDown()
+        //{
+        //    FirstRowIndex++;
+        //    LastRowIndex++;
+        //}
+
+        //public void MoveUp()
+        //{
+        //    FirstRowIndex--;
+        //    LastRowIndex--;
+        //}
 
 
     }
