@@ -208,7 +208,7 @@ namespace TextEditor.Test
         }
 
         [Fact]
-        public void MoveRightCallsRenderTextMethodWithNewLimits()
+        public void RenderTextMethodRendersViewportMovedRight()
         {
             var path = GetTestFilePath("ExceedsWindowWidth.txt");
             Viewport viewport = SetupEditor(path);
@@ -221,18 +221,33 @@ namespace TextEditor.Test
             Assert.Equal(formattedText, viewport.RenderText());
         }
 
-        //[Fact]
-        //public void MoveLeftDecresesTheColumnLimitsOfViewportWithOnePosition()
-        //{
-        //    var path = GetTestFilePath("ExceedsWindowWidth.txt");
-        //    Viewport viewport = SetupEditor(path);
+        [Fact]
+        public void MoveLeftDecresesTheColumnLimitsOfViewportWithOnePosition()
+        {
+            var path = GetTestFilePath("ExceedsWindowWidth.txt");
+            Viewport viewport = SetupEditor(path);
 
-        //    viewport.MoveRight();
-        //    viewport.MoveLeft();
+            viewport.MoveRight();
+            viewport.MoveLeft();
 
-        //    Assert.Equal(0, viewport.FirstColumnIndex);
-        //    Assert.Equal(118, viewport.LastColumnIndex);
-        //}
+            Assert.Equal(0, viewport.FirstColumnAbsoluteIndex);
+            Assert.Equal(118, viewport.LastColumnAbsoluteIndex);
+        }
+
+        [Fact]
+        public void RenderTextMethodRendersTextMOvedLeft()
+        {
+            var path = GetTestFilePath("ExceedsWindowWidth.txt");
+            Viewport viewport = SetupEditor(path);
+
+            viewport.MoveRight();
+            viewport.MoveLeft();
+
+            List<string> formattedText = ["This is a very long line that exceeds the console width of 120 characters. " +
+                "This is a very long line that exceeds the co"];
+
+            Assert.Equal(formattedText, viewport.RenderText());
+        }
 
         //[Fact]
         //public void MoveDownIncresesTheRowLimitsOfViewportWithOnePosition()
