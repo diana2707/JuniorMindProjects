@@ -249,17 +249,36 @@ namespace TextEditor.Test
             Assert.Equal(formattedText, viewport.RenderText());
         }
 
-        //[Fact]
-        //public void MoveDownIncresesTheRowLimitsOfViewportWithOnePosition()
-        //{
-        //    var path = GetTestFilePath("ExceedsWindowHeigth.txt");
-        //    Viewport viewport = SetupEditor(path);
+        [Fact]
+        public void MoveDownIncresesTheRowLimitsOfViewportWithOnePosition()
+        {
+            var path = GetTestFilePath("ExceedsWindowHeigth.txt");
+            Viewport viewport = SetupEditor(path);
 
-        //    viewport.MoveDown();
+            viewport.MoveDown();
 
-        //    Assert.Equal(1, viewport.FirstRowIndex);
-        //    Assert.Equal(29, viewport.LastRowIndex);
-        //}
+            Assert.Equal(1, viewport.FirstRowAbsoluteIndex);
+            Assert.Equal(29, viewport.LastRowAbsoluteIndex);
+        }
+
+        [Fact]
+        public void RenderTextMethodRendersTextMOvedDown()
+        {
+            var path = GetTestFilePath("ExceedsWindowHeigthAndWidth.txt");
+            Viewport viewport = SetupEditor(path);
+
+            viewport.MoveDown();
+
+            List<string> formattedText = [];
+
+            for (int i = 2; i <= 29; i++)
+            {
+                formattedText.Add($"{i:00}. This is a very long line that exceeds the console width of 120 characters. " +
+                    $"This is a very long line that exceeds th");
+            }
+
+            Assert.Equal(formattedText, viewport.RenderText());
+        }
 
         //[Fact]
         //public void MoveUpDecresesTheRowLimitsOfViewportWithOnePosition()
