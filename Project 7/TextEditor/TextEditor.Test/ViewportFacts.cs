@@ -327,6 +327,23 @@ namespace TextEditor.Test
             Assert.Equal(formattedText, viewport.RenderText());
         }
 
+        [Fact]
+        public void ViewportMovedIsInvokedWhenOnCursoExitedViewIsCalled()
+        {
+            var path = GetTestFilePath("ExceedsWindowWidth.txt");
+            Viewport viewport = SetupEditor(path);
+
+            List<string> result = [];
+            viewport.ViewportMoved += renderedText => result = renderedText;
+
+            viewport.OnCursorExitedView(Direction.Right);
+
+            List<string> renderedText = ["his is a very long line that exceeds the console width of 120 characters. " +
+                "This is a very long line that exceeds the con"];
+
+            Assert.Equal(renderedText, viewport.RenderText());
+        }
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);

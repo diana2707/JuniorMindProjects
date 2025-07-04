@@ -118,7 +118,8 @@ namespace TextEditor.Domain
                     break;
             }
 
-            RenderText();
+            List<string> renderedText = RenderText();
+            ViewportMoved?.Invoke(renderedText);
         }
 
         public void MoveRight()
