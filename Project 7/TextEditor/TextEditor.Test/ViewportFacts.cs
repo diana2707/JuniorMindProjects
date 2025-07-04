@@ -144,10 +144,10 @@ namespace TextEditor.Test
         [Fact]
         public void LastRowAbsoluteIndexReturnsAbsoluteIndexOfLastRow()
         {
-            var path = GetTestFilePath("MultipleRows.txt");
+            var path = GetTestFilePath("ExceedsWindowHeigth.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(3, viewport.LastRowAbsoluteIndex);
+            Assert.Equal(28, viewport.LastRowAbsoluteIndex);
         }
 
         [Fact]
