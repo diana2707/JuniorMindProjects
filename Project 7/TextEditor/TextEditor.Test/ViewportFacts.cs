@@ -334,7 +334,7 @@ namespace TextEditor.Test
             Viewport viewport = SetupEditor(path);
 
             List<string> result = [];
-            viewport.ViewportMoved += renderedText => result = renderedText;
+            viewport.ViewportMoved += (renderedText, position) => result = renderedText;
 
             viewport.OnCursorExitedView(Direction.Right);
 

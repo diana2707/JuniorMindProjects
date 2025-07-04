@@ -29,7 +29,7 @@ namespace TextEditor.Domain
             //LastColumnIndex = 118;
         }
 
-        public event Action<List<string>> ViewportMoved;
+        public event Action<List<string>, (int column, int row)> ViewportMoved;
 
         public int FirstRowIndex { get; }
 
@@ -97,6 +97,8 @@ namespace TextEditor.Domain
             return result;
         }
 
+
+        //inainte de rerender thebuie sa setez cursorul la inceputul textlui
         public void OnCursorExitedView(Direction direction)
         {
             switch (direction)
@@ -119,7 +121,7 @@ namespace TextEditor.Domain
             }
 
             List<string> renderedText = RenderText();
-            ViewportMoved?.Invoke(renderedText);
+            ViewportMoved?.Invoke(renderedText, (column: 0, row: FirstRowIndex));
         }
 
         public void MoveRight()
