@@ -8,6 +8,7 @@ namespace TextEditor.Domain
     public class ConsoleController : IConsoleController
     {
         public int Width => Console.WindowWidth;
+        public int Height => Console.WindowHeight;
 
         public void WriteLine() => Console.WriteLine();
 
