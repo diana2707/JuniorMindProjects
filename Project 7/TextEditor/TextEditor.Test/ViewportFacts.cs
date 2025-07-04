@@ -195,31 +195,31 @@ namespace TextEditor.Test
             Assert.Equal(118, viewport.LastColumnAbsoluteIndex);
         }
 
-        //[Fact]
-        //public void MoveRightIncresesTheColumnLimitsOfViewportWithOnePosition()
-        //{
-        //    var path = GetTestFilePath("ExceedsWindowWidth.txt");
-        //    Viewport viewport = SetupEditor(path);
+        [Fact]
+        public void MoveRightIncresesTheColumnLimitsOfViewportWithOnePosition()
+        {
+            var path = GetTestFilePath("ExceedsWindowWidth.txt");
+            Viewport viewport = SetupEditor(path);
 
-        //    viewport.MoveRight();
+            viewport.MoveRight();
 
-        //    Assert.Equal(1, viewport.FirstColumnIndex);
-        //    Assert.Equal(119, viewport.LastColumnIndex);
-        //}
+            Assert.Equal(1, viewport.FirstColumnAbsoluteIndex);
+            Assert.Equal(119, viewport.LastColumnAbsoluteIndex);
+        }
 
-        //[Fact]
-        //public void MoveRightCallsRenderTextMethodWithNewLimits()
-        //{
-        //    var path = GetTestFilePath("ExceedsWindowWidth.txt");
-        //    Viewport viewport = SetupEditor(path);
+        [Fact]
+        public void MoveRightCallsRenderTextMethodWithNewLimits()
+        {
+            var path = GetTestFilePath("ExceedsWindowWidth.txt");
+            Viewport viewport = SetupEditor(path);
 
-        //    viewport.MoveRight();
+            viewport.MoveRight();
 
-        //    List<string> formattedText = ["his is a very long line that exceeds the console width of 120 characters. " +
-        //        "This is a very long line that exceeds the con"];
+            List<string> formattedText = ["his is a very long line that exceeds the console width of 120 characters. " +
+                "This is a very long line that exceeds the con"];
 
-        //    Assert.Equal(formattedText, viewport.RenderText());
-        //}
+            Assert.Equal(formattedText, viewport.RenderText());
+        }
 
         //[Fact]
         //public void MoveLeftDecresesTheColumnLimitsOfViewportWithOnePosition()

@@ -76,15 +76,20 @@ namespace TextEditor.Domain
             return textInfo.GetLineLength(index - FirstRowIndex)/*text[rowPosition - startTextPosition].Length*/;
         }
 
+        //cum pot sa fac renderul flezibil?
         public List<string> RenderText()
         {
             List<string> result = [];
 
-            int textHeigth = textInfo.GetLinesCount() /*text.Length*/ < windowHeigth /*windowHeigth*/ - FirstRowIndex /*startingRow*/ ? textInfo.GetLinesCount() /*text.Length*/ : windowHeigth /*windowHeigth*/ - FirstRowIndex /*startingRow*/ - 1;
+            int textHeigth = textInfo.GetLinesCount() < windowHeigth - FirstRowIndex
+                ? textInfo.GetLinesCount()
+                : windowHeigth - FirstRowIndex - 1;
 
-            for (int i = 0; i < textHeigth; i++)
+            for (int i = FirstRowAbsoluteIndex /*0*/; i < textHeigth; i++)
             {
-                result.Add((textInfo.GetLineLength(i) /*text[i].Length*/ > windowWidth /*windowWidth*/ - 1 ? textInfo.GetLine(i)[..(windowWidth - 1)] /*text[i][..(windowWidth - 1)]*/ : textInfo.GetLine(i)/*text[i]*/));
+                result.Add((textInfo.GetLineLength(i) > windowWidth - 1
+                    ? textInfo.GetLine(i)[FirstColumnAbsoluteIndex..(LastColumnAbsoluteIndex + 1)/*(windowWidth - 1)*/]
+                    : textInfo.GetLine(i)));
             }
 
             return result;
@@ -95,13 +100,10 @@ namespace TextEditor.Domain
 
         //}
 
-        //public void MoveRight()
-        //{
-        //    FirstColumnIndex++;
-        //    LastColumnIndex++;
-
-            
-        //}
+        public void MoveRight()
+        {
+            FirstColumnAbsoluteIndex++;
+        }
 
         //public void MoveLeft()
         //{
