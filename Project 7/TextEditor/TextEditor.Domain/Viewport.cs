@@ -115,11 +115,10 @@ namespace TextEditor.Domain
             FirstRowAbsoluteIndex++;
         }
 
-        //public void MoveUp()
-        //{
-        //    FirstRowIndex--;
-        //    LastRowIndex--;
-        //}
+        public void MoveUp()
+        {
+            FirstRowAbsoluteIndex--;
+        }
 
 
     }
