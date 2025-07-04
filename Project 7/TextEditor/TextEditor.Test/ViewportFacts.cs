@@ -325,8 +325,6 @@ namespace TextEditor.Test
                 "This is a very long line that exceeds the con"];
 
             Assert.Equal(formattedText, viewport.RenderText());
-
-
         }
 
         private static string GetTestFilePath(string fileName)

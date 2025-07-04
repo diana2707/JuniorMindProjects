@@ -354,6 +354,7 @@ namespace TextEditor.Test
             Assert.Equal(3, cursor.Row);
         }
 
+        [Fact]
         public void MoveRightInvokesCursorMovedEventWhenCursorMovesRight()
         {
             string path = GetTestFilePath("SingleRow.txt");

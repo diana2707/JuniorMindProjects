@@ -29,6 +29,8 @@ namespace TextEditor.Domain
             //LastColumnIndex = 118;
         }
 
+        public event Action<List<string>> ViewportMoved;
+
         public int FirstRowIndex { get; }
 
         public int LastRowIndex
