@@ -95,10 +95,29 @@ namespace TextEditor.Domain
             return result;
         }
 
-        //public void OnCursorExitedView(Direction direction)
-        //{
+        public void OnCursorExitedView(Direction direction)
+        {
+            switch (direction)
+            {
+                case Direction.Right:
+                    MoveRight();
+                    break;
 
-        //}
+                case Direction.Left:
+                    MoveRight();
+                    break;
+
+                case Direction.Down:
+                    MoveDown();
+                    break;
+
+                case Direction.Up:
+                    MoveUp();
+                    break;
+            }
+
+            RenderText();
+        }
 
         public void MoveRight()
         {
@@ -119,7 +138,6 @@ namespace TextEditor.Domain
         {
             FirstRowAbsoluteIndex--;
         }
-
 
     }
 }
