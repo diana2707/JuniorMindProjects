@@ -63,5 +63,17 @@ namespace TextEditor.Test
             displayer.DisplayCursorAt((5, 7));
             Assert.Equal((5, 7), controller.CursorPosition);
         }
+
+        [Fact]
+        public void OnViewportMovedSetsCursorAtStartOfViewportAndDisplaysText()
+        {
+            FakeConsoleController controller = new();
+            var displayer = new Displayer(controller);
+
+            displayer.OnViewportMoved(["test", "test"], (0, 3));
+
+            Assert.Equal((0, 3), controller.CursorPosition);
+            Assert.Equal(["test\r\n", "test\r\n"], controller.WrittenLines);
+        }
     }
 }

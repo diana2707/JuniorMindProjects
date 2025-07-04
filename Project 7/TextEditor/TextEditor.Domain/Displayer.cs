@@ -35,9 +35,16 @@ namespace TextEditor.Domain
             controller.Clear();
         }
 
+        //modifica tuplelul
         public void DisplayCursorAt((int left, int top) coordinate)
         {
             controller.SetCursorPosition(coordinate.left, coordinate.top);
+        }
+
+        public void OnViewportMoved(List<string> renderedText, (int column, int row) startPosition)
+        {
+            DisplayCursorAt((startPosition.column, startPosition.row));
+            DisplayText(renderedText);
         }
     }
 }
