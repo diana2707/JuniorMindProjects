@@ -35,6 +35,16 @@ namespace TextEditor.Domain
             controller.Clear();
         }
 
+        //public void ClearFrom(int startRow, int height)
+        //{
+        //    List<string> clearedRows = [];
+
+        //    for (int i = 0; i < height; i++)
+        //    {
+
+        //    }
+        //}
+
         //modifica tuplelul
         public void DisplayCursorAt((int left, int top) coordinate)
         {

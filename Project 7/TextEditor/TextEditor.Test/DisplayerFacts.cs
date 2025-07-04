@@ -64,6 +64,18 @@ namespace TextEditor.Test
             Assert.Equal((5, 7), controller.CursorPosition);
         }
 
+        //[Fact]
+        //public void ClearFromMethodPrintsEmptySpaceStartingFromPosition()
+        //{
+        //    FakeConsoleController controller = new();
+        //    var displayer = new Displayer(controller);
+
+        //    displayer.DisplayText(["test1", "test2"]);
+        //    displayer.ClearFrom(1, 1);
+
+        //    Assert.Equal(["     \r\n", "test2\r\n"], controller.WrittenLines);
+        //}
+
         [Fact]
         public void OnViewportMovedSetsCursorAtStartOfViewportAndDisplaysText()
         {

@@ -4,6 +4,7 @@ namespace TextEditor.Domain
 {
     public interface IConsoleController
     {
+        public int Width { get; }
         public void WriteLine();
         public void WriteLine(string message);
         public void Clear();

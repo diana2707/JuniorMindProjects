@@ -41,7 +41,7 @@ namespace TextEditor.App
 
             cursor.CursorMoved += displayer.DisplayCursorAt; //fa o metoda OnCursorMoved
             cursor.CursorExitedView += viewport.OnCursorExitedView;
-            //viewport.ViewportMoved += displayer.DisplayText; //fa o metoda OnViewportMoved
+            viewport.ViewportMoved += displayer.OnViewportMoved;
 
             displayer.DisplayText(renderedText);
             cursor.SetInitialPosition();
