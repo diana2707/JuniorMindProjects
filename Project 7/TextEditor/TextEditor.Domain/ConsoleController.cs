@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace TextEditor.Domain
 {
     public class ConsoleController : IConsoleController
     {
+        public int Width => Console.WindowWidth;
+
         public void WriteLine() => Console.WriteLine();
 
         public void WriteLine(string message) => Console.WriteLine(message);
