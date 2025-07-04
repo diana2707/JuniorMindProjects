@@ -160,6 +160,24 @@ namespace TextEditor.Test
         }
 
         [Fact]
+        public void LastRowAbsoluteIndexReturnsAbsoluteIndexOfLastRowWhenTextHeightExeedsWindowHeigth()
+        {
+            var path = GetTestFilePath("ExceedsWindowHeigth.txt");
+            Viewport viewport = SetupEditor(path);
+
+            Assert.Equal(28, viewport.LastRowAbsoluteIndex);
+        }
+
+        [Fact]
+        public void LastRowAbsoluteIndexReturnsAbsoluteIndexWhenTextHeightExeedsWindowHeigthAndStartRowLargerThen0()
+        {
+            var path = GetTestFilePath("ExceedsWindowHeigth.txt");
+            Viewport viewport = SetupEditor(path, 2);
+
+            Assert.Equal(26, viewport.LastRowAbsoluteIndex);
+        }
+
+        [Fact]
         public void FirstColumnAbsoluteIndexReturns0Initially()
         {
             var path = GetTestFilePath("ExceedsWindowWidth.txt");
@@ -168,14 +186,14 @@ namespace TextEditor.Test
             Assert.Equal(0, viewport.FirstColumnAbsoluteIndex);
         }
 
-        //[Fact]
-        //public void LastColumnIndexReturns()
-        //{
-        //    var path = GetTestFilePath("ExceedsWindowWidth.txt");
-        //    Viewport viewport = SetupEditor(path);
+        [Fact]
+        public void LastColumnAbsoluteIndexReturnsMaximumIndexWhenRowLengthExceedsWindow()
+        {
+            var path = GetTestFilePath("ExceedsWindowWidth.txt");
+            Viewport viewport = SetupEditor(path);
 
-        //    Assert.Equal(118, viewport.LastColumnIndex);
-        //}
+            Assert.Equal(118, viewport.LastColumnAbsoluteIndex);
+        }
 
         //[Fact]
         //public void MoveRightIncresesTheColumnLimitsOfViewportWithOnePosition()

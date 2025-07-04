@@ -12,7 +12,8 @@ namespace TextEditor.Domain
         private readonly int windowHeigth;
         private readonly ITextInfo textInfo;
 
-        private int lastRowAbsoluteIndex;
+        //private int lastRowAbsoluteIndex;
+        private int lastColumnAbsoluteIndex;
 
         public Viewport(int windowWidth, int windowHeigth, int firstRowIndex, ITextInfo textInfo)
         {
@@ -42,15 +43,33 @@ namespace TextEditor.Domain
         }
 
         public int FirstRowAbsoluteIndex { get; private set; } = 0;
+
         public int LastRowAbsoluteIndex
         {
-            get => lastRowAbsoluteIndex = LastRowIndex - FirstRowIndex;
-            set => lastRowAbsoluteIndex = value;
+            get
+            {
+                int viewportHeigth = LastRowIndex - FirstRowIndex + 1;
+                int textHeigth = textInfo.GetLinesCount();
+                if (textHeigth == 0)
+                {
+                    return 0;
+                }
+
+                return viewportHeigth > textHeigth
+                    ? textHeigth - 1
+                    : FirstRowAbsoluteIndex + viewportHeigth - 1;
+            }
+            
         }
+
 
         public int FirstColumnAbsoluteIndex { get; private set; } = 0;
 
-        public int LastColumnIndex { get; private set;}
+        //nu e complet
+        public int LastColumnAbsoluteIndex
+        {
+            get => lastColumnAbsoluteIndex = FirstRowAbsoluteIndex + windowWidth - 2;
+        }
 
         public int GetRowLength(int index)
         {
