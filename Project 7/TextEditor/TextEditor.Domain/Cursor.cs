@@ -74,6 +74,7 @@ namespace TextEditor.Domain
                 if (row == viewportInfo.LastRowIndex)
                 {
                     CursorExitedView?.Invoke(Direction.Right);
+                    //SetInitialPosition();
                     return;
                 }
 

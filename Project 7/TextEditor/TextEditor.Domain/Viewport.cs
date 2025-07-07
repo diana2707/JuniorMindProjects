@@ -87,7 +87,7 @@ namespace TextEditor.Domain
                 ? textInfo.GetLinesCount()
                 : windowHeigth - FirstRowIndex - 1;
 
-            for (int i = FirstRowAbsoluteIndex /*0*/; i < textHeigth; i++)
+            for (int i = FirstRowAbsoluteIndex /*0*/; i <= LastRowAbsoluteIndex /*textHeigth*/; i++)// in loc de heigth sa folosesc last index?
             {
                 result.Add((textInfo.GetLineLength(i) > windowWidth - 1
                     ? textInfo.GetLine(i)[FirstColumnAbsoluteIndex..(LastColumnAbsoluteIndex + 1)/*(windowWidth - 1)*/]
