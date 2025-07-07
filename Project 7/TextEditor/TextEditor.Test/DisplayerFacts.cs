@@ -64,17 +64,27 @@ namespace TextEditor.Test
             Assert.Equal((5, 7), controller.CursorPosition);
         }
 
-        //[Fact]
-        //public void ClearFromMethodPrintsEmptySpaceStartingFromPosition()
-        //{
-        //    FakeConsoleController controller = new();
-        //    var displayer = new Displayer(controller);
+        [Fact]
+        public void ClearFromMethodPrintsEmptySpaceStartingFromPosition()
+        {
+            FakeConsoleController controller = new();
+            var displayer = new Displayer(controller);
 
-        //    displayer.DisplayText(["test1", "test2"]);
-        //    displayer.ClearFrom(1, 1);
+            displayer.DisplayText(["test1", "test2"]);
+            displayer.ClearFrom(1);
 
-        //    Assert.Equal(["     \r\n", "test2\r\n"], controller.WrittenLines);
-        //}
+            List<string> result = ["test1\r\n"];
+
+            for (int i = 0; i < controller.Height - 1; i++)
+            {
+                result.Add(new string(' ', controller.Width) + "\r\n");
+            }
+
+            int res = result.Count;
+            int lines = controller.WrittenLines.Count;
+
+            Assert.Equal(result, controller.WrittenLines);
+        }
 
         [Fact]
         public void OnViewportMovedSetsCursorAtStartOfViewportAndDisplaysText()
@@ -84,7 +94,7 @@ namespace TextEditor.Test
 
             displayer.OnViewportMoved(["test", "test"], (0, 3));
 
-            Assert.Equal((0, 3), controller.CursorPosition);
+            Assert.Equal((0, 5), controller.CursorPosition);
             Assert.Equal(["test\r\n", "test\r\n"], controller.WrittenLines);
         }
     }

@@ -35,15 +35,18 @@ namespace TextEditor.Domain
             controller.Clear();
         }
 
-        //public void ClearFrom(int startRow, int height)
-        //{
-        //    List<string> clearedRows = [];
+        public void ClearFrom(int startRow)
+        {
+            List<string> clearedRows = [];
 
-        //    for (int i = 0; i < height; i++)
-        //    {
+            for (int i = 0; i < (controller.Height - startRow); i++)
+            {
+                clearedRows.Add(new string(' ', controller.Width));
+            }
 
-        //    }
-        //}
+            DisplayCursorAt((0, startRow));
+            DisplayText(clearedRows);
+        }
 
         //modifica tuplelul
         public void DisplayCursorAt((int left, int top) coordinate)
