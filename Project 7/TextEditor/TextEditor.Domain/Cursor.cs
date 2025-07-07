@@ -134,6 +134,7 @@ namespace TextEditor.Domain
             if (row == viewportInfo.FirstRowIndex)
             {
                 CursorExitedView?.Invoke(Direction.Up);
+                CursorMoved?.Invoke((column, row));
                 return;
             }
 
