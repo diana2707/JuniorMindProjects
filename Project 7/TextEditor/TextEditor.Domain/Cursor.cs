@@ -32,6 +32,7 @@ namespace TextEditor.Domain
 
         public int Row => row;
 
+        //redenumeste pt claritate - seteaza cursorul la finalul ultimului rand
         public void SetInitialPosition()
         {
             row = viewportInfo.LastRowIndex;
@@ -74,7 +75,7 @@ namespace TextEditor.Domain
                 if (row == viewportInfo.LastRowIndex)
                 {
                     CursorExitedView?.Invoke(Direction.Right);
-                    //SetInitialPosition();
+                    SetInitialPosition();
                     return;
                 }
 
@@ -115,6 +116,7 @@ namespace TextEditor.Domain
             if (row == viewportInfo.LastRowIndex)
             {
                 CursorExitedView?.Invoke(Direction.Down);
+                CursorMoved?.Invoke((column, row));
                 return;
             }
 
