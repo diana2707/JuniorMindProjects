@@ -68,22 +68,50 @@ namespace TextEditor.Domain
             CursorMoved?.Invoke((column, row));
         }
 
+        //public void MoveRight()
+        //{
+        //    if (column == viewportInfo.GetRowLength(row))
+        //    {
+
+        //        if (row == viewportInfo.LastRowIndex)
+        //        {
+        //            CursorExitedView?.Invoke(Direction.Right);
+        //            SetInitialPosition();
+        //            return;
+        //        }
+
+        //        column = 0;
+        //        row++;
+
+        //        CursorMoved?.Invoke((column, row));
+        //        return;
+        //    }
+
+        //    column++;
+        //    CursorMoved?.Invoke((column, row));
+        //}
+
         public void MoveRight()
         {
             if (column == viewportInfo.GetRowLength(row))
             {
-                if (row == viewportInfo.LastRowIndex)
-                {
-                    CursorExitedView?.Invoke(Direction.Right);
-                    SetInitialPosition();
-                    return;
-                }
-
-                column = 0;
-                row++;
-
+                CursorExitedView?.Invoke(Direction.Right);
                 CursorMoved?.Invoke((column, row));
+                //SetInitialPosition();
                 return;
+
+                //if (row == viewportInfo.LastRowIndex)
+                //{
+                //    CursorExitedView?.Invoke(Direction.Right);
+                //    SetInitialPosition();
+                //    return;
+                //}
+
+                //column = 0;
+                //row++;
+
+                //CursorMoved?.Invoke((column, row));
+                //return;
             }
 
             column++;

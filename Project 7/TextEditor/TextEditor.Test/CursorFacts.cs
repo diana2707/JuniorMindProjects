@@ -48,19 +48,19 @@ namespace TextEditor.Test
             Assert.Equal(0, cursor.Row);
         }
 
-        [Fact]
-        public void MoveRightMethodMovesTheCursorDownWhenCursorIsAtLineEnd()
-        {
-            string path = GetTestFilePath("SingleCharRows.txt");
-            Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+        //[Fact]
+        //public void MoveRightMethodMovesTheCursorDownWhenCursorIsAtLineEnd()
+        //{
+        //    string path = GetTestFilePath("SingleCharRows.txt");
+        //    Cursor cursor = SetupEditor(path);
+        //    cursor.SetInitialPosition();
 
-            cursor.MoveUp();
-            cursor.MoveRight();
+        //    cursor.MoveUp();
+        //    cursor.MoveRight();
 
-            Assert.Equal(0, cursor.Column);
-            Assert.Equal(2, cursor.Row);
-        }
+        //    Assert.Equal(0, cursor.Column);
+        //    Assert.Equal(2, cursor.Row);
+        //}
 
 
         [Fact]
