@@ -146,6 +146,11 @@ namespace TextEditor.Domain
 
         public void MoveUp()
         {
+            if (FirstRowAbsoluteIndex == 0)
+            {
+                return;
+            }
+
             FirstRowAbsoluteIndex--;
         }
 

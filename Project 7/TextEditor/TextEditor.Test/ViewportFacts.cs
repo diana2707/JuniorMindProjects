@@ -345,7 +345,7 @@ namespace TextEditor.Test
         }
 
         [Fact]
-        public void MovedDownMethodStopsMovingViewportAtEndOfText()
+        public void MovedDownMethodStopsMovingViewportAtLastLineOfText()
         {
             var path = GetTestFilePath("ExceedsWindowHeigth.txt");
             Viewport viewport = SetupEditor(path);
@@ -360,6 +360,16 @@ namespace TextEditor.Test
             Assert.Equal(31, viewport.LastRowAbsoluteIndex);
         }
 
+        [Fact]
+        public void MovedUpMethodStopsMovingViewportFirstLineOfText()
+        {
+            var path = GetTestFilePath("SingleRow.txt");
+            Viewport viewport = SetupEditor(path);
+
+            viewport.MoveUp();
+
+            Assert.Equal(0, viewport.FirstRowAbsoluteIndex);
+        }
 
         private static string GetTestFilePath(string fileName)
         {
