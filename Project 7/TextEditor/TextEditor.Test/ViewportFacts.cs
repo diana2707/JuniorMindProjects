@@ -371,6 +371,20 @@ namespace TextEditor.Test
             Assert.Equal(0, viewport.FirstRowAbsoluteIndex);
         }
 
+        [Fact]
+        public void RowIsAtRightLimitReturnsTrueWhenTextLineIsAtEnd()
+        {
+            var path = GetTestFilePath("ExceedsWindowWidth.txt");
+            Viewport viewport = SetupEditor(path);
+
+            for (int i = 0; i < 30; i++)
+            {
+                viewport.MoveRight();
+            }
+
+            Assert.True(viewport.RowIsAtRightLimit(0));
+        }
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);

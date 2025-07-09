@@ -8,7 +8,7 @@ namespace TextEditor.Domain
 
         public int FirstRowIndex { get; }
 
-        public bool IsRightTextLimit { get; }
+        public bool RowIsAtRightLimit(int index);
 
         public int GetRowLength(int index);
     }

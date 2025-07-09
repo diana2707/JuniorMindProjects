@@ -68,6 +68,8 @@ namespace TextEditor.Domain
 
         public int LastColumnAbsoluteIndex => FirstColumnAbsoluteIndex + windowWidth - 2;//la row corectez in LastRowIndex, aici corectez direct cu -2?
 
+        public bool RowIsAtRightLimit(int index) => LastColumnAbsoluteIndex == textInfo.GetLineLength(index) - 1;
+
         public int GetRowLength(int index)
         {
             if (textInfo.GetLineLength(index - FirstRowIndex)  /*text[rowPosition - startTextPosition].Length*/ > windowWidth - 1)
