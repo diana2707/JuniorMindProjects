@@ -8,6 +8,8 @@ namespace TextEditor.Domain
 
         public int FirstRowIndex { get; }
 
+        public bool IsRightTextLimit { get; }
+
         public int GetRowLength(int index);
     }
 }
