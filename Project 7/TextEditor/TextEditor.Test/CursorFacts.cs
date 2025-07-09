@@ -505,6 +505,24 @@ namespace TextEditor.Test
             Assert.True(result);
         }
 
+        [Fact]
+        public void CursorMovedEventIsInvokedAfterCursorInvokesCursorExitedViewEvent()
+        {
+            string path = GetTestFilePath("ExceedsWindowHeigth.txt");
+            Cursor cursor = SetupEditor(path);
+
+            for (int i = 0; i < 30; i++)
+            {
+                cursor.MoveDown();
+            }
+
+            bool cursorMoved = false;
+            cursor.CursorMoved += _ => cursorMoved = true;
+            cursor.MoveDown();
+
+            Assert.True(cursorMoved);
+        }
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);

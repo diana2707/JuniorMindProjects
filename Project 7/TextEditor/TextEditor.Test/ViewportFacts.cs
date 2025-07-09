@@ -271,7 +271,7 @@ namespace TextEditor.Test
 
             List<string> formattedText = [];
 
-            for (int i = 2; i <= 29; i++)
+            for (int i = 2; i <= 30; i++)
             {
                 formattedText.Add($"{i:00}. This is a very long line that exceeds the console width of 120 characters. " +
                     $"This is a very long line that exceeds th");
@@ -343,6 +343,23 @@ namespace TextEditor.Test
 
             Assert.Equal(renderedText, viewport.RenderText());
         }
+
+        [Fact]
+        public void MovedDownMethodStopsMovingViewportAtEndOfText()
+        {
+            var path = GetTestFilePath("ExceedsWindowHeigth.txt");
+            Viewport viewport = SetupEditor(path);
+
+            int count = 0;
+            while(count < 5)
+            {
+                viewport.MoveDown();
+                count++;
+            }
+
+            Assert.Equal(31, viewport.LastRowAbsoluteIndex);
+        }
+
 
         private static string GetTestFilePath(string fileName)
         {

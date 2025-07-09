@@ -41,7 +41,7 @@ namespace TextEditor.Domain
 
             for (int i = 0; i < (controller.Height - startRow - 1); i++)
             {
-                clearedRows.Add(new string(' ', controller.Width)); //sa creeze cu un rand mai putin pt ca creza spatii si pt ultimul rand last liber apoi sare din fereastra cursorul cand trece inca un rand mai jos
+                clearedRows.Add(new string(' ', controller.Width));
             }
 
             DisplayCursorAt((0, startRow));
@@ -57,7 +57,7 @@ namespace TextEditor.Domain
 
         public void OnViewportMoved(List<string> renderedText, (int column, int row) startPosition)
         {
-            DisplayCursorAt((startPosition.column, startPosition.row));
+            DisplayCursorAt((startPosition.column, startPosition.row)); //cred ca poate fi sters pt ca seteaza si in clear from cursorul la inceput
             ClearFrom(startPosition.row);
             DisplayText(renderedText);
             //display cursor at the end of row Cursor.SetInitialPosition...

@@ -75,13 +75,12 @@ namespace TextEditor.Test
 
             List<string> result = ["test1\r\n"];
 
-            for (int i = 0; i < controller.Height - 1; i++)
+            for (int i = 0; i < controller.Height - 2; i++)
             {
                 result.Add(new string(' ', controller.Width) + "\r\n");
             }
 
-            int res = result.Count;
-            int lines = controller.WrittenLines.Count;
+            List<string> lines = controller.WrittenLines;
 
             Assert.Equal(result, controller.WrittenLines);
         }
@@ -93,9 +92,24 @@ namespace TextEditor.Test
             var displayer = new Displayer(controller);
 
             displayer.OnViewportMoved(["test", "test"], (0, 3));
+            List<string> result = [];
+
+            for (int i = 0; i < 3; i++)
+            {
+                result.Add(new string(' ', controller.Width) + "\r\n");
+            }
+
+            result.AddRange(["test\r\n", "test\r\n"]);
+
+            for (int i = 5; i < controller.Height - 2; i++)
+            {
+                result.Add(new string(' ', controller.Width) + "\r\n");
+            }
+
+            List<string> lines = controller.WrittenLines;
 
             Assert.Equal((0, 5), controller.CursorPosition);
-            Assert.Equal(["test\r\n", "test\r\n"], controller.WrittenLines);
+            Assert.Equal(result, controller.WrittenLines);
         }
     }
 }

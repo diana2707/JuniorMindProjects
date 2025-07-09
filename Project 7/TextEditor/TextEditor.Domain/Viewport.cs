@@ -83,9 +83,9 @@ namespace TextEditor.Domain
         {
             List<string> result = [];
 
-            int textHeigth = textInfo.GetLinesCount() < windowHeigth - FirstRowIndex
-                ? textInfo.GetLinesCount()
-                : windowHeigth - FirstRowIndex - 1;
+            //int textHeigth = textInfo.GetLinesCount() < windowHeigth - FirstRowIndex
+            //    ? textInfo.GetLinesCount()
+            //    : windowHeigth - FirstRowIndex - 1;
 
             for (int i = FirstRowAbsoluteIndex /*0*/; i <= LastRowAbsoluteIndex /*textHeigth*/; i++)// in loc de heigth sa folosesc last index?
             {
@@ -136,6 +136,11 @@ namespace TextEditor.Domain
 
         public void MoveDown()
         {
+            if(LastRowAbsoluteIndex == textInfo.GetLinesCount() - 1)
+            {
+                return;
+            }
+
             FirstRowAbsoluteIndex++;
         }
 
