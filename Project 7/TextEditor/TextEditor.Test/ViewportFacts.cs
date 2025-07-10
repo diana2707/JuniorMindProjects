@@ -399,6 +399,18 @@ namespace TextEditor.Test
             Assert.Equal(148, viewport.LastColumnAbsoluteIndex);
         }
 
+        [Fact]
+        public void MoveRightMethodGetsCorrectTextLineFromConsoleRow()
+        {
+            var path = GetTestFilePath("ExceedsWindowWidth.txt");
+            Viewport viewport = SetupEditor(path, 3);
+
+            viewport.MoveRight(3);
+
+
+            Assert.Equal(1, viewport.FirstColumnAbsoluteIndex);
+        }
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);

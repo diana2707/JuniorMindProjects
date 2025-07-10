@@ -128,7 +128,8 @@ namespace TextEditor.Domain
 
         public void MoveRight(int rowIndex)
         {
-            if (RowIsAtRightLimit(rowIndex))
+            int absoluteRowIndex = rowIndex - FirstRowIndex;
+            if (RowIsAtRightLimit(absoluteRowIndex))
             {
                 return;
             }
