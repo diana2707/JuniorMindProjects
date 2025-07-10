@@ -106,11 +106,11 @@ namespace TextEditor.Domain
             switch (direction)
             {
                 case Direction.Right:
-                    MoveRight();
+                    MoveRight(rowIndex);
                     break;
 
                 case Direction.Left:
-                    MoveRight();
+                    MoveLeft();
                     break;
 
                 case Direction.Down:
@@ -126,9 +126,13 @@ namespace TextEditor.Domain
             ViewportMoved?.Invoke(renderedText, (column: 0, row: FirstRowIndex));
         }
 
-        public void MoveRight()
+        public void MoveRight(int rowIndex)
         {
-            /*if (RowIsAtRightLimit()) *///de unde iau row-ul
+            if (RowIsAtRightLimit(rowIndex))
+            {
+                return;
+            }
+
             FirstColumnAbsoluteIndex++;
         }
 
