@@ -319,7 +319,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("ExceedsWindowWidth.txt");
             Viewport viewport = SetupEditor(path);
 
-            viewport.OnCursorExitedView(Direction.Right);
+            viewport.OnCursorExitedView(Direction.Right, 0);
 
             List<string> formattedText = ["his is a very long line that exceeds the console width of 120 characters. " +
                 "This is a very long line that exceeds the con"];
@@ -336,7 +336,7 @@ namespace TextEditor.Test
             List<string> result = [];
             viewport.ViewportMoved += (renderedText, position) => result = renderedText;
 
-            viewport.OnCursorExitedView(Direction.Right);
+            viewport.OnCursorExitedView(Direction.Right, 0);
 
             List<string> renderedText = ["his is a very long line that exceeds the console width of 120 characters. " +
                 "This is a very long line that exceeds the con"];
@@ -384,6 +384,20 @@ namespace TextEditor.Test
 
             Assert.True(viewport.RowIsAtRightLimit(0));
         }
+
+        //[Fact]
+        //public void MoveRightMethodStopsMovingViewportWhenRowAtRightLimitIsTrue()
+        //{
+        //    var path = GetTestFilePath("ExceedsWindowWidth.txt");
+        //    Viewport viewport = SetupEditor(path);
+
+        //    for (int i = 0; i < 31; i++)
+        //    {
+        //        viewport.MoveRight();
+        //    }
+
+        //    Assert.Equal(148, viewport.LastColumnAbsoluteIndex);
+        //}
 
         private static string GetTestFilePath(string fileName)
         {

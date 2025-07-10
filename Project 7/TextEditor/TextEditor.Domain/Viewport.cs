@@ -101,7 +101,7 @@ namespace TextEditor.Domain
 
 
         //inainte de rerender thebuie sa setez cursorul la inceputul textlui
-        public void OnCursorExitedView(Direction direction)
+        public void OnCursorExitedView(Direction direction, int rowIndex)
         {
             switch (direction)
             {
@@ -128,6 +128,7 @@ namespace TextEditor.Domain
 
         public void MoveRight()
         {
+            /*if (RowIsAtRightLimit()) *///de unde iau row-ul
             FirstColumnAbsoluteIndex++;
         }
 

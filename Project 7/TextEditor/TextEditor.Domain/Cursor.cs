@@ -26,7 +26,7 @@ namespace TextEditor.Domain
         //event pentru cand se misca cursorul (urmeaza sa il invoc dupa miscarile cursorului)
         public event Action<(int column, int row)>  CursorMoved;
 
-        public event Action<Direction>? CursorExitedView;
+        public event Action<Direction, int>? CursorExitedView;
 
         public int Column => column;
 
@@ -95,23 +95,21 @@ namespace TextEditor.Domain
         {
             if (column == viewportInfo.GetRowLength(row))
             {
-                CursorExitedView?.Invoke(Direction.Right);
-                CursorMoved?.Invoke((column, row));
-                //SetInitialPosition();
-                return;
+                //CURSORUL SARE PE RANDUL URMATOR DOAR DACA CURSORUL SE AFLA PE ULTIMUL RAND
 
-                //if (row == viewportInfo.LastRowIndex)
+                //if (viewportInfo.RowIsAtRightLimit(row))
                 //{
-                //    CursorExitedView?.Invoke(Direction.Right);
-                //    SetInitialPosition();
+                //    column = 0;
+                //    row++;
+
+                //    CursorMoved?.Invoke((column, row));
                 //    return;
                 //}
 
-                //column = 0;
-                //row++;
-
-                //CursorMoved?.Invoke((column, row));
-                //return;
+                CursorExitedView?.Invoke(Direction.Right, row);
+                CursorMoved?.Invoke((column, row));
+                //SetInitialPosition();
+                return;
             }
 
             column++;
@@ -124,7 +122,7 @@ namespace TextEditor.Domain
             {
                 if (row == viewportInfo.FirstRowIndex)
                 {
-                    CursorExitedView?.Invoke(Direction.Left);
+                    CursorExitedView?.Invoke(Direction.Left, row);
                     return;
                 }
 
@@ -143,7 +141,7 @@ namespace TextEditor.Domain
         {
             if (row == viewportInfo.LastRowIndex)
             {
-                CursorExitedView?.Invoke(Direction.Down);
+                CursorExitedView?.Invoke(Direction.Down, row);
                 CursorMoved?.Invoke((column, row));
                 return;
             }
@@ -161,7 +159,7 @@ namespace TextEditor.Domain
         {
             if (row == viewportInfo.FirstRowIndex)
             {
-                CursorExitedView?.Invoke(Direction.Up);
+                CursorExitedView?.Invoke(Direction.Up, row);
                 CursorMoved?.Invoke((column, row));
                 return;
             }

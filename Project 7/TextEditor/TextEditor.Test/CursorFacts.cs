@@ -247,13 +247,19 @@ namespace TextEditor.Test
             Cursor cursor = SetupEditor(path);
             cursor.SetInitialPosition();
 
-            Direction result = 0; 
+            Direction directionResult = 0;
+            int rowResult = -1;
 
-            cursor.CursorExitedView += direction => result = direction;
+            cursor.CursorExitedView += (direction, row) =>
+            {
+                directionResult = direction;
+                rowResult = row;
+            };
 
             cursor.MoveRight();
 
-            Assert.Equal(Direction.Right, result);
+            Assert.Equal(Direction.Right, directionResult);
+            Assert.Equal(0, rowResult);
         }
 
         [Fact]
@@ -263,14 +269,20 @@ namespace TextEditor.Test
             Cursor cursor = SetupEditor(path);
             cursor.SetInitialPosition();
 
-            Direction result = 0;
+            Direction directionResult = 0;
+            int rowResult = -1;
 
-            cursor.CursorExitedView += direction => result = direction;
+            cursor.CursorExitedView += (direction, row) =>
+            {
+                directionResult = direction;
+                rowResult = row;
+            };
 
             cursor.MoveLeft();
             cursor.MoveLeft();
 
-            Assert.Equal(Direction.Left, result);
+            Assert.Equal(Direction.Left, directionResult);
+            Assert.Equal(0, rowResult);
         }
 
         [Fact]
@@ -280,12 +292,19 @@ namespace TextEditor.Test
             Cursor cursor = SetupEditor(path);
             cursor.SetInitialPosition();
 
-            Direction result = 0;
+            Direction directionResult = 0;
+            int rowResult = -1;
 
-            cursor.CursorExitedView += direction => result = direction;
+            cursor.CursorExitedView += (direction, row) =>
+            {
+                directionResult = direction;
+                rowResult = row;
+            };
+
             cursor.MoveDown();
 
-            Assert.Equal(Direction.Down, result);
+            Assert.Equal(Direction.Down, directionResult);
+            Assert.Equal(0, rowResult);
         }
 
         [Fact]
@@ -295,13 +314,19 @@ namespace TextEditor.Test
             Cursor cursor = SetupEditor(path);
             cursor.SetInitialPosition();
 
-            Direction result = 0;
+            Direction directionResult = 0;
+            int rowResult = -1;
 
-            cursor.CursorExitedView += direction => result = direction;
-            cursor.MoveDown();
+            cursor.CursorExitedView += (direction, row) =>
+            {
+                directionResult = direction;
+                rowResult = row;
+            };
+
             cursor.MoveUp();
 
-            Assert.Equal(Direction.Up, result);
+            Assert.Equal(Direction.Up, directionResult);
+            Assert.Equal(0, rowResult);
         }
 
         [Fact]
