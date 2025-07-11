@@ -215,6 +215,16 @@ namespace TextEditor.Test
         }
 
         [Fact]
+        public void LastColumnAbsoluteReturnsNegativeOneWhenLineIsEmpty()
+        {
+            var path = GetTestFilePath("EmptyRow.txt");
+            Viewport viewport = SetupEditor(path);
+
+            Assert.Equal(18, viewport.LastColumnAbsoluteIndex(0));
+            Assert.Equal(-1, viewport.LastColumnAbsoluteIndex(1));
+        }
+
+        [Fact]
         public void MoveRightIncresesTheColumnLimitsOfViewportWithOnePosition()
         {
             var path = GetTestFilePath("ExceedsWindowWidth.txt");

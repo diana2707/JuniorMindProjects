@@ -70,6 +70,12 @@ namespace TextEditor.Domain
         public int LastColumnAbsoluteIndex(int rowIndex)
         {
             int absoluteLength = textInfo.GetLineLength(rowIndex);
+
+            if (absoluteLength == 0)
+            {
+                return -1;
+            }
+
             if (FirstColumnAbsoluteIndex + windowWidth - 2 < absoluteLength - FirstColumnAbsoluteIndex)
             {
                 return FirstColumnAbsoluteIndex + windowWidth - 2;
@@ -101,6 +107,14 @@ namespace TextEditor.Domain
             //int textHeigth = textInfo.GetLinesCount() < windowHeigth - FirstRowIndex
             //    ? textInfo.GetLinesCount()
             //    : windowHeigth - FirstRowIndex - 1;
+
+            //cum verific daca exista caractere pe primul rand sau daca nu cumva prima coloana afisata a depasit ultima coloana reala a randului?
+            //for (int i = FirstRowAbsoluteIndex; i <= LastRowAbsoluteIndex; i++)
+            //{
+
+            //    result.Add(textInfo.GetLine(i)[FirstColumnAbsoluteIndex..(LastColumnAbsoluteIndex(i) + 1)]);
+            //}
+
 
             for (int i = FirstRowAbsoluteIndex /*0*/; i <= LastRowAbsoluteIndex /*textHeigth*/; i++)// in loc de heigth sa folosesc last index?
             {
