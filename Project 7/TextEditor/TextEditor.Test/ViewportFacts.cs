@@ -220,7 +220,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("EmptyRow.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(18, viewport.LastColumnAbsoluteIndex(0));
+            Assert.Equal(118, viewport.LastColumnAbsoluteIndex(0));
             Assert.Equal(-1, viewport.LastColumnAbsoluteIndex(1));
         }
 
@@ -439,6 +439,24 @@ namespace TextEditor.Test
 
             Assert.Equal(1, viewport.FirstColumnAbsoluteIndex);
         }
+
+        [Fact]
+        public void RenderTextMethdRendersEmptyLine()
+        {
+            var path = GetTestFilePath("EmptyRow.txt");
+            Viewport viewport = SetupEditor(path);
+
+            viewport.MoveRight(2);
+            List<string> result =  ["his is a very long line that exceeds the console width of 120 characters. " +
+                "This is a very long line that exceeds the con", "",
+                "his is a very long line that exceeds the console width of 120 characters. " +
+                "This is a very long line that exceeds the con"];
+
+            List<string> renderedText = viewport.RenderText();
+
+            Assert.Equal(result, viewport.RenderText());
+        }
+
 
         private static string GetTestFilePath(string fileName)
         {

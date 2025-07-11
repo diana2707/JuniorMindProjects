@@ -108,20 +108,24 @@ namespace TextEditor.Domain
             //    ? textInfo.GetLinesCount()
             //    : windowHeigth - FirstRowIndex - 1;
 
-            //cum verific daca exista caractere pe primul rand sau daca nu cumva prima coloana afisata a depasit ultima coloana reala a randului?
-            //for (int i = FirstRowAbsoluteIndex; i <= LastRowAbsoluteIndex; i++)
-            //{
-
-            //    result.Add(textInfo.GetLine(i)[FirstColumnAbsoluteIndex..(LastColumnAbsoluteIndex(i) + 1)]);
-            //}
-
-
-            for (int i = FirstRowAbsoluteIndex /*0*/; i <= LastRowAbsoluteIndex /*textHeigth*/; i++)// in loc de heigth sa folosesc last index?
+            for (int i = FirstRowAbsoluteIndex; i <= LastRowAbsoluteIndex; i++)
             {
-                result.Add((textInfo.GetLineLength(i) > windowWidth - 1
-                    ? textInfo.GetLine(i)[FirstColumnAbsoluteIndex..(LastColumnAbsoluteIndex(i) + 1)/*(windowWidth - 1)*/]
-                    : textInfo.GetLine(i))); //de asta liniile scurte nu se deplaseaza
+                if (LastColumnAbsoluteIndex(i) == -1)
+                {
+                    result.Add(string.Empty);
+                    continue;
+                }
+
+                result.Add(textInfo.GetLine(i)[FirstColumnAbsoluteIndex..(LastColumnAbsoluteIndex(i) + 1)]);
             }
+
+
+            //for (int i = FirstRowAbsoluteIndex /*0*/; i <= LastRowAbsoluteIndex /*textHeigth*/; i++)// in loc de heigth sa folosesc last index?
+            //{
+            //    result.Add((textInfo.GetLineLength(i) > windowWidth - 1
+            //        ? textInfo.GetLine(i)[FirstColumnAbsoluteIndex..(LastColumnAbsoluteIndex(i) + 1)/*(windowWidth - 1)*/]
+            //        : textInfo.GetLine(i))); //de asta liniile scurte nu se deplaseaza
+            //}
 
             return result;
         }
