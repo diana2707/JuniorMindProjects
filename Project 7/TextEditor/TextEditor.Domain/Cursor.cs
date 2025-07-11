@@ -93,7 +93,7 @@ namespace TextEditor.Domain
 
         public void MoveRight()
         {
-            if (column == viewportInfo.GetViewportRowLength(row)) //cum este egal?
+            if (column == viewportInfo.GetViewportRowLength(row))
             {
                 //CURSORUL SARE PE RANDUL URMATOR DOAR DACA CURSORUL SE AFLA PE ULTIMUL RAND
 
