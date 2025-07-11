@@ -66,9 +66,22 @@ namespace TextEditor.Domain
 
         public int FirstColumnAbsoluteIndex { get; private set; } = 0;
 
-        public int LastColumnAbsoluteIndex => FirstColumnAbsoluteIndex + windowWidth - 2;//la row corectez in LastRowIndex, aici corectez direct cu -2?
+        //pune conditie sa nu depaseasca lungimea randului
+        public int LastColumnAbsoluteIndex(int rowIndex)
+        {
+            int absoluteLength = textInfo.GetLineLength(rowIndex);
+            if (FirstColumnAbsoluteIndex + windowWidth - 2 < absoluteLength - FirstColumnAbsoluteIndex)
+            {
+                return FirstColumnAbsoluteIndex + windowWidth - 2;
+            }
 
-        public bool RowIsAtRightLimit(int index) => LastColumnAbsoluteIndex == textInfo.GetLineLength(index) - 1;
+            return absoluteLength - 1;
+            
+        } 
+
+        //la row corectez in LastRowIndex, aici corectez direct cu -2?
+
+        public bool RowIsAtRightLimit(int index) => LastColumnAbsoluteIndex(index) == textInfo.GetLineLength(index) - 1;
 
         public int GetRowLength(int index)
         {
@@ -92,8 +105,8 @@ namespace TextEditor.Domain
             for (int i = FirstRowAbsoluteIndex /*0*/; i <= LastRowAbsoluteIndex /*textHeigth*/; i++)// in loc de heigth sa folosesc last index?
             {
                 result.Add((textInfo.GetLineLength(i) > windowWidth - 1
-                    ? textInfo.GetLine(i)[FirstColumnAbsoluteIndex..(LastColumnAbsoluteIndex + 1)/*(windowWidth - 1)*/]
-                    : textInfo.GetLine(i)));
+                    ? textInfo.GetLine(i)[FirstColumnAbsoluteIndex..(LastColumnAbsoluteIndex(i) + 1)/*(windowWidth - 1)*/]
+                    : textInfo.GetLine(i))); //de asta liniile scurte nu se deplaseaza
             }
 
             return result;

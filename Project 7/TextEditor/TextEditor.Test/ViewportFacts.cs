@@ -192,7 +192,26 @@ namespace TextEditor.Test
             var path = GetTestFilePath("ExceedsWindowWidth.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(118, viewport.LastColumnAbsoluteIndex);
+            Assert.Equal(118, viewport.LastColumnAbsoluteIndex(0));
+        }
+
+        [Fact]
+        public void LastColumnAbsoluteReturnsLastColumnWhenRowDoNotExceedWindowLength()
+        {
+            var path = GetTestFilePath("SingleChar.txt");
+            Viewport viewport = SetupEditor(path);
+
+            Assert.Equal(0, viewport.LastColumnAbsoluteIndex(0));
+        }
+
+        [Fact]
+        public void LastColumnAbsoluteReturnsCorrectLastIndexForRowsOfDifferentLengths()
+        {
+            var path = GetTestFilePath("UnevenLengthRows.txt");
+            Viewport viewport = SetupEditor(path);
+
+            Assert.Equal(118, viewport.LastColumnAbsoluteIndex(0));
+            Assert.Equal(20, viewport.LastColumnAbsoluteIndex(1));
         }
 
         [Fact]
@@ -204,7 +223,7 @@ namespace TextEditor.Test
             viewport.MoveRight(0);
 
             Assert.Equal(1, viewport.FirstColumnAbsoluteIndex);
-            Assert.Equal(119, viewport.LastColumnAbsoluteIndex);
+            Assert.Equal(119, viewport.LastColumnAbsoluteIndex(0));
         }
 
         [Fact]
@@ -231,7 +250,7 @@ namespace TextEditor.Test
             viewport.MoveLeft();
 
             Assert.Equal(0, viewport.FirstColumnAbsoluteIndex);
-            Assert.Equal(118, viewport.LastColumnAbsoluteIndex);
+            Assert.Equal(118, viewport.LastColumnAbsoluteIndex(0));
         }
 
         [Fact]
@@ -396,7 +415,7 @@ namespace TextEditor.Test
                 viewport.MoveRight(0);
             }
 
-            Assert.Equal(148, viewport.LastColumnAbsoluteIndex);
+            Assert.Equal(148, viewport.LastColumnAbsoluteIndex(0));
         }
 
         [Fact]
