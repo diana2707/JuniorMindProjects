@@ -89,14 +89,17 @@ namespace TextEditor.Domain
 
         public bool RowIsAtRightLimit(int index) => LastColumnAbsoluteIndex(index) == textInfo.GetLineLength(index) - 1;
 
-        public int GetRowLength(int index)
+        public int GetViewportRowLength(int index)
         {
-            if (textInfo.GetLineLength(index - FirstRowIndex)  /*text[rowPosition - startTextPosition].Length*/ > windowWidth - 1)
-            {
-                return windowWidth - 1;
-            }
+            int absoluteIndex = index - FirstRowIndex;
+            return LastColumnAbsoluteIndex(absoluteIndex) - FirstColumnAbsoluteIndex + 1;
 
-            return textInfo.GetLineLength(index - FirstRowIndex)/*text[rowPosition - startTextPosition].Length*/;
+            //if (textInfo.GetLineLength(index - FirstRowIndex)  /*text[rowPosition - startTextPosition].Length*/ > windowWidth - 1)
+            //{
+            //    return windowWidth - 1;
+            //}
+
+            //return textInfo.GetLineLength(index - FirstRowIndex)/*text[rowPosition - startTextPosition].Length*/;
         }
 
         //cum pot sa fac renderul flezibil?
@@ -118,14 +121,6 @@ namespace TextEditor.Domain
 
                 result.Add(textInfo.GetLine(i)[FirstColumnAbsoluteIndex..(LastColumnAbsoluteIndex(i) + 1)]);
             }
-
-
-            //for (int i = FirstRowAbsoluteIndex /*0*/; i <= LastRowAbsoluteIndex /*textHeigth*/; i++)// in loc de heigth sa folosesc last index?
-            //{
-            //    result.Add((textInfo.GetLineLength(i) > windowWidth - 1
-            //        ? textInfo.GetLine(i)[FirstColumnAbsoluteIndex..(LastColumnAbsoluteIndex(i) + 1)/*(windowWidth - 1)*/]
-            //        : textInfo.GetLine(i))); //de asta liniile scurte nu se deplaseaza
-            //}
 
             return result;
         }

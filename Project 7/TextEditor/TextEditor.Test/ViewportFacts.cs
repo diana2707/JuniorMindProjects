@@ -67,7 +67,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("SingleRow.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(15, viewport.GetRowLength(0));
+            Assert.Equal(15, viewport.GetViewportRowLength(0));
         }
 
         [Fact]
@@ -76,7 +76,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("SingleRow.txt");
             Viewport viewport = SetupEditor(path, 5);
 
-            Assert.Equal(15, viewport.GetRowLength(5));
+            Assert.Equal(15, viewport.GetViewportRowLength(5));
         }
 
         [Fact]
@@ -85,7 +85,21 @@ namespace TextEditor.Test
             var path = GetTestFilePath("ExceedsWindowWidth.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(119, viewport.GetRowLength(0));
+            Assert.Equal(119, viewport.GetViewportRowLength(0));
+        }
+
+        [Fact]
+        public void GetViewportRowLengthReturnsTheViewportLengthWhenPartOfRowisVisible()
+        {
+            var path = GetTestFilePath("UnevenLengthRows.txt");
+            Viewport viewport = SetupEditor(path);
+
+            for (int i = 0; i < 10; i++)
+            {
+                viewport.MoveRight(0);
+            }
+
+            Assert.Equal(110, viewport.GetViewportRowLength(3));
         }
 
         [Fact]
@@ -468,7 +482,8 @@ namespace TextEditor.Test
 
             List<string> result = ["is is a very long line that exceeds the console width of 120 characters. " +
                 "This is a very long line that exceeds the cons",
-                "is is a short line.", ""];
+                "is is a short line.", "", "is is a 120 charcaters line long " +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"];
 
             Assert.Equal(0, viewport.LastColumnAbsoluteIndex(2));
             Assert.Equal(result, viewport.RenderText());

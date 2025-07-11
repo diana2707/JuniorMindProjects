@@ -36,7 +36,7 @@ namespace TextEditor.Domain
         public void SetInitialPosition()
         {
             row = viewportInfo.LastRowIndex;
-            column = viewportInfo.GetRowLength(row);
+            column = viewportInfo.GetViewportRowLength(row);
             CursorMoved?.Invoke((column, row));
         }
 
@@ -93,7 +93,7 @@ namespace TextEditor.Domain
 
         public void MoveRight()
         {
-            if (column == viewportInfo.GetRowLength(row)) //cum este egal?
+            if (column == viewportInfo.GetViewportRowLength(row)) //cum este egal?
             {
                 //CURSORUL SARE PE RANDUL URMATOR DOAR DACA CURSORUL SE AFLA PE ULTIMUL RAND
 
@@ -127,7 +127,7 @@ namespace TextEditor.Domain
                 }
 
                 row--;
-                column = viewportInfo.GetRowLength(row);
+                column = viewportInfo.GetViewportRowLength(row);
 
                 CursorMoved?.Invoke((column, row));
                 return;
@@ -146,7 +146,7 @@ namespace TextEditor.Domain
                 return;
             }
 
-            int nextRowLength = viewportInfo.GetRowLength(row + 1);
+            int nextRowLength = viewportInfo.GetViewportRowLength(row + 1);
 
             column = nextRowLength < column ? nextRowLength : column;
 
@@ -164,7 +164,7 @@ namespace TextEditor.Domain
                 return;
             }
 
-            int previousRowLength = viewportInfo.GetRowLength(row - 1);
+            int previousRowLength = viewportInfo.GetViewportRowLength(row - 1);
 
             column = previousRowLength < column ? previousRowLength : column;
 

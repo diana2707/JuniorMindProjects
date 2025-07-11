@@ -10,6 +10,6 @@ namespace TextEditor.Domain
 
         public bool RowIsAtRightLimit(int index);
 
-        public int GetRowLength(int index);
+        public int GetViewportRowLength(int index);
     }
 }
