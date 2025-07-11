@@ -489,6 +489,18 @@ namespace TextEditor.Test
             Assert.Equal(result, viewport.RenderText());
         }
 
+        [Fact]
+        public void IsDownmostLimitReturnsTrueWhenLastDisplayedRowIsLastRowOfText()
+        {
+            var path = GetTestFilePath("ExceedsWindowHeigth.txt");
+            Viewport viewport = SetupEditor(path);
+            for (int i = 0; i < 30; i++)
+            {
+                viewport.MoveDown();
+            }
+            Assert.True(viewport.IsDownmostLimit(31));
+        }
+
 
         private static string GetTestFilePath(string fileName)
         {

@@ -93,6 +93,12 @@ namespace TextEditor.Domain
             return LastColumnAbsoluteIndex(absoluteIndex) == textInfo.GetLineLength(absoluteIndex) - 1;
         }
 
+        public bool IsDownmostLimit(int index)
+        {
+            int absoluteIndex = index - FirstRowIndex;
+            return absoluteIndex == textInfo.GetLinesCount() - 1;
+        }
+
         public int GetViewportRowLength(int index)
         {
             int absoluteIndex = index - FirstRowIndex;
