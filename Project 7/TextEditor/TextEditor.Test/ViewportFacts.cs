@@ -457,6 +457,23 @@ namespace TextEditor.Test
             Assert.Equal(result, viewport.RenderText());
         }
 
+        [Fact]
+        public void RenderTextMethodRendersCorectlyWhenLineGotOutsideOfViewport()
+        {
+            var path = GetTestFilePath("UnevenLengthRows.txt");
+            Viewport viewport = SetupEditor(path);
+
+            viewport.MoveRight(0);
+            viewport.MoveRight(0);
+
+            List<string> result = ["is is a very long line that exceeds the console width of 120 characters. " +
+                "This is a very long line that exceeds the cons",
+                "is is a short line.", ""];
+
+            Assert.Equal(0, viewport.LastColumnAbsoluteIndex(2));
+            Assert.Equal(result, viewport.RenderText());
+        }
+
 
         private static string GetTestFilePath(string fileName)
         {

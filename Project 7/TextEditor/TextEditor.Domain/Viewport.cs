@@ -110,7 +110,7 @@ namespace TextEditor.Domain
 
             for (int i = FirstRowAbsoluteIndex; i <= LastRowAbsoluteIndex; i++)
             {
-                if (LastColumnAbsoluteIndex(i) == -1)
+                if (LastColumnAbsoluteIndex(i) == -1 || FirstColumnAbsoluteIndex > LastColumnAbsoluteIndex(i))
                 {
                     result.Add(string.Empty);
                     continue;
