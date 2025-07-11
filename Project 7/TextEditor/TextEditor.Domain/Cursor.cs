@@ -97,14 +97,19 @@ namespace TextEditor.Domain
             {
                 //CURSORUL SARE PE RANDUL URMATOR DOAR DACA CURSORUL SE AFLA PE ULTIMUL RAND
 
-                //if (viewportInfo.RowIsAtRightLimit(row))
-                //{
-                //    column = 0;
-                //    row++;
+                if (viewportInfo.IsRightmostLimit(row))
+                {
+                    //daca e final de text nu ar mai trebui mutat (rezolva conditia)
+                    //if (row == viewportInfo.)
 
-                //    CursorMoved?.Invoke((column, row));
-                //    return;
-                //}
+                    //aici cursorul trece pe randul urmator
+                    column = 0;
+                    row++;
+
+                    //cum invoc aici cursor exited view?
+                    CursorMoved?.Invoke((column, row));
+                    return;
+                }
 
                 CursorExitedView?.Invoke(Direction.Right, row);
                 CursorMoved?.Invoke((column, row));

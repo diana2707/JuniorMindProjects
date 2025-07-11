@@ -83,11 +83,15 @@ namespace TextEditor.Domain
 
             return absoluteLength - 1;
             
-        } 
+        }
 
         //la row corectez in LastRowIndex, aici corectez direct cu -2?
 
-        public bool RowIsAtRightLimit(int index) => LastColumnAbsoluteIndex(index) == textInfo.GetLineLength(index) - 1;
+        public bool IsRightmostLimit(int index)
+        {
+            int absoluteIndex = index - FirstRowIndex;
+            return LastColumnAbsoluteIndex(absoluteIndex) == textInfo.GetLineLength(absoluteIndex) - 1;
+        }
 
         public int GetViewportRowLength(int index)
         {
@@ -155,7 +159,7 @@ namespace TextEditor.Domain
         public void MoveRight(int rowIndex)
         {
             int absoluteRowIndex = rowIndex - FirstRowIndex;
-            if (RowIsAtRightLimit(absoluteRowIndex))
+            if (IsRightmostLimit(absoluteRowIndex))
             {
                 return;
             }

@@ -425,7 +425,7 @@ namespace TextEditor.Test
                 viewport.MoveRight(0);
             }
 
-            Assert.True(viewport.RowIsAtRightLimit(0));
+            Assert.True(viewport.IsRightmostLimit(0));
         }
 
         [Fact]

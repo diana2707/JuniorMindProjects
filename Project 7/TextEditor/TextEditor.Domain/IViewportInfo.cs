@@ -8,7 +8,9 @@ namespace TextEditor.Domain
 
         public int FirstRowIndex { get; }
 
-        public bool RowIsAtRightLimit(int index);
+        public bool IsRightmostLimit(int index);
+
+        public bool IsDownmostLimit(int index);
 
         public int GetViewportRowLength(int index);
     }
