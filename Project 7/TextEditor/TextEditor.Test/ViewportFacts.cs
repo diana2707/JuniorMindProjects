@@ -501,6 +501,20 @@ namespace TextEditor.Test
             Assert.True(viewport.IsDownmostLimit(31));
         }
 
+        [Fact]
+        public void IsLeftmostOutsideViewportReturnsTrueWhenFirstColumnAbsoluteIndexIsLargerThen0()
+        {
+            var path = GetTestFilePath("ExceedsWindowWidth.txt");
+            Viewport viewport = SetupEditor(path);
+
+            for (int i = 0; i < 120; i++)
+            {
+                viewport.MoveRight(0);
+            }
+
+            Assert.True(viewport.IsLeftmostOutsideViewport(0));
+        }   
+
 
         private static string GetTestFilePath(string fileName)
         {

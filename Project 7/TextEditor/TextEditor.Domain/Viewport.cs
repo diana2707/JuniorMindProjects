@@ -99,6 +99,12 @@ namespace TextEditor.Domain
             return absoluteIndex == textInfo.GetLinesCount() - 1;
         }
 
+        public bool IsLeftmostOutsideViewport(int viewportIndex)
+        {
+            int absoluteIndex = viewportIndex - FirstRowIndex;
+            return FirstColumnAbsoluteIndex > 0;
+        }
+
         public int GetViewportRowLength(int viewportIndex)
         {
             int absoluteIndex = viewportIndex - FirstRowIndex;
