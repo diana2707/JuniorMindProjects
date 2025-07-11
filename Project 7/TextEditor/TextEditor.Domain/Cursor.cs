@@ -100,7 +100,10 @@ namespace TextEditor.Domain
                 if (viewportInfo.IsRightmostLimit(row))
                 {
                     //daca e final de text nu ar mai trebui mutat (rezolva conditia)
-                    //if (row == viewportInfo.)
+                    if (viewportInfo.IsDownmostLimit(row))
+                    {
+                        return;
+                    }
 
                     //aici cursorul trece pe randul urmator
                     column = 0;

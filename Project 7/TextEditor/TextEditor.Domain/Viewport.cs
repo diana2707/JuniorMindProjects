@@ -87,21 +87,21 @@ namespace TextEditor.Domain
 
         //la row corectez in LastRowIndex, aici corectez direct cu -2?
 
-        public bool IsRightmostLimit(int index)
+        public bool IsRightmostLimit(int viewportIndex)
         {
-            int absoluteIndex = index - FirstRowIndex;
+            int absoluteIndex = viewportIndex - FirstRowIndex;
             return LastColumnAbsoluteIndex(absoluteIndex) == textInfo.GetLineLength(absoluteIndex) - 1;
         }
 
-        public bool IsDownmostLimit(int index)
+        public bool IsDownmostLimit(int viewportIndex)
         {
-            int absoluteIndex = index - FirstRowIndex;
+            int absoluteIndex = viewportIndex - FirstRowIndex;
             return absoluteIndex == textInfo.GetLinesCount() - 1;
         }
 
-        public int GetViewportRowLength(int index)
+        public int GetViewportRowLength(int viewportIndex)
         {
-            int absoluteIndex = index - FirstRowIndex;
+            int absoluteIndex = viewportIndex - FirstRowIndex;
             return LastColumnAbsoluteIndex(absoluteIndex) - FirstColumnAbsoluteIndex + 1;
 
             //if (textInfo.GetLineLength(index - FirstRowIndex)  /*text[rowPosition - startTextPosition].Length*/ > windowWidth - 1)
@@ -164,8 +164,8 @@ namespace TextEditor.Domain
 
         public void MoveRight(int rowIndex)
         {
-            int absoluteRowIndex = rowIndex - FirstRowIndex;
-            if (IsRightmostLimit(absoluteRowIndex))
+            //int absoluteRowIndex = rowIndex - FirstRowIndex;
+            if (IsRightmostLimit(rowIndex))
             {
                 return;
             }

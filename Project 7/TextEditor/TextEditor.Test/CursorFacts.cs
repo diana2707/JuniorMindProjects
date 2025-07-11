@@ -48,19 +48,19 @@ namespace TextEditor.Test
             Assert.Equal(0, cursor.Row);
         }
 
-        //[Fact]
-        //public void MoveRightMethodMovesTheCursorDownWhenCursorIsAtLineEnd()
-        //{
-        //    string path = GetTestFilePath("SingleCharRows.txt");
-        //    Cursor cursor = SetupEditor(path);
-        //    cursor.SetInitialPosition();
+        [Fact]
+        public void MoveRightMethodMovesTheCursorDownWhenCursorIsAtLineEnd()
+        {
+            string path = GetTestFilePath("SingleCharRows.txt");
+            Cursor cursor = SetupEditor(path);
+            cursor.SetInitialPosition();
 
-        //    cursor.MoveUp();
-        //    cursor.MoveRight();
+            cursor.MoveUp();
+            cursor.MoveRight();
 
-        //    Assert.Equal(0, cursor.Column);
-        //    Assert.Equal(2, cursor.Row);
-        //}
+            Assert.Equal(0, cursor.Column);
+            Assert.Equal(2, cursor.Row);
+        }
 
 
         [Fact]
@@ -240,27 +240,27 @@ namespace TextEditor.Test
             Assert.Equal(4, cursor.Row);
         }
 
-        //[Fact]
-        //public void CursorExitedViewIsRaisedByMoveRightMethodWhenCursorIsAtRightmostPosition()
-        //{
-        //    string path = GetTestFilePath("SingleChar.txt");
-        //    Cursor cursor = SetupEditor(path);
-        //    cursor.SetInitialPosition();
+        [Fact]
+        public void CursorExitedViewIsRaisedByMoveRightMethodWhenCursorIsAtRightmostPosition()
+        {
+            string path = GetTestFilePath("ExceedsWindowWidth.txt");
+            Cursor cursor = SetupEditor(path);
+            cursor.SetInitialPosition();
 
-        //    Direction directionResult = 0;
-        //    int rowResult = -1;
+            Direction directionResult = 0;
+            int rowResult = -1;
 
-        //    cursor.CursorExitedView += (direction, row) =>
-        //    {
-        //        directionResult = direction;
-        //        rowResult = row;
-        //    };
+            cursor.CursorExitedView += (direction, row) =>
+            {
+                directionResult = direction;
+                rowResult = row;
+            };
 
-        //    cursor.MoveRight();
+            cursor.MoveRight();
 
-        //    Assert.Equal(Direction.Right, directionResult);
-        //    Assert.Equal(0, rowResult);
-        //}
+            Assert.Equal(Direction.Right, directionResult);
+            Assert.Equal(0, rowResult);
+        }
 
         [Fact]
         public void CursorExitedViewIsRaisedByMoveLeftMethodWhenCursorIsAtLeftmostPosition()

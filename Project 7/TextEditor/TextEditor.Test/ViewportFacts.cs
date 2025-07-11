@@ -449,7 +449,7 @@ namespace TextEditor.Test
             Viewport viewport = SetupEditor(path, 3);
 
             viewport.MoveRight(3);
-
+            int r = viewport.FirstColumnAbsoluteIndex;
 
             Assert.Equal(1, viewport.FirstColumnAbsoluteIndex);
         }
