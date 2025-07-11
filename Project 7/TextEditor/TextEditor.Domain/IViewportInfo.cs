@@ -13,5 +13,7 @@ namespace TextEditor.Domain
         public bool IsDownmostLimit(int index);
 
         public int GetViewportRowLength(int index);
+
+        public bool LeftmostIsOutsideViewport(int index);
     }
 }

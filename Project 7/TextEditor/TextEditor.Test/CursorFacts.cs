@@ -412,6 +412,36 @@ namespace TextEditor.Test
         }
 
         [Fact]
+        public void MoveRightMethodInvokesCursorExitedViewWhenCursorMovevAtTheStartOfLineWhenStartIsOutsideView()
+        {
+            string path = GetTestFilePath("UnevenLengthRows.txt");
+            Cursor cursor = SetupEditor(path);
+            cursor.SetInitialPosition();
+
+            Direction resultDirection = 0;
+            int resultRow = 0;
+            cursor.CursorExitedView += (direction, row) =>
+            {
+                resultDirection = direction;
+                resultRow = row;
+            };
+
+            for (int i = 0; i < 3; i++)
+            {
+                cursor.MoveUp();
+            }
+
+            for (int i = 0; i < 149; i++)
+            {
+                cursor.MoveRight();
+            }
+
+            Assert.Equal(Direction.MaxLeft, resultDirection);
+            Assert.Equal(1, resultRow);
+        }
+
+
+        [Fact]
         public void MoveLeftMethodInvokesCursorMovedEventWhenCursorMoveLeft()
         {
             string path = GetTestFilePath("SingleRow.txt");
@@ -517,7 +547,7 @@ namespace TextEditor.Test
         }
 
         [Fact]
-        public void InitializeMethodRaisesACursorMovedEventToPlaceTheCursorAtTheEndOfTheVisibleText()
+        public void SetInitialPositionMethodRaisesACursorMovedEventToPlaceTheCursorAtTheEndOfTheVisibleText()
         {
             string path = GetTestFilePath("SingleChar.txt");
             Cursor cursor = SetupEditor(path);
