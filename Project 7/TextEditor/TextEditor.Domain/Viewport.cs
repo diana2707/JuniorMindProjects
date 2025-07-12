@@ -76,7 +76,7 @@ namespace TextEditor.Domain
                 return -1;
             }
 
-            if (FirstColumnAbsoluteIndex + windowWidth - 2 < absoluteLength - FirstColumnAbsoluteIndex)
+            if (FirstColumnAbsoluteIndex + windowWidth - 2 < absoluteLength /*- FirstColumnAbsoluteIndex*/) //conditia asta nu e buna
             {
                 return FirstColumnAbsoluteIndex + windowWidth - 2;
             }
