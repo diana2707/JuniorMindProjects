@@ -10,6 +10,7 @@ namespace TextEditor.Domain
         Up,
         MaxRight,
         MaxLeft,
+        MaxRightAndUp,
         MaxLeftAndDown
     }
 
