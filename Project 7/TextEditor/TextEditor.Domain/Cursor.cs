@@ -142,7 +142,7 @@ namespace TextEditor.Domain
             {
                 if (viewportInfo.IsLeftmostLimitVisible())
                 {
-                    if (viewportInfo.IsUpmostLimitVisible(row)) //upmost limit
+                    if (viewportInfo.IsUpmostLimitVisible(row)) //upmost limit, schimba-i numele ca poate fi visibil dar nu intra in conditie
                     {
                         return;
                     }

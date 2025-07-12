@@ -573,6 +573,8 @@ namespace TextEditor.Test
                 resultRow = row;
             };
 
+            cursor.MoveDown();
+
             for (int i = 0; i < 28; i++)
             {
                 cursor.MoveUp();
