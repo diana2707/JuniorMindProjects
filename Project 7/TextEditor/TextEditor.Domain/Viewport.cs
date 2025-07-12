@@ -161,6 +161,10 @@ namespace TextEditor.Domain
                 case Direction.Up:
                     MoveUp();
                     break;
+
+                case Direction.MaxLeft:
+                    MoveMaxLeft();
+                    break;
             }
 
             List<string> renderedText = RenderText();
