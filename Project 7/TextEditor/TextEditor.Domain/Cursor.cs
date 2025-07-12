@@ -97,10 +97,10 @@ namespace TextEditor.Domain
             {
                 //CURSORUL SARE PE RANDUL URMATOR DOAR DACA CURSORUL SE AFLA PE ULTIMUL RAND
 
-                if (viewportInfo.IsRightmostLimit(row)) //IsRightmostCharacter(row)
+                if (viewportInfo.IsRightmostLimitVisible(row)) //IsRightmostCharacter(row)
                 {
                     //daca e final de text nu ar mai trebui mutat (rezolva conditia)
-                    if (viewportInfo.IsDownmostLimit(row)) //IsDownmostLine(row)
+                    if (viewportInfo.IsDownmostLimitVisible(row)) //IsDownmostLine(row)
                     {
                         return;
                     }
@@ -118,7 +118,7 @@ namespace TextEditor.Domain
                     row++;
 
                     //daca incepututl randului urmator este in afara viewportului am nevoie sa rerandez
-                    if (viewportInfo.IsLeftmostOutsideViewport()) //CanScrollLeft()
+                    if (!viewportInfo.IsLeftmostLimitVisible()) //CanScrollLeft()
                     {
                         CursorExitedView?.Invoke(Direction.MaxLeft, row);
                     }

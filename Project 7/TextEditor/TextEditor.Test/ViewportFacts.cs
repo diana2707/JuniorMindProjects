@@ -425,7 +425,7 @@ namespace TextEditor.Test
                 viewport.MoveRight(0);
             }
 
-            Assert.True(viewport.IsRightmostLimit(0));
+            Assert.True(viewport.IsRightmostLimitVisible(0));
         }
 
         [Fact]
@@ -498,11 +498,11 @@ namespace TextEditor.Test
             {
                 viewport.MoveDown();
             }
-            Assert.True(viewport.IsDownmostLimit(28));
+            Assert.True(viewport.IsDownmostLimitVisible(28));
         }
 
         [Fact]
-        public void IsLeftmostOutsideViewportReturnsTrueWhenFirstColumnAbsoluteIndexIsLargerThen0()
+        public void IsLeftmostLimitVisibleReturnsFalseWhenFirstColumnAbsoluteIndexIsLargerThen0()
         {
             var path = GetTestFilePath("ExceedsWindowWidth.txt");
             Viewport viewport = SetupEditor(path);
@@ -512,7 +512,7 @@ namespace TextEditor.Test
                 viewport.MoveRight(0);
             }
 
-            Assert.True(viewport.IsLeftmostOutsideViewport());
+            Assert.False(viewport.IsLeftmostLimitVisible());
         }
 
         [Fact]

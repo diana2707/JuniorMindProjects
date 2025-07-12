@@ -8,14 +8,14 @@ namespace TextEditor.Domain
 
         public int FirstRowIndex { get; }
 
-        public bool IsRightmostLimit(int index);
+        public bool IsRightmostLimitVisible(int index);
 
-        public bool IsLeftmostLimit(int index);
+        public bool IsLeftmostLimitVisible();
 
-        public bool IsDownmostLimit(int index);
+        public bool IsDownmostLimitVisible(int index);
 
         public int GetViewportRowLength(int index);
 
-        public bool IsLeftmostOutsideViewport();
+        //public bool IsLeftmostOutsideViewport();
     }
 }
