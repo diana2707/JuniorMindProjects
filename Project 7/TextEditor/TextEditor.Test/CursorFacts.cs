@@ -263,29 +263,6 @@ namespace TextEditor.Test
         }
 
         [Fact]
-        public void CursorExitedViewIsRaisedByMoveLeftMethodWhenCursorIsAtLeftmostPosition()
-        {
-            string path = GetTestFilePath("SingleChar.txt");
-            Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
-
-            Direction directionResult = 0;
-            int rowResult = -1;
-
-            cursor.CursorExitedView += (direction, row) =>
-            {
-                directionResult = direction;
-                rowResult = row;
-            };
-
-            cursor.MoveLeft();
-            cursor.MoveLeft();
-
-            Assert.Equal(Direction.Left, directionResult);
-            Assert.Equal(0, rowResult);
-        }
-
-        [Fact]
         public void CursorExitedViewIsRaisedByMoveDownMethodWhenCursorIsAtDownmostPosition()
         {
             string path = GetTestFilePath("SingleChar.txt");
@@ -412,7 +389,7 @@ namespace TextEditor.Test
         }
 
         [Fact]
-        public void MoveRightMethodInvokesCursorExitedViewWhenCursorMovevAtTheStartOfLineWhenStartIsOutsideView()
+        public void MoveRightMethodInvokesCursorExitedViewWhenCursorMovesAtTheStartOfLineAndStartIsOutsideView()
         {
             string path = GetTestFilePath("UnevenLengthRows.txt");
             FileManager fileManager = new(path);
@@ -510,6 +487,37 @@ namespace TextEditor.Test
             cursor.MoveLeft();
 
             Assert.Equal((1, 1), result);
+        }
+
+        [Fact]
+        public void MoveLeftMethodInvokesCursorExitedViewWhenCursorMovesAtEndOdLineAndEndIsOutsideView()
+        {
+            string path = GetTestFilePath("UnevenLengthRows.txt");
+            FileManager fileManager = new(path);
+            TextManager textManager = new(fileManager.Text);
+            ITextInfo textInfo = textManager;
+            Viewport viewport = new(120, 30, 0, textInfo);
+            Cursor cursor = new(viewport);
+            cursor.SetInitialPosition();
+
+            cursor.CursorExitedView += viewport.OnCursorExitedView;
+
+            Direction resultDirection = 0;
+            int resultRow = 0;
+
+            cursor.CursorExitedView += (direction, row) =>
+            {
+                resultDirection = direction;
+                resultRow = row;
+            };
+
+            cursor.MoveUp();
+            cursor.MoveUp();
+            cursor.MoveLeft();
+            cursor.MoveLeft();
+
+            Assert.Equal(Direction.MaxRight, resultDirection);
+            Assert.Equal(0, resultRow);
         }
 
         [Fact]

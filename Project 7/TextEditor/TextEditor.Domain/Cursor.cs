@@ -142,12 +142,16 @@ namespace TextEditor.Domain
             {
                 if (row == viewportInfo.FirstRowIndex)
                 {
-                    CursorExitedView?.Invoke(Direction.Left, row);
                     return;
                 }
 
                 row--;
                 column = viewportInfo.GetViewportRowLength(row);
+
+                if (!viewportInfo.IsRightmostLimitVisible(row))
+                {
+                    CursorExitedView?.Invoke(Direction.MaxRight, row);
+                }
 
                 CursorMoved?.Invoke((column, row));
                 return;
