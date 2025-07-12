@@ -555,6 +555,14 @@ namespace TextEditor.Test
             Assert.Equal(30, viewport.FirstColumnAbsoluteIndex);
         }
 
+        [Fact]
+        public void IsUpmostLimitVisibleReturnsTrueWhenFirstRowAbsoluteIndexIs0()
+        {
+            var path = GetTestFilePath("SingleRow.txt");
+            Viewport viewport = SetupEditor(path);
+            Assert.True(viewport.IsUpmostLimitVisible());
+        }
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);
