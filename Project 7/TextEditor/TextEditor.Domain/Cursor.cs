@@ -105,8 +105,16 @@ namespace TextEditor.Domain
                         return;
                     }
 
-                    //aici cursorul trece pe randul urmator
                     column = 0;
+
+                    if(row == viewportInfo.LastRowIndex)
+                    {
+                        CursorExitedView?.Invoke(Direction.MaxLeftAndDown, row);
+                        CursorMoved?.Invoke((column, row));
+                        return;
+                    }
+
+                    //aici cursorul trece pe randul urmator
                     row++;
 
                     //daca incepututl randului urmator este in afara viewportului am nevoie sa rerandez

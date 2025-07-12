@@ -448,6 +448,38 @@ namespace TextEditor.Test
             Assert.Equal(1, resultRow);
         }
 
+        [Fact]
+        public void MoveRightMethodInvokesCursorExitedViewWithDirectionMaxleftAndDownWhenCursorIsOnLastVisibleLineAtRightmostPosition()
+        {
+            string path = GetTestFilePath("ExceedsWindowHeigthAndWidth.txt");
+            FileManager fileManager = new(path);
+            TextManager textManager = new(fileManager.Text);
+            ITextInfo textInfo = textManager;
+            Viewport viewport = new(120, 30, 0, textInfo);
+            Cursor cursor = new(viewport);
+            cursor.SetInitialPosition();
+
+            cursor.CursorExitedView += viewport.OnCursorExitedView;
+
+            Direction resultDirection = 0;
+            int resultRow = 28;
+
+            cursor.CursorExitedView += (direction, row) =>
+            {
+                resultDirection = direction;
+                resultRow = row;
+            };
+
+            for (int i = 0; i < 35; i++)
+            {
+                cursor.MoveRight();
+            }
+
+            Assert.Equal(Direction.MaxLeftAndDown, resultDirection);
+            Assert.Equal(28, resultRow);
+
+        }   
+
 
         [Fact]
         public void MoveLeftMethodInvokesCursorMovedEventWhenCursorMoveLeft()
