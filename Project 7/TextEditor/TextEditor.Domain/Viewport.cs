@@ -93,10 +93,10 @@ namespace TextEditor.Domain
             return LastColumnAbsoluteIndex(absoluteIndex) == textInfo.GetLineLength(absoluteIndex) - 1;
         }
 
-        public bool IsDownmostLimit(int viewportIndex)
+        public bool IsDownmostLimit(int viewportRowIndex)
         {
-            int absoluteIndex = viewportIndex - FirstRowIndex;
-            return absoluteIndex == textInfo.GetLinesCount() - 1;
+            int absoluteRowIndex = viewportRowIndex - FirstRowIndex + FirstRowAbsoluteIndex; //calculeaza gresit pt cand randul este scrollat...
+            return absoluteRowIndex == textInfo.GetLinesCount() - 1;
         }
 
         public bool IsLeftmostOutsideViewport()

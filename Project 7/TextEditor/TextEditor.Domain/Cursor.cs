@@ -93,21 +93,21 @@ namespace TextEditor.Domain
 
         public void MoveRight()
         {
-            if (column == viewportInfo.GetViewportRowLength(row))
+            if (column == viewportInfo.GetViewportRowLength(row)) //IsLastVisibleColumn(row)
             {
                 //CURSORUL SARE PE RANDUL URMATOR DOAR DACA CURSORUL SE AFLA PE ULTIMUL RAND
 
-                if (viewportInfo.IsRightmostLimit(row))
+                if (viewportInfo.IsRightmostLimit(row)) //IsRightmostCharacter(row)
                 {
                     //daca e final de text nu ar mai trebui mutat (rezolva conditia)
-                    if (viewportInfo.IsDownmostLimit(row))
+                    if (viewportInfo.IsDownmostLimit(row)) //IsDownmostLine(row)
                     {
                         return;
                     }
 
                     column = 0;
 
-                    if(row == viewportInfo.LastRowIndex)
+                    if(row == viewportInfo.LastRowIndex) //IsLastVisibleRow(row)
                     {
                         CursorExitedView?.Invoke(Direction.MaxLeftAndDown, row);
                         CursorMoved?.Invoke((column, row));
@@ -118,7 +118,7 @@ namespace TextEditor.Domain
                     row++;
 
                     //daca incepututl randului urmator este in afara viewportului am nevoie sa rerandez
-                    if (viewportInfo.IsLeftmostOutsideViewport())
+                    if (viewportInfo.IsLeftmostOutsideViewport()) //CanScrollLeft()
                     {
                         CursorExitedView?.Invoke(Direction.MaxLeft, row);
                     }
@@ -129,7 +129,6 @@ namespace TextEditor.Domain
 
                 CursorExitedView?.Invoke(Direction.Right, row);
                 CursorMoved?.Invoke((column, row));
-                //SetInitialPosition();
                 return;
             }
 

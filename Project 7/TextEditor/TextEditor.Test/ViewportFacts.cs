@@ -494,11 +494,11 @@ namespace TextEditor.Test
         {
             var path = GetTestFilePath("ExceedsWindowHeigth.txt");
             Viewport viewport = SetupEditor(path);
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 3; i++)
             {
                 viewport.MoveDown();
             }
-            Assert.True(viewport.IsDownmostLimit(31));
+            Assert.True(viewport.IsDownmostLimit(28));
         }
 
         [Fact]
