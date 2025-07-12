@@ -513,8 +513,19 @@ namespace TextEditor.Test
             }
 
             Assert.True(viewport.IsLeftmostOutsideViewport());
-        }   
+        }
 
+        [Fact]
+        public void MoveMaxLeftMovesViewportAtTheStartOfTheRow()
+        {
+            var path = GetTestFilePath("UnevenLengthRows.txt");
+            Viewport viewport = SetupEditor(path);
+
+            viewport.MoveRight(0);
+            viewport.MoveMaxLeft();
+
+            Assert.Equal(0, viewport.FirstColumnAbsoluteIndex);
+        }
 
         private static string GetTestFilePath(string fileName)
         {
