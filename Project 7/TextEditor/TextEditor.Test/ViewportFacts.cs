@@ -527,6 +527,23 @@ namespace TextEditor.Test
             Assert.Equal(0, viewport.FirstColumnAbsoluteIndex);
         }
 
+        [Fact]
+        public void MoveMaxLeftAndDownMovesViewportAtStartOfRowAndDownOneRow()
+        {
+            var path = GetTestFilePath("ExceedsWindowHeigthAndWidth.txt");
+            Viewport viewport = SetupEditor(path);
+
+            for(int i = 0; i < 34; i++)
+            {
+                viewport.MoveRight(0);
+            }
+            
+            viewport.MoveMaxLeftAndDown();
+
+            Assert.Equal(0, viewport.FirstColumnAbsoluteIndex);
+            Assert.Equal(29, viewport.LastRowAbsoluteIndex);
+        }
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);

@@ -165,6 +165,10 @@ namespace TextEditor.Domain
                 case Direction.MaxLeft:
                     MoveMaxLeft();
                     break;
+
+                case Direction.MaxLeftAndDown:
+                    MoveMaxLeftAndDown();
+                    break;
             }
 
             List<string> renderedText = RenderText();
@@ -210,6 +214,12 @@ namespace TextEditor.Domain
         public void MoveMaxLeft()
         {
             FirstColumnAbsoluteIndex = 0;
+        }
+
+        public void MoveMaxLeftAndDown()
+        {
+            MoveMaxLeft();
+            MoveDown();
         }
 
     }
