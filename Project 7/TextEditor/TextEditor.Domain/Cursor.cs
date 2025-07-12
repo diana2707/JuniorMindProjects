@@ -140,19 +140,26 @@ namespace TextEditor.Domain
         {
             if (column == 0)
             {
-                if (row == viewportInfo.FirstRowIndex)
+                if (viewportInfo.IsLeftmostLimitVisible())
                 {
+                    if (row == viewportInfo.FirstRowIndex)
+                    {
+                        return;
+                    }
+
+                    row--;
+                    column = viewportInfo.GetViewportRowLength(row);
+
+                    if (!viewportInfo.IsRightmostLimitVisible(row))
+                    {
+                        CursorExitedView?.Invoke(Direction.MaxRight, row);
+                    }
+
+                    CursorMoved?.Invoke((column, row));
                     return;
                 }
 
-                row--;
-                column = viewportInfo.GetViewportRowLength(row);
-
-                if (!viewportInfo.IsRightmostLimitVisible(row))
-                {
-                    CursorExitedView?.Invoke(Direction.MaxRight, row);
-                }
-
+                CursorExitedView?.Invoke(Direction.Left, row);
                 CursorMoved?.Invoke((column, row));
                 return;
             }
