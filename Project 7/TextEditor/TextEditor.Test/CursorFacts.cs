@@ -552,6 +552,42 @@ namespace TextEditor.Test
         }
 
         [Fact]
+        public void MoveLeftMethodInvokesCursorExitedViewWhenCursorWithDirectionMaxRightAndUpWhenInFirstPositionOnFirstVisibleRow()
+        {
+            string path = GetTestFilePath("ExceedsWindowHeigth.txt");
+            FileManager fileManager = new(path);
+            TextManager textManager = new(fileManager.Text);
+            ITextInfo textInfo = textManager;
+            Viewport viewport = new(120, 30, 0, textInfo);
+            Cursor cursor = new(viewport);
+            cursor.SetInitialPosition();
+
+            cursor.CursorExitedView += viewport.OnCursorExitedView;
+
+            Direction resultDirection = 0;
+            int resultRow = 0;
+
+            cursor.CursorExitedView += (direction, row) =>
+            {
+                resultDirection = direction;
+                resultRow = row;
+            };
+
+            for (int i = 0; i < 28; i++)
+            {
+                cursor.MoveUp();
+            }
+
+            for(int i = 0; i < 8; i++)
+            {
+                cursor.MoveLeft();
+            }
+
+            Assert.Equal(Direction.MaxRightAndUp, resultDirection);
+            Assert.Equal(0, resultRow);
+        }
+
+        [Fact]
         public void MoveDownMethodInvokesCursorMovedEventWhenCursorMovedDown()
         {
             string path = GetTestFilePath("SingleCharRows.txt");
