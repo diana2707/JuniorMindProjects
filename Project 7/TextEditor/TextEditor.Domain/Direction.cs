@@ -8,6 +8,7 @@ namespace TextEditor.Domain
         Left,
         Down,
         Up,
+        MaxRight,
         MaxLeft,
         MaxLeftAndDown
     }

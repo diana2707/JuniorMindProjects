@@ -87,10 +87,10 @@ namespace TextEditor.Domain
 
         //la row corectez in LastRowIndex, aici corectez direct cu -2?
 
-        public bool IsRightmostLimit(int viewportIndex)
+        public bool IsRightmostLimit(int viewportRowIndex)
         {
-            int absoluteIndex = viewportIndex - FirstRowIndex;
-            return LastColumnAbsoluteIndex(absoluteIndex) == textInfo.GetLineLength(absoluteIndex) - 1;
+            int absoluteRowIndex = viewportRowIndex - FirstRowIndex + FirstRowAbsoluteIndex;
+            return LastColumnAbsoluteIndex(absoluteRowIndex) == textInfo.GetLineLength(absoluteRowIndex) - 1;
         }
 
         public bool IsDownmostLimit(int viewportRowIndex)
@@ -104,10 +104,10 @@ namespace TextEditor.Domain
             return FirstColumnAbsoluteIndex > 0;
         }
 
-        public int GetViewportRowLength(int viewportIndex)
+        public int GetViewportRowLength(int viewportRowIndex)
         {
-            int absoluteIndex = viewportIndex - FirstRowIndex;
-            return LastColumnAbsoluteIndex(absoluteIndex) - FirstColumnAbsoluteIndex + 1;
+            int absoluteRowIndex = viewportRowIndex - FirstRowIndex + FirstRowAbsoluteIndex;
+            return LastColumnAbsoluteIndex(absoluteRowIndex) - FirstColumnAbsoluteIndex + 1;
 
             //if (textInfo.GetLineLength(index - FirstRowIndex)  /*text[rowPosition - startTextPosition].Length*/ > windowWidth - 1)
             //{
@@ -142,12 +142,12 @@ namespace TextEditor.Domain
 
 
         //inainte de rerender thebuie sa setez cursorul la inceputul textlui
-        public void OnCursorExitedView(Direction direction, int rowIndex)
+        public void OnCursorExitedView(Direction direction, int viewportRowIndex)
         {
             switch (direction)
             {
                 case Direction.Right:
-                    MoveRight(rowIndex);
+                    MoveRight(viewportRowIndex);
                     break;
 
                 case Direction.Left:
@@ -175,10 +175,10 @@ namespace TextEditor.Domain
             ViewportMoved?.Invoke(renderedText, (column: 0, row: FirstRowIndex));
         }
 
-        public void MoveRight(int rowIndex)
+        public void MoveRight(int viewportRowIndex)
         {
             //int absoluteRowIndex = rowIndex - FirstRowIndex;
-            if (IsRightmostLimit(rowIndex))
+            if (IsRightmostLimit(viewportRowIndex))
             {
                 return;
             }
