@@ -544,6 +544,17 @@ namespace TextEditor.Test
             Assert.Equal(29, viewport.LastRowAbsoluteIndex);
         }
 
+        [Fact]
+        public void MoveMaxRightMovesViewportAtTheEndOfTheRow()
+        {
+            var path = GetTestFilePath("UnevenLengthRows.txt");
+            Viewport viewport = SetupEditor(path);
+
+            viewport.MoveMaxRight(0);
+
+            Assert.Equal(30, viewport.FirstColumnAbsoluteIndex);
+        }
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);

@@ -166,6 +166,10 @@ namespace TextEditor.Domain
                     MoveMaxLeft();
                     break;
 
+                case Direction.MaxRight:
+                    MoveMaxRight(viewportRowIndex);
+                    break;
+
                 case Direction.MaxLeftAndDown:
                     MoveMaxLeftAndDown();
                     break;
@@ -214,6 +218,14 @@ namespace TextEditor.Domain
         public void MoveMaxLeft()
         {
             FirstColumnAbsoluteIndex = 0;
+        }
+
+        public void MoveMaxRight(int viewportRowIndex)
+        {
+            int absoluteRowIndex = viewportRowIndex - FirstRowIndex + FirstRowAbsoluteIndex;
+            int rowLength = textInfo.GetLineLength(absoluteRowIndex);
+
+            FirstColumnAbsoluteIndex = rowLength - 1 - windowWidth + 2;
         }
 
         public void MoveMaxLeftAndDown()
