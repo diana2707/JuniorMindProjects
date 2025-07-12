@@ -99,9 +99,8 @@ namespace TextEditor.Domain
             return absoluteIndex == textInfo.GetLinesCount() - 1;
         }
 
-        public bool IsLeftmostOutsideViewport(int viewportIndex)
+        public bool IsLeftmostOutsideViewport()
         {
-            int absoluteIndex = viewportIndex - FirstRowIndex;
             return FirstColumnAbsoluteIndex > 0;
         }
 

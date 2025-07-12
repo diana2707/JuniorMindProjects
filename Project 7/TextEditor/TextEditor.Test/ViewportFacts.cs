@@ -512,7 +512,7 @@ namespace TextEditor.Test
                 viewport.MoveRight(0);
             }
 
-            Assert.True(viewport.IsLeftmostOutsideViewport(0));
+            Assert.True(viewport.IsLeftmostOutsideViewport());
         }   
 
 

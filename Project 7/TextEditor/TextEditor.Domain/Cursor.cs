@@ -110,11 +110,11 @@ namespace TextEditor.Domain
                     row++;
 
                     //daca incepututl randului urmator este in afara viewportului am nevoie sa rerandez
-                    //if (viewportInfo.StartIsOutsideView)
-                    //{
-                    //    CursorExitedView?.Invoke(Direction.MaxLeft, row);
-                    //}
-                    
+                    if (viewportInfo.IsLeftmostOutsideViewport())
+                    {
+                        CursorExitedView?.Invoke(Direction.MaxLeft, row);
+                    }
+
                     CursorMoved?.Invoke((column, row));
                     return;
                 }
