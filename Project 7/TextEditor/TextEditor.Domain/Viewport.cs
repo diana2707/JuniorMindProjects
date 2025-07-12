@@ -104,9 +104,10 @@ namespace TextEditor.Domain
             return FirstColumnAbsoluteIndex == 0;
         }
 
-        public bool IsUpmostLimitVisible()
+        public bool IsUpmostLimitVisible(int viewportRowIndex)
         {
-            return FirstRowAbsoluteIndex == 0;
+            int absoluteRowIndex = viewportRowIndex - FirstRowIndex + FirstRowAbsoluteIndex;
+            return absoluteRowIndex == 0;
         }
 
         public int GetViewportRowLength(int viewportRowIndex)

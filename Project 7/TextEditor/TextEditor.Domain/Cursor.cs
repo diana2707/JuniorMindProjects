@@ -100,7 +100,7 @@ namespace TextEditor.Domain
                 if (viewportInfo.IsRightmostLimitVisible(row)) //IsRightmostCharacter(row)
                 {
                     //daca e final de text nu ar mai trebui mutat (rezolva conditia)
-                    if (viewportInfo.IsDownmostLimitVisible(row)) //IsDownmostLine(row)
+                    if (viewportInfo.IsDownmostLimitVisible(row)) //IsDownmostLine(row) == numele nu e relevant, ultima linie poate fi vizibila dar cursorul nu intra in conditie, doar daca randul in sine u ultimul
                     {
                         return;
                     }
@@ -142,7 +142,7 @@ namespace TextEditor.Domain
             {
                 if (viewportInfo.IsLeftmostLimitVisible())
                 {
-                    if (row == viewportInfo.FirstRowIndex) //upmost limit
+                    if (viewportInfo.IsUpmostLimitVisible(row)) //upmost limit
                     {
                         return;
                     }

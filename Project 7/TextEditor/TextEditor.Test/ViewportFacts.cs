@@ -560,7 +560,7 @@ namespace TextEditor.Test
         {
             var path = GetTestFilePath("SingleRow.txt");
             Viewport viewport = SetupEditor(path);
-            Assert.True(viewport.IsUpmostLimitVisible());
+            Assert.True(viewport.IsUpmostLimitVisible(0));
         }
 
         private static string GetTestFilePath(string fileName)
