@@ -235,12 +235,12 @@ namespace TextEditor.Domain
             int absoluteRowIndex = viewportRowIndex - FirstRowIndex + FirstRowAbsoluteIndex;
             int rowLength = textInfo.GetLineLength(absoluteRowIndex);
 
-            //????????????????????????
-            //if (rowLength < windowWidth - 2)
-            //{
-            //    FirstColumnAbsoluteIndex = 0;
-            //    return;
-            //}
+            //am nevoie de asta si in MoveMaxLeft? de ce?
+            if (rowLength < windowWidth - 2)
+            {
+                FirstColumnAbsoluteIndex = 0;
+                return;
+            }
 
             FirstColumnAbsoluteIndex = rowLength - 1 - windowWidth + 2;
         }

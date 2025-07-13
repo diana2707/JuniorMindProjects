@@ -149,7 +149,7 @@ namespace TextEditor.Domain
 
                     column = viewportInfo.GetViewportRowLength(row);
 
-                    if (row == 0) //functioneaza si cand randul este vizibil intreg?
+                    if (row == viewportInfo.FirstRowIndex) //functioneaza si cand randul este vizibil intreg?
                     {
                         CursorExitedView?.Invoke(Direction.MaxRightAndUp, row);
                         CursorMoved?.Invoke((column, row));
