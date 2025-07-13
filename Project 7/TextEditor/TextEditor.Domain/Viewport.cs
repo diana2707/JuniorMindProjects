@@ -47,21 +47,21 @@ namespace TextEditor.Domain
         public int FirstRowAbsoluteIndex { get; private set; } = 0;
 
         public int LastRowAbsoluteIndex => FirstRowAbsoluteIndex + (LastRowIndex - FirstRowIndex); //am nevoie de -1?
-        //{
-        //    get
-        //    {
-        //        int viewportHeigth = LastRowIndex - FirstRowIndex + 1;
-        //        int textHeigth = textInfo.GetLinesCount();
-        //        if (textHeigth == 0)
-        //        {
-        //            return 0;
-        //        }
+                                                                                                   //{
+                                                                                                   //    get
+                                                                                                   //    {
+                                                                                                   //        int viewportHeigth = LastRowIndex - FirstRowIndex + 1;
+                                                                                                   //        int textHeigth = textInfo.GetLinesCount();
+                                                                                                   //        if (textHeigth == 0)
+                                                                                                   //        {
+                                                                                                   //            return 0;
+                                                                                                   //        }
 
         //        return viewportHeigth > textHeigth
         //            ? textHeigth - 1
         //            : FirstRowAbsoluteIndex + viewportHeigth - 1;
         //    }
-            
+
         //}
 
         public int FirstColumnAbsoluteIndex { get; private set; } = 0;
@@ -82,7 +82,7 @@ namespace TextEditor.Domain
             }
 
             return absoluteLength - 1;
-            
+
         }
 
         //la row corectez in LastRowIndex, aici corectez direct cu -2?
@@ -179,6 +179,10 @@ namespace TextEditor.Domain
                 case Direction.MaxLeftAndDown:
                     MoveMaxLeftAndDown();
                     break;
+
+                case Direction.MaxRightAndUp:
+                    MoveMaxRightAndUp(viewportRowIndex);
+                    break;
             }
 
             List<string> renderedText = RenderText();
@@ -203,7 +207,7 @@ namespace TextEditor.Domain
 
         public void MoveDown()
         {
-            if(LastRowAbsoluteIndex == textInfo.GetLinesCount() - 1)
+            if (LastRowAbsoluteIndex == textInfo.GetLinesCount() - 1)
             {
                 return;
             }
@@ -231,6 +235,13 @@ namespace TextEditor.Domain
             int absoluteRowIndex = viewportRowIndex - FirstRowIndex + FirstRowAbsoluteIndex;
             int rowLength = textInfo.GetLineLength(absoluteRowIndex);
 
+            //????????????????????????
+            //if (rowLength < windowWidth - 2)
+            //{
+            //    FirstColumnAbsoluteIndex = 0;
+            //    return;
+            //}
+
             FirstColumnAbsoluteIndex = rowLength - 1 - windowWidth + 2;
         }
 
@@ -240,5 +251,10 @@ namespace TextEditor.Domain
             MoveDown();
         }
 
+        public void MoveMaxRightAndUp(int viewportRowIndex)
+        {
+            MoveMaxRight(viewportRowIndex);
+            MoveUp();
+        }
     }
 }

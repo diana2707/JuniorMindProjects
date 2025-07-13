@@ -545,6 +545,19 @@ namespace TextEditor.Test
         }
 
         [Fact]
+        public void MoveMaxRightAndUpMovesViewportAtEndOfRowAndUpOneRow()
+        {
+            var path = GetTestFilePath("ExceedsWindowHeigthAndWidth.txt");
+            Viewport viewport = SetupEditor(path);
+
+            viewport.MoveDown();
+            viewport.MoveMaxRightAndUp(0);
+
+            Assert.Equal(34, viewport.FirstColumnAbsoluteIndex);
+            Assert.Equal(0, viewport.FirstRowAbsoluteIndex);
+        }
+
+        [Fact]
         public void MoveMaxRightMovesViewportAtTheEndOfTheRow()
         {
             var path = GetTestFilePath("UnevenLengthRows.txt");
