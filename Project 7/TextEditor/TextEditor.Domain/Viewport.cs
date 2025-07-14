@@ -175,14 +175,23 @@ namespace TextEditor.Domain
                     break;
 
                 case Direction.MaxLeft | Direction.Down:
-                    MoveMaxLeftAndDown();
+                    //MoveMaxLeftAndDown();
+                    MoveMaxLeft();
+                    MoveDown();
                     break;
 
                 case Direction.MaxRight | Direction.Up:
-                    MoveMaxRightAndUp(viewportRowIndex);
+                    //MoveMaxRightAndUp(viewportRowIndex);
+                    MoveUp();
+                    MoveMaxRight(viewportRowIndex);
                     break;
 
                 case Direction.ToRowEnd:
+                    MoveToRowEnd(viewportRowIndex);
+                    break;
+
+                case Direction.Down | Direction.ToRowEnd:
+                    MoveDown();
                     MoveToRowEnd(viewportRowIndex);
                     break;
             }
@@ -247,17 +256,17 @@ namespace TextEditor.Domain
             FirstColumnAbsoluteIndex = rowLength - 1 - windowWidth + 2;
         }
 
-        public void MoveMaxLeftAndDown()
-        {
-            MoveMaxLeft();
-            MoveDown();
-        }
+        //public void MoveMaxLeftAndDown()
+        //{
+        //    MoveMaxLeft();
+        //    MoveDown();
+        //}
 
-        public void MoveMaxRightAndUp(int viewportRowIndex)
-        {
-            MoveUp();
-            MoveMaxRight(viewportRowIndex);
-        }
+        //public void MoveMaxRightAndUp(int viewportRowIndex)
+        //{
+        //    MoveUp();
+        //    MoveMaxRight(viewportRowIndex);
+        //}
 
         public void MoveToRowEnd(int viewportRowIndex)
         {

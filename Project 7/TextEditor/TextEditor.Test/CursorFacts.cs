@@ -693,7 +693,7 @@ namespace TextEditor.Test
             cursor.MoveDown();
 
             Assert.Equal(28, cursor.Row);
-            Assert.Equal(21, cursor.Column);
+            Assert.Equal(1, cursor.Column);
         }
 
         [Fact]

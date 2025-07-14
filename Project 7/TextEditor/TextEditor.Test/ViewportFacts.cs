@@ -527,35 +527,35 @@ namespace TextEditor.Test
             Assert.Equal(0, viewport.FirstColumnAbsoluteIndex);
         }
 
-        [Fact]
-        public void MoveMaxLeftAndDownMovesViewportAtStartOfRowAndDownOneRow()
-        {
-            var path = GetTestFilePath("ExceedsWindowHeigthAndWidth.txt");
-            Viewport viewport = SetupEditor(path);
+        //[Fact]
+        //public void MoveMaxLeftAndDownMovesViewportAtStartOfRowAndDownOneRow()
+        //{
+        //    var path = GetTestFilePath("ExceedsWindowHeigthAndWidth.txt");
+        //    Viewport viewport = SetupEditor(path);
 
-            for(int i = 0; i < 34; i++)
-            {
-                viewport.MoveRight(0);
-            }
+        //    for(int i = 0; i < 34; i++)
+        //    {
+        //        viewport.MoveRight(0);
+        //    }
             
-            viewport.MoveMaxLeftAndDown();
+        //    viewport.MoveMaxLeftAndDown();
 
-            Assert.Equal(0, viewport.FirstColumnAbsoluteIndex);
-            Assert.Equal(29, viewport.LastRowAbsoluteIndex);
-        }
+        //    Assert.Equal(0, viewport.FirstColumnAbsoluteIndex);
+        //    Assert.Equal(29, viewport.LastRowAbsoluteIndex);
+        //}
 
-        [Fact]
-        public void MoveMaxRightAndUpMovesViewportAtEndOfRowAndUpOneRow()
-        {
-            var path = GetTestFilePath("ExceedsWindowHeigthAndWidth.txt");
-            Viewport viewport = SetupEditor(path);
+        //[Fact]
+        //public void MoveMaxRightAndUpMovesViewportAtEndOfRowAndUpOneRow()
+        //{
+        //    var path = GetTestFilePath("ExceedsWindowHeigthAndWidth.txt");
+        //    Viewport viewport = SetupEditor(path);
 
-            viewport.MoveDown();
-            viewport.MoveMaxRightAndUp(0);
+        //    viewport.MoveDown();
+        //    viewport.MoveMaxRightAndUp(0);
 
-            Assert.Equal(34, viewport.FirstColumnAbsoluteIndex);
-            Assert.Equal(0, viewport.FirstRowAbsoluteIndex);
-        }
+        //    Assert.Equal(34, viewport.FirstColumnAbsoluteIndex);
+        //    Assert.Equal(0, viewport.FirstRowAbsoluteIndex);
+        //}
 
         [Fact]
         public void MoveMaxRightMovesViewportAtTheEndOfTheRow()
