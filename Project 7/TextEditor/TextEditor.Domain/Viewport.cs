@@ -267,6 +267,7 @@ namespace TextEditor.Domain
             if (rowLength == 0)
             {
                 FirstColumnAbsoluteIndex = 0;
+                return;
             }
 
             FirstColumnAbsoluteIndex = rowLength - 1;

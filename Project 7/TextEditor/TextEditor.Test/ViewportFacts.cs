@@ -577,7 +577,7 @@ namespace TextEditor.Test
         }
 
         [Fact]
-        public void MoveLeftToRowEndMovesViewportAtTheEndOfRow()
+        public void MoveToRowEndMovesViewportAtTheEndOfRow()
         {
             var path = GetTestFilePath("UnevenLengthRows.txt");
             Viewport viewport = SetupEditor(path);
@@ -589,6 +589,21 @@ namespace TextEditor.Test
 
             viewport.MoveToRowEnd(1);
             Assert.Equal(20, viewport.FirstColumnAbsoluteIndex);
+        }
+
+        [Fact]
+        public void MoveToRowEndMovesViewportAtAbsolutPosition0WhenRowIsEmpty()
+        {
+            var path = GetTestFilePath("EmptyRow.txt");
+            Viewport viewport = SetupEditor(path);
+
+            for (int i = 0; i < 10; i++)
+            {
+                viewport.MoveRight(0);
+            }
+
+            viewport.MoveToRowEnd(1);
+            Assert.Equal(0, viewport.FirstColumnAbsoluteIndex);
         }
 
         private static string GetTestFilePath(string fileName)
