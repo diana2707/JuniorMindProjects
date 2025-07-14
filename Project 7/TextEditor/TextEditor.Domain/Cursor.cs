@@ -198,6 +198,8 @@ namespace TextEditor.Domain
 
             //gestionza cand cursorul e in pozitia 0?
 
+            nextRowLength = viewportInfo.GetViewportRowLength(row);
+
             column = nextRowLength < column ? nextRowLength : column;
 
             CursorMoved?.Invoke((column, row));

@@ -618,6 +618,15 @@ namespace TextEditor.Test
 
             cursor.CursorExitedView += viewport.OnCursorExitedView;
 
+            Direction resultDirection = 0;
+            int resultRow = 0;
+
+            cursor.CursorExitedView += (direction, row) =>
+            {
+                resultDirection = direction;
+                resultRow = row;
+            };
+
             for (int i = 0; i < 3; i++)
             {
                 cursor.MoveUp();
@@ -629,15 +638,6 @@ namespace TextEditor.Test
             }
 
             cursor.MoveDown();
-
-            Direction resultDirection = 0;
-            int resultRow = 0;
-
-            cursor.CursorExitedView += (direction, row) => 
-            {
-                resultDirection = direction;
-                resultRow = row;
-            };
 
             Assert.Equal(Direction.ToRowEnd, resultDirection);
             Assert.Equal(1, resultRow);
