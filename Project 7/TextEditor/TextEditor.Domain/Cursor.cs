@@ -186,20 +186,22 @@ namespace TextEditor.Domain
                 return;
             }
 
-            int nextRowLength = viewportInfo.GetViewportRowLength(row + 1);
+            row++;
+
+            int nextRowLength = viewportInfo.GetViewportRowLength(row);
             
-            //if(nextRowLength <= 0)
-            //{
-            //    CursorExitedView?.Invoke(Direction., row);
-            //}
+            //test ca sa verific if-ul asta
+            if (nextRowLength <= 0)
+            {
+                CursorExitedView?.Invoke(Direction.LeftToRowEnd, row);
+            }
+
+            //gestionza cand cursorul e in pozitia 0?
 
             column = nextRowLength < column ? nextRowLength : column;
 
-            row++;
-
             CursorMoved?.Invoke((column, row));
         }
-
         public void MoveUp()
         {
             if (row == viewportInfo.FirstRowIndex)

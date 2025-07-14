@@ -606,6 +606,44 @@ namespace TextEditor.Test
         }
 
         [Fact]
+        public void MoveDownMethodInvokesCursorExitedViewEventWhenCursorMovesDownAndNextRowIsShorter()
+        {
+            string path = GetTestFilePath("UnevenLengthRows.txt");
+            FileManager fileManager = new(path);
+            TextManager textManager = new(fileManager.Text);
+            ITextInfo textInfo = textManager;
+            Viewport viewport = new(120, 30, 0, textInfo);
+            Cursor cursor = new(viewport);
+            cursor.SetInitialPosition();
+
+            cursor.CursorExitedView += viewport.OnCursorExitedView;
+
+            for (int i = 0; i < 3; i++)
+            {
+                cursor.MoveUp();
+            }
+
+            for (int i = 0; i < 145; i++)
+            {
+                cursor.MoveRight();
+            }
+
+            cursor.MoveDown();
+
+            Direction resultDirection = 0;
+            int resultRow = 0;
+
+            cursor.CursorExitedView += (direction, row) => 
+            {
+                resultDirection = direction;
+                resultRow = row;
+            };
+
+            Assert.Equal(Direction.LeftToRowEnd, resultDirection);
+            Assert.Equal(1, resultRow);
+        }   
+
+        [Fact]
         public void MoveUpMethodInvokesCursorMovedEventWhenCursorMovedUp()
         {
             string path = GetTestFilePath("SingleCharRows.txt");
