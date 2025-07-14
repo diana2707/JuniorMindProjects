@@ -190,10 +190,10 @@ namespace TextEditor.Domain
                     MoveToRowEnd(viewportRowIndex);
                     break;
 
-                case Direction.Down | Direction.ToRowEnd:
-                    MoveDown();
-                    MoveToRowEnd(viewportRowIndex);
-                    break;
+                //case Direction.Down | Direction.ToRowEnd:
+                //    MoveDown();
+                //    MoveToRowEnd(viewportRowIndex);
+                //    break;
             }
 
             List<string> renderedText = RenderText();
