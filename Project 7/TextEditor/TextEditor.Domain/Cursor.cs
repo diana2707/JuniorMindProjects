@@ -147,6 +147,7 @@ namespace TextEditor.Domain
                         return;
                     }
 
+                    //nu e bine
                     column = viewportInfo.GetViewportRowLength(row);
 
                     if (row == viewportInfo.FirstRowIndex) //functioneaza si cand randul este vizibil intreg?

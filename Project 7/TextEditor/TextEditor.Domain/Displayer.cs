@@ -44,20 +44,20 @@ namespace TextEditor.Domain
                 clearedRows.Add(new string(' ', controller.Width));
             }
 
-            DisplayCursorAt((0, startRow));
+            DisplayCursorAt(0, startRow);
             DisplayText(clearedRows);
-            DisplayCursorAt((0, startRow));
+            DisplayCursorAt(0, startRow);
         }
 
         //modifica tuplelul
-        public void DisplayCursorAt((int left, int top) coordinate)
+        public void DisplayCursorAt(int column, int row)
         {
-            controller.SetCursorPosition(coordinate.left, coordinate.top);
+            controller.SetCursorPosition(column, row);
         }
 
         public void OnViewportMoved(List<string> renderedText, (int column, int row) startPosition)
         {
-            DisplayCursorAt((startPosition.column, startPosition.row)); //cred ca poate fi sters pt ca seteaza si in clear from cursorul la inceput
+            DisplayCursorAt(startPosition.column, startPosition.row); //cred ca poate fi sters pt ca seteaza si in clear from cursorul la inceput
             ClearFrom(startPosition.row);
             DisplayText(renderedText);
             //display cursor at the end of row Cursor.SetInitialPosition...
@@ -65,7 +65,7 @@ namespace TextEditor.Domain
 
         public void OnCursorMoved((int column, int row) cursorPosition)
         {
-            DisplayCursorAt((cursorPosition.column, cursorPosition.row));
+            DisplayCursorAt(cursorPosition.column, cursorPosition.row);
         }
     }
 }

@@ -60,7 +60,7 @@ namespace TextEditor.Test
             FakeConsoleController controller = new();
             var displayer = new Displayer(controller);
 
-            displayer.DisplayCursorAt((5, 7));
+            displayer.DisplayCursorAt(5, 7);
             Assert.Equal((5, 7), controller.CursorPosition);
         }
 

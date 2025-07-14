@@ -39,7 +39,7 @@ namespace TextEditor.App
             inputHandler.ArrowKeyPressed += cursor.OnArrowKeyPressed;
             inputHandler.EscapeKeyPressed += cursor.OnEscapeKeyPressed;
 
-            cursor.CursorMoved += displayer.DisplayCursorAt; //fa o metoda OnCursorMoved
+            cursor.CursorMoved += displayer.OnCursorMoved; //fa o metoda OnCursorMoved
             cursor.CursorExitedView += viewport.OnCursorExitedView;
 
             viewport.ViewportMoved += displayer.OnViewportMoved;
