@@ -109,7 +109,7 @@ namespace TextEditor.Domain
 
                     if(row == viewportInfo.LastRowIndex) //IsLastVisibleRow(row) //functioneaza si cand randul este vizibil intreg?
                     {
-                        CursorExitedView?.Invoke(Direction.MaxLeftAndDown, row);
+                        CursorExitedView?.Invoke(Direction.MaxLeft | Direction.Down, row);
                         CursorMoved?.Invoke((column, row));
                         return;
                     }
@@ -149,7 +149,7 @@ namespace TextEditor.Domain
                     
                     if (row == viewportInfo.FirstRowIndex) //functioneaza si cand randul este vizibil intreg?
                     {
-                        CursorExitedView?.Invoke(Direction.MaxRightAndUp, row);
+                        CursorExitedView?.Invoke(Direction.MaxRight | Direction.Up, row);
                         column = viewportInfo.GetViewportRowLength(row);
                         CursorMoved?.Invoke((column, row));
                         return;

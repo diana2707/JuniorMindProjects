@@ -174,11 +174,11 @@ namespace TextEditor.Domain
                     MoveMaxRight(viewportRowIndex);
                     break;
 
-                case Direction.MaxLeftAndDown:
+                case Direction.MaxLeft | Direction.Down:
                     MoveMaxLeftAndDown();
                     break;
 
-                case Direction.MaxRightAndUp:
+                case Direction.MaxRight | Direction.Up:
                     MoveMaxRightAndUp(viewportRowIndex);
                     break;
 

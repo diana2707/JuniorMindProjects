@@ -451,7 +451,7 @@ namespace TextEditor.Test
                 cursor.MoveRight();
             }
 
-            Assert.Equal(Direction.MaxLeftAndDown, resultDirection);
+            Assert.Equal(Direction.MaxLeft | Direction.Down, resultDirection);
             Assert.Equal(28, resultRow);
 
         }   
@@ -584,7 +584,7 @@ namespace TextEditor.Test
                 cursor.MoveLeft();
             }
 
-            Assert.Equal(Direction.MaxRightAndUp, resultDirection);
+            Assert.Equal(Direction.MaxRight | Direction.Up, resultDirection);
             Assert.Equal(0, resultRow);
         }
 
@@ -643,7 +643,7 @@ namespace TextEditor.Test
         }
 
         [Fact]
-        public void MoveDownMethodMovesToEndOfVisibleRowWhenCursorIsOnLastVisibleRow()
+        public void MoveDownMethodInvokesCursorExitedViewWhenOnLastVisibleRowAndSetsColumnToEndOfNewLastRowWhenShorter()
         {
             string path = GetTestFilePath("UnevenLengthRowsExceedWindowHeight.txt");
             FileManager fileManager = new(path);
@@ -664,6 +664,25 @@ namespace TextEditor.Test
             }
 
             cursor.MoveDown();
+
+            Assert.Equal(28, cursor.Row);
+            Assert.Equal(21, cursor.Column);
+        }
+
+        [Fact]
+        public void MoveDownMethodInvokesCursorExitenViewWithDirectionDownAndToRowEnd()
+        {
+            string path = GetTestFilePath("UnevenLengthRowsExceedWindowHeight.txt");
+            FileManager fileManager = new(path);
+            TextManager textManager = new(fileManager.Text);
+            ITextInfo textInfo = textManager;
+            Viewport viewport = new(120, 30, 0, textInfo);
+            Cursor cursor = new(viewport);
+            cursor.SetInitialPosition();
+
+            cursor.CursorExitedView += viewport.OnCursorExitedView;
+
+           //adauga calluri pt situatia cand randul urmator e mai scurt si in afara viewportului
 
             Assert.Equal(28, cursor.Row);
             Assert.Equal(21, cursor.Column);
