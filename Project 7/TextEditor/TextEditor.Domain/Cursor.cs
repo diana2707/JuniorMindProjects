@@ -186,9 +186,15 @@ namespace TextEditor.Domain
                 CursorExitedView?.Invoke(Direction.Down, row);
 
                 int lastRowLength = viewportInfo.GetViewportRowLength(row);
-                column = lastRowLength < column ? lastRowLength : column;
 
                 //conditia pt cand randul este mai scurt si in afara viewportului
+                if (lastRowLength <= 0)
+                {
+                   CursorExitedView?.Invoke(Direction.Down | Direction.ToRowEnd, row);
+                }
+
+                lastRowLength = viewportInfo.GetViewportRowLength(row);
+                column = lastRowLength < column ? lastRowLength : column;
 
                 //conditia pt cand randul are o lungime similara iar cursorul isi poate pastra randul si coloana
 

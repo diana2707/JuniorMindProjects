@@ -682,7 +682,15 @@ namespace TextEditor.Test
 
             cursor.CursorExitedView += viewport.OnCursorExitedView;
 
-           //adauga calluri pt situatia cand randul urmator e mai scurt si in afara viewportului
+            cursor.MoveDown();
+            cursor.MoveDown();
+
+            for (int i = 0; i < 149; i++)
+            {
+                cursor.MoveRight();
+            }
+
+            cursor.MoveDown();
 
             Assert.Equal(28, cursor.Row);
             Assert.Equal(21, cursor.Column);
