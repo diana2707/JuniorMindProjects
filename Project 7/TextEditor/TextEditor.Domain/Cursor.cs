@@ -180,7 +180,18 @@ namespace TextEditor.Domain
         {
             if (row == viewportInfo.LastRowIndex)
             {
+                //+conditie pt downmost limit
+
+                //conditia pt cand randul este mai scurt
                 CursorExitedView?.Invoke(Direction.Down, row);
+
+                int lastRowLength = viewportInfo.GetViewportRowLength(row);
+                column = lastRowLength < column ? lastRowLength : column;
+
+                //conditia pt cand randul este mai scurt si in afara viewportului
+
+                //conditia pt cand randul are o lungime similara iar cursorul isi poate pastra randul si coloana
+
                 CursorMoved?.Invoke((column, row));
                 return;
             }
@@ -190,7 +201,7 @@ namespace TextEditor.Domain
             int nextRowLength = viewportInfo.GetViewportRowLength(row);
 
             //test ca sa verific if-ul asta
-            // nu e bine, pt randul urmator din afara viewportului nu functioneaza
+            // conditie pt randul urmator din afara viewportului
             if (nextRowLength <= 0)
             {
                 CursorExitedView?.Invoke(Direction.ToRowEnd, row);

@@ -53,6 +53,9 @@
     <None Update="TestFiles\UnevenLengthRows.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="TestFiles\UnevenLengthRowsExceedWindowHeight.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

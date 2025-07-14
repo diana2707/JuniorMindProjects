@@ -640,7 +640,34 @@ namespace TextEditor.Test
 
             Assert.Equal(Direction.ToRowEnd, resultDirection);
             Assert.Equal(1, resultRow);
-        }   
+        }
+
+        [Fact]
+        public void MoveDownMethodMovesToEndOfVisibleRowWhenCursorIsOnLastVisibleRow()
+        {
+            string path = GetTestFilePath("UnevenLengthRowsExceedWindowHeight.txt");
+            FileManager fileManager = new(path);
+            TextManager textManager = new(fileManager.Text);
+            ITextInfo textInfo = textManager;
+            Viewport viewport = new(120, 30, 0, textInfo);
+            Cursor cursor = new(viewport);
+            cursor.SetInitialPosition();
+
+            cursor.CursorExitedView += viewport.OnCursorExitedView;
+
+            cursor.MoveDown();
+            cursor.MoveDown();
+
+            for (int i = 0; i < 25; i++)
+            {
+                cursor.MoveRight();
+            }
+
+            cursor.MoveDown();
+
+            Assert.Equal(28, cursor.Row);
+            Assert.Equal(21, cursor.Column);
+        }
 
         [Fact]
         public void MoveUpMethodInvokesCursorMovedEventWhenCursorMovedUp()
