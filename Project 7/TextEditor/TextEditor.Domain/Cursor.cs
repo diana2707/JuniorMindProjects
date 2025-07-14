@@ -213,11 +213,17 @@ namespace TextEditor.Domain
                 return;
             }
 
-            int previousRowLength = viewportInfo.GetViewportRowLength(row - 1);
-
-            column = previousRowLength < column ? previousRowLength : column;
-
             row--;
+
+            int previousRowLength = viewportInfo.GetViewportRowLength(row);
+
+            if (previousRowLength <= 0)
+            {
+                CursorExitedView?.Invoke(Direction.ToRowEnd, row);
+            }
+
+            previousRowLength = viewportInfo.GetViewportRowLength(row);
+            column = previousRowLength < column ? previousRowLength : column;
 
             CursorMoved?.Invoke((column, row));
         }
