@@ -181,6 +181,10 @@ namespace TextEditor.Domain
                 case Direction.MaxRightAndUp:
                     MoveMaxRightAndUp(viewportRowIndex);
                     break;
+
+                case Direction.ToRowEnd:
+                    MoveToRowEnd(viewportRowIndex);
+                    break;
             }
 
             List<string> renderedText = RenderText();
@@ -253,6 +257,19 @@ namespace TextEditor.Domain
         {
             MoveMaxRight(viewportRowIndex);
             MoveUp();
+        }
+
+        public void MoveToRowEnd(int viewportRowIndex)
+        {
+            int absoluteRowIndex = viewportRowIndex - FirstRowIndex + FirstRowAbsoluteIndex;
+            int rowLength = textInfo.GetLineLength(absoluteRowIndex);
+
+            if (rowLength == 0)
+            {
+                FirstColumnAbsoluteIndex = 0;
+            }
+
+            FirstColumnAbsoluteIndex = rowLength - 1;
         }
     }
 }

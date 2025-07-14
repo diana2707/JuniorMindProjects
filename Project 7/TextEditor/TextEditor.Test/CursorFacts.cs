@@ -639,7 +639,7 @@ namespace TextEditor.Test
                 resultRow = row;
             };
 
-            Assert.Equal(Direction.LeftToRowEnd, resultDirection);
+            Assert.Equal(Direction.ToRowEnd, resultDirection);
             Assert.Equal(1, resultRow);
         }   
 

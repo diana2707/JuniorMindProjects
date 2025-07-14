@@ -193,7 +193,7 @@ namespace TextEditor.Domain
             //test ca sa verific if-ul asta
             if (nextRowLength <= 0)
             {
-                CursorExitedView?.Invoke(Direction.LeftToRowEnd, row);
+                CursorExitedView?.Invoke(Direction.ToRowEnd, row);
             }
 
             //gestionza cand cursorul e in pozitia 0?

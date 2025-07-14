@@ -576,6 +576,21 @@ namespace TextEditor.Test
             Assert.True(viewport.IsUpmostLimitVisible(0));
         }
 
+        [Fact]
+        public void MoveLeftToRowEndMovesViewportAtTheEndOfRow()
+        {
+            var path = GetTestFilePath("UnevenLengthRows.txt");
+            Viewport viewport = SetupEditor(path);
+
+            for (int i = 0; i < 30; i++)
+            {
+                viewport.MoveRight(0);
+            }
+
+            viewport.MoveToRowEnd(1);
+            Assert.Equal(20, viewport.FirstColumnAbsoluteIndex);
+        }
+
         private static string GetTestFilePath(string fileName)
         {
             return Path.Combine(AppContext.BaseDirectory, "TestFiles", fileName);

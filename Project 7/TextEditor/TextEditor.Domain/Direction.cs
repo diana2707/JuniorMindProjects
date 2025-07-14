@@ -12,7 +12,7 @@ namespace TextEditor.Domain
         MaxLeft,
         MaxRightAndUp,
         MaxLeftAndDown,
-        LeftToRowEnd
+        ToRowEnd
     }
 
 }
