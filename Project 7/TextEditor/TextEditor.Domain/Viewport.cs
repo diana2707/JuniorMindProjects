@@ -255,8 +255,8 @@ namespace TextEditor.Domain
 
         public void MoveMaxRightAndUp(int viewportRowIndex)
         {
-            MoveMaxRight(viewportRowIndex);
             MoveUp();
+            MoveMaxRight(viewportRowIndex);
         }
 
         public void MoveToRowEnd(int viewportRowIndex)

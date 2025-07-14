@@ -146,13 +146,11 @@ namespace TextEditor.Domain
                     {
                         return;
                     }
-
-                    //nu e bine
-                    column = viewportInfo.GetViewportRowLength(row);
-
+                    
                     if (row == viewportInfo.FirstRowIndex) //functioneaza si cand randul este vizibil intreg?
                     {
                         CursorExitedView?.Invoke(Direction.MaxRightAndUp, row);
+                        column = viewportInfo.GetViewportRowLength(row);
                         CursorMoved?.Invoke((column, row));
                         return;
                     }
@@ -190,8 +188,9 @@ namespace TextEditor.Domain
             row++;
 
             int nextRowLength = viewportInfo.GetViewportRowLength(row);
-            
+
             //test ca sa verific if-ul asta
+            // nu e bine, pt randul urmator din afara viewportului nu functioneaza
             if (nextRowLength <= 0)
             {
                 CursorExitedView?.Invoke(Direction.ToRowEnd, row);
@@ -205,6 +204,7 @@ namespace TextEditor.Domain
 
             CursorMoved?.Invoke((column, row));
         }
+
         public void MoveUp()
         {
             if (row == viewportInfo.FirstRowIndex)
@@ -214,6 +214,7 @@ namespace TextEditor.Domain
                 return;
             }
 
+            // nu e bine, pt randul urmator din afara viewportului nu functioneaza
             row--;
 
             int previousRowLength = viewportInfo.GetViewportRowLength(row);
