@@ -187,6 +187,11 @@ namespace TextEditor.Domain
             }
 
             int nextRowLength = viewportInfo.GetViewportRowLength(row + 1);
+            
+            //if(nextRowLength <= 0)
+            //{
+            //    CursorExitedView?.Invoke(Direction., row);
+            //}
 
             column = nextRowLength < column ? nextRowLength : column;
 

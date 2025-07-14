@@ -2,9 +2,7 @@
 
 namespace TextEditor.Domain
 {
-    //Viewport ar trebui sa gestioneze partea vizibila (dimensiunile ferestrei si rerendering cand se depasesc limitele)
-    //Viewport trebuie sa declanseze un event pt displayer de fiecare data cand apare o modificare
-    //am nevoie de limitele textului pt a calcula corect ce sa afiseaza
+    //De gestionat: la up/down, cursorul sare la finalul randului chiar daca randul este iesit din viewport si viewportul trebuie sa se rerandeze
 
     public class Viewport : IViewportInfo
     {
@@ -47,15 +45,15 @@ namespace TextEditor.Domain
         public int FirstRowAbsoluteIndex { get; private set; } = 0;
 
         public int LastRowAbsoluteIndex => FirstRowAbsoluteIndex + (LastRowIndex - FirstRowIndex); //am nevoie de -1?
-                                                                                                   //{
-                                                                                                   //    get
-                                                                                                   //    {
-                                                                                                   //        int viewportHeigth = LastRowIndex - FirstRowIndex + 1;
-                                                                                                   //        int textHeigth = textInfo.GetLinesCount();
-                                                                                                   //        if (textHeigth == 0)
-                                                                                                   //        {
-                                                                                                   //            return 0;
-                                                                                                   //        }
+        //{
+        //    get
+        //    {
+        //        int viewportHeigth = LastRowIndex - FirstRowIndex + 1;
+        //        int textHeigth = textInfo.GetLinesCount();
+        //        if (textHeigth == 0)
+        //        {
+        //            return 0;
+        //        }
 
         //        return viewportHeigth > textHeigth
         //            ? textHeigth - 1
