@@ -111,5 +111,17 @@ namespace TextEditor.Test
             Assert.Equal((0, 5), controller.CursorPosition);
             Assert.Equal(result, controller.WrittenLines);
         }
+
+        [Fact]
+        public void OnCursorMovedMethodCallsDisplayCursorAt()
+        {
+            FakeConsoleController controller = new();
+            var displayer = new Displayer(controller);
+            (int left, int top) position = (3, 4);
+
+            displayer.OnCursorMoved(position);
+
+            Assert.Equal(position, controller.CursorPosition);
+        }
     }
 }

@@ -62,6 +62,11 @@ namespace TextEditor.Domain
             DisplayText(renderedText);
             //display cursor at the end of row Cursor.SetInitialPosition...
         }
+
+        public void OnCursorMoved((int column, int row) cursorPosition)
+        {
+            DisplayCursorAt((cursorPosition.column, cursorPosition.row));
+        }
     }
 }
 

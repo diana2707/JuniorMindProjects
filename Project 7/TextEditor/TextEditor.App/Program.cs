@@ -41,50 +41,12 @@ namespace TextEditor.App
 
             cursor.CursorMoved += displayer.DisplayCursorAt; //fa o metoda OnCursorMoved
             cursor.CursorExitedView += viewport.OnCursorExitedView;
+
             viewport.ViewportMoved += displayer.OnViewportMoved;
 
             displayer.DisplayText(renderedText);
             cursor.SetInitialPosition();
             inputHandler.Listen();
-
-
-            //ORIGINAL LOGIC
-            //bool isListening = true;
-
-            //while (isListening)
-            //{
-            //    displayer.DisplayCursorAt((cursor.Column, cursor.Row));
-            //    ConsoleKeyInfo currentKey = inputHandler.ReadKeyWithoutDisplay();
-
-            //    switch (currentKey.Key)
-            //    {
-            //        case ConsoleKey.RightArrow:
-            //            cursor.MoveRight();
-
-            //            continue;
-
-            //        case ConsoleKey.LeftArrow:
-            //            cursor.MoveLeft();
-            //            continue;
-
-            //        case ConsoleKey.UpArrow:
-            //            cursor.MoveUp();
-            //            continue;
-
-            //        case ConsoleKey.DownArrow:
-            //            cursor.MoveDown();
-            //            continue;
-
-            //        case ConsoleKey.Escape:
-            //            isListening = false;
-            //            cursor.SetToStartOfLastLine();
-            //            displayer.DisplayCursorAt((cursor.Column, cursor.Row));
-            //            continue;
-
-            //        default:
-            //            continue;
-            //    }
-            //}
         }
     }
     
