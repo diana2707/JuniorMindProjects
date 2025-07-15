@@ -727,7 +727,7 @@ namespace TextEditor.Test
         }
 
         [Fact]
-        public void MoveUpMethodInvokesCursorExitedViewEventWhenCursorMovesUpAndPreviousRowIsShorter()
+        public void MoveUpMethodInvokesCursorExitedViewEventWhenCursorMovesUpAndPreviousRowIsShorterAndOutsideView()
         {
             string path = GetTestFilePath("UnevenLengthRows.txt");
             FileManager fileManager = new(path);
@@ -754,6 +754,50 @@ namespace TextEditor.Test
 
             Assert.Equal(Direction.ToRowEnd, resultDirection);
             Assert.Equal(2, resultRow);
+        }
+
+        [Fact]
+        public void MoveUpMethodInvokesCursorExitedViewEventWhenCursorIsOnFirstVisibleRowAndMovesUpAndPreviousRowIsShorter()
+        {
+            string path = GetTestFilePath("UnevenLengthRowsExceedWindowHeight.txt");
+            FileManager fileManager = new(path);
+            TextManager textManager = new(fileManager.Text);
+            ITextInfo textInfo = textManager;
+            Viewport viewport = new(120, 30, 0, textInfo);
+            Cursor cursor = new(viewport);
+            cursor.SetInitialPosition();
+
+            cursor.CursorExitedView += viewport.OnCursorExitedView;
+
+            Direction resultDirection = 0;
+            int resultRow = 0;
+
+            cursor.CursorExitedView += (direction, row) =>
+            {
+                resultDirection = direction;
+                resultRow = row;
+            };
+
+            for(int i = 0; i < 5; i++)
+            {
+                cursor.MoveDown();
+            }
+
+            for (int i = 0; i < 28; i++)
+            {
+                cursor.MoveUp();
+            }
+
+            for (int i = 0; i < 120; i++)
+            {
+                cursor.MoveRight();
+            }
+
+            cursor.MoveUp();
+
+            Assert.Equal(Direction.Up, resultDirection);
+            Assert.Equal(0, cursor.Row);
+            Assert.Equal(50, cursor.Column);
         }
 
         [Fact]
