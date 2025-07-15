@@ -230,13 +230,17 @@ namespace TextEditor.Domain
                 CursorExitedView?.Invoke(Direction.Up, row);
 
                 int firstRowLength = viewportInfo.GetViewportRowLength(row);
-                column = firstRowLength < column ? firstRowLength : column;
 
                 //conditia pt cand randul este mai scurt si in afara viewportului
+                if (firstRowLength < 0)
+                {
+                    CursorExitedView?.Invoke(Direction.ToRowEnd, row);
+                }
 
+                firstRowLength = viewportInfo.GetViewportRowLength(row);
 
+                column = firstRowLength < column ? firstRowLength : column;
                 //conditia pt cand randul are o lungime similara iar cursorul isi poate pastra randul si coloana
-
                 CursorMoved?.Invoke((column, row));
                 return;
             }

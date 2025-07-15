@@ -657,6 +657,8 @@ namespace TextEditor.Test
 
             cursor.MoveDown();
             cursor.MoveDown();
+            cursor.MoveDown();
+            cursor.MoveDown();
 
             for (int i = 0; i < 25; i++)
             {
@@ -682,6 +684,8 @@ namespace TextEditor.Test
 
             cursor.CursorExitedView += viewport.OnCursorExitedView;
 
+            cursor.MoveDown();
+            cursor.MoveDown();
             cursor.MoveDown();
             cursor.MoveDown();
 
@@ -778,17 +782,14 @@ namespace TextEditor.Test
                 resultRow = row;
             };
 
-            for(int i = 0; i < 5; i++)
-            {
-                cursor.MoveDown();
-            }
+            cursor.MoveDown();
 
             for (int i = 0; i < 28; i++)
             {
                 cursor.MoveUp();
             }
 
-            for (int i = 0; i < 120; i++)
+            for (int i = 0; i < 5; i++)
             {
                 cursor.MoveRight();
             }
@@ -797,7 +798,48 @@ namespace TextEditor.Test
 
             Assert.Equal(Direction.Up, resultDirection);
             Assert.Equal(0, cursor.Row);
-            Assert.Equal(50, cursor.Column);
+            Assert.Equal(1, cursor.Column);
+        }
+
+        [Fact]
+        public void MoveUpMethodInvokesCursorExitedViewEventWhenCursorIsOnFirstVisibleRowAndMovesUpAndPreviousRowIsShorterAndOutsideView()
+        {
+            string path = GetTestFilePath("UnevenLengthRowsExceedWindowHeight.txt");
+            FileManager fileManager = new(path);
+            TextManager textManager = new(fileManager.Text);
+            ITextInfo textInfo = textManager;
+            Viewport viewport = new(120, 30, 0, textInfo);
+            Cursor cursor = new(viewport);
+            cursor.SetInitialPosition();
+
+            cursor.CursorExitedView += viewport.OnCursorExitedView;
+
+            Direction resultDirection = 0;
+            int resultRow = 0;
+
+            cursor.CursorExitedView += (direction, row) =>
+            {
+                resultDirection = direction;
+                resultRow = row;
+            };
+
+           cursor.MoveDown();
+
+            for (int i = 0; i < 28; i++)
+            {
+                cursor.MoveUp();
+            }
+
+            for (int i = 0; i < 125; i++)
+            {
+                cursor.MoveRight();
+            }
+
+            cursor.MoveUp();
+
+            Assert.Equal(Direction.ToRowEnd, resultDirection);
+            Assert.Equal(0, cursor.Row);
+            Assert.Equal(1, cursor.Column);
         }
 
         [Fact]
