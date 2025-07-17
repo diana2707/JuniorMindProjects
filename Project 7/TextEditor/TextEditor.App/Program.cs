@@ -40,12 +40,12 @@ namespace TextEditor.App
             inputHandler.EscapeKeyPressed += cursor.OnEscapeKeyPressed;
 
             cursor.CursorMoved += displayer.OnCursorMoved; //fa o metoda OnCursorMoved
-            cursor.CursorExitedView += viewport.OnCursorExitedView;
+            cursor.CursorExitedViewport += viewport.OnCursorExitedView;
 
             viewport.ViewportMoved += displayer.OnViewportMoved;
 
             displayer.DisplayText(renderedText);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
             inputHandler.Listen();
         }
     }

@@ -244,7 +244,7 @@ namespace TextEditor.Test
             Cursor cursor = SetupEditor(path);
             cursor.SetDefaultPosition();
 
-            cursor.SetToStartOfLastLine();
+            cursor.MoveAfterViewport();
 
             Assert.Equal(0, cursor.Column);
             Assert.Equal(4, cursor.Row);
@@ -260,7 +260,7 @@ namespace TextEditor.Test
             Direction directionResult = 0;
             int rowResult = -1;
 
-            cursor.CursorExitedView += (direction, row) =>
+            cursor.CursorExitedViewport += (direction, row) =>
             {
                 directionResult = direction;
                 rowResult = row;
@@ -286,7 +286,7 @@ namespace TextEditor.Test
             Direction directionResult = 0;
             int rowResult = -1;
 
-            cursor.CursorExitedView += (direction, row) =>
+            cursor.CursorExitedViewport += (direction, row) =>
             {
                 directionResult = direction;
                 rowResult = row;
@@ -308,7 +308,7 @@ namespace TextEditor.Test
             Direction directionResult = 0;
             int rowResult = -1;
 
-            cursor.CursorExitedView += (direction, row) =>
+            cursor.CursorExitedViewport += (direction, row) =>
             {
                 directionResult = direction;
                 rowResult = row;
@@ -412,11 +412,11 @@ namespace TextEditor.Test
             Cursor cursor = new(viewport);
             cursor.SetDefaultPosition();
 
-            cursor.CursorExitedView += viewport.OnCursorExitedView;
+            cursor.CursorExitedViewport += viewport.OnCursorExitedView;
 
             Direction resultDirection = 0;
             int resultRow = 0;
-            cursor.CursorExitedView += (direction, row) =>
+            cursor.CursorExitedViewport += (direction, row) =>
             {
                 resultDirection = direction;
                 resultRow = row;
@@ -444,12 +444,12 @@ namespace TextEditor.Test
             Cursor cursor = new(viewport);
             cursor.SetDefaultPosition();
 
-            cursor.CursorExitedView += viewport.OnCursorExitedView;
+            cursor.CursorExitedViewport += viewport.OnCursorExitedView;
 
             Direction resultDirection = 0;
             int resultRow = 28;
 
-            cursor.CursorExitedView += (direction, row) =>
+            cursor.CursorExitedViewport += (direction, row) =>
             {
                 resultDirection = direction;
                 resultRow = row;
@@ -514,12 +514,12 @@ namespace TextEditor.Test
             Cursor cursor = new(viewport);
             cursor.SetDefaultPosition();
 
-            cursor.CursorExitedView += viewport.OnCursorExitedView;
+            cursor.CursorExitedViewport += viewport.OnCursorExitedView;
 
             Direction resultDirection = 0;
             int resultRow = 0;
 
-            cursor.CursorExitedView += (direction, row) =>
+            cursor.CursorExitedViewport += (direction, row) =>
             {
                 resultDirection = direction;
                 resultRow = row;
@@ -543,12 +543,12 @@ namespace TextEditor.Test
             Cursor cursor = new(viewport);
             cursor.SetDefaultPosition();
 
-            cursor.CursorExitedView += viewport.OnCursorExitedView;
+            cursor.CursorExitedViewport += viewport.OnCursorExitedView;
 
             Direction resultDirection = 0;
             int resultRow = 0;
 
-            cursor.CursorExitedView += (direction, row) =>
+            cursor.CursorExitedViewport += (direction, row) =>
             {
                 resultDirection = direction;
                 resultRow = row;
@@ -572,12 +572,12 @@ namespace TextEditor.Test
             Cursor cursor = new(viewport);
             cursor.SetDefaultPosition();
 
-            cursor.CursorExitedView += viewport.OnCursorExitedView;
+            cursor.CursorExitedViewport += viewport.OnCursorExitedView;
 
             Direction resultDirection = 0;
             int resultRow = 0;
 
-            cursor.CursorExitedView += (direction, row) =>
+            cursor.CursorExitedViewport += (direction, row) =>
             {
                 resultDirection = direction;
                 resultRow = row;
@@ -625,12 +625,12 @@ namespace TextEditor.Test
             Cursor cursor = new(viewport);
             cursor.SetDefaultPosition();
 
-            cursor.CursorExitedView += viewport.OnCursorExitedView;
+            cursor.CursorExitedViewport += viewport.OnCursorExitedView;
 
             Direction resultDirection = 0;
             int resultRow = 0;
 
-            cursor.CursorExitedView += (direction, row) =>
+            cursor.CursorExitedViewport += (direction, row) =>
             {
                 resultDirection = direction;
                 resultRow = row;
@@ -658,12 +658,12 @@ namespace TextEditor.Test
             Cursor cursor = new(viewport);
             cursor.SetDefaultPosition();
 
-            cursor.CursorExitedView += viewport.OnCursorExitedView;
+            cursor.CursorExitedViewport += viewport.OnCursorExitedView;
 
             Direction resultDirection = 0;
             int resultRow = 0;
 
-            cursor.CursorExitedView += (direction, row) =>
+            cursor.CursorExitedViewport += (direction, row) =>
             {
                 resultDirection = direction;
                 resultRow = row;
@@ -736,12 +736,12 @@ namespace TextEditor.Test
             Cursor cursor = new(viewport);
             cursor.SetDefaultPosition();
 
-            cursor.CursorExitedView += viewport.OnCursorExitedView;
+            cursor.CursorExitedViewport += viewport.OnCursorExitedView;
 
             Direction resultDirection = 0;
             int resultRow = 0;
 
-            cursor.CursorExitedView += (direction, row) =>
+            cursor.CursorExitedViewport += (direction, row) =>
             {
                 resultDirection = direction;
                 resultRow = row;
@@ -773,12 +773,12 @@ namespace TextEditor.Test
             Cursor cursor = new(viewport);
             cursor.SetDefaultPosition();
 
-            cursor.CursorExitedView += viewport.OnCursorExitedView;
+            cursor.CursorExitedViewport += viewport.OnCursorExitedView;
 
             Direction resultDirection = 0;
             int resultRow = 0;
 
-            cursor.CursorExitedView += (direction, row) =>
+            cursor.CursorExitedViewport += (direction, row) =>
             {
                 resultDirection = direction;
                 resultRow = row;
@@ -817,12 +817,12 @@ namespace TextEditor.Test
             Cursor cursor = new(viewport);
             cursor.SetDefaultPosition();
 
-            cursor.CursorExitedView += viewport.OnCursorExitedView;
+            cursor.CursorExitedViewport += viewport.OnCursorExitedView;
 
             Direction resultDirection = 0;
             int resultRow = 0;
 
-            cursor.CursorExitedView += (direction, row) =>
+            cursor.CursorExitedViewport += (direction, row) =>
             {
                 resultDirection = direction;
                 resultRow = row;
