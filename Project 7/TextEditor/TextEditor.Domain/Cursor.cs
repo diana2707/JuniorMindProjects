@@ -21,15 +21,11 @@ namespace TextEditor.Domain
 
         public int Row => row;
 
-        //redenumeste pt claritate - seteaza cursorul la finalul ultimului rand
-        public void SetInitialPosition()
+        public void SetDefaultPosition()
         {
             row = viewportInfo.FirstRowIndex;
             column = 0;
             CursorMoved?.Invoke((column, row));
-            //row = viewportInfo.LastRowIndex;
-            //column = viewportInfo.GetViewportRowLength(row);
-            //CursorMoved?.Invoke((column, row));
         }
 
         public void OnArrowKeyPressed(Direction direction)

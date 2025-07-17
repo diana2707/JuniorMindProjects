@@ -19,7 +19,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleRow.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             Assert.Equal(0, cursor.Column);
         }
@@ -29,7 +29,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleRow.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             Assert.Equal(0, cursor.Row);
         }
@@ -39,7 +39,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleRow.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.MoveRight();
 
@@ -52,7 +52,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleCharRows.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.MoveRight();
             cursor.MoveRight();
@@ -67,7 +67,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleChar.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.MoveRight();
             cursor.MoveRight();
@@ -81,7 +81,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleRow.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.MoveRight();
             cursor.MoveRight();
@@ -96,7 +96,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleCharRows.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.MoveRight();
             cursor.MoveRight();
@@ -123,7 +123,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleChar.txt");
             Cursor cursor = SetupEditor(path, 5);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.MoveLeft();
 
@@ -136,7 +136,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleCharRows.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.MoveDown();
 
@@ -149,7 +149,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("MultipleRows.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.MoveDown();
             for (int i = 0; i < 24; i++)
@@ -168,7 +168,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleChar.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.MoveDown();
 
@@ -181,7 +181,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("MultipleRows.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.MoveDown();
             cursor.MoveRight();
@@ -196,7 +196,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleChar.txt");
             Cursor cursor = SetupEditor(path, 5);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.MoveUp();
 
@@ -209,7 +209,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleChar.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.MoveUp();
 
@@ -223,7 +223,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("MultipleRows.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.MoveDown();
             for(int i = 0; i < 24; i++)
@@ -242,7 +242,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("MultipleRows.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.SetToStartOfLastLine();
 
@@ -255,7 +255,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("ExceedsWindowWidth.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             Direction directionResult = 0;
             int rowResult = -1;
@@ -281,7 +281,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleChar.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             Direction directionResult = 0;
             int rowResult = -1;
@@ -303,7 +303,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleChar.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             Direction directionResult = 0;
             int rowResult = -1;
@@ -325,7 +325,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleChar.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.OnArrowKeyPressed(Direction.Right);
             cursor.OnArrowKeyPressed(Direction.Left);
@@ -338,7 +338,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleChar.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.OnArrowKeyPressed(Direction.Right);
             
@@ -350,7 +350,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("MultipleRows.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.OnArrowKeyPressed(Direction.Down);
             cursor.OnArrowKeyPressed(Direction.Up);
@@ -363,7 +363,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("MultipleRows.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.OnArrowKeyPressed(Direction.Down);
 
@@ -375,7 +375,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleRow.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             (int, int) result = (0, 0);
             cursor.CursorMoved += _ => result = (1, 0);
@@ -390,7 +390,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleCharRows.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             (int, int) result = (0, 0);
             cursor.CursorMoved += _ => result = (0, 1);
@@ -410,7 +410,7 @@ namespace TextEditor.Test
             ITextInfo textInfo = textManager;
             Viewport viewport = new(120, 30, 0, textInfo);
             Cursor cursor = new(viewport);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.CursorExitedView += viewport.OnCursorExitedView;
 
@@ -442,7 +442,7 @@ namespace TextEditor.Test
             ITextInfo textInfo = textManager;
             Viewport viewport = new(120, 30, 0, textInfo);
             Cursor cursor = new(viewport);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.CursorExitedView += viewport.OnCursorExitedView;
 
@@ -476,7 +476,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleRow.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             (int, int) result = (0, 0);
             cursor.CursorMoved += _ => result = (0, 0);
@@ -492,7 +492,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleCharRows.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             (int, int) result = (0, 0);
             cursor.CursorMoved += _ => result = (1, 0);
@@ -512,7 +512,7 @@ namespace TextEditor.Test
             ITextInfo textInfo = textManager;
             Viewport viewport = new(120, 30, 0, textInfo);
             Cursor cursor = new(viewport);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.CursorExitedView += viewport.OnCursorExitedView;
 
@@ -541,7 +541,7 @@ namespace TextEditor.Test
             ITextInfo textInfo = textManager;
             Viewport viewport = new(120, 30, 0, textInfo);
             Cursor cursor = new(viewport);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.CursorExitedView += viewport.OnCursorExitedView;
 
@@ -570,7 +570,7 @@ namespace TextEditor.Test
             ITextInfo textInfo = textManager;
             Viewport viewport = new(120, 30, 0, textInfo);
             Cursor cursor = new(viewport);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.CursorExitedView += viewport.OnCursorExitedView;
 
@@ -604,7 +604,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleCharRows.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             (int, int) result = (0, 0);
             cursor.CursorMoved += _ => result = (0, 1);
@@ -623,7 +623,7 @@ namespace TextEditor.Test
             ITextInfo textInfo = textManager;
             Viewport viewport = new(120, 30, 0, textInfo);
             Cursor cursor = new(viewport);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.CursorExitedView += viewport.OnCursorExitedView;
 
@@ -656,7 +656,7 @@ namespace TextEditor.Test
             ITextInfo textInfo = textManager;
             Viewport viewport = new(120, 30, 0, textInfo);
             Cursor cursor = new(viewport);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.CursorExitedView += viewport.OnCursorExitedView;
 
@@ -691,7 +691,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleCharRows.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             (int, int) result = (0, 0);
             cursor.CursorMoved += _ => result = (0, 0);
@@ -707,7 +707,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("MultipleRows.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             //(int, int) result = (0, 0);
             //cursor.CursorMoved += _ => result = (21, 2);
@@ -734,7 +734,7 @@ namespace TextEditor.Test
             ITextInfo textInfo = textManager;
             Viewport viewport = new(120, 30, 0, textInfo);
             Cursor cursor = new(viewport);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.CursorExitedView += viewport.OnCursorExitedView;
 
@@ -771,7 +771,7 @@ namespace TextEditor.Test
             ITextInfo textInfo = textManager;
             Viewport viewport = new(120, 30, 0, textInfo);
             Cursor cursor = new(viewport);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.CursorExitedView += viewport.OnCursorExitedView;
 
@@ -794,7 +794,7 @@ namespace TextEditor.Test
                 cursor.MoveUp();
             }
 
-            for (int i = 0; i < 120; i++)
+            for (int i = 0; i < 5; i++)
             {
                 cursor.MoveRight();
             }
@@ -815,7 +815,7 @@ namespace TextEditor.Test
             ITextInfo textInfo = textManager;
             Viewport viewport = new(120, 30, 0, textInfo);
             Cursor cursor = new(viewport);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.CursorExitedView += viewport.OnCursorExitedView;
 
@@ -828,14 +828,17 @@ namespace TextEditor.Test
                 resultRow = row;
             };
 
-           cursor.MoveDown();
+            for (int i = 0; i < 29; i++)
+            {
+                cursor.MoveDown();
+            }
 
             for (int i = 0; i < 28; i++)
             {
                 cursor.MoveUp();
             }
 
-            for (int i = 0; i < 125; i++)
+            for (int i = 0; i < 121; i++)
             {
                 cursor.MoveRight();
             }
@@ -852,7 +855,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleChar.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             cursor.OnEscapeKeyPressed();
 
@@ -865,7 +868,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleChar.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             (int, int) result = (0, 0);
             cursor.CursorMoved += _ => result = (0, 1);
@@ -880,11 +883,11 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleChar.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             bool result = false;
             cursor.CursorMoved += _ => result = true;
-            cursor.SetInitialPosition();
+            cursor.SetDefaultPosition();
 
             Assert.True(result);
         }
