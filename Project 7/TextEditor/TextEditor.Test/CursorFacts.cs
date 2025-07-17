@@ -21,7 +21,7 @@ namespace TextEditor.Test
             Cursor cursor = SetupEditor(path);
             cursor.SetInitialPosition();
 
-            Assert.Equal(15, cursor.Column);
+            Assert.Equal(0, cursor.Column);
         }
 
         [Fact]
@@ -43,7 +43,7 @@ namespace TextEditor.Test
 
             cursor.MoveRight();
 
-            Assert.Equal(15, cursor.Column);
+            Assert.Equal(1, cursor.Column);
             Assert.Equal(0, cursor.Row);
         }
 
@@ -54,11 +54,11 @@ namespace TextEditor.Test
             Cursor cursor = SetupEditor(path);
             cursor.SetInitialPosition();
 
-            cursor.MoveUp();
+            cursor.MoveRight();
             cursor.MoveRight();
 
             Assert.Equal(0, cursor.Column);
-            Assert.Equal(2, cursor.Row);
+            Assert.Equal(1, cursor.Row);
         }
 
 
@@ -69,6 +69,7 @@ namespace TextEditor.Test
             Cursor cursor = SetupEditor(path);
             cursor.SetInitialPosition();
 
+            cursor.MoveRight();
             cursor.MoveRight();
 
             Assert.Equal(1, cursor.Column);
@@ -82,9 +83,11 @@ namespace TextEditor.Test
             Cursor cursor = SetupEditor(path);
             cursor.SetInitialPosition();
 
+            cursor.MoveRight();
+            cursor.MoveRight();
             cursor.MoveLeft();
 
-            Assert.Equal(14, cursor.Column);
+            Assert.Equal(1, cursor.Column);
             Assert.Equal(0, cursor.Row);
         }
 
@@ -95,11 +98,12 @@ namespace TextEditor.Test
             Cursor cursor = SetupEditor(path);
             cursor.SetInitialPosition();
 
-            cursor.MoveLeft();
+            cursor.MoveRight();
+            cursor.MoveRight();
             cursor.MoveLeft();
 
             Assert.Equal(1, cursor.Column);
-            Assert.Equal(1, cursor.Row);
+            Assert.Equal(0, cursor.Row);
         }
 
         [Fact]
@@ -107,9 +111,7 @@ namespace TextEditor.Test
         {
             string path = GetTestFilePath("SingleChar.txt");
             Cursor cursor = SetupEditor(path);
-            cursor.SetInitialPosition();
 
-            cursor.MoveLeft();
             cursor.MoveLeft();
 
             Assert.Equal(0, cursor.Column);
@@ -124,7 +126,6 @@ namespace TextEditor.Test
             cursor.SetInitialPosition();
 
             cursor.MoveLeft();
-            cursor.MoveLeft();
 
             Assert.Equal(0, cursor.Column);
             Assert.Equal(5, cursor.Row);
@@ -137,11 +138,10 @@ namespace TextEditor.Test
             Cursor cursor = SetupEditor(path);
             cursor.SetInitialPosition();
 
-            cursor.MoveUp();
             cursor.MoveDown();
 
-            Assert.Equal(1, cursor.Column);
-            Assert.Equal(2, cursor.Row);
+            Assert.Equal(0, cursor.Column);
+            Assert.Equal(1, cursor.Row);
         }
 
         [Fact]
@@ -151,8 +151,12 @@ namespace TextEditor.Test
             Cursor cursor = SetupEditor(path);
             cursor.SetInitialPosition();
 
-            cursor.MoveUp();
-            cursor.MoveUp();
+            cursor.MoveDown();
+            for (int i = 0; i < 24; i++)
+            {
+                cursor.MoveRight();
+            }
+
             cursor.MoveDown();
 
             Assert.Equal(21, cursor.Column);
@@ -162,14 +166,14 @@ namespace TextEditor.Test
         [Fact]
         public void MoveDownMethodDoNotMovesTheCursorDownWhenIsLastRow()
         {
-            string path = GetTestFilePath("SingleCharRows.txt");
+            string path = GetTestFilePath("SingleChar.txt");
             Cursor cursor = SetupEditor(path);
             cursor.SetInitialPosition();
 
             cursor.MoveDown();
 
-            Assert.Equal(1, cursor.Column);
-            Assert.Equal(2, cursor.Row);
+            Assert.Equal(0, cursor.Column);
+            Assert.Equal(0, cursor.Row);
         }
 
         [Fact]
@@ -179,11 +183,12 @@ namespace TextEditor.Test
             Cursor cursor = SetupEditor(path);
             cursor.SetInitialPosition();
 
-            cursor.MoveUp();
+            cursor.MoveDown();
+            cursor.MoveRight();
             cursor.MoveUp();
 
-            Assert.Equal(21, cursor.Column);
-            Assert.Equal(1, cursor.Row);
+            Assert.Equal(1, cursor.Column);
+            Assert.Equal(0, cursor.Row);
         }
 
         [Fact]
@@ -195,7 +200,7 @@ namespace TextEditor.Test
 
             cursor.MoveUp();
 
-            Assert.Equal(1, cursor.Column);
+            Assert.Equal(0, cursor.Column);
             Assert.Equal(5, cursor.Row);
         }
 
@@ -208,7 +213,7 @@ namespace TextEditor.Test
 
             cursor.MoveUp();
 
-            Assert.Equal(1, cursor.Column);
+            Assert.Equal(0, cursor.Column);
             Assert.Equal(0, cursor.Row);
         }
 
@@ -220,10 +225,16 @@ namespace TextEditor.Test
             Cursor cursor = SetupEditor(path);
             cursor.SetInitialPosition();
 
+            cursor.MoveDown();
+            for(int i = 0; i < 24; i++)
+            {
+                cursor.MoveRight();
+            }
+
             cursor.MoveUp();
 
-            Assert.Equal(21, cursor.Column);
-            Assert.Equal(2, cursor.Row);
+            Assert.Equal(15, cursor.Column);
+            Assert.Equal(0, cursor.Row);
         }
 
         [Fact]
@@ -255,7 +266,11 @@ namespace TextEditor.Test
                 rowResult = row;
             };
 
-            cursor.MoveRight();
+            for(int i = 0; i < 120; i++)
+            {
+                cursor.MoveRight();
+            }
+            
 
             Assert.Equal(Direction.Right, directionResult);
             Assert.Equal(0, rowResult);
@@ -312,6 +327,7 @@ namespace TextEditor.Test
             Cursor cursor = SetupEditor(path);
             cursor.SetInitialPosition();
 
+            cursor.OnArrowKeyPressed(Direction.Right);
             cursor.OnArrowKeyPressed(Direction.Left);
 
             Assert.Equal(0, cursor.Column);
@@ -324,7 +340,6 @@ namespace TextEditor.Test
             Cursor cursor = SetupEditor(path);
             cursor.SetInitialPosition();
 
-            cursor.OnArrowKeyPressed(Direction.Left);
             cursor.OnArrowKeyPressed(Direction.Right);
             
             Assert.Equal(1, cursor.Column);
@@ -337,9 +352,10 @@ namespace TextEditor.Test
             Cursor cursor = SetupEditor(path);
             cursor.SetInitialPosition();
 
+            cursor.OnArrowKeyPressed(Direction.Down);
             cursor.OnArrowKeyPressed(Direction.Up);
 
-            Assert.Equal(2, cursor.Row);
+            Assert.Equal(0, cursor.Row);
         }
 
         [Fact]
@@ -349,10 +365,9 @@ namespace TextEditor.Test
             Cursor cursor = SetupEditor(path);
             cursor.SetInitialPosition();
 
-            cursor.OnArrowKeyPressed(Direction.Up);
             cursor.OnArrowKeyPressed(Direction.Down);
 
-            Assert.Equal(3, cursor.Row);
+            Assert.Equal(1, cursor.Row);
         }
 
         [Fact]
@@ -363,12 +378,11 @@ namespace TextEditor.Test
             cursor.SetInitialPosition();
 
             (int, int) result = (0, 0);
-            cursor.CursorMoved += _ => result = (15, 0);
+            cursor.CursorMoved += _ => result = (1, 0);
 
-            cursor.MoveLeft();
             cursor.MoveRight();
 
-            Assert.Equal((15, 0), result);
+            Assert.Equal((1, 0), result);
         }
 
         [Fact]
@@ -379,12 +393,12 @@ namespace TextEditor.Test
             cursor.SetInitialPosition();
 
             (int, int) result = (0, 0);
-            cursor.CursorMoved += _ => result = (0, 2);
+            cursor.CursorMoved += _ => result = (0, 1);
 
-            cursor.MoveUp();
+            cursor.MoveRight();
             cursor.MoveRight();
 
-            Assert.Equal((0, 2), result);
+            Assert.Equal((0, 1), result);
         }
 
         [Fact]
@@ -407,11 +421,6 @@ namespace TextEditor.Test
                 resultDirection = direction;
                 resultRow = row;
             };
-
-            for (int i = 0; i < 3; i++)
-            {
-                cursor.MoveUp();
-            }
 
             for (int i = 0; i < 150; i++)
             {
@@ -446,7 +455,12 @@ namespace TextEditor.Test
                 resultRow = row;
             };
 
-            for (int i = 0; i < 35; i++)
+            for (int i = 0; i < 28; i++)
+            {
+                cursor.MoveDown();
+            }
+
+            for (int i = 0; i < 154; i++)
             {
                 cursor.MoveRight();
             }
@@ -465,11 +479,12 @@ namespace TextEditor.Test
             cursor.SetInitialPosition();
 
             (int, int) result = (0, 0);
-            cursor.CursorMoved += _ => result = (14, 0);
+            cursor.CursorMoved += _ => result = (0, 0);
 
+            cursor.MoveRight();
             cursor.MoveLeft();
 
-            Assert.Equal((14, 0), result);
+            Assert.Equal((0, 0), result);
         }
 
         [Fact]
@@ -480,16 +495,16 @@ namespace TextEditor.Test
             cursor.SetInitialPosition();
 
             (int, int) result = (0, 0);
-            cursor.CursorMoved += _ => result = (1, 1);
+            cursor.CursorMoved += _ => result = (1, 0);
 
-            cursor.MoveLeft();
+            cursor.MoveDown();
             cursor.MoveLeft();
 
-            Assert.Equal((1, 1), result);
+            Assert.Equal((1, 0), result);
         }
 
         [Fact]
-        public void MoveLeftMethodInvokesCursorExitedViewWhenCursorMovesAtEndOdLineAndEndIsOutsideView()
+        public void MoveLeftMethodInvokesCursorExitedViewWhenCursorMovesAtEndOfLineAndEndIsOutsideView()
         {
             string path = GetTestFilePath("UnevenLengthRows.txt");
             FileManager fileManager = new(path);
@@ -510,9 +525,7 @@ namespace TextEditor.Test
                 resultRow = row;
             };
 
-            cursor.MoveUp();
-            cursor.MoveUp();
-            cursor.MoveLeft();
+            cursor.MoveDown();
             cursor.MoveLeft();
 
             Assert.Equal(Direction.MaxRight, resultDirection);
@@ -541,9 +554,7 @@ namespace TextEditor.Test
                 resultRow = row;
             };
 
-            cursor.MoveUp();
-            cursor.MoveUp();
-            cursor.MoveLeft();
+            cursor.MoveDown();
             cursor.MoveLeft();
 
             Assert.Equal(Direction.MaxRight, resultDirection);
@@ -551,7 +562,7 @@ namespace TextEditor.Test
         }
 
         [Fact]
-        public void MoveLeftMethodInvokesCursorExitedViewWhenCursorWithDirectionMaxRightAndUpWhenInFirstPositionOnFirstVisibleRow()
+        public void MoveLeftMethodInvokesCursorExitedViewWithDirectionMaxRightAndUpWhenCursorIsInFirstPositionOnFirstVisibleRow()
         {
             string path = GetTestFilePath("ExceedsWindowHeigth.txt");
             FileManager fileManager = new(path);
@@ -572,17 +583,17 @@ namespace TextEditor.Test
                 resultRow = row;
             };
 
-            cursor.MoveDown();
+            for (int i = 0; i < 29; i++)
+            {
+                cursor.MoveDown();
+            }
 
             for (int i = 0; i < 28; i++)
             {
                 cursor.MoveUp();
             }
 
-            for(int i = 0; i < 8; i++)
-            {
-                cursor.MoveLeft();
-            }
+           cursor.MoveLeft();
 
             Assert.Equal(Direction.MaxRight | Direction.Up, resultDirection);
             Assert.Equal(0, resultRow);
@@ -596,12 +607,11 @@ namespace TextEditor.Test
             cursor.SetInitialPosition();
 
             (int, int) result = (0, 0);
-            cursor.CursorMoved += _ => result = (1, 2);
+            cursor.CursorMoved += _ => result = (0, 1);
 
-            cursor.MoveUp();
             cursor.MoveDown();
 
-            Assert.Equal((1, 2), result);
+            Assert.Equal((0, 1), result);
         }
 
         [Fact]
@@ -625,11 +635,6 @@ namespace TextEditor.Test
                 resultDirection = direction;
                 resultRow = row;
             };
-
-            for (int i = 0; i < 3; i++)
-            {
-                cursor.MoveUp();
-            }
 
             for (int i = 0; i < 145; i++)
             {
@@ -655,39 +660,19 @@ namespace TextEditor.Test
 
             cursor.CursorExitedView += viewport.OnCursorExitedView;
 
-            cursor.MoveDown();
-            cursor.MoveDown();
-            cursor.MoveDown();
-            cursor.MoveDown();
+            Direction resultDirection = 0;
+            int resultRow = 0;
 
-            for (int i = 0; i < 25; i++)
+            cursor.CursorExitedView += (direction, row) =>
             {
-                cursor.MoveRight();
+                resultDirection = direction;
+                resultRow = row;
+            };
+
+            for (int i = 0; i < 28; i++)
+            {
+                cursor.MoveDown();
             }
-
-            cursor.MoveDown();
-
-            Assert.Equal(28, cursor.Row);
-            Assert.Equal(21, cursor.Column);
-        }
-
-        [Fact]
-        public void MoveDownMethodInvokesCursorExitenViewWithDirectionDownAndToRowEnd()
-        {
-            string path = GetTestFilePath("UnevenLengthRowsExceedWindowHeight.txt");
-            FileManager fileManager = new(path);
-            TextManager textManager = new(fileManager.Text);
-            ITextInfo textInfo = textManager;
-            Viewport viewport = new(120, 30, 0, textInfo);
-            Cursor cursor = new(viewport);
-            cursor.SetInitialPosition();
-
-            cursor.CursorExitedView += viewport.OnCursorExitedView;
-
-            cursor.MoveDown();
-            cursor.MoveDown();
-            cursor.MoveDown();
-            cursor.MoveDown();
 
             for (int i = 0; i < 149; i++)
             {
@@ -696,8 +681,9 @@ namespace TextEditor.Test
 
             cursor.MoveDown();
 
+            Assert.Equal(Direction.Down, resultDirection);
             Assert.Equal(28, cursor.Row);
-            Assert.Equal(1, cursor.Column);
+            Assert.Equal(21, cursor.Column);
         }
 
         [Fact]
@@ -708,26 +694,35 @@ namespace TextEditor.Test
             cursor.SetInitialPosition();
 
             (int, int) result = (0, 0);
-            cursor.CursorMoved += _ => result = (1, 2);
+            cursor.CursorMoved += _ => result = (0, 0);
 
+            cursor.MoveDown();
             cursor.MoveUp();
 
-            Assert.Equal((1, 2), result);
+            Assert.Equal((0, 0), result);
         }
 
         [Fact]
-        public void MoveUpMethodInvokesCursorMovedEventIfRowIsShorter()
+        public void MoveUpMethodMovesCursorAtEndOfPreviousRowWhenRowIsShorter()
         {
             string path = GetTestFilePath("MultipleRows.txt");
             Cursor cursor = SetupEditor(path);
             cursor.SetInitialPosition();
 
-            (int, int) result = (0, 0);
-            cursor.CursorMoved += _ => result = (21, 2);
+            //(int, int) result = (0, 0);
+            //cursor.CursorMoved += _ => result = (21, 2);
+
+            cursor.MoveDown();
+
+            for (int i = 0; i < 21; i++)
+            {
+                cursor.MoveRight();
+            }
 
             cursor.MoveUp();
 
-            Assert.Equal((21, 2), result);
+            Assert.Equal(15, cursor.Column);
+            Assert.Equal(0, cursor.Row);
         }
 
         [Fact]
@@ -752,8 +747,15 @@ namespace TextEditor.Test
                 resultRow = row;
             };
 
-            cursor.MoveRight();
-            cursor.MoveRight();
+            cursor.MoveDown();
+            cursor.MoveDown();
+            cursor.MoveDown();
+
+            for (int i = 0; i < 120; i++)
+            {
+                cursor.MoveRight();
+            }
+
             cursor.MoveUp();
 
             Assert.Equal(Direction.ToRowEnd, resultDirection);
@@ -782,14 +784,17 @@ namespace TextEditor.Test
                 resultRow = row;
             };
 
-            cursor.MoveDown();
+            for (int i = 0; i < 29; i++)
+            {
+                cursor.MoveDown();
+            }
 
             for (int i = 0; i < 28; i++)
             {
                 cursor.MoveUp();
             }
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 120; i++)
             {
                 cursor.MoveRight();
             }

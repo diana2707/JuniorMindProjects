@@ -4,26 +4,15 @@ namespace TextEditor.Domain
 {
     public class Cursor
     {
-        //cursorul ar trebui sa pastreze pozitia relativa fata de viewport => acces la limitele viewportului
-        //dar sa fie aware de limitele textului => acces la limitele textului
-        //dar fara sa contina o instanta din textManager/viewport pt ca implica un coupling prea mare
-        //CUM FAC ASTA?
-
-        //creaza o intefata cu metodele de care ai nevoie
-        //TextManager/viewport o implementeaza si ai access doar la info de care ai nevoie (numerul de randuri si o metoda care imi aduce lungimea randului)
-
-
         readonly IViewportInfo viewportInfo;
         int row;
         int column;
 
         public Cursor(IViewportInfo viewportInfo)
         {
-            //aici imi calculeaza incepand cu ultimul rand nu cu randul de dedesubt
             this.viewportInfo = viewportInfo;
         }
 
-        //event pentru cand se misca cursorul (urmeaza sa il invoc dupa miscarile cursorului)
         public event Action<(int column, int row)>  CursorMoved;
 
         public event Action<Direction, int>? CursorExitedView;
@@ -35,9 +24,12 @@ namespace TextEditor.Domain
         //redenumeste pt claritate - seteaza cursorul la finalul ultimului rand
         public void SetInitialPosition()
         {
-            row = viewportInfo.LastRowIndex;
-            column = viewportInfo.GetViewportRowLength(row);
+            row = viewportInfo.FirstRowIndex;
+            column = 0;
             CursorMoved?.Invoke((column, row));
+            //row = viewportInfo.LastRowIndex;
+            //column = viewportInfo.GetViewportRowLength(row);
+            //CursorMoved?.Invoke((column, row));
         }
 
         public void OnArrowKeyPressed(Direction direction)
@@ -181,6 +173,10 @@ namespace TextEditor.Domain
             if (row == viewportInfo.LastRowIndex)
             {
                 //+conditie pt downmost limit: am conditia in viewport!!!
+                //if (viewportInfo.IsDownmostLimitVisible(row)) //IsDownmostLine(row)
+                //{
+                //    return;
+                //}
 
                 //conditia pt cand randul este mai scurt
                 CursorExitedView?.Invoke(Direction.Down, row);
@@ -232,6 +228,7 @@ namespace TextEditor.Domain
                 int firstRowLength = viewportInfo.GetViewportRowLength(row);
 
                 //conditia pt cand randul este mai scurt si in afara viewportului
+                //trebuie facuta diferenta intre situatia cand am lungime 0 pt ca nu e numic pe rand si cea in care 
                 if (firstRowLength < 0)
                 {
                     CursorExitedView?.Invoke(Direction.ToRowEnd, row);
