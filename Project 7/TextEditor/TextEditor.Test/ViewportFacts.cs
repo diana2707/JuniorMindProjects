@@ -425,7 +425,7 @@ namespace TextEditor.Test
                 viewport.MoveRight(0);
             }
 
-            Assert.True(viewport.IsRightmostLimitVisible(0));
+            Assert.True(viewport.IsRightmostLimit(0));
         }
 
         [Fact]
@@ -498,7 +498,7 @@ namespace TextEditor.Test
             {
                 viewport.MoveDown();
             }
-            Assert.True(viewport.IsDownmostLimitVisible(28));
+            Assert.True(viewport.IsDownmostLimit(28));
         }
 
         [Fact]
@@ -512,7 +512,7 @@ namespace TextEditor.Test
                 viewport.MoveRight(0);
             }
 
-            Assert.False(viewport.IsLeftmostLimitVisible());
+            Assert.False(viewport.IsLeftmostLimit());
         }
 
         [Fact]
@@ -573,7 +573,7 @@ namespace TextEditor.Test
         {
             var path = GetTestFilePath("SingleRow.txt");
             Viewport viewport = SetupEditor(path);
-            Assert.True(viewport.IsUpmostLimitVisible(0));
+            Assert.True(viewport.IsUpmostLimit(0));
         }
 
         [Fact]

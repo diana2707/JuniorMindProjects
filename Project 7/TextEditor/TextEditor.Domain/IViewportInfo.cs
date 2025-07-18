@@ -8,12 +8,12 @@ namespace TextEditor.Domain
 
         public int FirstRowIndex { get; }
 
-        public bool IsRightmostLimitVisible(int index);
+        public bool IsRightmostLimit(int index);
 
-        public bool IsLeftmostLimitVisible();
+        public bool IsLeftmostLimit();
 
-        public bool IsDownmostLimitVisible(int index);
-        public bool IsUpmostLimitVisible(int index);
+        public bool IsDownmostLimit(int index);
+        public bool IsUpmostLimit(int index);
 
         public int GetViewportRowLength(int index);
 

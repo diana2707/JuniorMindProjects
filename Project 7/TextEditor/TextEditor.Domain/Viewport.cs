@@ -85,24 +85,24 @@ namespace TextEditor.Domain
 
         //la row corectez in LastRowIndex, aici corectez direct cu -2?
 
-        public bool IsRightmostLimitVisible(int viewportRowIndex)
+        public bool IsRightmostLimit(int viewportRowIndex)
         {
             int absoluteRowIndex = viewportRowIndex - FirstRowIndex + FirstRowAbsoluteIndex;
             return LastColumnAbsoluteIndex(absoluteRowIndex) == textInfo.GetLineLength(absoluteRowIndex) - 1;
         }
 
-        public bool IsDownmostLimitVisible(int viewportRowIndex)
+        public bool IsDownmostLimit(int viewportRowIndex)
         {
             int absoluteRowIndex = viewportRowIndex - FirstRowIndex + FirstRowAbsoluteIndex; //calculeaza gresit pt cand randul este scrollat...
             return absoluteRowIndex == textInfo.GetLinesCount() - 1;
         }
 
-        public bool IsLeftmostLimitVisible()
+        public bool IsLeftmostLimit()
         {
             return FirstColumnAbsoluteIndex == 0;
         }
 
-        public bool IsUpmostLimitVisible(int viewportRowIndex)
+        public bool IsUpmostLimit(int viewportRowIndex)
         {
             int absoluteRowIndex = viewportRowIndex - FirstRowIndex + FirstRowAbsoluteIndex;
             return absoluteRowIndex == 0;
@@ -203,7 +203,7 @@ namespace TextEditor.Domain
         public void MoveRight(int viewportRowIndex)
         {
             //int absoluteRowIndex = rowIndex - FirstRowIndex;
-            if (IsRightmostLimitVisible(viewportRowIndex))
+            if (IsRightmostLimit(viewportRowIndex))
             {
                 return;
             }

@@ -62,10 +62,10 @@ namespace TextEditor.Domain
             {
                 //CURSORUL SARE PE RANDUL URMATOR DOAR DACA CURSORUL SE AFLA PE ULTIMUL RAND
 
-                if (viewportInfo.IsRightmostLimitVisible(row)) //IsRightmostCharacter(row)
+                if (viewportInfo.IsRightmostLimit(row)) //IsRightmostCharacter(row)
                 {
                     //daca e final de text nu ar mai trebui mutat (rezolva conditia)
-                    if (viewportInfo.IsDownmostLimitVisible(row)) //IsDownmostLine(row) == numele nu e relevant, ultima linie poate fi vizibila dar cursorul nu intra in conditie, doar daca randul in sine u ultimul
+                    if (viewportInfo.IsDownmostLimit(row)) //IsDownmostLine(row) == numele nu e relevant, ultima linie poate fi vizibila dar cursorul nu intra in conditie, doar daca randul in sine u ultimul
                     {
                         return;
                     }
@@ -83,7 +83,7 @@ namespace TextEditor.Domain
                     row++;
 
                     //daca incepututl randului urmator este in afara viewportului am nevoie sa rerandez
-                    if (!viewportInfo.IsLeftmostLimitVisible()) //CanScrollLeft()
+                    if (!viewportInfo.IsLeftmostLimit()) //CanScrollLeft()
                     {
                         CursorExitedViewport?.Invoke(Direction.MaxLeft, row);
                     }
@@ -105,9 +105,9 @@ namespace TextEditor.Domain
         {
             if (column == 0)
             {
-                if (viewportInfo.IsLeftmostLimitVisible())
+                if (viewportInfo.IsLeftmostLimit())
                 {
-                    if (viewportInfo.IsUpmostLimitVisible(row)) //upmost limit, schimba-i numele ca poate fi visibil dar nu intra in conditie
+                    if (viewportInfo.IsUpmostLimit(row)) //upmost limit, schimba-i numele ca poate fi visibil dar nu intra in conditie
                     {
                         return;
                     }
@@ -123,7 +123,7 @@ namespace TextEditor.Domain
                     row--;
                     column = viewportInfo.GetViewportRowLength(row);
 
-                    if (!viewportInfo.IsRightmostLimitVisible(row))
+                    if (!viewportInfo.IsRightmostLimit(row))
                     {
                         CursorExitedViewport?.Invoke(Direction.MaxRight, row);
                     }
@@ -146,10 +146,10 @@ namespace TextEditor.Domain
             if (row == viewportInfo.LastRowIndex)
             {
                 //+conditie pt downmost limit: am conditia in viewport!!!
-                //if (viewportInfo.IsDownmostLimitVisible(row)) //IsDownmostLine(row)
-                //{
-                //    return;
-                //}
+                if (viewportInfo.IsDownmostLimit(row)) //IsDownmostLine(row)
+                {
+                    return;
+                }
 
                 //conditia pt cand randul este mai scurt
                 CursorExitedViewport?.Invoke(Direction.Down, row);
