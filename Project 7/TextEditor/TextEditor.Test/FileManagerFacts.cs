@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using TextEditor.Domain;
+﻿using TextEditor.Domain;
 
 namespace TextEditor.Test
 {

@@ -31,36 +31,29 @@ namespace TextEditor.Domain
 
             while (isListening)
             {
-                //displayer.DisplayCursorAt(cursor.Column, cursor.Row);
                 ConsoleKeyInfo currentKey = ReadKeyWithoutDisplay();
 
                 switch (currentKey.Key)
                 {
                     case ConsoleKey.RightArrow:
-                        //cursor.MoveRight();
                         ArrowKeyPressed.Invoke(Direction.Right);
                         continue;
 
                     case ConsoleKey.LeftArrow:
-                        //cursor.MoveLeft();
                         ArrowKeyPressed.Invoke(Direction.Left);
                         continue;
 
                     case ConsoleKey.UpArrow:
-                        //cursor.MoveUp();
                         ArrowKeyPressed.Invoke(Direction.Up);
                         continue;
 
                     case ConsoleKey.DownArrow:
-                        //cursor.MoveDown();
                         ArrowKeyPressed.Invoke(Direction.Down);
                         continue;
 
                     case ConsoleKey.Escape:
                         isListening = false;
                         EscapeKeyPressed?.Invoke();
-                        //cursor.SetToStartOfLastLine();
-                        //displayer.DisplayCursorAt(cursor.Column, cursor.Row);
                         continue;
 
                     default:

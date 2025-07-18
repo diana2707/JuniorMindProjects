@@ -16,7 +16,6 @@ namespace TextEditor.Domain
             controller.WriteLine(line);
         }
 
-        //should the parameter be array?
         public void DisplayText(List<string> text)
         {
             foreach (var line in text)
@@ -49,7 +48,6 @@ namespace TextEditor.Domain
             DisplayCursorAt(0, startRow);
         }
 
-        //modifica tuplelul
         public void DisplayCursorAt(int column, int row)
         {
             controller.SetCursorPosition(column, row);
@@ -57,10 +55,8 @@ namespace TextEditor.Domain
 
         public void OnViewportMoved(List<string> renderedText, (int column, int row) startPosition)
         {
-            DisplayCursorAt(startPosition.column, startPosition.row); //cred ca poate fi sters pt ca seteaza si in clear from cursorul la inceput
             ClearFrom(startPosition.row);
             DisplayText(renderedText);
-            //display cursor at the end of row Cursor.SetInitialPosition...
         }
 
         public void OnCursorMoved((int column, int row) cursorPosition)
@@ -69,26 +65,3 @@ namespace TextEditor.Domain
         }
     }
 }
-
-//class ConsoleRenderer
-//{
-//    private readonly TextWriter _output;
-
-//    public ConsoleRenderer(TextWriter output)
-//    {
-//        _output = output;
-//    }
-
-//    public void Render(string message)
-//    {
-//        _output.WriteLine(message);
-//    }
-//}
-
-//var renderer = new ConsoleRenderer(Console.Out);
-
-//var output = new StringWriter();
-//var renderer = new ConsoleRenderer(output);
-
-//renderer.Render("Hello");
-//Assert.Equal("Hello" + Environment.NewLine, output.ToString());

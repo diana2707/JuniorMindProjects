@@ -691,9 +691,6 @@ namespace TextEditor.Test
             Cursor cursor = SetupEditor(path);
             cursor.SetDefaultPosition();
 
-            //(int, int) result = (0, 0);
-            //cursor.CursorMoved += _ => result = (21, 2);
-
             cursor.MoveDown();
 
             for (int i = 0; i < 21; i++)
