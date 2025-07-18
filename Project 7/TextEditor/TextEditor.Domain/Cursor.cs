@@ -194,6 +194,10 @@ namespace TextEditor.Domain
         {
             if (row == viewportInfo.FirstRowIndex)
             {
+                if (viewportInfo.IsUpmostLimit(row))
+                {
+                    return;
+                }
 
                 //conditia pt cand randul este mai scurt
                 CursorExitedViewport?.Invoke(Direction.Up, row);

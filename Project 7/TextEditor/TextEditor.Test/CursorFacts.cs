@@ -290,25 +290,16 @@ namespace TextEditor.Test
         }
 
         [Fact]
-        public void CursorExitedViewIsRaisedByMoveUpMethodWhenCursorIsAtUpmostPosition()
+        public void MoveUpMethodDoNotMovesCursorWhenCursorIsAtUpmostPosition()
         {
             string path = GetTestFilePath("SingleChar.txt");
             Cursor cursor = SetupEditor(path);
             cursor.SetDefaultPosition();
 
-            Direction directionResult = 0;
-            int rowResult = -1;
-
-            cursor.CursorExitedViewport += (direction, row) =>
-            {
-                directionResult = direction;
-                rowResult = row;
-            };
-
             cursor.MoveUp();
 
-            Assert.Equal(Direction.Up, directionResult);
-            Assert.Equal(0, rowResult);
+            Assert.Equal(0, cursor.Column);
+            Assert.Equal(0, cursor.Row);
         }
 
         [Fact]
