@@ -21,13 +21,6 @@ namespace TextEditor.Domain
 
         public int Row => row;
 
-        public void SetDefaultPosition()
-        {
-            row = viewportInfo.TopRowIndex;
-            column = 0;
-            CursorMoved?.Invoke((column, row));
-        }
-
         public void OnArrowKeyPressed(Direction direction)
         {
             switch (direction)
@@ -58,14 +51,11 @@ namespace TextEditor.Domain
 
         public void MoveRight()
         {
-            if (column == viewportInfo.GetVisibleRowLength(row)) //IsLastViewportColumn()
+            if (IsAtRigthEdgeColumn())
             {
-                //CURSORUL SARE PE RANDUL URMATOR DOAR DACA CURSORUL SE AFLA PE ULTIMUL RAND
-
-                if (viewportInfo.IsScrolledToTextLineEnd(row)) //IsRightmostCharacter(row)
+                if (viewportInfo.IsScrolledToTextLineEnd(row))
                 {
-                    //daca e final de text nu ar mai trebui mutat (rezolva conditia)
-                    if (viewportInfo.IsLastTextLine(row)) //IsDownmostLine(row) == numele nu e relevant, ultima linie poate fi vizibila dar cursorul nu intra in conditie, doar daca randul in sine u ultimul
+                    if (viewportInfo.IsLastTextLine(row))
                     {
                         return;
                     }
@@ -236,10 +226,22 @@ namespace TextEditor.Domain
             CursorMoved?.Invoke((column, row));
         }
 
+        public void SetDefaultPosition()
+        {
+            row = viewportInfo.TopRowIndex;
+            column = 0;
+            CursorMoved?.Invoke((column, row));
+        }
+
         public void MoveAfterViewport()
         {
             column = 0;
             row = viewportInfo.BottomRowIndex + 1;
+        }
+
+        private bool IsAtRigthEdgeColumn()
+        {
+            return column == viewportInfo.GetVisibleRowLength(row);
         }
     }
 }

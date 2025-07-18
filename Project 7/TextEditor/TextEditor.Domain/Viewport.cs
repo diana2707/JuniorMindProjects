@@ -77,24 +77,6 @@ namespace TextEditor.Domain
             return GetRightEdgeColumnAbsoluteIndex(absoluteRowIndex) - LeftEdgeColumnAbsoluteIndex + 1;
         }
 
-        public List<string> RenderText()
-        {
-            List<string> result = [];
-
-            for (int i = TopRowAbsoluteIndex; i <= BottomRowAbsoluteIndex; i++)
-            {
-                if (LeftEdgeColumnAbsoluteIndex > GetRightEdgeColumnAbsoluteIndex(i))
-                {
-                    result.Add(string.Empty);
-                    continue;
-                }
-
-                result.Add(textInfo.GetLine(i)[LeftEdgeColumnAbsoluteIndex..(GetRightEdgeColumnAbsoluteIndex(i) + 1)]);
-            }
-
-            return result;
-        }
-
         public void OnCursorExitedView(Direction direction, int viewportRowIndex)
         {
             switch (direction)
@@ -195,31 +177,32 @@ namespace TextEditor.Domain
             LeftEdgeColumnAbsoluteIndex = rowLength < viewportWidth - 1 ? 0 : rowLength - viewportWidth;
         }
 
-        //public void MoveMaxLeftAndDown()
-        //{
-        //    MoveMaxLeft();
-        //    MoveDown();
-        //}
-
-        //public void MoveMaxRightAndUp(int viewportRowIndex)
-        //{
-        //    MoveUp();
-        //    MoveMaxRight(viewportRowIndex);
-        //}
-
         public void MoveToRowEnd(int viewportRowIndex)
         {
             int absoluteRowIndex = GetAbsoluteRowIndex(viewportRowIndex);
             int rowLength = textInfo.GetLineLength(absoluteRowIndex);
 
-            if (rowLength == 0)
+            LeftEdgeColumnAbsoluteIndex = rowLength == 0 ? 0 : rowLength - 1;
+        }
+
+        public List<string> RenderText()
+        {
+            List<string> result = [];
+
+            for (int i = TopRowAbsoluteIndex; i <= BottomRowAbsoluteIndex; i++)
             {
-                LeftEdgeColumnAbsoluteIndex = 0;
-                return;
+                if (LeftEdgeColumnAbsoluteIndex > GetRightEdgeColumnAbsoluteIndex(i))
+                {
+                    result.Add(string.Empty);
+                    continue;
+                }
+
+                result.Add(textInfo.GetLine(i)[LeftEdgeColumnAbsoluteIndex..(GetRightEdgeColumnAbsoluteIndex(i) + 1)]);
             }
 
-            LeftEdgeColumnAbsoluteIndex = rowLength - 1;
+            return result;
         }
+
 
         private int GetAbsoluteRowIndex(int viewportRowIndex)
         {
