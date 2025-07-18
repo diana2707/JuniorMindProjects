@@ -48,7 +48,10 @@ namespace TextEditor.Domain
                 : absoluteLength - 1;
         }
 
-        //la row corectez in LastRowIndex, aici corectez direct cu -2?
+        public bool IsScrolledToTextLineStart()
+        {
+            return LeftEdgeColumnAbsoluteIndex == 0;
+        }
 
         public bool IsScrolledToTextLineEnd(int viewportRowIndex)
         {
@@ -58,15 +61,10 @@ namespace TextEditor.Domain
 
         public bool IsLastTextLine(int viewportRowIndex)
         {
-            int absoluteRowIndex = GetAbsoluteRowIndex(viewportRowIndex);  //calculeaza gresit pt cand randul este scrollat...
+            int absoluteRowIndex = GetAbsoluteRowIndex(viewportRowIndex);
             return absoluteRowIndex == textInfo.GetLinesCount() - 1;
         }
-
-        public bool IsScrolledToTextLineStart()
-        {
-            return LeftEdgeColumnAbsoluteIndex == 0;
-        }
-
+        
         public bool IsFirstTextLine(int viewportRowIndex)
         {
             int absoluteRowIndex = GetAbsoluteRowIndex(viewportRowIndex);
@@ -77,26 +75,15 @@ namespace TextEditor.Domain
         {
             int absoluteRowIndex = viewportRowIndex - TopRowIndex + TopRowAbsoluteIndex;
             return GetRightEdgeColumnAbsoluteIndex(absoluteRowIndex) - LeftEdgeColumnAbsoluteIndex + 1;
-
-            //if (textInfo.GetLineLength(index - FirstRowIndex)  /*text[rowPosition - startTextPosition].Length*/ > windowWidth - 1)
-            //{
-            //    return windowWidth - 1;
-            //}
-
-            //return textInfo.GetLineLength(index - FirstRowIndex)/*text[rowPosition - startTextPosition].Length*/;
         }
 
         public List<string> RenderText()
         {
             List<string> result = [];
 
-            //int textHeigth = textInfo.GetLinesCount() < windowHeigth - FirstRowIndex
-            //    ? textInfo.GetLinesCount()
-            //    : windowHeigth - FirstRowIndex - 1;
-
             for (int i = TopRowAbsoluteIndex; i <= BottomRowAbsoluteIndex; i++)
             {
-                if (GetRightEdgeColumnAbsoluteIndex(i) == -1 || LeftEdgeColumnAbsoluteIndex > GetRightEdgeColumnAbsoluteIndex(i))
+                if (LeftEdgeColumnAbsoluteIndex > GetRightEdgeColumnAbsoluteIndex(i))
                 {
                     result.Add(string.Empty);
                     continue;
@@ -108,8 +95,6 @@ namespace TextEditor.Domain
             return result;
         }
 
-
-        //inainte de rerender thebuie sa setez cursorul la inceputul textlui
         public void OnCursorExitedView(Direction direction, int viewportRowIndex)
         {
             switch (direction)
@@ -139,13 +124,11 @@ namespace TextEditor.Domain
                     break;
 
                 case Direction.MaxLeft | Direction.Down:
-                    //MoveMaxLeftAndDown();
                     MoveMaxLeft();
                     MoveDown();
                     break;
 
                 case Direction.MaxRight | Direction.Up:
-                    //MoveMaxRightAndUp(viewportRowIndex);
                     MoveUp();
                     MoveMaxRight(viewportRowIndex);
                     break;
@@ -153,11 +136,6 @@ namespace TextEditor.Domain
                 case Direction.ToRowEnd:
                     MoveToRowEnd(viewportRowIndex);
                     break;
-
-                //case Direction.Down | Direction.ToRowEnd:
-                //    MoveDown();
-                //    MoveToRowEnd(viewportRowIndex);
-                //    break;
             }
 
             List<string> renderedText = RenderText();
@@ -176,6 +154,11 @@ namespace TextEditor.Domain
 
         public void MoveLeft()
         {
+            if (IsScrolledToTextLineStart())
+            {
+                return;
+            }
+
             LeftEdgeColumnAbsoluteIndex--;
         }
 
@@ -209,14 +192,7 @@ namespace TextEditor.Domain
             int absoluteRowIndex = GetAbsoluteRowIndex(viewportRowIndex);
             int rowLength = textInfo.GetLineLength(absoluteRowIndex);
 
-            //am nevoie de asta si in MoveMaxLeft? de ce?
-            if (rowLength < viewportWidth - 1)
-            {
-                LeftEdgeColumnAbsoluteIndex = 0;
-                return;
-            }
-
-            LeftEdgeColumnAbsoluteIndex = rowLength - 1 - viewportWidth + 1;
+            LeftEdgeColumnAbsoluteIndex = rowLength < viewportWidth - 1 ? 0 : rowLength - viewportWidth;
         }
 
         //public void MoveMaxLeftAndDown()

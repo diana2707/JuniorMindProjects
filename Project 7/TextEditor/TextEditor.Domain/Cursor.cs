@@ -105,6 +105,7 @@ namespace TextEditor.Domain
         {
             if (column == 0)
             {
+                //ar trebui sa gestioneze situatia in care randul este vizibil intreg si sa nu invoce MaxRight, chiar daca exista conditie in MaxRight sa impiedice miscarea
                 if (viewportInfo.IsScrolledToTextLineStart())
                 {
                     if (viewportInfo.IsFirstTextLine(row)) //upmost limit, schimba-i numele ca poate fi visibil dar nu intra in conditie
