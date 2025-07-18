@@ -20,7 +20,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("SingleRow.txt");
             Viewport viewport = SetupEditor(path, 5);
 
-            Assert.Equal(5, viewport.FirstViewportRowIndex);
+            Assert.Equal(5, viewport.FirstVisibleRowIndex);
         }
 
 
@@ -30,7 +30,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("MultipleRows.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(3, viewport.LastViewportRowIndex);
+            Assert.Equal(3, viewport.LastVisibleRowIndex);
         }
 
         [Fact]
@@ -39,7 +39,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("MultipleRows.txt");
             Viewport viewport = SetupEditor(path, 5);
 
-            Assert.Equal(8, viewport.LastViewportRowIndex);
+            Assert.Equal(8, viewport.LastVisibleRowIndex);
         }
 
         [Fact]
@@ -48,7 +48,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("ExceedsWindowHeigth.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(28, viewport.LastViewportRowIndex);
+            Assert.Equal(28, viewport.LastVisibleRowIndex);
         }
 
 
@@ -58,7 +58,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("EqualsWindowHeigth.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(28, viewport.LastViewportRowIndex);
+            Assert.Equal(28, viewport.LastVisibleRowIndex);
         }
 
         [Fact]
@@ -67,7 +67,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("SingleRow.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(15, viewport.GetViewportRowLength(0));
+            Assert.Equal(15, viewport.GetVisibleRowLength(0));
         }
 
         [Fact]
@@ -76,7 +76,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("SingleRow.txt");
             Viewport viewport = SetupEditor(path, 5);
 
-            Assert.Equal(15, viewport.GetViewportRowLength(5));
+            Assert.Equal(15, viewport.GetVisibleRowLength(5));
         }
 
         [Fact]
@@ -85,7 +85,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("ExceedsWindowWidth.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(119, viewport.GetViewportRowLength(0));
+            Assert.Equal(119, viewport.GetVisibleRowLength(0));
         }
 
         [Fact]
@@ -99,7 +99,7 @@ namespace TextEditor.Test
                 viewport.MoveRight(0);
             }
 
-            Assert.Equal(110, viewport.GetViewportRowLength(3));
+            Assert.Equal(110, viewport.GetVisibleRowLength(3));
         }
 
         [Fact]

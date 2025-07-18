@@ -4,9 +4,9 @@ namespace TextEditor.Domain
 {
     public interface IViewportInfo
     {
-        public int FirstViewportRowIndex { get; }
+        public int FirstVisibleRowIndex { get; }
 
-        public int LastViewportRowIndex { get; }
+        public int LastVisibleRowIndex { get; }
 
         public bool IsScrolledToTextLineEnd(int rowIndex);
 
@@ -16,6 +16,6 @@ namespace TextEditor.Domain
 
         public bool IsFirstTextLine(int rowIndex);
 
-        public int GetViewportRowLength(int rowIndex);
+        public int GetVisibleRowLength(int rowIndex);
     }
 }
