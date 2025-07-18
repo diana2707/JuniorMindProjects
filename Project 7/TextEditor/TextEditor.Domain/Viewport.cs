@@ -38,23 +38,14 @@ namespace TextEditor.Domain
 
         public int LeftEdgeColumnAbsoluteIndex { get; private set; } = 0;
 
-        //pune conditie sa nu depaseasca lungimea randului
         public int GetRightEdgeColumnAbsoluteIndex(int rowIndex)
         {
             int absoluteLength = textInfo.GetLineLength(rowIndex);
+            int maxRightEdgeColumnAbsoluteIndex = LeftEdgeColumnAbsoluteIndex + viewportWidth - 1;
 
-            if (absoluteLength == 0)
-            {
-                return -1;
-            }
-
-            if (LeftEdgeColumnAbsoluteIndex + viewportWidth - 1 < absoluteLength)
-            {
-                return LeftEdgeColumnAbsoluteIndex + viewportWidth - 1;
-            }
-
-            return absoluteLength - 1;
-
+            return maxRightEdgeColumnAbsoluteIndex < absoluteLength
+                ? maxRightEdgeColumnAbsoluteIndex
+                : absoluteLength - 1;
         }
 
         //la row corectez in LastRowIndex, aici corectez direct cu -2?
