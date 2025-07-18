@@ -13,7 +13,7 @@ namespace TextEditor.Domain
             this.viewportInfo = viewportInfo;
         }
 
-        public event Action<(int column, int row)>  CursorMoved;
+        public event Action<(int column, int row)> CursorMoved;
 
         public event Action<Direction, int>? CursorExitedViewport;
 
@@ -70,7 +70,7 @@ namespace TextEditor.Domain
                 return;
             }
 
-            if(IsAtBottomRow())
+            if (IsAtBottomRow())
             {
                 CursorExitedViewport?.Invoke(Direction.Down, row);
             }
@@ -85,9 +85,7 @@ namespace TextEditor.Domain
             }
 
             column = 0;
-
             CursorMoved?.Invoke((column, row));
-            return;
         }
 
         public void MoveLeft()
@@ -110,7 +108,7 @@ namespace TextEditor.Domain
             {
                 return;
             }
-                    
+
             if (IsAtTopRow())
             {
                 CursorExitedViewport?.Invoke(Direction.Up, row);
@@ -126,56 +124,33 @@ namespace TextEditor.Domain
             }
 
             column = viewportInfo.GetVisibleRowLength(row);
-
             CursorMoved?.Invoke((column, row));
-            return;
         }
 
         public void MoveDown()
         {
-            if (row == viewportInfo.BottomRowIndex)
+            if (viewportInfo.IsLastTextLine(row))
             {
-                //+conditie pt downmost limit: am conditia in viewport!!!
-                if (viewportInfo.IsLastTextLine(row)) //IsDownmostLine(row)
-                {
-                    return;
-                }
-
-                //conditia pt cand randul este mai scurt
-                CursorExitedViewport?.Invoke(Direction.Down, row);
-
-                int lastRowLength = viewportInfo.GetVisibleRowLength(row);
-
-                //conditia pt cand randul este mai scurt si in afara viewportului
-                if (lastRowLength < 0)
-                {
-                   CursorExitedViewport?.Invoke(Direction.ToRowEnd, row);
-                }
-
-                lastRowLength = viewportInfo.GetVisibleRowLength(row);
-                column = lastRowLength < column ? lastRowLength : column;
-
-                //conditia pt cand randul are o lungime similara iar cursorul isi poate pastra randul si coloana
-                CursorMoved?.Invoke((column, row));
                 return;
             }
 
-            row++;
+            if (IsAtBottomRow())
+            {
+                CursorExitedViewport?.Invoke(Direction.Down, row);
+            }
+            else
+            {
+                row++;
+            }
 
-            int nextRowLength = viewportInfo.GetVisibleRowLength(row);
-
-            //test ca sa verific if-ul asta
-            // conditie pt randul urmator din afara viewportului
-            if (nextRowLength < 0)
+            if (!IsCurrentRowVisible())
             {
                 CursorExitedViewport?.Invoke(Direction.ToRowEnd, row);
             }
 
-            //gestionza cand cursorul e in pozitia 0?
+            int currentRowLength = viewportInfo.GetVisibleRowLength(row);
 
-            nextRowLength = viewportInfo.GetVisibleRowLength(row);
-
-            column = nextRowLength < column ? nextRowLength : column;
+            column = currentRowLength < column ? currentRowLength : column;
 
             CursorMoved?.Invoke((column, row));
         }
@@ -256,6 +231,11 @@ namespace TextEditor.Domain
         private bool IsAtBottomRow()
         {
             return row == viewportInfo.BottomRowIndex;
+        }
+
+        private bool IsCurrentRowVisible()
+        {
+            return viewportInfo.GetVisibleRowLength(row) >= 0;
         }
     }
 }
