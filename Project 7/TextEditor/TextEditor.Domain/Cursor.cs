@@ -70,8 +70,6 @@ namespace TextEditor.Domain
                 return;
             }
 
-            column = 0;
-
             if(IsAtBottomRow())
             {
                 CursorExitedViewport?.Invoke(Direction.Down, row);
@@ -86,49 +84,51 @@ namespace TextEditor.Domain
                 CursorExitedViewport?.Invoke(Direction.MaxLeft, row);
             }
 
+            column = 0;
+
             CursorMoved?.Invoke((column, row));
             return;
         }
 
         public void MoveLeft()
         {
-            if (IsAtLeftEdgeColumn())
+            if (!IsAtLeftEdgeColumn())
             {
-                //ar trebui sa gestioneze situatia in care randul este vizibil intreg si sa nu invoce MaxRight, chiar daca exista conditie in MaxRight sa impiedice miscarea
-                if (viewportInfo.IsScrolledToTextLineStart())
-                {
-                    if (viewportInfo.IsFirstTextLine(row)) //upmost limit, schimba-i numele ca poate fi visibil dar nu intra in conditie
-                    {
-                        return;
-                    }
-                    
-                    if (IsAtTopRow()) //functioneaza si cand randul este vizibil intreg?
-                    {
-                        CursorExitedViewport?.Invoke(Direction.MaxRight | Direction.Up, row);
-                        column = viewportInfo.GetVisibleRowLength(row);
-                        CursorMoved?.Invoke((column, row));
-                        return;
-                    }
+                column--;
+                CursorMoved?.Invoke((column, row));
+                return;
+            }
 
-                    row--;
-                    column = viewportInfo.GetVisibleRowLength(row);
-
-                    if (!viewportInfo.IsScrolledToTextLineEnd(row))
-                    {
-                        CursorExitedViewport?.Invoke(Direction.MaxRight, row);
-                    }
-
-                    CursorMoved?.Invoke((column, row));
-                    return;
-                }
-
+            if (!viewportInfo.IsScrolledToTextLineStart())
+            {
                 CursorExitedViewport?.Invoke(Direction.Left, row);
                 CursorMoved?.Invoke((column, row));
                 return;
             }
 
-            column--;
+            if (viewportInfo.IsFirstTextLine(row))
+            {
+                return;
+            }
+                    
+            if (IsAtTopRow())
+            {
+                CursorExitedViewport?.Invoke(Direction.Up, row);
+            }
+            else
+            {
+                row--;
+            }
+
+            if (!viewportInfo.IsScrolledToTextLineEnd(row))
+            {
+                CursorExitedViewport?.Invoke(Direction.MaxRight, row);
+            }
+
+            column = viewportInfo.GetVisibleRowLength(row);
+
             CursorMoved?.Invoke((column, row));
+            return;
         }
 
         public void MoveDown()
