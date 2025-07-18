@@ -2,16 +2,11 @@
 
 namespace TextEditor.Domain
 {
-    //De gestionat: la up/down, cursorul sare la finalul randului chiar daca randul este iesit din viewport si viewportul trebuie sa se rerandeze
-
     public class Viewport : IViewportInfo
     {
         private readonly int windowWidth;
         private readonly int windowHeigth;
         private readonly ITextInfo textInfo;
-
-        //private int lastRowAbsoluteIndex;
-        //private int lastColumnAbsoluteIndex;
 
         public Viewport(int windowWidth, int windowHeigth, int firstRowIndex, ITextInfo textInfo)
         {
@@ -19,32 +14,27 @@ namespace TextEditor.Domain
             this.windowHeigth = windowHeigth;
             this.textInfo = textInfo;
 
-            FirstRowIndex = firstRowIndex;
-
-            //FirstRowIndex = startTextPosition;
-            //LastRowIndex = InitializeLastRowIndex();
-            //FirstColumnIndex = 0;
-            //LastColumnIndex = 118;
+            FirstViewportRowIndex = firstRowIndex;
         }
 
         public event Action<List<string>, (int column, int row)> ViewportMoved;
 
-        public int FirstRowIndex { get; }
+        public int FirstViewportRowIndex { get; }
 
-        public int LastRowIndex
+        public int LastViewportRowIndex
         {
             get
             {
                 int textLength = textInfo.GetLinesCount();
-                return FirstRowIndex + textLength >= windowHeigth
+                return FirstViewportRowIndex + textLength >= windowHeigth
                     ? windowHeigth - 2
-                    : FirstRowIndex + textLength - 1;
+                    : FirstViewportRowIndex + textLength - 1;
             }
         }
 
         public int FirstRowAbsoluteIndex { get; private set; } = 0;
 
-        public int LastRowAbsoluteIndex => FirstRowAbsoluteIndex + (LastRowIndex - FirstRowIndex); //am nevoie de -1?
+        public int LastRowAbsoluteIndex => GetAbsoluteRowIndex(LastViewportRowIndex); //am nevoie de -1?
         //{
         //    get
         //    {
@@ -85,32 +75,32 @@ namespace TextEditor.Domain
 
         //la row corectez in LastRowIndex, aici corectez direct cu -2?
 
-        public bool IsRightmostLimit(int viewportRowIndex)
+        public bool IsScrolledToTextLineEnd(int viewportRowIndex)
         {
-            int absoluteRowIndex = viewportRowIndex - FirstRowIndex + FirstRowAbsoluteIndex;
+            int absoluteRowIndex = GetAbsoluteRowIndex(viewportRowIndex);
             return LastColumnAbsoluteIndex(absoluteRowIndex) == textInfo.GetLineLength(absoluteRowIndex) - 1;
         }
 
-        public bool IsDownmostLimit(int viewportRowIndex)
+        public bool IsLastTextLine(int viewportRowIndex)
         {
-            int absoluteRowIndex = viewportRowIndex - FirstRowIndex + FirstRowAbsoluteIndex; //calculeaza gresit pt cand randul este scrollat...
+            int absoluteRowIndex = GetAbsoluteRowIndex(viewportRowIndex);  //calculeaza gresit pt cand randul este scrollat...
             return absoluteRowIndex == textInfo.GetLinesCount() - 1;
         }
 
-        public bool IsLeftmostLimit()
+        public bool IsScrolledToTextLineStart()
         {
             return FirstColumnAbsoluteIndex == 0;
         }
 
-        public bool IsUpmostLimit(int viewportRowIndex)
+        public bool IsFirstTextLine(int viewportRowIndex)
         {
-            int absoluteRowIndex = viewportRowIndex - FirstRowIndex + FirstRowAbsoluteIndex;
+            int absoluteRowIndex = GetAbsoluteRowIndex(viewportRowIndex);
             return absoluteRowIndex == 0;
         }
 
         public int GetViewportRowLength(int viewportRowIndex)
         {
-            int absoluteRowIndex = viewportRowIndex - FirstRowIndex + FirstRowAbsoluteIndex;
+            int absoluteRowIndex = viewportRowIndex - FirstViewportRowIndex + FirstRowAbsoluteIndex;
             return LastColumnAbsoluteIndex(absoluteRowIndex) - FirstColumnAbsoluteIndex + 1;
 
             //if (textInfo.GetLineLength(index - FirstRowIndex)  /*text[rowPosition - startTextPosition].Length*/ > windowWidth - 1)
@@ -121,7 +111,6 @@ namespace TextEditor.Domain
             //return textInfo.GetLineLength(index - FirstRowIndex)/*text[rowPosition - startTextPosition].Length*/;
         }
 
-        //cum pot sa fac renderul flezibil?
         public List<string> RenderText()
         {
             List<string> result = [];
@@ -197,13 +186,12 @@ namespace TextEditor.Domain
             }
 
             List<string> renderedText = RenderText();
-            ViewportMoved?.Invoke(renderedText, (column: 0, row: FirstRowIndex));
+            ViewportMoved?.Invoke(renderedText, (column: 0, row: FirstViewportRowIndex));
         }
 
         public void MoveRight(int viewportRowIndex)
         {
-            //int absoluteRowIndex = rowIndex - FirstRowIndex;
-            if (IsRightmostLimit(viewportRowIndex))
+            if (IsScrolledToTextLineEnd(viewportRowIndex))
             {
                 return;
             }
@@ -243,7 +231,7 @@ namespace TextEditor.Domain
 
         public void MoveMaxRight(int viewportRowIndex)
         {
-            int absoluteRowIndex = viewportRowIndex - FirstRowIndex + FirstRowAbsoluteIndex;
+            int absoluteRowIndex = GetAbsoluteRowIndex(viewportRowIndex);
             int rowLength = textInfo.GetLineLength(absoluteRowIndex);
 
             //am nevoie de asta si in MoveMaxLeft? de ce?
@@ -270,7 +258,7 @@ namespace TextEditor.Domain
 
         public void MoveToRowEnd(int viewportRowIndex)
         {
-            int absoluteRowIndex = viewportRowIndex - FirstRowIndex + FirstRowAbsoluteIndex;
+            int absoluteRowIndex = GetAbsoluteRowIndex(viewportRowIndex);
             int rowLength = textInfo.GetLineLength(absoluteRowIndex);
 
             if (rowLength == 0)
@@ -280,6 +268,11 @@ namespace TextEditor.Domain
             }
 
             FirstColumnAbsoluteIndex = rowLength - 1;
+        }
+
+        private int GetAbsoluteRowIndex(int viewportRowIndex)
+        {
+            return viewportRowIndex - FirstViewportRowIndex + FirstRowAbsoluteIndex;
         }
     }
 }

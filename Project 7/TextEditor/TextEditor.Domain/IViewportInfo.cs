@@ -4,19 +4,18 @@ namespace TextEditor.Domain
 {
     public interface IViewportInfo
     {
-        public int LastRowIndex { get; }
+        public int FirstViewportRowIndex { get; }
 
-        public int FirstRowIndex { get; }
+        public int LastViewportRowIndex { get; }
 
-        public bool IsRightmostLimit(int index);
+        public bool IsScrolledToTextLineEnd(int rowIndex);
 
-        public bool IsLeftmostLimit();
+        public bool IsScrolledToTextLineStart();
 
-        public bool IsDownmostLimit(int index);
-        public bool IsUpmostLimit(int index);
+        public bool IsLastTextLine(int rowIndex);
 
-        public int GetViewportRowLength(int index);
+        public bool IsFirstTextLine(int rowIndex);
 
-        //public bool IsLeftmostOutsideViewport();
+        public int GetViewportRowLength(int rowIndex);
     }
 }

@@ -20,7 +20,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("SingleRow.txt");
             Viewport viewport = SetupEditor(path, 5);
 
-            Assert.Equal(5, viewport.FirstRowIndex);
+            Assert.Equal(5, viewport.FirstViewportRowIndex);
         }
 
 
@@ -30,7 +30,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("MultipleRows.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(3, viewport.LastRowIndex);
+            Assert.Equal(3, viewport.LastViewportRowIndex);
         }
 
         [Fact]
@@ -39,7 +39,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("MultipleRows.txt");
             Viewport viewport = SetupEditor(path, 5);
 
-            Assert.Equal(8, viewport.LastRowIndex);
+            Assert.Equal(8, viewport.LastViewportRowIndex);
         }
 
         [Fact]
@@ -48,7 +48,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("ExceedsWindowHeigth.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(28, viewport.LastRowIndex);
+            Assert.Equal(28, viewport.LastViewportRowIndex);
         }
 
 
@@ -58,7 +58,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("EqualsWindowHeigth.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(28, viewport.LastRowIndex);
+            Assert.Equal(28, viewport.LastViewportRowIndex);
         }
 
         [Fact]
@@ -425,7 +425,7 @@ namespace TextEditor.Test
                 viewport.MoveRight(0);
             }
 
-            Assert.True(viewport.IsRightmostLimit(0));
+            Assert.True(viewport.IsScrolledToTextLineEnd(0));
         }
 
         [Fact]
@@ -498,7 +498,7 @@ namespace TextEditor.Test
             {
                 viewport.MoveDown();
             }
-            Assert.True(viewport.IsDownmostLimit(28));
+            Assert.True(viewport.IsLastTextLine(28));
         }
 
         [Fact]
@@ -512,7 +512,7 @@ namespace TextEditor.Test
                 viewport.MoveRight(0);
             }
 
-            Assert.False(viewport.IsLeftmostLimit());
+            Assert.False(viewport.IsScrolledToTextLineStart());
         }
 
         [Fact]
@@ -573,7 +573,7 @@ namespace TextEditor.Test
         {
             var path = GetTestFilePath("SingleRow.txt");
             Viewport viewport = SetupEditor(path);
-            Assert.True(viewport.IsUpmostLimit(0));
+            Assert.True(viewport.IsFirstTextLine(0));
         }
 
         [Fact]
