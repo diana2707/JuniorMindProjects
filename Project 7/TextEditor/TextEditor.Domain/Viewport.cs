@@ -8,54 +8,38 @@ namespace TextEditor.Domain
         private readonly int viewportHeigth;
         private readonly ITextInfo textInfo;
 
-        public Viewport(int windowWidth, int windowHeigth, int firstRowIndex, ITextInfo textInfo)
+        public Viewport(int windowWidth, int windowHeigth, int startRowIndex, ITextInfo textInfo)
         {
             this.viewportWidth = windowWidth - 1;
             this.viewportHeigth = windowHeigth - 1;
             this.textInfo = textInfo;
 
-            FirstVisibleRowIndex = firstRowIndex;
+            TopRowIndex = startRowIndex;
         }
 
         public event Action<List<string>, (int column, int row)> ViewportMoved;
 
-        public int FirstVisibleRowIndex { get; }
+        public int TopRowIndex { get; }
 
-        public int LastVisibleRowIndex
+        public int BottomRowIndex
         {
             get
             {
                 int textLength = textInfo.GetLinesCount();
-                return FirstVisibleRowIndex + textLength > viewportHeigth
+                return TopRowIndex + textLength > viewportHeigth
                     ? viewportHeigth - 1
-                    : FirstVisibleRowIndex + textLength - 1;
+                    : TopRowIndex + textLength - 1;
             }
         }
 
-        public int FirstRowAbsoluteIndex { get; private set; } = 0;
+        public int TopRowAbsoluteIndex { get; private set; } = 0;
 
-        public int LastRowAbsoluteIndex => GetAbsoluteRowIndex(LastVisibleRowIndex); //am nevoie de -1?
-        //{
-        //    get
-        //    {
-        //        int viewportHeigth = LastRowIndex - FirstRowIndex + 1;
-        //        int textHeigth = textInfo.GetLinesCount();
-        //        if (textHeigth == 0)
-        //        {
-        //            return 0;
-        //        }
+        public int BottomRowAbsoluteIndex => GetAbsoluteRowIndex(BottomRowIndex);
 
-        //        return viewportHeigth > textHeigth
-        //            ? textHeigth - 1
-        //            : FirstRowAbsoluteIndex + viewportHeigth - 1;
-        //    }
-
-        //}
-
-        public int FirstColumnAbsoluteIndex { get; private set; } = 0;
+        public int LeftEdgeColumnAbsoluteIndex { get; private set; } = 0;
 
         //pune conditie sa nu depaseasca lungimea randului
-        public int LastColumnAbsoluteIndex(int rowIndex)
+        public int GetRightEdgeColumnAbsoluteIndex(int rowIndex)
         {
             int absoluteLength = textInfo.GetLineLength(rowIndex);
 
@@ -64,9 +48,9 @@ namespace TextEditor.Domain
                 return -1;
             }
 
-            if (FirstColumnAbsoluteIndex + viewportWidth - 1 < absoluteLength) //conditia asta nu e buna
+            if (LeftEdgeColumnAbsoluteIndex + viewportWidth - 1 < absoluteLength)
             {
-                return FirstColumnAbsoluteIndex + viewportWidth - 1;
+                return LeftEdgeColumnAbsoluteIndex + viewportWidth - 1;
             }
 
             return absoluteLength - 1;
@@ -78,7 +62,7 @@ namespace TextEditor.Domain
         public bool IsScrolledToTextLineEnd(int viewportRowIndex)
         {
             int absoluteRowIndex = GetAbsoluteRowIndex(viewportRowIndex);
-            return LastColumnAbsoluteIndex(absoluteRowIndex) == textInfo.GetLineLength(absoluteRowIndex) - 1;
+            return GetRightEdgeColumnAbsoluteIndex(absoluteRowIndex) == textInfo.GetLineLength(absoluteRowIndex) - 1;
         }
 
         public bool IsLastTextLine(int viewportRowIndex)
@@ -89,7 +73,7 @@ namespace TextEditor.Domain
 
         public bool IsScrolledToTextLineStart()
         {
-            return FirstColumnAbsoluteIndex == 0;
+            return LeftEdgeColumnAbsoluteIndex == 0;
         }
 
         public bool IsFirstTextLine(int viewportRowIndex)
@@ -100,8 +84,8 @@ namespace TextEditor.Domain
 
         public int GetVisibleRowLength(int viewportRowIndex)
         {
-            int absoluteRowIndex = viewportRowIndex - FirstVisibleRowIndex + FirstRowAbsoluteIndex;
-            return LastColumnAbsoluteIndex(absoluteRowIndex) - FirstColumnAbsoluteIndex + 1;
+            int absoluteRowIndex = viewportRowIndex - TopRowIndex + TopRowAbsoluteIndex;
+            return GetRightEdgeColumnAbsoluteIndex(absoluteRowIndex) - LeftEdgeColumnAbsoluteIndex + 1;
 
             //if (textInfo.GetLineLength(index - FirstRowIndex)  /*text[rowPosition - startTextPosition].Length*/ > windowWidth - 1)
             //{
@@ -119,15 +103,15 @@ namespace TextEditor.Domain
             //    ? textInfo.GetLinesCount()
             //    : windowHeigth - FirstRowIndex - 1;
 
-            for (int i = FirstRowAbsoluteIndex; i <= LastRowAbsoluteIndex; i++)
+            for (int i = TopRowAbsoluteIndex; i <= BottomRowAbsoluteIndex; i++)
             {
-                if (LastColumnAbsoluteIndex(i) == -1 || FirstColumnAbsoluteIndex > LastColumnAbsoluteIndex(i))
+                if (GetRightEdgeColumnAbsoluteIndex(i) == -1 || LeftEdgeColumnAbsoluteIndex > GetRightEdgeColumnAbsoluteIndex(i))
                 {
                     result.Add(string.Empty);
                     continue;
                 }
 
-                result.Add(textInfo.GetLine(i)[FirstColumnAbsoluteIndex..(LastColumnAbsoluteIndex(i) + 1)]);
+                result.Add(textInfo.GetLine(i)[LeftEdgeColumnAbsoluteIndex..(GetRightEdgeColumnAbsoluteIndex(i) + 1)]);
             }
 
             return result;
@@ -186,7 +170,7 @@ namespace TextEditor.Domain
             }
 
             List<string> renderedText = RenderText();
-            ViewportMoved?.Invoke(renderedText, (column: 0, row: FirstVisibleRowIndex));
+            ViewportMoved?.Invoke(renderedText, (column: 0, row: TopRowIndex));
         }
 
         public void MoveRight(int viewportRowIndex)
@@ -196,37 +180,37 @@ namespace TextEditor.Domain
                 return;
             }
 
-            FirstColumnAbsoluteIndex++;
+            LeftEdgeColumnAbsoluteIndex++;
         }
 
         public void MoveLeft()
         {
-            FirstColumnAbsoluteIndex--;
+            LeftEdgeColumnAbsoluteIndex--;
         }
 
         public void MoveDown()
         {
-            if (LastRowAbsoluteIndex == textInfo.GetLinesCount() - 1)
+            if (BottomRowAbsoluteIndex == textInfo.GetLinesCount() - 1)
             {
                 return;
             }
 
-            FirstRowAbsoluteIndex++;
+            TopRowAbsoluteIndex++;
         }
 
         public void MoveUp()
         {
-            if (FirstRowAbsoluteIndex == 0)
+            if (TopRowAbsoluteIndex == 0)
             {
                 return;
             }
 
-            FirstRowAbsoluteIndex--;
+            TopRowAbsoluteIndex--;
         }
 
         public void MoveMaxLeft()
         {
-            FirstColumnAbsoluteIndex = 0;
+            LeftEdgeColumnAbsoluteIndex = 0;
         }
 
         public void MoveMaxRight(int viewportRowIndex)
@@ -237,11 +221,11 @@ namespace TextEditor.Domain
             //am nevoie de asta si in MoveMaxLeft? de ce?
             if (rowLength < viewportWidth - 1)
             {
-                FirstColumnAbsoluteIndex = 0;
+                LeftEdgeColumnAbsoluteIndex = 0;
                 return;
             }
 
-            FirstColumnAbsoluteIndex = rowLength - 1 - viewportWidth + 1;
+            LeftEdgeColumnAbsoluteIndex = rowLength - 1 - viewportWidth + 1;
         }
 
         //public void MoveMaxLeftAndDown()
@@ -263,16 +247,16 @@ namespace TextEditor.Domain
 
             if (rowLength == 0)
             {
-                FirstColumnAbsoluteIndex = 0;
+                LeftEdgeColumnAbsoluteIndex = 0;
                 return;
             }
 
-            FirstColumnAbsoluteIndex = rowLength - 1;
+            LeftEdgeColumnAbsoluteIndex = rowLength - 1;
         }
 
         private int GetAbsoluteRowIndex(int viewportRowIndex)
         {
-            return viewportRowIndex - FirstVisibleRowIndex + FirstRowAbsoluteIndex;
+            return viewportRowIndex - TopRowIndex + TopRowAbsoluteIndex;
         }
     }
 }

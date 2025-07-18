@@ -20,7 +20,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("SingleRow.txt");
             Viewport viewport = SetupEditor(path, 5);
 
-            Assert.Equal(5, viewport.FirstVisibleRowIndex);
+            Assert.Equal(5, viewport.TopRowIndex);
         }
 
 
@@ -30,7 +30,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("MultipleRows.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(3, viewport.LastVisibleRowIndex);
+            Assert.Equal(3, viewport.BottomRowIndex);
         }
 
         [Fact]
@@ -39,7 +39,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("MultipleRows.txt");
             Viewport viewport = SetupEditor(path, 5);
 
-            Assert.Equal(8, viewport.LastVisibleRowIndex);
+            Assert.Equal(8, viewport.BottomRowIndex);
         }
 
         [Fact]
@@ -48,7 +48,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("ExceedsWindowHeigth.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(28, viewport.LastVisibleRowIndex);
+            Assert.Equal(28, viewport.BottomRowIndex);
         }
 
 
@@ -58,7 +58,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("EqualsWindowHeigth.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(28, viewport.LastVisibleRowIndex);
+            Assert.Equal(28, viewport.BottomRowIndex);
         }
 
         [Fact]
@@ -152,7 +152,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("SingleRow.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(0, viewport.FirstRowAbsoluteIndex);
+            Assert.Equal(0, viewport.TopRowAbsoluteIndex);
         }
 
         [Fact]
@@ -161,7 +161,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("ExceedsWindowHeigth.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(28, viewport.LastRowAbsoluteIndex);
+            Assert.Equal(28, viewport.BottomRowAbsoluteIndex);
         }
 
         [Fact]
@@ -170,7 +170,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("MultipleRows.txt");
             Viewport viewport = SetupEditor(path, 5);
 
-            Assert.Equal(3, viewport.LastRowAbsoluteIndex);
+            Assert.Equal(3, viewport.BottomRowAbsoluteIndex);
         }
 
         [Fact]
@@ -179,7 +179,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("ExceedsWindowHeigth.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(28, viewport.LastRowAbsoluteIndex);
+            Assert.Equal(28, viewport.BottomRowAbsoluteIndex);
         }
 
         [Fact]
@@ -188,7 +188,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("ExceedsWindowHeigth.txt");
             Viewport viewport = SetupEditor(path, 2);
 
-            Assert.Equal(26, viewport.LastRowAbsoluteIndex);
+            Assert.Equal(26, viewport.BottomRowAbsoluteIndex);
         }
 
         [Fact]
@@ -197,7 +197,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("ExceedsWindowWidth.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(0, viewport.FirstColumnAbsoluteIndex);
+            Assert.Equal(0, viewport.LeftEdgeColumnAbsoluteIndex);
         }
 
         [Fact]
@@ -206,7 +206,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("ExceedsWindowWidth.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(118, viewport.LastColumnAbsoluteIndex(0));
+            Assert.Equal(118, viewport.GetRightEdgeColumnAbsoluteIndex(0));
         }
 
         [Fact]
@@ -215,7 +215,7 @@ namespace TextEditor.Test
             var path = GetTestFilePath("SingleChar.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(0, viewport.LastColumnAbsoluteIndex(0));
+            Assert.Equal(0, viewport.GetRightEdgeColumnAbsoluteIndex(0));
         }
 
         [Fact]
@@ -224,8 +224,8 @@ namespace TextEditor.Test
             var path = GetTestFilePath("UnevenLengthRows.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(118, viewport.LastColumnAbsoluteIndex(0));
-            Assert.Equal(20, viewport.LastColumnAbsoluteIndex(1));
+            Assert.Equal(118, viewport.GetRightEdgeColumnAbsoluteIndex(0));
+            Assert.Equal(20, viewport.GetRightEdgeColumnAbsoluteIndex(1));
         }
 
         [Fact]
@@ -234,8 +234,8 @@ namespace TextEditor.Test
             var path = GetTestFilePath("EmptyRow.txt");
             Viewport viewport = SetupEditor(path);
 
-            Assert.Equal(118, viewport.LastColumnAbsoluteIndex(0));
-            Assert.Equal(-1, viewport.LastColumnAbsoluteIndex(1));
+            Assert.Equal(118, viewport.GetRightEdgeColumnAbsoluteIndex(0));
+            Assert.Equal(-1, viewport.GetRightEdgeColumnAbsoluteIndex(1));
         }
 
         [Fact]
@@ -246,8 +246,8 @@ namespace TextEditor.Test
 
             viewport.MoveRight(0);
 
-            Assert.Equal(1, viewport.FirstColumnAbsoluteIndex);
-            Assert.Equal(119, viewport.LastColumnAbsoluteIndex(0));
+            Assert.Equal(1, viewport.LeftEdgeColumnAbsoluteIndex);
+            Assert.Equal(119, viewport.GetRightEdgeColumnAbsoluteIndex(0));
         }
 
         [Fact]
@@ -273,8 +273,8 @@ namespace TextEditor.Test
             viewport.MoveRight(0);
             viewport.MoveLeft();
 
-            Assert.Equal(0, viewport.FirstColumnAbsoluteIndex);
-            Assert.Equal(118, viewport.LastColumnAbsoluteIndex(0));
+            Assert.Equal(0, viewport.LeftEdgeColumnAbsoluteIndex);
+            Assert.Equal(118, viewport.GetRightEdgeColumnAbsoluteIndex(0));
         }
 
         [Fact]
@@ -300,8 +300,8 @@ namespace TextEditor.Test
 
             viewport.MoveDown();
 
-            Assert.Equal(1, viewport.FirstRowAbsoluteIndex);
-            Assert.Equal(29, viewport.LastRowAbsoluteIndex);
+            Assert.Equal(1, viewport.TopRowAbsoluteIndex);
+            Assert.Equal(29, viewport.BottomRowAbsoluteIndex);
         }
 
         [Fact]
@@ -332,8 +332,8 @@ namespace TextEditor.Test
             viewport.MoveDown();
             viewport.MoveUp();
 
-            Assert.Equal(0, viewport.FirstRowAbsoluteIndex);
-            Assert.Equal(28, viewport.LastRowAbsoluteIndex);
+            Assert.Equal(0, viewport.TopRowAbsoluteIndex);
+            Assert.Equal(28, viewport.BottomRowAbsoluteIndex);
         }
 
         [Fact]
@@ -400,7 +400,7 @@ namespace TextEditor.Test
                 count++;
             }
 
-            Assert.Equal(31, viewport.LastRowAbsoluteIndex);
+            Assert.Equal(31, viewport.BottomRowAbsoluteIndex);
         }
 
         [Fact]
@@ -411,7 +411,7 @@ namespace TextEditor.Test
 
             viewport.MoveUp();
 
-            Assert.Equal(0, viewport.FirstRowAbsoluteIndex);
+            Assert.Equal(0, viewport.TopRowAbsoluteIndex);
         }
 
         [Fact]
@@ -439,7 +439,7 @@ namespace TextEditor.Test
                 viewport.MoveRight(0);
             }
 
-            Assert.Equal(148, viewport.LastColumnAbsoluteIndex(0));
+            Assert.Equal(148, viewport.GetRightEdgeColumnAbsoluteIndex(0));
         }
 
         [Fact]
@@ -449,9 +449,9 @@ namespace TextEditor.Test
             Viewport viewport = SetupEditor(path, 3);
 
             viewport.MoveRight(3);
-            int r = viewport.FirstColumnAbsoluteIndex;
+            int r = viewport.LeftEdgeColumnAbsoluteIndex;
 
-            Assert.Equal(1, viewport.FirstColumnAbsoluteIndex);
+            Assert.Equal(1, viewport.LeftEdgeColumnAbsoluteIndex);
         }
 
         [Fact]
@@ -485,7 +485,7 @@ namespace TextEditor.Test
                 "is is a short line.", "", "is is a 120 charcaters line long " +
                 "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"];
 
-            Assert.Equal(0, viewport.LastColumnAbsoluteIndex(2));
+            Assert.Equal(0, viewport.GetRightEdgeColumnAbsoluteIndex(2));
             Assert.Equal(result, viewport.RenderText());
         }
 
@@ -524,38 +524,41 @@ namespace TextEditor.Test
             viewport.MoveRight(0);
             viewport.MoveMaxLeft();
 
-            Assert.Equal(0, viewport.FirstColumnAbsoluteIndex);
+            Assert.Equal(0, viewport.LeftEdgeColumnAbsoluteIndex);
         }
 
-        //[Fact]
-        //public void MoveMaxLeftAndDownMovesViewportAtStartOfRowAndDownOneRow()
-        //{
-        //    var path = GetTestFilePath("ExceedsWindowHeigthAndWidth.txt");
-        //    Viewport viewport = SetupEditor(path);
+        [Fact]
+        public void MoveMaxLeftAndDownMovesViewportAtStartOfRowAndDownOneRow()
+        {
+            var path = GetTestFilePath("ExceedsWindowHeigthAndWidth.txt");
+            Viewport viewport = SetupEditor(path);
 
-        //    for(int i = 0; i < 34; i++)
-        //    {
-        //        viewport.MoveRight(0);
-        //    }
+            for (int i = 0; i < 34; i++)
+            {
+                viewport.MoveRight(0);
+            }
+
+            viewport.MoveDown();
+            viewport.MoveMaxLeft();
             
-        //    viewport.MoveMaxLeftAndDown();
+            Assert.Equal(0, viewport.LeftEdgeColumnAbsoluteIndex);
+            Assert.Equal(29, viewport.BottomRowAbsoluteIndex);
+        }
 
-        //    Assert.Equal(0, viewport.FirstColumnAbsoluteIndex);
-        //    Assert.Equal(29, viewport.LastRowAbsoluteIndex);
-        //}
+        [Fact]
+        public void MoveMaxRightAndUpMovesViewportAtEndOfRowAndUpOneRow()
+        {
+            var path = GetTestFilePath("ExceedsWindowHeigthAndWidth.txt");
+            Viewport viewport = SetupEditor(path);
 
-        //[Fact]
-        //public void MoveMaxRightAndUpMovesViewportAtEndOfRowAndUpOneRow()
-        //{
-        //    var path = GetTestFilePath("ExceedsWindowHeigthAndWidth.txt");
-        //    Viewport viewport = SetupEditor(path);
+            viewport.MoveDown();
 
-        //    viewport.MoveDown();
-        //    viewport.MoveMaxRightAndUp(0);
+            viewport.MoveUp();
+            viewport.MoveMaxRight(0);
 
-        //    Assert.Equal(34, viewport.FirstColumnAbsoluteIndex);
-        //    Assert.Equal(0, viewport.FirstRowAbsoluteIndex);
-        //}
+            Assert.Equal(34, viewport.LeftEdgeColumnAbsoluteIndex);
+            Assert.Equal(0, viewport.TopRowAbsoluteIndex);
+        }
 
         [Fact]
         public void MoveMaxRightMovesViewportAtTheEndOfTheRow()
@@ -565,7 +568,7 @@ namespace TextEditor.Test
 
             viewport.MoveMaxRight(0);
 
-            Assert.Equal(30, viewport.FirstColumnAbsoluteIndex);
+            Assert.Equal(30, viewport.LeftEdgeColumnAbsoluteIndex);
         }
 
         [Fact]
@@ -588,7 +591,7 @@ namespace TextEditor.Test
             }
 
             viewport.MoveToRowEnd(1);
-            Assert.Equal(20, viewport.FirstColumnAbsoluteIndex);
+            Assert.Equal(20, viewport.LeftEdgeColumnAbsoluteIndex);
         }
 
         [Fact]
@@ -603,7 +606,7 @@ namespace TextEditor.Test
             }
 
             viewport.MoveToRowEnd(1);
-            Assert.Equal(0, viewport.FirstColumnAbsoluteIndex);
+            Assert.Equal(0, viewport.LeftEdgeColumnAbsoluteIndex);
         }
 
         private static string GetTestFilePath(string fileName)

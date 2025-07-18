@@ -23,7 +23,7 @@ namespace TextEditor.Domain
 
         public void SetDefaultPosition()
         {
-            row = viewportInfo.FirstVisibleRowIndex;
+            row = viewportInfo.TopRowIndex;
             column = 0;
             CursorMoved?.Invoke((column, row));
         }
@@ -72,7 +72,7 @@ namespace TextEditor.Domain
 
                     column = 0;
 
-                    if(row == viewportInfo.LastVisibleRowIndex) //IsLastVisibleRow(row) //functioneaza si cand randul este vizibil intreg?
+                    if(row == viewportInfo.BottomRowIndex) //IsLastVisibleRow(row) //functioneaza si cand randul este vizibil intreg?
                     {
                         CursorExitedViewport?.Invoke(Direction.MaxLeft | Direction.Down, row);
                         CursorMoved?.Invoke((column, row));
@@ -112,7 +112,7 @@ namespace TextEditor.Domain
                         return;
                     }
                     
-                    if (row == viewportInfo.FirstVisibleRowIndex) //functioneaza si cand randul este vizibil intreg?
+                    if (row == viewportInfo.TopRowIndex) //functioneaza si cand randul este vizibil intreg?
                     {
                         CursorExitedViewport?.Invoke(Direction.MaxRight | Direction.Up, row);
                         column = viewportInfo.GetVisibleRowLength(row);
@@ -143,7 +143,7 @@ namespace TextEditor.Domain
 
         public void MoveDown()
         {
-            if (row == viewportInfo.LastVisibleRowIndex)
+            if (row == viewportInfo.BottomRowIndex)
             {
                 //+conditie pt downmost limit: am conditia in viewport!!!
                 if (viewportInfo.IsLastTextLine(row)) //IsDownmostLine(row)
@@ -192,7 +192,7 @@ namespace TextEditor.Domain
 
         public void MoveUp()
         {
-            if (row == viewportInfo.FirstVisibleRowIndex)
+            if (row == viewportInfo.TopRowIndex)
             {
                 if (viewportInfo.IsFirstTextLine(row))
                 {
@@ -238,7 +238,7 @@ namespace TextEditor.Domain
         public void MoveAfterViewport()
         {
             column = 0;
-            row = viewportInfo.LastVisibleRowIndex + 1;
+            row = viewportInfo.BottomRowIndex + 1;
         }
     }
 }
