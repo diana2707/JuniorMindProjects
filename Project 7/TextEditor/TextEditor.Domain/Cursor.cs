@@ -92,7 +92,7 @@ namespace TextEditor.Domain
 
         public void MoveLeft()
         {
-            if (column == 0)
+            if (IsAtLeftEdgeColumn())
             {
                 //ar trebui sa gestioneze situatia in care randul este vizibil intreg si sa nu invoce MaxRight, chiar daca exista conditie in MaxRight sa impiedice miscarea
                 if (viewportInfo.IsScrolledToTextLineStart())
@@ -102,7 +102,7 @@ namespace TextEditor.Domain
                         return;
                     }
                     
-                    if (row == viewportInfo.TopRowIndex) //functioneaza si cand randul este vizibil intreg?
+                    if (IsAtTopRow()) //functioneaza si cand randul este vizibil intreg?
                     {
                         CursorExitedViewport?.Invoke(Direction.MaxRight | Direction.Up, row);
                         column = viewportInfo.GetVisibleRowLength(row);
@@ -241,6 +241,16 @@ namespace TextEditor.Domain
         private bool IsAtRightEdgeColumn()
         {
             return column == viewportInfo.GetVisibleRowLength(row);
+        }
+
+        private bool IsAtLeftEdgeColumn()
+        {
+            return column == 0;
+        }
+
+        private bool IsAtTopRow()
+        {
+            return row == viewportInfo.TopRowIndex;
         }
 
         private bool IsAtBottomRow()
