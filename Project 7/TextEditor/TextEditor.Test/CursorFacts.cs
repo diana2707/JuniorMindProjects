@@ -447,7 +447,7 @@ namespace TextEditor.Test
                 cursor.MoveRight();
             }
 
-            Assert.Equal(Direction.MaxLeft | Direction.Down, resultDirection);
+            Assert.Equal(Direction.MaxLeft, resultDirection);
             Assert.Equal(28, resultRow);
 
         }   

@@ -51,44 +51,43 @@ namespace TextEditor.Domain
 
         public void MoveRight()
         {
-            if (IsAtRigthEdgeColumn())
+            if (!IsAtRightEdgeColumn())
             {
-                if (viewportInfo.IsScrolledToTextLineEnd(row))
-                {
-                    if (viewportInfo.IsLastTextLine(row))
-                    {
-                        return;
-                    }
+                column++;
+                CursorMoved?.Invoke((column, row));
+                return;
+            }
 
-                    column = 0;
-
-                    if(row == viewportInfo.BottomRowIndex) //IsLastVisibleRow(row) //functioneaza si cand randul este vizibil intreg?
-                    {
-                        CursorExitedViewport?.Invoke(Direction.MaxLeft | Direction.Down, row);
-                        CursorMoved?.Invoke((column, row));
-                        return;
-                    }
-
-                    //aici cursorul trece pe randul urmator
-                    row++;
-
-                    //daca incepututl randului urmator este in afara viewportului am nevoie sa rerandez
-                    if (!viewportInfo.IsScrolledToTextLineStart()) //CanScrollLeft()
-                    {
-                        CursorExitedViewport?.Invoke(Direction.MaxLeft, row);
-                    }
-
-                    CursorMoved?.Invoke((column, row));
-                    return;
-                }
-
+            if (!viewportInfo.IsScrolledToTextLineEnd(row))
+            {
                 CursorExitedViewport?.Invoke(Direction.Right, row);
                 CursorMoved?.Invoke((column, row));
                 return;
             }
 
-            column++;
+            if (viewportInfo.IsLastTextLine(row))
+            {
+                return;
+            }
+
+            column = 0;
+
+            if(IsAtBottomRow())
+            {
+                CursorExitedViewport?.Invoke(Direction.Down, row);
+            }
+            else
+            {
+                row++;
+            }
+
+            if (!viewportInfo.IsScrolledToTextLineStart())
+            {
+                CursorExitedViewport?.Invoke(Direction.MaxLeft, row);
+            }
+
             CursorMoved?.Invoke((column, row));
+            return;
         }
 
         public void MoveLeft()
@@ -239,9 +238,14 @@ namespace TextEditor.Domain
             row = viewportInfo.BottomRowIndex + 1;
         }
 
-        private bool IsAtRigthEdgeColumn()
+        private bool IsAtRightEdgeColumn()
         {
             return column == viewportInfo.GetVisibleRowLength(row);
+        }
+
+        private bool IsAtBottomRow()
+        {
+            return row == viewportInfo.BottomRowIndex;
         }
     }
 }
