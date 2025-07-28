@@ -1,4 +1,5 @@
 ﻿using TextEditor.Domain.CursorLogic;
+using TextEditor.Domain.Controller;
 using TextEditor.Domain.Display;
 using TextEditor.Domain.Editor;
 using TextEditor.Domain.Input;
@@ -37,20 +38,9 @@ namespace TextEditor.App
             TextManager textManager = new(manager.Text);
             Viewport viewport = new(Console.WindowWidth, Console.WindowHeight, Console.CursorTop, textManager);
             Cursor cursor = new(viewport);
-            
-            List<string> renderedText = viewport.RenderText();
 
-            inputHandler.ArrowKeyPressed += cursor.OnArrowKeyPressed;
-            inputHandler.EscapeKeyPressed += cursor.OnEscapeKeyPressed;
-
-            cursor.CursorMoved += displayer.OnCursorMoved;
-            cursor.CursorExitedViewport += viewport.OnCursorExitedView;
-
-            viewport.ViewportMoved += displayer.OnViewportMoved;
-
-            displayer.DisplayText(renderedText);
-            cursor.SetDefaultPosition();
-            inputHandler.Listen();
+            EditorController editorController = new(manager, textManager, inputHandler, displayer, viewport, cursor);
+            editorController.Run();
         }
     }
     

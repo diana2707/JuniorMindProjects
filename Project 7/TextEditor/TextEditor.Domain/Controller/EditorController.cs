@@ -31,5 +31,23 @@ namespace TextEditor.Domain.Controller
             this.cursor = cursor;
         }
 
+        public void Run()
+        {   
+            //scrie testele
+            List<string> renderedText = viewport.RenderText();
+
+            inputHandler.ArrowKeyPressed += cursor.OnArrowKeyPressed;
+            inputHandler.EscapeKeyPressed += cursor.OnEscapeKeyPressed;
+
+            cursor.CursorMoved += displayer.OnCursorMoved;
+            cursor.CursorExitedViewport += viewport.OnCursorExitedView;
+
+            viewport.ViewportMoved += displayer.OnViewportMoved;
+
+            displayer.DisplayText(renderedText);
+            cursor.SetDefaultPosition();
+            inputHandler.Listen();
+        }
+
     }
 }
