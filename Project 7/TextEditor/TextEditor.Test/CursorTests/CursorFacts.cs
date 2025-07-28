@@ -1,5 +1,5 @@
 ﻿using System;
-using TextEditor.Domain.Cursor;
+using TextEditor.Domain.CursorLogic;
 using TextEditor.Domain.Display;
 using TextEditor.Domain.Editor;
 using TextEditor.Domain.Shared;

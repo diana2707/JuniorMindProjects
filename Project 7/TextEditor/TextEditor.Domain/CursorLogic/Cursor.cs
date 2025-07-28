@@ -2,7 +2,7 @@
 using TextEditor.Domain.Display;
 using TextEditor.Domain.Shared;
 
-namespace TextEditor.Domain.Cursor
+namespace TextEditor.Domain.CursorLogic
 {
     public class Cursor
     {
