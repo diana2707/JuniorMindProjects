@@ -1,7 +1,9 @@
 ﻿using System;
-using TextEditor.Domain;
+using TextEditor.Domain.Display;
+using TextEditor.Domain.Editor;
+using TextEditor.Domain.Shared;
 
-namespace TextEditor.Test
+namespace TextEditor.Test.DisplayTests
 {
     public class ViewportFacts
     {

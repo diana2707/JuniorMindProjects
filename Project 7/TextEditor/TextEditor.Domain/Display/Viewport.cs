@@ -1,6 +1,8 @@
 ﻿using System;
+using TextEditor.Domain.Editor;
+using TextEditor.Domain.Shared;
 
-namespace TextEditor.Domain
+namespace TextEditor.Domain.Display
 {
     public class Viewport : IViewportInfo
     {
@@ -10,8 +12,8 @@ namespace TextEditor.Domain
 
         public Viewport(int windowWidth, int windowHeigth, int startRowIndex, ITextInfo textInfo)
         {
-            this.viewportWidth = windowWidth - 1;
-            this.viewportHeigth = windowHeigth - 1;
+            viewportWidth = windowWidth - 1;
+            viewportHeigth = windowHeigth - 1;
             this.textInfo = textInfo;
 
             TopRowIndex = startRowIndex;

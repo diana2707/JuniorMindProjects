@@ -1,7 +1,9 @@
 ﻿using System;
-using TextEditor.Domain;
+using TextEditor.Domain.Input;
+using TextEditor.Domain.Shared;
+using TextEditor.Test.Shared;
 
-namespace TextEditor.Test
+namespace TextEditor.Test.InputTests
 {
     public class InputHandlerFacts
     {

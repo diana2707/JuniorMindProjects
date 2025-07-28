@@ -1,7 +1,7 @@
 ﻿using System;
-using TextEditor.Domain;
+using TextEditor.Domain.Editor;
 
-namespace TextEditor.Test
+namespace TextEditor.Test.EditorTests
 {
     public class TextManagerFacts
     {

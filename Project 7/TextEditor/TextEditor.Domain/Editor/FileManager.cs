@@ -1,4 +1,4 @@
-﻿namespace TextEditor.Domain
+﻿namespace TextEditor.Domain.Editor
 {
     public class FileManager
     {
@@ -31,7 +31,7 @@
 
         private static void ValidatePath(string path)
         {
-            ArgumentNullException.ThrowIfNullOrEmpty(path);
+            ArgumentException.ThrowIfNullOrEmpty(path);
 
             if (!File.Exists(path))
             {

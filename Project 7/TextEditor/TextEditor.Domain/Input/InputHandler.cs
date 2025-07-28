@@ -1,6 +1,7 @@
 ﻿using System;
+using TextEditor.Domain.Shared;
 
-namespace TextEditor.Domain
+namespace TextEditor.Domain.Input
 {
     public class InputHandler
     {

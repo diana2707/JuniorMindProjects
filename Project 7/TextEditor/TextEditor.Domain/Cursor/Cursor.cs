@@ -1,6 +1,8 @@
 ﻿using System;
+using TextEditor.Domain.Display;
+using TextEditor.Domain.Shared;
 
-namespace TextEditor.Domain
+namespace TextEditor.Domain.Cursor
 {
     public class Cursor
     {

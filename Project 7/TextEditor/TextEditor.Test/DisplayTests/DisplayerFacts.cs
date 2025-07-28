@@ -1,7 +1,8 @@
 ﻿using System;
-using TextEditor.Domain;
+using TextEditor.Domain.Display;
+using TextEditor.Test.Shared;
 
-namespace TextEditor.Test
+namespace TextEditor.Test.DisplayTests
 {
     public class DisplayerFacts
     {

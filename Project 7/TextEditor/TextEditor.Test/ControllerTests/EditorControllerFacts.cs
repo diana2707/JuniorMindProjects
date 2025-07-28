@@ -1,7 +1,7 @@
 ﻿using System;
-using TextEditor.Domain;
+using TextEditor.Domain.Controller;
 
-namespace TextEditor.Test
+namespace TextEditor.Test.ControllerTests
 {
     public class EditorControllerFacts
     {

@@ -1,7 +1,7 @@
 ﻿using System;
-using TextEditor.Domain;
+using TextEditor.Domain.Shared;
 
-namespace TextEditor.Test
+namespace TextEditor.Test.Shared
 {
     public class FakeConsoleController: IConsoleController
     {

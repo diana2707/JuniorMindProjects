@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TextEditor.Domain
+namespace TextEditor.Domain.Shared
 {
     [Flags]
     public enum Direction

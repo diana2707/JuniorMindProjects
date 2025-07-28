@@ -1,7 +1,10 @@
 ﻿using System;
-using TextEditor.Domain;
+using TextEditor.Domain.Cursor;
+using TextEditor.Domain.Display;
+using TextEditor.Domain.Editor;
+using TextEditor.Domain.Shared;
 
-namespace TextEditor.Test
+namespace TextEditor.Test.CursorTests
 {
     public class CursorFacts
     {

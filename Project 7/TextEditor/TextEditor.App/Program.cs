@@ -1,4 +1,8 @@
-﻿using TextEditor.Domain;
+﻿using TextEditor.Domain.Cursor;
+using TextEditor.Domain.Display;
+using TextEditor.Domain.Editor;
+using TextEditor.Domain.Input;
+using TextEditor.Domain.Shared;
 
 namespace TextEditor.App
 {

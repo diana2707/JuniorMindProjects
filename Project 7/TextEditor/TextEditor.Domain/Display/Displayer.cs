@@ -1,6 +1,7 @@
 ﻿using System;
+using TextEditor.Domain.Shared;
 
-namespace TextEditor.Domain
+namespace TextEditor.Domain.Display
 {
     public class Displayer
     {
@@ -38,7 +39,7 @@ namespace TextEditor.Domain
         {
             List<string> clearedRows = [];
 
-            for (int i = 0; i < (controller.Height - startRow - 1); i++)
+            for (int i = 0; i < controller.Height - startRow - 1; i++)
             {
                 clearedRows.Add(new string(' ', controller.Width));
             }
