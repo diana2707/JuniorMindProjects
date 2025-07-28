@@ -13,6 +13,8 @@ namespace TextEditor.Domain
             this.viewportInfo = viewportInfo;
         }
 
+        
+
         public event Action<(int column, int row)> CursorMoved;
 
         public event Action<Direction, int>? CursorExitedViewport;
@@ -20,6 +22,9 @@ namespace TextEditor.Domain
         public int Column => column;
 
         public int Row => row;
+
+        //OnCharacterInserted => metoda care face handle pt inserarea unui  caracter nou => muta cursorul o pozitie inainte
+        //gandeste intai o inserare simpla, fara alt text, ulterior va trebui gestionat viewportul cand text iese in afara
 
         public void OnArrowKeyPressed(Direction direction)
         {

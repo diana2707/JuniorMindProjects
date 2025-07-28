@@ -56,6 +56,10 @@ namespace TextEditor.Domain
                         EscapeKeyPressed?.Invoke();
                         continue;
 
+                    //case pt inserare character + event
+
+                    //case pt salvare (CTRL + S) + event
+
                     default:
                         continue;
                 }

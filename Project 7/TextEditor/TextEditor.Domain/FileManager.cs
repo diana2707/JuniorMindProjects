@@ -15,8 +15,10 @@
 
         public string[] Text => buffer;
 
+        //ar trebui sters, exista deja in TextManager
         public int RowsCount => buffer.Length;
 
+        //ar trebui sters, exista deja in TextManager
         public int GetRowLength(int index)
         {
             return buffer[index].Length;
