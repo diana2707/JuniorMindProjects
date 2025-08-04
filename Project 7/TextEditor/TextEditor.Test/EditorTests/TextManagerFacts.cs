@@ -54,25 +54,25 @@ namespace TextEditor.Test.EditorTests
         }
 
         [Fact]
-        public void InsertCharacterAtMethodInsertCharacterAtAbsolutePositionInEmptyFile()
+        public void OnCharacterKeyPressedMethodInsertCharacterAtAbsolutePositionInEmptyFile()
         {
             var path = GetTestFilePath("EmptyFile.txt");
             FileManager fileManager = new(path);
             TextManager textManager = new(fileManager.Text);
 
-            textManager.InserCharacterAt('a', 0, 0);
+            textManager.OnCharacterKeyPressed('a', 0, 0);
 
             Assert.Equal("a", textManager.GetLine(0));
         }
 
         [Fact]
-        public void InsertCharacterAtMethodInsertCharacterAtAbsolutePositionInWrittenFile()
+        public void OnCharacterKeyPressedMethodInsertCharacterAtAbsolutePositionInWrittenFile()
         {
             var path = GetTestFilePath("SingleChar.txt");
             FileManager fileManager = new(path);
             TextManager textManager = new(fileManager.Text);
 
-            textManager.InserCharacterAt('a', 0, 0);
+            textManager.OnCharacterKeyPressed('a', 0, 0);
 
             Assert.Equal("aa", textManager.GetLine(0));
         }

@@ -24,7 +24,12 @@ namespace TextEditor.Domain.Editor
 
         //aici salvezi in memomy textul nou inserat
 
-        public void InserCharacterAt(char ch, int row, int col)
+        public void OnCharacterKeyPressed(char ch, int row, int col)
+        {
+            InserCharacterAt(ch, row, col);
+        }
+
+        private void InserCharacterAt(char ch, int row, int col)
         {
             if (text.Count == 0)
             {
