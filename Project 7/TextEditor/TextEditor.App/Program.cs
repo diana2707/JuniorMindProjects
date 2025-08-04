@@ -39,7 +39,14 @@ namespace TextEditor.App
             Viewport viewport = new(Console.WindowWidth, Console.WindowHeight, Console.CursorTop, textManager);
             Cursor cursor = new(viewport);
 
-            EditorController editorController = new(manager, textManager, inputHandler, displayer, viewport, cursor);
+            EditorController editorController = new(
+                manager,
+                textManager,
+                inputHandler,
+                displayer,
+                viewport,
+                cursor);
+
             editorController.Run();
         }
     }

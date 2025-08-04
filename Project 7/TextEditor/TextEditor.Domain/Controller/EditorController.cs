@@ -33,7 +33,6 @@ namespace TextEditor.Domain.Controller
 
         public void Run()
         {   
-            //scrie testele
             List<string> renderedText = viewport.RenderText();
 
             inputHandler.ArrowKeyPressed += cursor.OnArrowKeyPressed;

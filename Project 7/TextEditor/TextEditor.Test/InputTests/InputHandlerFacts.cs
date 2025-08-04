@@ -76,5 +76,25 @@ namespace TextEditor.Test.InputTests
 
             Assert.True(result);
         }
+
+        [Fact]
+        public void ListenMethodRaisesEventCharacterKeyPressedWhenPrintableKeyIsRead()
+        {
+
+            FakeConsoleController controller = new();
+            InputHandler inputHandler = new(controller);
+
+            char result = default;
+            ConsoleKeyInfo downArrow = new ('a', ConsoleKey.A, false, false, false);
+            ConsoleKeyInfo escape = new('\u001B', ConsoleKey.Escape, false, false, false);
+
+            controller.KeysToRead.Add(downArrow);
+            controller.KeysToRead.Add(escape);
+
+            inputHandler.CharacterKeyPressed += input => result = input;
+            inputHandler.Listen();
+
+            Assert.Equal('a', result);
+        }
     }
 }

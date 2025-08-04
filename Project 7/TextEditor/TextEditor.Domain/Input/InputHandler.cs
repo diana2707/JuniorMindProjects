@@ -14,6 +14,8 @@ namespace TextEditor.Domain.Input
 
         public event Action<Direction> ArrowKeyPressed;
 
+        public event Action<char> CharacterKeyPressed;
+
         public event Action EscapeKeyPressed;
 
         public string? ReadInputLine()
@@ -57,12 +59,12 @@ namespace TextEditor.Domain.Input
                         EscapeKeyPressed?.Invoke();
                         continue;
 
-                    //case pt inserare character + event
-
                     //case pt salvare (CTRL + S) + event
+                }
 
-                    default:
-                        continue;
+                if (!char.IsControl(currentKey.KeyChar))
+                {
+                    CharacterKeyPressed.Invoke(currentKey.KeyChar);
                 }
             }
         }
